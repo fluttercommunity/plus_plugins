@@ -1,4 +1,4 @@
-## 0.3.8
+## 1.0.0
 
 - Transfer package to Flutter Community under new name `android_intent_plus`.
 
