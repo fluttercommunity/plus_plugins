@@ -1,3 +1,7 @@
+## 0.4.6
+
+* Transfer package to Flutter Community under new name `android_alarm_manager_plus`.
+
 ## 0.4.5+11
 
 * Update lower bound of dart dependency to 2.1.0.

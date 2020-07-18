@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:android_alarm_manager_example/main.dart' as app;
-import 'package:android_alarm_manager/android_alarm_manager.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager.dart';
 import 'package:e2e/e2e.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_driver/driver_extension.dart';
@@ -65,8 +65,7 @@ void main() {
     testWidgets('cancelled before it fires', (WidgetTester tester) async {
       final int alarmId = 0;
       final int startingValue = await readCounter();
-      await AndroidAlarmManager.oneShot(
-          const Duration(seconds: 1), alarmId, incrementCounter);
+      await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter);
       expect(await AndroidAlarmManager.cancel(alarmId), isTrue);
       await Future<void>.delayed(const Duration(seconds: 4));
       expect(await readCounter(), startingValue);
@@ -75,8 +74,7 @@ void main() {
     testWidgets('cancelled after it fires', (WidgetTester tester) async {
       final int alarmId = 1;
       final int startingValue = await readCounter();
-      await AndroidAlarmManager.oneShot(
-          const Duration(seconds: 1), alarmId, incrementCounter,
+      await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter,
           exact: true, wakeup: true);
       await Future<void>.delayed(const Duration(seconds: 2));
       // poll until file is updated
@@ -91,8 +89,7 @@ void main() {
   testWidgets('periodic', (WidgetTester tester) async {
     final int alarmId = 2;
     final int startingValue = await readCounter();
-    await AndroidAlarmManager.periodic(
-        const Duration(seconds: 1), alarmId, incrementCounter,
+    await AndroidAlarmManager.periodic(const Duration(seconds: 1), alarmId, incrementCounter,
         wakeup: true, exact: true);
     // poll until file is updated
     while (await readCounter() < startingValue + 2) {

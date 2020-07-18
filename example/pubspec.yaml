@@ -1,10 +1,10 @@
 name: android_alarm_manager_example
-description: Demonstrates how to use the android_alarm_manager plugin.
+description: Demonstrates how to use the android_alarm_manager_plus plugin.
 
 dependencies:
   flutter:
     sdk: flutter
-  android_alarm_manager:
+  android_alarm_manager_plus:
     path: ../
   shared_preferences: ^0.5.6
   e2e: 0.3.0
