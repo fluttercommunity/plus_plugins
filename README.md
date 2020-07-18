@@ -1,7 +1,7 @@
 [![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/android_intent_plus.svg)](https://pub.dev/packages/android_intent_plus)
-![Flutter Unit Tests](https://github.com/fluttercommunity/android_intent_plus/workflows/Flutter%20Unit%20Tests/badge.svg)
+[![Flutter Unit Tests](https://github.com/fluttercommunity/android_intent_plus/workflows/Flutter%20Unit%20Tests/badge.svg)](https://github.com/fluttercommunity/android_intent_plus/actions)
 
 # Android Intent Plugin for Flutter
 
