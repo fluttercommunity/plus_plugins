@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-<!-- Thank you for using Flutter!
+<!-- Thank you for using this plugin!
 
      If you are looking for support, please check out our documentation
      or consider asking a question on Stack Overflow:
@@ -16,8 +16,7 @@ assignees: ''
       * https://stackoverflow.com/questions/tagged/flutter?sort=frequent
 
      If you have found a bug or if our documentation doesn't have an answer
-     to what you're looking for, then fill our the template below. Please read
-     our guide to filing a bug first: https://flutter.dev/docs/resources/bug-reports
+     to what you're looking for, then fill our the other template.
 -->
 
 ## Use case
@@ -29,7 +28,7 @@ assignees: ''
      Is your feature request related to a problem? Please give a clear and
      concise description of what the problem is.
 
-     Describe alternative solutions you've considered. Is there a package
+     Describe alternative solutions you've considered. Is there another package
      on pub.dev/flutter that already solves this?
 -->
 
