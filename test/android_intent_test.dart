@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:android_intent/flag.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:android_intent/android_intent.dart';
@@ -41,8 +41,7 @@ void main() {
         verify(mockChannel.invokeMethod<void>('launch', <String, Object>{
           'action': 'action_view',
           'data': Uri.encodeFull('https://flutter.io'),
-          'flags':
-              androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
+          'flags': androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
           'type': 'video/*',
         }));
       });
@@ -75,9 +74,7 @@ void main() {
 
       test('call in ios platform', () async {
         androidIntent = AndroidIntent.private(
-            action: 'action_view',
-            channel: mockChannel,
-            platform: FakePlatform(operatingSystem: 'ios'));
+            action: 'action_view', channel: mockChannel, platform: FakePlatform(operatingSystem: 'ios'));
         await androidIntent.launch();
         verifyZeroInteractions(mockChannel);
       });
@@ -93,12 +90,10 @@ void main() {
             platform: FakePlatform(operatingSystem: 'android'),
             type: 'video/*');
         await androidIntent.canResolveActivity();
-        verify(mockChannel
-            .invokeMethod<void>('canResolveActivity', <String, Object>{
+        verify(mockChannel.invokeMethod<void>('canResolveActivity', <String, Object>{
           'action': 'action_view',
           'data': Uri.encodeFull('https://flutter.io'),
-          'flags':
-              androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
+          'flags': androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
           'type': 'video/*',
         }));
       });
@@ -110,8 +105,7 @@ void main() {
           platform: FakePlatform(operatingSystem: 'android'),
         );
         await androidIntent.canResolveActivity();
-        verify(mockChannel
-            .invokeMethod<void>('canResolveActivity', <String, Object>{
+        verify(mockChannel.invokeMethod<void>('canResolveActivity', <String, Object>{
           'action': 'action_view',
         }));
       });
@@ -124,8 +118,7 @@ void main() {
           platform: FakePlatform(operatingSystem: 'android'),
         );
         await androidIntent.canResolveActivity();
-        verify(mockChannel
-            .invokeMethod<void>('canResolveActivity', <String, Object>{
+        verify(mockChannel.invokeMethod<void>('canResolveActivity', <String, Object>{
           'package': 'packageName',
           'componentName': 'componentName',
         }));
@@ -133,9 +126,7 @@ void main() {
 
       test('call in ios platform', () async {
         androidIntent = AndroidIntent.private(
-            action: 'action_view',
-            channel: mockChannel,
-            platform: FakePlatform(operatingSystem: 'ios'));
+            action: 'action_view', channel: mockChannel, platform: FakePlatform(operatingSystem: 'ios'));
         await androidIntent.canResolveActivity();
         verifyZeroInteractions(mockChannel);
       });

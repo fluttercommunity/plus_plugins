@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:android_intent/android_intent.dart';
-import 'package:android_intent/flag.dart';
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:platform/platform.dart';
 
@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(),
       routes: <String, WidgetBuilder>{
-        ExplicitIntentsWidget.routeName: (BuildContext context) =>
-            const ExplicitIntentsWidget()
+        ExplicitIntentsWidget.routeName: (BuildContext context) => const ExplicitIntentsWidget()
       },
     );
   }
@@ -60,8 +59,7 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
-              child: const Text(
-                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
+              child: const Text('Tap here to set an alarm\non weekdays at 9:30pm.'),
               onPressed: _createAlarm,
             ),
             RaisedButton(
@@ -108,17 +106,14 @@ class ExplicitIntentsWidget extends StatelessWidget {
   void _launchTurnByTurnNavigationInGoogleMaps() {
     final AndroidIntent intent = AndroidIntent(
         action: 'action_view',
-        data: Uri.encodeFull(
-            'google.navigation:q=Taronga+Zoo,+Sydney+Australia&avoid=tf'),
+        data: Uri.encodeFull('google.navigation:q=Taronga+Zoo,+Sydney+Australia&avoid=tf'),
         package: 'com.google.android.apps.maps');
     intent.launch();
   }
 
   void _openLinkInGoogleChrome() {
-    final AndroidIntent intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull('https://flutter.io'),
-        package: 'com.android.chrome');
+    final AndroidIntent intent =
+        AndroidIntent(action: 'action_view', data: Uri.encodeFull('https://flutter.io'), package: 'com.android.chrome');
     intent.launch();
   }
 
@@ -167,8 +162,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               RaisedButton(
-                child: const Text(
-                    'Tap here to display panorama\nimagery in Google Street View.'),
+                child: const Text('Tap here to display panorama\nimagery in Google Street View.'),
                 onPressed: _openGoogleMapsStreetView,
               ),
               RaisedButton(
@@ -176,8 +170,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 onPressed: _displayMapInGoogleMaps,
               ),
               RaisedButton(
-                child: const Text(
-                    'Tap here to launch turn-by-turn\nnavigation in Google Maps.'),
+                child: const Text('Tap here to launch turn-by-turn\nnavigation in Google Maps.'),
                 onPressed: _launchTurnByTurnNavigationInGoogleMaps,
               ),
               RaisedButton(
@@ -189,8 +182,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 onPressed: _startActivityInNewTask,
               ),
               RaisedButton(
-                child: const Text(
-                    'Tap here to test explicit intent fallback to implicit.'),
+                child: const Text('Tap here to test explicit intent fallback to implicit.'),
                 onPressed: _testExplicitIntentFallback,
               ),
               RaisedButton(

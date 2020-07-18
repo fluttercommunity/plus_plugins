@@ -1,3 +1,7 @@
+[![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/android_intent_plus.svg)](https://pub.dev/packages/android_intent_plus)
+
 # Android Intent Plugin for Flutter
 
 This plugin allows Flutter apps to launch arbitrary intents when the platform
@@ -5,11 +9,11 @@ is Android. If the plugin is invoked on iOS, it will crash your app. In checked
 mode, we assert that the platform should be Android.
 
 
-**Please set your constraint to `android_intent: '>=0.3.y+x <2.0.0'`**
+**Please set your constraint to `android_intent_plus: '>=0.3.y+x <2.0.0'`**
 
 ## Backward compatible 1.0.0 version is coming
 The plugin has reached a stable API, we guarantee that version `1.0.0` will be backward compatible with `0.3.y+z`.
-Please use `android_intent: '>=0.3.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
+Please use `android_intent_plus: '>=0.3.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
 For more details see: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
 
 Use it by specifying action, category, data and extra arguments for the intent.

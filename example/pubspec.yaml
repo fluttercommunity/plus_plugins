@@ -4,7 +4,7 @@ description: Demonstrates how to use the android_intent plugin.
 dependencies:
   flutter:
     sdk: flutter
-  android_intent:
+  android_intent_plus:
     path: ../
 
 dev_dependencies:

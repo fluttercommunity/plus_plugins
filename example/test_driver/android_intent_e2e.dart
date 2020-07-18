@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:android_intent/android_intent.dart';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_example/main.dart';
 import 'package:e2e/e2e.dart';
 import 'package:flutter/material.dart';
@@ -21,37 +21,30 @@ void main() {
     if (Platform.isAndroid) {
       expect(
         find.byWidgetPredicate(
-          (Widget widget) =>
-              widget is Text && widget.data.startsWith('Tap here'),
+          (Widget widget) => widget is Text && widget.data.startsWith('Tap here'),
         ),
         findsNWidgets(2),
       );
     } else {
       expect(
         find.byWidgetPredicate(
-          (Widget widget) =>
-              widget is Text &&
-              widget.data.startsWith('This plugin only works with Android'),
+          (Widget widget) => widget is Text && widget.data.startsWith('This plugin only works with Android'),
         ),
         findsOneWidget,
       );
     }
   });
 
-  testWidgets('#launch throws when no Activity is found',
-      (WidgetTester tester) async {
+  testWidgets('#launch throws when no Activity is found', (WidgetTester tester) async {
     // We can't test that any of this is really working, this is mostly just
     // checking that the plugin API is registered. Only works on Android.
-    const AndroidIntent intent =
-        AndroidIntent(action: 'LAUNCH', package: 'foobar');
+    const AndroidIntent intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.launch(), throwsA((Exception e) {
-      return e is PlatformException &&
-          e.message.contains('No Activity found to handle Intent');
+      return e is PlatformException && e.message.contains('No Activity found to handle Intent');
     }));
   }, skip: !Platform.isAndroid);
 
-  testWidgets('#canResolveActivity returns true when example Activity is found',
-      (WidgetTester tester) async {
+  testWidgets('#canResolveActivity returns true when example Activity is found', (WidgetTester tester) async {
     AndroidIntent intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
@@ -60,10 +53,8 @@ void main() {
     await expectLater(() async => await intent.canResolveActivity(), isFalse);
   }, skip: !Platform.isAndroid);
 
-  testWidgets('#canResolveActivity returns false when no Activity is found',
-      (WidgetTester tester) async {
-    const AndroidIntent intent =
-        AndroidIntent(action: 'LAUNCH', package: 'foobar');
+  testWidgets('#canResolveActivity returns false when no Activity is found', (WidgetTester tester) async {
+    const AndroidIntent intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.canResolveActivity(), isFalse);
   }, skip: !Platform.isAndroid);
 }
