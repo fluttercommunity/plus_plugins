@@ -1,6 +1,10 @@
-# Share plugin
 
-[![pub package](https://img.shields.io/pub/v/share.svg)](https://pub.dartlang.org/packages/share)
+[![Flutter Community: share_plus](https://fluttercommunity.dev/_github/header/share_plus)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/share_plus.svg)](https://pub.dev/packages/share_plus)
+
+
+# Share plugin
 
 A Flutter plugin to share content from your Flutter app via the platform's
 share dialog.
@@ -8,11 +12,11 @@ share dialog.
 Wraps the ACTION_SEND Intent on Android and UIActivityViewController
 on iOS.
 
-**Please set your constraint to `share: '>=0.6.y+x <2.0.0'`**
+**Please set your constraint to `share_plus: '>=0.6.y+x <2.0.0'`**
 
 ## Backward compatible 1.0.0 version is coming
 The plugin has reached a stable API, we guarantee that version `1.0.0` will be backward compatible with `0.6.y+z`.
-Please use `share: '>=0.6.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
+Please use `share_plus: '>=0.6.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
 For more details see: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
 
 ## Usage
@@ -24,7 +28,7 @@ To use this plugin, add `share` as a [dependency in your pubspec.yaml file](http
 Import the library.
 
 ``` dart
-import 'package:share/share.dart';
+import 'package:share_plus/share.dart';
 ```
 
 Then invoke the static `share` method anywhere in your Dart code.

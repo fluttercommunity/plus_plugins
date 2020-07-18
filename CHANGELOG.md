@@ -1,3 +1,7 @@
+## 0.6.6
+
+* Transfer package to Flutter Community under new name `share_plus`.
+
 ## 0.6.5
 
 * Added support for sharing files

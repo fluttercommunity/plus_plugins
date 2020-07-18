@@ -1,10 +1,10 @@
 name: share_example
-description: Demonstrates how to use the share plugin.
+description: Demonstrates how to use the share_plus plugin.
 
 dependencies:
   flutter:
     sdk: flutter
-  share:
+  share_plus:
     path: ../
   image_picker: ^0.6.7+4
 
