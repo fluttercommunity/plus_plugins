@@ -1,6 +1,6 @@
 ---
-name: I have found out bug in plugin.
-about: You are writing an Flutter application with this plugin but the application is crashing or throws an exception, a plugin is buggy, or something looks wrong.
+name: Found Bug.
+about: You are writing an Flutter application with this plugin but the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
 title: ''
 labels: ''
 assignees: ''
