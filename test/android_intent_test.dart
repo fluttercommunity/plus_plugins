@@ -147,7 +147,7 @@ void main() {
       action: 'action_view',
     );
     test('add filled flag list', () async {
-      final List<int> flags = <int>[];
+      final flags = <int>[];
       flags.add(Flag.FLAG_ACTIVITY_NEW_TASK);
       flags.add(Flag.FLAG_ACTIVITY_NEW_DOCUMENT);
       expect(
@@ -156,7 +156,7 @@ void main() {
       );
     });
     test('add flags whose values are not power of 2', () async {
-      final List<int> flags = <int>[];
+      final flags = <int>[];
       flags.add(100);
       flags.add(10);
       expect(
@@ -165,7 +165,7 @@ void main() {
       );
     });
     test('add empty flag list', () async {
-      final List<int> flags = <int>[];
+      final flags = <int>[];
       expect(
         androidIntent.convertFlags(flags),
         0,

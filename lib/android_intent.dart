@@ -117,8 +117,8 @@ class AndroidIntent {
   /// Its method signature may change at any time.
   @visibleForTesting
   int convertFlags(List<int> flags) {
-    int finalValue = 0;
-    for (int i = 0; i < flags.length; i++) {
+    var finalValue = 0;
+    for (var i = 0; i < flags.length; i++) {
       if (!_isPowerOfTwo(flags[i])) {
         throw ArgumentError.value(flags[i], 'flag\'s value must be power of 2');
       }

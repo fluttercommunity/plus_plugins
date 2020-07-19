@@ -42,8 +42,7 @@ void main() {
       (WidgetTester tester) async {
     // We can't test that any of this is really working, this is mostly just
     // checking that the plugin API is registered. Only works on Android.
-    const AndroidIntent intent =
-        AndroidIntent(action: 'LAUNCH', package: 'foobar');
+    const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.launch(), throwsA((Exception e) {
       return e is PlatformException &&
           e.message.contains('No Activity found to handle Intent');
@@ -52,7 +51,7 @@ void main() {
 
   testWidgets('#canResolveActivity returns true when example Activity is found',
       (WidgetTester tester) async {
-    AndroidIntent intent = AndroidIntent(
+    final intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
       componentName: 'io.flutter.embedding.android.FlutterActivity',
@@ -62,8 +61,7 @@ void main() {
 
   testWidgets('#canResolveActivity returns false when no Activity is found',
       (WidgetTester tester) async {
-    const AndroidIntent intent =
-        AndroidIntent(action: 'LAUNCH', package: 'foobar');
+    const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.canResolveActivity(), isFalse);
   }, skip: !Platform.isAndroid);
 }
