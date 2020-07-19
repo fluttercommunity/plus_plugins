@@ -94,7 +94,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
-    int currentCount = prefs.getInt(countKey);
+    var currentCount = prefs.getInt(countKey);
     await prefs.setInt(countKey, currentCount + 1);
 
     // This will be null if we're running in the background.

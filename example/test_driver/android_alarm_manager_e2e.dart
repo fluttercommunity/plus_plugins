@@ -13,17 +13,17 @@ import 'package:path_provider/path_provider.dart';
 
 // From https://flutter.dev/docs/cookbook/persistence/reading-writing-files
 Future<String> get _localPath async {
-  final Directory directory = await getTemporaryDirectory();
+  final directory = await getTemporaryDirectory();
   return directory.path;
 }
 
 Future<File> get _localFile async {
-  final String path = await _localPath;
+  final path = await _localPath;
   return File('$path/counter.txt');
 }
 
 Future<File> writeCounter(int counter) async {
-  final File file = await _localFile;
+  final file = await _localFile;
 
   // Write the file.
   return file.writeAsString('$counter');
@@ -31,10 +31,10 @@ Future<File> writeCounter(int counter) async {
 
 Future<int> readCounter() async {
   try {
-    final File file = await _localFile;
+    final file = await _localFile;
 
     // Read the file.
-    final String contents = await file.readAsString();
+    final contents = await file.readAsString();
 
     return int.parse(contents);
     // ignore: unused_catch_clause
@@ -45,7 +45,7 @@ Future<int> readCounter() async {
 }
 
 Future<void> incrementCounter() async {
-  final int value = await readCounter();
+  final value = await readCounter();
   await writeCounter(value + 1);
 }
 
@@ -63,8 +63,8 @@ void main() {
 
   group('oneshot', () {
     testWidgets('cancelled before it fires', (WidgetTester tester) async {
-      final int alarmId = 0;
-      final int startingValue = await readCounter();
+      final alarmId = 0;
+      final startingValue = await readCounter();
       await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter);
       expect(await AndroidAlarmManager.cancel(alarmId), isTrue);
       await Future<void>.delayed(const Duration(seconds: 4));
@@ -72,8 +72,8 @@ void main() {
     });
 
     testWidgets('cancelled after it fires', (WidgetTester tester) async {
-      final int alarmId = 1;
-      final int startingValue = await readCounter();
+      final alarmId = 1;
+      final startingValue = await readCounter();
       await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter,
           exact: true, wakeup: true);
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -87,8 +87,8 @@ void main() {
   });
 
   testWidgets('periodic', (WidgetTester tester) async {
-    final int alarmId = 2;
-    final int startingValue = await readCounter();
+    final alarmId = 2;
+    final startingValue = await readCounter();
     await AndroidAlarmManager.periodic(const Duration(seconds: 1), alarmId, incrementCounter,
         wakeup: true, exact: true);
     // poll until file is updated
