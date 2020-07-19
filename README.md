@@ -3,16 +3,10 @@
 # android_alarm_manager_plus
 
 [![pub package](https://img.shields.io/pub/v/android_alarm_manager_plus.svg)](https://pub.dev/packages/android_alarm_manager_plus)
+[![Flutter Unit Tests](https://github.com/fluttercommunity/android_alarm_manager_plus/workflows/Flutter%20Unit%20Tests/badge.svg)](https://github.com/fluttercommunity/android_alarm_manager_plus/actions)
 
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
-
-**Please set your constraint to `android_alarm_manager: '>=0.4.y+x <2.0.0'`**
-
-## Backward compatible 1.0.0 version is coming
-The plugin has reached a stable API, we guarantee that version `1.0.0` will be backward compatible with `0.4.y+z`.
-Please use `android_alarm_manager: '>=0.4.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
-For more details see: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
 
 ## Getting Started
 
