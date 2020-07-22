@@ -70,7 +70,18 @@ alarm manager plugin itself, it may be necessary to inform the background servic
 to initialize plugins depending on which Flutter Android embedding the application is
 using.
 
-### Flutter Android Embedding V1
+### Flutter Android Embedding V2 (Flutter Version >= 1.12)
+
+For the Flutter Android Embedding V2, plugins are registered with the background
+isolate via reflection so `AlarmService.setPluginRegistrant` does not need to be
+called.
+
+**NOTE: this plugin is not completely compatible with the V2 embedding on
+Flutter versions < 1.12 as the background isolate will not automatically
+register plugins. This can be resolved by running `flutter upgrade` to upgrade
+to the latest Flutter version.**
+
+### Flutter Android Embedding V1 (DEPRECATED)
 
 For the Flutter Android Embedding V1, the background service must be provided a
 callback to register plugins with the background isolate. This is done by giving
@@ -105,16 +116,41 @@ Which must be reflected in the application's `AndroidManifest.xml`. E.g.:
 **Note:** Not calling `AlarmService.setPluginRegistrant` will result in an exception being
 thrown when an alarm eventually fires.
 
-### Flutter Android Embedding V2 (Flutter Version >= 1.12)
+## Plugin Development
 
-For the Flutter Android Embedding V2, plugins are registered with the background
-isolate via reflection so `AlarmService.setPluginRegistrant` does not need to be
-called.
+### Running Flutter unit tests
 
-**NOTE: this plugin is not completely compatible with the V2 embedding on
-Flutter versions < 1.12 as the background isolate will not automatically
-register plugins. This can be resolved by running `flutter upgrade` to upgrade
-to the latest Flutter version.**
+Run normally with `flutter test` from the root of the project.
+
+### Running Espresso tests
+
+The Espresso test runs the same sample code provided in `example/lib/main.dart`
+but is run using the Flutter Espresso plugin.
+
+Modifying the `main.dart` will cause this test to fail.
+
+This test will call into the `example/lib/main_espresso.dart` file which
+will enable Flutter Driver and then calls into the `main.dart`.
+
+See https://pub.dev/packages/espresso for more info on why.
+
+To run the test, run from the `example/android` folder:
+
+```
+./gradlew app:connectedAndroidTest -Ptarget=`pwd`/../lib/main_espresso.dart
+```
+
+### Running End-to-end Flutter Driver tests
+
+Work In Progress.
+
+To run the Flutter Driver tests, cd into `example` and run:
+
+```
+flutter driver test_driver/android_alarm_manager_e2e.dart
+```
+
+## Need more help?
 
 For help getting started with Flutter, view our online
 [documentation](http://flutter.io/).

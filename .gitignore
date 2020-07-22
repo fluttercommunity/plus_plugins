@@ -28,9 +28,6 @@ xcuserdata/
 local.properties
 keystore.properties
 .gradle/
-gradlew
-gradlew.bat
-gradle-wrapper.jar
 .flutter-plugins-dependencies
 *.iml
 
@@ -44,4 +41,3 @@ build/
 .project
 .classpath
 .settings
-src

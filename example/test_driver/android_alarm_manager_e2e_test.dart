@@ -11,17 +11,21 @@ import 'package:vm_service_client/vm_service_client.dart';
 Future<StreamSubscription<VMIsolateRef>> resumeIsolatesOnPause(
     FlutterDriver driver) async {
   final vm = await driver.serviceClient.getVM();
+  print('for isolates');
   for (var isolateRef in vm.isolates) {
     final isolate = await isolateRef.load();
     if (isolate.isPaused) {
+      print('isolate.resume');
       await isolate.resume();
     }
   }
   return driver.serviceClient.onIsolateRunnable
       .asBroadcastStream()
       .listen((VMIsolateRef isolateRef) async {
+        print('onIsolateRunnable');
     final isolate = await isolateRef.load();
     if (isolate.isPaused) {
+      print('isolate.resume');
       await isolate.resume();
     }
   });
