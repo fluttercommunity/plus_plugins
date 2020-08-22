@@ -9,7 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info.dart';
 
 void main() {
   runZoned(() {
@@ -45,9 +45,7 @@ class _MyAppState extends State<MyApp> {
         deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
       }
     } on PlatformException {
-      deviceData = <String, dynamic>{
-        'Error:': 'Failed to get platform version.'
-      };
+      deviceData = <String, dynamic>{'Error:': 'Failed to get platform version.'};
     }
 
     if (!mounted) return;
@@ -111,8 +109,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
-              Platform.isAndroid ? 'Android Device Info' : 'iOS Device Info'),
+          title: Text(Platform.isAndroid ? 'Android Device Info' : 'iOS Device Info'),
         ),
         body: ListView(
           children: _deviceData.keys.map((String property) {

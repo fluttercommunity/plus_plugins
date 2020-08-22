@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import 'package:device_info_platform_interface/device_info_platform_interface.dart';
+import 'package:device_info_plus_platform_interface/device_info_platform_interface.dart';
 
 /// An implementation of [DeviceInfoPlatform] that uses method channels.
 class MethodChannelDeviceInfo extends DeviceInfoPlatform {
@@ -14,8 +14,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   // Method channel for Android devices
   Future<AndroidDeviceInfo> androidInfo() async {
     return AndroidDeviceInfo.fromMap(
-      (await channel.invokeMethod('getAndroidDeviceInfo'))
-          .cast<String, dynamic>(),
+      (await channel.invokeMethod('getAndroidDeviceInfo')).cast<String, dynamic>(),
     );
   }
 

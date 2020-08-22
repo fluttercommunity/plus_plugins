@@ -1,3 +1,7 @@
+## 0.4.2+8
+
+* Transfer package to Flutter Community under new name `device_info_plus`.
+
 ## 0.4.2+7
 
 * Port device_info plugin to use platform interface.

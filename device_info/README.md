@@ -1,4 +1,8 @@
-# device_info
+# device_info_plus
+
+[![Flutter Community: device_info_plus](https://fluttercommunity.dev/_github/header/device_info_plus)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/device_info_plus.svg)](https://pub.dev/packages/device_info_plus)
 
 Get current device information from within the Flutter application.
 
@@ -11,14 +15,14 @@ For more details see: https://github.com/flutter/flutter/wiki/Package-migration-
 
 # Usage
 
-Import `package:device_info/device_info.dart`, instantiate `DeviceInfoPlugin`
+Import `package:device_info_plus/device_info.dart`, instantiate `DeviceInfoPlugin`
 and use the Android and iOS getters to get platform-specific device
 information.
 
 Example:
 
 ```dart
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info.dart';
 
 DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -28,7 +32,7 @@ IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
 print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
 ```
 
-You will find links to the API docs on the [pub page](https://pub.dartlang.org/packages/device_info).
+You will find links to the API docs on the [pub page](https://pub.dartlang.org/packages/device_info_plus).
 
 ## Getting Started
 
