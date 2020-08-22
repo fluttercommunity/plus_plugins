@@ -5,10 +5,10 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:connectivity_platform_interface/connectivity_platform_interface.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_platform_interface.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
-export 'package:connectivity_platform_interface/connectivity_platform_interface.dart'
+export 'package:connectivity_plus_platform_interface/connectivity_platform_interface.dart'
     show ConnectivityResult, LocationAuthorizationStatus;
 
 /// Discover network connectivity configurations: Distinguish between WI-FI and cellular, check WI-FI status and more.

@@ -1,26 +1,30 @@
-# connectivity_for_web
+# connectivity_plus_for_web
 
-A web implementation of [connectivity](https://pub.dev/connectivity/connectivity). Currently this package uses an experimental API, with a fallback to dart:html, so not all features may be available to all browsers.
+[![Flutter Community: connectivity_plus_for_web](https://fluttercommunity.dev/_github/header/connectivity_plus_for_web)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/connectivity_plus_for_web.svg)](https://pub.dev/packages/connectivity_plus_for_web)
+
+A web implementation of [connectivity](https://pub.dev/connectivity_plus/connectivity_plus). Currently this package uses an experimental API, with a fallback to dart:html, so not all features may be available to all browsers.
 
 ## Usage
 
 ### Import the package
 
-This package is a non-endorsed implementation of `connectivity` for the web platform, so you need to modify your `pubspec.yaml` to use it:
+This package is a non-endorsed implementation of `connectivity_plus` for the web platform, so you need to modify your `pubspec.yaml` to use it:
 
 ```yaml
 ...
 dependencies:
   ...
-  connectivity: ^0.4.9
-  connectivity_for_web: ^0.3.0
+  connectivity_plus: ^0.4.9
+  connectivity_plus_for_web: ^0.3.0
   ...
 ...
 ```
 
 ## Example
 
-Find the example wiring in the [Google sign-in example application](https://github.com/ditman/plugins/blob/connectivity-web/packages/connectivity/connectivity/example/lib/main.dart).
+Find the example wiring in the [Google sign-in example application](https://github.com/fluttercommunity/connectivity_plus/connectivity_plus/example/lib/main.dart).
 
 ## Limitations on the web platform
 
@@ -56,7 +60,7 @@ All contributions to this package are welcome. Read the [Contributing to Flutter
 
 ## Issues and feedback
 
-Please file an [issue](https://github.com/ditman/plugins/issues/new)
+Please file an [issue](https://github.com/fluttercommunity/connectivity_plus/issues/new)
 to send feedback or report a bug.
 
 **Thank you!**

@@ -1,3 +1,7 @@
+## 0.3.1+3
+
+* Transfer package to Flutter Community under new name `connectivity_plus_for_web`.
+
 ## 0.3.1+2
 
 * Update package:e2e to use package:integration_test

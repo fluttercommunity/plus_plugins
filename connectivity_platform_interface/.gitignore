@@ -45,12 +45,3 @@ build/
 .classpath
 .settings
 src
-
-.DS_Store
-.dart_tool/
-
-.packages
-.pub/
-
-build/
-lib/generated_plugin_registrant.dart

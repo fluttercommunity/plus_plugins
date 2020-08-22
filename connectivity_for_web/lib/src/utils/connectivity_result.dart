@@ -1,5 +1,5 @@
 import 'dart:html' as html show NetworkInformation;
-import 'package:connectivity_platform_interface/connectivity_platform_interface.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_platform_interface.dart';
 
 /// Converts an incoming NetworkInformation object into the correct ConnectivityResult.
 ConnectivityResult networkInformationToConnectivityResult(

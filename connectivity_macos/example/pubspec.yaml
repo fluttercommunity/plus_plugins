@@ -4,16 +4,15 @@ description: Demonstrates how to use the connectivity plugin.
 dependencies:
   flutter:
     sdk: flutter
-  connectivity: any
-  connectivity_macos:
+  connectivity_plus: any
+  connectivity_plus_macos:
     path: ../
 
 dev_dependencies:
   flutter_driver:
     sdk: flutter
   test: any
-  integration_test:
-    path: ../../../integration_test
+  integration_test: ^0.8.0
   pedantic: ^1.8.0
 
 flutter:

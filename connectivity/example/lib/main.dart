@@ -7,7 +7,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,8 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initConnectivity();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override
@@ -104,11 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
         try {
           if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
+            LocationAuthorizationStatus status = await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
+              status = await _connectivity.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {
@@ -126,11 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
         try {
           if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
+            LocationAuthorizationStatus status = await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
+              status = await _connectivity.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {

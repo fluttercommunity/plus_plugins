@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:connectivity/connectivity.dart';
-import 'package:connectivity_platform_interface/connectivity_platform_interface.dart';
+import 'package:connectivity_plus/connectivity.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mockito/mockito.dart';

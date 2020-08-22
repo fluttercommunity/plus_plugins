@@ -1,6 +1,11 @@
-# connectivity_macos
+# connectivity_plus_macos
 
-The macos implementation of [`connectivity`].
+[![Flutter Community: connectivity_plus_macos](https://fluttercommunity.dev/_github/header/connectivity_plus_macos)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/connectivity_plus_macos.svg)](https://pub.dev/packages/connectivity_plus_macos)
+
+
+The macos implementation of [`connectivity_plus`].
 
 **Please set your constraint to `connectivity_macos: '>=0.1.y+x <2.0.0'`**
 
@@ -14,9 +19,9 @@ For more details see: https://github.com/flutter/flutter/wiki/Package-migration-
 ### Import the package
 
 
-This package has been endorsed, meaning that you only need to add `connectivity`
+This package has been endorsed, meaning that you only need to add `connectivity_plus`
 as a dependency in your `pubspec.yaml`. It will be automatically included in your app
-when you depend on `package:connectivity`.
+when you depend on `package:connectivity_plus`.
 
 This is what the above means to your `pubspec.yaml`:
 
@@ -24,9 +29,9 @@ This is what the above means to your `pubspec.yaml`:
 ...
 dependencies:
   ...
-  connectivity: ^0.4.8
+  connectivity_plus: ^0.4.9
   ...
 ```
 
-Refer to the `connectivity` [documentation](https://github.com/flutter/plugins/tree/master/packages/connectivity/connectivity) for more details.
+Refer to the `connectivity_plus` [documentation](https://github.com/fluttercommunity/connectivity_plus) for more details.
 
