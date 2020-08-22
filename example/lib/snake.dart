@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:sensors/sensors.dart';
+import 'package:sensors_plus/sensors.dart';
 
 class Snake extends StatefulWidget {
   Snake({this.rows = 20, this.columns = 20, this.cellSize = 10.0}) {
@@ -81,8 +81,7 @@ class SnakeState extends State<Snake> {
   @override
   void initState() {
     super.initState();
-    _streamSubscription =
-        accelerometerEvents.listen((AccelerometerEvent event) {
+    _streamSubscription = accelerometerEvents.listen((AccelerometerEvent event) {
       setState(() {
         acceleration = event;
       });

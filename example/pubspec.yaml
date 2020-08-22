@@ -4,14 +4,13 @@ description: Demonstrates how to use the sensors plugin.
 dependencies:
   flutter:
     sdk: flutter
-  sensors:
+  sensors_plus:
     path: ../
 
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  integration_test:
-    path: ../../integration_test
+  integration_test: ^0.8.0
   pedantic: ^1.8.0
 
 flutter:

@@ -1,9 +1,12 @@
 # sensors
+[![Flutter Community: sensors_plus](https://fluttercommunity.dev/_github/header/sensors_plus)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/sensors_plus.svg)](https://pub.dev/packages/sensors_plus)
 
 **Please set your constraint to `sensors: '>=0.4.y+x <2.0.0'`**
 
 ## Backward compatible 1.0.0 version is coming
-The sensors plugin has reached a stable API, we guarantee that version `1.0.0` will be backward compatible with `0.4.y+z`.
+The sensors_plus plugin has reached a stable API, we guarantee that version `1.0.0` will be backward compatible with `0.4.y+z`.
 Please use `sensors: '>=0.4.y+x <2.0.0'` as your dependency constraint to allow a smoother ecosystem migration.
 For more details see: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
 
@@ -12,7 +15,7 @@ A Flutter plugin to access the accelerometer and gyroscope sensors.
 
 ## Usage
 
-To use this plugin, add `sensors` as a [dependency in your pubspec.yaml
+To use this plugin, add `sensors_plus` as a [dependency in your pubspec.yaml
 file](https://flutter.io/platform-plugins/).
 
 This will expose three classes of sensor events, through three different
@@ -33,7 +36,7 @@ Each of these is exposed through a `BroadcastStream`: `accelerometerEvents`,
 ### Example
 
 ``` dart
-import 'package:sensors/sensors.dart';
+import 'package:sensors_plus/sensors.dart';
 
 accelerometerEvents.listen((AccelerometerEvent event) {
   print(event);

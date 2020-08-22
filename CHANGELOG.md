@@ -1,3 +1,7 @@
+## 0.4.2+5
+
+* Transfer package to Flutter Community under new name `sensors_plus`.
+
 ## 0.4.2+4
 
 * Update package:e2e -> package:integration_test
