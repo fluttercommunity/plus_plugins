@@ -1,19 +1,19 @@
 # Battery Plus
 
-[![Flutter Community: batter_plus](https://fluttercommunity.dev/_github/header/batter_plus)](https://github.com/fluttercommunity/community)
+[![Flutter Community: battery_plus](https://fluttercommunity.dev/_github/header/battery_plus)](https://github.com/fluttercommunity/community)
 
-[![pub package](https://img.shields.io/pub/v/batter_plus.svg)](https://pub.dev/packages/batter_plus)
+[![pub package](https://img.shields.io/pub/v/battery_plus.svg)](https://pub.dev/packages/battery_plus)
 
 A Flutter plugin to access various information about the battery of the device the app is running on.
 
 ## Usage
-To use this plugin, add `batter_plus` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+To use this plugin, add `battery_plus` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 ### Example
 
 ``` dart
 // Import package
-import 'package:batter_plus/battery.dart';
+import 'package:battery_plus/battery.dart';
 
 // Instantiate it
 var battery = Battery();
