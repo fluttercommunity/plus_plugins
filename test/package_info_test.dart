@@ -4,13 +4,12 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const MethodChannel channel =
-      MethodChannel('plugins.flutter.io/package_info');
+  const MethodChannel channel = MethodChannel('plugins.flutter.io/package_info');
   List<MethodCall> log;
 
   channel.setMockMethodCallHandler((MethodCall methodCall) async {

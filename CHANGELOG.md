@@ -1,3 +1,7 @@
+## 0.4.4
+
+* Transfer package to Flutter Community under new name `package_info_plus`.
+
 ## 0.4.3
 
 * Update package:e2e -> package:integration_test

@@ -1,4 +1,8 @@
-# PackageInfo
+# PackageInfoPlus
+
+[![Flutter Community: package_info_plus](https://fluttercommunity.dev/_github/header/package_info_plus)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/package_info_plus.svg)](https://pub.dev/packages/package_info_plus)
 
 This Flutter plugin provides an API for querying information about an
 application package.
@@ -16,7 +20,7 @@ You can use the PackageInfo to query information about the
 application package. This works both on iOS and Android.
 
 ```dart
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info.dart';
 
 PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
