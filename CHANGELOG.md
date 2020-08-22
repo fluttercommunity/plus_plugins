@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Transfer package to Flutter Community under new name `batter_plus`.
+
 ## 1.0.3
 
 * Update package:e2e to use package:integration_test

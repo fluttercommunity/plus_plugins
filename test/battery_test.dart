@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:test/test.dart';
-import 'package:battery/battery.dart';
+import 'package:battery_plus/battery.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {
@@ -22,8 +22,7 @@ void main() {
   });
 
   test('batteryLevel', () async {
-    when(methodChannel.invokeMethod<int>('getBatteryLevel'))
-        .thenAnswer((Invocation invoke) => Future<int>.value(42));
+    when(methodChannel.invokeMethod<int>('getBatteryLevel')).thenAnswer((Invocation invoke) => Future<int>.value(42));
     expect(await battery.batteryLevel, 42);
   });
 
@@ -32,8 +31,7 @@ void main() {
 
     setUp(() {
       controller = StreamController<String>();
-      when(eventChannel.receiveBroadcastStream())
-          .thenAnswer((Invocation invoke) => controller.stream);
+      when(eventChannel.receiveBroadcastStream()).thenAnswer((Invocation invoke) => controller.stream);
     });
 
     tearDown(() {
@@ -48,8 +46,7 @@ void main() {
     });
 
     test('receive values', () async {
-      final StreamQueue<BatteryState> queue =
-          StreamQueue<BatteryState>(battery.onBatteryStateChanged);
+      final StreamQueue<BatteryState> queue = StreamQueue<BatteryState>(battery.onBatteryStateChanged);
 
       controller.add("full");
       expect(await queue.next, BatteryState.full);

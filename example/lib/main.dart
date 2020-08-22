@@ -7,7 +7,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:battery/battery.dart';
+import 'package:battery_plus/battery.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,8 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _batteryStateSubscription =
-        _battery.onBatteryStateChanged.listen((BatteryState state) {
+    _batteryStateSubscription = _battery.onBatteryStateChanged.listen((BatteryState state) {
       setState(() {
         _batteryState = state;
       });
