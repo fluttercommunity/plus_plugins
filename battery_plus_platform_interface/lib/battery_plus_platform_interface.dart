@@ -1,0 +1,50 @@
+// Copyright 2020 The Flutter Community Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'dart:async';
+
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+import 'src/enums.dart';
+import 'src/method_channel_battery_plus.dart';
+export 'src/enums.dart';
+
+/// The interface that implementations of batteryPlus must implement.
+///
+/// Platform implementations should extend this class rather than implement it as `BatteryPlus`
+/// does not consider newly added methods to be breaking changes. Extending this class
+/// (using `extends`) ensures that the subclass will get the default implementation, while
+/// platform implementations that `implements` this interface will be broken by newly added
+/// [BatteryPlusPlatform] methods.
+abstract class BatteryPlusPlatform extends PlatformInterface {
+  /// Constructs a BatteryPlusPlatform.
+  BatteryPlusPlatform() : super(token: _token);
+
+  static final Object _token = Object();
+
+  static BatteryPlusPlatform _instance = MethodChannelBatteryPlus();
+
+  /// The default instance of [BatteryPlusPlatform] to use.
+  ///
+  /// Defaults to [MethodChannelBatteryPlus].
+  static BatteryPlusPlatform get instance => _instance;
+
+  /// Platform-specific plugins should set this with their own platform-specific
+  /// class that extends [BatteryPlusPlatform] when they register themselves.
+  static set instance(BatteryPlusPlatform instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
+
+  /// Checks the connection status of the device.
+  Future<int> get batteryLevel {
+    throw UnimplementedError('batteryLevel() has not been implemented.');
+  }
+
+  /// Returns a Stream of BatteryState changes.
+  Stream<BatteryState> get onBatteryStateChanged {
+    throw UnimplementedError(
+        'get onBatteryStateChanged has not been implemented.');
+  }
+}

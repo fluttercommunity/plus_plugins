@@ -1,0 +1,21 @@
+name: battery_plus_platform_interface
+description: A common platform interface for the battery_plus plugin.
+homepage: https://github.com/fluttercommunity/battery_plus_platform_interface
+# NOTE: We strongly prefer non-breaking changes, even at the expense of a
+# less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
+version: 1.0.0
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.2.3
+  plugin_platform_interface: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.9.0
