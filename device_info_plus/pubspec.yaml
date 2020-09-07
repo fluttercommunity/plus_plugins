@@ -16,15 +16,15 @@ flutter:
       ios:
         pluginClass: FLTDeviceInfoPlugin
       web:
-        default_package: device_info_plus_for_web
+        default_package: device_info_plus_web
 
 dependencies:
   flutter:
     sdk: flutter
   device_info_plus_platform_interface: 
     path: ../device_info_plus_platform_interface
-  device_info_plus_for_web:
-    path: ../device_info_plus_for_web
+  device_info_plus_web:
+    path: ../device_info_plus_web
 
 dev_dependencies:
   test: ^1.3.0

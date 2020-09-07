@@ -5,7 +5,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:device_info_plus/device_info.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
@@ -16,7 +16,7 @@ void main() {
   WebBrowserInfo webBrowserInfo;
 
   setUpAll(() async {
-    final DeviceInfoPlusPlugin deviceInfoPlugin = DeviceInfoPlusPlugin();
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     if (Platform.isIOS) {
       iosInfo = await deviceInfoPlugin.iosInfo;
     } else if (Platform.isAndroid) {

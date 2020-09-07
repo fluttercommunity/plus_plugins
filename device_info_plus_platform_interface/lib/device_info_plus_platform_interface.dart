@@ -22,23 +22,23 @@ export 'model/web_browser_info.dart';
 /// does not consider newly added methods to be breaking changes. Extending this class
 /// (using `extends`) ensures that the subclass will get the default implementation, while
 /// platform implementations that `implements` this interface will be broken by newly added
-/// [DeviceInfoPlusPlatform] methods.
-abstract class DeviceInfoPlusPlatform extends PlatformInterface {
+/// [DeviceInfoPlatform] methods.
+abstract class DeviceInfoPlatform extends PlatformInterface {
   /// Constructs a UrlLauncherPlatform.
-  DeviceInfoPlusPlatform() : super(token: _token);
+  DeviceInfoPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static DeviceInfoPlusPlatform _instance = MethodChannelDeviceInfo();
+  static DeviceInfoPlatform _instance = MethodChannelDeviceInfo();
 
-  /// The default instance of [DeviceInfoPlusPlatform] to use.
+  /// The default instance of [DeviceInfoPlatform] to use.
   ///
   /// Defaults to [MethodChannelDeviceInfo].
-  static DeviceInfoPlusPlatform get instance => _instance;
+  static DeviceInfoPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [DeviceInfoPlusPlatform] when they register themselves.
-  static set instance(DeviceInfoPlusPlatform instance) {
+  /// class that extends [DeviceInfoPlatform] when they register themselves.
+  static set instance(DeviceInfoPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }

@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Support web
+
 ## 0.4.2+8
 
 * Transfer package to Flutter Community under new name `device_info_plus`.

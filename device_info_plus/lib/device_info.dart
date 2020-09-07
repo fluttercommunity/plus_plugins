@@ -14,10 +14,10 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         WebBrowserInfo;
 
 /// Provides device and operating system information.
-class DeviceInfoPlusPlugin {
+class DeviceInfoPlugin {
   /// No work is done when instantiating the plugin. It's safe to call this
   /// repeatedly or in performance-sensitive blocks.
-  DeviceInfoPlusPlugin();
+  DeviceInfoPlugin();
 
   /// This information does not change from call to call. Cache it.
   AndroidDeviceInfo _cachedAndroidDeviceInfo;
@@ -27,7 +27,7 @@ class DeviceInfoPlusPlugin {
   /// See: https://developer.android.com/reference/android/os/Build.html
   Future<AndroidDeviceInfo> get androidInfo async =>
       _cachedAndroidDeviceInfo ??=
-          await DeviceInfoPlusPlatform.instance.androidInfo();
+          await DeviceInfoPlatform.instance.androidInfo();
 
   /// This information does not change from call to call. Cache it.
   IosDeviceInfo _cachedIosDeviceInfo;
@@ -36,12 +36,12 @@ class DeviceInfoPlusPlugin {
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
   Future<IosDeviceInfo> get iosInfo async =>
-      _cachedIosDeviceInfo ??= await DeviceInfoPlusPlatform.instance.iosInfo();
+      _cachedIosDeviceInfo ??= await DeviceInfoPlatform.instance.iosInfo();
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo _cachedWebBrowserInfo;
 
   /// Information derived from `Navigator`.
   Future<WebBrowserInfo> get webBrowserInfo async => _cachedWebBrowserInfo ??=
-      await DeviceInfoPlusPlatform.instance.webBrowserInfo();
+      await DeviceInfoPlatform.instance.webBrowserInfo();
 }
