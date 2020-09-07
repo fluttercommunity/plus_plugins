@@ -6,14 +6,14 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('$MethodChannelBatteryPlus', () {
+  group('$MethodChannelBattery', () {
     final List<MethodCall> log = <MethodCall>[];
-    MethodChannelBatteryPlus methodChannelBatteryPlus;
+    MethodChannelBattery methodChannelBattery;
 
     setUp(() async {
-      methodChannelBatteryPlus = MethodChannelBatteryPlus();
+      methodChannelBattery = MethodChannelBattery();
 
-      methodChannelBatteryPlus.methodChannel
+      methodChannelBattery.methodChannel
           .setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
         switch (methodCall.method) {
@@ -24,14 +24,14 @@ void main() {
         }
       });
       log.clear();
-      MethodChannel(methodChannelBatteryPlus.eventChannel.name)
+      MethodChannel(methodChannelBattery.eventChannel.name)
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
             await ServicesBinding.instance.defaultBinaryMessenger
                 .handlePlatformMessage(
-              methodChannelBatteryPlus.eventChannel.name,
-              methodChannelBatteryPlus.eventChannel.codec
+              methodChannelBattery.eventChannel.name,
+              methodChannelBattery.eventChannel.codec
                   .encodeSuccessEnvelope('full'),
               (_) {},
             );
@@ -45,12 +45,12 @@ void main() {
 
     test('onBatteryChanged', () async {
       final BatteryState result =
-          await methodChannelBatteryPlus.onBatteryStateChanged.first;
+          await methodChannelBattery.onBatteryStateChanged.first;
       expect(result, BatteryState.full);
     });
 
     test('getBatteryLevel', () async {
-      final int result = await methodChannelBatteryPlus.batteryLevel;
+      final int result = await methodChannelBattery.batteryLevel;
       expect(result, 100);
       expect(
         log,

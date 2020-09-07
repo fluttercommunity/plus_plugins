@@ -1,4 +1,4 @@
-// Copyright 2020 The Flutter Community Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,7 +7,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:battery_plus/battery_plus.dart';
+import 'package:battery_plus/battery.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  BatteryPlus _battery = BatteryPlus();
+  Battery _battery = Battery();
 
   BatteryState _batteryState;
   StreamSubscription<BatteryState> _batteryStateSubscription;

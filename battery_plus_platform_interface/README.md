@@ -1,9 +1,5 @@
 # battery_plus_platform_interface
 
-[![Flutter Community: battery_plus_platform_interface](https://fluttercommunity.dev/_github/header/battery_plus_platform_interface)](https://github.com/fluttercommunity/community)
-
-[![pub package](https://img.shields.io/pub/v/battery_plus_platform_interface.svg)](https://pub.dev/packages/battery_plus_platform_interface)
-
 A common platform interface for the [`battery_plus`][1] plugin.
 
 This interface allows platform-specific implementations of the `battery_plus`
@@ -13,10 +9,10 @@ same interface.
 # Usage
 
 To implement a new platform-specific implementation of `battery_plus`, extend
-[`BatteryPlusPlatform`][2] with an implementation that performs the
+[`BatteryPlatform`][2] with an implementation that performs the
 platform-specific behavior, and when you register your plugin, set the default
-`BatteryPlusPlatform` by calling
-`BatteryPlusPlatform.instance = MyPlatformBattery()`.
+`BatteryPlatform` by calling
+`BatteryPlatform.instance = MyPlatformBattery()`.
 
 # Note on breaking changes
 

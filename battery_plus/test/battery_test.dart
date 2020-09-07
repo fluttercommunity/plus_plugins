@@ -5,30 +5,30 @@
 import 'dart:async';
 
 import 'package:async/async.dart';
-import 'package:battery_plus/battery_plus.dart';
+import 'package:battery_plus/battery.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockBatteryPlusPlatform extends Mock
+class MockBatteryPlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements BatteryPlusPlatform {}
+    implements BatteryPlatform {}
 
 void main() {
-  BatteryPlus batteryPlus;
-  MockBatteryPlusPlatform fakePlatform;
+  Battery battery;
+  MockBatteryPlatform fakePlatform;
 
   setUp(() {
-    fakePlatform = MockBatteryPlusPlatform();
-    BatteryPlusPlatform.instance = fakePlatform;
-    batteryPlus = BatteryPlus();
+    fakePlatform = MockBatteryPlatform();
+    BatteryPlatform.instance = fakePlatform;
+    battery = Battery();
   });
 
   test('batteryLevel', () async {
-    when(batteryPlus.batteryLevel)
+    when(battery.batteryLevel)
         .thenAnswer((Invocation invoke) => Future<int>.value(42));
-    expect(await batteryPlus.batteryLevel, 42);
+    expect(await battery.batteryLevel, 42);
   });
 
   group('battery state', () {
@@ -36,7 +36,7 @@ void main() {
 
     setUp(() {
       controller = StreamController<BatteryState>();
-      when(batteryPlus.onBatteryStateChanged)
+      when(battery.onBatteryStateChanged)
           .thenAnswer((Invocation invoke) => controller.stream);
     });
 
@@ -45,7 +45,7 @@ void main() {
     });
     test('receive values', () async {
       final StreamQueue<BatteryState> queue =
-          StreamQueue<BatteryState>(batteryPlus.onBatteryStateChanged);
+          StreamQueue<BatteryState>(battery.onBatteryStateChanged);
 
       controller.add(BatteryState.full);
       expect(await queue.next, BatteryState.full);

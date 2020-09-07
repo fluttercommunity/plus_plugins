@@ -1,6 +1,10 @@
+## 1.2.0
+
+* Battery Plus supports web.
+
 ## 1.1.0
 
-* Implement Battery Plus based on new `BatteryPlusPlatformInterface`.
+* Implement Battery Plus based on new `BatteryPlatformInterface`.
 
 ## 1.0.4
 

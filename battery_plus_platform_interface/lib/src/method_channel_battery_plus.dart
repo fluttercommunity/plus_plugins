@@ -11,8 +11,8 @@ import '../battery_plus_platform_interface.dart';
 import 'enums.dart';
 import 'utils.dart';
 
-/// An implementation of [BatteryPlusPlatform] that uses method channels.
-class MethodChannelBatteryPlus extends BatteryPlusPlatform {
+/// An implementation of [BatteryPlatform] that uses method channels.
+class MethodChannelBattery extends BatteryPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel methodChannel = MethodChannel('plugins.flutter.io/battery');

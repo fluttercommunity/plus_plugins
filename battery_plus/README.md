@@ -14,16 +14,16 @@ To use this plugin, add `battery_plus` as a [dependency in your pubspec.yaml fil
 
 ```dart
 // Import package
-import 'package:battery_plus/battery_plus.dart';
+import 'package:battery_plus/battery.dart';
 
 // Instantiate it
-var battery_plus = battery_plus();
+var battery = Battery();
 
 // Access current battery level
-print(await battery_plus.batteryLevel);
+print(await battery.batteryLevel);
 
 // Be informed when the state (full, charging, discharging) changes
-battery_plus.onBatteryStateChanged.listen((BatteryState state) {
+battery.onBatteryStateChanged.listen((BatteryState state) {
   // Do something with new state
 });
 ```

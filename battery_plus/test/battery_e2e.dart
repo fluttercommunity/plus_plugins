@@ -1,8 +1,8 @@
-// Copyright 2020, the Flutter Community authors.  Please see the AUTHORS file
+// Copyright 2020, the Chromium authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:battery_plus/battery_plus.dart';
+import 'package:battery_plus/battery.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -10,7 +10,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Can get battery level', (WidgetTester tester) async {
-    final BatteryPlus battery = BatteryPlus();
+    final Battery battery = Battery();
     final int batteryLevel = await battery.batteryLevel;
     expect(batteryLevel, isNotNull);
   });
