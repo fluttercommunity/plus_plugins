@@ -11,7 +11,7 @@ Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://plus.fluttercommunity.dev'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Community Team' => 'contact@fluttercommunity.dev' }
+  s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/fluttercommunity/device_info_plus' }
   s.documentation_url = 'https://pub.dev/packages/device_info_plus'
   s.source_files = 'Classes/**/*'
