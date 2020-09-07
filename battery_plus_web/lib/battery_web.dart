@@ -7,8 +7,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
 class BatteryPlugin extends BatteryPlatform {
-  BatteryPlugin(html.Navigator navigator)
-      : _getBattery = navigator.getBattery;
+  BatteryPlugin(html.Navigator navigator) : _getBattery = navigator.getBattery;
 
   /// A check to determine if this version of the plugin can be used.
   bool get isSupported => html.window.navigator.getBattery != null;
@@ -37,7 +36,7 @@ class BatteryPlugin extends BatteryPlatform {
   /// Returns a Stream of BatteryState changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {
-    if (_batteryChangeStreamController == null) {
+    if (_batteryChangeStreamController == null && isSupported) {
       _batteryChangeStreamController = StreamController<BatteryState>();
 
       _getBattery().then(
