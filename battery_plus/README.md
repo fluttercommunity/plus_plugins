@@ -14,7 +14,7 @@ To use this plugin, add `battery_plus` as a [dependency in your pubspec.yaml fil
 
 ```dart
 // Import package
-import 'package:battery_plus/battery.dart';
+import 'package:battery_plus/battery_plus.dart';
 
 // Instantiate it
 var battery = Battery();

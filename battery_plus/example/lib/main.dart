@@ -7,7 +7,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:battery_plus/battery.dart';
+import 'package:battery_plus/battery_plus.dart';
 
 void main() {
   runApp(MyApp());
