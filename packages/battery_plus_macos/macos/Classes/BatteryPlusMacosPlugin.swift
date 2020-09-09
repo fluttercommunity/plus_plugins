@@ -28,7 +28,7 @@ public class BatteryPlusMacosPlugin: NSObject, FlutterPlugin {
         if(level != -1){
             result(level)
             
-        }else {
+        } else {
             result("UNAVAILABLE")
         }
         
