@@ -14,34 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    int platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion =  await Battery().batteryLevel;
-    } on PlatformException {
-    print('Failed to get platform version.');
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion.toString();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,8 +21,38 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FutureBuilder<int>(
+              future: Battery().batteryLevel,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text('Charge at: ${snapshot.data} ');
+                } else if (snapshot.hasError) {
+                  return Text('Error fetching charge ');
+                } else {
+                  return Text('Loading ');
+                }
+              },
+            ),
+            const SizedBox(
+              height: 25.0,
+            ),
+            StreamBuilder<BatteryState>(
+              stream: Battery().onBatteryStateChanged,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text('Battery at: ${snapshot.data} ');
+                } else if (snapshot.hasError) {
+                  return Text('Error fetching battery state');
+                } else {
+                  return Text('Loading ');
+                }
+              },
+            ),
+          ],
         ),
       ),
     );
