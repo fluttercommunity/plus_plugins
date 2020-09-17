@@ -1,0 +1,25 @@
+name: package_info_plus_macos
+description: macOS implementation of the package_info_plus plugin.
+# 0.0.y+z is compatible with 1.0.0, if you land a breaking change bump
+# the version to 2.0.0.
+# See more details: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
+version: 0.0.1
+homepage: https://github.com/fluttercommunity/package_info_plus/package_info_plus_macos
+
+flutter:
+  plugin:
+    platforms:
+      macos:
+        pluginClass: FLTPackageInfoPlugin
+        fileName: package_info_macos.dart
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.8 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  pedantic: ^1.8.0
