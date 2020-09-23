@@ -2,7 +2,7 @@
 name: Found Bug.
 about: You are writing an Flutter application with this plugin but the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
