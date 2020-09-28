@@ -48,6 +48,8 @@ class _MyAppState extends State<MyApp> {
               _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
         } else if (Platform.isIOS) {
           deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+        } else if (Platform.isLinux) {
+          deviceData = _readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo);
         }
       }
     } on PlatformException {
@@ -112,6 +114,23 @@ class _MyAppState extends State<MyApp> {
     };
   }
 
+  Map<String, dynamic> _readLinuxDeviceInfo(LinuxDeviceInfo data) {
+    return <String, dynamic>{
+      'name': data.name,
+      'version': data.version,
+      'id': data.id,
+      'idLike': data.idLike,
+      'versionCodename': data.versionCodename,
+      'versionId': data.versionId,
+      'prettyName': data.prettyName,
+      'buildId': data.buildId,
+      'variant': data.variant,
+      'variantId': data.variantId,
+      'hostname': data.hostname,
+      'machineId': data.machineId,
+    };
+  }
+
   Map<String, dynamic> _readWebBrowserInfo(WebBrowserInfo data) {
     return <String, dynamic>{
       'browserName': describeEnum(data.browserName),
@@ -142,7 +161,11 @@ class _MyAppState extends State<MyApp> {
                 ? 'Web Browser info'
                 : Platform.isAndroid
                     ? 'Android Device Info'
-                    : 'iOS Device Info',
+                    : Platform.isIOS
+                        ? 'iOS Device Info'
+                        : Platform.isLinux
+                            ? 'Linux Device Info'
+                            : '',
           ),
         ),
         body: ListView(
