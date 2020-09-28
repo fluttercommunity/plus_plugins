@@ -11,6 +11,7 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         AndroidDeviceInfo,
         IosDeviceInfo,
         IosUtsname,
+        LinuxDeviceInfo,
         WebBrowserInfo;
 
 /// Provides device and operating system information.
@@ -37,6 +38,15 @@ class DeviceInfoPlugin {
   /// See: https://developer.apple.com/documentation/uikit/uidevice
   Future<IosDeviceInfo> get iosInfo async =>
       _cachedIosDeviceInfo ??= await DeviceInfoPlatform.instance.iosInfo();
+
+  /// This information does not change from call to call. Cache it.
+  LinuxDeviceInfo _cachedLinuxDeviceInfo;
+
+  /// Information derived from `/etc/os-release`.
+  ///
+  /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
+  Future<LinuxDeviceInfo> get linuxInfo async =>
+      _cachedLinuxDeviceInfo ??= await DeviceInfoPlatform.instance.linuxInfo();
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo _cachedWebBrowserInfo;

@@ -10,10 +10,12 @@ import 'method_channel/method_channel_device_info.dart';
 
 import 'model/android_device_info.dart';
 import 'model/ios_device_info.dart';
+import 'model/linux_device_info.dart';
 import 'model/web_browser_info.dart';
 
 export 'model/android_device_info.dart';
 export 'model/ios_device_info.dart';
+export 'model/linux_device_info.dart';
 export 'model/web_browser_info.dart';
 
 /// The interface that implementations of device_info must implement.
@@ -53,6 +55,12 @@ abstract class DeviceInfoPlatform extends PlatformInterface {
   // ignore: public_member_api_docs
   Future<IosDeviceInfo> iosInfo() {
     throw UnimplementedError('iosInfo() has not been implemented.');
+  }
+
+  // Gets the Linux device information.
+  // ignore: public_member_api_docs
+  Future<LinuxDeviceInfo> linuxInfo() {
+    throw UnimplementedError('linuxInfo() has not been implemented.');
   }
 
   // Gets the web browser information.

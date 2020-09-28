@@ -15,6 +15,8 @@ flutter:
         pluginClass: DeviceInfoPlugin
       ios:
         pluginClass: FLTDeviceInfoPlugin
+      linux:
+        default_package: device_info_plus_linux
       web:
         default_package: device_info_plus_web
 
@@ -23,6 +25,8 @@ dependencies:
     sdk: flutter
   device_info_plus_platform_interface: 
     path: ../device_info_plus_platform_interface
+  device_info_plus_linux:
+    path: ../device_info_plus_linux
   device_info_plus_web:
     path: ../device_info_plus_web
 
