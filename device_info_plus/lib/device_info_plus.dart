@@ -3,7 +3,11 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
+import 'package:device_info_plus_linux/device_info_plus_linux.dart';
 
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
@@ -20,6 +24,27 @@ class DeviceInfoPlugin {
   /// repeatedly or in performance-sensitive blocks.
   DeviceInfoPlugin();
 
+  /// Disables the platform override in order to use a manually registered
+  /// [DeviceInfoPlatform] for testing purposes.
+  /// See https://github.com/flutter/flutter/issues/52267 for more details.
+  @visibleForTesting
+  static set disableDeviceInfoPlatformOverride(bool override) {
+    _disablePlatformOverride = override;
+  }
+
+  static bool _disablePlatformOverride = false;
+  static DeviceInfoPlatform __platform;
+
+  // This is to manually endorse the Linux plugin until automatic registration
+  // of dart plugins is implemented.
+  // See https://github.com/flutter/flutter/issues/52267 for more details.
+  static DeviceInfoPlatform get _platform {
+    __platform ??= !kIsWeb && Platform.isLinux && !_disablePlatformOverride
+        ? DeviceInfoLinux()
+        : DeviceInfoPlatform.instance;
+    return __platform;
+  }
+
   /// This information does not change from call to call. Cache it.
   AndroidDeviceInfo _cachedAndroidDeviceInfo;
 
@@ -27,8 +52,7 @@ class DeviceInfoPlugin {
   ///
   /// See: https://developer.android.com/reference/android/os/Build.html
   Future<AndroidDeviceInfo> get androidInfo async =>
-      _cachedAndroidDeviceInfo ??=
-          await DeviceInfoPlatform.instance.androidInfo();
+      _cachedAndroidDeviceInfo ??= await _platform.androidInfo();
 
   /// This information does not change from call to call. Cache it.
   IosDeviceInfo _cachedIosDeviceInfo;
@@ -37,7 +61,7 @@ class DeviceInfoPlugin {
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
   Future<IosDeviceInfo> get iosInfo async =>
-      _cachedIosDeviceInfo ??= await DeviceInfoPlatform.instance.iosInfo();
+      _cachedIosDeviceInfo ??= await _platform.iosInfo();
 
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo _cachedLinuxDeviceInfo;
@@ -46,12 +70,12 @@ class DeviceInfoPlugin {
   ///
   /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
   Future<LinuxDeviceInfo> get linuxInfo async =>
-      _cachedLinuxDeviceInfo ??= await DeviceInfoPlatform.instance.linuxInfo();
+      _cachedLinuxDeviceInfo ??= await _platform.linuxInfo();
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo _cachedWebBrowserInfo;
 
   /// Information derived from `Navigator`.
-  Future<WebBrowserInfo> get webBrowserInfo async => _cachedWebBrowserInfo ??=
-      await DeviceInfoPlatform.instance.webBrowserInfo();
+  Future<WebBrowserInfo> get webBrowserInfo async =>
+      _cachedWebBrowserInfo ??= await _platform.webBrowserInfo();
 }
