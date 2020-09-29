@@ -22,7 +22,7 @@ application package. This works both on iOS and Android.
 ```dart
 import 'package:package_info_plus/package_info.dart';
 
-PackageInfo packageInfo = await PackageInfoPlugin.fromPlatform();
+PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
 String appName = packageInfo.appName;
 String packageName = packageInfo.packageName;
@@ -33,7 +33,7 @@ String buildNumber = packageInfo.buildNumber;
 Or in async mode:
 
 ```dart
-PackageInfoPlugin.fromPlatform().then((PackageInfo packageInfo) {
+PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
   String appName = packageInfo.appName;
   String packageName = packageInfo.packageName;
   String version = packageInfo.version;

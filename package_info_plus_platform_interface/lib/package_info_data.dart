@@ -1,11 +1,8 @@
-class PackageInfo {
-  /// Constructs an instance with the given values for testing. [PackageInfo]
+class PackageInfoData {
+  /// Constructs an instance with the given values for testing. [PackageInfoData]
   /// instances constructed this way won't actually reflect any real information
   /// from the platform, just whatever was passed in at construction time.
-  ///
-  /// See [fromPlatform] for the right API to get a [PackageInfo] that's
-  /// actually populated with real data.
-  PackageInfo({
+  PackageInfoData({
     this.appName,
     this.packageName,
     this.version,

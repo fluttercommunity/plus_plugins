@@ -4,7 +4,6 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:package_info_plus_platform_interface/package_info.dart';
 
 import '../lib/package_info.dart';
 
@@ -36,7 +35,7 @@ void main() {
   });
 
   test('fromPlatform', () async {
-    final PackageInfo info = await PackageInfoPlugin.fromPlatform();
+    final PackageInfo info = await PackageInfo.fromPlatform();
     expect(info.appName, 'package_info_example');
     expect(info.buildNumber, '1');
     expect(info.packageName, 'io.flutter.plugins.packageinfoexample');

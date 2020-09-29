@@ -1,4 +1,4 @@
-import 'package:package_info_plus_platform_interface/package_info.dart';
+import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel_package_info.dart';
@@ -30,7 +30,7 @@ abstract class PackageInfoPlatform extends PlatformInterface {
   }
 
   ///Returns a map with the following keys : appName,packageName,version,buildNumber
-  Future<PackageInfo> getAll() {
+  Future<PackageInfoData> getAll() {
     throw UnimplementedError('getAll() has not been implemented.');
   }
 }
