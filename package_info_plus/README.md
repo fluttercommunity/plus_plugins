@@ -20,7 +20,7 @@ You can use the PackageInfo to query information about the
 application package. This works both on iOS and Android.
 
 ```dart
-import 'package:package_info_plus/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
