@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:share_plus/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {

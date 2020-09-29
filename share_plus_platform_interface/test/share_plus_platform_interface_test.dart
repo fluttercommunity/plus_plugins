@@ -7,7 +7,8 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
 import 'package:mockito/mockito.dart';
-import 'package:share_plus/share.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
 import 'package:test/test.dart';
 
 import 'package:flutter/services.dart';
@@ -20,7 +21,7 @@ void main() {
   setUp(() {
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
-    Share.channel.setMockMethodCallHandler((MethodCall call) async {
+    MethodChannelShare.channel.setMockMethodCallHandler((MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
     });
@@ -28,7 +29,7 @@ void main() {
 
   test('sharing null fails', () {
     expect(
-      () => Share.share(null),
+      () => SharePlatform.instance.share(null),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -36,14 +37,14 @@ void main() {
 
   test('sharing empty fails', () {
     expect(
-      () => Share.share(''),
+      () => SharePlatform.instance.share(''),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
   });
 
   test('sharing origin sets the right params', () async {
-    await Share.share(
+    await SharePlatform.instance.share(
       'some text to share',
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
@@ -60,7 +61,7 @@ void main() {
 
   test('sharing null file fails', () {
     expect(
-      () => Share.shareFiles([null]),
+      () => SharePlatform.instance.shareFiles([null]),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -68,7 +69,7 @@ void main() {
 
   test('sharing empty file fails', () {
     expect(
-      () => Share.shareFiles(['']),
+      () => SharePlatform.instance.shareFiles(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -79,7 +80,7 @@ void main() {
     final File file = File(path);
     try {
       file.createSync();
-      await Share.shareFiles([path]);
+      await SharePlatform.instance.shareFiles([path]);
       verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [path],
         'mimeTypes': ['image/png'],
@@ -94,7 +95,7 @@ void main() {
     final File file = File(path);
     try {
       file.createSync();
-      await Share.shareFiles([path], mimeTypes: ['*/*']);
+      await SharePlatform.instance.shareFiles([path], mimeTypes: ['*/*']);
       verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [file.path],
         'mimeTypes': ['*/*'],

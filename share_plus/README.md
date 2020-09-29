@@ -28,7 +28,7 @@ To use this plugin, add `share` as a [dependency in your pubspec.yaml file](http
 Import the library.
 
 ``` dart
-import 'package:share_plus/share.dart';
+import 'package:share_plus/share_plus.dart';
 ```
 
 Then invoke the static `share` method anywhere in your Dart code.

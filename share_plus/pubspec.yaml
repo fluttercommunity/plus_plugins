@@ -21,14 +21,15 @@ dependencies:
   mime: ^0.9.7
   flutter:
     sdk: flutter
+  share_plus_platform_interface:
+    path: ../share_plus_platform_interface/
 
 dev_dependencies:
   test: ^1.3.0
   mockito: ^3.0.0
   flutter_test:
     sdk: flutter
-  integration_test:
-    path: ../integration_test
+  integration_test: ^0.9.1
   pedantic: ^1.8.0
 
 environment:
