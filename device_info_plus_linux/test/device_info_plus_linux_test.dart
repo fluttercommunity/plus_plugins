@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:file/memory.dart';
 
 void main() {
-  test('/etc/os-release', () async {
+  test('os-release', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/os-release')..createSync(recursive: true);
     file.writeAsStringSync('''
@@ -34,7 +34,7 @@ HOME_URL="https://www.flutter.io/"
     expect(linuxInfo.variantId, equals('community'));
   });
 
-  test('/etc/lsb-release', () async {
+  test('lsb-release', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/lsb-release')..createSync(recursive: true);
     file.writeAsStringSync('''
@@ -59,7 +59,37 @@ DISTRIB_DESCRIPTION="Distrib Description"
     expect(linuxInfo.variantId, isNull);
   });
 
-  test('/etc/machine-id', () async {
+  test('precedence', () async {
+    final fs = MemoryFileSystem.test();
+    final osFile = fs.file('/etc/os-release')..createSync(recursive: true);
+    osFile.writeAsStringSync('''
+VERSION="OS version"
+ID=os
+    ''');
+    final lsbFile = fs.file('/etc/lsb-release')..createSync(recursive: true);
+    lsbFile.writeAsStringSync('''
+LSB_VERSION="LSB version"
+DISTRIB_ID=lsb
+DISTRIB_RELEASE=distrib-release
+DISTRIB_CODENAME=distrib-codename
+DISTRIB_DESCRIPTION="Distrib Description"
+    ''');
+
+    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final linuxInfo = await deviceInfo.linuxInfo();
+    expect(linuxInfo.name, equals('Linux'));
+    expect(linuxInfo.version, equals('OS version'));
+    expect(linuxInfo.id, equals('os'));
+    expect(linuxInfo.idLike, isNull);
+    expect(linuxInfo.versionCodename, equals('distrib-codename'));
+    expect(linuxInfo.versionId, equals('distrib-release'));
+    expect(linuxInfo.prettyName, 'Distrib Description');
+    expect(linuxInfo.buildId, isNull);
+    expect(linuxInfo.variant, isNull);
+    expect(linuxInfo.variantId, isNull);
+  });
+
+  test('machine-id', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/machine-id')..createSync(recursive: true);
     file.writeAsStringSync('machine-id');

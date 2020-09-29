@@ -18,27 +18,39 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
   }
 
   Future<LinuxDeviceInfo> _getInfo() async {
-    final rel = await _tryReadKeyValues('/etc/os-release') ??
-        await _tryReadKeyValues('/usr/lib/os-release') ??
-        await _tryReadKeyValues('/etc/lsb-release') ??
-        {};
+    final os = await _getOsRelease() ?? {};
+    final lsb = await _getLsbRelease() ?? {};
+    final machineId = await _getMachineId();
 
     return LinuxDeviceInfo(
-      name: rel['NAME'] ?? 'Linux',
-      version: rel['VERSION'] ?? rel['LSB_VERSION'],
-      id: rel['ID'] ?? rel['DISTRIB_ID'] ?? 'linux',
-      idLike: rel['ID_LIKE']?.split(' '),
-      versionCodename: rel['VERSION_CODENAME'] ?? rel['DISTRIB_CODENAME'],
-      versionId: rel['VERSION_ID'] ?? rel['DISTRIB_RELEASE'],
-      prettyName: rel['PRETTY_NAME'] ?? rel['DISTRIB_DESCRIPTION'] ?? 'Linux',
-      buildId: rel['BUILD_ID'],
-      variant: rel['VARIANT'],
-      variantId: rel['VARIANT_ID'],
-      machineId: await _tryReadValue('/etc/machine-id'),
+      name: os['NAME'] ?? 'Linux',
+      version: os['VERSION'] ?? lsb['LSB_VERSION'],
+      id: os['ID'] ?? lsb['DISTRIB_ID'] ?? 'linux',
+      idLike: os['ID_LIKE']?.split(' '),
+      versionCodename: os['VERSION_CODENAME'] ?? lsb['DISTRIB_CODENAME'],
+      versionId: os['VERSION_ID'] ?? lsb['DISTRIB_RELEASE'],
+      prettyName: os['PRETTY_NAME'] ?? lsb['DISTRIB_DESCRIPTION'] ?? 'Linux',
+      buildId: os['BUILD_ID'],
+      variant: os['VARIANT'],
+      variantId: os['VARIANT_ID'],
+      machineId: machineId,
     );
   }
 
-  Future<String> _tryReadValue(String path) async {
+  Future<Map<String, String>> _getOsRelease() {
+    return _tryReadKeyValues('/etc/os-release')
+        .then((value) => value ?? _tryReadKeyValues('/usr/lib/os-release'));
+  }
+
+  Future<Map<String, String>> _getLsbRelease() {
+    return _tryReadKeyValues('/etc/lsb-release');
+  }
+
+  Future<String> _getMachineId() {
+    return _tryReadValue('/etc/machine-id');
+  }
+
+  Future<String> _tryReadValue(String path) {
     return _fileSystem
         .file(path)
         .readAsString()
@@ -46,7 +58,7 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
         .catchError((_) => null);
   }
 
-  Future<Map<String, String>> _tryReadKeyValues(String path) async {
+  Future<Map<String, String>> _tryReadKeyValues(String path) {
     return _fileSystem
         .file(path)
         .readAsLines()
