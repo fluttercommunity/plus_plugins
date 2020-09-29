@@ -59,16 +59,6 @@ DISTRIB_DESCRIPTION="Distrib Description"
     expect(linuxInfo.variantId, isNull);
   });
 
-  test('/etc/hostname', () async {
-    final fs = MemoryFileSystem.test();
-    final file = fs.file('/etc/hostname')..createSync(recursive: true);
-    file.writeAsStringSync('hostname');
-
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
-    final linuxInfo = await deviceInfo.linuxInfo();
-    expect(linuxInfo.hostname, equals('hostname'));
-  });
-
   test('/etc/machine-id', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/machine-id')..createSync(recursive: true);
@@ -93,7 +83,6 @@ DISTRIB_DESCRIPTION="Distrib Description"
     expect(linuxInfo.buildId, isNull);
     expect(linuxInfo.variant, isNull);
     expect(linuxInfo.variantId, isNull);
-    expect(linuxInfo.hostname, isNull);
     expect(linuxInfo.machineId, isNull);
   });
 }

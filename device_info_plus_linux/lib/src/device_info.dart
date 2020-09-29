@@ -34,7 +34,6 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
       buildId: rel['BUILD_ID'],
       variant: rel['VARIANT'],
       variantId: rel['VARIANT_ID'],
-      hostname: await _tryReadValue('/etc/hostname'),
       machineId: await _tryReadValue('/etc/machine-id'),
     );
   }

@@ -126,7 +126,6 @@ class _MyAppState extends State<MyApp> {
       'buildId': data.buildId,
       'variant': data.variant,
       'variantId': data.variantId,
-      'hostname': data.hostname,
       'machineId': data.machineId,
     };
   }

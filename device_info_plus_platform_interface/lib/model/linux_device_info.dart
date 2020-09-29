@@ -6,7 +6,6 @@
 ///
 /// See:
 /// - https://www.freedesktop.org/software/systemd/man/os-release.html
-/// - https://www.freedesktop.org/software/systemd/man/hostname.html
 /// - https://www.freedesktop.org/software/systemd/man/machine-id.html
 class LinuxDeviceInfo {
   LinuxDeviceInfo({
@@ -20,7 +19,6 @@ class LinuxDeviceInfo {
     this.buildId,
     this.variant,
     this.variantId,
-    this.hostname,
     this.machineId,
   });
 
@@ -132,10 +130,6 @@ class LinuxDeviceInfo {
   ///
   /// This field is optional and may be null on some systems.
   final String variantId;
-
-  /// A host name of the system. The name is used by many of the networking
-  /// programs to identify the machine.
-  final String hostname;
 
   /// A unique machine ID of the local system that is set during installation or
   /// boot. The machine ID is hexadecimal, 32-character, lowercase ID. When
