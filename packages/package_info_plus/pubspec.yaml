@@ -15,13 +15,16 @@ flutter:
         default_package: package_info_plus_macos
       web:
         default_package: package_info_plus_web
-
+      windows:
+        default_package: package_info_plus_windows
+  
 dependencies:
   flutter:
     sdk: flutter
   package_info_plus_platform_interface: ^0.1.0
   package_info_plus_web: ^0.1.0
   package_info_plus_macos: ^0.1.0
+  package_info_plus_windows: ^0.1.0
 
 dev_dependencies:
   flutter_test:
