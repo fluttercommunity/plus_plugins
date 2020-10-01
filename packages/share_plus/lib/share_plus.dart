@@ -9,6 +9,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_linux/share_plus_linux.dart';
+import 'package:share_plus_windows/share_plus_windows.dart';
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -27,9 +28,16 @@ class Share {
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static SharePlatform get _platform {
-    __platform ??= !kIsWeb && Platform.isLinux && !_disablePlatformOverride
-        ? ShareLinux()
-        : SharePlatform.instance;
+    if (__platform == null) {
+      if (!_disablePlatformOverride) {
+        if (!kIsWeb && Platform.isLinux) {
+          __platform = ShareLinux();
+        } else if (Platform.isWindows) {
+          __platform = ShareWindows();
+        }
+      }
+      __platform ??= SharePlatform.instance;
+    }
     return __platform;
   }
 
