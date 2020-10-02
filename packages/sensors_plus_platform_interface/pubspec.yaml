@@ -1,0 +1,21 @@
+name: sensors_plus_platform_interface
+description: A common platform interface for the sensors_plus plugin.
+homepage: https://github.com/fluttercommunity/sensors_plus/sensors_plus_platform_interface
+version: 1.0.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.1.8
+  plugin_platform_interface: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^4.1.1
+  pedantic: ^1.8.0
+  test: any
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.9.1+hotfix.4 <2.0.0"

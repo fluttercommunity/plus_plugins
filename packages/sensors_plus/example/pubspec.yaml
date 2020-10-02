@@ -1,0 +1,22 @@
+name: sensors_example
+description: Demonstrates how to use the sensors plugin.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sensors_plus:
+    path: ../
+
+dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+  integration_test: ^0.8.0
+  pedantic: ^1.8.0
+
+flutter:
+  uses-material-design: true
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=1.9.1+hotfix.2 <2.0.0"
+
