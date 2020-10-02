@@ -1,0 +1,17 @@
+name: Android Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Linux Android Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter doctor
+      - run: flutter pub get
+      - run: sh android_test.sh
