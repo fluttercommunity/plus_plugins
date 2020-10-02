@@ -1,0 +1,21 @@
+name: battery_plus_example
+description: Demonstrates how to use the battery_plus plugin.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  battery_plus:
+    path: ../
+
+dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+  integration_test: ^0.8.0
+  pedantic: ^1.9.0
+
+flutter:
+  uses-material-design: true
