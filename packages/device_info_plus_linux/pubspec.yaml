@@ -1,0 +1,21 @@
+name: device_info_plus_linux
+description: Linux implementation of the device_info_plus plugin
+homepage: https://github.com/fluttercommunity/device_info_plus/device_info_plus_linux
+version: 0.0.1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  device_info_plus_platform_interface:
+    path: ../device_info_plus_platform_interface
+  file: ^6.0.0-nullsafety.1
+  flutter:
+    sdk: flutter
+  meta: ^1.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.9.0
