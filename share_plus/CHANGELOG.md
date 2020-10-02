@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Add Linux support for basic share capabilities.
+
 ## 0.6.6
 
 * Transfer package to Flutter Community under new name `share_plus`.
