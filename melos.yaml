@@ -1,0 +1,28 @@
+# Name of this workspace, this is used for display purpose on the CLI
+# and on your IDEs.
+name: plus_plugins
+
+versioning:
+  # Versioning mode, currently only independent supported.
+  mode: independent
+
+# Array of globs to search for packages.
+packages:
+  - packages/**
+
+scripts:
+  # Analyze the project for Dart analysis issues.
+  #  - Requires `pub global activate tuneup`.
+  analyze: >
+    melos exec -c 1 --fail-fast -- \
+      pub global run tuneup check
+
+  # Formats the code of all packages (Java, Objective-C, and Dart).
+  #  - Requires `flutter_plugin_tools` (`pub global activate flutter_plugin_tools`).
+  #  - Requires `git`.
+  #  - Requires `clang-format` (can be installed via Brew on MacOS).
+  format: pub global run flutter_plugin_tools format
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"
