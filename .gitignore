@@ -11,7 +11,7 @@ flutter_export_environment.sh
 
 examples/all_plugins/pubspec.yaml
 
-Podfile     
+Podfile
 Podfile.lock
 Pods/
 .symlinks/
@@ -34,8 +34,8 @@ gradle-wrapper.jar
 .flutter-plugins-dependencies
 *.iml
 
-GeneratedPluginRegistrant.h
 generated_plugin_registrant.dart
+GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.java
 GeneratedPluginRegistrant.swift
