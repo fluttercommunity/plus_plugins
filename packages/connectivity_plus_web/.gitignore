@@ -44,7 +44,6 @@ build/
 .project
 .classpath
 .settings
-src
 
 .DS_Store
 .dart_tool/
