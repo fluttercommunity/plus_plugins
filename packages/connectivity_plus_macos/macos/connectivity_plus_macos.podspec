@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'connectivity_macos'
+  s.name             = 'connectivity_plus_macos'
   s.version          = '0.0.1'
   s.summary          = 'Flutter plugin for checking connectivity'
   s.description      = <<-DESC
