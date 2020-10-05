@@ -22,7 +22,8 @@ assignees: ''
 ## System info
 
 Issue occurs on: iOS / Android / both
-Plugin version: xxx
+Plugin name:
+Plugin version:
 Flutter doctor output:
 
 ```
