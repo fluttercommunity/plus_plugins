@@ -27,10 +27,14 @@ xcuserdata/
 
 local.properties
 keystore.properties
-.gradle
+.gradle/
+gradlew
+gradlew.bat
+gradle-wrapper.jar
 .flutter-plugins-dependencies
 *.iml
 
+generated_plugin_registrant.dart
 GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.java
@@ -41,4 +45,3 @@ build/
 .project
 .classpath
 .settings
-src
