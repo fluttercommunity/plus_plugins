@@ -3,9 +3,13 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
+import 'package:connectivity_plus_platform_interface/src/method_channel_connectivity.dart';
+import 'package:connectivity_plus_linux/connectivity_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
@@ -30,7 +34,25 @@ class Connectivity {
 
   static Connectivity _singleton;
 
-  static ConnectivityPlatform get _platform => ConnectivityPlatform.instance;
+  static bool _manualDartRegistrationNeeded = true;
+
+  // This is to manually endorse Dart implementations until automatic
+  // registration of Dart plugins is implemented. For details see
+  // https://github.com/flutter/flutter/issues/52267.
+  static ConnectivityPlatform get _platform {
+    if (_manualDartRegistrationNeeded) {
+      // Only do the initial registration if it hasn't already been overridden
+      // with a non-default instance.
+      if (!kIsWeb &&
+          ConnectivityPlatform.instance is MethodChannelConnectivity) {
+        if (Platform.isLinux) {
+          ConnectivityPlatform.instance = ConnectivityLinux();
+        }
+      }
+      _manualDartRegistrationNeeded = false;
+    }
+    return ConnectivityPlatform.instance;
+  }
 
   /// Fires whenever the connectivity state changes.
   Stream<ConnectivityResult> get onConnectivityChanged {
