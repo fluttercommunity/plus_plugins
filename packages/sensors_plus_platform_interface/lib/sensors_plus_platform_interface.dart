@@ -15,6 +15,7 @@ export 'src/accelerometer_event.dart';
 export 'src/gyroscope_event.dart';
 export 'src/user_accelerometer_event.dart';
 
+/// The common platform interface for sensors.
 abstract class SensorsPlatform extends PlatformInterface {
   /// Constructs a SensorsPlatform.
   SensorsPlatform() : super(token: _token);

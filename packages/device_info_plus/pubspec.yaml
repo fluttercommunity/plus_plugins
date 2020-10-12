@@ -20,12 +20,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus_platform_interface: 
-    path: ../device_info_plus_platform_interface
-  device_info_plus_linux:
-    path: ../device_info_plus_linux
-  device_info_plus_web:
-    path: ../device_info_plus_web
+  device_info_plus_platform_interface: ^0.2.0
+  device_info_plus_linux: ^0.1.0
+  device_info_plus_web: ^0.2.0
 
 dev_dependencies:
   test: ^1.3.0

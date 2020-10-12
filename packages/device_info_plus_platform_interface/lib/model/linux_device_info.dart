@@ -8,6 +8,7 @@
 /// - https://www.freedesktop.org/software/systemd/man/os-release.html
 /// - https://www.freedesktop.org/software/systemd/man/machine-id.html
 class LinuxDeviceInfo {
+  /// Constructs a LinuxDeviceInfo.
   LinuxDeviceInfo({
     this.name,
     this.version,

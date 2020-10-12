@@ -8,7 +8,7 @@ flutter:
     platforms:
       macos:
         pluginClass: FLTPackageInfoPlugin
-        fileName: package_info_macos.dart
+        fileName: package_info_plus_macos.dart
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

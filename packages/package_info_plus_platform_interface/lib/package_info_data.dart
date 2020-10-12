@@ -1,3 +1,4 @@
+/// Package info data.
 class PackageInfoData {
   /// Constructs an instance with the given values for testing. [PackageInfoData]
   /// instances constructed this way won't actually reflect any real information

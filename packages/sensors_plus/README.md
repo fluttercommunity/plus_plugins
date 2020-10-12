@@ -28,7 +28,7 @@ Each of these is exposed through a `BroadcastStream`: `accelerometerEvents`,
 ### Example
 
 ``` dart
-import 'package:sensors_plus/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 accelerometerEvents.listen((AccelerometerEvent event) {
   print(event);

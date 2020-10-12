@@ -8,12 +8,11 @@ flutter:
     platforms:
       web:
         pluginClass: PackageInfoPlugin
-        fileName: package_info_web.dart
+        fileName: package_info_plus_web.dart
 
 dependencies:
-  http: any
-  package_info_plus_platform_interface:
-    path: ../package_info_plus_platform_interface
+  http: ^0.12.0
+  package_info_plus_platform_interface: ^0.1.0
   platform_detect: ^1.4.0
   flutter:
     sdk: flutter

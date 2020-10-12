@@ -4,7 +4,6 @@
 
 package io.flutter.plugins.androidalarmmanager;
 
-import static androidx.test.espresso.Espresso.pressBackUnconditionally;
 import static androidx.test.espresso.flutter.EspressoFlutter.onFlutterWidget;
 import static androidx.test.espresso.flutter.action.FlutterActions.click;
 import static androidx.test.espresso.flutter.matcher.FlutterMatchers.withValueKey;
@@ -13,14 +12,11 @@ import static org.junit.Assert.assertEquals;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import androidx.test.InstrumentationRegistry;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
-
 import com.example.example.MainActivity;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,7 +46,7 @@ public class BackgroundExecutionTest {
 
   @Test
   public void startBackgroundIsolate() throws Exception {
-    Log.d("BackgroundExecutionTest","Started");
+    Log.d("BackgroundExecutionTest", "Started");
 
     // Register a one shot alarm which will go off in ~5 seconds.
     onFlutterWidget(withValueKey("RegisterOneShotAlarm")).perform(click());
@@ -71,9 +67,9 @@ public class BackgroundExecutionTest {
     while ((prefs.getLong(COUNT_KEY, -1) == 0) && (tries < 200)) {
       Thread.sleep(100);
       ++tries;
-      Log.d("BackgroundExecutionTest","Waiting...");
+      Log.d("BackgroundExecutionTest", "Waiting...");
     }
     assertEquals(prefs.getLong(COUNT_KEY, -1), 1);
-    Log.d("BackgroundExecutionTest","Finished");
+    Log.d("BackgroundExecutionTest", "Finished");
   }
 }

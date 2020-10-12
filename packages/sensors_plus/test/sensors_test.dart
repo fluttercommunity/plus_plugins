@@ -6,7 +6,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
-import 'package:sensors_plus/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -60,7 +60,8 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
     );
   }
 
-  ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(channelName, (ByteData message) async {
+  ServicesBinding.instance.defaultBinaryMessenger
+      .setMockMessageHandler(channelName, (ByteData message) async {
     final MethodCall methodCall = standardMethod.decodeMethodCall(message);
     if (methodCall.method == 'listen') {
       _emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));

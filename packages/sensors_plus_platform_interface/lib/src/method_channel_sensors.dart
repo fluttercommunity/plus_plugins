@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
+/// A method channel -based implementation of the SensorsPlatform interface.
 class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _accelerometerEventChannel =
       EventChannel('plugins.flutter.io/sensors/accelerometer');
