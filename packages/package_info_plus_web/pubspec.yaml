@@ -8,7 +8,7 @@ flutter:
     platforms:
       web:
         pluginClass: PackageInfoPlugin
-        fileName: package_info_web.dart
+        fileName: package_info_plus_web.dart
 
 dependencies:
   http: any
