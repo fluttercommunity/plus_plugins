@@ -8,7 +8,7 @@ flutter:
     platforms:
       web:
         pluginClass: BatteryPlugin
-        fileName: battery_web.dart
+        fileName: battery_plus_web.dart
 
 dependencies:
   battery_plus_platform_interface: ^0.1.0
