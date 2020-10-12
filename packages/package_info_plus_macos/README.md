@@ -1,34 +1,12 @@
-# package_info_plus_macos
+# Package Info Plus macOS
 
-The macos implementation of [`package_info_plus`][1].
+[![Flutter Community: package_info_plus_macos](https://fluttercommunity.dev/_github/header/package_info_plus_macos)](https://github.com/fluttercommunity/community)
+
+[![pub package](https://img.shields.io/pub/v/package_info_plus_macos.svg)](https://pub.dev/packages/package_info_plus_macos)
+
+The macOS implementation of [`package_info_plus`](https://pub.dev/packages/package_info_plus).
 
 ## Usage
 
-### Import the package
-
-This package has been endorsed, meaning that you only need to add `package_info_plus`
-as a dependency in your `pubspec.yaml`. It will be automatically included in your app
-when you depend on `package:package_info_plus`.
-
-This is what the above means to your `pubspec.yaml`:
-
-```yaml
-...
-dependencies:
-  ...
-  package_info_plus: ^0.4.5
-  ...
-```
-
-If you wish to use the macos package only, you can add  `package_info_plus_macos` as a
-dependency:
-
-```yaml
-...
-dependencies:
-  ...
-  package_info_plus_macos: ^0.0.1
-  ...
-```
-
-[1]: ../package_info_plus/package_info_plus
+This package is already included as part of the `package_info_plus` package dependency, and will
+be included when using `package_info_plus` as normal.
