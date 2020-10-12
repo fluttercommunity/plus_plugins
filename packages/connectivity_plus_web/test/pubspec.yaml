@@ -1,5 +1,5 @@
-name: connectivity_web_example
-description: Example web app for the connectivity_plus plugin
+name: connectivity_web_test
+description: Test web app for the connectivity_plus plugin
 homepage: https://github.com/fluttercommunity/connectivity_plus/connectivity_web
 
 dependencies:
