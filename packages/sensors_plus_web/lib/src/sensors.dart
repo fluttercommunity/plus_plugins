@@ -19,7 +19,7 @@ class SensorsPlugin extends SensorsPlatform {
     String apiName,
     String premissionName,
     Function onError,
-  })  {
+  }) {
     try {
       initSensor();
     } catch (error) {

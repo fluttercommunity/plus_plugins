@@ -66,7 +66,8 @@ void main() {
       final alarmId = 0;
       final startingValue = await readCounter();
       debugPrint('oneShot start');
-      await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter);
+      await AndroidAlarmManager.oneShot(
+          const Duration(seconds: 1), alarmId, incrementCounter);
       debugPrint('oneShot end');
       debugPrint('Canceling alarm...');
       expect(await AndroidAlarmManager.cancel(alarmId), isTrue);
@@ -80,7 +81,8 @@ void main() {
       final alarmId = 1;
       final startingValue = await readCounter();
       debugPrint('oneShot start');
-      await AndroidAlarmManager.oneShot(const Duration(seconds: 1), alarmId, incrementCounter,
+      await AndroidAlarmManager.oneShot(
+          const Duration(seconds: 1), alarmId, incrementCounter,
           exact: true, wakeup: true);
       debugPrint('oneShot end');
       await Future<void>.delayed(const Duration(seconds: 2));
@@ -100,7 +102,8 @@ void main() {
   testWidgets('periodic', (WidgetTester tester) async {
     final alarmId = 2;
     final startingValue = await readCounter();
-    await AndroidAlarmManager.periodic(const Duration(seconds: 1), alarmId, incrementCounter,
+    await AndroidAlarmManager.periodic(
+        const Duration(seconds: 1), alarmId, incrementCounter,
         wakeup: true, exact: true);
     // poll until file is updated
     while (await readCounter() < startingValue + 2) {

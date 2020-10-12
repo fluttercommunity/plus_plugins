@@ -9,7 +9,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:package_info_example/main.dart';
 import 'package:universal_io/io.dart';
 
-
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -33,9 +32,9 @@ void main() {
       expect(info.version, '1.0.0');
     } else if (kIsWeb) {
       expect(info.appName, 'package_info_example');
-      expect(info.buildNumber,null);
+      expect(info.buildNumber, null);
       expect(info.packageName, null);
-      expect(info.version,null);
+      expect(info.version, null);
     } else {
       throw (UnsupportedError('platform not supported'));
     }
@@ -62,12 +61,10 @@ void main() {
       expect(
           find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
       expect(find.text('1.0.0'), findsOneWidget);
-    } else if(kIsWeb)
-      {
-        expect(find.text('package_info_example'), findsOneWidget);
-        expect(find.text('Not set'),findsNWidgets(3));
-      }
-    else {
+    } else if (kIsWeb) {
+      expect(find.text('package_info_example'), findsOneWidget);
+      expect(find.text('Not set'), findsNWidgets(3));
+    } else {
       throw (UnsupportedError('platform not supported'));
     }
   });

@@ -1,6 +1,5 @@
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
-
 class Sensors extends SensorsPlatform {
   /// Constructs a singleton instance of [Sensors].
   ///

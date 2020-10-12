@@ -60,7 +60,8 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
     );
   }
 
-  ServicesBinding.instance.defaultBinaryMessenger.setMockMessageHandler(channelName, (ByteData message) async {
+  ServicesBinding.instance.defaultBinaryMessenger
+      .setMockMessageHandler(channelName, (ByteData message) async {
     final MethodCall methodCall = standardMethod.decodeMethodCall(message);
     if (methodCall.method == 'listen') {
       _emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));

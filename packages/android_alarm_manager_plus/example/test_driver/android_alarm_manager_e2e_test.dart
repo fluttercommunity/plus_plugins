@@ -22,7 +22,7 @@ Future<StreamSubscription<VMIsolateRef>> resumeIsolatesOnPause(
   return driver.serviceClient.onIsolateRunnable
       .asBroadcastStream()
       .listen((VMIsolateRef isolateRef) async {
-        print('onIsolateRunnable');
+    print('onIsolateRunnable');
     final isolate = await isolateRef.load();
     if (isolate.isPaused) {
       print('isolate.resume');

@@ -81,7 +81,8 @@ class SnakeState extends State<Snake> {
   @override
   void initState() {
     super.initState();
-    _streamSubscription = accelerometerEvents.listen((AccelerometerEvent event) {
+    _streamSubscription =
+        accelerometerEvents.listen((AccelerometerEvent event) {
       setState(() {
         acceleration = event;
       });
