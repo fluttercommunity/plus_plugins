@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Transfer to plus-plugins monorepo
+
 ## 0.4.5
 
 * package_info_plus now supports web platform and now uses package_info_platform_interface.

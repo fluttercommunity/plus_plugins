@@ -1,7 +1,7 @@
 name: device_info_plus_linux
 description: Linux implementation of the device_info_plus plugin
-homepage: https://github.com/fluttercommunity/device_info_plus/device_info_plus_linux
-version: 0.0.1
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus_linux
+version: 0.1.0
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

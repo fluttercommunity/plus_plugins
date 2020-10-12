@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   No-op implementation of the connectivity plugin to avoid build issues on macos.
   https://github.com/flutter/flutter/issues/46618
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins/tree/master/packages/connectivity'
+  s.homepage         = 'https://github.com/flutter/plugins/tree/main/packages/connectivity'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Team' => 'flutter-dev@googlegroups.com' }
   s.source           = { :path => '.' }

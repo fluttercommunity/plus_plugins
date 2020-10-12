@@ -2,9 +2,6 @@
 
 # android_alarm_manager_plus
 
-[![pub package](https://img.shields.io/pub/v/android_alarm_manager_plus.svg)](https://pub.dev/packages/android_alarm_manager_plus)
-[![Flutter Unit Tests](https://github.com/fluttercommunity/android_alarm_manager_plus/workflows/Flutter%20Unit%20Tests/badge.svg)](https://github.com/fluttercommunity/android_alarm_manager_plus/actions)
-
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
 
@@ -86,7 +83,7 @@ to the latest Flutter version.**
 For the Flutter Android Embedding V1, the background service must be provided a
 callback to register plugins with the background isolate. This is done by giving
 the `AlarmService` a callback to call the application's `onCreate` method. See the example's
-[Application overrides](https://github.com/fluttercommunity/android_alarm_manager_plus/example/android/app/src/main/java/io/flutter/plugins/androidalarmmanagerexample/Application.java).
+[Application overrides](https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus/example/android/app/src/main/java/io/flutter/plugins/androidalarmmanagerexample/Application.java).
 
 In particular, its `Application` class is as follows:
 
