@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  share_plus_platform_interface: ^1.0.0
+  share_plus_platform_interface: ^1.1.0
   flutter:
     sdk: flutter
   meta: ^1.2.3
