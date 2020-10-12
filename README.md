@@ -43,7 +43,7 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
 
 > ![battery_plus][battery_plus_badge_pub] [![pub points][battery_plus_badge_pub_points]][battery_plus_pub_points]
 
-TBD
+Flutter plugin for accessing information about the battery state(full, charging, discharging) on Android and iOS.
 
 [[View Source][battery_plus_code]]
 
@@ -59,7 +59,8 @@ TBD
 
 > ![connectivity_plus][connectivity_plus_badge_pub] [![pub points][connectivity_plus_badge_pub_points]][connectivity_plus_pub_points]
 
-TBD
+Flutter plugin for discovering the state of the network (WiFi &
+mobile/cellular) connectivity on Android and iOS.
 
 [[View Source][connectivity_plus_code]]
 
@@ -91,7 +92,8 @@ TBD
 
 > ![device_info_plus][device_info_plus_badge_pub] [![pub points][device_info_plus_badge_pub_points]][device_info_plus_pub_points]
 
-TBD 
+Flutter plugin providing detailed information about the device
+  (make, model, etc.), and Android or iOS version the app is running on.
 
 [[View Source][device_info_plus_code]]
 
@@ -107,7 +109,8 @@ TBD
 
 > ![package_info_plus][package_info_plus_badge_pub] [![pub points][package_info_plus_badge_pub_points]][package_info_plus_pub_points]
 
-TBD
+Flutter plugin for querying information about the application
+  package, such as CFBundleVersion on iOS or versionCode on Android.
 
 [[View Source][package_info_plus_code]]
 
@@ -123,7 +126,7 @@ TBD
 
 > ![sensor_plus][sensor_plus_badge_pub] [![pub points][sensor_plus_badge_pub_points]][sensor_plus_pub_points]
 
-TBD
+Flutter plugin for accessing accelerometer and gyroscope sensors.
 
 [[View Source][sensor_plus_code]]
 
@@ -139,7 +142,7 @@ TBD
 
 > ![share_plus][share_plus_badge_pub] [![pub points][share_plus_badge_pub_points]][share_plus_pub_points]
 
-TBD
+Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
 
 [[View Source][share_plus_code]]
 
@@ -155,7 +158,7 @@ TBD
 
 > ![android_alarm_manager_plus][android_alarm_manager_plus_badge_pub] [![pub points][android_alarm_manager_plus_badge_pub_points]][android_alarm_manager_plus_pub_points]
 
-TBD
+Flutter plugin for accessing the Android AlarmManager service, and running Dart code in the background when alarms fire.
 
 [[View Source][android_alarm_manager_plus_code]]
 
@@ -171,7 +174,7 @@ TBD
 
 > ![android_intent_plus][android_intent_plus_badge_pub] [![pub points][android_intent_plus_badge_pub_points]][android_intent_plus_pub_points]
 
-TBD
+Flutter plugin for launching Android Intents. Not supported on iOS.
 
 [[View Source][android_intent_plus_code]]
 
