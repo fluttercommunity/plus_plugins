@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "melos:bootstrap",
+      "type": "shell",
+      "command": "melos bootstrap",
+      "detail": "Bootstrap this current workspace and link all packages together",
+      "problemMatcher": []
+    },
+    {
+      "label": "melos:clean",
+      "type": "shell",
+      "command": "melos clean",
+      "detail": "Clean the current workspace and all build & temporary pub files",
+      "problemMatcher": []
+    },
+    {
+      "label": "melos:run",
+      "type": "shell",
+      "command": "melos run",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "detail": "Select a script defined in melos.yaml to run",
+      "problemMatcher": []
+    },
+    {
+      "label": "format",
+      "type": "shell",
+      "command": "melos run format",
+      "detail": "Format all .dart, .h, .m & .java files in the project",
+      "problemMatcher": []
+    },
+    {
+      "label": "chromedriver",
+      "isBackground": true,
+      "type": "shell",
+      "command": "chromedriver --port=4444",
+      "detail": "Start a background chromedriver instance port on 4444",
+      "problemMatcher": []
+    }
+  ]
+}
