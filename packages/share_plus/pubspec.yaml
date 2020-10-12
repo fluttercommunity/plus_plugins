@@ -14,6 +14,8 @@ flutter:
         pluginClass: FLTSharePlugin
       linux:
         default_package: share_plus_linux
+      windows:
+        default_package: share_plus_windows
 
 dependencies:
   meta: ^1.0.5
@@ -22,6 +24,7 @@ dependencies:
     sdk: flutter
   share_plus_platform_interface: ^1.0.0
   share_plus_linux: ^1.0.0
+  share_plus_windows: ^1.0.0
 
 dev_dependencies:
   test: ^1.3.0
