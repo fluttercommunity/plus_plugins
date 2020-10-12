@@ -1,4 +1,4 @@
-## 0.8.0
+## 1.1.0
 
 - Transfer to plus-plugins monorepo
 
