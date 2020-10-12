@@ -5,8 +5,8 @@ import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
-import 'package:sensors_plus_web/src/utils.dart';
 
+/// The sensors plugin.
 class SensorsPlugin extends SensorsPlatform {
   /// Factory method that initializes the Battery plugin platform with an instance
   /// of the plugin for the web.
