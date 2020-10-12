@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class Snake extends StatefulWidget {
   Snake({this.rows = 20, this.columns = 20, this.cellSize = 10.0}) {
