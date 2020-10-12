@@ -4,7 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:android_alarm_manager_plus/android_alarm_manager.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:e2e/e2e.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';

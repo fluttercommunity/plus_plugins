@@ -4,7 +4,7 @@
 
 import 'dart:ui';
 
-import 'package:android_alarm_manager_plus/android_alarm_manager.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
