@@ -8,7 +8,7 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  e2e: "^0.2.1"
+  e2e: ^0.3.0
   flutter_driver:
     sdk: flutter
   pedantic: ^1.8.0

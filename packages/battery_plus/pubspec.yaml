@@ -29,7 +29,7 @@ dev_dependencies:
   mockito: 3.0.0
   flutter_test:
     sdk: flutter
-  integration_test: ^0.8.0
+  integration_test: ^0.9.1
   plugin_platform_interface: ^1.0.0
   pedantic: ^1.9.0
 
