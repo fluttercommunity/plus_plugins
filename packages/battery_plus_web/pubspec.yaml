@@ -11,8 +11,7 @@ flutter:
         fileName: battery_web.dart
 
 dependencies:
-  battery_plus_platform_interface:
-    path: ../battery_plus_platform_interface
+  battery_plus_platform_interface: ^0.1.0
   flutter_web_plugins:
     sdk: flutter
   flutter:

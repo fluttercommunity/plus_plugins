@@ -14,8 +14,7 @@ environment:
   flutter: ">=1.10.0 <2.0.0"
 
 dependencies:
-  connectivity_plus_platform_interface:
-    path: ../connectivity_plus_platform_interface
+  connectivity_plus_platform_interface: ^0.2.0
   flutter:
     sdk: flutter
 

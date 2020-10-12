@@ -11,8 +11,7 @@ flutter:
         fileName: device_info_plus_web.dart
 
 dependencies:
-  device_info_plus_platform_interface:
-    path: ../device_info_plus_platform_interface
+  device_info_plus_platform_interface: ^0.2.0
   flutter_web_plugins:
     sdk: flutter
   flutter:
