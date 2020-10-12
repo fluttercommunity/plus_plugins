@@ -1,10 +1,7 @@
 name: connectivity_plus_macos
 description: macOS implementation of the connectivity_plus plugin.
-# 0.1.y+z is compatible with 1.0.0, if you land a breaking change bump
-# the version to 2.0.0.
-# See more details: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
-version: 0.1.0+6
-homepage: https://github.com/fluttercommunity/connectivity_plus_macos
+version: 0.2.0
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus_macos
 
 flutter:
   plugin:

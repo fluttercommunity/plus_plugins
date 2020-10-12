@@ -1,3 +1,7 @@
-## 1.0.0
+## 0.2.0
 
-* Initial release.
+- Transfer to plus-plugins monorepo
+
+## 0.1.0
+
+- Initial release.

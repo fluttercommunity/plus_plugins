@@ -1,3 +1,7 @@
-## [1.0.0] - TODO: Add release date.
+## 0.1.0
 
-* Initial Windows support.
+- Transfer to plus-plugins monorepo
+
+## 0.0.1
+
+- Initial Windows support.

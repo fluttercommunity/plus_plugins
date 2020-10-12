@@ -1,9 +1,7 @@
 name: connectivity_plus_platform_interface
 description: A common platform interface for the connectivity_plus plugin.
-homepage: https://github.com/fluttercommunity/connectivity_plus_platform_interface
-# NOTE: We strongly prefer non-breaking changes, even at the expense of a
-# less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
-version: 1.0.7
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus_platform_interface
+version: 0.2.0
 
 dependencies:
   flutter:

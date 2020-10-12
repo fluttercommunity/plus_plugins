@@ -33,7 +33,7 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
  - [NetworkInfo➕ (`network_plus`)](#network_plus)
  - [Device Info➕ (`device_info_plus`)](#device_info_plus)
  - [Package Info➕ (`package_info_plus`)](#package_info_plus)
- - [Sensor➕ (`sensor_plus`)](#sensor_plus)
+ - [Sensor➕ (`sensors_plus`)](#sensors_plus)
  - [Share➕ (`share_plus`)](#share_plus)
  - [Android Alarm Manager➕ (`android_alarm_manager_plus`)](#android_alarm_manager_plus)
  - [Android Intent➕ (`android_intent_plus`)](#android_intent_plus)
@@ -76,7 +76,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 > ![network_plus][network_plus_badge_pub] [![pub points][network_plus_badge_pub_points]][network_plus_pub_points]
 
-TBD
+TBA
 
 [[View Source][network_plus_code]]
 
@@ -122,13 +122,13 @@ Flutter plugin for querying information about the application
 
 ----
 
-### `sensor_plus`
+### `sensors_plus`
 
-> ![sensor_plus][sensor_plus_badge_pub] [![pub points][sensor_plus_badge_pub_points]][sensor_plus_pub_points]
+> ![sensors_plus][sensors_plus_badge_pub] [![pub points][sensors_plus_badge_pub_points]][sensors_plus_pub_points]
 
 Flutter plugin for accessing accelerometer and gyroscope sensors.
 
-[[View Source][sensor_plus_code]]
+[[View Source][sensors_plus_code]]
 
 #### Platform Support
 
@@ -205,55 +205,55 @@ and open a [pull request](https://github.com/fluttercommunity/plus_plugins/pulls
 This repository is maintained by FlutterCommunity authors. Issues here are answered by maintainers and other community members on GitHub on a best-effort basis.
 
 [battery_plus]: https://pub.dev/packages/battery_plus
-[battery_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/battery_plus
+[battery_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus
 [battery_plus_pub_points]: https://pub.dev/packages/battery_plus/score
 [battery_plus_badge_pub_points]: https://badges.bar/battery_plus/pub%20points
 [battery_plus_badge_pub]: https://img.shields.io/pub/v/battery_plus.svg
 
 [connectivity_plus]: https://pub.dev/packages/connectivity_plus
-[connectivity_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/connectivity_plus
+[connectivity_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus
 [connectivity_plus_pub_points]: https://pub.dev/packages/connectivity_plus/score
 [connectivity_plus_badge_pub_points]: https://badges.bar/connectivity_plus/pub%20points
 [connectivity_plus_badge_pub]: https://img.shields.io/pub/v/connectivity_plus.svg
 
 [network_plus]: https://pub.dev/packages/network_plus
-[network_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/network_plus
+[network_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_plus
 [network_plus_pub_points]: https://pub.dev/packages/network_plus/score
 [network_plus_badge_pub_points]: https://badges.bar/network_plus/pub%20points
 [network_plus_badge_pub]: https://img.shields.io/pub/v/network_plus.svg
 
 [android_alarm_manager_plus]: https://pub.dev/packages/android_alarm_manager_plus
-[android_alarm_manager_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/android_alarm_manager_plus
+[android_alarm_manager_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus
 [android_alarm_manager_plus_pub_points]: https://pub.dev/packages/android_alarm_manager_plus/score
 [android_alarm_manager_plus_badge_pub_points]: https://badges.bar/android_alarm_manager_plus/pub%20points
 [android_alarm_manager_plus_badge_pub]: https://img.shields.io/pub/v/android_alarm_manager_plus.svg
 
 [android_intent_plus]: https://pub.dev/packages/android_intent_plus
-[android_intent_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/android_intent_plus
+[android_intent_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_intent_plus
 [android_intent_plus_pub_points]: https://pub.dev/packages/android_intent_plus/score
 [android_intent_plus_badge_pub_points]: https://badges.bar/android_intent_plus/pub%20points
 [android_intent_plus_badge_pub]: https://img.shields.io/pub/v/android_intent_plus.svg
 
 [device_info_plus]: https://pub.dev/packages/device_info_plus
-[device_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/device_info_plus
+[device_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus
 [device_info_plus_pub_points]: https://pub.dev/packages/device_info_plus/score
 [device_info_plus_badge_pub_points]: https://badges.bar/device_info_plus/pub%20points
 [device_info_plus_badge_pub]: https://img.shields.io/pub/v/device_info_plus.svg
 
 [package_info_plus]: https://pub.dev/packages/package_info_plus
-[package_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/package_info_plus
+[package_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
 [package_info_plus_pub_points]: https://pub.dev/packages/package_info_plus/score
 [package_info_plus_badge_pub_points]: https://badges.bar/package_info_plus/pub%20points
 [package_info_plus_badge_pub]: https://img.shields.io/pub/v/package_info_plus.svg
 
-[sensor_plus]: https://pub.dev/packages/sensor_plus
-[sensor_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/sensor_plus
-[sensor_plus_pub_points]: https://pub.dev/packages/sensor_plus/score
-[sensor_plus_badge_pub_points]: https://badges.bar/sensor_plus/pub%20points
-[sensor_plus_badge_pub]: https://img.shields.io/pub/v/sensor_plus.svg
+[sensors_plus]: https://pub.dev/packages/sensors_plus
+[sensors_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus
+[sensors_plus_pub_points]: https://pub.dev/packages/sensors_plus/score
+[sensors_plus_badge_pub_points]: https://badges.bar/sensors_plus/pub%20points
+[sensors_plus_badge_pub]: https://img.shields.io/pub/v/sensors_plus.svg
 
 [share_plus]: https://pub.dev/packages/share_plus
-[share_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/master/packages/share_plus
+[share_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus
 [share_plus_pub_points]: https://pub.dev/packages/share_plus/score
 [share_plus_badge_pub_points]: https://badges.bar/share_plus/pub%20points
 [share_plus_badge_pub]: https://img.shields.io/pub/v/share_plus.svg

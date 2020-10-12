@@ -1,10 +1,7 @@
 name: package_info_plus_web
 description: Web platform implementation of package_info_plus
-homepage: https://github.com/fluttercommunity/package_info_plus/tree/feature/package_info_plus_web/package_info_plus_web
-# 0.1.y+z is compatible with 1.0.0, if you land a breaking change bump
-# the version to 2.0.0.
-# See more details: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
-version: 0.0.1
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus_web
+version: 0.1.0
 
 flutter:
   plugin:

@@ -1,9 +1,7 @@
 name: device_info_plus_platform_interface
 description: A common platform interface for the device_info_plis plugin.
-homepage: https://github.com/fluttercommunity/device_info_plus/device_info_plus_platform_interface
-# NOTE: We strongly prefer non-breaking changes, even at the expense of a
-# less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
-version: 1.0.1
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus_platform_interface
+version: 0.2.0
 
 dependencies:
   flutter:

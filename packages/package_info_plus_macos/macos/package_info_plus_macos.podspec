@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
   A macOS implementation of the package_info_plus plugin.
                        DESC
-  s.homepage         = 'https://github.com/fluttercommunity/package_info_plus/tree/master/package_info_plus/package_info_plus_macos'
+  s.homepage         = 'https://github.com/fluttercommunity/package_info_plus/tree/main/package_info_plus/package_info_plus_macos'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :path => '.' }
