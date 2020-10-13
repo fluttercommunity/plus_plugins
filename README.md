@@ -20,7 +20,7 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
 
 [Flutter](https://flutter.dev) is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase. Flutter is used by developers and organizations around the world, and is free and open source.
 
-> *Note*: PlusPlugins is still under development (see [roadmap](https://github.com/fluttercommunity/plus_plugins/issues/2582)),
+> *Note*: PlusPlugins is still under development (see [roadmap](https://github.com/fluttercommunity/plus_plugins/issues/12)),
 
 [Feedback](https://github.com/fluttercommunity/plus_plugins/issues) and [Pull Requests](https://github.com/fluttercommunity/plus_plugins/pulls) are most welcome!
 
