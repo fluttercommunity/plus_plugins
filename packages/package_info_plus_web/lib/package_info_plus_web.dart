@@ -24,15 +24,10 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     if (response.statusCode == 200) {
       try {
         final versionMap = jsonDecode(response.body);
-        final map = {
-          "appName": versionMap['app_name'],
-          "version": versionMap['version'],
-          "buildNumber": versionMap['build_number']
-        };
         return PackageInfoData(
-          appName: map['appName'],
-          version: map['version'],
-          buildNumber: map['buildNumber'],
+          appName: versionMap['app_name'],
+          version: versionMap['version'],
+          buildNumber: versionMap['build_number'],
         );
       } catch (e) {
         return PackageInfoData();
