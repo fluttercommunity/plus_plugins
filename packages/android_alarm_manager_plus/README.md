@@ -150,6 +150,6 @@ flutter driver test_driver/android_alarm_manager_e2e.dart
 ## Need more help?
 
 For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+[documentation](https://flutter.io/).
 
 For help on editing plugin code, view the [documentation](https://flutter.io/platform-plugins/#edit-code).
