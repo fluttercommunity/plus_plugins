@@ -2,6 +2,7 @@ import 'dart:html' as html;
 import 'dart:ui';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:meta/meta.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,7 +13,11 @@ class SharePlugin extends SharePlatform {
     SharePlatform.instance = SharePlatform();
   }
 
-  final _navigator = html.window.navigator;
+  final _navigator;
+
+  /// A constructor that allows tests to override the window object used by the plugin.
+  SharePlugin({@visibleForTesting html.Navigator debugNavigator})
+      : _navigator = debugNavigator ?? html.window.navigator;
 
   Future<void> share(
     String text, {
