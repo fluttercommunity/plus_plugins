@@ -11,7 +11,7 @@ flutter:
     platforms:
       web:
         pluginClass: SharePlugin
-        fileName: url_launcher_web.dart
+        fileName: share_plus_web.dart
 
 dependencies:
   share_plus_platform_interface: ^1.1.0

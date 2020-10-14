@@ -5,8 +5,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  share_plus_web:
-    path: ../
+
   flutter:
     sdk: flutter
 
@@ -15,7 +14,8 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
+  share_plus_web:
+    path: ../
   http: ^0.12.2
   mockito: ^4.1.1
-
   integration_test: any
