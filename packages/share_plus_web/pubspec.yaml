@@ -1,0 +1,33 @@
+name: share_plus_web
+description: Web platform implementation of share_plus
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus_web
+# 0.1.y+z is compatible with 1.0.0, if you land a breaking change bump
+# the version to 2.0.0.
+# See more details: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
+version: 0.0.1
+
+flutter:
+  plugin:
+    platforms:
+      web:
+        pluginClass: SharePlugin
+        fileName: url_launcher_web.dart
+
+dependencies:
+  share_plus_platform_interface: ^1.1.0
+  url_launcher: ^5.2.5
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  meta: ^1.1.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.8.0
+  mockito: ^4.1.1
+
+environment:
+  sdk: ">=2.2.0 <3.0.0"
+  flutter: ">=1.10.0 <2.0.0"
