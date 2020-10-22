@@ -8,7 +8,7 @@ import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.
 
 /// The sensors plugin.
 class SensorsPlugin extends SensorsPlatform {
-  /// Factory method that initializes the Battery plugin platform with an instance
+  /// Factory method that initializes the Sensors plugin platform with an instance
   /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
     SensorsPlatform.instance = SensorsPlugin();
