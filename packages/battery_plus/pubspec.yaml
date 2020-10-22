@@ -11,6 +11,8 @@ flutter:
         pluginClass: BatteryPlugin
       ios:
         pluginClass: FLTBatteryPlugin
+      macos:
+        pluginClass: BatteryPlusMacosPlugin
       web:
         default_package: battery_plus_web
 
@@ -22,6 +24,8 @@ dependencies:
     path: ../battery_plus_platform_interface
   battery_plus_web:
     path: ../battery_plus_web
+  battery_plus_macos:
+    path: ../battery_plus_macos
 
 dev_dependencies:
   async: ^2.0.8
