@@ -1,6 +1,6 @@
 name: sensors_plus_web
 description: The web implementation of sensors_plus
-version: 0.1.0+1
+version: 0.1.0
 homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus_web
 
 environment:
