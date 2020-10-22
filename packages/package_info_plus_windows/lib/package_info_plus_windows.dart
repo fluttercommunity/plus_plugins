@@ -18,13 +18,19 @@ class PackageInfoWindows extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() {
     final info = _FileVersionInfo(Platform.resolvedExecutable);
+    final versions = info.productVersion.split('+');
     final data = PackageInfoData(
       appName: info.productName,
       packageName: info.internalName,
-      version: info.productVersion,
-      buildNumber: info.fileVersion,
+      version: versions.getOrNull(0),
+      buildNumber: versions.getOrNull(1),
     );
     info.dispose();
     return Future.value(data);
   }
+}
+
+extension _GetOrNull<T> on List<T> {
+  T getOrNull(int index) => _checkIndex(index) ? this[index] : null;
+  bool _checkIndex(int index) => index >= 0 && index < length;
 }
