@@ -30,7 +30,7 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
 
  - [Battery➕ (`battery_plus`)](#battery_plus)
  - [Connectivity➕ (`connectivity_plus`)](#connectivity_plus)
- - [NetworkInfo➕ (`network_plus`)](#network_plus)
+ - [NetworkInfo➕ (`network_info_plus`)](#network_info_plus)
  - [Device Info➕ (`device_info_plus`)](#device_info_plus)
  - [Package Info➕ (`package_info_plus`)](#package_info_plus)
  - [Sensor➕ (`sensors_plus`)](#sensors_plus)
@@ -72,13 +72,13 @@ mobile/cellular) connectivity on Android and iOS.
 
 ----
 
-### `network_plus`
+### `network_info_plus`
 
-> ![network_plus][network_plus_badge_pub] [![pub points][network_plus_badge_pub_points]][network_plus_pub_points]
+> ![network_info_plus][network_info_plus_badge_pub] [![pub points][network_info_plus_badge_pub_points]][network_info_plus_pub_points]
 
 TBA
 
-[[View Source][network_plus_code]]
+[[View Source][network_info_plus_code]]
 
 #### Platform Support
 
