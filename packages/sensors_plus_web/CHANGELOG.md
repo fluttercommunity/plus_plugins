@@ -1,7 +1,3 @@
-## 0.1.0+1
-
-- Fixed typo
-
 ## 0.1.0
 
 - Transfer to plus-plugins monorepo
