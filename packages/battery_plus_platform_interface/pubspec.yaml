@@ -2,7 +2,7 @@ name: battery_plus_platform_interface
 description: A common platform interface for the battery_plus plugin.
 version: 0.1.0
 homepage: https://plus.fluttercommunity.dev/
-repository: https://github.com/fluttercommunity/plus_plugins/packages/
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
