@@ -1,15 +1,15 @@
 name: share_plus_linux
 description: Linux implementation of the share_plus plugin
-homepage: https://github.com/fluttercommunity/share_plus/share_plus_linux
-version: 1.0.0
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus_linux
+version: 1.1.0
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
   flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  share_plus_platform_interface: ^1.0.0
-  file: ^6.0.0-nullsafety.1
+  share_plus_platform_interface: ^1.1.0
+  file: '>=5.2.1 <=6.0.0-nullsafety.2'
   flutter:
     sdk: flutter
   meta: ^1.2.3

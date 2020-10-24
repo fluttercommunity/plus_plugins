@@ -1,3 +1,7 @@
-## [1.0.0] - TODO: Add release date.
+## 1.1.0
 
-* Initial Linux support.
+- Transfer to plus-plugins monorepo
+
+## 1.0.0
+
+- Initial Linux support.

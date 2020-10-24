@@ -1,15 +1,12 @@
-# battery_plus_macos
+# Battery Plus macOS
 
-A new flutter plugin project.
+[![Flutter Community: battery_plus_macos](https://fluttercommunity.dev/_github/header/battery_plus_macos)](https://github.com/fluttercommunity/community)
 
-## Getting Started
+[![pub package](https://img.shields.io/pub/v/battery_plus_macos.svg)](https://pub.dev/packages/battery_plus_macos)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+The macOS implementation of [`battery_plus`](https://pub.dev/packages/battery_plus).
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
 
+This package is already included as part of the `battery_plus` package dependency, and will
+be included when using `battery_plus` as normal.

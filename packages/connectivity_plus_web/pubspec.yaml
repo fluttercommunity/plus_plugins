@@ -1,7 +1,7 @@
 name: connectivity_plus_web
 description: An implementation for the web platform of the Flutter `connectivity_plus` plugin. This uses the NetworkInformation Web API, with a fallback to Navigator.onLine.
-version: 0.3.1+3
-homepage: https://github.com/fluttercommunity/connectivity_plus/connectivity_plus_web
+version: 0.4.0
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus_web
 
 flutter:
   plugin:
@@ -11,8 +11,7 @@ flutter:
         fileName: connectivity_plus_web.dart
 
 dependencies:
-  connectivity_plus_platform_interface:
-    path: ../connectivity_plus_platform_interface
+  connectivity_plus_platform_interface: ^0.2.0
   flutter_web_plugins:
     sdk: flutter
   flutter:
@@ -24,9 +23,9 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  integration_test: ^0.8.0
+  integration_test: ^0.9.1
   mockito: ^4.1.1
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.4"
+  flutter: '>=1.20.0'

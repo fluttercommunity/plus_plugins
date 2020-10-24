@@ -1,5 +1,12 @@
-# device_info_plus_web
+# Device Info Plus Web
 
-web implementation of [device_info_plus][1]
+[![Flutter Community: device_info_plus_web](https://fluttercommunity.dev/_github/header/device_info_plus_web)](https://github.com/fluttercommunity/community)
 
-[1]: ../
+[![pub package](https://img.shields.io/pub/v/device_info_plus_web.svg)](https://pub.dev/packages/device_info_plus_web)
+
+The Web implementation of [`device_info_plus`](https://pub.dev/packages/device_info_plus).
+
+## Usage
+
+This package is already included as part of the `device_info_plus` package dependency, and will
+be included when using `device_info_plus` as normal.

@@ -21,7 +21,8 @@ void main() {
   setUp(() {
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
-    MethodChannelShare.channel.setMockMethodCallHandler((MethodCall call) async {
+    MethodChannelShare.channel
+        .setMockMethodCallHandler((MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
     });

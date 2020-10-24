@@ -1,5 +1,6 @@
 import 'enums.dart';
 
+/// Method for parsing battery state.
 BatteryState parseBatteryState(String state) {
   switch (state) {
     case 'full':

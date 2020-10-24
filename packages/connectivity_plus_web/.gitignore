@@ -34,6 +34,7 @@ gradle-wrapper.jar
 .flutter-plugins-dependencies
 *.iml
 
+generated_plugin_registrant.dart
 GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.java
@@ -44,13 +45,3 @@ build/
 .project
 .classpath
 .settings
-src
-
-.DS_Store
-.dart_tool/
-
-.packages
-.pub/
-
-build/
-lib/generated_plugin_registrant.dart

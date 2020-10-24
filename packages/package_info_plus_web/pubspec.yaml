@@ -1,22 +1,18 @@
 name: package_info_plus_web
 description: Web platform implementation of package_info_plus
-homepage: https://github.com/fluttercommunity/package_info_plus/tree/feature/package_info_plus_web/package_info_plus_web
-# 0.1.y+z is compatible with 1.0.0, if you land a breaking change bump
-# the version to 2.0.0.
-# See more details: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0
-version: 0.0.1
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus_web
+version: 0.1.0
 
 flutter:
   plugin:
     platforms:
       web:
         pluginClass: PackageInfoPlugin
-        fileName: package_info_web.dart
+        fileName: package_info_plus_web.dart
 
 dependencies:
-  http: any
-  package_info_plus_platform_interface:
-    path: ../package_info_plus_platform_interface
+  http: ^0.12.0
+  package_info_plus_platform_interface: ^0.1.0
   platform_detect: ^1.4.0
   flutter:
     sdk: flutter
@@ -32,4 +28,4 @@ dev_dependencies:
 
 environment:
   sdk: ">=2.2.0 <3.0.0"
-  flutter: ">=1.10.0 <2.0.0"
+  flutter: ">=1.20.0"

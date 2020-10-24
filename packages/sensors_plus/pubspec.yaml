@@ -1,7 +1,7 @@
 name: sensors_plus
 description: Flutter plugin for accessing accelerometer and gyroscope sensors.
-homepage: https://github.com/fluttercommunity/sensors_plus
-version: 1.0.0
+homepage: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus
+version: 0.5.0
 
 flutter:
   plugin:
@@ -17,16 +17,14 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  sensors_plus_web:
-    path: ../sensors_plus_web
-  sensors_plus_platform_interface:
-    path: ../sensors_plus_platform_interface
+  sensors_plus_web: ^0.1.0
+  sensors_plus_platform_interface: ^0.1.0
 
 dev_dependencies:
   test: ^1.3.0
   flutter_test:
     sdk: flutter
-  integration_test: ^0.8.0
+  integration_test: ^0.9.1
   mockito: ^4.1.1
   pedantic: ^1.8.0
 
