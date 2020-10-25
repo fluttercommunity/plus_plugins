@@ -5,14 +5,14 @@
 Pod::Spec.new do |s|
   s.name             = 'battery_plus_macos'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'Flutter Battery Plus'
   s.description      = <<-DESC
-A new flutter plugin project.
+A Flutter plugin for accessing information about the battery state(full, charging, discharging).
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus_macos'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
+  s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
+  s.source           = { :path => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus_macos' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
 

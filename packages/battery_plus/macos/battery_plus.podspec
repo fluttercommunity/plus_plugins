@@ -6,8 +6,7 @@ Pod::Spec.new do |s|
   s.version          = '0.0.1'
   s.summary          = 'No-op implementation of the macos battery_plus to avoid build issues on macos'
   s.description      = <<-DESC
-  No-op implementation of the battery_plus plugin to avoid build issues on macos.
-  https://github.com/flutter/flutter/issues/46618
+A Flutter plugin for accessing information about the battery state(full, charging, discharging).
                        DESC
   s.homepage         = 'https://github.com/fluttercommunity/plus_plugins/tree/master/packages/battery_plus'
   s.license          = { :file => '../LICENSE' }
