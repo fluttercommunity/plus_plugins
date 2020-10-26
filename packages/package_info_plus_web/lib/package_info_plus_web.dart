@@ -17,8 +17,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
 
   @override
   Future<PackageInfoData> getAll() async {
-    String url =
-        "${window.location.protocol}//${window.location.hostname}:${window.location.port}/version.json";
+    String url = "${window.document.baseUri}/version.json";
 
     final response = await get(url);
     if (response.statusCode == 200) {
