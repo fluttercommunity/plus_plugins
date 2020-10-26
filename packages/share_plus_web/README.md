@@ -1,6 +1,6 @@
-# Share Plus Windows
+# Share Plus Web
 
-[![Flutter Community: share_plus_windows](https://fluttercommunity.dev/_github/header/share_plus_web)](https://github.com/fluttercommunity/community)
+[![Flutter Community: share_plus_web](https://fluttercommunity.dev/_github/header/share_plus_web)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/share_plus_web.svg)](https://pub.dev/packages/share_plus_web)
 
