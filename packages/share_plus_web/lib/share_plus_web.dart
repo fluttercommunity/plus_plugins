@@ -19,6 +19,8 @@ class SharePlugin extends SharePlatform {
   SharePlugin({@visibleForTesting html.Navigator debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
+  @override
+  /// Share text
   Future<void> share(
     String text, {
     String subject,
@@ -34,6 +36,7 @@ class SharePlugin extends SharePlatform {
   }
 
   @override
+  /// Share files
   Future<void> shareFiles(List<String> paths,
       {List<String> mimeTypes,
       String subject,

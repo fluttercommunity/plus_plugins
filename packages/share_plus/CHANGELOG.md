@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Add Web support for basic share capabilities.
+
 ## 1.1.0
 
 - Transfer to plus-plugins monorepo
