@@ -51,7 +51,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |       |    ✔️   |
 
 ----
 
