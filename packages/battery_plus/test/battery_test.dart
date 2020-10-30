@@ -43,6 +43,7 @@ void main() {
     tearDown(() {
       controller.close();
     });
+
     test('receive values', () async {
       final StreamQueue<BatteryState> queue =
           StreamQueue<BatteryState>(battery.onBatteryStateChanged);
