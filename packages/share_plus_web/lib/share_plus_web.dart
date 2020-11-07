@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 class SharePlugin extends SharePlatform {
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
-    SharePlatform.instance = SharePlatform();
+    SharePlatform.instance = SharePlugin();
   }
 
   final _navigator;
