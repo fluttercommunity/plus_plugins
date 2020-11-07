@@ -29,8 +29,8 @@ class Share {
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static SharePlatform get _platform {
     if (__platform == null) {
-      if (!_disablePlatformOverride) {
-        if (!kIsWeb && Platform.isLinux) {
+      if (!_disablePlatformOverride && !kIsWeb) {
+        if (Platform.isLinux) {
           __platform = ShareLinux();
         } else if (Platform.isWindows) {
           __platform = ShareWindows();
