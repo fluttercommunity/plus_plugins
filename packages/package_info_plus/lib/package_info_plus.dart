@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:package_info_plus_windows/package_info_plus_windows.dart';
 
@@ -40,7 +40,7 @@ class PackageInfo {
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static PackageInfoPlatform get _platform {
-    __platform ??= Platform.isWindows && !_disablePlatformOverride
+    __platform ??= !kIsWeb && Platform.isWindows && !_disablePlatformOverride
         ? PackageInfoWindows()
         : PackageInfoPlatform.instance;
     return __platform;
