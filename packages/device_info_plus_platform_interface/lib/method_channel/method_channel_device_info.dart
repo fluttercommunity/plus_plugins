@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -26,6 +27,12 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   Future<IosDeviceInfo> iosInfo() async {
     return IosDeviceInfo.fromMap(
       (await channel.invokeMethod('getIosDeviceInfo')).cast<String, dynamic>(),
+    );
+  }
+
+  Future<MacOsDeviceInfo> macosInfo() async {
+    return MacOsDeviceInfo.fromMap(
+      (await channel.invokeMethod('getMacosDeviceInfo')).cast<String, dynamic>(),
     );
   }
 }

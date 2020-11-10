@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_device_info.dart';
@@ -67,5 +68,11 @@ abstract class DeviceInfoPlatform extends PlatformInterface {
   // ignore: public_member_api_docs
   Future<WebBrowserInfo> webBrowserInfo() {
     throw UnimplementedError('webBrowserInfo() has not been implemented.');
+  }
+
+  // Gets the Macos device information.
+  // ignore: public_member_api_docs
+  Future<MacOsDeviceInfo> macosInfo() {
+    throw UnimplementedError('macosInfo() has not been implemented.');
   }
 }
