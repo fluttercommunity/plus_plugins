@@ -51,7 +51,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |       |    ✔️   |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
 ----
 
@@ -118,7 +118,7 @@ Flutter plugin for querying information about the application
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |       |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |       |   ✔️    |
 
 ----
 
@@ -150,7 +150,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |     |   ✔️   |    ✔️   |
+|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |    ✔️   |
 
 ----
 
