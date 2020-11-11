@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "flutter-community-dashboard"
+  },
+  "targets": {
+    "flutter-community-dashboard": {
+      "hosting": {
+        "plus": [
+          "flutter-community-plus"
+        ]
+      }
+    }
+  }
+}
