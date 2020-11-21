@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
+import 'package:package_info_plus_linux/package_info_plus_linux.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:package_info_plus_windows/package_info_plus_windows.dart';
 
@@ -36,13 +37,20 @@ class PackageInfo {
   static bool _disablePlatformOverride = false;
   static PackageInfoPlatform __platform;
 
-  // This is to manually endorse the Windows plugin until automatic registration
-  // of dart plugins is implemented.
+  // This is to manually endorse the Desktop plugins until automatic
+  // registration of Dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static PackageInfoPlatform get _platform {
-    __platform ??= !kIsWeb && Platform.isWindows && !_disablePlatformOverride
-        ? PackageInfoWindows()
-        : PackageInfoPlatform.instance;
+    if (__platform == null) {
+      if (!_disablePlatformOverride && !kIsWeb) {
+        if (Platform.isLinux) {
+          __platform = PackageInfoLinux();
+        } else if (Platform.isWindows) {
+          __platform = PackageInfoWindows();
+        }
+      }
+      __platform ??= PackageInfoPlatform.instance;
+    }
     return __platform;
   }
 

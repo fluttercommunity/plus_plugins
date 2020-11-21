@@ -12,6 +12,8 @@ flutter:
         pluginClass: PackageInfoPlugin
       ios:
         pluginClass: FLTPackageInfoPlusPlugin
+      linux:
+        default_package: package_info_plus_linux
       macos:
         default_package: package_info_plus_macos
       web:
@@ -23,9 +25,10 @@ dependencies:
   flutter:
     sdk: flutter
   package_info_plus_platform_interface: ^0.3.0
-  package_info_plus_web: ^0.2.0
+  package_info_plus_linux: ^0.1.0
   package_info_plus_macos: ^0.2.0
   package_info_plus_windows: ^0.2.0
+  package_info_plus_web: ^0.2.0
 
 dev_dependencies:
   flutter_test:
