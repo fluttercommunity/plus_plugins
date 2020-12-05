@@ -1,3 +1,7 @@
+## 0.6.0-nullsafety.0
+
+- Migrated to null safety
+
 ## 0.5.0
 
 - Transfer to plus-plugins monorepo
