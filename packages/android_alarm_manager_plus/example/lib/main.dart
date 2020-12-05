@@ -54,7 +54,10 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  _AlarmHomePage({Key key, this.title}) : super(key: key);
+  _AlarmHomePage({
+    Key key,
+    this.title,
+  }) : super(key: key);
   final String title;
 
   @override
@@ -140,7 +143,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 await AndroidAlarmManager.oneShot(
                   const Duration(seconds: 5),
                   // Ensure we have a unique alarm ID.
-                  Random().nextInt(pow(2, 31)),
+                  Random().nextInt(pow(2, 31).toInt()),
                   callback,
                   exact: true,
                   wakeup: true,

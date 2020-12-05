@@ -17,7 +17,8 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() {
-    testChannel.setMockMethodCallHandler((MethodCall call) => null);
+    testChannel
+        .setMockMethodCallHandler((MethodCall call) => Future.value(null));
   });
 
   test('${AndroidAlarmManager.initialize}', () async {
