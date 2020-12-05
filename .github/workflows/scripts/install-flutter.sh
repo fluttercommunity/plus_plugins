@@ -1,7 +1,5 @@
 #!/bin/bash
 
-setenv ACTIONS_ALLOW_UNSECURE_COMMANDS true
-
 BRANCH=$1
 
 if [ "$BRANCH" == "dev" ]
