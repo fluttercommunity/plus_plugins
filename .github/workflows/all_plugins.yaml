@@ -2,9 +2,6 @@ name: all_plugins
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-  # flutter channel
-  # TODO: Switch to stable when null safety is stable
-  BRANCH: 'beta'
 
 on:
   pull_request:
