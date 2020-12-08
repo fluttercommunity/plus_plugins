@@ -1,4 +1,4 @@
-package io.flutter.plugins.androidintent;
+package dev.fluttercommunity.plus.androidintent;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       stopListening();
     }
 
-    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/android_intent");
+    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/android_intent");
     methodChannel.setMethodCallHandler(this);
   }
 

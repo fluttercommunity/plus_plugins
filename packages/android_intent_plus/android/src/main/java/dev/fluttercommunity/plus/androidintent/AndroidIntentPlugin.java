@@ -1,4 +1,4 @@
-package io.flutter.plugins.androidintent;
+package dev.fluttercommunity.plus.androidintent;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;

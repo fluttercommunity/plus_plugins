@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Renamed Method Channel and changed Java package to avoid collision with android_intent
+
 ## 0.4.0
 
 - Transfer to plus-plugins monorepo
