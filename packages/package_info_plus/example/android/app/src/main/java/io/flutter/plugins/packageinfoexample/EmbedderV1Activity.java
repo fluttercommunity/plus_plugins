@@ -5,7 +5,6 @@
 package io.flutter.plugins.packageinfoexample;
 
 import android.os.Bundle;
-
 import io.flutter.app.FlutterActivity;
 import dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin;
 
@@ -14,6 +13,6 @@ public class EmbedderV1Activity extends FlutterActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     PackageInfoPlugin.registerWith(
-      registrarFor("dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin"));
+        registrarFor("dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin"));
   }
 }
