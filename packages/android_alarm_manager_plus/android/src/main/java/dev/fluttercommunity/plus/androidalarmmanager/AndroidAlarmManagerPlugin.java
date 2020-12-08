@@ -83,7 +83,9 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       // - "Alarm.cancel"
       alarmManagerPluginChannel =
           new MethodChannel(
-              messenger, "dev.fluttercommunity.plus/android_alarm_manager", JSONMethodCodec.INSTANCE);
+              messenger,
+              "dev.fluttercommunity.plus/android_alarm_manager",
+              JSONMethodCodec.INSTANCE);
 
       // Instantiate a new AndroidAlarmManagerPlugin and connect the primary method channel for
       // Android/Flutter communication.

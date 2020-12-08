@@ -14,16 +14,16 @@ import android.util.Log;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.JobIntentService;
 import io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AlarmService extends JobIntentService {
   private static final String TAG = "AlarmService";
   private static final String PERSISTENT_ALARMS_SET_KEY = "persistent_alarm_ids";
-  protected static final String SHARED_PREFERENCES_KEY = "dev.fluttercommunity.plus.android_alarm_manager_plugin";
+  protected static final String SHARED_PREFERENCES_KEY =
+      "dev.fluttercommunity.plus.android_alarm_manager_plugin";
   private static final int JOB_ID = 1984; // Random job ID.
   private static final Object persistentAlarmsLock = new Object();
 
