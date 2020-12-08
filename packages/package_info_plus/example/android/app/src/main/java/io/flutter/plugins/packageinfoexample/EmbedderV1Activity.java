@@ -5,8 +5,8 @@
 package io.flutter.plugins.packageinfoexample;
 
 import android.os.Bundle;
-import io.flutter.app.FlutterActivity;
 import dev.fluttercommunity.plus.packageinfo.PackageInfoPlugin;
+import io.flutter.app.FlutterActivity;
 
 public class EmbedderV1Activity extends FlutterActivity {
   @Override
