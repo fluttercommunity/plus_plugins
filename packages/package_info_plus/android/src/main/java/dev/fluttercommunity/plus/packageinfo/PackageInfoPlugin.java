@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -15,15 +16,20 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/** PackageInfoPlugin */
+/**
+ * PackageInfoPlugin
+ */
 public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   private Context applicationContext;
   private MethodChannel methodChannel;
 
-  /** Plugin registration. */
+  /**
+   * Plugin registration.
+   */
   public static void registerWith(Registrar registrar) {
     final PackageInfoPlugin instance = new PackageInfoPlugin();
     instance.onAttachedToEngine(registrar.context(), registrar.messenger());
