@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
 
-const String _kChannelName = 'plugins.flutter.io/android_intent';
+const String _kChannelName = 'dev.fluttercommunity.plus/android_intent';
 
 /// Flutter plugin for launching arbitrary Android Intents.
 ///

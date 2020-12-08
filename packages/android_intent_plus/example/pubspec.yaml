@@ -1,6 +1,9 @@
 name: android_intent_example
 description: Demonstrates how to use the android_intent plugin.
 
+environment:
+  sdk: '>=2.10.0 <3.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
