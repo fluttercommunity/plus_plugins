@@ -3,7 +3,7 @@ import 'package:package_info_plus_platform_interface/package_info_data.dart';
 
 import 'package_info_platform_interface.dart';
 
-const MethodChannel _channel = MethodChannel('plugins.flutter.io/package_info');
+const MethodChannel _channel = MethodChannel('dev.fluttercommunity.plus/package_info');
 
 /// An implementation of [PackageInfoPlatform] that uses method channels.
 class MethodChannelPackageInfo extends PackageInfoPlatform {

@@ -9,7 +9,8 @@ environment:
   flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  package_info_plus_platform_interface: ^0.1.0
+  package_info_plus_platform_interface:
+    path: ../package_info_plus_platform_interface
   ffi: ^0.1.3
   flutter:
     sdk: flutter
