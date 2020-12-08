@@ -62,7 +62,8 @@ typedef _GetCallbackHandle = CallbackHandle Function(Function callback);
 ///
 /// See the example/ directory in this package for sample usage.
 class AndroidAlarmManager {
-  static const String _channelName = 'dev.fluttercommunity.plus/android_alarm_manager';
+  static const String _channelName =
+      'dev.fluttercommunity.plus/android_alarm_manager';
   static final MethodChannel _channel =
       const MethodChannel(_channelName, JSONMethodCodec());
 
