@@ -5,8 +5,8 @@
 package io.flutter.plugins.androidintentexample;
 
 import android.os.Bundle;
-import io.flutter.app.FlutterActivity;
 import dev.fluttercommunity.plus.androidintent.AndroidIntentPlugin;
+import io.flutter.app.FlutterActivity;
 
 public class EmbeddingV1Activity extends FlutterActivity {
   @Override
