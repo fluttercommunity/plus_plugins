@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Fix package dependencies with the windows and web plugins
+
 ## 0.6.0
 
 - Changed method channel name
