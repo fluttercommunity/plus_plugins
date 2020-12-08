@@ -1,3 +1,8 @@
+## 0.6.0
+
+- Renamed Method Channel and changed Java package to avoid collision with android_alarm_manager
+- Needs update in AndroidManifest.xml of your app.
+
 ## 0.5.0
 
 - Transfer to plus-plugins monorepo

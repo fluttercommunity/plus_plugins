@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const String _backgroundName =
-    'plugins.flutter.io/android_alarm_manager_background';
+    'dev.fluttercommunity.plus/android_alarm_manager_background';
 
 // This is the entrypoint for the background isolate. Since we can only enter
 // an isolate once, we setup a MethodChannel to listen for method invocations
@@ -62,7 +62,8 @@ typedef _GetCallbackHandle = CallbackHandle Function(Function callback);
 ///
 /// See the example/ directory in this package for sample usage.
 class AndroidAlarmManager {
-  static const String _channelName = 'plugins.flutter.io/android_alarm_manager';
+  static const String _channelName =
+      'dev.fluttercommunity.plus/android_alarm_manager';
   static final MethodChannel _channel =
       const MethodChannel(_channelName, JSONMethodCodec());
 

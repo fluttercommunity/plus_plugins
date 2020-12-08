@@ -19,14 +19,14 @@ Next, within the `<application></application>` tags, add:
 
 ```xml
 <service
-    android:name="io.flutter.plugins.androidalarmmanager.AlarmService"
+    android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmService"
     android:permission="android.permission.BIND_JOB_SERVICE"
     android:exported="false"/>
 <receiver
-    android:name="io.flutter.plugins.androidalarmmanager.AlarmBroadcastReceiver"
+    android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmBroadcastReceiver"
     android:exported="false"/>
 <receiver
-    android:name="io.flutter.plugins.androidalarmmanager.RebootBroadcastReceiver"
+    android:name="dev.fluttercommunity.plus.androidalarmmanager.RebootBroadcastReceiver"
     android:enabled="false">
     <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"></action>

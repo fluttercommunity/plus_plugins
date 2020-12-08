@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.androidalarmmanager;
+package dev.fluttercommunity.plus.androidalarmmanager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -234,7 +234,7 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
     backgroundChannel =
         new MethodChannel(
             isolate,
-            "plugins.flutter.io/android_alarm_manager_background",
+            "dev.fluttercommunity.plus/android_alarm_manager_background",
             JSONMethodCodec.INSTANCE);
     backgroundChannel.setMethodCallHandler(this);
   }

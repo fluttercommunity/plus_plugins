@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.androidalarmmanager;
+package dev.fluttercommunity.plus.androidalarmmanager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,13 +14,7 @@ import android.util.Log;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.JobIntentService;
 import io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +22,8 @@ import org.json.JSONObject;
 public class AlarmService extends JobIntentService {
   private static final String TAG = "AlarmService";
   private static final String PERSISTENT_ALARMS_SET_KEY = "persistent_alarm_ids";
-  protected static final String SHARED_PREFERENCES_KEY = "io.flutter.android_alarm_manager_plugin";
+  protected static final String SHARED_PREFERENCES_KEY =
+      "dev.fluttercommunity.plus.android_alarm_manager_plugin";
   private static final int JOB_ID = 1984; // Random job ID.
   private static final Object persistentAlarmsLock = new Object();
 
