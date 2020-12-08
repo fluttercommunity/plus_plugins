@@ -1,3 +1,8 @@
+## 0.6.0
+
+- Changed method channel name
+- Moved Java files to different java package to avoid issues with package_info
+
 ## 0.5.0
 
 - Transfer to plus-plugins monorepo
