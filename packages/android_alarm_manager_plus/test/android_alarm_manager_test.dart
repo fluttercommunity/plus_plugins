@@ -13,7 +13,7 @@ void main() {
   void validCallback(int id) => null;
 
   const testChannel = MethodChannel(
-      'plugins.flutter.io/android_alarm_manager', JSONMethodCodec());
+      'dev.fluttercommunity.plus/android_alarm_manager', JSONMethodCodec());
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() {
