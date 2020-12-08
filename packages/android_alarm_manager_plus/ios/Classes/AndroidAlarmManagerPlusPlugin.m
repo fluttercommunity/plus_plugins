@@ -2,15 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "AndroidAlarmManagerPlugin.h"
+#import "AndroidAlarmManagerPlusPlugin.h"
 
-@implementation FLTAndroidAlarmManagerPlugin
+@implementation FLTAndroidAlarmManagerPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"plugins.flutter.io/android_alarm_manager"
+      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/android_alarm_manager"
                                   binaryMessenger:[registrar messenger]
                                             codec:[FlutterJSONMethodCodec sharedInstance]];
-  FLTAndroidAlarmManagerPlugin* instance = [[FLTAndroidAlarmManagerPlugin alloc] init];
+  FLTAndroidAlarmManagerPlusPlugin* instance = [[FLTAndroidAlarmManagerPlusPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

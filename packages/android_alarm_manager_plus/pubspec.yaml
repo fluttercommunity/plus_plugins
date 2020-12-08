@@ -18,7 +18,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.flutter.plugins.androidalarmmanager
+        package: dev.fluttercommunity.plus.androidalarmmanager
         pluginClass: AndroidAlarmManagerPlugin
 
 environment:

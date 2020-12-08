@@ -2,12 +2,12 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'android_alarm_manager'
+  s.name             = 'android_alarm_manager_plus'
   s.version          = '0.0.1'
   s.summary          = 'Flutter Android Alarm Manager'
   s.description      = <<-DESC
 A Flutter plugin for accessing the Android AlarmManager service, and running Dart code in the background when alarms fire.
-This plugin a no-op on iOS. 
+This plugin a no-op on iOS.
 Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://github.com/flutter/plugins'
