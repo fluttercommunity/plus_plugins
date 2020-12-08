@@ -10,7 +10,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   const MethodChannel channel =
-      MethodChannel('plugins.flutter.io/package_info');
+      MethodChannel('dev.fluttercommunity.plus/package_info');
   List<MethodCall> log;
 
   channel.setMockMethodCallHandler((MethodCall methodCall) async {

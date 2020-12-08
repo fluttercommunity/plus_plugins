@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.packageinfo;
+package dev.fluttercommunity.plus.packageinfo;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -36,7 +36,7 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
 
   private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
     this.applicationContext = applicationContext;
-    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/package_info");
+    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/package_info");
     methodChannel.setMethodCallHandler(this);
   }
 

@@ -1,3 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.flutter.plugins.packageinfo">
+  package="dev.fluttercommunity.plus.packageinfo">
 </manifest>
