@@ -5,14 +5,14 @@
 package io.flutter.plugins.connectivityexample;
 
 import android.os.Bundle;
+import dev.fluttercommunity.plus.connectivity.ConnectivityPlugin;
 import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.connectivity.ConnectivityPlugin;
 
 public class EmbeddingV1Activity extends FlutterActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ConnectivityPlugin.registerWith(
-        registrarFor("io.flutter.plugins.connectivity.ConnectivityPlugin"));
+        registrarFor("dev.fluttercommunity.plus.connectivity.ConnectivityPlugin"));
   }
 }
