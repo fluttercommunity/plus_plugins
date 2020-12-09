@@ -13,7 +13,6 @@ dev_dependencies:
   test: any
   integration_test: ^0.9.1
   pedantic: ^1.8.0
-  connectivity: ^2.0.2
 
 flutter:
   uses-material-design: true
