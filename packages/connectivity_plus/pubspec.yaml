@@ -8,7 +8,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.flutter.plugins.connectivity
+        package: dev.fluttercommunity.plus.connectivity
         pluginClass: ConnectivityPlugin
       ios:
         pluginClass: FLTConnectivityPlugin
@@ -21,9 +21,12 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.0.5
-  connectivity_plus_platform_interface: ^0.2.0
-  connectivity_plus_macos: ^0.2.0
-  connectivity_plus_web: ^0.4.0
+  connectivity_plus_platform_interface:
+    path: ../connectivity_plus_platform_interface
+  connectivity_plus_macos:
+    path: ../connectivity_plus_macos
+  connectivity_plus_web:
+    path: ../connectivity_plus_web
 
 dev_dependencies:
   flutter_test:

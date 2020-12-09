@@ -12,7 +12,8 @@ flutter:
         fileName: connectivity_plus_web.dart
 
 dependencies:
-  connectivity_plus_platform_interface: ^0.2.0
+  connectivity_plus_platform_interface:
+    path: ../connectivity_plus_platform_interface
   flutter_web_plugins:
     sdk: flutter
   flutter:
