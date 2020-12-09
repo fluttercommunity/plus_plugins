@@ -31,6 +31,7 @@ void main() {
 
   setUp(() {
     log = <MethodCall>[];
+    PackageInfo.disablePackageInfoPlatformOverride = true;
   });
 
   test('fromPlatform', () async {
