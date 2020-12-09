@@ -2,31 +2,31 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTConnectivityPlugin.h"
+#import "FLTConnectivityPlusPlugin.h"
 
 #import "Reachability/Reachability.h"
 
 #import <CoreLocation/CoreLocation.h>
-#import "FLTConnectivityLocationHandler.h"
+#import "FLTConnectivityLocationPlusHandler.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 
 #include <ifaddrs.h>
 
 #include <arpa/inet.h>
 
-@interface FLTConnectivityPlugin () <FlutterStreamHandler, CLLocationManagerDelegate>
+@interface FLTConnectivityPlusPlugin () <FlutterStreamHandler, CLLocationManagerDelegate>
 
-@property(strong, nonatomic) FLTConnectivityLocationHandler* locationHandler;
+@property(strong, nonatomic) FLTConnectivityLocationPlusHandler* locationHandler;
 
 @end
 
-@implementation FLTConnectivityPlugin {
+@implementation FLTConnectivityPlusPlugin {
   FlutterEventSink _eventSink;
   Reachability* _reachabilityForInternetConnection;
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTConnectivityPlugin* instance = [[FLTConnectivityPlugin alloc] init];
+  FLTConnectivityPlusPlugin* instance = [[FLTConnectivityPlusPlugin alloc] init];
 
   FlutterMethodChannel* channel =
       [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/connectivity"
@@ -118,7 +118,7 @@
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
     result([self getWifiIP]);
   } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
-    result([self convertCLAuthorizationStatusToString:[FLTConnectivityLocationHandler
+    result([self convertCLAuthorizationStatusToString:[FLTConnectivityLocationPlusHandler
                                                           locationAuthorizationStatus]]);
   } else if ([call.method isEqualToString:@"requestLocationServiceAuthorization"]) {
     NSArray* arguments = call.arguments;
@@ -162,9 +162,9 @@
   }
 }
 
-- (FLTConnectivityLocationHandler*)locationHandler {
+- (FLTConnectivityLocationPlusHandler*)locationHandler {
   if (!_locationHandler) {
-    _locationHandler = [FLTConnectivityLocationHandler new];
+    _locationHandler = [FLTConnectivityLocationPlusHandler new];
   }
   return _locationHandler;
 }
