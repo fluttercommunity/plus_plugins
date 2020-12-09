@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Renamed method channel
+
 ## 0.2.0
 
 - Transfer to plus-plugins monorepo

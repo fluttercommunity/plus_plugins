@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Updated platform interface
+
 ## 0.2.0
 
 - Transfer to plus-plugins monorepo
