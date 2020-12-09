@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.connectivity;
+package dev.fluttercommunity.plus.connectivity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -37,8 +37,8 @@ public class ConnectivityPlugin implements FlutterPlugin {
   }
 
   private void setupChannels(BinaryMessenger messenger, Context context) {
-    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/connectivity");
-    eventChannel = new EventChannel(messenger, "plugins.flutter.io/connectivity_status");
+    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/connectivity");
+    eventChannel = new EventChannel(messenger, "dev.fluttercommunity.plus/connectivity_status");
     ConnectivityManager connectivityManager =
         (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);

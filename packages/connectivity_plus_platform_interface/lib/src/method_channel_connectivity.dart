@@ -15,12 +15,12 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel methodChannel =
-      MethodChannel('plugins.flutter.io/connectivity');
+      MethodChannel('dev.fluttercommunity.plus/connectivity');
 
   /// The event channel used to receive ConnectivityResult changes from the native platform.
   @visibleForTesting
   EventChannel eventChannel =
-      EventChannel('plugins.flutter.io/connectivity_status');
+      EventChannel('dev.fluttercommunity.plus/connectivity_status');
 
   Stream<ConnectivityResult> _onConnectivityChanged;
 

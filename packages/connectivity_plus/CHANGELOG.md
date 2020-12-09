@@ -1,3 +1,8 @@
+## 0.6.0
+
+- Fix issue #56: Rename Android and iOS classes and Method Channel to avoid
+collision with the original connectivity package.
+
 ## 0.5.0
 
 - Transfer to plus-plugins monorepo

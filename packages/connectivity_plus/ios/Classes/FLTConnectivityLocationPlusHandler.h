@@ -6,16 +6,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class FLTConnectivityLocationDelegate;
+@class FLTConnectivityLocationPlusDelegate;
 
-typedef void (^FLTConnectivityLocationCompletion)(CLAuthorizationStatus);
+typedef void (^FLTConnectivityLocationPlusCompletion)(CLAuthorizationStatus);
 
-@interface FLTConnectivityLocationHandler : NSObject
+@interface FLTConnectivityLocationPlusHandler : NSObject
 
 + (CLAuthorizationStatus)locationAuthorizationStatus;
 
 - (void)requestLocationAuthorization:(BOOL)always
-                          completion:(_Nonnull FLTConnectivityLocationCompletion)completionHnadler;
+                          completion:(_Nonnull FLTConnectivityLocationPlusCompletion)completionHnadler;
 
 @end
 
