@@ -29,12 +29,12 @@
   FLTConnectivityPlugin* instance = [[FLTConnectivityPlugin alloc] init];
 
   FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"plugins.flutter.io/connectivity"
+      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/connectivity"
                                   binaryMessenger:[registrar messenger]];
   [registrar addMethodCallDelegate:instance channel:channel];
 
   FlutterEventChannel* streamChannel =
-      [FlutterEventChannel eventChannelWithName:@"plugins.flutter.io/connectivity_status"
+      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/connectivity_status"
                                 binaryMessenger:[registrar messenger]];
   [streamChannel setStreamHandler:instance];
 }

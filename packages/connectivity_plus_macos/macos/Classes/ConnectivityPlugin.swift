@@ -29,11 +29,11 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
-      name: "plugins.flutter.io/connectivity",
+      name: "dev.fluttercommunity.plus/connectivity",
       binaryMessenger: registrar.messenger)
 
     let streamChannel = FlutterEventChannel(
-      name: "plugins.flutter.io/connectivity_status",
+      name: "dev.fluttercommunity.plus/connectivity_status",
       binaryMessenger: registrar.messenger)
 
     let instance = ConnectivityPlugin()
