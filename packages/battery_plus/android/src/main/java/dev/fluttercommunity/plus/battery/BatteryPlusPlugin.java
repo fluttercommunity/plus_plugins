@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.battery;
+package dev.fluttercommunity.plus.battery;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,8 +23,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 
-/** BatteryPlugin */
-public class BatteryPlugin implements MethodCallHandler, StreamHandler, FlutterPlugin {
+/** BatteryPlusPlugin */
+public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, FlutterPlugin {
 
   private Context applicationContext;
   private BroadcastReceiver chargingStateChangeReceiver;
@@ -33,7 +33,7 @@ public class BatteryPlugin implements MethodCallHandler, StreamHandler, FlutterP
 
   /** Plugin registration. */
   public static void registerWith(PluginRegistry.Registrar registrar) {
-    final BatteryPlugin instance = new BatteryPlugin();
+    final BatteryPlusPlugin instance = new BatteryPlusPlugin();
     instance.onAttachedToEngine(registrar.context(), registrar.messenger());
   }
 
