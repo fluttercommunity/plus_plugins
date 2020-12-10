@@ -64,7 +64,7 @@ void BatteryPlusWindowsPlugin::RegisterWithRegistrar(
 BatteryPlusWindowsPlugin::BatteryPlusWindowsPlugin(
     flutter::PluginRegistrarWindows *registrar) {
   auto methodChannel = std::make_unique<FlMethodChannel>(
-      registrar->messenger(), "plugins.flutter.io/battery",
+      registrar->messenger(), "dev.fluttercommunity.plus/battery",
       &flutter::StandardMethodCodec::GetInstance());
 
   methodChannel->SetMethodCallHandler(
@@ -73,7 +73,7 @@ BatteryPlusWindowsPlugin::BatteryPlusWindowsPlugin(
       });
 
   auto eventChannel = std::make_unique<FlEventChannel>(
-      registrar->messenger(), "plugins.flutter.io/charging",
+      registrar->messenger(), "dev.fluttercommunity.plus/charging",
       &flutter::StandardMethodCodec::GetInstance());
 
   eventChannel->SetStreamHandler(

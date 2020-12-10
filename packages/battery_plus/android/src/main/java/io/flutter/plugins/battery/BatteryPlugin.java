@@ -44,8 +44,8 @@ public class BatteryPlugin implements MethodCallHandler, StreamHandler, FlutterP
 
   private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
     this.applicationContext = applicationContext;
-    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/battery");
-    eventChannel = new EventChannel(messenger, "plugins.flutter.io/charging");
+    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/battery");
+    eventChannel = new EventChannel(messenger, "dev.fluttercommunity.plus/charging");
     eventChannel.setStreamHandler(this);
     methodChannel.setMethodCallHandler(this);
   }

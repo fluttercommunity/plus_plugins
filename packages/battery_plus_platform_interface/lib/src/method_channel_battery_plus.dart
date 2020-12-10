@@ -15,11 +15,11 @@ import 'utils.dart';
 class MethodChannelBattery extends BatteryPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  MethodChannel methodChannel = MethodChannel('plugins.flutter.io/battery');
+  MethodChannel methodChannel = MethodChannel('dev.fluttercommunity.plus/battery');
 
   /// The event channel used to receive BatteryState changes from the native platform.
   @visibleForTesting
-  EventChannel eventChannel = EventChannel('plugins.flutter.io/charging');
+  EventChannel eventChannel = EventChannel('dev.fluttercommunity.plus/charging');
 
   Stream<BatteryState> _onBatteryStateChanged;
 
