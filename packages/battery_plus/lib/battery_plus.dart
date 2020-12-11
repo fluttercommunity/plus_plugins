@@ -44,7 +44,7 @@ class Battery {
       // with a non-default instance.
       if (!kIsWeb && BatteryPlatform.instance is MethodChannelBattery) {
         if (Platform.isLinux) {
-          BatteryPlatform.instance = BatteryLinux();
+          BatteryPlatform.instance = BatteryPlusLinux();
         }
       }
       _manualDartRegistrationNeeded = false;

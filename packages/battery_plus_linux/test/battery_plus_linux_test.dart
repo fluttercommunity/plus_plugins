@@ -1,4 +1,4 @@
-import 'package:battery_plus_linux/src/battery_linux.dart';
+import 'package:battery_plus_linux/src/battery_plus_linux_real.dart';
 import 'package:battery_plus_linux/src/upower_device.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +8,7 @@ class MockDevice extends Mock implements UPowerDevice {}
 
 void main() {
   test('battery level', () async {
-    final battery = BatteryLinux();
+    final battery = BatteryPlusLinux();
     battery.createDevice = () {
       final device = MockDevice();
       when(device.getPercentage()).thenAnswer((_) => Future.value(56.78));
@@ -18,7 +18,7 @@ void main() {
   });
 
   test('battery state changes', () {
-    final battery = BatteryLinux();
+    final battery = BatteryPlusLinux();
     battery.createDevice = () {
       final device = MockDevice();
       when(device.getState()).thenAnswer((_) {
