@@ -8,7 +8,8 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 /// The web implementation of the BatteryPlatform of the Battery plugin.
 class BatteryPlusPlugin extends BatteryPlatform {
   /// Constructs a BatteryPlusPlugin.
-  BatteryPlusPlugin(html.Navigator navigator) : _getBattery = navigator.getBattery;
+  BatteryPlusPlugin(html.Navigator navigator)
+      : _getBattery = navigator.getBattery;
 
   /// A check to determine if this version of the plugin can be used.
   bool get isSupported => html.window.navigator.getBattery != null;
