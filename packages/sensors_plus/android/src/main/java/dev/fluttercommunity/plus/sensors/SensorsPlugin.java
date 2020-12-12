@@ -16,7 +16,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 public class SensorsPlugin implements FlutterPlugin {
   private static final String ACCELEROMETER_CHANNEL_NAME =
       "dev.fluttercommunity.plus/sensors/accelerometer";
-  private static final String GYROSCOPE_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/gyroscope";
+  private static final String GYROSCOPE_CHANNEL_NAME =
+      "dev.fluttercommunity.plus/sensors/gyroscope";
   private static final String USER_ACCELEROMETER_CHANNEL_NAME =
       "dev.fluttercommunity.plus/sensors/user_accel";
 
