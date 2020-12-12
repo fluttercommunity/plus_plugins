@@ -22,7 +22,8 @@
                                 binaryMessenger:[registrar messenger]];
   [userAccelerometerChannel setStreamHandler:userAccelerometerStreamHandler];
 
-  FLTGyroscopeStreamHandlerPlus* gyroscopeStreamHandler = [[FLTGyroscopeStreamHandlerPlus alloc] init];
+  FLTGyroscopeStreamHandlerPlus* gyroscopeStreamHandler =
+      [[FLTGyroscopeStreamHandlerPlus alloc] init];
   FlutterEventChannel* gyroscopeChannel =
       [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
                                 binaryMessenger:[registrar messenger]];
