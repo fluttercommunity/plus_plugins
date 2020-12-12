@@ -2,27 +2,27 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTSensorsPlugin.h"
+#import "FLTSensorsPlusPlugin.h"
 #import <CoreMotion/CoreMotion.h>
 
-@implementation FLTSensorsPlugin
+@implementation FLTSensorsPlusPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTAccelerometerStreamHandler* accelerometerStreamHandler =
-      [[FLTAccelerometerStreamHandler alloc] init];
+  FLTAccelerometerStreamHandlerPlus* accelerometerStreamHandler =
+      [[FLTAccelerometerStreamHandlerPlus alloc] init];
   FlutterEventChannel* accelerometerChannel =
       [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/accelerometer"
                                 binaryMessenger:[registrar messenger]];
   [accelerometerChannel setStreamHandler:accelerometerStreamHandler];
 
-  FLTUserAccelStreamHandler* userAccelerometerStreamHandler =
-      [[FLTUserAccelStreamHandler alloc] init];
+  FLTUserAccelStreamHandlerPlus* userAccelerometerStreamHandler =
+      [[FLTUserAccelStreamHandlerPlus alloc] init];
   FlutterEventChannel* userAccelerometerChannel =
       [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/user_accel"
                                 binaryMessenger:[registrar messenger]];
   [userAccelerometerChannel setStreamHandler:userAccelerometerStreamHandler];
 
-  FLTGyroscopeStreamHandler* gyroscopeStreamHandler = [[FLTGyroscopeStreamHandler alloc] init];
+  FLTGyroscopeStreamHandlerPlus* gyroscopeStreamHandler = [[FLTGyroscopeStreamHandlerPlus alloc] init];
   FlutterEventChannel* gyroscopeChannel =
       [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
                                 binaryMessenger:[registrar messenger]];
@@ -48,7 +48,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
   sink([FlutterStandardTypedData typedDataWithFloat64:event]);
 }
 
-@implementation FLTAccelerometerStreamHandler
+@implementation FLTAccelerometerStreamHandlerPlus
 
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
@@ -71,7 +71,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @end
 
-@implementation FLTUserAccelStreamHandler
+@implementation FLTUserAccelStreamHandlerPlus
 
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
@@ -93,7 +93,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @end
 
-@implementation FLTGyroscopeStreamHandler
+@implementation FLTGyroscopeStreamHandlerPlus
 
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
