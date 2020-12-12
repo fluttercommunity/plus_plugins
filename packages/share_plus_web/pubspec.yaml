@@ -11,11 +11,11 @@ flutter:
   plugin:
     platforms:
       web:
-        pluginClass: SharePlugin
+        pluginClass: SharePlusPlugin
         fileName: share_plus_web.dart
 
 dependencies:
-  share_plus_platform_interface: ^1.1.0
+  share_plus_platform_interface: ^1.2.0
   url_launcher: ^5.2.5
   flutter:
     sdk: flutter

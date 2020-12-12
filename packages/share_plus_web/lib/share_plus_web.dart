@@ -7,16 +7,16 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher/url_launcher.dart';
 
 /// The web implementation of [SharePlatform].
-class SharePlugin extends SharePlatform {
+class SharePlusPlugin extends SharePlatform {
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
-    SharePlatform.instance = SharePlugin();
+    SharePlatform.instance = SharePlusPlugin();
   }
 
   final _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlugin({@visibleForTesting html.Navigator debugNavigator})
+  SharePlusPlugin({@visibleForTesting html.Navigator debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
   @override

@@ -16,7 +16,7 @@ class MethodChannelShare extends SharePlatform {
   /// [MethodChannel] used to communicate with the platform side.
   @visibleForTesting
   static const MethodChannel channel =
-      MethodChannel('plugins.flutter.io/share');
+      MethodChannel('dev.fluttercommunity.plus/share');
 
   /// Summons the platform's share sheet to share text.
   @override

@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Add Web support (`share_plus_web`)
+- Rename method channel to avoid conflicts
+
 ## 1.1.1
 
 - Transfer to plus-plugins monorepo

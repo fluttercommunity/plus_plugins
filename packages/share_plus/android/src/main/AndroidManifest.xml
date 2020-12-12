@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.flutter.plugins.share">
+  package="dev.fluttercommunity.plus.share">
     <application>
       <provider
-        android:name="io.flutter.plugins.share.ShareFileProvider"
+        android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
         android:authorities="${applicationId}.flutter.share_provider"
         android:exported="false"
         android:grantUriPermissions="true">

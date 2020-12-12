@@ -2,11 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTSharePlugin.h"
+#import "FLTSharePlusPlugin.h"
 
-static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
+static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
-@interface ShareData : NSObject <UIActivityItemSource>
+@interface SharePlusData : NSObject <UIActivityItemSource>
 
 @property(readonly, nonatomic, copy) NSString *subject;
 @property(readonly, nonatomic, copy) NSString *text;
@@ -21,7 +21,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
 
 @end
 
-@implementation ShareData
+@implementation SharePlusData
 
 - (instancetype)init {
   [super doesNotRecognizeSelector:_cmd];
@@ -91,7 +91,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
 
 @end
 
-@implementation FLTSharePlugin
+@implementation FLTSharePlusPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   FlutterMethodChannel *shareChannel =
@@ -178,7 +178,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
            subject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin {
-  ShareData *data = [[ShareData alloc] initWithSubject:subject text:shareText];
+  SharePlusData *data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
   [self share:@[ data ] withController:controller atSource:origin];
 }
 
@@ -191,7 +191,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
   if (text || subject) {
-    [items addObject:[[ShareData alloc] initWithSubject:subject text:text]];
+    [items addObject:[[SharePlusData alloc] initWithSubject:subject text:text]];
   }
 
   for (int i = 0; i < [paths count]; i++) {
@@ -207,7 +207,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
       UIImage *image = [UIImage imageWithContentsOfFile:path];
       [items addObject:image];
     } else {
-      [items addObject:[[ShareData alloc] initWithFile:path mimeType:mimeType]];
+      [items addObject:[[SharePlusData alloc] initWithFile:path mimeType:mimeType]];
     }
   }
 
