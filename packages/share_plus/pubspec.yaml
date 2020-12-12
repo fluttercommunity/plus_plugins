@@ -11,7 +11,7 @@ flutter:
         package: dev.fluttercommunity.plus.share
         pluginClass: SharePlusPlugin
       ios:
-        pluginClass: FLTSharePlugin
+        pluginClass: FLTSharePlusPlugin
       linux:
         default_package: share_plus_linux
       web:

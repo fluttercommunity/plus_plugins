@@ -4,5 +4,5 @@
 
 #import <Flutter/Flutter.h>
 
-@interface FLTSharePlugin : NSObject <FlutterPlugin>
+@interface FLTSharePlusPlugin : NSObject <FlutterPlugin>
 @end
