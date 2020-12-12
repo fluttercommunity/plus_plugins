@@ -13,7 +13,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('$accelerometerEvents are streamed', () async {
-    const String channelName = 'plugins.flutter.io/sensors/accelerometer';
+    const String channelName = 'dev.fluttercommunity.plus/sensors/accelerometer';
     const List<double> sensorData = <double>[1.0, 2.0, 3.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
@@ -25,7 +25,7 @@ void main() {
   });
 
   test('$gyroscopeEvents are streamed', () async {
-    const String channelName = 'plugins.flutter.io/sensors/gyroscope';
+    const String channelName = 'dev.fluttercommunity.plus/sensors/gyroscope';
     const List<double> sensorData = <double>[3.0, 4.0, 5.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
@@ -37,7 +37,7 @@ void main() {
   });
 
   test('$userAccelerometerEvents are streamed', () async {
-    const String channelName = 'plugins.flutter.io/sensors/user_accel';
+    const String channelName = 'dev.fluttercommunity.plus/sensors/user_accel';
     const List<double> sensorData = <double>[6.0, 7.0, 8.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 

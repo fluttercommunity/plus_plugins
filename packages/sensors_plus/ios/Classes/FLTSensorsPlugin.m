@@ -11,20 +11,20 @@
   FLTAccelerometerStreamHandler* accelerometerStreamHandler =
       [[FLTAccelerometerStreamHandler alloc] init];
   FlutterEventChannel* accelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"plugins.flutter.io/sensors/accelerometer"
+      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/accelerometer"
                                 binaryMessenger:[registrar messenger]];
   [accelerometerChannel setStreamHandler:accelerometerStreamHandler];
 
   FLTUserAccelStreamHandler* userAccelerometerStreamHandler =
       [[FLTUserAccelStreamHandler alloc] init];
   FlutterEventChannel* userAccelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"plugins.flutter.io/sensors/user_accel"
+      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/user_accel"
                                 binaryMessenger:[registrar messenger]];
   [userAccelerometerChannel setStreamHandler:userAccelerometerStreamHandler];
 
   FLTGyroscopeStreamHandler* gyroscopeStreamHandler = [[FLTGyroscopeStreamHandler alloc] init];
   FlutterEventChannel* gyroscopeChannel =
-      [FlutterEventChannel eventChannelWithName:@"plugins.flutter.io/sensors/gyroscope"
+      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
                                 binaryMessenger:[registrar messenger]];
   [gyroscopeChannel setStreamHandler:gyroscopeStreamHandler];
 }
