@@ -118,7 +118,7 @@ Flutter plugin for querying information about the application
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |       |   ✔️    |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |  ✔️  |   ✔️    |
 
 ----
 

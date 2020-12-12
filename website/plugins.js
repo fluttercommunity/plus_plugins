@@ -68,7 +68,7 @@ module.exports = [
       ios: true,
       macos: true,
       web: true,
-      linux: false,
+      linux: true,
       windows: true,
     },
     maintainer: {
