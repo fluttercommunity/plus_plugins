@@ -1,3 +1,7 @@
+## 0.7.0
+
+- Add Linux support (`connectivity_plus_linux`).
+
 ## 0.6.0
 
 - Fix issue #56: Rename Android and iOS classes and Method Channel to avoid
