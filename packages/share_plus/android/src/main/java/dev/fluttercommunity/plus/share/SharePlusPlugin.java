@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.share;
+package dev.fluttercommunity.plus.share;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** Plugin method host for presenting a share sheet via Intent */
-public class SharePlugin implements FlutterPlugin, ActivityAware {
+public class SharePlusPlugin implements FlutterPlugin, ActivityAware {
 
   private static final String CHANNEL = "dev.fluttercommunity.plus/share";
   private MethodCallHandler handler;
@@ -22,7 +22,7 @@ public class SharePlugin implements FlutterPlugin, ActivityAware {
   private MethodChannel methodChannel;
 
   public static void registerWith(Registrar registrar) {
-    SharePlugin plugin = new SharePlugin();
+    SharePlusPlugin plugin = new SharePlusPlugin();
     plugin.setUpChannel(registrar.context(), registrar.activity(), registrar.messenger());
   }
 

@@ -8,8 +8,8 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.flutter.plugins.share
-        pluginClass: SharePlugin
+        package: dev.fluttercommunity.plus.share
+        pluginClass: SharePlusPlugin
       ios:
         pluginClass: FLTSharePlugin
       linux:

@@ -6,8 +6,8 @@ package io.flutter.plugins.shareexample;
 
 import android.os.Bundle;
 import dev.flutter.plugins.integration_test.IntegrationTestPlugin;
+import dev.fluttercommunity.plus.share.SharePlusPlugin;
 import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.share.SharePlugin;
 
 public class EmbeddingV1Activity extends FlutterActivity {
 
@@ -16,6 +16,6 @@ public class EmbeddingV1Activity extends FlutterActivity {
     super.onCreate(savedInstanceState);
     IntegrationTestPlugin.registerWith(
         registrarFor("dev.flutter.plugins.integration_test.IntegrationTestPlugin"));
-    SharePlugin.registerWith(registrarFor("io.flutter.plugins.share.SharePlugin"));
+    SharePlusPlugin.registerWith(registrarFor("dev.fluttercommunity.plus.share.SharePlusPlugin"));
   }
 }
