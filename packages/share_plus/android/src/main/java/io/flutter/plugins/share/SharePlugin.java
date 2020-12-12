@@ -16,7 +16,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /** Plugin method host for presenting a share sheet via Intent */
 public class SharePlugin implements FlutterPlugin, ActivityAware {
 
-  private static final String CHANNEL = "plugins.flutter.io/share";
+  private static final String CHANNEL = "dev.fluttercommunity.plus/share";
   private MethodCallHandler handler;
   private Share share;
   private MethodChannel methodChannel;

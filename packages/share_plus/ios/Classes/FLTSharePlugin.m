@@ -4,7 +4,7 @@
 
 #import "FLTSharePlugin.h"
 
-static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
+static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
 @interface ShareData : NSObject <UIActivityItemSource>
 
