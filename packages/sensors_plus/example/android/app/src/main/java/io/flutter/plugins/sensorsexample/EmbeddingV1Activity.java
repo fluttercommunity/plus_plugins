@@ -6,8 +6,8 @@ package io.flutter.plugins.sensorsexample;
 
 import android.os.Bundle;
 import dev.flutter.plugins.integration_test.IntegrationTestPlugin;
+import dev.fluttercommunity.plus.sensors.SensorsPlugin;
 import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.sensors.SensorsPlugin;
 
 public class EmbeddingV1Activity extends FlutterActivity {
   @Override
@@ -15,6 +15,6 @@ public class EmbeddingV1Activity extends FlutterActivity {
     super.onCreate(savedInstanceState);
     IntegrationTestPlugin.registerWith(
         registrarFor("dev.flutter.plugins.integration_test.IntegrationTestPlugin"));
-    SensorsPlugin.registerWith(registrarFor("io.flutter.plugins.sensors.SensorsPlugin"));
+    SensorsPlugin.registerWith(registrarFor("dev.fluttercommunty.plus.sensors.SensorsPlugin"));
   }
 }
