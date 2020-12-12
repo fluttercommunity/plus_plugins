@@ -10,13 +10,13 @@ import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.
 /// A method channel -based implementation of the SensorsPlatform interface.
 class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _accelerometerEventChannel =
-      EventChannel('plugins.flutter.io/sensors/accelerometer');
+      EventChannel('dev.fluttercommunity.plus/sensors/accelerometer');
 
   static const EventChannel _userAccelerometerEventChannel =
-      EventChannel('plugins.flutter.io/sensors/user_accel');
+      EventChannel('dev.fluttercommunity.plus/sensors/user_accel');
 
   static const EventChannel _gyroscopeEventChannel =
-      EventChannel('plugins.flutter.io/sensors/gyroscope');
+      EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
 
   Stream<AccelerometerEvent> _accelerometerEvents;
   Stream<GyroscopeEvent> _gyroscopeEvents;

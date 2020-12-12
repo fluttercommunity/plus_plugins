@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.sensors;
+package dev.fluttercommunity.plus.sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -15,10 +15,11 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /** SensorsPlugin */
 public class SensorsPlugin implements FlutterPlugin {
   private static final String ACCELEROMETER_CHANNEL_NAME =
-      "plugins.flutter.io/sensors/accelerometer";
-  private static final String GYROSCOPE_CHANNEL_NAME = "plugins.flutter.io/sensors/gyroscope";
+      "dev.fluttercommunity.plus/sensors/accelerometer";
+  private static final String GYROSCOPE_CHANNEL_NAME =
+      "dev.fluttercommunity.plus/sensors/gyroscope";
   private static final String USER_ACCELEROMETER_CHANNEL_NAME =
-      "plugins.flutter.io/sensors/user_accel";
+      "dev.fluttercommunity.plus/sensors/user_accel";
 
   private EventChannel accelerometerChannel;
   private EventChannel userAccelChannel;
