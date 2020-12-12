@@ -4,9 +4,9 @@ import IOKit.ps
 
 public class BatteryPlusMacosPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "plugins.flutter.io/battery", binaryMessenger: registrar.messenger)
+        let channel = FlutterMethodChannel(name: "dev.fluttercommunity.plus/battery", binaryMessenger: registrar.messenger)
         
-        let eventChannel = FlutterEventChannel(name: "plugins.flutter.io/charging", binaryMessenger: registrar.messenger)
+        let eventChannel = FlutterEventChannel(name: "dev.fluttercommunity.plus/charging", binaryMessenger: registrar.messenger)
         
         let instance = BatteryPlusMacosPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)

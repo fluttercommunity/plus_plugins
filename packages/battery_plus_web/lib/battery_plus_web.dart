@@ -6,9 +6,10 @@ import 'package:battery_plus_platform_interface/battery_plus_platform_interface.
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
-class BatteryPlugin extends BatteryPlatform {
-  /// Constructs a BatteryPlugin.
-  BatteryPlugin(html.Navigator navigator) : _getBattery = navigator.getBattery;
+class BatteryPlusPlugin extends BatteryPlatform {
+  /// Constructs a BatteryPlusPlugin.
+  BatteryPlusPlugin(html.Navigator navigator)
+      : _getBattery = navigator.getBattery;
 
   /// A check to determine if this version of the plugin can be used.
   bool get isSupported => html.window.navigator.getBattery != null;
@@ -18,7 +19,7 @@ class BatteryPlugin extends BatteryPlatform {
   /// Factory method that initializes the Battery plugin platform with an instance
   /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    BatteryPlatform.instance = BatteryPlugin(html.window.navigator);
+    BatteryPlatform.instance = BatteryPlusPlugin(html.window.navigator);
   }
 
   /// Checks the connection status of the device.

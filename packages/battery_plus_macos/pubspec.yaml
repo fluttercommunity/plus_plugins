@@ -6,10 +6,10 @@ version: 0.1.0
 
 environment:
   sdk: '>=2.6.0 <3.0.0'
-  flutter: '>=1.12.13+hotfix.4'
+  flutter: '>=1.20.0'
 
 dependencies:
-  battery_plus_platform_interface: ^0.1.0
+  battery_plus_platform_interface: ^0.2.0
   flutter:
     sdk: flutter
 

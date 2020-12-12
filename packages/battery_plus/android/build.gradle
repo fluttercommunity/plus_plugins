@@ -1,4 +1,4 @@
-group 'io.flutter.plugins.battery'
+group 'dev.fluttercommunity.plus.battery'
 version '1.0-SNAPSHOT'
 
 buildscript {
