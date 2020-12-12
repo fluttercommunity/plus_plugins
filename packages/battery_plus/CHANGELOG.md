@@ -1,3 +1,10 @@
+## 0.9.0
+
+- Add Linux support (`battery_plus_linux`)
+- Add macOS support (`battery_plus_macos`)
+- Add Windows support (`battery_plus_windows`)
+- Rename method channel to avoid conflicts
+
 ## 0.8.0
 
 - Transfer to plus-plugins monorepo
