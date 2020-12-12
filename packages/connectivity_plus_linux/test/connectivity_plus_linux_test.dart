@@ -1,4 +1,4 @@
-import 'package:connectivity_plus_linux/src/connectivity.dart';
+import 'package:connectivity_plus_linux/src/connectivity_real.dart';
 import 'package:connectivity_plus_linux/src/network_manager.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
