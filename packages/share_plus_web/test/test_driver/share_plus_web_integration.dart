@@ -11,18 +11,18 @@ class _MockNavigator extends Mock implements html.Navigator {}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('SharePlugin', () {
+  group('SharePlusPlugin', () {
     _MockWindow mockWindow;
     _MockNavigator mockNavigator;
 
-    SharePlugin plugin;
+    SharePlusPlugin plugin;
 
     setUp(() {
       mockWindow = _MockWindow();
       mockNavigator = _MockNavigator();
       when(mockWindow.navigator).thenReturn(mockNavigator);
 
-      plugin = SharePlugin(debugNavigator: mockNavigator);
+      plugin = SharePlusPlugin(debugNavigator: mockNavigator);
     });
     group('share', () {
       testWidgets('can share url', (WidgetTester _) async {
