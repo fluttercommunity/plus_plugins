@@ -1,3 +1,8 @@
+## 0.6.3
+
+- Fix base URI resolving for Web
+- Fix platform interface dependency version for Linux
+
 ## 0.6.2
 
 - Fix collision with package_info

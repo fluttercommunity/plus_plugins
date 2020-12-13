@@ -17,7 +17,8 @@ class PackageInfoPlugin extends PackageInfoPlatform {
 
   @override
   Future<PackageInfoData> getAll() async {
-    String url = "${window.document.baseUri}/version.json";
+    String url =
+        "${Uri.parse(window.document.baseUri).removeFragment()}/version.json";
 
     final response = await get(url);
     if (response.statusCode == 200) {
