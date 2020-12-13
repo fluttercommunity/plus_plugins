@@ -8,7 +8,7 @@ flutter:
   plugin:
     platforms:
       web:
-        pluginClass: DeviceInfoPlugin
+        pluginClass: DeviceInfoPlusPlugin
         fileName: device_info_plus_web.dart
 
 dependencies:

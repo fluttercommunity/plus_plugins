@@ -5,16 +5,16 @@ import 'package:device_info_plus_platform_interface/device_info_plus_platform_in
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 /// The web implementation of the BatteryPlusPlatform of the BatteryPlus plugin.
-class DeviceInfoPlugin extends DeviceInfoPlatform {
-  /// Constructs a DeviceInfoPlugin.
-  DeviceInfoPlugin(navigator) : _navigator = navigator;
+class DeviceInfoPlusPlugin extends DeviceInfoPlatform {
+  /// Constructs a DeviceInfoPlusPlugin.
+  DeviceInfoPlusPlugin(navigator) : _navigator = navigator;
 
   final html.Navigator _navigator;
 
   /// Factory method that initializes the DeviceInfoPlus plugin platform
   /// with an instance of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    DeviceInfoPlatform.instance = DeviceInfoPlugin(html.window.navigator);
+    DeviceInfoPlatform.instance = DeviceInfoPlusPlugin(html.window.navigator);
   }
 
   @override
