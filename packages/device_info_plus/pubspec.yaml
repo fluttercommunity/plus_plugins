@@ -9,10 +9,10 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.flutter.plugins.deviceinfo
-        pluginClass: DeviceInfoPlugin
+        package: dev.fluttercommunity.plus.device_info
+        pluginClass: DeviceInfoPlusPlugin
       ios:
-        pluginClass: FLTDeviceInfoPlugin
+        pluginClass: FLTDeviceInfoPlusPlugin
       linux:
         default_package: device_info_plus_linux
       web:

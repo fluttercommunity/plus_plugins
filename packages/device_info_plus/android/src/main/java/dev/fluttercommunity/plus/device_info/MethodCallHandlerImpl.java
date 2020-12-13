@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.deviceinfo;
+package dev.fluttercommunity.plus.device_info;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;

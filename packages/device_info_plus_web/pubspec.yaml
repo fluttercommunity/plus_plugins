@@ -1,6 +1,6 @@
 name: device_info_plus_web
 description: An implementation for the web platform of the Flutter `device_info_plus` plugin.
-version: 0.2.0
+version: 0.3.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -8,11 +8,11 @@ flutter:
   plugin:
     platforms:
       web:
-        pluginClass: DeviceInfoPlugin
+        pluginClass: DeviceInfoPlusPlugin
         fileName: device_info_plus_web.dart
 
 dependencies:
-  device_info_plus_platform_interface: ^0.2.0
+  device_info_plus_platform_interface: ^0.3.0
   flutter_web_plugins:
     sdk: flutter
   flutter:

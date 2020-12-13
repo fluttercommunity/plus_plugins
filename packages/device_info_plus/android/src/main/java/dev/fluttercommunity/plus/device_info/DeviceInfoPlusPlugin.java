@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.deviceinfo;
+package dev.fluttercommunity.plus.device_info;
 
 import android.content.Context;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -10,14 +10,14 @@ import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/** DeviceInfoPlugin */
-public class DeviceInfoPlugin implements FlutterPlugin {
+/** DeviceInfoPlusPlugin */
+public class DeviceInfoPlusPlugin implements FlutterPlugin {
 
   MethodChannel channel;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    DeviceInfoPlugin plugin = new DeviceInfoPlugin();
+    DeviceInfoPlusPlugin plugin = new DeviceInfoPlusPlugin();
     plugin.setupMethodChannel(registrar.messenger(), registrar.context());
   }
 
@@ -32,7 +32,7 @@ public class DeviceInfoPlugin implements FlutterPlugin {
   }
 
   private void setupMethodChannel(BinaryMessenger messenger, Context context) {
-    channel = new MethodChannel(messenger, "plugins.flutter.io/device_info");
+    channel = new MethodChannel(messenger, "dev.fluttercommunity.plus/device_info");
     final MethodCallHandlerImpl handler =
         new MethodCallHandlerImpl(context.getContentResolver(), context.getPackageManager());
     channel.setMethodCallHandler(handler);
