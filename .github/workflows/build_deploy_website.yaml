@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Go to website
-        run: cd website
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -27,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: build
-          path: build
+          path: website/build
   deploy:
     name: Deploy
     needs: build
@@ -39,10 +37,11 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: build
-          path: build
+          path: website/build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: website
