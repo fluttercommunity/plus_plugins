@@ -6,6 +6,10 @@ on:
     paths-ignore:
       - "packages/**"
 
+defaults:
+  run:
+    working-directory: website
+
 jobs:
   build:
     name: Build
