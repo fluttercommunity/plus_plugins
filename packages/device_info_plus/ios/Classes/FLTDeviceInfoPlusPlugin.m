@@ -2,15 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTDeviceInfoPlugin.h"
+#import "FLTDeviceInfoPlusPlugin.h"
 #import <sys/utsname.h>
 
-@implementation FLTDeviceInfoPlugin
+@implementation FLTDeviceInfoPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel =
       [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/device_info"
                                   binaryMessenger:[registrar messenger]];
-  FLTDeviceInfoPlugin* instance = [[FLTDeviceInfoPlugin alloc] init];
+  FLTDeviceInfoPlusPlugin* instance = [[FLTDeviceInfoPlusPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
