@@ -9,7 +9,7 @@ import 'package:device_info_plus_platform_interface/device_info_plus_platform_in
 class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  MethodChannel channel = MethodChannel('plugins.flutter.io/device_info');
+  MethodChannel channel = MethodChannel('dev.fluttercommunity.plus/device_info');
 
   // Method channel for Android devices
   Future<AndroidDeviceInfo> androidInfo() async {

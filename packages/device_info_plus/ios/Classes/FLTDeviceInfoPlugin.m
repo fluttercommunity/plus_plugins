@@ -8,7 +8,7 @@
 @implementation FLTDeviceInfoPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"plugins.flutter.io/device_info"
+      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/device_info"
                                   binaryMessenger:[registrar messenger]];
   FLTDeviceInfoPlugin* instance = [[FLTDeviceInfoPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
