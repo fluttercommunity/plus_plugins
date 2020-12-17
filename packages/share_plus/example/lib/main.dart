@@ -62,7 +62,7 @@ class DemoAppState extends State<DemoApp> {
                   ImagePreviews(imagePaths, onDelete: _onDeleteImage),
                   ListTile(
                     leading: Icon(Icons.add),
-                    title: Text("Add image"),
+                    title: Text('Add image'),
                     onTap: () async {
                       final imagePicker = ImagePicker();
                       final pickedFile = await imagePicker.getImage(
@@ -93,13 +93,13 @@ class DemoAppState extends State<DemoApp> {
     );
   }
 
-  _onDeleteImage(int position) {
+  void _onDeleteImage(int position) {
     setState(() {
       imagePaths.removeAt(position);
     });
   }
 
-  _onShare(BuildContext context) async {
+  void _onShare(BuildContext context) async {
     // A builder is used to retrieve the context immediately
     // surrounding the RaisedButton.
     //

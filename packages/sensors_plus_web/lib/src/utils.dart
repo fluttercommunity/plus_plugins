@@ -21,20 +21,20 @@ Future<void> checkPremission(
       } else if (premissionStatus.state == 'prompt') {
         /// user needs to intract with this
         print(
-          "Premission [$premissionName] still has not been granted or denied.",
+          'Premission [$premissionName] still has not been granted or denied.',
         );
       } else {
         /// if permission is denied, do not do anything
-        print("Permission [$premissionName] to use sensor was denied.");
+        print('Permission [$premissionName] to use sensor was denied.');
       }
     } catch (e) {
       print(
-        "Integration with Permissions API is not enabled, still try to start app.",
+        'Integration with Permissions API is not enabled, still try to start app.',
       );
       initSensor();
     }
   } else {
-    print("No Permissions API, still try to start app.");
+    print('No Permissions API, still try to start app.');
     initSensor();
   }
 }

@@ -44,13 +44,13 @@ void main() {
     });
 
     test('onBatteryChanged', () async {
-      final BatteryState result =
+      final result =
           await methodChannelBattery.onBatteryStateChanged.first;
       expect(result, BatteryState.full);
     });
 
     test('getBatteryLevel', () async {
-      final int result = await methodChannelBattery.batteryLevel;
+      final result = await methodChannelBattery.batteryLevel;
       expect(result, 100);
       expect(
         log,

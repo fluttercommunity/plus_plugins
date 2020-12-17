@@ -34,11 +34,9 @@ class MethodChannelBattery extends BatteryPlatform {
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {
-    if (_onBatteryStateChanged == null) {
-      _onBatteryStateChanged = eventChannel
+    _onBatteryStateChanged ??= eventChannel
           .receiveBroadcastStream()
           .map((dynamic event) => parseBatteryState(event));
-    }
     return _onBatteryStateChanged;
   }
 }

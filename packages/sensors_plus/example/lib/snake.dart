@@ -33,17 +33,17 @@ class SnakeBoardPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint blackLine = Paint()..color = Colors.black;
-    final Paint blackFilled = Paint()
+    final blackLine = Paint()..color = Colors.black;
+    final blackFilled = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.fill;
     canvas.drawRect(
       Rect.fromPoints(Offset.zero, size.bottomLeft(Offset.zero)),
       blackLine,
     );
-    for (math.Point<int> p in state.body) {
-      final Offset a = Offset(cellSize * p.x, cellSize * p.y);
-      final Offset b = Offset(cellSize * (p.x + 1), cellSize * (p.y + 1));
+    for (var p in state.body) {
+      final a = Offset(cellSize * p.x, cellSize * p.y);
+      final b = Offset(cellSize * (p.x + 1), cellSize * (p.y + 1));
 
       canvas.drawRect(Rect.fromPoints(a, b), blackFilled);
     }
@@ -120,7 +120,7 @@ class GameState {
   math.Point<int> direction = const math.Point<int>(1, 0);
 
   void step(math.Point<int> newDirection) {
-    math.Point<int> next = body.last + direction;
+    var next = body.last + direction;
     next = math.Point<int>(next.x % columns, next.y % rows);
 
     body.add(next);

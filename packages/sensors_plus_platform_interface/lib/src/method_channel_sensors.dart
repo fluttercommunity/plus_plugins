@@ -25,41 +25,34 @@ class MethodChannelSensors extends SensorsPlatform {
   /// A broadcast stream of events from the device accelerometer.
   @override
   Stream<AccelerometerEvent> get accelerometerEvents {
-    if (_accelerometerEvents == null) {
-      _accelerometerEvents = _accelerometerEventChannel
+    _accelerometerEvents ??= _accelerometerEventChannel
           .receiveBroadcastStream()
           .map((dynamic event) {
         final list = event.cast<double>();
         return AccelerometerEvent(list[0], list[1], list[2]);
       });
-    }
     return _accelerometerEvents;
   }
 
   /// A broadcast stream of events from the device gyroscope.
   @override
   Stream<GyroscopeEvent> get gyroscopeEvents {
-    if (_gyroscopeEvents == null) {
-      _gyroscopeEvents =
-          _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _gyroscopeEvents ??= _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
         final list = event.cast<double>();
         return GyroscopeEvent(list[0], list[1], list[2]);
       });
-    }
     return _gyroscopeEvents;
   }
 
   /// Events from the device accelerometer with gravity removed.
   @override
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
-    if (_userAccelerometerEvents == null) {
-      _userAccelerometerEvents = _userAccelerometerEventChannel
+    _userAccelerometerEvents ??= _userAccelerometerEventChannel
           .receiveBroadcastStream()
           .map((dynamic event) {
         final list = event.cast<double>();
         return UserAccelerometerEvent(list[0], list[1], list[2]);
       });
-    }
     return _userAccelerometerEvents;
   }
 }

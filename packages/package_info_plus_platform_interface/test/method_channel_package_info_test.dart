@@ -25,7 +25,7 @@ void main() {
     });
 
     test('Can be mocked with `implements`', () {
-      final PackageInfoPlatformMock mock = PackageInfoPlatformMock();
+      final mock = PackageInfoPlatformMock();
       PackageInfoPlatform.instance = mock;
     });
 
@@ -35,7 +35,7 @@ void main() {
   });
 
   group('$MethodChannelPackageInfo()', () {
-    const MethodChannel channel =
+    const channel =
         MethodChannel('dev.fluttercommunity.plus/package_info');
     final log = <MethodCall>[];
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -54,7 +54,7 @@ void main() {
       }
     });
 
-    final MethodChannelPackageInfo packageInfo = MethodChannelPackageInfo();
+    final packageInfo = MethodChannelPackageInfo();
 
     tearDown(() {
       log.clear();

@@ -9,7 +9,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 
 Future<void> main() async {
   final driver = await FlutterDriver.connect();
-  final String data = await driver.requestData(
+  final data = await driver.requestData(
     null,
     timeout: const Duration(minutes: 1),
   );

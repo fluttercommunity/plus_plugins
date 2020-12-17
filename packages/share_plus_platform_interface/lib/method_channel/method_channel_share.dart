@@ -27,7 +27,7 @@ class MethodChannelShare extends SharePlatform {
   }) {
     assert(text != null);
     assert(text.isNotEmpty);
-    final Map<String, dynamic> params = <String, dynamic>{
+    final params = <String, dynamic>{
       'text': text,
       'subject': subject,
     };

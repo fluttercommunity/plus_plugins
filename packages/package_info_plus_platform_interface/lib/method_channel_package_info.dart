@@ -13,10 +13,10 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
     final map =
         await _channel.invokeMapMethod<String, dynamic>('getAll');
     return PackageInfoData(
-      appName: map["appName"],
-      packageName: map["packageName"],
-      version: map["version"],
-      buildNumber: map["buildNumber"],
+      appName: map['appName'],
+      packageName: map['packageName'],
+      version: map['version'],
+      buildNumber: map['buildNumber'],
     );
   }
 }

@@ -9,7 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const MethodChannel channel =
+  const channel =
       MethodChannel('dev.fluttercommunity.plus/package_info');
   List<MethodCall> log;
 
