@@ -23,6 +23,7 @@ class MethodChannelSensors extends SensorsPlatform {
   Stream<UserAccelerometerEvent> _userAccelerometerEvents;
 
   /// A broadcast stream of events from the device accelerometer.
+  @override
   Stream<AccelerometerEvent> get accelerometerEvents {
     if (_accelerometerEvents == null) {
       _accelerometerEvents = _accelerometerEventChannel
@@ -36,6 +37,7 @@ class MethodChannelSensors extends SensorsPlatform {
   }
 
   /// A broadcast stream of events from the device gyroscope.
+  @override
   Stream<GyroscopeEvent> get gyroscopeEvents {
     if (_gyroscopeEvents == null) {
       _gyroscopeEvents =
@@ -48,6 +50,7 @@ class MethodChannelSensors extends SensorsPlatform {
   }
 
   /// Events from the device accelerometer with gravity removed.
+  @override
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
     if (_userAccelerometerEvents == null) {
       _userAccelerometerEvents = _userAccelerometerEventChannel

@@ -26,11 +26,13 @@ class MethodChannelBattery extends BatteryPlatform {
   Stream<BatteryState> _onBatteryStateChanged;
 
   /// Returns the current battery level in percent.
+  @override
   Future<int> get batteryLevel => methodChannel
       .invokeMethod<int>('getBatteryLevel')
       .then<int>((dynamic result) => result);
 
   /// Fires whenever the battery state changes.
+  @override
   Stream<BatteryState> get onBatteryStateChanged {
     if (_onBatteryStateChanged == null) {
       _onBatteryStateChanged = eventChannel

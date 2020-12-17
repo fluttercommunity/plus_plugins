@@ -12,7 +12,7 @@ void main() {
 
   testWidgets('Can subscript to accelerometerEvents and get non-null events',
       (WidgetTester tester) async {
-    final Completer<AccelerometerEvent> completer =
+    final completer =
         Completer<AccelerometerEvent>();
     StreamSubscription<AccelerometerEvent> subscription;
     subscription = accelerometerEvents.listen((AccelerometerEvent event) {

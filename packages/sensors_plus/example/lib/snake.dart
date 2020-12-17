@@ -96,7 +96,7 @@ class SnakeState extends State<Snake> {
   }
 
   void _step() {
-    final math.Point<int> newDirection = acceleration == null
+    final newDirection = acceleration == null
         ? null
         : acceleration.x.abs() < 1.0 && acceleration.y.abs() < 1.0
             ? null

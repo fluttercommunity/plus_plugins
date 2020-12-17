@@ -92,7 +92,7 @@ void main() {
     });
 
     test('getWifiIP', () async {
-      final String result = await methodChannelConnectivity.getWifiIP();
+      final result = await methodChannelConnectivity.getWifiIP();
       expect(result, '127.0.0.1');
       expect(
         log,

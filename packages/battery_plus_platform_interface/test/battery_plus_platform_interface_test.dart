@@ -7,7 +7,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('$MethodChannelBattery', () {
-    final List<MethodCall> log = <MethodCall>[];
+    final log = <MethodCall>[];
     MethodChannelBattery methodChannelBattery;
 
     setUp(() async {

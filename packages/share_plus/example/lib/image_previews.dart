@@ -22,7 +22,7 @@ class ImagePreviews extends StatelessWidget {
       return Container();
     }
 
-    List<Widget> imageWidgets = [];
+    var imageWidgets = <Widget>[];
     for (int i = 0; i < imagePaths.length; i++) {
       imageWidgets.add(_ImagePreview(
         imagePaths[i],

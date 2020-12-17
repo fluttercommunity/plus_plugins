@@ -13,6 +13,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
       MethodChannel('dev.fluttercommunity.plus/device_info');
 
   // Method channel for Android devices
+  @override
   Future<AndroidDeviceInfo> androidInfo() async {
     return AndroidDeviceInfo.fromMap(
       (await channel.invokeMethod('getAndroidDeviceInfo'))
@@ -21,6 +22,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   }
 
   // Method channel for iOS devices
+  @override
   Future<IosDeviceInfo> iosInfo() async {
     return IosDeviceInfo.fromMap(
       (await channel.invokeMethod('getIosDeviceInfo')).cast<String, dynamic>(),

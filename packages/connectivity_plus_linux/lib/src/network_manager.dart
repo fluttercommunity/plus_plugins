@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:dbus/dbus.dart';
 
+// Used internally
+// ignore_for_file: public_member_api_docs
+
 const _kNetworkManager = 'org.freedesktop.NetworkManager';
 const _kActiveConnection = _kNetworkManager + '.Connection.Active';
 const _kDevice = _kNetworkManager + '.Device';

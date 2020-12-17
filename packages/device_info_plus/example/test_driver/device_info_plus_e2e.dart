@@ -16,7 +16,7 @@ void main() {
   WebBrowserInfo webBrowserInfo;
 
   setUpAll(() async {
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    final deviceInfoPlugin = DeviceInfoPlugin();
     if (Platform.isIOS) {
       iosInfo = await deviceInfoPlugin.iosInfo;
     } else if (Platform.isAndroid) {

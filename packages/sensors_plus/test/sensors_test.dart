@@ -15,7 +15,7 @@ void main() {
   test('$accelerometerEvents are streamed', () async {
     const String channelName =
         'dev.fluttercommunity.plus/sensors/accelerometer';
-    const List<double> sensorData = <double>[1.0, 2.0, 3.0];
+    const sensorData = <double>[1.0, 2.0, 3.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
     final AccelerometerEvent event = await accelerometerEvents.first;

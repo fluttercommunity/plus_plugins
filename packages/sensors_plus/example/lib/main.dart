@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-    for (StreamSubscription<dynamic> subscription in _streamSubscriptions) {
+    for (var subscription in _streamSubscriptions) {
       subscription.cancel();
     }
   }

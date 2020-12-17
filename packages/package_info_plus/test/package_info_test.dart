@@ -35,7 +35,7 @@ void main() {
   });
 
   test('fromPlatform', () async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
+    final info = await PackageInfo.fromPlatform();
     expect(info.appName, 'package_info_example');
     expect(info.buildNumber, '1');
     expect(info.packageName, 'io.flutter.plugins.packageinfoexample');

@@ -48,7 +48,7 @@ void main() {
     const List<double> sensorData = <double>[3.0, 4.0, 5.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
-    final GyroscopeEvent event = await gyroscopeEvents.first;
+    final event = await gyroscopeEvents.first;
 
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);

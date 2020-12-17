@@ -51,6 +51,7 @@ class SensorsPlugin extends SensorsPlatform {
   StreamController<AccelerometerEvent> _accelerometerStreamController;
   Stream<AccelerometerEvent> _accelerometerResultStream;
 
+  @override
   Stream<AccelerometerEvent> get accelerometerEvents {
     if (_accelerometerStreamController == null) {
       _accelerometerStreamController = StreamController<AccelerometerEvent>();
@@ -96,12 +97,13 @@ class SensorsPlugin extends SensorsPlatform {
   StreamController<GyroscopeEvent> _gyroscopeEventStreamController;
   Stream<GyroscopeEvent> _gyroscopeEventResultStream;
 
+  @override
   Stream<GyroscopeEvent> get gyroscopeEvents {
     if (_gyroscopeEventStreamController == null) {
       _gyroscopeEventStreamController = StreamController<GyroscopeEvent>();
       _featureDetected(
         () {
-          final html.Gyroscope _gyroscope = html.Gyroscope();
+          final _gyroscope = html.Gyroscope();
 
           setProperty(
             _gyroscope,
@@ -141,6 +143,7 @@ class SensorsPlugin extends SensorsPlatform {
   StreamController<UserAccelerometerEvent> _userAccelerometerStreamController;
   Stream<UserAccelerometerEvent> _userAccelerometerResultStream;
 
+  @override
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
     if (_userAccelerometerStreamController == null) {
       _userAccelerometerStreamController =

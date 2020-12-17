@@ -18,7 +18,7 @@ void main() {
     });
 
     testWidgets('test connectivity result', (WidgetTester tester) async {
-      final ConnectivityResult result = await _connectivity.checkConnectivity();
+      final result = await _connectivity.checkConnectivity();
       expect(result, isNotNull);
       switch (result) {
         case ConnectivityResult.wifi:

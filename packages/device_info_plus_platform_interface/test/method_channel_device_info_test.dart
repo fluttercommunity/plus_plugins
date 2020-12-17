@@ -42,7 +42,7 @@ void main() {
     });
 
     test("iosInfo", () async {
-      final IosDeviceInfo result = await methodChannelDeviceInfo.iosInfo();
+      final result = await methodChannelDeviceInfo.iosInfo();
       expect(result.name, "iPhone 10");
     });
   });

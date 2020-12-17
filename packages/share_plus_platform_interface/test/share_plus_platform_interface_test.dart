@@ -77,7 +77,7 @@ void main() {
   });
 
   test('sharing file sets correct mimeType', () async {
-    final String path = 'tempfile-83649a.png';
+    final path = 'tempfile-83649a.png';
     final File file = File(path);
     try {
       file.createSync();

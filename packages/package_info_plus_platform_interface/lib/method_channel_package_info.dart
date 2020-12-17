@@ -10,7 +10,7 @@ const MethodChannel _channel =
 class MethodChannelPackageInfo extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() async {
-    final Map<String, dynamic> map =
+    final map =
         await _channel.invokeMapMethod<String, dynamic>('getAll');
     return PackageInfoData(
       appName: map["appName"],

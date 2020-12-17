@@ -48,7 +48,7 @@ void main() {
     });
 
     test('requestLocationServiceAuthorization', () async {
-      LocationAuthorizationStatus result =
+      var result =
           await connectivity.requestLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
@@ -64,28 +64,34 @@ void main() {
 class MockConnectivityPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements ConnectivityPlatform {
+  @override
   Future<ConnectivityResult> checkConnectivity() async {
     return kCheckConnectivityResult;
   }
 
+  @override
   Future<String> getWifiName() async {
     return kWifiNameResult;
   }
 
+  @override
   Future<String> getWifiBSSID() async {
     return kWifiBSSIDResult;
   }
 
+  @override
   Future<String> getWifiIP() async {
     return kWifiIpAddressResult;
   }
 
+  @override
   Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
     bool requestAlwaysLocationUsage = false,
   }) async {
     return kRequestLocationResult;
   }
 
+  @override
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() async {
     return kGetLocationResult;
   }

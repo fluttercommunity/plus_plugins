@@ -37,7 +37,7 @@ void main() {
   group('$MethodChannelPackageInfo()', () {
     const MethodChannel channel =
         MethodChannel('dev.fluttercommunity.plus/package_info');
-    final List<MethodCall> log = <MethodCall>[];
+    final log = <MethodCall>[];
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
       log.add(methodCall);
       switch (methodCall.method) {

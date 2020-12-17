@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         try {
           if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
+            var status =
                 await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
               status =
