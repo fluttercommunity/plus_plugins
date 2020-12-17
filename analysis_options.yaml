@@ -1,4 +1,11 @@
 include: package:pedantic/analysis_options.1.8.0.yaml
+
+analyzer:
+  exclude:
+    # Ignore generated files
+    - '**/*.g.dart'
+    - 'lib/src/generated/*.dart'
+
 linter:
   rules:
     - public_member_api_docs

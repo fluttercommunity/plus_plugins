@@ -37,7 +37,7 @@ dev_dependencies:
   integration_test: ^0.9.1
   mockito: ^4.1.1
   plugin_platform_interface: ^1.0.0
-  pedantic: ^1.8.0
+  pedantic: ^1.9.2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
