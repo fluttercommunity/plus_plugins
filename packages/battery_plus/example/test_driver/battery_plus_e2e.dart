@@ -10,8 +10,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Can get battery level', (WidgetTester tester) async {
-    final Battery battery = Battery();
-    final int batteryLevel = await battery.batteryLevel;
+    final battery = Battery();
+    final batteryLevel = await battery.batteryLevel;
     expect(batteryLevel, isNotNull);
   });
 }

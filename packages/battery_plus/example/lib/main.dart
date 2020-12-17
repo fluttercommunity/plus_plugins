@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Battery _battery = Battery();
+  final Battery _battery = Battery();
 
   BatteryState _batteryState;
   StreamSubscription<BatteryState> _batteryStateSubscription;
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.battery_unknown),
         onPressed: () async {
-          final int batteryLevel = await _battery.batteryLevel;
+          final batteryLevel = await _battery.batteryLevel;
           // ignore: unawaited_futures
           showDialog<void>(
             context: context,

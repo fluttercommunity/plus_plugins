@@ -23,9 +23,7 @@ class Battery {
   // EventChannel because it is overridden. Forcing the class to be a singleton class can prevent
   // misuse of creating a second instance from a programmer.
   factory Battery() {
-    if (_singleton == null) {
-      _singleton = Battery._();
-    }
+    _singleton ??= Battery._();
     return _singleton;
   }
 

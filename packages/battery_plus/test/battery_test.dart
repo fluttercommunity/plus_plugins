@@ -45,8 +45,7 @@ void main() {
     });
 
     test('receive values', () async {
-      final StreamQueue<BatteryState> queue =
-          StreamQueue<BatteryState>(battery.onBatteryStateChanged);
+      final queue = StreamQueue<BatteryState>(battery.onBatteryStateChanged);
 
       controller.add(BatteryState.full);
       expect(await queue.next, BatteryState.full);
