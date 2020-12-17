@@ -28,9 +28,9 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   @override
   Stream<ConnectivityResult> get onConnectivityChanged {
     _onConnectivityChanged ??= eventChannel
-          .receiveBroadcastStream()
-          .map((dynamic result) => result.toString())
-          .map(parseConnectivityResult);
+        .receiveBroadcastStream()
+        .map((dynamic result) => result.toString())
+        .map(parseConnectivityResult);
     return _onConnectivityChanged;
   }
 

@@ -44,8 +44,7 @@ void main() {
     });
 
     test('onBatteryChanged', () async {
-      final result =
-          await methodChannelBattery.onBatteryStateChanged.first;
+      final result = await methodChannelBattery.onBatteryStateChanged.first;
       expect(result, BatteryState.full);
     });
 

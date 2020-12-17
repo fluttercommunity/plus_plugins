@@ -150,8 +150,7 @@ class SensorsPlugin extends SensorsPlatform {
           StreamController<UserAccelerometerEvent>();
       _featureDetected(
         () {
-          final _linearAccelerationSensor =
-              html.LinearAccelerationSensor();
+          final _linearAccelerationSensor = html.LinearAccelerationSensor();
 
           setProperty(
             _linearAccelerationSensor,

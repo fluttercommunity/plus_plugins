@@ -31,8 +31,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('$accelerometerEvents are streamed', () async {
-    const channelName =
-        'dev.fluttercommunity.plus/sensors/accelerometer';
+    const channelName = 'dev.fluttercommunity.plus/sensors/accelerometer';
     const sensorData = <double>[1.0, 2.0, 3.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 

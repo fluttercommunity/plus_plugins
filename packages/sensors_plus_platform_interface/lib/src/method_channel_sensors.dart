@@ -26,21 +26,22 @@ class MethodChannelSensors extends SensorsPlatform {
   @override
   Stream<AccelerometerEvent> get accelerometerEvents {
     _accelerometerEvents ??= _accelerometerEventChannel
-          .receiveBroadcastStream()
-          .map((dynamic event) {
-        final list = event.cast<double>();
-        return AccelerometerEvent(list[0], list[1], list[2]);
-      });
+        .receiveBroadcastStream()
+        .map((dynamic event) {
+      final list = event.cast<double>();
+      return AccelerometerEvent(list[0], list[1], list[2]);
+    });
     return _accelerometerEvents;
   }
 
   /// A broadcast stream of events from the device gyroscope.
   @override
   Stream<GyroscopeEvent> get gyroscopeEvents {
-    _gyroscopeEvents ??= _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
-        final list = event.cast<double>();
-        return GyroscopeEvent(list[0], list[1], list[2]);
-      });
+    _gyroscopeEvents ??=
+        _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
+      final list = event.cast<double>();
+      return GyroscopeEvent(list[0], list[1], list[2]);
+    });
     return _gyroscopeEvents;
   }
 
@@ -48,11 +49,11 @@ class MethodChannelSensors extends SensorsPlatform {
   @override
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
     _userAccelerometerEvents ??= _userAccelerometerEventChannel
-          .receiveBroadcastStream()
-          .map((dynamic event) {
-        final list = event.cast<double>();
-        return UserAccelerometerEvent(list[0], list[1], list[2]);
-      });
+        .receiveBroadcastStream()
+        .map((dynamic event) {
+      final list = event.cast<double>();
+      return UserAccelerometerEvent(list[0], list[1], list[2]);
+    });
     return _userAccelerometerEvents;
   }
 }

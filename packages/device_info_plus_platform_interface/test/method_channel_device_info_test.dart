@@ -34,8 +34,7 @@ void main() {
     });
 
     test('androidInfo', () async {
-      final result =
-          await methodChannelDeviceInfo.androidInfo();
+      final result = await methodChannelDeviceInfo.androidInfo();
       expect(result.brand, 'Google');
     });
 
