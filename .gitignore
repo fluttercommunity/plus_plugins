@@ -45,3 +45,5 @@ build/
 .classpath
 .settings
 /.fvm
+
+.melos_tool/
