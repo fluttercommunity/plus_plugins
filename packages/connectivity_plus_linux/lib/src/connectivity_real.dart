@@ -5,6 +5,9 @@ import 'package:meta/meta.dart';
 
 import 'network_manager.dart';
 
+// Used internally
+// ignore_for_file: public_member_api_docs
+
 typedef _DeviceGetter = Future<String> Function(NMDevice device);
 typedef _ConnectionGetter = Future<String> Function(NMConnection connection);
 

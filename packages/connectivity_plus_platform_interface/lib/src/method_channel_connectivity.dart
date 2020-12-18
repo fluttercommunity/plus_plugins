@@ -25,13 +25,12 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   Stream<ConnectivityResult> _onConnectivityChanged;
 
   /// Fires whenever the connectivity state changes.
+  @override
   Stream<ConnectivityResult> get onConnectivityChanged {
-    if (_onConnectivityChanged == null) {
-      _onConnectivityChanged = eventChannel
-          .receiveBroadcastStream()
-          .map((dynamic result) => result.toString())
-          .map(parseConnectivityResult);
-    }
+    _onConnectivityChanged ??= eventChannel
+        .receiveBroadcastStream()
+        .map((dynamic result) => result.toString())
+        .map(parseConnectivityResult);
     return _onConnectivityChanged;
   }
 
@@ -44,7 +43,7 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
 
   @override
   Future<String> getWifiName() async {
-    String wifiName = await methodChannel.invokeMethod<String>('wifiName');
+    var wifiName = await methodChannel.invokeMethod<String>('wifiName');
     // as Android might return <unknown ssid>, uniforming result
     // our iOS implementation will return null
     if (wifiName == '<unknown ssid>') {

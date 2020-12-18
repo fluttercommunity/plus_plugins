@@ -1,4 +1,19 @@
-include: package:pedantic/analysis_options.1.8.0.yaml
+# This is the default analysis_options.yaml for all packages and examples
+# If a package needs specific rules, create the analysis_options.yaml on it
+# include this file, like:
+#
+# include: ../../analysis_options.yaml
+#
+include: package:pedantic/analysis_options.1.9.0.yaml
+
+analyzer:
+  exclude:
+    # Ignore generated files
+    - '**/*.g.dart'
+    - 'lib/src/generated/*.dart'
+
 linter:
   rules:
-    - public_member_api_docs
+    public_member_api_docs: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true

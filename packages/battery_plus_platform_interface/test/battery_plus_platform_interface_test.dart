@@ -7,7 +7,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('$MethodChannelBattery', () {
-    final List<MethodCall> log = <MethodCall>[];
+    final log = <MethodCall>[];
     MethodChannelBattery methodChannelBattery;
 
     setUp(() async {
@@ -44,13 +44,12 @@ void main() {
     });
 
     test('onBatteryChanged', () async {
-      final BatteryState result =
-          await methodChannelBattery.onBatteryStateChanged.first;
+      final result = await methodChannelBattery.onBatteryStateChanged.first;
       expect(result, BatteryState.full);
     });
 
     test('getBatteryLevel', () async {
-      final int result = await methodChannelBattery.batteryLevel;
+      final result = await methodChannelBattery.batteryLevel;
       expect(result, 100);
       expect(
         log,

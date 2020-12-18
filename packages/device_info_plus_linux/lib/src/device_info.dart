@@ -5,10 +5,12 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 
+/// See [DeviceInfoPlatform]
 class DeviceInfoLinux extends DeviceInfoPlatform {
   LinuxDeviceInfo _cache;
   final FileSystem _fileSystem;
 
+  ///
   DeviceInfoLinux({@visibleForTesting FileSystem fileSystem})
       : _fileSystem = fileSystem ?? LocalFileSystem();
 

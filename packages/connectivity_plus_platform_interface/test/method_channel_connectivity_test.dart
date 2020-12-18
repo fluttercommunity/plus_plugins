@@ -11,7 +11,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('$MethodChannelConnectivity', () {
-    final List<MethodCall> log = <MethodCall>[];
+    final log = <MethodCall>[];
     MethodChannelConnectivity methodChannelConnectivity;
 
     setUp(() async {
@@ -58,13 +58,13 @@ void main() {
     });
 
     test('onConnectivityChanged', () async {
-      final ConnectivityResult result =
+      final result =
           await methodChannelConnectivity.onConnectivityChanged.first;
       expect(result, ConnectivityResult.wifi);
     });
 
     test('getWifiName', () async {
-      final String result = await methodChannelConnectivity.getWifiName();
+      final result = await methodChannelConnectivity.getWifiName();
       expect(result, '1337wifi');
       expect(
         log,
@@ -78,7 +78,7 @@ void main() {
     });
 
     test('getWifiBSSID', () async {
-      final String result = await methodChannelConnectivity.getWifiBSSID();
+      final result = await methodChannelConnectivity.getWifiBSSID();
       expect(result, 'c0:ff:33:c0:d3:55');
       expect(
         log,
@@ -92,7 +92,7 @@ void main() {
     });
 
     test('getWifiIP', () async {
-      final String result = await methodChannelConnectivity.getWifiIP();
+      final result = await methodChannelConnectivity.getWifiIP();
       expect(result, '127.0.0.1');
       expect(
         log,
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('requestLocationServiceAuthorization', () async {
-      final LocationAuthorizationStatus result =
+      final result =
           await methodChannelConnectivity.requestLocationServiceAuthorization();
       expect(result, LocationAuthorizationStatus.authorizedAlways);
       expect(
@@ -121,7 +121,7 @@ void main() {
     });
 
     test('getLocationServiceAuthorization', () async {
-      final LocationAuthorizationStatus result =
+      final result =
           await methodChannelConnectivity.getLocationServiceAuthorization();
       expect(result, LocationAuthorizationStatus.authorizedAlways);
       expect(
@@ -136,8 +136,7 @@ void main() {
     });
 
     test('checkConnectivity', () async {
-      final ConnectivityResult result =
-          await methodChannelConnectivity.checkConnectivity();
+      final result = await methodChannelConnectivity.checkConnectivity();
       expect(result, ConnectivityResult.wifi);
       expect(
         log,

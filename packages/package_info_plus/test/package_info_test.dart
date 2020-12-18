@@ -9,8 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const MethodChannel channel =
-      MethodChannel('dev.fluttercommunity.plus/package_info');
+  const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
   List<MethodCall> log;
 
   channel.setMockMethodCallHandler((MethodCall methodCall) async {
@@ -35,7 +34,7 @@ void main() {
   });
 
   test('fromPlatform', () async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
+    final info = await PackageInfo.fromPlatform();
     expect(info.appName, 'package_info_example');
     expect(info.buildNumber, '1');
     expect(info.packageName, 'io.flutter.plugins.packageinfoexample');

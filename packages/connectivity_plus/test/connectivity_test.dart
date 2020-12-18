@@ -28,34 +28,32 @@ void main() {
     });
 
     test('checkConnectivity', () async {
-      ConnectivityResult result = await connectivity.checkConnectivity();
+      final result = await connectivity.checkConnectivity();
       expect(result, kCheckConnectivityResult);
     });
 
     test('getWifiName', () async {
-      String result = await connectivity.getWifiName();
+      final result = await connectivity.getWifiName();
       expect(result, kWifiNameResult);
     });
 
     test('getWifiBSSID', () async {
-      String result = await connectivity.getWifiBSSID();
+      final result = await connectivity.getWifiBSSID();
       expect(result, kWifiBSSIDResult);
     });
 
     test('getWifiIP', () async {
-      String result = await connectivity.getWifiIP();
+      final result = await connectivity.getWifiIP();
       expect(result, kWifiIpAddressResult);
     });
 
     test('requestLocationServiceAuthorization', () async {
-      LocationAuthorizationStatus result =
-          await connectivity.requestLocationServiceAuthorization();
+      final result = await connectivity.requestLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
 
     test('getLocationServiceAuthorization', () async {
-      LocationAuthorizationStatus result =
-          await connectivity.getLocationServiceAuthorization();
+      final result = await connectivity.getLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
   });
@@ -64,28 +62,34 @@ void main() {
 class MockConnectivityPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements ConnectivityPlatform {
+  @override
   Future<ConnectivityResult> checkConnectivity() async {
     return kCheckConnectivityResult;
   }
 
+  @override
   Future<String> getWifiName() async {
     return kWifiNameResult;
   }
 
+  @override
   Future<String> getWifiBSSID() async {
     return kWifiBSSIDResult;
   }
 
+  @override
   Future<String> getWifiIP() async {
     return kWifiIpAddressResult;
   }
 
+  @override
   Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
     bool requestAlwaysLocationUsage = false,
   }) async {
     return kRequestLocationResult;
   }
 
+  @override
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() async {
     return kGetLocationResult;
   }

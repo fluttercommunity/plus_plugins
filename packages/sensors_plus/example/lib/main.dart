@@ -44,16 +44,15 @@ class _MyHomePageState extends State<MyHomePage> {
   List<double> _accelerometerValues;
   List<double> _userAccelerometerValues;
   List<double> _gyroscopeValues;
-  List<StreamSubscription<dynamic>> _streamSubscriptions =
-      <StreamSubscription<dynamic>>[];
+  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   @override
   Widget build(BuildContext context) {
-    final List<String> accelerometer =
+    final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(1))?.toList();
-    final List<String> gyroscope =
+    final gyroscope =
         _gyroscopeValues?.map((double v) => v.toStringAsFixed(1))?.toList();
-    final List<String> userAccelerometer = _userAccelerometerValues
+    final userAccelerometer = _userAccelerometerValues
         ?.map((double v) => v.toStringAsFixed(1))
         ?.toList();
 
@@ -115,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-    for (StreamSubscription<dynamic> subscription in _streamSubscriptions) {
+    for (final subscription in _streamSubscriptions) {
       subscription.cancel();
     }
   }

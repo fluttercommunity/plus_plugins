@@ -5,14 +5,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-
 import 'package:device_info_plus_platform_interface/method_channel/method_channel_device_info.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group("$MethodChannelDeviceInfo", () {
+  group('$MethodChannelDeviceInfo', () {
     MethodChannelDeviceInfo methodChannelDeviceInfo;
 
     setUp(() async {
@@ -23,11 +21,11 @@ void main() {
         switch (methodCall.method) {
           case 'getAndroidDeviceInfo':
             return ({
-              "brand": "Google",
+              'brand': 'Google',
             });
           case 'getIosDeviceInfo':
             return ({
-              "name": "iPhone 10",
+              'name': 'iPhone 10',
             });
           default:
             return null;
@@ -35,15 +33,14 @@ void main() {
       });
     });
 
-    test("androidInfo", () async {
-      final AndroidDeviceInfo result =
-          await methodChannelDeviceInfo.androidInfo();
-      expect(result.brand, "Google");
+    test('androidInfo', () async {
+      final result = await methodChannelDeviceInfo.androidInfo();
+      expect(result.brand, 'Google');
     });
 
-    test("iosInfo", () async {
-      final IosDeviceInfo result = await methodChannelDeviceInfo.iosInfo();
-      expect(result.name, "iPhone 10");
+    test('iosInfo', () async {
+      final result = await methodChannelDeviceInfo.iosInfo();
+      expect(result.name, 'iPhone 10');
     });
   });
 }

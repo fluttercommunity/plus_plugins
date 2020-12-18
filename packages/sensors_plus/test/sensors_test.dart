@@ -13,12 +13,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('$accelerometerEvents are streamed', () async {
-    const String channelName =
-        'dev.fluttercommunity.plus/sensors/accelerometer';
-    const List<double> sensorData = <double>[1.0, 2.0, 3.0];
+    const channelName = 'dev.fluttercommunity.plus/sensors/accelerometer';
+    const sensorData = <double>[1.0, 2.0, 3.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
-    final AccelerometerEvent event = await accelerometerEvents.first;
+    final event = await accelerometerEvents.first;
 
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);
@@ -26,11 +25,11 @@ void main() {
   });
 
   test('$gyroscopeEvents are streamed', () async {
-    const String channelName = 'dev.fluttercommunity.plus/sensors/gyroscope';
-    const List<double> sensorData = <double>[3.0, 4.0, 5.0];
+    const channelName = 'dev.fluttercommunity.plus/sensors/gyroscope';
+    const sensorData = <double>[3.0, 4.0, 5.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
-    final GyroscopeEvent event = await gyroscopeEvents.first;
+    final event = await gyroscopeEvents.first;
 
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);
@@ -38,11 +37,11 @@ void main() {
   });
 
   test('$userAccelerometerEvents are streamed', () async {
-    const String channelName = 'dev.fluttercommunity.plus/sensors/user_accel';
-    const List<double> sensorData = <double>[6.0, 7.0, 8.0];
+    const channelName = 'dev.fluttercommunity.plus/sensors/user_accel';
+    const sensorData = <double>[6.0, 7.0, 8.0];
     _initializeFakeSensorChannel(channelName, sensorData);
 
-    final UserAccelerometerEvent event = await userAccelerometerEvents.first;
+    final event = await userAccelerometerEvents.first;
 
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);
@@ -51,7 +50,7 @@ void main() {
 }
 
 void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
-  const StandardMethodCodec standardMethod = StandardMethodCodec();
+  const standardMethod = StandardMethodCodec();
 
   void _emitEvent(ByteData event) {
     ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
@@ -63,7 +62,7 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
 
   ServicesBinding.instance.defaultBinaryMessenger
       .setMockMessageHandler(channelName, (ByteData message) async {
-    final MethodCall methodCall = standardMethod.decodeMethodCall(message);
+    final methodCall = standardMethod.decodeMethodCall(message);
     if (methodCall.method == 'listen') {
       _emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));
       _emitEvent(null);

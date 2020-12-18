@@ -20,6 +20,7 @@ extension _ToBatteryState on UPowerBatteryState {
   }
 }
 
+///
 @visibleForTesting
 typedef UPowerDeviceFactory = UPowerDevice Function();
 
@@ -49,6 +50,7 @@ class BatteryPlusLinux extends BatteryPlatform {
   StreamController<BatteryState> _stateController;
 
   @visibleForTesting
+  // ignore: public_member_api_docs
   UPowerDeviceFactory createDevice = () => UPowerDevice.display();
 
   void _addState(UPowerBatteryState value) {

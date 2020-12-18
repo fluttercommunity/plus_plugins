@@ -27,7 +27,7 @@ class MethodChannelShare extends SharePlatform {
   }) {
     assert(text != null);
     assert(text.isNotEmpty);
-    final Map<String, dynamic> params = <String, dynamic>{
+    final params = <String, dynamic>{
       'text': text,
       'subject': subject,
     };
@@ -54,7 +54,7 @@ class MethodChannelShare extends SharePlatform {
     assert(paths != null);
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element != null && element.isNotEmpty));
-    final Map<String, dynamic> params = <String, dynamic>{
+    final params = <String, dynamic>{
       'paths': paths,
       'mimeTypes': mimeTypes ??
           paths.map((String path) => _mimeTypeForPath(path)).toList(),

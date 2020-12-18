@@ -77,8 +77,8 @@ void main() {
   });
 
   test('sharing file sets correct mimeType', () async {
-    final String path = 'tempfile-83649a.png';
-    final File file = File(path);
+    final path = 'tempfile-83649a.png';
+    final file = File(path);
     try {
       file.createSync();
       await SharePlatform.instance.shareFiles([path]);
@@ -92,8 +92,8 @@ void main() {
   });
 
   test('sharing file sets passed mimeType', () async {
-    final String path = 'tempfile-83649a.png';
-    final File file = File(path);
+    final path = 'tempfile-83649a.png';
+    final file = File(path);
     try {
       file.createSync();
       await SharePlatform.instance.shareFiles([path], mimeTypes: ['*/*']);

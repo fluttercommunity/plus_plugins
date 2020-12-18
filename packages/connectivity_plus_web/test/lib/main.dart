@@ -24,7 +24,7 @@ void main() {
       when(connection.downlink).thenReturn(downlink);
       when(connection.rtt).thenReturn(downlink);
 
-      NetworkInformationApiConnectivityPlugin plugin =
+      final plugin =
           NetworkInformationApiConnectivityPlugin.withConnection(connection);
       expect(plugin.checkConnectivity(), completion(equals(expected)));
     }
@@ -57,10 +57,9 @@ void main() {
   group('get onConnectivityChanged', () {
     test('puts change events in a Stream', () async {
       final connection = MockNetworkInformation();
-      NetworkInformationApiConnectivityPlugin plugin =
+      final plugin =
           NetworkInformationApiConnectivityPlugin.withConnection(connection);
-
-      Stream<ConnectivityResult> results = plugin.onConnectivityChanged;
+      final results = plugin.onConnectivityChanged;
 
       // Fake a disconnect-reconnect
       await connection.mockChangeValue(downlink: 0, rtt: 0);

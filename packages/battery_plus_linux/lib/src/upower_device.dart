@@ -4,6 +4,9 @@ const _kInterface = 'org.freedesktop.UPower';
 const _kDeviceAddress = 'org.freedesktop.UPower.Device';
 const _kDisplayDevicePath = '/org/freedesktop/UPower/devices/DisplayDevice';
 
+// Used internally
+// ignore_for_file: public_member_api_docs
+
 enum UPowerBatteryState {
   unknown,
   charging,

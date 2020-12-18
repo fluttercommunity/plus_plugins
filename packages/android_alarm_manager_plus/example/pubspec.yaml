@@ -1,6 +1,10 @@
 name: android_alarm_manager_example
 description: Demonstrates how to use the android_alarm_manager_plus plugin.
 
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
@@ -16,7 +20,7 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  pedantic: ^1.8.0
+  pedantic: ^1.9.2
 
 flutter:
   uses-material-design: true

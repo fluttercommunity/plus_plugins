@@ -12,7 +12,7 @@ Future<StreamSubscription<VMIsolateRef>> resumeIsolatesOnPause(
     FlutterDriver driver) async {
   final vm = await driver.serviceClient.getVM();
   print('for isolates');
-  for (var isolateRef in vm.isolates) {
+  for (final isolateRef in vm.isolates) {
     final isolate = await isolateRef.load();
     if (isolate.isPaused) {
       print('isolate.resume');

@@ -104,8 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         try {
           if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
+            var status = await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
               status =
                   await _connectivity.requestLocationServiceAuthorization();
@@ -121,13 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         } on PlatformException catch (e) {
           print(e.toString());
-          wifiName = "Failed to get Wifi Name";
+          wifiName = 'Failed to get Wifi Name';
         }
 
         try {
           if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
+            var status = await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
               status =
                   await _connectivity.requestLocationServiceAuthorization();
@@ -143,14 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         } on PlatformException catch (e) {
           print(e.toString());
-          wifiBSSID = "Failed to get Wifi BSSID";
+          wifiBSSID = 'Failed to get Wifi BSSID';
         }
 
         try {
           wifiIP = await _connectivity.getWifiIP();
         } on PlatformException catch (e) {
           print(e.toString());
-          wifiIP = "Failed to get Wifi IP";
+          wifiIP = 'Failed to get Wifi IP';
         }
 
         setState(() {
