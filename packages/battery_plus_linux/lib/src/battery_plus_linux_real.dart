@@ -20,6 +20,7 @@ extension _ToBatteryState on UPowerBatteryState {
   }
 }
 
+///
 @visibleForTesting
 typedef UPowerDeviceFactory = UPowerDevice Function();
 

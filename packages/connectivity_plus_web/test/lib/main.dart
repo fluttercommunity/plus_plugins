@@ -24,7 +24,7 @@ void main() {
       when(connection.downlink).thenReturn(downlink);
       when(connection.rtt).thenReturn(downlink);
 
-      var plugin =
+      final plugin =
           NetworkInformationApiConnectivityPlugin.withConnection(connection);
       expect(plugin.checkConnectivity(), completion(equals(expected)));
     }

@@ -15,3 +15,5 @@ analyzer:
 linter:
   rules:
     public_member_api_docs: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true

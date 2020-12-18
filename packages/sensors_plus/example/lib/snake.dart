@@ -41,7 +41,7 @@ class SnakeBoardPainter extends CustomPainter {
       Rect.fromPoints(Offset.zero, size.bottomLeft(Offset.zero)),
       blackLine,
     );
-    for (var p in state.body) {
+    for (final p in state.body) {
       final a = Offset(cellSize * p.x, cellSize * p.y);
       final b = Offset(cellSize * (p.x + 1), cellSize * (p.y + 1));
 
