@@ -1,3 +1,7 @@
+## 0.7.1
+
+- Bump linux version.
+
 ## 0.7.0
 
 - Add Linux support (`connectivity_plus_linux`).
