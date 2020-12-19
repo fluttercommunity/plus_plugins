@@ -14,14 +14,8 @@ typedef _ConnectionGetter = Future<String> Function(NMConnection connection);
 @visibleForTesting
 typedef NetworkManagerFactory = NetworkManager Function();
 
-/// The Linux implementation of ConnectivityPlatform.
-class ConnectivityLinux extends ConnectivityPlatform {
-  /// Checks the connection status of the device.
-  @override
-  Future<ConnectivityResult> checkConnectivity() {
-    return _getConnectivity(_ref()).whenComplete(_deref);
-  }
-
+/// The Linux implementation of NetworkInfoPlatform.
+class NetworkInfoLinux extends NetworkInfoPlatform {
   /// Obtains the wifi name (SSID) of the connected network
   @override
   Future<String> getWifiName() {
@@ -60,33 +54,6 @@ class ConnectivityLinux extends ConnectivityPlatform {
 
   int _refCount = 0;
   NetworkManager _manager;
-  StreamController<ConnectivityResult> _controller;
-
-  /// Returns a Stream of ConnectivityResults changes.
-  @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
-    _controller ??= StreamController<ConnectivityResult>.broadcast(
-      onListen: _startListenConnectivity,
-      onCancel: _deref,
-    );
-    return _controller.stream;
-  }
-
-  Future<ConnectivityResult> _getConnectivity(NetworkManager manager) {
-    return manager.getType().then((value) => value.toConnectivityResult());
-  }
-
-  void _startListenConnectivity() {
-    final manager = _ref();
-    manager.getType().then((type) => _addConnectivity(type));
-    manager.subscribeTypeChanged().listen((type) {
-      _addConnectivity(type);
-    });
-  }
-
-  void _addConnectivity(String type) {
-    _controller.add(type.toConnectivityResult());
-  }
 
   NetworkManager _ref() {
     _manager ??= createManager();
@@ -108,21 +75,4 @@ class ConnectivityLinux extends ConnectivityPlatform {
 
   @visibleForTesting
   NetworkManagerFactory createManager = () => NetworkManager.system();
-}
-
-extension _NMConnectivityType on String {
-  ConnectivityResult toConnectivityResult() {
-    if (isEmpty) {
-      return ConnectivityResult.none;
-    }
-    if (contains('wireless')) {
-      return ConnectivityResult.wifi;
-    }
-    // ### TODO: ethernet
-    //if (contains('ethernet')) {
-    //  return ConnectivityResult.ethernet;
-    //}
-    // gsm, cdma, bluetooth, ...
-    return ConnectivityResult.mobile;
-  }
 }

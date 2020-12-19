@@ -1,4 +1,4 @@
-# Connectivity Plus Linux
+# Network Info Plus Linux
 
 [![Flutter Community: network_info_plus_linux](https://fluttercommunity.dev/_github/header/network_info_plus_linux)](https://github.com/fluttercommunity/community)
 
