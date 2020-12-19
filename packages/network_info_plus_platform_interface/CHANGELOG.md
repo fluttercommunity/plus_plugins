@@ -8,7 +8,7 @@
 
 ## 0.1.7
 
-- Transfer package to Flutter Community under new name `connectivity_plus_platform_interface`.
+- Transfer package to Flutter Community under new name `network_info_plus_platform_interface`.
 
 ## 0.1.6
 

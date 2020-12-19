@@ -2,7 +2,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'connectivity_plus'
+  s.name             = 'network_info_plus'
   s.version          = '0.0.1'
   s.summary          = 'No-op implementation of the macos connectivity to avoid build issues on macos'
   s.description      = <<-DESC

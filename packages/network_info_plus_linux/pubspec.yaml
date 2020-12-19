@@ -1,5 +1,5 @@
-name: connectivity_plus_linux
-description: Linux implementation of the connectivity_plus plugin
+name: network_info_plus_linux
+description: Linux implementation of the network_info_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 version: 0.2.0
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus_platform_interface: ^0.3.0
+  network_info_plus_platform_interface: ^0.3.0
   dbus: ^0.1.0
   meta: ^1.2.3
 

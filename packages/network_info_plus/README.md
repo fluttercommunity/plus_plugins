@@ -1,8 +1,8 @@
-# connectivity_plus
+# network_info_plus
 
-[![Flutter Community: connectivity_plus](https://fluttercommunity.dev/_github/header/connectivity_plus)](https://github.com/fluttercommunity/community)
+[![Flutter Community: network_info_plus](https://fluttercommunity.dev/_github/header/network_info_plus)](https://github.com/fluttercommunity/community)
 
-[![pub package](https://img.shields.io/pub/v/connectivity_plus.svg)](https://pub.dev/packages/connectivity_plus)
+[![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
 
 This plugin allows Flutter apps to discover network connectivity and configure
 themselves accordingly. It can distinguish between cellular vs WiFi connection.
@@ -16,7 +16,7 @@ the app might have wifi access but it might be a VPN or a hotel WiFi with no acc
 Sample usage to check current status:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:network_info_plus/connectivity.dart';
 
 var connectivityResult = await (Connectivity().checkConnectivity());
 if (connectivityResult == ConnectivityResult.mobile) {
@@ -34,7 +34,7 @@ You can also listen for network state changes by subscribing to the stream
 exposed by connectivity plugin:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:network_info_plus/connectivity.dart';
 
 @override
 initState() {
@@ -59,7 +59,7 @@ Note that connectivity changes are no longer communicated to Android apps in the
 You can get wi-fi related information using:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:network_info_plus/connectivity.dart';
 
 var wifiBSSID = await (Connectivity().getWifiBSSID());
 var wifiIP = await (Connectivity().getWifiIP());network

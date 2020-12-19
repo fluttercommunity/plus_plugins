@@ -1,7 +1,7 @@
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-import 'package:connectivity_plus_web/src/network_information_api_connectivity_plugin.dart';
+import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
+import 'package:network_info_plus_web/src/network_information_api_connectivity_plugin.dart';
 
 import 'package:mockito/mockito.dart';
 

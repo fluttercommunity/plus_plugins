@@ -7,12 +7,12 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-import 'package:connectivity_plus_platform_interface/src/method_channel_connectivity.dart';
-import 'package:connectivity_plus_linux/connectivity_plus_linux.dart';
+import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
+import 'package:network_info_plus_platform_interface/src/method_channel_connectivity.dart';
+import 'package:network_info_plus_linux/network_info_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
-export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
+export 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart'
     show ConnectivityResult, LocationAuthorizationStatus;
 
 /// Discover network connectivity configurations: Distinguish between WI-FI and cellular, check WI-FI status and more.

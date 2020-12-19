@@ -4,7 +4,7 @@
 
 ## 0.7.0
 
-- Add Linux support (`connectivity_plus_linux`).
+- Add Linux support (`network_info_plus_linux`).
 
 ## 0.6.0
 
@@ -61,7 +61,7 @@ collision with the original connectivity package.
 
 ## 0.4.7
 
-- Migrate the plugin to use the ConnectivityPlatform.instance defined in the connectivity_plus_platform_interface package.
+- Migrate the plugin to use the ConnectivityPlatform.instance defined in the network_info_plus_platform_interface package.
 
 ## 0.4.6+2
 

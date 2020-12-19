@@ -3,8 +3,8 @@ import 'dart:html' as html show window, NetworkInformation;
 import 'dart:js';
 import 'dart:js_util';
 
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-import 'package:connectivity_plus_web/connectivity_plus_web.dart';
+import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
+import 'package:network_info_plus_web/network_info_plus_web.dart';
 import 'package:flutter/foundation.dart';
 
 import 'utils/connectivity_result.dart';

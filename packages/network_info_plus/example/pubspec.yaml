@@ -1,5 +1,5 @@
-name: connectivity_plus_example
-description: Demonstrates how to use the connectivity_plus plugin.
+name: network_info_plus_example
+description: Demonstrates how to use the network_info_plus plugin.
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -7,7 +7,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus:
+  network_info_plus:
     path: ../
 
 dev_dependencies:

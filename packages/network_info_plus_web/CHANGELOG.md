@@ -8,7 +8,7 @@
 
 ## 0.3.1+3
 
-- Transfer package to Flutter Community under new name `connectivity_plus_web`.
+- Transfer package to Flutter Community under new name `network_info_plus_web`.
 
 ## 0.3.1+2
 
