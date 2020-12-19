@@ -16,8 +16,6 @@ flutter:
         default_package: network_info_plus_linux
       macos:
         default_package: network_info_plus_macos
-      web:
-        default_package: network_info_plus_web
 
 dependencies:
   flutter:
@@ -26,7 +24,6 @@ dependencies:
   network_info_plus_platform_interface: ^0.3.0
   network_info_plus_linux: ^0.2.0
   network_info_plus_macos: ^0.3.0
-  network_info_plus_web: ^0.5.0
 
 dev_dependencies:
   flutter_test:
