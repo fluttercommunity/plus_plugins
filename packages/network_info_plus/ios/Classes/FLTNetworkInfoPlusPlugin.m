@@ -2,41 +2,32 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTConnectivityPlusPlugin.h"
-
-#import "Reachability/Reachability.h"
+#import "FLTNetworkInfoPlusPlugin.h"
 
 #import <CoreLocation/CoreLocation.h>
-#import "FLTConnectivityLocationPlusHandler.h"
+#import "FLTNetworkInfoLocationPlusHandler.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 
 #include <ifaddrs.h>
 
 #include <arpa/inet.h>
 
-@interface FLTConnectivityPlusPlugin () <FlutterStreamHandler, CLLocationManagerDelegate>
+@interface FLTNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
 
-@property(strong, nonatomic) FLTConnectivityLocationPlusHandler* locationHandler;
+@property(strong, nonatomic) FLTNetworkInfoLocationPlusHandler* locationHandler;
 
 @end
 
-@implementation FLTConnectivityPlusPlugin {
-  FlutterEventSink _eventSink;
-  Reachability* _reachabilityForInternetConnection;
+@implementation FLTNetworkInfoPlusPlugin {
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTConnectivityPlusPlugin* instance = [[FLTConnectivityPlusPlugin alloc] init];
+  FLTNetworkInfoPlusPlugin* instance = [[FLTNetworkInfoPlusPlugin alloc] init];
 
   FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/connectivity"
+      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/network_info"
                                   binaryMessenger:[registrar messenger]];
   [registrar addMethodCallDelegate:instance channel:channel];
-
-  FlutterEventChannel* streamChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/connectivity_status"
-                                binaryMessenger:[registrar messenger]];
-  [streamChannel setStreamHandler:instance];
 }
 
 - (NSString*)findNetworkInfo:(NSString*)key {
@@ -91,34 +82,15 @@
   return address;
 }
 
-- (NSString*)statusFromReachability:(Reachability*)reachability {
-  NetworkStatus status = [reachability currentReachabilityStatus];
-  switch (status) {
-    case NotReachable:
-      return @"none";
-    case ReachableViaWiFi:
-      return @"wifi";
-    case ReachableViaWWAN:
-      return @"mobile";
-  }
-}
-
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([call.method isEqualToString:@"check"]) {
-    // This is supposed to be quick. Another way of doing this would be to
-    // signup for network
-    // connectivity changes. However that depends on the app being in background
-    // and the code
-    // gets more involved. So for now, this will do.
-    result([self statusFromReachability:[Reachability reachabilityForInternetConnection]]);
-  } else if ([call.method isEqualToString:@"wifiName"]) {
+  if ([call.method isEqualToString:@"wifiName"]) {
     result([self getWifiName]);
   } else if ([call.method isEqualToString:@"wifiBSSID"]) {
     result([self getBSSID]);
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
     result([self getWifiIP]);
   } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
-    result([self convertCLAuthorizationStatusToString:[FLTConnectivityLocationPlusHandler
+    result([self convertCLAuthorizationStatusToString:[FLTNetworkInfoLocationPlusHandler
                                                           locationAuthorizationStatus]]);
   } else if ([call.method isEqualToString:@"requestLocationServiceAuthorization"]) {
     NSArray* arguments = call.arguments;
@@ -132,11 +104,6 @@
   } else {
     result(FlutterMethodNotImplemented);
   }
-}
-
-- (void)onReachabilityDidChange:(NSNotification*)notification {
-  Reachability* curReach = [notification object];
-  _eventSink([self statusFromReachability:curReach]);
 }
 
 - (NSString*)convertCLAuthorizationStatusToString:(CLAuthorizationStatus)status {
@@ -162,34 +129,11 @@
   }
 }
 
-- (FLTConnectivityLocationPlusHandler*)locationHandler {
+- (FLTNetworkInfoLocationPlusHandler*)locationHandler {
   if (!_locationHandler) {
-    _locationHandler = [FLTConnectivityLocationPlusHandler new];
+    _locationHandler = [FLTNetworkInfoLocationPlusHandler new];
   }
   return _locationHandler;
-}
-
-#pragma mark FlutterStreamHandler impl
-
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
-  _eventSink = eventSink;
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onReachabilityDidChange:)
-                                               name:kReachabilityChangedNotification
-                                             object:nil];
-  _reachabilityForInternetConnection = [Reachability reachabilityForInternetConnection];
-  [_reachabilityForInternetConnection startNotifier];
-  return nil;
-}
-
-- (FlutterError*)onCancelWithArguments:(id)arguments {
-  if (_reachabilityForInternetConnection) {
-    [_reachabilityForInternetConnection stopNotifier];
-    _reachabilityForInternetConnection = nil;
-  }
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  _eventSink = nil;
-  return nil;
 }
 
 @end
