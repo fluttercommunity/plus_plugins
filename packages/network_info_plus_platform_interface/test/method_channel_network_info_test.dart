@@ -5,19 +5,19 @@
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:network_info_plus_platform_interface/src/method_channel_connectivity.dart';
+import 'package:network_info_plus_platform_interface/src/method_channel_network_info.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('$MethodChannelConnectivity', () {
+  group('$MethodChannelNetworkInfo', () {
     final log = <MethodCall>[];
-    MethodChannelConnectivity methodChannelConnectivity;
+    MethodChannelNetworkInfo methodChannelNetworkInfo;
 
     setUp(() async {
-      methodChannelConnectivity = MethodChannelConnectivity();
+      methodChannelNetworkInfo = MethodChannelNetworkInfo();
 
-      methodChannelConnectivity.methodChannel
+      methodChannelNetworkInfo.methodChannel
           .setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
         switch (methodCall.method) {
@@ -38,14 +38,14 @@ void main() {
         }
       });
       log.clear();
-      MethodChannel(methodChannelConnectivity.eventChannel.name)
+      MethodChannel(methodChannelNetworkInfo.eventChannel.name)
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
             await ServicesBinding.instance.defaultBinaryMessenger
                 .handlePlatformMessage(
-              methodChannelConnectivity.eventChannel.name,
-              methodChannelConnectivity.eventChannel.codec
+              methodChannelNetworkInfo.eventChannel.name,
+              methodChannelNetworkInfo.eventChannel.codec
                   .encodeSuccessEnvelope('wifi'),
               (_) {},
             );
@@ -57,14 +57,8 @@ void main() {
       });
     });
 
-    test('onConnectivityChanged', () async {
-      final result =
-          await methodChannelConnectivity.onConnectivityChanged.first;
-      expect(result, ConnectivityResult.wifi);
-    });
-
     test('getWifiName', () async {
-      final result = await methodChannelConnectivity.getWifiName();
+      final result = await methodChannelNetworkInfo.getWifiName();
       expect(result, '1337wifi');
       expect(
         log,
@@ -78,7 +72,7 @@ void main() {
     });
 
     test('getWifiBSSID', () async {
-      final result = await methodChannelConnectivity.getWifiBSSID();
+      final result = await methodChannelNetworkInfo.getWifiBSSID();
       expect(result, 'c0:ff:33:c0:d3:55');
       expect(
         log,
@@ -92,7 +86,7 @@ void main() {
     });
 
     test('getWifiIP', () async {
-      final result = await methodChannelConnectivity.getWifiIP();
+      final result = await methodChannelNetworkInfo.getWifiIP();
       expect(result, '127.0.0.1');
       expect(
         log,
@@ -107,7 +101,7 @@ void main() {
 
     test('requestLocationServiceAuthorization', () async {
       final result =
-          await methodChannelConnectivity.requestLocationServiceAuthorization();
+          await methodChannelNetworkInfo.requestLocationServiceAuthorization();
       expect(result, LocationAuthorizationStatus.authorizedAlways);
       expect(
         log,
@@ -122,27 +116,13 @@ void main() {
 
     test('getLocationServiceAuthorization', () async {
       final result =
-          await methodChannelConnectivity.getLocationServiceAuthorization();
+          await methodChannelNetworkInfo.getLocationServiceAuthorization();
       expect(result, LocationAuthorizationStatus.authorizedAlways);
       expect(
         log,
         <Matcher>[
           isMethodCall(
             'getLocationServiceAuthorization',
-            arguments: null,
-          ),
-        ],
-      );
-    });
-
-    test('checkConnectivity', () async {
-      final result = await methodChannelConnectivity.checkConnectivity();
-      expect(result, ConnectivityResult.wifi);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'check',
             arguments: null,
           ),
         ],

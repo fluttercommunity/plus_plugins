@@ -10,36 +10,12 @@ import 'package:meta/meta.dart';
 
 import 'utils.dart';
 
-/// An implementation of [ConnectivityPlatform] that uses method channels.
-class MethodChannelConnectivity extends ConnectivityPlatform {
+/// An implementation of [NetworkInfoPlatform] that uses method channels.
+class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel methodChannel =
-      MethodChannel('dev.fluttercommunity.plus/connectivity');
-
-  /// The event channel used to receive ConnectivityResult changes from the native platform.
-  @visibleForTesting
-  EventChannel eventChannel =
-      EventChannel('dev.fluttercommunity.plus/connectivity_status');
-
-  Stream<ConnectivityResult> _onConnectivityChanged;
-
-  /// Fires whenever the connectivity state changes.
-  @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
-    _onConnectivityChanged ??= eventChannel
-        .receiveBroadcastStream()
-        .map((dynamic result) => result.toString())
-        .map(parseConnectivityResult);
-    return _onConnectivityChanged;
-  }
-
-  @override
-  Future<ConnectivityResult> checkConnectivity() {
-    return methodChannel
-        .invokeMethod<String>('check')
-        .then(parseConnectivityResult);
-  }
+      MethodChannel('dev.fluttercommunity.plus/network_info');
 
   @override
   Future<String> getWifiName() async {

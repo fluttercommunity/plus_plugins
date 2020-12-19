@@ -1,4 +1,4 @@
-# Connectivity Plus Platform Interface
+# Network Info Plus Platform Interface
 
 [![Flutter Community: network_info_plus_platform_interface](https://fluttercommunity.dev/_github/header/network_info_plus_platform_interface)](https://github.com/fluttercommunity/community)
 

@@ -1,18 +1,5 @@
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 
-/// Convert a String to a ConnectivityResult value.
-ConnectivityResult parseConnectivityResult(String state) {
-  switch (state) {
-    case 'wifi':
-      return ConnectivityResult.wifi;
-    case 'mobile':
-      return ConnectivityResult.mobile;
-    case 'none':
-    default:
-      return ConnectivityResult.none;
-  }
-}
-
 /// Convert a String to a LocationAuthorizationStatus value.
 LocationAuthorizationStatus parseLocationAuthorizationStatus(String result) {
   switch (result) {
