@@ -2,16 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.connectivityexample;
+package dev.fluttercommunity.plus.network_info_plus_example;
 
 import androidx.test.rule.ActivityTestRule;
 import dev.flutter.plugins.integration_test.FlutterTestRunner;
+import io.flutter.embedding.android.FlutterActivity;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 
 @RunWith(FlutterTestRunner.class)
-public class EmbeddingV1ActivityTest {
+public class FlutterActivityTest {
   @Rule
-  public ActivityTestRule<EmbeddingV1Activity> rule =
-      new ActivityTestRule<>(EmbeddingV1Activity.class);
+  public ActivityTestRule<FlutterActivity> rule = new ActivityTestRule<>(FlutterActivity.class);
 }

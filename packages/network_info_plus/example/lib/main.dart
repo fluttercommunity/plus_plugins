@@ -50,121 +50,81 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _connectionStatus = 'Unknown';
-  final Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  final NetworkInfo _networkInfo = NetworkInfo();
 
   @override
   void initState() {
     super.initState();
-    initConnectivity();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-  }
-
-  @override
-  void dispose() {
-    _connectivitySubscription.cancel();
-    super.dispose();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initConnectivity() async {
-    ConnectivityResult result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      result = await _connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      print(e.toString());
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) {
-      return Future.value(null);
-    }
-
-    return _updateConnectionStatus(result);
+    _initNetworkInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connectivity example app'),
+        title: const Text('NetworkInfo example app'),
       ),
       body: Center(child: Text('Connection Status: $_connectionStatus')),
     );
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    switch (result) {
-      case ConnectivityResult.wifi:
-        String wifiName, wifiBSSID, wifiIP;
+  Future<void> _initNetworkInfo() async {
+    String wifiName, wifiBSSID, wifiIP;
 
-        try {
-          if (!kIsWeb && Platform.isIOS) {
-            var status = await _connectivity.getLocationServiceAuthorization();
-            if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
-            }
-            if (status == LocationAuthorizationStatus.authorizedAlways ||
-                status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiName = await _connectivity.getWifiName();
-            } else {
-              wifiName = await _connectivity.getWifiName();
-            }
-          } else {
-            wifiName = await _connectivity.getWifiName();
-          }
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiName = 'Failed to get Wifi Name';
+    try {
+      if (!kIsWeb && Platform.isIOS) {
+        var status = await _networkInfo.getLocationServiceAuthorization();
+        if (status == LocationAuthorizationStatus.notDetermined) {
+          status =
+              await _networkInfo.requestLocationServiceAuthorization();
         }
-
-        try {
-          if (!kIsWeb && Platform.isIOS) {
-            var status = await _connectivity.getLocationServiceAuthorization();
-            if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
-            }
-            if (status == LocationAuthorizationStatus.authorizedAlways ||
-                status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiBSSID = await _connectivity.getWifiBSSID();
-            } else {
-              wifiBSSID = await _connectivity.getWifiBSSID();
-            }
-          } else {
-            wifiBSSID = await _connectivity.getWifiBSSID();
-          }
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiBSSID = 'Failed to get Wifi BSSID';
+        if (status == LocationAuthorizationStatus.authorizedAlways ||
+            status == LocationAuthorizationStatus.authorizedWhenInUse) {
+          wifiName = await _networkInfo.getWifiName();
+        } else {
+          wifiName = await _networkInfo.getWifiName();
         }
-
-        try {
-          wifiIP = await _connectivity.getWifiIP();
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiIP = 'Failed to get Wifi IP';
-        }
-
-        setState(() {
-          _connectionStatus = '$result\n'
-              'Wifi Name: $wifiName\n'
-              'Wifi BSSID: $wifiBSSID\n'
-              'Wifi IP: $wifiIP\n';
-        });
-        break;
-      case ConnectivityResult.mobile:
-      case ConnectivityResult.none:
-        setState(() => _connectionStatus = result.toString());
-        break;
-      default:
-        setState(() => _connectionStatus = 'Failed to get connectivity.');
-        break;
+      } else {
+        wifiName = await _networkInfo.getWifiName();
+      }
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiName = 'Failed to get Wifi Name';
     }
+
+    try {
+      if (!kIsWeb && Platform.isIOS) {
+        var status = await _networkInfo.getLocationServiceAuthorization();
+        if (status == LocationAuthorizationStatus.notDetermined) {
+          status =
+              await _networkInfo.requestLocationServiceAuthorization();
+        }
+        if (status == LocationAuthorizationStatus.authorizedAlways ||
+            status == LocationAuthorizationStatus.authorizedWhenInUse) {
+          wifiBSSID = await _networkInfo.getWifiBSSID();
+        } else {
+          wifiBSSID = await _networkInfo.getWifiBSSID();
+        }
+      } else {
+        wifiBSSID = await _networkInfo.getWifiBSSID();
+      }
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiBSSID = 'Failed to get Wifi BSSID';
+    }
+
+    try {
+      wifiIP = await _networkInfo.getWifiIP();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiIP = 'Failed to get Wifi IP';
+    }
+
+    setState(() {
+      _connectionStatus =
+          'Wifi Name: $wifiName\n'
+          'Wifi BSSID: $wifiBSSID\n'
+          'Wifi IP: $wifiIP\n';
+    });
   }
 }

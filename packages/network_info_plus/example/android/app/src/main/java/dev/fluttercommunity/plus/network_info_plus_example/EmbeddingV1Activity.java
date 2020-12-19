@@ -2,17 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.connectivityexample;
+package dev.fluttercommunity.plus.network_info_plus_example;
 
 import android.os.Bundle;
-import dev.fluttercommunity.plus.connectivity.ConnectivityPlugin;
+import dev.fluttercommunity.plus.network_info.NetworkInfoPlusPlugin;
 import io.flutter.app.FlutterActivity;
 
 public class EmbeddingV1Activity extends FlutterActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    ConnectivityPlugin.registerWith(
-        registrarFor("dev.fluttercommunity.plus.connectivity.ConnectivityPlugin"));
+    NetworkInfoPlusPlugin.registerWith(
+        registrarFor("dev.fluttercommunity.plus.network_info.NetworkPlusPlugin"));
   }
 }

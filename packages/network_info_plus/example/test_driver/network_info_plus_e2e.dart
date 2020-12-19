@@ -10,30 +10,16 @@ import 'package:network_info_plus/network_info_plus.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Connectivity test driver', () {
-    Connectivity _connectivity;
+  group('NetworkInfo test driver', () {
+    NetworkInfo _networkInfo;
 
     setUpAll(() async {
-      _connectivity = Connectivity();
-    });
-
-    testWidgets('test connectivity result', (WidgetTester tester) async {
-      final result = await _connectivity.checkConnectivity();
-      expect(result, isNotNull);
-      switch (result) {
-        case ConnectivityResult.wifi:
-          expect(_connectivity.getWifiName(), completes);
-          expect(_connectivity.getWifiBSSID(), completes);
-          expect((await _connectivity.getWifiIP()), isNotNull);
-          break;
-        default:
-          break;
-      }
+      _networkInfo = NetworkInfo();
     });
 
     testWidgets('test location methods, iOS only', (WidgetTester tester) async {
       if (Platform.isIOS) {
-        expect((await _connectivity.getLocationServiceAuthorization()),
+        expect((await _networkInfo.getLocationServiceAuthorization()),
             LocationAuthorizationStatus.notDetermined);
       }
     });
