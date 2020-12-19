@@ -1,6 +1,6 @@
 name: network_info_plus_macos
 description: macOS implementation of the network_info_plus plugin.
-version: 0.3.0
+version: 0.1.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -8,13 +8,13 @@ flutter:
   plugin:
     platforms:
       macos:
-        pluginClass: ConnectivityPlugin
+        pluginClass: NetworkInfoPlusPlugin
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
   flutter: '>=1.20.0'
 
 dependencies:
-  network_info_plus_platform_interface: ^0.3.0
+  network_info_plus_platform_interface: ^0.1.0
   flutter:
     sdk: flutter

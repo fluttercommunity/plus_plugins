@@ -1,4 +1,4 @@
-# Connectivity Plus macOS
+# Network Info Plus macOS
 
 [![Flutter Community: network_info_plus_macos](https://fluttercommunity.dev/_github/header/network_info_plus_macos)](https://github.com/fluttercommunity/community)
 
