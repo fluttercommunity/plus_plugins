@@ -8,63 +8,48 @@ import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
-import 'package:network_info_plus_platform_interface/src/method_channel_connectivity.dart';
+import 'package:network_info_plus_platform_interface/src/method_channel_network_info.dart';
 import 'package:network_info_plus_linux/network_info_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart'
-    show ConnectivityResult, LocationAuthorizationStatus;
+    show NetworkInfoResult, LocationAuthorizationStatus;
 
-/// Discover network connectivity configurations: Distinguish between WI-FI and cellular, check WI-FI status and more.
-class Connectivity {
-  /// Constructs a singleton instance of [Connectivity].
+/// Discover network info: check WI-FI details and more.
+class NetworkInfo {
+  /// Constructs a singleton instance of [NetworkInfo].
   ///
-  /// [Connectivity] is designed to work as a singleton.
+  /// [NetworkInfo] is designed to work as a singleton.
   // When a second instance is created, the first instance will not be able to listen to the
   // EventChannel because it is overridden. Forcing the class to be a singleton class can prevent
   // misuse of creating a second instance from a programmer.
-  factory Connectivity() {
-    _singleton ??= Connectivity._();
+  factory NetworkInfo() {
+    _singleton ??= NetworkInfo._();
     return _singleton;
   }
 
-  Connectivity._();
+  NetworkInfo._();
 
-  static Connectivity _singleton;
+  static NetworkInfo _singleton;
 
   static bool _manualDartRegistrationNeeded = true;
 
   // This is to manually endorse Dart implementations until automatic
   // registration of Dart plugins is implemented. For details see
   // https://github.com/flutter/flutter/issues/52267.
-  static ConnectivityPlatform get _platform {
+  static NetworkInfoPlatform get _platform {
     if (_manualDartRegistrationNeeded) {
       // Only do the initial registration if it hasn't already been overridden
       // with a non-default instance.
       if (!kIsWeb &&
-          ConnectivityPlatform.instance is MethodChannelConnectivity) {
+          NetworkInfoPlatform.instance is MethodChannelNetworkInfo) {
         if (Platform.isLinux) {
-          ConnectivityPlatform.instance = ConnectivityLinux();
+          NetworkInfoPlatform.instance = NetworkInfoLinux();
         }
       }
       _manualDartRegistrationNeeded = false;
     }
-    return ConnectivityPlatform.instance;
-  }
-
-  /// Fires whenever the connectivity state changes.
-  Stream<ConnectivityResult> get onConnectivityChanged {
-    return _platform.onConnectivityChanged;
-  }
-
-  /// Checks the connection status of the device.
-  ///
-  /// Do not use the result of this function to decide whether you can reliably
-  /// make a network request. It only gives you the radio status.
-  ///
-  /// Instead listen for connectivity changes via [onConnectivityChanged] stream.
-  Future<ConnectivityResult> checkConnectivity() {
-    return _platform.checkConnectivity();
+    return NetworkInfoPlatform.instance;
   }
 
   /// Obtains the wifi name (SSID) of the connected network
@@ -122,18 +107,18 @@ class Connectivity {
   /// For example,
   /// ```dart
   /// if (Platform.isIOS) {
-  ///   LocationAuthorizationStatus status = await _connectivity.getLocationServiceAuthorization();
+  ///   LocationAuthorizationStatus status = await _networkInfo.getLocationServiceAuthorization();
   ///   if (status == LocationAuthorizationStatus.notDetermined) {
-  ///     status = await _connectivity.requestLocationServiceAuthorization();
+  ///     status = await _networkInfo.requestLocationServiceAuthorization();
   ///   }
   ///   if (status == LocationAuthorizationStatus.authorizedAlways || status == LocationAuthorizationStatus.authorizedWhenInUse) {
-  ///     wifiBSSID = await _connectivity.getWifiName();
+  ///     wifiBSSID = await _networkInfo.getWifiName();
   ///   } else {
   ///     print('location service is not authorized, the data might not be correct');
-  ///     wifiBSSID = await _connectivity.getWifiName();
+  ///     wifiBSSID = await _networkInfo.getWifiName();
   ///   }
   /// } else {
-  ///   wifiBSSID = await _connectivity.getWifiName();
+  ///   wifiBSSID = await _networkInfo.getWifiName();
   /// }
   /// ```
   ///
@@ -171,15 +156,15 @@ class Connectivity {
   /// For example,
   /// ```dart
   /// if (Platform.isIOS) {
-  ///   LocationAuthorizationStatus status = await _connectivity.getLocationServiceAuthorization();
+  ///   LocationAuthorizationStatus status = await _networkInfo.getLocationServiceAuthorization();
   ///   if (status == LocationAuthorizationStatus.authorizedAlways || status == LocationAuthorizationStatus.authorizedWhenInUse) {
-  ///     wifiBSSID = await _connectivity.getWifiName();
+  ///     wifiBSSID = await _networkInfo.getWifiName();
   ///   } else {
   ///     print('location service is not authorized, the data might not be correct');
-  ///     wifiBSSID = await _connectivity.getWifiName();
+  ///     wifiBSSID = await _networkInfo.getWifiName();
   ///   }
   /// } else {
-  ///   wifiBSSID = await _connectivity.getWifiName();
+  ///   wifiBSSID = await _networkInfo.getWifiName();
   /// }
   /// ```
   ///

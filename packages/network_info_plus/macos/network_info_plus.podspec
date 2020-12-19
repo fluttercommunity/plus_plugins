@@ -4,12 +4,12 @@
 Pod::Spec.new do |s|
   s.name             = 'network_info_plus'
   s.version          = '0.0.1'
-  s.summary          = 'No-op implementation of the macos connectivity to avoid build issues on macos'
+  s.summary          = 'No-op implementation of the macos network_info_plus to avoid build issues on macos'
   s.description      = <<-DESC
-  No-op implementation of the connectivity plugin to avoid build issues on macos.
+  No-op implementation of the network_info_plus plugin to avoid build issues on macos.
   https://github.com/flutter/flutter/issues/46618
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins/tree/main/packages/connectivity'
+  s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Team' => 'flutter-dev@googlegroups.com' }
   s.source           = { :path => '.' }

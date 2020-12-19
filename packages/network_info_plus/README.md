@@ -4,66 +4,19 @@
 
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
 
-This plugin allows Flutter apps to discover network connectivity and configure
-themselves accordingly. It can distinguish between cellular vs WiFi connection.
-This plugin works for iOS and Android.
-
-> Note that on Android, this does not guarantee connection to Internet. For instance,
-the app might have wifi access but it might be a VPN or a hotel WiFi with no access.
+This plugin allows Flutter apps to discover network info and configure
+themselves accordingly.
 
 ## Usage
-
-Sample usage to check current status:
-
-```dart
-import 'package:network_info_plus/connectivity.dart';
-
-var connectivityResult = await (Connectivity().checkConnectivity());
-if (connectivityResult == ConnectivityResult.mobile) {
-  // I am connected to a mobile network.
-} else if (connectivityResult == ConnectivityResult.wifi) {
-  // I am connected to a wifi network.
-}
-```
-
-> Note that you should not be using the current network status for deciding
-whether you can reliably make a network connection. Always guard your app code
-against timeouts and errors that might come from the network layer.
-
-You can also listen for network state changes by subscribing to the stream
-exposed by connectivity plugin:
-
-```dart
-import 'package:network_info_plus/connectivity.dart';
-
-@override
-initState() {
-  super.initState();
-
-  subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    // Got a new connectivity status!
-  })
-}
-
-// Be sure to cancel subscription after you are done
-@override
-dispose() {
-  super.dispose();
-
-  subscription.cancel();
-}
-```
-
-Note that connectivity changes are no longer communicated to Android apps in the background starting with Android O. *You should always check for connectivity status when your app is resumed.* The broadcast is only useful when your application is in the foreground.
 
 You can get wi-fi related information using:
 
 ```dart
-import 'package:network_info_plus/connectivity.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
-var wifiBSSID = await (Connectivity().getWifiBSSID());
-var wifiIP = await (Connectivity().getWifiIP());network
-var wifiName = await (Connectivity().getWifiName());wifi network
+var wifiBSSID = await (NetworkInfo().getWifiBSSID());
+var wifiIP = await (NetworkInfo().getWifiIP());network
+var wifiName = await (NetworkInfo().getWifiName());wifi network
 ```
 
 ### iOS 12
@@ -99,25 +52,6 @@ To request location authorization, make sure to add the following keys to your _
 
 * `NSLocationAlwaysAndWhenInUseUsageDescription` - describe why the app needs access to the user’s location information all the time (foreground and background). This is called _Privacy - Location Always and When In Use Usage Description_ in the visual editor.
 * `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
-
-## Limitations on the web platform
-
-In order to retrieve information about the quality/speed of a browser's connection, the web implementation of the `connectivity` plugin uses the browser's [**NetworkInformation** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation), which as of this writing (June 2020) is still "experimental", and not available in all browsers:
-
-![Data on support for the netinfo feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/netinfo.png)
-
-On desktop browsers, this API only returns a very broad set of connectivity statuses (One of `'slow-2g', '2g', '3g', or '4g'`), and may *not* provide a Stream of changes. Firefox still hasn't enabled this feature by default.
-
-**Fallback to `navigator.onLine`**
-
-For those browsers where the NetworkInformation Web API is not available, the plugin falls back to the [**NavigatorOnLine** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine), which is more broadly supported: 
-
-![Data on support for the online-status feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/online-status.png)
-
-
-The NavigatorOnLine API is [provided by `dart:html`](https://api.dart.dev/stable/2.7.2/dart-html/Navigator/onLine.html), and only supports a boolean connectivity status (either online or offline), with no network speed information. In those cases the plugin will return either `wifi` (when the browser is online) or `none` (when it's not).
-
-Other than the approximate "downlink" speed, where available, and due to security and privacy concerns, **no Web browser will provide** any specific information about the actual network your users' device is connected to, like **the SSID on a Wi-Fi, or the MAC address of their device.**
 
 ## Getting Started
 

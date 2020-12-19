@@ -8,7 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mockito/mockito.dart';
 
-const ConnectivityResult kCheckConnectivityResult = ConnectivityResult.wifi;
 const String kWifiNameResult = '1337wifi';
 const String kWifiBSSIDResult = 'c0:ff:33:c0:d3:55';
 const String kWifiIpAddressResult = '127.0.0.1';
@@ -18,55 +17,45 @@ const LocationAuthorizationStatus kGetLocationResult =
     LocationAuthorizationStatus.authorizedAlways;
 
 void main() {
-  group('Connectivity', () {
-    Connectivity connectivity;
-    MockConnectivityPlatform fakePlatform;
+  group('NetworkInfo', () {
+    NetworkInfo networkInfo;
+    MockNetworkInfoPlatform fakePlatform;
     setUp(() async {
-      fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      connectivity = Connectivity();
-    });
-
-    test('checkConnectivity', () async {
-      final result = await connectivity.checkConnectivity();
-      expect(result, kCheckConnectivityResult);
+      fakePlatform = MockNetworkInfoPlatform();
+      NetworkInfoPlatform.instance = fakePlatform;
+      networkInfo = NetworkInfo();
     });
 
     test('getWifiName', () async {
-      final result = await connectivity.getWifiName();
+      final result = await networkInfo.getWifiName();
       expect(result, kWifiNameResult);
     });
 
     test('getWifiBSSID', () async {
-      final result = await connectivity.getWifiBSSID();
+      final result = await networkInfo.getWifiBSSID();
       expect(result, kWifiBSSIDResult);
     });
 
     test('getWifiIP', () async {
-      final result = await connectivity.getWifiIP();
+      final result = await networkInfo.getWifiIP();
       expect(result, kWifiIpAddressResult);
     });
 
     test('requestLocationServiceAuthorization', () async {
-      final result = await connectivity.requestLocationServiceAuthorization();
+      final result = await networkInfo.requestLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
 
     test('getLocationServiceAuthorization', () async {
-      final result = await connectivity.getLocationServiceAuthorization();
+      final result = await networkInfo.getLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
   });
 }
 
-class MockConnectivityPlatform extends Mock
+class MockNetworkInfoPlatform extends Mock
     with MockPlatformInterfaceMixin
-    implements ConnectivityPlatform {
-  @override
-  Future<ConnectivityResult> checkConnectivity() async {
-    return kCheckConnectivityResult;
-  }
-
+    implements NetworkInfoPlatform {
   @override
   Future<String> getWifiName() async {
     return kWifiNameResult;
