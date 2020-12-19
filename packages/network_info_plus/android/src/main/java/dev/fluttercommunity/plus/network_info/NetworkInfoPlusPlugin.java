@@ -2,27 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package dev.fluttercommunity.plus.connectivity;
+package dev.fluttercommunity.plus.network_info;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
-import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/** ConnectivityPlugin */
-public class ConnectivityPlugin implements FlutterPlugin {
+/** NetworkInfoPlusPlugin */
+public class NetworkInfoPlusPlugin implements FlutterPlugin {
 
   private MethodChannel methodChannel;
-  private EventChannel eventChannel;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
 
-    ConnectivityPlugin plugin = new ConnectivityPlugin();
+    NetworkInfoPlusPlugin plugin = new NetworkInfoPlusPlugin();
     plugin.setupChannels(registrar.messenger(), registrar.context());
   }
 
@@ -37,27 +34,19 @@ public class ConnectivityPlugin implements FlutterPlugin {
   }
 
   private void setupChannels(BinaryMessenger messenger, Context context) {
-    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/connectivity");
-    eventChannel = new EventChannel(messenger, "dev.fluttercommunity.plus/connectivity_status");
-    ConnectivityManager connectivityManager =
-        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/network_info");
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
-    Connectivity connectivity = new Connectivity(connectivityManager, wifiManager);
+    NetworkInfo networkInfo = new NetworkInfo(wifiManager);
 
-    ConnectivityMethodChannelHandler methodChannelHandler =
-        new ConnectivityMethodChannelHandler(connectivity);
-    ConnectivityBroadcastReceiver receiver =
-        new ConnectivityBroadcastReceiver(context, connectivity);
+    NetworkInfoMethodChannelHandler methodChannelHandler =
+        new NetworkInfoMethodChannelHandler(networkInfo);
 
     methodChannel.setMethodCallHandler(methodChannelHandler);
-    eventChannel.setStreamHandler(receiver);
   }
 
   private void teardownChannels() {
     methodChannel.setMethodCallHandler(null);
-    eventChannel.setStreamHandler(null);
     methodChannel = null;
-    eventChannel = null;
   }
 }
