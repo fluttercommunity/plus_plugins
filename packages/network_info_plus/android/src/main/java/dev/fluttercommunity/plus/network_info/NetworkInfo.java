@@ -6,7 +6,6 @@ package dev.fluttercommunity.plus.network_info;
 
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 
 /** Reports network info such as wifi name and address. */
 class NetworkInfo {

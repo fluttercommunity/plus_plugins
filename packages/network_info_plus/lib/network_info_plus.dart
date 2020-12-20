@@ -41,8 +41,7 @@ class NetworkInfo {
     if (_manualDartRegistrationNeeded) {
       // Only do the initial registration if it hasn't already been overridden
       // with a non-default instance.
-      if (!kIsWeb &&
-          NetworkInfoPlatform.instance is MethodChannelNetworkInfo) {
+      if (!kIsWeb && NetworkInfoPlatform.instance is MethodChannelNetworkInfo) {
         if (Platform.isLinux) {
           NetworkInfoPlatform.instance = NetworkInfoLinux();
         }

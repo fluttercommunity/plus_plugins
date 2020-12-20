@@ -75,8 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (!kIsWeb && Platform.isIOS) {
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
-          status =
-              await _networkInfo.requestLocationServiceAuthorization();
+          status = await _networkInfo.requestLocationServiceAuthorization();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
             status == LocationAuthorizationStatus.authorizedWhenInUse) {
@@ -96,8 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (!kIsWeb && Platform.isIOS) {
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
-          status =
-              await _networkInfo.requestLocationServiceAuthorization();
+          status = await _networkInfo.requestLocationServiceAuthorization();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
             status == LocationAuthorizationStatus.authorizedWhenInUse) {
@@ -121,8 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      _connectionStatus =
-          'Wifi Name: $wifiName\n'
+      _connectionStatus = 'Wifi Name: $wifiName\n'
           'Wifi BSSID: $wifiBSSID\n'
           'Wifi IP: $wifiIP\n';
     });

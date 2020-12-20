@@ -15,7 +15,8 @@ typedef void (^FLTNetworkInfoLocationPlusCompletion)(CLAuthorizationStatus);
 + (CLAuthorizationStatus)locationAuthorizationStatus;
 
 - (void)requestLocationAuthorization:(BOOL)always
-                          completion:(_Nonnull FLTNetworkInfoLocationPlusCompletion)completionHnadler;
+                          completion:
+                              (_Nonnull FLTNetworkInfoLocationPlusCompletion)completionHnadler;
 
 @end
 
