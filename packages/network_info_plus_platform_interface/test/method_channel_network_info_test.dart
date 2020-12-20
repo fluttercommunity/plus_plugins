@@ -21,8 +21,6 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
         switch (methodCall.method) {
-          case 'check':
-            return 'wifi';
           case 'wifiName':
             return '1337wifi';
           case 'wifiBSSID':
@@ -38,23 +36,6 @@ void main() {
         }
       });
       log.clear();
-      MethodChannel(methodChannelNetworkInfo.eventChannel.name)
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        switch (methodCall.method) {
-          case 'listen':
-            await ServicesBinding.instance.defaultBinaryMessenger
-                .handlePlatformMessage(
-              methodChannelNetworkInfo.eventChannel.name,
-              methodChannelNetworkInfo.eventChannel.codec
-                  .encodeSuccessEnvelope('wifi'),
-              (_) {},
-            );
-            break;
-          case 'cancel':
-          default:
-            return null;
-        }
-      });
     });
 
     test('getWifiName', () async {

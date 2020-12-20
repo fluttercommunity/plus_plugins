@@ -13,7 +13,7 @@ import 'package:network_info_plus_linux/network_info_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart'
-    show NetworkInfoResult, LocationAuthorizationStatus;
+    show LocationAuthorizationStatus;
 
 /// Discover network info: check WI-FI details and more.
 class NetworkInfo {
