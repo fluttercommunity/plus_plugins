@@ -1,0 +1,41 @@
+name: network_info_plus
+description: Flutter plugin for discovering network info.
+version: 0.1.0
+homepage: https://plus.fluttercommunity.dev/
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.fluttercommunity.plus.network_info
+        pluginClass: NetworkInfoPlusPlugin
+      ios:
+        pluginClass: FLTNetworkInfoPlusPlugin
+      linux:
+        default_package: network_info_plus_linux
+      macos:
+        default_package: network_info_plus_macos
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.0.5
+  network_info_plus_platform_interface: ^0.1.0
+  network_info_plus_linux: ^0.1.0
+  network_info_plus_macos: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
+  integration_test: ^0.9.1
+  mockito: ^4.1.1
+  plugin_platform_interface: ^1.0.0
+  pedantic: ^1.9.2
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"
