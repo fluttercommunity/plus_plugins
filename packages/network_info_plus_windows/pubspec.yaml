@@ -1,0 +1,25 @@
+name: network_info_plus_windows
+description: Windows implementation of the network_info_plus plugin
+homepage: https://plus.fluttercommunity.dev/
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
+version: 0.1.0
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  network_info_plus_platform_interface: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.9.2
+
+flutter:
+  plugin:
+    platforms:
+      windows:
+        pluginClass: NetworkInfoPlusWindowsPlugin
