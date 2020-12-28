@@ -144,8 +144,8 @@ void main() {
     group('launchChooser', () {
       test('pass title', () async {
         androidIntent = AndroidIntent.private(
-            action: 'action_view',
-            channel: mockChannel,
+          action: 'action_view',
+          channel: mockChannel,
           platform: FakePlatform(operatingSystem: 'android'),
         );
         await androidIntent.launchChooser('title');
