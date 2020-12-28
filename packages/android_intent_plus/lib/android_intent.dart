@@ -138,6 +138,22 @@ class AndroidIntent {
     await _channel.invokeMethod<void>('launch', _buildArguments());
   }
 
+  /// Launch the intent with 'createChooser(intent, title)'.
+  ///
+  /// This works only on Android platforms.
+  Future<void> launchChooser(String title) async {
+    if (!_platform.isAndroid) {
+      return;
+    }
+
+    final buildArguments = _buildArguments();
+    buildArguments['chooserTitle'] = title;
+    await _channel.invokeMethod<void>(
+      'launchChooser',
+      buildArguments,
+    );
+  }
+
   /// Check whether the intent can be resolved to an activity.
   ///
   /// This works only on Android platforms.
