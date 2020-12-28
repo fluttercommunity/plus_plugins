@@ -1,3 +1,7 @@
+## pre-release
+
+- Add launchChooser method, which uses Intent.createChooser internally.
+
 ## 0.4.1
 
 - Renamed Method Channel and changed Java package to avoid collision with android_intent
