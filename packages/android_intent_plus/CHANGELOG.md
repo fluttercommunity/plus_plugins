@@ -1,6 +1,7 @@
-## pre-release
+## 0.4.2
 
 - Add launchChooser method, which uses Intent.createChooser internally.
+- Add sendBroadcast method, which uses context.sendBroadcast() internally.
 
 ## 0.4.1
 
