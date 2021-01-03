@@ -65,10 +65,12 @@ class MyHomePage extends StatelessWidget {
               onPressed: _createAlarm,
             ),
             RaisedButton(
-              child: const Text(
-                'Tap here to launch Intent with Chooser',
-              ),
+              child: const Text('Tap here to launch Intent with Chooser'),
               onPressed: _openChooser,
+            ),
+            RaisedButton(
+              child: const Text('Tap here to send Intent as broadcast'),
+              onPressed: _sendBroadcast,
             ),
             RaisedButton(
               child: const Text('Tap here to test explicit intents.'),
@@ -95,6 +97,13 @@ class MyHomePage extends StatelessWidget {
       data: 'text example',
     );
     intent.launchChooser('Chose an app');
+  }
+
+  void _sendBroadcast() {
+    final intent = const AndroidIntent(
+      action: 'com.example.broadcast',
+    );
+    intent.sendBroadcast();
   }
 }
 

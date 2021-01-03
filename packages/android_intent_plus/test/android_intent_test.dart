@@ -155,6 +155,20 @@ void main() {
         }));
       });
     });
+
+    group('sendBroadcast', () {
+      test('send a broadcast', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'com.example.broadcast',
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.sendBroadcast();
+        verify(mockChannel.invokeMethod<void>('sendBroadcast', <String, Object>{
+          'action': 'com.example.broadcast',
+        }));
+      });
+    });
   });
 
   group('convertFlags ', () {

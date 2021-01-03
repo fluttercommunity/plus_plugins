@@ -67,6 +67,17 @@ public final class IntentSender {
     send(Intent.createChooser(intent, title));
   }
 
+  /** Creates an intent and sends it as Broadcast. */
+  public void sendBroadcast(Intent intent) {
+    if (applicationContext == null) {
+      Log.wtf(TAG, "Trying to send broadcast before the applicationContext was initialized.");
+      return;
+    }
+
+    Log.v(TAG, "Sending broadcast " + intent);
+    applicationContext.sendBroadcast(intent);
+  }
+
   /**
    * Verifies the given intent and returns whether the application context class can resolve it.
    *

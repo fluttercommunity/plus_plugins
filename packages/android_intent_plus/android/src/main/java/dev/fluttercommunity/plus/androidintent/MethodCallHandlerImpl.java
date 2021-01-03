@@ -97,6 +97,9 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       String title = call.argument("chooserTitle");
       sender.launchChooser(intent, title);
       result.success(null);
+    } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {
+      sender.sendBroadcast(intent);
+      result.success(null);
     } else if ("canResolveActivity".equalsIgnoreCase(call.method)) {
       result.success(sender.canResolveActivity(intent));
     } else {

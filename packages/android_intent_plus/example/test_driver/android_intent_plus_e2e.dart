@@ -24,7 +24,7 @@ void main() {
           (Widget widget) =>
               widget is Text && widget.data.startsWith('Tap here'),
         ),
-        findsNWidgets(3),
+        findsNWidgets(4),
       );
     } else {
       expect(
@@ -56,6 +56,13 @@ void main() {
       data: 'text example',
     );
     await intent.launchChooser('title');
+  }, skip: !Platform.isAndroid);
+
+  testWidgets('#sendBroadcast should not throw', (WidgetTester tester) async {
+    final intent = const AndroidIntent(
+      action: 'com.example.broadcast',
+    );
+    await intent.sendBroadcast();
   }, skip: !Platform.isAndroid);
 
   testWidgets('#canResolveActivity returns true when example Activity is found',
