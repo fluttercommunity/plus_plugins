@@ -24,7 +24,7 @@ void main() {
           (Widget widget) =>
               widget is Text && widget.data.startsWith('Tap here'),
         ),
-        findsNWidgets(2),
+        findsNWidgets(3),
       );
     } else {
       expect(
@@ -47,6 +47,15 @@ void main() {
       return e is PlatformException &&
           e.message.contains('No Activity found to handle Intent');
     }));
+  }, skip: !Platform.isAndroid);
+
+  testWidgets('#launchChooser should not throw', (WidgetTester tester) async {
+    final intent = const AndroidIntent(
+      action: 'android.intent.action.SEND',
+      type: 'plain/text',
+      data: 'text example',
+    );
+    await intent.launchChooser('title');
   }, skip: !Platform.isAndroid);
 
   testWidgets('#canResolveActivity returns true when example Activity is found',

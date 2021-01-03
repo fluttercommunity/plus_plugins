@@ -65,8 +65,15 @@ class MyHomePage extends StatelessWidget {
               onPressed: _createAlarm,
             ),
             RaisedButton(
-                child: const Text('Tap here to test explicit intents.'),
-                onPressed: () => _openExplicitIntentsView(context)),
+              child: const Text(
+                'Tap here to launch Intent with Chooser',
+              ),
+              onPressed: _openChooser,
+            ),
+            RaisedButton(
+              child: const Text('Tap here to test explicit intents.'),
+              onPressed: () => _openExplicitIntentsView(context),
+            ),
           ],
         ),
       );
@@ -79,6 +86,15 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(child: body),
     );
+  }
+
+  void _openChooser() {
+    final intent = const AndroidIntent(
+      action: 'android.intent.action.SEND',
+      type: 'plain/text',
+      data: 'text example',
+    );
+    intent.launchChooser('Chose an app');
   }
 }
 
@@ -204,7 +220,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
                   'Tap here to open Application Details',
                 ),
                 onPressed: _openApplicationDetails,
-              )
+              ),
             ],
           ),
         ),

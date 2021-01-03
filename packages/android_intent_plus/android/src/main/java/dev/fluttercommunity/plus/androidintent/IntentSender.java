@@ -60,6 +60,14 @@ public final class IntentSender {
   }
 
   /**
+   * Like with {@code send}, creates and launches an intent with the given params, but wraps the
+   * {@code Intent} with {@code Intent.createChooser}.
+   */
+  public void launchChooser(Intent intent, String title) {
+    send(Intent.createChooser(intent, title));
+  }
+
+  /**
    * Verifies the given intent and returns whether the application context class can resolve it.
    *
    * <p>This will fail to create and send the intent if {@code applicationContext} hasn't been set *
@@ -68,9 +76,9 @@ public final class IntentSender {
    * <p>This currently only supports resolving activities.
    *
    * @param intent Fully built intent.
-   * @see #buildIntent(String, Integer, String, Uri, Bundle, String, ComponentName, String)
    * @return Whether the package manager found {@link android.content.pm.ResolveInfo} using its
    *     {@link PackageManager#resolveActivity(Intent, int)} method.
+   * @see #buildIntent(String, Integer, String, Uri, Bundle, String, ComponentName, String)
    */
   boolean canResolveActivity(Intent intent) {
     if (applicationContext == null) {

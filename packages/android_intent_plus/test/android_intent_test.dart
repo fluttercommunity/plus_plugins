@@ -140,6 +140,21 @@ void main() {
         verifyZeroInteractions(mockChannel);
       });
     });
+
+    group('launchChooser', () {
+      test('pass title', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'action_view',
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.launchChooser('title');
+        verify(mockChannel.invokeMethod<void>('launchChooser', <String, Object>{
+          'action': 'action_view',
+          'chooserTitle': 'title',
+        }));
+      });
+    });
   });
 
   group('convertFlags ', () {
