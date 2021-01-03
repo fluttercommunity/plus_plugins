@@ -4,9 +4,7 @@
 
 package io.flutter.plugins.androidintentexample;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
-
 import dev.fluttercommunity.plus.androidintent.AndroidIntentPlugin;
 import io.flutter.app.FlutterActivity;
 
@@ -15,6 +13,6 @@ public class EmbeddingV1Activity extends FlutterActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     AndroidIntentPlugin.registerWith(
-      registrarFor("dev.fluttercommunity.plus.androidintent.AndroidIntentPlugin"));
+        registrarFor("dev.fluttercommunity.plus.androidintent.AndroidIntentPlugin"));
   }
 }
