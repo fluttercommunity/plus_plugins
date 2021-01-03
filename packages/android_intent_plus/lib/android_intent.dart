@@ -154,6 +154,20 @@ class AndroidIntent {
     );
   }
 
+  /// Sends intent as broadcast.
+  ///
+  /// This works only on Android platforms.
+  Future<void> sendBroadcast() async {
+    if (!_platform.isAndroid) {
+      return;
+    }
+
+    await _channel.invokeMethod<void>(
+      'sendBroadcast',
+      _buildArguments(),
+    );
+  }
+
   /// Check whether the intent can be resolved to an activity.
   ///
   /// This works only on Android platforms.

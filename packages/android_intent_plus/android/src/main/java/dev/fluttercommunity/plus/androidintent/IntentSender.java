@@ -9,14 +9,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+
 import androidx.annotation.Nullable;
 
-/** Forms and launches intents. */
+/**
+ * Forms and launches intents.
+ */
 public final class IntentSender {
   private static final String TAG = "IntentSender";
 
-  @Nullable private Activity activity;
-  @Nullable private Context applicationContext;
+  @Nullable
+  private Activity activity;
+  @Nullable
+  private Context applicationContext;
 
   /**
    * Caches the given {@code activity} and {@code applicationContext} to use for sending intents
@@ -68,6 +73,19 @@ public final class IntentSender {
   }
 
   /**
+   * Creates an intent and sends it as Broadcast.
+   */
+  public void sendBroadcast(Intent intent) {
+    if (applicationContext == null) {
+      Log.wtf(TAG, "Trying to send broadcast before the applicationContext was initialized.");
+      return;
+    }
+
+    Log.v(TAG, "Sending broadcast " + intent);
+    applicationContext.sendBroadcast(intent);
+  }
+
+  /**
    * Verifies the given intent and returns whether the application context class can resolve it.
    *
    * <p>This will fail to create and send the intent if {@code applicationContext} hasn't been set *
@@ -77,7 +95,7 @@ public final class IntentSender {
    *
    * @param intent Fully built intent.
    * @return Whether the package manager found {@link android.content.pm.ResolveInfo} using its
-   *     {@link PackageManager#resolveActivity(Intent, int)} method.
+   * {@link PackageManager#resolveActivity(Intent, int)} method.
    * @see #buildIntent(String, Integer, String, Uri, Bundle, String, ComponentName, String)
    */
   boolean canResolveActivity(Intent intent) {
@@ -91,12 +109,16 @@ public final class IntentSender {
     return packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
   }
 
-  /** Caches the given {@code activity} to use for {@link #send}. */
+  /**
+   * Caches the given {@code activity} to use for {@link #send}.
+   */
   void setActivity(@Nullable Activity activity) {
     this.activity = activity;
   }
 
-  /** Caches the given {@code applicationContext} to use for {@link #send}. */
+  /**
+   * Caches the given {@code applicationContext} to use for {@link #send}.
+   */
   void setApplicationContext(@Nullable Context applicationContext) {
     this.applicationContext = applicationContext;
   }
@@ -104,30 +126,30 @@ public final class IntentSender {
   /**
    * Constructs a new intent with the data specified.
    *
-   * @param action the Intent action, such as {@code ACTION_VIEW}.
-   * @param flags forwarded to {@link Intent#addFlags(int)} if non-null.
-   * @param category forwarded to {@link Intent#addCategory(String)} if non-null.
-   * @param data forwarded to {@link Intent#setData(Uri)} if non-null and 'type' parameter is null.
-   *     If both 'data' and 'type' is non-null they're forwarded to {@link
-   *     Intent#setDataAndType(Uri, String)}
-   * @param arguments forwarded to {@link Intent#putExtras(Bundle)} if non-null.
-   * @param packageName forwarded to {@link Intent#setPackage(String)} if non-null. This is forced
-   *     to null if it can't be resolved.
+   * @param action        the Intent action, such as {@code ACTION_VIEW}.
+   * @param flags         forwarded to {@link Intent#addFlags(int)} if non-null.
+   * @param category      forwarded to {@link Intent#addCategory(String)} if non-null.
+   * @param data          forwarded to {@link Intent#setData(Uri)} if non-null and 'type' parameter is null.
+   *                      If both 'data' and 'type' is non-null they're forwarded to {@link
+   *                      Intent#setDataAndType(Uri, String)}
+   * @param arguments     forwarded to {@link Intent#putExtras(Bundle)} if non-null.
+   * @param packageName   forwarded to {@link Intent#setPackage(String)} if non-null. This is forced
+   *                      to null if it can't be resolved.
    * @param componentName forwarded to {@link Intent#setComponent(ComponentName)} if non-null.
-   * @param type forwarded to {@link Intent#setType(String)} if non-null and 'data' parameter is
-   *     null. If both 'data' and 'type' is non-null they're forwarded to {@link
-   *     Intent#setDataAndType(Uri, String)}
+   * @param type          forwarded to {@link Intent#setType(String)} if non-null and 'data' parameter is
+   *                      null. If both 'data' and 'type' is non-null they're forwarded to {@link
+   *                      Intent#setDataAndType(Uri, String)}
    * @return Fully built intent.
    */
   Intent buildIntent(
-      @Nullable String action,
-      @Nullable Integer flags,
-      @Nullable String category,
-      @Nullable Uri data,
-      @Nullable Bundle arguments,
-      @Nullable String packageName,
-      @Nullable ComponentName componentName,
-      @Nullable String type) {
+    @Nullable String action,
+    @Nullable Integer flags,
+    @Nullable String category,
+    @Nullable Uri data,
+    @Nullable Bundle arguments,
+    @Nullable String packageName,
+    @Nullable ComponentName componentName,
+    @Nullable String type) {
     if (applicationContext == null) {
       Log.wtf(TAG, "Trying to build an intent before the applicationContext was initialized.");
       return null;
