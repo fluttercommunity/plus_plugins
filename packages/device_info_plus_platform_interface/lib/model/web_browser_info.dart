@@ -139,7 +139,7 @@ class WebBrowserInfo {
     } else if (userAgent.contains('Trident')) {
       return BrowserName.msie;
       // "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
-    } else if (userAgent.contains('Edge') || userAgent.contains('Edg')) {
+    } else if (userAgent.contains('Edg')) {
       return BrowserName.edge;
       // https://docs.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-string
       // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43"
