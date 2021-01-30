@@ -34,7 +34,6 @@ dev_dependencies:
   mockito: ^3.0.0
   flutter_test:
     sdk: flutter
-  integration_test: ^0.9.1
   url_launcher: ^5.7.2
   pedantic: ^1.9.2
 
