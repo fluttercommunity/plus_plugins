@@ -1,3 +1,7 @@
+## 0.6.0
+
+- Rename method channel to avoid conflicts.
+
 ## 0.5.0
 
 - Transfer to plus-plugins monorepo
