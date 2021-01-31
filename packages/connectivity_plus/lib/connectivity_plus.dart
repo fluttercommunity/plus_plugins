@@ -73,6 +73,8 @@ class Connectivity {
   ///
   /// From android 8.0 onwards the GPS must be ON (high accuracy)
   /// in order to be able to obtain the SSID.
+  @Deprecated('Use NetworkInfo.getWifiName() instead. '
+      'This feature was deprecated after v0.7.1.')
   Future<String> getWifiName() {
     return _platform.getWifiName();
   }
@@ -83,11 +85,15 @@ class Connectivity {
   ///
   /// From Android 8.0 onwards the GPS must be ON (high accuracy)
   /// in order to be able to obtain the BSSID.
+  @Deprecated('Use NetworkInfo.getWifiBSSID() instead. '
+      'This feature was deprecated after v0.7.1.')
   Future<String> getWifiBSSID() {
     return _platform.getWifiBSSID();
   }
 
   /// Obtains the IP address of the connected wifi network
+  @Deprecated('Use NetworkInfo.getWifiIP() instead. '
+      'This feature was deprecated after v0.7.1.')
   Future<String> getWifiIP() {
     return _platform.getWifiIP();
   }
@@ -140,6 +146,8 @@ class Connectivity {
   /// Ideally, a location service authorization should only be requested if the current authorization status is not determined.
   ///
   /// See also [getLocationServiceAuthorization] to obtain current location service status.
+  @Deprecated('Use NetworkInfo.requestLocationServiceAuthorization() instead. '
+      'This feature was deprecated after v0.7.1.')
   Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
     bool requestAlwaysLocationUsage = false,
   }) {
@@ -184,6 +192,8 @@ class Connectivity {
   /// ```
   ///
   /// See also [requestLocationServiceAuthorization] for requesting a location service authorization.
+  @Deprecated('Use NetworkInfo.getLocationServiceAuthorization() instead. '
+      'This feature was deprecated after v0.7.1.')
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
     return _platform.getLocationServiceAuthorization();
   }
