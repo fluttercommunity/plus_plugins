@@ -7,6 +7,8 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+// ignore_for_file: deprecated_member_use
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 

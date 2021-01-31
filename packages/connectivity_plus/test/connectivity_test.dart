@@ -8,6 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mockito/mockito.dart';
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 const ConnectivityResult kCheckConnectivityResult = ConnectivityResult.wifi;
 const String kWifiNameResult = '1337wifi';
 const String kWifiBSSIDResult = 'c0:ff:33:c0:d3:55';
