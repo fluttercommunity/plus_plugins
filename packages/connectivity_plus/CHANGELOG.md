@@ -1,3 +1,11 @@
+## 0.7.2
+
+- Deprecated the following members (use network_info_plus instead):
+  - getWifiBSSID()
+  - getWifiIP()
+  - requestLocationServiceAuthorization()
+  - getLocationServiceAuthorization()
+
 ## 0.7.1
 
 - Bump linux version.
