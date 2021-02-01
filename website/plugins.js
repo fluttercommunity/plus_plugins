@@ -39,7 +39,6 @@ module.exports = [
       windows: 'slightfoot',
     },
   },
-
   {
     name: 'Device Info ➕',
     pub: 'device_info_plus',
@@ -50,6 +49,26 @@ module.exports = [
       macos: false,
       linux: true,
       windows: false,
+    },
+    maintainer: {
+      web: 'mhadaily',
+      android: '',
+      ios: '',
+      macos: '',
+      linux: 'jpnurmi',
+      windows: 'slightfoot',
+    },
+  },
+  {
+    name: 'Network Info ➕',
+    pub: 'network_info_plus',
+    support: {
+      web: false,
+      android: true,
+      ios: true,
+      macos: true,
+      linux: true,
+      windows: true,
     },
     maintainer: {
       web: 'mhadaily',

@@ -30,8 +30,8 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
 
  - [Battery➕ (`battery_plus`)](#battery_plus)
  - [Connectivity➕ (`connectivity_plus`)](#connectivity_plus)
- - [NetworkInfo➕ (`network_info_plus`)](#network_info_plus)
  - [Device Info➕ (`device_info_plus`)](#device_info_plus)
+ - [Network Info➕ (`network_info_plus`)](#network_info_plus)
  - [Package Info➕ (`package_info_plus`)](#package_info_plus)
  - [Sensor➕ (`sensors_plus`)](#sensors_plus)
  - [Share➕ (`share_plus`)](#share_plus)
@@ -72,22 +72,6 @@ mobile/cellular) connectivity on Android and iOS.
 
 ----
 
-### `network_info_plus`
-
-> ![network_info_plus][network_info_plus_badge_pub] [![pub points][network_info_plus_badge_pub_points]][network_info_plus_pub_points]
-
-TBA
-
-[[View Source][network_info_plus_code]]
-
-#### Platform Support
-
-| Android | iOS | MacOS | Web | Linux | Window |
-|:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|         |     |       |     |       |        |
-
-----
-
 ### `device_info_plus`
 
 > ![device_info_plus][device_info_plus_badge_pub] [![pub points][device_info_plus_badge_pub_points]][device_info_plus_pub_points]
@@ -102,6 +86,23 @@ Flutter plugin providing detailed information about the device
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+
+----
+
+### `network_info_plus`
+
+> ![network_info_plus][network_info_plus_badge_pub] [![pub points][network_info_plus_badge_pub_points]][network_info_plus_pub_points]
+
+Flutter plugin for discovering network info.
+
+[[View Source][network_info_plus_code]]
+
+#### Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|         |     |       |     |       |        |
+|    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
 
 ----
 
@@ -216,11 +217,11 @@ This repository is maintained by FlutterCommunity authors. Issues here are answe
 [connectivity_plus_badge_pub_points]: https://badges.bar/connectivity_plus/pub%20points
 [connectivity_plus_badge_pub]: https://img.shields.io/pub/v/connectivity_plus.svg
 
-[network_plus]: https://pub.dev/packages/network_plus
-[network_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_plus
-[network_plus_pub_points]: https://pub.dev/packages/network_plus/score
-[network_plus_badge_pub_points]: https://badges.bar/network_plus/pub%20points
-[network_plus_badge_pub]: https://img.shields.io/pub/v/network_plus.svg
+[network_info_plus]: https://pub.dev/packages/network_info_plus
+[network_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus
+[network_info_plus_pub_points]: https://pub.dev/packages/network_info_plus/score
+[network_info_plus_badge_pub_points]: https://badges.bar/network_info_plus/pub%20points
+[network_info_plus_badge_pub]: https://img.shields.io/pub/v/network_info_plus.svg
 
 [android_alarm_manager_plus]: https://pub.dev/packages/android_alarm_manager_plus
 [android_alarm_manager_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus
