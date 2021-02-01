@@ -32,9 +32,14 @@ void main() {
       expect(info.version, '1.0.0');
     } else if (kIsWeb) {
       expect(info.appName, 'package_info_example');
-      expect(info.buildNumber, null);
+      expect(info.buildNumber, '4');
       expect(info.packageName, null);
-      expect(info.version, null);
+      expect(info.version, '1.2.3');
+    } else if (Platform.isLinux) {
+      expect(info.appName, 'package_info_example');
+      expect(info.buildNumber, '4');
+      expect(info.packageName, null);
+      expect(info.version, '1.2.3');
     } else {
       throw (UnsupportedError('platform not supported'));
     }
@@ -63,7 +68,14 @@ void main() {
       expect(find.text('1.0.0'), findsOneWidget);
     } else if (kIsWeb) {
       expect(find.text('package_info_example'), findsOneWidget);
-      expect(find.text('Not set'), findsNWidgets(3));
+      expect(find.text('1.2.3'), findsOneWidget);
+      expect(find.text('4'), findsOneWidget);
+      expect(find.text('Not set'), findsOneWidget);
+    } else if (Platform.isLinux) {
+      expect(find.text('package_info_example'), findsOneWidget);
+      expect(find.text('1.2.3'), findsOneWidget);
+      expect(find.text('4'), findsOneWidget);
+      expect(find.text('Not set'), findsOneWidget);
     } else {
       throw (UnsupportedError('platform not supported'));
     }

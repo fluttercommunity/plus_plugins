@@ -24,7 +24,7 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  integration_test: ^0.9.1
+  integration_test: ^1.0.2
   mockito: ^4.1.1
   pedantic: ^1.9.2
 
