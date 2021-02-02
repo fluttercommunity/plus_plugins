@@ -111,7 +111,7 @@ void main() {
         );
         await androidIntent.canResolveActivity();
         verify(mockChannel
-            .invokeMethod<Null>('canResolveActivity', <String, Object>{
+            .invokeMethod<void>('canResolveActivity', <String, Object>{
           'action': 'action_view',
         }));
       });
