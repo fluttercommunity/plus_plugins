@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_example/main.dart';
-import 'package:e2e/e2e.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// possible to meaningfully test it through its Dart interface currently. There
 /// are more useful unit tests for the platform logic under android/src/test/.
 void main() {
-  E2EWidgetsFlutterBinding.ensureInitialized();
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Embedding example app loads', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
@@ -70,7 +70,7 @@ void main() {
     final intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
-      componentName: 'io.flutter.embedding.android.FlutterActivity',
+      componentName: 'io.flutter.plugins.androidintentexample.MainActivity',
     );
     await expectLater(await intent.canResolveActivity(), isTrue);
   }, skip: !Platform.isAndroid);

@@ -1,3 +1,7 @@
+## 0.5.0-nullsafety.1
+
+- Null safety support.
+
 ## 0.4.2
 
 - Add launchChooser method, which uses Intent.createChooser internally.
