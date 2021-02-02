@@ -13,9 +13,9 @@ import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 void main() {
-  runZoned(() {
+  runZonedGuarded(() {
     runApp(MyApp());
-  }, onError: (dynamic error, dynamic stack) {
+  }, (dynamic error, dynamic stack) {
     print(error);
     print(stack);
   });
