@@ -70,7 +70,7 @@ void main() {
     final intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
-      componentName: 'io.flutter.embedding.android.FlutterActivity',
+      componentName: 'io.flutter.plugins.androidintentexample.MainActivity',
     );
     await expectLater(await intent.canResolveActivity(), isTrue);
   }, skip: !Platform.isAndroid);
