@@ -11,7 +11,7 @@ import 'package:platform/platform.dart';
 
 void main() {
   AndroidIntent androidIntent;
-  MockMethodChannel mockChannel;
+  late MockMethodChannel mockChannel;
   setUp(() {
     mockChannel = MockMethodChannel();
   });
