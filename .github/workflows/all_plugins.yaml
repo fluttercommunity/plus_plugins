@@ -83,7 +83,7 @@ jobs:
       - name: 'Build Example Snapshots'
         run: |
           melos exec -c 1 --scope="*example*" -- \
-            flutter build apk
+            flutter build bundle
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
