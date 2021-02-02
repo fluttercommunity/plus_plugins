@@ -111,7 +111,7 @@ void main() {
         );
         await androidIntent.canResolveActivity();
         verify(mockChannel
-            .invokeMethod<void>('canResolveActivity', <String, Object>{
+            .invokeMethod<Null>('canResolveActivity', <String, Object>{
           'action': 'action_view',
         }));
       });
@@ -203,4 +203,12 @@ void main() {
   });
 }
 
-class MockMethodChannel extends Mock implements MethodChannel {}
+// https://github.com/dart-lang/mockito/issues/316
+class MockMethodChannel extends Mock implements MethodChannel {
+  @override
+  Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
+    return super
+            .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
+        as dynamic;
+  }
+}
