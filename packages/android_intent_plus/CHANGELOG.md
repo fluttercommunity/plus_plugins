@@ -1,6 +1,6 @@
 ## 0.5.0-nullsafety.1
 
-- Null safafety support.
+- Null safety support.
 
 ## 0.4.2
 
