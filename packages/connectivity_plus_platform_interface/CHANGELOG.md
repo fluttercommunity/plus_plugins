@@ -1,3 +1,7 @@
+## 0.4.0
+
+- Removed members that were moved to network_info_plus
+
 ## 0.3.0
 
 - Renamed method channel

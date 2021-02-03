@@ -1,3 +1,7 @@
+## 0.8.0
+
+- Removed members that were moved to network_info_plus
+
 ## 0.7.2
 
 - Deprecated the following members (use network_info_plus instead):
