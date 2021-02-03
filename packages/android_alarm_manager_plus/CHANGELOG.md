@@ -1,3 +1,7 @@
+## 0.7.0-nullsafety.0
+
+- Null safety support.
+
 ## 0.6.0
 
 - Renamed Method Channel and changed Java package to avoid collision with android_alarm_manager
