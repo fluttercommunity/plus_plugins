@@ -34,6 +34,11 @@ PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
 });
 ```
 
+## Supported platforms
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️    |
+
 ## Known Issue
 
 As noted on [issue 20761](https://github.com/flutter/flutter/issues/20761#issuecomment-493434578), package_info on iOS 
