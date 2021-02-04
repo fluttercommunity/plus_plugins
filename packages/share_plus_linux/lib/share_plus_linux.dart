@@ -12,8 +12,8 @@ class ShareLinux extends SharePlatform {
   @override
   Future<void> share(
     String text, {
-    String subject,
-    Rect sharePositionOrigin,
+    String? subject,
+    Rect? sharePositionOrigin,
   }) {
     final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
     return launch(uri);
@@ -23,10 +23,10 @@ class ShareLinux extends SharePlatform {
   @override
   Future<void> shareFiles(
     List<String> paths, {
-    List<String> mimeTypes,
-    String subject,
-    String text,
-    Rect sharePositionOrigin,
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
   }) {
     throw UnimplementedError('shareFiles() has not been implemented on Linux.');
   }
