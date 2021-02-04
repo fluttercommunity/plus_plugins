@@ -32,7 +32,8 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
 
   Future<MacOsDeviceInfo> macosInfo() async {
     return MacOsDeviceInfo.fromMap(
-      (await channel.invokeMethod('getMacosDeviceInfo')).cast<String, dynamic>(),
+      (await channel.invokeMethod('getMacosDeviceInfo'))
+          .cast<String, dynamic>(),
     );
   }
 }
