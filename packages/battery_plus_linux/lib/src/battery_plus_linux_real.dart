@@ -43,24 +43,24 @@ class BatteryPlusLinux extends BatteryPlatform {
       onListen: _startListenState,
       onCancel: _stopListenState,
     );
-    return _stateController.stream.asBroadcastStream();
+    return _stateController!.stream.asBroadcastStream();
   }
 
-  UPowerDevice _stateDevice;
-  StreamController<BatteryState> _stateController;
+  UPowerDevice? _stateDevice;
+  StreamController<BatteryState>? _stateController;
 
   @visibleForTesting
   // ignore: public_member_api_docs
   UPowerDeviceFactory createDevice = () => UPowerDevice.display();
 
   void _addState(UPowerBatteryState value) {
-    _stateController.add(value.toBatteryState());
+    _stateController!.add(value.toBatteryState());
   }
 
   void _startListenState() {
     _stateDevice ??= createDevice();
-    _stateDevice.getState().then((value) => _addState(value));
-    _stateDevice.subscribeStateChanged().listen((value) => _addState(value));
+    _stateDevice!.getState().then((value) => _addState(value));
+    _stateDevice!.subscribeStateChanged().listen((value) => _addState(value));
   }
 
   void _stopListenState() {

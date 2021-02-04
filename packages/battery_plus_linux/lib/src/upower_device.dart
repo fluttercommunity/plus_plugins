@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dbus/dbus.dart';
 
 const _kInterface = 'org.freedesktop.UPower';
@@ -24,10 +25,10 @@ extension UPowerBatteryStateInt on int {
 typedef UPowerBatteryStateCallback = void Function(UPowerBatteryState state);
 
 class UPowerDevice extends DBusRemoteObject {
-  UPowerDevice._({DBusClient client, DBusObjectPath path})
+  UPowerDevice._({DBusClient? client, DBusObjectPath? path})
       : super(client, _kInterface, path);
 
-  factory UPowerDevice.display([DBusClient client]) {
+  factory UPowerDevice.display([DBusClient? client]) {
     return UPowerDevice._(
       client: client ?? DBusClient.system(),
       path: DBusObjectPath(_kDisplayDevicePath),
