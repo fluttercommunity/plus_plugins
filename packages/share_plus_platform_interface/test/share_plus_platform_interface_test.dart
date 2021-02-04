@@ -96,7 +96,7 @@ class MockMethodChannel extends Mock implements MethodChannel {
   @override
   Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
     return super
-        .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
-    as dynamic;
+            .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
+        as dynamic;
   }
 }
