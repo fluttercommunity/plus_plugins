@@ -47,15 +47,15 @@ class MacOsDeviceInfo {
   /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
   static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {
     return MacOsDeviceInfo(
-      computerName: map["computerName"],
-      hostName: map["hostName"],
-      arch: map["arch"],
-      model: map["model"],
-      kernelVersion: map["kernelVersion"],
-      osRelease: map["osRelease"],
-      activeCPUs: map["activeCPUs"],
-      memorySize: map["memorySize"],
-      cpuFrequency: map["cpuFrequency"],
+      computerName: map['computerName'],
+      hostName: map['hostName'],
+      arch: map['arch'],
+      model: map['model'],
+      kernelVersion: map['kernelVersion'],
+      osRelease: map['osRelease'],
+      activeCPUs: map['activeCPUs'],
+      memorySize: map['memorySize'],
+      cpuFrequency: map['cpuFrequency'],
     );
   }
 }

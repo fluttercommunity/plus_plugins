@@ -30,6 +30,8 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
     );
   }
 
+  // Method channel for macOS devices
+  @override
   Future<MacOsDeviceInfo> macosInfo() async {
     return MacOsDeviceInfo.fromMap(
       (await channel.invokeMethod('getMacosDeviceInfo'))
