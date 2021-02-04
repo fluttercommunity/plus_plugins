@@ -28,7 +28,7 @@ module.exports = [
       ios: true,
       macos: true,
       linux: true,
-      windows: false,
+      windows: true,
     },
     maintainer: {
       web: 'mhadaily',
