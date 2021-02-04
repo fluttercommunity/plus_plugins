@@ -1,15 +1,12 @@
-# device_info_plus_macos
+# Device Info Plus macOS
 
-A new flutter plugin project.
+[![Flutter Community: device_info_plus_macos](https://fluttercommunity.dev/_github/header/device_info_plus_macos)](https://github.com/fluttercommunity/community)
 
-## Getting Started
+[![pub package](https://img.shields.io/pub/v/device_info_plus_macos.svg)](https://pub.dev/packages/device_info_plus_macos)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+The macOS implementation of [`device_info_plus`](https://pub.dev/packages/device_info_plus).
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
 
+This package is already included as part of the `device_info_plus` package dependency, and will
+be included when using `device_info_plus` as normal.
