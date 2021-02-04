@@ -3,7 +3,7 @@ import FlutterMacOS
 
 public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "plugins.flutter.io/device_info", binaryMessenger: registrar.messenger)
+        let channel = FlutterMethodChannel(name: "dev.fluttercommunity.plus/device_info", binaryMessenger: registrar.messenger)
         let instance = DeviceInfoPlusMacosPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
