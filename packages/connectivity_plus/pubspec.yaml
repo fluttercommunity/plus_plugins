@@ -18,6 +18,8 @@ flutter:
         default_package: connectivity_plus_macos
       web:
         default_package: connectivity_plus_web
+      windows:
+        default_package: connectivity_plus_windows
 
 dependencies:
   flutter:
@@ -27,6 +29,7 @@ dependencies:
   connectivity_plus_linux: ^0.3.0
   connectivity_plus_macos: ^0.4.0
   connectivity_plus_web: ^0.6.0
+  connectivity_plus_windows: ^0.1.0
 
 dev_dependencies:
   flutter_test:
