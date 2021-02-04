@@ -81,9 +81,9 @@ class DeviceInfoPlugin {
       _cachedWebBrowserInfo ??= await _platform.webBrowserInfo();
 
   /// This information does not change from call to call. Cache it.
-  MacOsDeviceInfo _cachedMacosInfo;
+  MacOsDeviceInfo _cachedMacosDeviceInfo;
 
   /// Returns device information for macos. Information sourced from Sysctl.
-  Future<MacOsDeviceInfo> get macOsDeviceInfo async =>
-      _cachedMacosInfo ??= await _platform.macosInfo();
+  Future<MacOsDeviceInfo> get macOsInfo async =>
+      _cachedMacosDeviceInfo ??= await _platform.macosInfo();
 }
