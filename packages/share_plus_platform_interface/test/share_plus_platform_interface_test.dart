@@ -91,4 +91,12 @@ void main() {
   });
 }
 
-class MockMethodChannel extends Mock implements MethodChannel {}
+// https://github.com/dart-lang/mockito/issues/316
+class MockMethodChannel extends Mock implements MethodChannel {
+  @override
+  Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
+    return super
+        .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
+    as dynamic;
+  }
+}
