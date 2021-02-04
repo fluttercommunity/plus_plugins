@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MockMethodChannel mockChannel;
+  late MockMethodChannel mockChannel;
 
   setUp(() {
     mockChannel = MockMethodChannel();
@@ -26,14 +26,6 @@ void main() {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
     });
-  });
-
-  test('sharing null fails', () {
-    expect(
-      () => SharePlatform.instance.share(null),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
-    verifyZeroInteractions(mockChannel);
   });
 
   test('sharing empty fails', () {
@@ -58,14 +50,6 @@ void main() {
       'originWidth': 3.0,
       'originHeight': 4.0,
     }));
-  });
-
-  test('sharing null file fails', () {
-    expect(
-      () => SharePlatform.instance.shareFiles([null]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
-    verifyZeroInteractions(mockChannel);
   });
 
   test('sharing empty file fails', () {
