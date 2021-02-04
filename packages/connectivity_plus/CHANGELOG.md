@@ -1,5 +1,6 @@
 ## 0.8.0
 
+- Add Windows support (`connectivity_plus_windows`).
 - Removed members that were moved to network_info_plus
 
 ## 0.7.2
