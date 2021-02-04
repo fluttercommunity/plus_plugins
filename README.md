@@ -85,7 +85,7 @@ Flutter plugin providing detailed information about the device
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
 
 ----
 
