@@ -18,7 +18,7 @@ Also compatible with Linux by using "mailto" to share text via Email.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |    ✔️   |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
 ## Usage
 

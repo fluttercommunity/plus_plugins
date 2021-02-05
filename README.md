@@ -150,7 +150,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |    ✔️   |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
 ----
 

@@ -1,6 +1,6 @@
 name: share_plus
 description: Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
-version: 2.0.0-nullsafety.0
+version: 2.1.0-nullsafety.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -14,6 +14,8 @@ flutter:
         pluginClass: FLTSharePlusPlugin
       linux:
         default_package: share_plus_linux
+      macos:
+        default_package: share_plus_macos
       web:
         default_package: share_plus_web
       windows:
@@ -26,6 +28,7 @@ dependencies:
     sdk: flutter
   share_plus_platform_interface: ^2.0.0-nullsafety
   share_plus_linux: ^2.0.0-nullsafety
+  share_plus_macos: ^0.1.0-nullsafety
   share_plus_windows: ^0.2.0-nullsafety
   share_plus_web: ^0.2.0-nullsafety
 

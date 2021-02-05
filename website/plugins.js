@@ -125,7 +125,7 @@ module.exports = [
       web: true,
       android: true,
       ios: true,
-      macos: false,
+      macos: true,
       linux: true,
       windows: true,
     },
