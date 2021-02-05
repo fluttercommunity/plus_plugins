@@ -10,7 +10,7 @@ Get current device information from within the Flutter application.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
 
 # Usage
 

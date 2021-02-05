@@ -1,3 +1,7 @@
+## 0.7.0
+
+- Add macOS support via `device_info_plus_macos`.
+
 ## 0.6.0
 
 - Rename method channel to avoid conflicts.
