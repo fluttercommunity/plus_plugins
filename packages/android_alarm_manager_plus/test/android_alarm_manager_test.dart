@@ -52,7 +52,7 @@ void main() {
     test('sends arguments to the platform', () async {
       final alarm = DateTime(1993);
       const rawHandle = 4;
-      AndroidAlarmManager.setTestOverides(
+      AndroidAlarmManager.setTestOverrides(
           getCallbackHandle: (Function _) =>
               CallbackHandle.fromRawHandle(rawHandle));
 
@@ -91,7 +91,7 @@ void main() {
   test('${AndroidAlarmManager.oneShot} calls through to oneShotAt', () async {
     final now = DateTime(1993);
     const rawHandle = 4;
-    AndroidAlarmManager.setTestOverides(
+    AndroidAlarmManager.setTestOverrides(
         now: () => now,
         getCallbackHandle: (Function _) =>
             CallbackHandle.fromRawHandle(rawHandle));
@@ -149,7 +149,7 @@ void main() {
     test('sends arguments through to the platform', () async {
       final now = DateTime(1993);
       const rawHandle = 4;
-      AndroidAlarmManager.setTestOverides(
+      AndroidAlarmManager.setTestOverrides(
           now: () => now,
           getCallbackHandle: (Function _) =>
               CallbackHandle.fromRawHandle(rawHandle));
