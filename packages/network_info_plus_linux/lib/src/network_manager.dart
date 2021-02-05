@@ -18,15 +18,19 @@ class NetworkManager extends DBusRemoteObject {
       : super(client, _kNetworkManager, DBusObjectPath(_kPath));
 
   factory NetworkManager.system() => NetworkManager(DBusClient.system());
+
   void dispose() => client?.close();
 
   Future<String> getPath() => _getString('PrimaryConnection', fallback: '/');
+
   Future<String> getType() => _getString(_kType);
 
   Future<String> _getString(String path, {String fallback = ''}) {
     return getProperty(_kNetworkManager, path)
-        .then((value) => (value as DBusString).value)
-        .catchError((error) => print(error))
+        .then(
+          (value) => (value as DBusString).value,
+          onError: (error) => print(error),
+        )
         .then((value) => value ?? fallback);
   }
 
@@ -52,18 +56,22 @@ class NMConnection extends DBusRemoteObject {
 
   Future<String> getId() {
     return getProperty(_kActiveConnection, 'Id')
-        .then((value) => (value as DBusString).value)
-        .catchError((error) => print(error))
+        .then(
+          (value) => (value as DBusString).value,
+          onError: (error) => print(error),
+        )
         .then((value) => value ?? '');
   }
 
   Future<List<String>> getDevices() {
     return getProperty(_kActiveConnection, 'Devices')
-        .then((value) => (value as DBusArray)
-            .children
-            .map((child) => (child as DBusObjectPath).value)
-            .toList())
-        .catchError((error) => print(error))
+        .then(
+          (value) => (value as DBusArray)
+              .children
+              .map((child) => (child as DBusObjectPath).value)
+              .toList(),
+          onError: (error) => print(error),
+        )
         .then((value) => value ?? <String>[]);
   }
 
@@ -79,7 +87,9 @@ enum NMDeviceType { unknown, ethernet, wifi }
 
 extension NMDeviceInt on int {
   int byteAt(int i) => (this >> (i * 8)) & 0xff;
+
   String toIp4() => '${byteAt(0)}.${byteAt(1)}.${byteAt(2)}.${byteAt(3)}';
+
   NMDeviceType toType() => NMDeviceType.values[this];
 }
 
@@ -92,15 +102,17 @@ class NMDevice extends DBusRemoteObject {
   }
 
   Future<String> getIp4() {
-    return getProperty(_kDevice, 'Ip4Address')
-        .then((value) => (value as DBusUint32).value.toIp4())
-        .catchError((error) => print(error));
+    return getProperty(_kDevice, 'Ip4Address').then(
+      (value) => (value as DBusUint32).value.toIp4(),
+      onError: (error) => print(error),
+    );
   }
 
   Future<NMDeviceType> getType() {
-    return getProperty(_kDevice, 'DeviceType')
-        .then((value) => (value as DBusUint32).value.toType())
-        .catchError((error) => print(error));
+    return getProperty(_kDevice, 'DeviceType').then(
+      (value) => (value as DBusUint32).value.toType(),
+      onError: (error) => print(error),
+    );
   }
 
   Future<NMWirelessDevice> asWirelessDevice() {
@@ -116,8 +128,9 @@ class NMWirelessDevice extends DBusRemoteObject {
       : super(client, _kNetworkManager, path);
 
   Future<String> getHwAddress() {
-    return getProperty(_kWireless, 'HwAddress')
-        .then((value) => (value as DBusString).value)
-        .catchError((error) => print(error));
+    return getProperty(_kWireless, 'HwAddress').then(
+      (value) => (value as DBusString).value,
+      onError: (error) => print(error),
+    );
   }
 }
