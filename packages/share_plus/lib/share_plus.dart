@@ -22,7 +22,7 @@ class Share {
   }
 
   static bool _disablePlatformOverride = false;
-  static SharePlatform __platform;
+  static SharePlatform? __platform;
 
   // This is to manually endorse the Linux plugin until automatic registration
   // of dart plugins is implemented.
@@ -38,7 +38,7 @@ class Share {
       }
       __platform ??= SharePlatform.instance;
     }
-    return __platform;
+    return __platform!;
   }
 
   /// Summons the platform's share sheet to share text.
@@ -58,10 +58,9 @@ class Share {
   /// from [MethodChannel].
   static Future<void> share(
     String text, {
-    String subject,
-    Rect sharePositionOrigin,
+    String? subject,
+    Rect? sharePositionOrigin,
   }) {
-    assert(text != null);
     assert(text.isNotEmpty);
     return _platform.share(
       text,
@@ -84,14 +83,13 @@ class Share {
   /// from [MethodChannel].
   static Future<void> shareFiles(
     List<String> paths, {
-    List<String> mimeTypes,
-    String subject,
-    String text,
-    Rect sharePositionOrigin,
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
   }) {
-    assert(paths != null);
     assert(paths.isNotEmpty);
-    assert(paths.every((element) => element != null && element.isNotEmpty));
+    assert(paths.every((element) => element.isNotEmpty));
     return _platform.shareFiles(
       paths,
       mimeTypes: mimeTypes,

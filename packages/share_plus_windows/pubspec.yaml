@@ -1,19 +1,19 @@
 name: share_plus_windows
 description: Windows implementation of the share_plus plugin
-version: 0.1.0
+version: 0.2.0-nullsafety.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  share_plus_platform_interface: ^1.1.0
+  share_plus_platform_interface: ^2.0.0-nullsafety
   flutter:
     sdk: flutter
   meta: ^1.2.3
-  url_launcher: ^5.7.2
+  url_launcher: ^6.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:

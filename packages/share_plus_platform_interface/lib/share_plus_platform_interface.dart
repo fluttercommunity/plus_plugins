@@ -33,8 +33,8 @@ class SharePlatform extends PlatformInterface {
   /// Share text.
   Future<void> share(
     String text, {
-    String subject,
-    Rect sharePositionOrigin,
+    String? subject,
+    Rect? sharePositionOrigin,
   }) {
     return _instance.share(
       text,
@@ -46,10 +46,10 @@ class SharePlatform extends PlatformInterface {
   /// Share files.
   Future<void> shareFiles(
     List<String> paths, {
-    List<String> mimeTypes,
-    String subject,
-    String text,
-    Rect sharePositionOrigin,
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
   }) {
     return _instance.shareFiles(
       paths,
