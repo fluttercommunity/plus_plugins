@@ -6,7 +6,7 @@ repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   package_info_plus_platform_interface: ^0.3.0
