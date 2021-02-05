@@ -6,6 +6,12 @@
 
 Get current device information from within the Flutter application.
 
+## Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+
 # Usage
 
 Import `package:device_info_plus/device_info.dart`, instantiate `DeviceInfoPlugin`

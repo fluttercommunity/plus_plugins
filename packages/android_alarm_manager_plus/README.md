@@ -5,6 +5,12 @@
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
 
+## Platform Support
+
+| Android | 
+|:-------:|
+|    ✔️    | 
+
 ## Getting Started
 
 After importing this plugin to your project as usual, add the following to your
