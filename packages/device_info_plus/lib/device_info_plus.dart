@@ -8,7 +8,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:device_info_plus_linux/device_info_plus_linux.dart';
-
+import 'package:device_info_plus_windows/device_info_plus_windows.dart';
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
         AndroidBuildVersion,
@@ -17,6 +17,7 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         IosUtsname,
         LinuxDeviceInfo,
         MacOsDeviceInfo,
+        WindowsDeviceInfo,
         WebBrowserInfo;
 
 /// Provides device and operating system information.
@@ -40,10 +41,18 @@ class DeviceInfoPlugin {
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static DeviceInfoPlatform get _platform {
-    return __platform ??=
-        !kIsWeb && Platform.isLinux && !_disablePlatformOverride
-            ? DeviceInfoLinux()
-            : DeviceInfoPlatform.instance;
+    if (__platform == null) {
+      if (!_disablePlatformOverride && !kIsWeb) {
+        if (Platform.isLinux) {
+          __platform = DeviceInfoLinux();
+        } else if (Platform.isWindows) {
+          __platform = DeviceInfoWindows();
+        }
+      }
+      __platform ??= DeviceInfoPlatform.instance;
+    }
+
+    return __platform!;
   }
 
   /// This information does not change from call to call. Cache it.
@@ -86,4 +95,10 @@ class DeviceInfoPlugin {
   /// Returns device information for macos. Information sourced from Sysctl.
   Future<MacOsDeviceInfo> get macOsInfo async =>
       _cachedMacosDeviceInfo ??= await _platform.macosInfo();
+
+  WindowsDeviceInfo? _cachedWindowsDeviceInfo;
+
+  /// Returns device information for Windows.
+  Future<WindowsDeviceInfo> get windowsInfo async =>
+      _cachedWindowsDeviceInfo ??= await _platform.windowsInfo()!;
 }

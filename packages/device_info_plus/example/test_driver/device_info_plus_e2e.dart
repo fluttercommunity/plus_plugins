@@ -14,6 +14,7 @@ void main() {
   IosDeviceInfo iosInfo;
   AndroidDeviceInfo androidInfo;
   WebBrowserInfo webBrowserInfo;
+  WindowsDeviceInfo windowsInfo;
 
   setUpAll(() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
@@ -21,6 +22,8 @@ void main() {
       iosInfo = await deviceInfoPlugin.iosInfo;
     } else if (Platform.isAndroid) {
       androidInfo = await deviceInfoPlugin.androidInfo;
+    } else if (Platform.isWindows) {
+      windowsInfo = await deviceInfoPlugin.windowsInfo;
     }
 
     if (kIsWeb) {
@@ -30,13 +33,15 @@ void main() {
 
   testWidgets('Can get non-null device model', (WidgetTester tester) async {
     if (Platform.isIOS) {
-      expect(iosInfo?.model, isNotNull);
+      expect(iosInfo.model, isNotNull);
     } else if (Platform.isAndroid) {
-      expect(androidInfo?.model, isNotNull);
+      expect(androidInfo.model, isNotNull);
+    } else if (Platform.isWindows) {
+      expect(windowsInfo.computerName, isNotNull);
     }
 
     if (kIsWeb) {
-      expect(webBrowserInfo?.userAgent, isNotNull);
+      expect(webBrowserInfo.userAgent, isNotNull);
     }
   });
 }
