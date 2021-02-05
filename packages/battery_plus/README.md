@@ -6,6 +6,11 @@
 
 A Flutter plugin to access various information about the battery of the device the app is running on.
 
+## Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 ## Usage
 
 To use this plugin, add `battery_plus` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).

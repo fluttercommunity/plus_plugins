@@ -7,6 +7,13 @@
 This plugin allows Flutter apps to discover network info and configure
 themselves accordingly.
 
+## Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|         |     |       |     |       |        |
+|    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
+
 ## Usage
 
 You can get wi-fi related information using:
