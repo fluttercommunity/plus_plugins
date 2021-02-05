@@ -78,8 +78,10 @@ class AndroidAlarmManager {
   /// This is exposed for the unit tests. It should not be accessed by users of
   /// the plugin.
   @visibleForTesting
-  static void setTestOverides(
-      {_Now? now, _GetCallbackHandle? getCallbackHandle}) {
+  static void setTestOverides({
+    _Now? now,
+    _GetCallbackHandle? getCallbackHandle,
+  }) {
     _now = (now ?? _now);
     _getCallbackHandle = (getCallbackHandle ?? _getCallbackHandle);
   }
