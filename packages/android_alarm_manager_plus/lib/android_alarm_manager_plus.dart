@@ -78,7 +78,7 @@ class AndroidAlarmManager {
   /// This is exposed for the unit tests. It should not be accessed by users of
   /// the plugin.
   @visibleForTesting
-  static void setTestOverides({
+  static void setTestOverrides({
     _Now? now,
     _GetCallbackHandle? getCallbackHandle,
   }) {
