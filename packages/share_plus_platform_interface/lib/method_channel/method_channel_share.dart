@@ -22,10 +22,9 @@ class MethodChannelShare extends SharePlatform {
   @override
   Future<void> share(
     String text, {
-    String subject,
-    Rect sharePositionOrigin,
+    String? subject,
+    Rect? sharePositionOrigin,
   }) {
-    assert(text != null);
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
       'text': text,
@@ -46,14 +45,13 @@ class MethodChannelShare extends SharePlatform {
   @override
   Future<void> shareFiles(
     List<String> paths, {
-    List<String> mimeTypes,
-    String subject,
-    String text,
-    Rect sharePositionOrigin,
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
   }) {
-    assert(paths != null);
     assert(paths.isNotEmpty);
-    assert(paths.every((element) => element != null && element.isNotEmpty));
+    assert(paths.every((element) => element.isNotEmpty));
     final params = <String, dynamic>{
       'paths': paths,
       'mimeTypes': mimeTypes ??
@@ -74,7 +72,6 @@ class MethodChannelShare extends SharePlatform {
   }
 
   static String _mimeTypeForPath(String path) {
-    assert(path != null);
     return lookupMimeType(path) ?? 'application/octet-stream';
   }
 }
