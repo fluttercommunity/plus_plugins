@@ -1,14 +1,3 @@
-
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-
-class SharePlusMacos {
-  static const MethodChannel _channel =
-      const MethodChannel('share_plus_macos');
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-}
+// The share_plus_platform_interface defaults to MethodChannelShare
+// as its instance, which is all the macOS implementation needs. This file
+// is here to silence warnings when publishing to pub.
