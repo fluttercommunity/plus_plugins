@@ -8,7 +8,7 @@ A stub implementation of [`network_info_plus`](https://pub.dev/packages/network_
 
 ## Note
 
-The functionality offered by `network_info_plus` is not available on Web. This
+The functionality offered by `network_info_plus` is not supported on Web. This
 plugin throws "unsupported" exceptions.
 
 ## Usage

@@ -63,7 +63,6 @@ module.exports = [
     name: 'Network Info ➕',
     pub: 'network_info_plus',
     support: {
-      web: false,
       android: true,
       ios: true,
       macos: true,
