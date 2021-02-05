@@ -1,15 +1,12 @@
-# share_plus_macos
+# Share Plus macOS
 
-A new flutter plugin project.
+[![Flutter Community: share_plus_macos](https://fluttercommunity.dev/_github/header/share_plus_macos)](https://github.com/fluttercommunity/community)
 
-## Getting Started
+[![pub package](https://img.shields.io/pub/v/share_plus_macos.svg)](https://pub.dev/packages/share_plus_macos)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+The macOS implementation of [`share_plus`](https://pub.dev/packages/share_plus).
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
 
+This package is already included as part of the `share_plus` package dependency, and will
+be included when using `share_plus` as normal.
