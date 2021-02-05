@@ -61,6 +61,12 @@ can be used for deep linking. Url launcher can also be used for creating
 ACTION_VIEW intents for Android, however this intent plugin also allows
 clients to set extra parameters for the intent.
 
+## Platform Support
+
+| Android |
+|:-------:|
+|    ✔️    |
+
 ## Getting Started
 
 For help getting started with Flutter, view our online

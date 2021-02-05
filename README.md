@@ -101,7 +101,6 @@ Flutter plugin for discovering network info.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|         |     |       |     |       |        |
 |    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
 
 ----

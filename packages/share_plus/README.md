@@ -14,6 +14,11 @@ on iOS.
 
 Also compatible with Linux by using "mailto" to share text via Email.
 
+## Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |    ✔️   |
 
 ## Usage
 
