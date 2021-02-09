@@ -123,3 +123,36 @@ li.menu__list-item > a[target='_blank'] {
 .keyword {
   color: var(--firebase-amber);
 }
+
+.blue {
+  color: var(--firebase-blue);
+}
+.tooltip {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  &__link {
+    background: var(--ifm-code-background);
+    padding: 5px;
+  }
+  &__arrow {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 5px solid var(--ifm-code-background);
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+}
