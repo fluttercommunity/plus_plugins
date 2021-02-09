@@ -1,0 +1,111 @@
+---
+title: Battery Plus Overview
+sidebar_label: Overview
+---
+
+<YouTube id="vr0Gfvp5v1A" />
+
+```yaml {5} title="pubspec.yaml"
+dependencies:
+  flutter:
+    sdk: flutter
+  batter_plus: "^{{ plugins.batter_plus }}"
+```
+
+```bash
+$ flutter pub get
+```
+
+```html {5} title="web/index.html"
+<html>
+  ...
+  <body>
+    <script src="https://www.gstatic.com/firebasejs/{{ web.firebase_cdn }}/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/{{ web.firebase_cdn }}/firebase-functions.js"></script>
+  </body>
+</html>
+```
+
+```bash
+$ flutter run
+```
+
+```dart
+Future<void> linkGoogleAndTwitter() async {
+  // Trigger the Google Authentication flow.
+  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  // Obtain the auth details from the request.
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  // Create a new credential.
+  final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+  // Sign in to Firebase with the Google [UserCredential].
+  final UserCredential googleUserCredential =
+    await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
+  // Now let's link Twitter to the currently signed in account.
+  // Create a [TwitterLogin] instance.
+  final TwitterLogin twitterLogin = new TwitterLogin(
+    consumerKey: consumerKey,
+    consumerSecret: consumerSecret
+  );
+  // Trigger the sign-in flow.
+  final TwitterLoginResult loginResult = await twitterLogin.authorize();
+  // Get the logged in session.
+  final TwitterSession twitterSession = loginResult.session;
+  // Create a [AuthCredential] from the access token.
+  final AuthCredential twitterAuthCredential =
+    TwitterAuthProvider.credential(
+      accessToken: twitterSession.token,
+      secret: twitterSession.secret
+     );
+  // Link the Twitter account to the Google account.
+  await googleUserCredential.user.linkWithCredential(twitterAuthCredential);
+}
+```
+
+<Tabs
+  defaultValue="currentUser"
+  values={[
+    { label: 'currentUser', value: 'currentUser', },
+    { label: 'Sign-in Methods', value: 'methods', },
+    { label: 'State Listener Stream', value: 'stream', },
+  ]
+}>
+<TabItem value="currentUser">
+
+```dart
+FirebaseAuth auth = FirebaseAuth.instance;
+
+if (auth.currentUser != null) {
+  print(auth.currentUser.uid);
+}
+```
+
+</TabItem>
+<TabItem value="methods">
+
+```dart
+UserCredential userCredential = await Firebase.auth.signInAnonymously();
+
+print(userCredential.user.uid);
+```
+
+</TabItem>
+
+<TabItem value="stream">
+
+```dart
+FirebaseAuth.instance
+  .authStateChanges()
+  .listen((User user) {
+    if (user != null) {
+      print(user.uid);
+    }
+  });
+```
+
+</TabItem>
+</Tabs>
