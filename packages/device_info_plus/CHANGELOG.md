@@ -1,3 +1,7 @@
+## 0.7.1
+
+- Fix macOS support.
+
 ## 0.7.0
 
 - Add macOS support via `device_info_plus_macos`.
