@@ -8,6 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.scss';
 import { Triangle } from '../components/Triangle';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import plugins from '../../plugins';
 
