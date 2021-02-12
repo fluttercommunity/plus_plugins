@@ -24,12 +24,12 @@ class Connectivity {
   // misuse of creating a second instance from a programmer.
   factory Connectivity() {
     _singleton ??= Connectivity._();
-    return _singleton;
+    return _singleton!;
   }
 
   Connectivity._();
 
-  static Connectivity _singleton;
+  static Connectivity? _singleton;
 
   static bool _manualDartRegistrationNeeded = true;
 

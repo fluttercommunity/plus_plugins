@@ -1,3 +1,7 @@
+## 0.9.0-nullsafety.0
+
+- Migrated to null safety.
+
 ## 0.8.0
 
 - Add Windows support (`connectivity_plus_windows`).

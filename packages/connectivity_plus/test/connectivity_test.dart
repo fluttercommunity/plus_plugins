@@ -12,7 +12,7 @@ const ConnectivityResult kCheckConnectivityResult = ConnectivityResult.wifi;
 
 void main() {
   group('Connectivity', () {
-    Connectivity connectivity;
+    late Connectivity connectivity;
     MockConnectivityPlatform fakePlatform;
     setUp(() async {
       fakePlatform = MockConnectivityPlatform();
