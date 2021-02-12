@@ -74,10 +74,12 @@ class BatteryPlusChargingHandler: NSObject, FlutterStreamHandler {
         
         // Returns nil when battery is discharging
         if let isCharging = (description[kIOPSPowerSourceStateKey] as? String) {
-            if isCharging == kIOPSACPowerValue{
+            if isCharging == kIOPSACPowerValue {
                 return "charging"
-            }else {
+            } else if isCharging == kIOPSBatteryPowerValue {
                 return "discharging"
+            } else {
+                return "unknown"
             }
         }
         return "UNAVAILABLE"

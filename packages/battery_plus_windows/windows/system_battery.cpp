@@ -74,9 +74,10 @@ std::string SystemBattery::GetStatusString() const {
     case BatteryStatus::Discharging:
       return "discharging";
     case BatteryStatus::Full:
+      return "full";
     case BatteryStatus::Unknown:
     default:
-      return "full"; // ### TODO: unknown
+      return "unknown";
   }
 }
 
