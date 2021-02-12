@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:html';
 
 import 'package:mockito/mockito.dart';
