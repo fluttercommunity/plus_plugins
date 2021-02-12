@@ -20,8 +20,8 @@ class ConnectivityLinux extends ConnectivityPlatform {
   }
 
   int _refCount = 0;
-  NetworkManager _manager;
-  StreamController<ConnectivityResult> _controller;
+  NetworkManager? _manager;
+  StreamController<ConnectivityResult>? _controller;
 
   /// Returns a Stream of ConnectivityResults changes.
   @override
@@ -30,7 +30,7 @@ class ConnectivityLinux extends ConnectivityPlatform {
       onListen: _startListenConnectivity,
       onCancel: _deref,
     );
-    return _controller.stream;
+    return _controller!.stream;
   }
 
   Future<ConnectivityResult> _getConnectivity(NetworkManager manager) {
@@ -46,13 +46,13 @@ class ConnectivityLinux extends ConnectivityPlatform {
   }
 
   void _addConnectivity(String type) {
-    _controller.add(type.toConnectivityResult());
+    _controller!.add(type.toConnectivityResult());
   }
 
   NetworkManager _ref() {
     _manager ??= createManager();
     ++_refCount;
-    return _manager;
+    return _manager!;
   }
 
   void _deref() {
@@ -60,7 +60,7 @@ class ConnectivityLinux extends ConnectivityPlatform {
     if (--_refCount == 0) {
       scheduleMicrotask(() {
         if (_refCount == 0) {
-          _manager.dispose();
+          _manager!.dispose();
           _manager = null;
         }
       });
