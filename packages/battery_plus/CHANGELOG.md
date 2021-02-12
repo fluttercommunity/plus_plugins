@@ -1,3 +1,7 @@
+## 0.9.1
+
+- Send initial battery status for Android
+
 ## 0.9.0
 
 - Add Linux support (`battery_plus_linux`)
