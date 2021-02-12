@@ -1,3 +1,7 @@
+## 0.5.0-nullsafety.0
+
+- Migrated to null safety
+
 ## 0.4.0
 
 - Removed members that were moved to network_info_plus
