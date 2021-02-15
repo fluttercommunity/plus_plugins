@@ -11,9 +11,9 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  IosDeviceInfo? iosInfo;
-  AndroidDeviceInfo? androidInfo;
-  WebBrowserInfo? webBrowserInfo;
+  IosDeviceInfo iosInfo;
+  AndroidDeviceInfo androidInfo;
+  WebBrowserInfo webBrowserInfo;
 
   setUpAll(() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
