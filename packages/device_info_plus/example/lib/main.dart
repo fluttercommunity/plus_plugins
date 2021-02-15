@@ -52,6 +52,8 @@ class _MyAppState extends State<MyApp> {
           deviceData = _readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo);
         } else if (Platform.isMacOS) {
           deviceData = _readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo);
+        } else {
+          deviceData = {};
         }
       }
     } on PlatformException {
