@@ -12,11 +12,13 @@ import 'method_channel/method_channel_device_info.dart';
 import 'model/android_device_info.dart';
 import 'model/ios_device_info.dart';
 import 'model/linux_device_info.dart';
+import 'model/macos_device_info.dart';
 import 'model/web_browser_info.dart';
 
 export 'model/android_device_info.dart';
 export 'model/ios_device_info.dart';
 export 'model/linux_device_info.dart';
+export 'model/macos_device_info.dart';
 export 'model/web_browser_info.dart';
 export 'model/macos_device_info.dart';
 
