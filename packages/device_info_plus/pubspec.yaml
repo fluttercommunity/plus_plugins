@@ -23,7 +23,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus_platform_interface: ^0.3.0
+  device_info_plus_platform_interface: ^0.4.0
   device_info_plus_linux: ^0.2.0
   device_info_plus_macos: ^0.1.0
   device_info_plus_web: ^0.3.0
@@ -35,5 +35,5 @@ dev_dependencies:
   pedantic: ^1.9.2
 
 environment:
-  sdk: ">=2.12.0-0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.12.13+hotfix.5"

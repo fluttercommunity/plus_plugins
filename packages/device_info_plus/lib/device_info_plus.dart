@@ -40,13 +40,10 @@ class DeviceInfoPlugin {
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static DeviceInfoPlatform get _platform {
-    var platform = __platform;
-
-    platform ??= !kIsWeb && Platform.isLinux && !_disablePlatformOverride
-        ? DeviceInfoLinux()
-        : DeviceInfoPlatform.instance;
-
-    return __platform = platform;
+    return __platform ??=
+        !kIsWeb && Platform.isLinux && !_disablePlatformOverride
+            ? DeviceInfoLinux()
+            : DeviceInfoPlatform.instance;
   }
 
   /// This information does not change from call to call. Cache it.
