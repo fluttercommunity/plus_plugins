@@ -9,6 +9,6 @@ function toReferenceAPI(plugin) {
 module.exports = {
   main: {
     "Getting Started": ["overview", "migration_guide"],
-    Battery: ["battery/overview","battery/usage","battery/tutorial", toReferenceAPI("battery")],
+    Battery: ["battery/overview","battery/usage", toReferenceAPI("battery")],
   },
 };
