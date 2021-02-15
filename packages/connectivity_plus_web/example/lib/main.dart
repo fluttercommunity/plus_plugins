@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
