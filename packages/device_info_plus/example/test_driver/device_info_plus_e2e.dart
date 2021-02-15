@@ -30,13 +30,13 @@ void main() {
 
   testWidgets('Can get non-null device model', (WidgetTester tester) async {
     if (Platform.isIOS) {
-      expect(iosInfo.model, isNotNull);
+      expect(iosInfo?.model, isNotNull);
     } else if (Platform.isAndroid) {
-      expect(androidInfo.model, isNotNull);
+      expect(androidInfo?.model, isNotNull);
     }
 
     if (kIsWeb) {
-      expect(webBrowserInfo.userAgent, isNotNull);
+      expect(webBrowserInfo?.userAgent, isNotNull);
     }
   });
 }

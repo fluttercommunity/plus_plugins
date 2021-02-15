@@ -6,15 +6,15 @@
 class MacOsDeviceInfo {
   /// Constructs a MacOsDeviceInfo.
   MacOsDeviceInfo({
-    this.computerName,
-    this.hostName,
-    this.arch,
-    this.model,
-    this.kernelVersion,
-    this.osRelease,
-    this.activeCPUs,
-    this.memorySize,
-    this.cpuFrequency,
+    required this.computerName,
+    required this.hostName,
+    required this.arch,
+    required this.model,
+    required this.kernelVersion,
+    required this.osRelease,
+    required this.activeCPUs,
+    required this.memorySize,
+    required this.cpuFrequency,
   });
 
   /// Name given to the local machine.
