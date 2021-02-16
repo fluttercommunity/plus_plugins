@@ -92,7 +92,7 @@ function Home() {
           <h2>{siteConfig.tagline}</h2>
           <div className={styles.actions}>
             {/* <Link to={`${siteConfig.baseUrl}docs/overview`}>Get Started &raquo;</Link> */}
-            <Link to="https://github.com/fluttercommunity">GitHub &raquo;</Link>
+            <Link to="https://github.com/fluttercommunity/plus_plugins">GitHub &raquo;</Link>
           </div>
         </div>
       </section>
@@ -104,7 +104,6 @@ function Home() {
                 <th align="left">Plugin</th>
                 <th>Pub</th>
                 <th>Docs</th>
-                <th>View Source</th>
                 <th>Android</th>
                 <th>iOS</th>
                 <th>Web</th>
@@ -130,13 +129,6 @@ function Home() {
                   <td>
                     <a href={`https://pub.dev/documentation/${plugin.pub}/latest/`}>
                       <Docs />
-                    </a>
-                  </td>
-                  <td>
-                    <a
-                      href={`https://github.com/fluttercommunity/plus_plugins/tree/main/packages/${plugin.pub}`}
-                    >
-                      <GithubIcon />
                     </a>
                   </td>
                   <td className="icon">
