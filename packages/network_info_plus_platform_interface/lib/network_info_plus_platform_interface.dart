@@ -6,8 +6,8 @@ import 'dart:async';
 
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'method_channel_network_info.dart';
 import 'src/enums.dart';
-import 'src/method_channel_network_info.dart';
 
 export 'src/enums.dart';
 
