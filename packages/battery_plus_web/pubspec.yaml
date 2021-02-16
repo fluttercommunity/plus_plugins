@@ -1,6 +1,6 @@
 name: battery_plus_web
 description: An implementation for the web platform of the Flutter `battery_plus` plugin.
-version: 0.3.0
+version: 0.3.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -12,7 +12,7 @@ flutter:
         fileName: battery_plus_web.dart
 
 dependencies:
-  battery_plus_platform_interface: ^0.3.0
+  battery_plus_platform_interface: ^0.3.1
   flutter_web_plugins:
     sdk: flutter
   flutter:
