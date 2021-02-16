@@ -1,4 +1,4 @@
-# Device Info Plus macOS
+# Device Info Plus Windows
 
 [![Flutter Community: device_info_plus_windows](https://fluttercommunity.dev/_github/header/device_info_plus_windows)](https://github.com/fluttercommunity/community)
 

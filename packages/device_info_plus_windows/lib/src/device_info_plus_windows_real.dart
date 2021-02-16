@@ -1,5 +1,5 @@
 /// The Windows implementation of `device_info_plus`.
-library package_info_plus_windows;
+library device_info_plus_windows;
 
 import 'dart:ffi';
 
