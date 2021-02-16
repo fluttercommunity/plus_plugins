@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Added "unknown" battery state for batteryless systems.
+
 ## 0.2.0
 
 - Rename method channel to avoid conflicts
