@@ -1,3 +1,7 @@
+## 0.10.1
+
+- Address pub score
+
 ## 0.10.0
 
 - Added "unknown" battery state for batteryless systems.

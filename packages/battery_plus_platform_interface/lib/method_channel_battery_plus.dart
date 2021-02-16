@@ -7,9 +7,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import '../battery_plus_platform_interface.dart';
-import 'enums.dart';
-import 'utils.dart';
+import 'battery_plus_platform_interface.dart';
+import 'src/enums.dart';
+import 'src/utils.dart';
 
 /// An implementation of [BatteryPlatform] that uses method channels.
 class MethodChannelBattery extends BatteryPlatform {
