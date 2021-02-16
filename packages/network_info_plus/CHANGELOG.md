@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Address pub score.
+
 ## 0.1.1+1
 
 - Provide longer package description to address pub score.

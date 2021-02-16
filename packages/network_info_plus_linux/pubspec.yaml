@@ -2,7 +2,7 @@ name: network_info_plus_linux
 description: Linux implementation of the network_info_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  network_info_plus_platform_interface: ^0.1.0
+  network_info_plus_platform_interface: ^0.1.1
   dbus: ^0.1.0
   meta: ^1.2.3
 

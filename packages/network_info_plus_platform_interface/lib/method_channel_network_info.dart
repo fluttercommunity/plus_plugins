@@ -8,7 +8,7 @@ import 'package:network_info_plus_platform_interface/network_info_plus_platform_
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import 'utils.dart';
+import 'src/utils.dart';
 
 /// An implementation of [NetworkInfoPlatform] that uses method channels.
 class MethodChannelNetworkInfo extends NetworkInfoPlatform {
