@@ -49,7 +49,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
@@ -66,7 +66,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
 
@@ -83,9 +83,9 @@ Flutter plugin providing detailed information about the device
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
 
 ----
 
@@ -99,7 +99,7 @@ Flutter plugin for discovering network info.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️   |  ✔️ |   ✔️  |  ➖  |   ✔️  |   ✔️   |
 
@@ -116,7 +116,7 @@ Flutter plugin for querying information about the application
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |  ✔️  |   ✔️    |
 
@@ -132,7 +132,7 @@ Flutter plugin for accessing accelerometer and gyroscope sensors.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |       |  ✔️  |       |        |
 
@@ -148,7 +148,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
@@ -164,9 +164,9 @@ Flutter plugin for accessing the Android AlarmManager service, and running Dart 
 
 #### Platform Support
 
-| Android | 
+| Android |
 |:-------:|
-|    ✔️    | 
+|    ✔️    |
 
 ----
 
