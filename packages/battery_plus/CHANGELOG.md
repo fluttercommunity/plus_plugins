@@ -1,3 +1,7 @@
+## 0.10.0
+
+- Added "unknown" battery state for batteryless systems.
+
 ## 0.9.1
 
 - Send initial battery status for Android
