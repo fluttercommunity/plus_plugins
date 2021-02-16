@@ -11,13 +11,6 @@ $theme: (
   'google-gray-primary' #60646b,
   'google-gray-primary-dark' #202124,
   'google-gray-primary-light' #d5d7da,
-  'firebase-yellow' #ffca28,
-  'firebase-amber' #ffa000,
-  'firebase-orange' #f57c00,
-  'firebase-blue' #039be5,
-  'firebase-navy' #2c384a,
-  'firebase-coral' #ff8a65,
-  'firebase-gray' #eceff1,
   'white' #ffffff,
   'black' #000000
 );
@@ -121,11 +114,11 @@ li.menu__list-item > a[target='_blank'] {
 }
 
 .keyword {
-  color: var(--firebase-amber);
+  color: var(--flutter-yellow);
 }
 
 .blue {
-  color: var(--firebase-blue);
+  color: var(--flutter-blue-primary);
 }
 .tooltip {
   position: absolute;

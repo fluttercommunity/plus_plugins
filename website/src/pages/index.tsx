@@ -49,19 +49,19 @@ function Home() {
 
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
-      <section className={cx(styles.hero, 'bg-firebase-blue dark-bg-flutter-blue-primary-dark')}>
+      <section className={cx(styles.hero, 'bg-flutter-blue-primary-dark dark-bg-flutter-blue-primary-dark')}>
         {/** Left **/}
         <Triangle
           zIndex={1}
-          light="firebase-yellow"
-          dark="firebase-amber"
+          light="flutter-blue-primary"
+          dark="flutter-blue-primary"
           style={{
             left: -150,
           }}
         />
         <Triangle
-          light="firebase-gray"
-          dark="firebase-navy"
+          light="flutter-blue-primary-light"
+          dark="flutter-blue-primary-light"
           style={{
             left: 0,
           }}
@@ -71,8 +71,8 @@ function Home() {
         {/** Right **/}
         <Triangle
           zIndex={1}
-          light="firebase-coral"
-          dark="firebase-orange"
+          light="flutter-blue-primary"
+          dark="flutter-blue-primary"
           style={{
             right: 0,
             bottom: -150,
@@ -80,8 +80,8 @@ function Home() {
           rotate={180}
         />
         <Triangle
-          light="firebase-gray"
-          dark="firebase-navy"
+          light="flutter-blue-primary-light"
+          dark="flutter-blue-primary-light"
           style={{
             right: -150,
           }}

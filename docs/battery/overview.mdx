@@ -1,111 +1,40 @@
 ---
 title: Battery Plus Overview
 sidebar_label: Overview
+hide_title: true
 ---
 
-<YouTube id="vr0Gfvp5v1A" />
+## Battery Plus Overview
 
-```yaml {5} title="pubspec.yaml"
+Battery plus 🔋 is a Flutter plugin that helps you get information about the current state of the device battery on which the app is running on, for instance, the percentage of the battery and charging status.
+
+:::note
+Battery plus is going to replace the [original Battery plugin](https://pub.dev/packages/battery), 
+if you have been using it, it's better to switch to this one.
+:::
+
+### Get started
+
+#### 1. Add it to your project
+
+```yaml {4} title="pubspec.yaml"
 dependencies:
   flutter:
     sdk: flutter
   batter_plus: "^{{ plugins.batter_plus }}"
 ```
+#### 2. Download dependency
 
 ```bash
 $ flutter pub get
 ```
-
-```html {5} title="web/index.html"
-<html>
-  ...
-  <body>
-    <script src="https://www.gstatic.com/firebasejs/{{ web.firebase_cdn }}/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/{{ web.firebase_cdn }}/firebase-functions.js"></script>
-  </body>
-</html>
-```
+#### 3. Rebuild the app
 
 ```bash
 $ flutter run
 ```
 
-```dart
-Future<void> linkGoogleAndTwitter() async {
-  // Trigger the Google Authentication flow.
-  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-  // Obtain the auth details from the request.
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-  // Create a new credential.
-  final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-  // Sign in to Firebase with the Google [UserCredential].
-  final UserCredential googleUserCredential =
-    await FirebaseAuth.instance.signInWithCredential(googleCredential);
+### Next steps
 
-  // Now let's link Twitter to the currently signed in account.
-  // Create a [TwitterLogin] instance.
-  final TwitterLogin twitterLogin = new TwitterLogin(
-    consumerKey: consumerKey,
-    consumerSecret: consumerSecret
-  );
-  // Trigger the sign-in flow.
-  final TwitterLoginResult loginResult = await twitterLogin.authorize();
-  // Get the logged in session.
-  final TwitterSession twitterSession = loginResult.session;
-  // Create a [AuthCredential] from the access token.
-  final AuthCredential twitterAuthCredential =
-    TwitterAuthProvider.credential(
-      accessToken: twitterSession.token,
-      secret: twitterSession.secret
-     );
-  // Link the Twitter account to the Google account.
-  await googleUserCredential.user.linkWithCredential(twitterAuthCredential);
-}
-```
-
-<Tabs
-  defaultValue="currentUser"
-  values={[
-    { label: 'currentUser', value: 'currentUser', },
-    { label: 'Sign-in Methods', value: 'methods', },
-    { label: 'State Listener Stream', value: 'stream', },
-  ]
-}>
-<TabItem value="currentUser">
-
-```dart
-FirebaseAuth auth = FirebaseAuth.instance;
-
-if (auth.currentUser != null) {
-  print(auth.currentUser.uid);
-}
-```
-
-</TabItem>
-<TabItem value="methods">
-
-```dart
-UserCredential userCredential = await Firebase.auth.signInAnonymously();
-
-print(userCredential.user.uid);
-```
-
-</TabItem>
-
-<TabItem value="stream">
-
-```dart
-FirebaseAuth.instance
-  .authStateChanges()
-  .listen((User user) {
-    if (user != null) {
-      print(user.uid);
-    }
-  });
-```
-
-</TabItem>
-</Tabs>
+1. Read the [usage page](usage) to see examples of how to use the package.
+2. Go through our [tutorial](tutorial) explaining the example application.
