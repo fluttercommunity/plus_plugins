@@ -102,7 +102,6 @@ function Home() {
             <thead>
               <tr>
                 <th align="left">Plugin</th>
-                <th>Version</th>
                 <th>Pub</th>
                 <th>Docs</th>
                 <th>View Source</th>
@@ -121,14 +120,11 @@ function Home() {
                     <strong>{plugin.name}</strong>
                   </td>
                   <td style={{ minWidth: 150 }}>
-                    <img
-                      src={`https://img.shields.io/pub/v/${plugin.pub}.svg`}
-                      alt={`${plugin.name} Badge`}
-                    />
-                  </td>
-                  <td>
                     <a href={`https://pub.dev/packages/${plugin.pub}`}>
-                      <img width={25} src={useBaseUrl('img/dart-logo.png')} alt="Pub" />
+                      <img
+                        src={`https://img.shields.io/pub/v/${plugin.pub}.svg`}
+                        alt={`${plugin.name} Badge`}
+                      />
                     </a>
                   </td>
                   <td>
