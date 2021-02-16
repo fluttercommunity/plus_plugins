@@ -18,6 +18,7 @@ The available states are:
 - **Full**: the battery is at 100%, full of energy.
 - **Charging**: the battery is being charged.
 - **Discharging**: the battery is losing energy.
+- **Unknown**: unable to read the battery state or the device has no battery.
 
 To get these information in realtime, you can subscribe to the stream from the `Battery` API.
 
@@ -44,9 +45,9 @@ void initState() {
 ```
 
 :::note
-Trying to run this code on *Android emulator* may result in a null battery state with a `PlatformException`, but Android emulator provides a way of emulating the different states from its settings. By clicking the menu icon (three vertical dots) then going to battery section.
+Trying to run this code on *Android emulator* will result in `Unknown` state, but Android emulator provides a way of emulating the different states from its settings. By clicking the menu icon (three vertical dots) then going to battery section.
 
-On the other hand, there is no way of doing the same on *iOS simulator*, you won't be able to read the state or battery percentage, better to debug on a real device, web or desktop.
+On the other hand, there is no way of doing the same on *iOS simulator*, you won't be able to read the state or battery percentage, so it's always `Unknown`, better to debug on a real device, web or desktop.
 :::
 
 ### Read current battery energy percentage
