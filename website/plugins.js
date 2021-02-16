@@ -99,7 +99,7 @@ module.exports = [
     },
   },
   {
-    name: 'Sensor ➕',
+    name: 'Sensors ➕',
     pub: 'sensors_plus',
     support: {
       web: true,
