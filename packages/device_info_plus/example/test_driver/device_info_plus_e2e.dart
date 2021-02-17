@@ -15,6 +15,8 @@ void main() {
   AndroidDeviceInfo androidInfo;
   WebBrowserInfo webBrowserInfo;
   WindowsDeviceInfo windowsInfo;
+  LinuxDeviceInfo linuxInfo;
+  MacOsDeviceInfo macosInfo;
 
   setUpAll(() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
@@ -24,6 +26,10 @@ void main() {
       androidInfo = await deviceInfoPlugin.androidInfo;
     } else if (Platform.isWindows) {
       windowsInfo = await deviceInfoPlugin.windowsInfo;
+    } else if (Platform.isLinux) {
+      linuxInfo = await deviceInfoPlugin.linuxInfo;
+    } else if (Platform.isMacOS) {
+      macosInfo = await deviceInfoPlugin.macOsInfo;
     }
 
     if (kIsWeb) {
@@ -38,6 +44,10 @@ void main() {
       expect(androidInfo.model, isNotNull);
     } else if (Platform.isWindows) {
       expect(windowsInfo.computerName, isNotNull);
+    } else if (Platform.isLinux) {
+      expect(linuxInfo.name, isNotNull);
+    } else if (Platform.isMacOS) {
+      expect(macosInfo.computerName, isNotNull);
     }
 
     if (kIsWeb) {
