@@ -1,28 +1,20 @@
 #include "include/network_info_plus_windows/network_info.h"
 
-#include <netioapi.h>
 #include <iphlpapi.h>
 #include <iptypes.h>
+#include <netioapi.h>
 #include <windot11.h>
 #include <ws2tcpip.h>
 
 #include <memory>
 
-NetworkInfo::NetworkInfo() {
-  Init();
-}
+NetworkInfo::NetworkInfo() { Init(); }
 
-NetworkInfo::~NetworkInfo() {
-  Cleanup();
-}
+NetworkInfo::~NetworkInfo() { Cleanup(); }
 
-BOOL NetworkInfo::HasError() const {
-  return _dwError != ERROR_SUCCESS;
-}
+BOOL NetworkInfo::HasError() const { return _dwError != ERROR_SUCCESS; }
 
-DWORD NetworkInfo::GetError() const {
-    return _dwError;
-}
+DWORD NetworkInfo::GetError() const { return _dwError; }
 
 std::string NetworkInfo::GetErrorString() const {
   // ### TODO: FormatMessage()
@@ -30,36 +22,40 @@ std::string NetworkInfo::GetErrorString() const {
 }
 
 std::string NetworkInfo::GetWifiName() const {
-  return const_cast<NetworkInfo*>(this)->Query([&](LPGUID, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
-    PDOT11_SSID ssid = &pAttributes->wlanAssociationAttributes.dot11Ssid;
-    return std::string((const char*) ssid->ucSSID, ssid->uSSIDLength);
-  });
+  return const_cast<NetworkInfo *>(this)->Query(
+      [&](LPGUID, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
+        PDOT11_SSID ssid = &pAttributes->wlanAssociationAttributes.dot11Ssid;
+        return std::string((const char *)ssid->ucSSID, ssid->uSSIDLength);
+      });
 }
 
 static std::string FormatBssid(DOT11_MAC_ADDRESS ssid) {
   char str[18];
-  sprintf_s(str, "%02x:%02x:%02x:%02x:%02x:%02x", ssid[0], ssid[1], ssid[2], ssid[3], ssid[4], ssid[5]);
+  sprintf_s(str, "%02x:%02x:%02x:%02x:%02x:%02x", ssid[0], ssid[1], ssid[2],
+            ssid[3], ssid[4], ssid[5]);
   return std::string(str, 18);
 }
 
 std::string NetworkInfo::GetWifiBssid() const {
-  return const_cast<NetworkInfo*>(this)->Query([&](LPGUID, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
-    return FormatBssid(pAttributes->wlanAssociationAttributes.dot11Bssid);
-  });
+  return const_cast<NetworkInfo *>(this)->Query(
+      [&](LPGUID, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
+        return FormatBssid(pAttributes->wlanAssociationAttributes.dot11Bssid);
+      });
 }
 
 static std::string FormatIpAddress(PIP_ADAPTER_ADDRESSES pIpAdapterAddress) {
   PIP_ADAPTER_UNICAST_ADDRESS_LH pAddr = pIpAdapterAddress->FirstUnicastAddress;
-  while(pAddr->Next != NULL) {
+  while (pAddr->Next != NULL) {
     pAddr = pAddr->Next;
   }
 
   CHAR buffer[64];
-  sockaddr_in *sa_in = (sockaddr_in *) pAddr->Address.lpSockaddr;
+  sockaddr_in *sa_in = (sockaddr_in *)pAddr->Address.lpSockaddr;
   return std::string(inet_ntop(AF_INET, &(sa_in->sin_addr), buffer, 64));
 }
 
-static std::string GetAdapterAddress(LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdapterAddresses) {
+static std::string GetAdapterAddress(
+    LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdapterAddresses) {
   IF_LUID ifLuid;
   if (ConvertInterfaceGuidToLuid(pGuid, &ifLuid) != NO_ERROR) {
     return "";
@@ -76,19 +72,22 @@ static std::string GetAdapterAddress(LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdap
 }
 
 std::string NetworkInfo::GetWifiIpAddress() const {
-  return const_cast<NetworkInfo*>(this)->Query([&](LPGUID pGuid, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
-    ULONG ulSize = 0;
-    GetAdaptersAddresses(AF_INET, 0, NULL, NULL, &ulSize);
-    PIP_ADAPTER_ADDRESSES pIpAdapterAddresses = (PIP_ADAPTER_ADDRESSES)HeapAlloc(GetProcessHeap(), 0, ulSize);
+  return const_cast<NetworkInfo *>(this)->Query(
+      [&](LPGUID pGuid, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
+        ULONG ulSize = 0;
+        GetAdaptersAddresses(AF_INET, 0, NULL, NULL, &ulSize);
+        PIP_ADAPTER_ADDRESSES pIpAdapterAddresses =
+            (PIP_ADAPTER_ADDRESSES)HeapAlloc(GetProcessHeap(), 0, ulSize);
 
-    std::string res;
-    if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pIpAdapterAddresses, &ulSize) == 0) {
-      res = GetAdapterAddress(pGuid, pIpAdapterAddresses);
-    }
+        std::string res;
+        if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pIpAdapterAddresses,
+                                 &ulSize) == 0) {
+          res = GetAdapterAddress(pGuid, pIpAdapterAddresses);
+        }
 
-    HeapFree(GetProcessHeap(), 0, pIpAdapterAddresses);
-    return res;
-  });
+        HeapFree(GetProcessHeap(), 0, pIpAdapterAddresses);
+        return res;
+      });
 }
 
 void NetworkInfo::Init() {
@@ -120,11 +119,15 @@ std::string NetworkInfo::Query(WlanQuery query) {
     DWORD dwDataSize = 0;
 
     PWLAN_CONNECTION_ATTRIBUTES pAttributes = NULL;
-    if (_dwError = WlanQueryInterface(_hClient, pGuid, OpCode, NULL, &dwDataSize, (LPVOID*)&pAttributes, NULL); HasError()) {
+    if (_dwError =
+            WlanQueryInterface(_hClient, pGuid, OpCode, NULL, &dwDataSize,
+                               (LPVOID *)&pAttributes, NULL);
+        HasError()) {
       break;
     }
 
-    std::unique_ptr<WLAN_CONNECTION_ATTRIBUTES, decltype(&WlanFreeMemory)> cleanup(pAttributes, WlanFreeMemory);
+    std::unique_ptr<WLAN_CONNECTION_ATTRIBUTES, decltype(&WlanFreeMemory)>
+        cleanup(pAttributes, WlanFreeMemory);
     if (pAttributes->isState) {
       res = query(pGuid, pAttributes);
       break;

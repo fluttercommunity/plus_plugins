@@ -27,22 +27,21 @@ static void my_application_activate(GApplication* application) {
   // if future cases occur).
   gboolean use_header_bar = TRUE;
 #ifdef GDK_WINDOWING_X11
-  GdkScreen *screen = gtk_window_get_screen(window);
+  GdkScreen* screen = gtk_window_get_screen(window);
   if (GDK_IS_X11_SCREEN(screen)) {
-     const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
-     if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
-       use_header_bar = FALSE;
-     }
+    const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
+    if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
+      use_header_bar = FALSE;
+    }
   }
 #endif
   if (use_header_bar) {
-    GtkHeaderBar *header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
+    GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
     gtk_header_bar_set_title(header_bar, "example");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
-  }
-  else {
+  } else {
     gtk_window_set_title(window, "example");
   }
 
@@ -67,7 +66,6 @@ static void my_application_class_init(MyApplicationClass* klass) {
 static void my_application_init(MyApplication* self) {}
 
 MyApplication* my_application_new() {
-  return MY_APPLICATION(g_object_new(my_application_get_type(),
-                                     "application-id", APPLICATION_ID,
-                                     nullptr));
+  return MY_APPLICATION(g_object_new(
+      my_application_get_type(), "application-id", APPLICATION_ID, nullptr));
 }

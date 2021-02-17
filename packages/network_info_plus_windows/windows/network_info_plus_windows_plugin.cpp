@@ -1,9 +1,10 @@
 #include "include/network_info_plus_windows/network_info_plus_windows_plugin.h"
-#include "include/network_info_plus_windows/network_info.h"
 
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
+
+#include "include/network_info_plus_windows/network_info.h"
 
 namespace {
 
@@ -62,10 +63,12 @@ void NetworkInfoPlusWindowsPlugin::HandleMethodCall(
   }
 }
 
-void NetworkInfoPlusWindowsPlugin::HandleMethodResult(const std::string &value,
+void NetworkInfoPlusWindowsPlugin::HandleMethodResult(
+    const std::string &value,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> &result) {
   if (_networkInfo.HasError()) {
-    result->Error(std::to_string(_networkInfo.GetError()), _networkInfo.GetErrorString());
+    result->Error(std::to_string(_networkInfo.GetError()),
+                  _networkInfo.GetErrorString());
   } else {
     result->Success(flutter::EncodableValue(value));
   }
