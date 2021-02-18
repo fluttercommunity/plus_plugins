@@ -4,10 +4,10 @@ class PackageInfoData {
   /// instances constructed this way won't actually reflect any real information
   /// from the platform, just whatever was passed in at construction time.
   PackageInfoData({
-    this.appName,
-    this.packageName,
-    this.version,
-    this.buildNumber,
+    required this.appName,
+    required this.packageName,
+    required this.version,
+    required this.buildNumber,
   });
 
   /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
