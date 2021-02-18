@@ -22,12 +22,12 @@ abstract class SensorsPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static SensorsPlatform _instance;
+  static SensorsPlatform _instance = MethodChannelSensors();
 
   /// The default instance of [SensorsPlatform] to use.
   ///
   /// Defaults to [MethodChannelSensors].
-  static SensorsPlatform get instance => _instance ??= MethodChannelSensors();
+  static SensorsPlatform get instance => _instance;
 
   /// Platform-specific plugins should set this with their own platform-specific
   /// class that extends [SensorsPlatform] when they register themselves.

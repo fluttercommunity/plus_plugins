@@ -70,16 +70,16 @@ void main() {
 void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
   const standardMethod = StandardMethodCodec();
 
-  void _emitEvent(ByteData event) {
-    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+  void _emitEvent(ByteData? event) {
+    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
-      (ByteData reply) {},
+      (ByteData? reply) {},
     );
   }
 
-  ServicesBinding.instance.defaultBinaryMessenger
-      .setMockMessageHandler(channelName, (ByteData message) async {
+  ServicesBinding.instance!.defaultBinaryMessenger
+      .setMockMessageHandler(channelName, (ByteData? message) async {
     final methodCall = standardMethod.decodeMethodCall(message);
     if (methodCall.method == 'listen') {
       _emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));

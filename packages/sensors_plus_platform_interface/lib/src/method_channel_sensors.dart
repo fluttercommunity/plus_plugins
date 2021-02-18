@@ -18,9 +18,9 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _gyroscopeEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
 
-  Stream<AccelerometerEvent> _accelerometerEvents;
-  Stream<GyroscopeEvent> _gyroscopeEvents;
-  Stream<UserAccelerometerEvent> _userAccelerometerEvents;
+  Stream<AccelerometerEvent>? _accelerometerEvents;
+  Stream<GyroscopeEvent>? _gyroscopeEvents;
+  Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
 
   /// A broadcast stream of events from the device accelerometer.
   @override
@@ -29,9 +29,9 @@ class MethodChannelSensors extends SensorsPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final list = event.cast<double>();
-      return AccelerometerEvent(list[0], list[1], list[2]);
+      return AccelerometerEvent(list[0]!, list[1]!, list[2]!);
     });
-    return _accelerometerEvents;
+    return _accelerometerEvents!;
   }
 
   /// A broadcast stream of events from the device gyroscope.
@@ -40,9 +40,9 @@ class MethodChannelSensors extends SensorsPlatform {
     _gyroscopeEvents ??=
         _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
-      return GyroscopeEvent(list[0], list[1], list[2]);
+      return GyroscopeEvent(list[0]!, list[1]!, list[2]!);
     });
-    return _gyroscopeEvents;
+    return _gyroscopeEvents!;
   }
 
   /// Events from the device accelerometer with gravity removed.
@@ -52,8 +52,8 @@ class MethodChannelSensors extends SensorsPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final list = event.cast<double>();
-      return UserAccelerometerEvent(list[0], list[1], list[2]);
+      return UserAccelerometerEvent(list[0]!, list[1]!, list[2]!);
     });
-    return _userAccelerometerEvents;
+    return _userAccelerometerEvents!;
   }
 }
