@@ -17,5 +17,7 @@ class PackageInfoWindows extends PackageInfoPlatform {
 
   /// Stub
   @override
-  Future<PackageInfoData> getAll() => null;
+  Future<PackageInfoData> getAll() {
+    throw UnimplementedError();
+  }
 }
