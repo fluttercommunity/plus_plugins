@@ -10,7 +10,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
-  List<MethodCall> log;
+  final log = <MethodCall>[];
 
   channel.setMockMethodCallHandler((MethodCall methodCall) async {
     log.add(methodCall);
@@ -29,8 +29,11 @@ void main() {
   });
 
   setUp(() {
-    log = <MethodCall>[];
     PackageInfo.disablePackageInfoPlatformOverride = true;
+  });
+
+  tearDown(() {
+    log.clear();
   });
 
   test('fromPlatform', () async {
