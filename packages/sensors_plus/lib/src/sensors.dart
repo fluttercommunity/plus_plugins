@@ -9,7 +9,7 @@ class Sensors extends SensorsPlatform {
 
   Sensors._();
 
-  static Sensors _singleton;
+  static Sensors? _singleton;
 
   static SensorsPlatform get _platform => SensorsPlatform.instance;
 
