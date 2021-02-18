@@ -16,9 +16,9 @@ class SensorsPlugin extends SensorsPlatform {
 
   void _featureDetected(
     Function initSensor, {
-    String apiName,
-    String premissionName,
-    Function onError,
+    String? apiName,
+    String? premissionName,
+    Function? onError,
   }) {
     try {
       initSensor();
@@ -48,8 +48,8 @@ class SensorsPlugin extends SensorsPlatform {
     }
   }
 
-  StreamController<AccelerometerEvent> _accelerometerStreamController;
-  Stream<AccelerometerEvent> _accelerometerResultStream;
+  StreamController<AccelerometerEvent>? _accelerometerStreamController;
+  late Stream<AccelerometerEvent> _accelerometerResultStream;
 
   @override
   Stream<AccelerometerEvent> get accelerometerEvents {
@@ -64,11 +64,11 @@ class SensorsPlugin extends SensorsPlatform {
             'onreading',
             allowInterop(
               (_) {
-                _accelerometerStreamController.add(
+                _accelerometerStreamController!.add(
                   AccelerometerEvent(
-                    _accelerometer.x,
-                    _accelerometer.y,
-                    _accelerometer.z,
+                    _accelerometer.x as double,
+                    _accelerometer.y as double,
+                    _accelerometer.z as double,
                   ),
                 );
               },
@@ -84,18 +84,18 @@ class SensorsPlugin extends SensorsPlatform {
         apiName: 'Accelerometer()',
         premissionName: 'accelerometer',
         onError: () {
-          _accelerometerStreamController.add(AccelerometerEvent(0, 0, 0));
+          _accelerometerStreamController!.add(AccelerometerEvent(0, 0, 0));
         },
       );
       _accelerometerResultStream =
-          _accelerometerStreamController.stream.asBroadcastStream();
+          _accelerometerStreamController!.stream.asBroadcastStream();
     }
 
     return _accelerometerResultStream;
   }
 
-  StreamController<GyroscopeEvent> _gyroscopeEventStreamController;
-  Stream<GyroscopeEvent> _gyroscopeEventResultStream;
+  StreamController<GyroscopeEvent>? _gyroscopeEventStreamController;
+  late Stream<GyroscopeEvent> _gyroscopeEventResultStream;
 
   @override
   Stream<GyroscopeEvent> get gyroscopeEvents {
@@ -110,11 +110,11 @@ class SensorsPlugin extends SensorsPlatform {
             'onreading',
             allowInterop(
               (_) {
-                _gyroscopeEventStreamController.add(
+                _gyroscopeEventStreamController!.add(
                   GyroscopeEvent(
-                    _gyroscope.x,
-                    _gyroscope.y,
-                    _gyroscope.z,
+                    _gyroscope.x as double,
+                    _gyroscope.y as double,
+                    _gyroscope.z as double,
                   ),
                 );
               },
@@ -130,18 +130,18 @@ class SensorsPlugin extends SensorsPlatform {
         apiName: 'Gyroscope()',
         premissionName: 'gyroscope',
         onError: () {
-          _gyroscopeEventStreamController.add(GyroscopeEvent(0, 0, 0));
+          _gyroscopeEventStreamController!.add(GyroscopeEvent(0, 0, 0));
         },
       );
       _gyroscopeEventResultStream =
-          _gyroscopeEventStreamController.stream.asBroadcastStream();
+          _gyroscopeEventStreamController!.stream.asBroadcastStream();
     }
 
     return _gyroscopeEventResultStream;
   }
 
-  StreamController<UserAccelerometerEvent> _userAccelerometerStreamController;
-  Stream<UserAccelerometerEvent> _userAccelerometerResultStream;
+  StreamController<UserAccelerometerEvent>? _userAccelerometerStreamController;
+  late Stream<UserAccelerometerEvent> _userAccelerometerResultStream;
 
   @override
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
@@ -157,11 +157,11 @@ class SensorsPlugin extends SensorsPlatform {
             'onreading',
             allowInterop(
               (_) {
-                _userAccelerometerStreamController.add(
+                _userAccelerometerStreamController!.add(
                   UserAccelerometerEvent(
-                    _linearAccelerationSensor.x,
-                    _linearAccelerationSensor.y,
-                    _linearAccelerationSensor.z,
+                    _linearAccelerationSensor.x as double,
+                    _linearAccelerationSensor.y as double,
+                    _linearAccelerationSensor.z as double,
                   ),
                 );
               },
@@ -177,12 +177,12 @@ class SensorsPlugin extends SensorsPlatform {
         apiName: 'LinearAccelerationSensor()',
         premissionName: 'accelerometer',
         onError: () {
-          _userAccelerometerStreamController
+          _userAccelerometerStreamController!
               .add(UserAccelerometerEvent(0, 0, 0));
         },
       );
       _userAccelerometerResultStream =
-          _userAccelerometerStreamController.stream.asBroadcastStream();
+          _userAccelerometerStreamController!.stream.asBroadcastStream();
     }
 
     return _userAccelerometerResultStream;
