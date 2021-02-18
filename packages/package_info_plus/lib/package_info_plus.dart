@@ -5,7 +5,8 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
+import 'package:flutter/foundation.dart'
+    show kIsWeb, required, visibleForTesting;
 import 'package:package_info_plus_linux/package_info_plus_linux.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:package_info_plus_windows/package_info_plus_windows.dart';
@@ -84,4 +85,21 @@ class PackageInfo {
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
+
+  /// Initializes the application metadata with mock values for testing.
+  ///
+  /// If the singleton instance has been initialized already, it is overwritten.
+  @visibleForTesting
+  static void setMockInitialValues({
+    @required String appName,
+    @required String packageName,
+    @required String version,
+    @required String buildNumber,
+  }) {
+    _fromPlatform = PackageInfo(
+        appName: appName,
+        packageName: packageName,
+        version: version,
+        buildNumber: buildNumber);
+  }
 }

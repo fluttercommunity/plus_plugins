@@ -1,6 +1,10 @@
 ## 0.9.0-nullsafety.0
 
-- Migrated to null safety.
+- Migrated to null safety
+
+## 0.8.1
+
+- Address pub score
 
 ## 0.8.0
 

@@ -1,3 +1,15 @@
+## 1.0.0-nullsafety.0
+
+- Migrated to null safety
+
+## 0.7.2
+
+- Update dependencies.
+
+## 0.7.1
+
+- Fix macOS support.
+
 ## 0.7.0
 
 - Add macOS support via `device_info_plus_macos`.

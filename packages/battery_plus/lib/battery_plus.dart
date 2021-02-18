@@ -7,14 +7,14 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
-import 'package:battery_plus_platform_interface/src/method_channel_battery_plus.dart';
+import 'package:battery_plus_platform_interface/method_channel_battery_plus.dart';
 import 'package:battery_plus_linux/battery_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart'
     show BatteryState;
 
-/// API for accessing information about the battery of the device the Flutter
+/// API for accessing information about the battery of the device the Flutter app is running on.
 class Battery {
   /// Constructs a singleton instance of [Battery].
   ///

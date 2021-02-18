@@ -5,7 +5,7 @@
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:network_info_plus_platform_interface/src/method_channel_network_info.dart';
+import 'package:network_info_plus_platform_interface/method_channel_network_info.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,3 +1,7 @@
+## 0.6.4
+
+- Add support for mock data during tests
+
 ## 0.6.3
 
 - Fix base URI resolving for Web

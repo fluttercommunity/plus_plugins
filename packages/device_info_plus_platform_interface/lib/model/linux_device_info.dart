@@ -9,21 +9,22 @@
 /// - https://www.freedesktop.org/software/systemd/man/machine-id.html
 class LinuxDeviceInfo {
   /// Constructs a LinuxDeviceInfo.
+  /// A string identifying the operating system, without a version component,
+
   LinuxDeviceInfo({
-    this.name,
+    required this.name,
     this.version,
-    this.id,
+    required this.id,
     this.idLike,
     this.versionCodename,
     this.versionId,
-    this.prettyName,
+    required this.prettyName,
     this.buildId,
     this.variant,
     this.variantId,
-    this.machineId,
+    required this.machineId,
   });
 
-  /// A string identifying the operating system, without a version component,
   /// and suitable for presentation to the user.
   ///
   /// Examples: 'Fedora', 'Debian GNU/Linux'.
@@ -38,7 +39,7 @@ class LinuxDeviceInfo {
   /// Examples: '17', '17 (Beefy Miracle)'.
   ///
   /// This field is optional and may be null on some systems.
-  final String version;
+  final String? version;
 
   /// A lower-case string identifying the operating system, excluding any
   /// version information and suitable for processing by scripts or usage in
@@ -62,7 +63,7 @@ class LinuxDeviceInfo {
   /// 'fedora', and an operating system with [id] 'ubuntu' would list 'debian'.
   ///
   /// This field is optional and may be null on some systems.
-  final List<String> idLike;
+  final List<String>? idLike;
 
   /// A lower-case string identifying the operating system release code name,
   /// excluding any OS name information or release version, and suitable for
@@ -74,7 +75,7 @@ class LinuxDeviceInfo {
   /// Examples: 'buster', 'xenial'.
   ///
   /// This field is optional and may be null on some systems.
-  final String versionCodename;
+  final String? versionCodename;
 
   /// A lower-case string identifying the operating system version, excluding
   /// any OS name information or release code name, and suitable for processing
@@ -86,7 +87,7 @@ class LinuxDeviceInfo {
   /// Examples: '17', '11.04'.
   ///
   /// This field is optional and may be null on some systems.
-  final String versionId;
+  final String? versionId;
 
   /// A pretty operating system name in a format suitable for presentation to
   /// the user. May or may not contain a release code name or OS version of some
@@ -105,7 +106,7 @@ class LinuxDeviceInfo {
   /// Examples: '2013-03-20.3', '201303203'.
   ///
   /// This field is optional and may be null on some systems.
-  final String buildId;
+  final String? buildId;
 
   /// A string identifying a specific variant or edition of the operating system
   /// suitable for presentation to the user. This field may be used to inform
@@ -118,7 +119,7 @@ class LinuxDeviceInfo {
   /// should be used for making programmatic decisions.
   ///
   /// This field is optional and may be null on some systems.
-  final String variant;
+  final String? variant;
 
   /// A lower-case string identifying a specific variant or edition of the
   /// operating system. This may be interpreted in order to determine a
@@ -130,10 +131,10 @@ class LinuxDeviceInfo {
   /// Examples: 'server', 'embedded'.
   ///
   /// This field is optional and may be null on some systems.
-  final String variantId;
+  final String? variantId;
 
   /// A unique machine ID of the local system that is set during installation or
   /// boot. The machine ID is hexadecimal, 32-character, lowercase ID. When
   /// decoded from hexadecimal, this corresponds to a 16-byte/128-bit value.
-  final String machineId;
+  final String? machineId;
 }

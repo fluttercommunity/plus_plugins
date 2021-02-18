@@ -49,19 +49,19 @@ function Home() {
 
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
-      <section className={cx(styles.hero, 'bg-firebase-blue dark-bg-flutter-blue-primary-dark')}>
+      <section className={cx(styles.hero, 'bg-flutter-blue-primary-dark dark-bg-flutter-blue-primary-dark')}>
         {/** Left **/}
         <Triangle
           zIndex={1}
-          light="firebase-yellow"
-          dark="firebase-amber"
+          light="flutter-blue-primary"
+          dark="flutter-blue-primary"
           style={{
             left: -150,
           }}
         />
         <Triangle
-          light="firebase-gray"
-          dark="firebase-navy"
+          light="flutter-blue-primary-light"
+          dark="flutter-blue-primary-light"
           style={{
             left: 0,
           }}
@@ -71,8 +71,8 @@ function Home() {
         {/** Right **/}
         <Triangle
           zIndex={1}
-          light="firebase-coral"
-          dark="firebase-orange"
+          light="flutter-blue-primary"
+          dark="flutter-blue-primary"
           style={{
             right: 0,
             bottom: -150,
@@ -80,8 +80,8 @@ function Home() {
           rotate={180}
         />
         <Triangle
-          light="firebase-gray"
-          dark="firebase-navy"
+          light="flutter-blue-primary-light"
+          dark="flutter-blue-primary-light"
           style={{
             right: -150,
           }}
@@ -92,7 +92,7 @@ function Home() {
           <h2>{siteConfig.tagline}</h2>
           <div className={styles.actions}>
             {/* <Link to={`${siteConfig.baseUrl}docs/overview`}>Get Started &raquo;</Link> */}
-            <Link to="https://github.com/fluttercommunity">GitHub &raquo;</Link>
+            <Link to="https://github.com/fluttercommunity/plus_plugins">GitHub &raquo;</Link>
           </div>
         </div>
       </section>
@@ -102,10 +102,8 @@ function Home() {
             <thead>
               <tr>
                 <th align="left">Plugin</th>
-                <th>Version</th>
                 <th>Pub</th>
                 <th>Docs</th>
-                <th>View Source</th>
                 <th>Android</th>
                 <th>iOS</th>
                 <th>Web</th>
@@ -121,26 +119,16 @@ function Home() {
                     <strong>{plugin.name}</strong>
                   </td>
                   <td style={{ minWidth: 150 }}>
-                    <img
-                      src={`https://img.shields.io/pub/v/${plugin.pub}.svg`}
-                      alt={`${plugin.name} Badge`}
-                    />
-                  </td>
-                  <td>
                     <a href={`https://pub.dev/packages/${plugin.pub}`}>
-                      <img width={25} src={useBaseUrl('img/dart-logo.png')} alt="Pub" />
+                      <img
+                        src={`https://img.shields.io/pub/v/${plugin.pub}.svg`}
+                        alt={`${plugin.name} Badge`}
+                      />
                     </a>
                   </td>
                   <td>
                     <a href={`https://pub.dev/documentation/${plugin.pub}/latest/`}>
                       <Docs />
-                    </a>
-                  </td>
-                  <td>
-                    <a
-                      href={`https://github.com/fluttercommunity/plus_plugins/tree/main/packages/${plugin.pub}`}
-                    >
-                      <GithubIcon />
                     </a>
                   </td>
                   <td className="icon">

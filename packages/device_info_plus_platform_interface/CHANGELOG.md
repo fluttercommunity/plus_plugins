@@ -1,3 +1,11 @@
+## 1.0.0-nullsafety.0
+
+- Migrated to null safety
+
+## 0.4.0
+
+- Add macOS support.
+
 ## 0.3.0
 
 - Rename method channel to avoid conflicts.

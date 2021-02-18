@@ -7,7 +7,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-import 'package:connectivity_plus_platform_interface/src/method_channel_connectivity.dart';
+import 'package:connectivity_plus_platform_interface/method_channel_connectivity.dart';
 import 'package:connectivity_plus_linux/connectivity_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.

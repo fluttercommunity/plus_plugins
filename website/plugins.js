@@ -48,7 +48,7 @@ module.exports = [
       ios: true,
       macos: true,
       linux: true,
-      windows: false,
+      windows: true,
     },
     maintainer: {
       web: 'mhadaily',
@@ -99,7 +99,7 @@ module.exports = [
     },
   },
   {
-    name: 'Sensor ➕',
+    name: 'Sensors ➕',
     pub: 'sensors_plus',
     support: {
       web: true,

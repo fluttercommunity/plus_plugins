@@ -8,7 +8,7 @@ import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import 'utils.dart';
+import 'src/utils.dart';
 
 /// An implementation of [ConnectivityPlatform] that uses method channels.
 class MethodChannelConnectivity extends ConnectivityPlatform {
