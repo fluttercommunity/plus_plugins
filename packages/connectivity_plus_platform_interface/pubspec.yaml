@@ -1,6 +1,6 @@
 name: connectivity_plus_platform_interface
 description: A common platform interface for the connectivity_plus plugin.
-version: 0.3.0
+version: 0.4.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -17,4 +17,4 @@ dev_dependencies:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5"

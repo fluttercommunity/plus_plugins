@@ -1,0 +1,61 @@
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/// Object encapsulating MACOS device information.
+class MacOsDeviceInfo {
+  /// Constructs a MacOsDeviceInfo.
+  MacOsDeviceInfo({
+    this.computerName,
+    this.hostName,
+    this.arch,
+    this.model,
+    this.kernelVersion,
+    this.osRelease,
+    this.activeCPUs,
+    this.memorySize,
+    this.cpuFrequency,
+  });
+
+  /// Name given to the local machine.
+  final String computerName;
+
+  /// Operating system type
+  final String hostName;
+
+  /// Machine cpu achecture
+  final String arch;
+
+  /// Device model
+  final String model;
+
+  /// Machine Kernel version. Example Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58 PST 2015; root:xnu-3248.30.4~1/RELEASE_X86_64” or “Darwin Kernel Version 15.0.0: Wed Dec 9 22:19:38 PST 2015; root:xnu-3248.31.3~2/RELEASE_ARM64_S8000
+  final String kernelVersion;
+
+  /// Operating system release number
+  final String osRelease;
+
+  /// Number of active CPUs
+  final int activeCPUs;
+
+  /// Machine's size
+  final int memorySize;
+
+  /// Device CPU Frequency
+  final int cpuFrequency;
+
+  /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
+  static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {
+    return MacOsDeviceInfo(
+      computerName: map['computerName'],
+      hostName: map['hostName'],
+      arch: map['arch'],
+      model: map['model'],
+      kernelVersion: map['kernelVersion'],
+      osRelease: map['osRelease'],
+      activeCPUs: map['activeCPUs'],
+      memorySize: map['memorySize'],
+      cpuFrequency: map['cpuFrequency'],
+    );
+  }
+}

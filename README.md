@@ -68,7 +68,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
 
 ----
 
@@ -85,7 +85,7 @@ Flutter plugin providing detailed information about the device
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
 
 ----
 
@@ -101,7 +101,6 @@ Flutter plugin for discovering network info.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|         |     |       |     |       |        |
 |    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
 
 ----

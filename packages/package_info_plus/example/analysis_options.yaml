@@ -1,0 +1,14 @@
+# TODO: Remove this when migrated to null safety
+include: package:pedantic/analysis_options.yaml
+
+analyzer:
+  exclude:
+    # Ignore generated files
+    - '**/*.g.dart'
+    - 'lib/src/generated/*.dart'
+
+linter:
+  rules:
+    public_member_api_docs: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true

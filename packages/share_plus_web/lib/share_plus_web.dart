@@ -16,7 +16,7 @@ class SharePlusPlugin extends SharePlatform {
   final _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlusPlugin({@visibleForTesting html.Navigator debugNavigator})
+  SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
   @override
@@ -24,26 +24,28 @@ class SharePlusPlugin extends SharePlatform {
   /// Share text
   Future<void> share(
     String text, {
-    String subject,
-    Rect sharePositionOrigin,
+    String? subject,
+    Rect? sharePositionOrigin,
   }) async {
     try {
       await _navigator.share({'title': subject, 'text': text});
     } catch (e) {
       //Navigator is not available or the webPage is not served on https
       final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
-      return launch(uri);
+      await launch(uri);
     }
   }
 
   @override
 
   /// Share files
-  Future<void> shareFiles(List<String> paths,
-      {List<String> mimeTypes,
-      String subject,
-      String text,
-      Rect sharePositionOrigin}) {
+  Future<void> shareFiles(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
     throw UnimplementedError('shareFiles() has not been implemented on Web.');
   }
 }

@@ -4,9 +4,11 @@
 #
 # include: ../../analysis_options.yaml
 #
-include: package:pedantic/analysis_options.1.9.0.yaml
+include: package:pedantic/analysis_options.yaml
 
 analyzer:
+  enable-experiment:
+    - non-nullable
   exclude:
     # Ignore generated files
     - '**/*.g.dart'

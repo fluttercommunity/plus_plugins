@@ -16,6 +16,7 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         IosDeviceInfo,
         IosUtsname,
         LinuxDeviceInfo,
+        MacOsDeviceInfo,
         WebBrowserInfo;
 
 /// Provides device and operating system information.
@@ -78,4 +79,11 @@ class DeviceInfoPlugin {
   /// Information derived from `Navigator`.
   Future<WebBrowserInfo> get webBrowserInfo async =>
       _cachedWebBrowserInfo ??= await _platform.webBrowserInfo();
+
+  /// This information does not change from call to call. Cache it.
+  MacOsDeviceInfo _cachedMacosDeviceInfo;
+
+  /// Returns device information for macos. Information sourced from Sysctl.
+  Future<MacOsDeviceInfo> get macOsInfo async =>
+      _cachedMacosDeviceInfo ??= await _platform.macosInfo();
 }

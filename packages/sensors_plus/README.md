@@ -5,6 +5,12 @@
 
 A Flutter plugin to access the accelerometer and gyroscope sensors.
 
+## Platfrom Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |       |  ✔️  |       |        |
+
 ## Usage
 
 To use this plugin, add `sensors_plus` as a [dependency in your pubspec.yaml

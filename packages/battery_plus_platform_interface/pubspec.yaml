@@ -5,8 +5,8 @@ homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
-  sdk: ">=2.12.0-133.7.beta <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:

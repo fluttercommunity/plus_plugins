@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import Cocoa
-import CoreWLAN
 import FlutterMacOS
 import Reachability
 import SystemConfiguration.CaptiveNetwork
@@ -21,11 +20,6 @@ import SystemConfiguration.CaptiveNetwork
 public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   var reach: Reachability?
   var eventSink: FlutterEventSink?
-  var cwinterface: CWInterface?
-
-  public override init() {
-    cwinterface = CWWiFiClient.shared().interface()
-  }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
@@ -46,12 +40,6 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     switch call.method {
     case "check":
       result(statusFromReachability(reachability: Reachability.forInternetConnection()))
-    case "wifiName":
-      result(cwinterface?.ssid())
-    case "wifiBSSID":
-      result(cwinterface?.bssid())
-    case "wifiIPAddress":
-      result(getWifiIP())
     default:
       result(FlutterMethodNotImplemented)
     }

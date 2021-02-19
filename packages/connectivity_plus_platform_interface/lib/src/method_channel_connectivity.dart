@@ -40,42 +40,4 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
         .invokeMethod<String>('check')
         .then(parseConnectivityResult);
   }
-
-  @override
-  Future<String> getWifiName() async {
-    var wifiName = await methodChannel.invokeMethod<String>('wifiName');
-    // as Android might return <unknown ssid>, uniforming result
-    // our iOS implementation will return null
-    if (wifiName == '<unknown ssid>') {
-      wifiName = null;
-    }
-    return wifiName;
-  }
-
-  @override
-  Future<String> getWifiBSSID() {
-    return methodChannel.invokeMethod<String>('wifiBSSID');
-  }
-
-  @override
-  Future<String> getWifiIP() {
-    return methodChannel.invokeMethod<String>('wifiIPAddress');
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
-    bool requestAlwaysLocationUsage = false,
-  }) {
-    return methodChannel.invokeMethod<String>(
-        'requestLocationServiceAuthorization', <bool>[
-      requestAlwaysLocationUsage
-    ]).then(parseLocationAuthorizationStatus);
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
-    return methodChannel
-        .invokeMethod<String>('getLocationServiceAuthorization')
-        .then(parseLocationAuthorizationStatus);
-  }
 }

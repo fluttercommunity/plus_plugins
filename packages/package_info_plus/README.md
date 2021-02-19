@@ -7,6 +7,11 @@
 This Flutter plugin provides an API for querying information about an
 application package.
 
+## Platform Support
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️    |
+
 # Usage
 
 You can use the PackageInfo to query information about the

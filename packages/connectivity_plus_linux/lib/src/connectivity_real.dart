@@ -8,9 +8,6 @@ import 'network_manager.dart';
 // Used internally
 // ignore_for_file: public_member_api_docs
 
-typedef _DeviceGetter = Future<String> Function(NMDevice device);
-typedef _ConnectionGetter = Future<String> Function(NMConnection connection);
-
 @visibleForTesting
 typedef NetworkManagerFactory = NetworkManager Function();
 
@@ -20,42 +17,6 @@ class ConnectivityLinux extends ConnectivityPlatform {
   @override
   Future<ConnectivityResult> checkConnectivity() {
     return _getConnectivity(_ref()).whenComplete(_deref);
-  }
-
-  /// Obtains the wifi name (SSID) of the connected network
-  @override
-  Future<String> getWifiName() {
-    return _getConnectionValue((connection) => connection.getId());
-  }
-
-  /// Obtains the IP address of the connected wifi network
-  @override
-  Future<String> getWifiIP() {
-    return _getDeviceValue((device) => device.getIp4());
-  }
-
-  /// Obtains the wifi BSSID of the connected network.
-  @override
-  Future<String> getWifiBSSID() {
-    return _getDeviceValue((device) {
-      return device
-          .asWirelessDevice()
-          .then((wireless) => wireless?.getHwAddress());
-    });
-  }
-
-  Future<String> _getDeviceValue(_DeviceGetter getter) {
-    return _getConnectionValue((connection) {
-      return connection.createDevice().then((device) {
-        return device != null ? getter(device) : null;
-      });
-    });
-  }
-
-  Future<String> _getConnectionValue(_ConnectionGetter getter) {
-    return _ref().createConnection().then((connection) {
-      return connection != null ? getter(connection) : null;
-    }).whenComplete(_deref);
   }
 
   int _refCount = 0;

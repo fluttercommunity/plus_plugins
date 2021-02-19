@@ -11,6 +11,12 @@ This plugin works for iOS and Android.
 > Note that on Android, this does not guarantee connection to Internet. For instance,
 the app might have wifi access but it might be a VPN or a hotel WiFi with no access.
 
+## Platform Support
+
+| Android | iOS | MacOS | Web | Linux | Window |
+|:-------:|:---:|:-----:|:---:|:-----:|:------:|
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
+
 ## Usage
 
 Sample usage to check current status:

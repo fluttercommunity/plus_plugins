@@ -23,16 +23,6 @@ void main() {
         switch (methodCall.method) {
           case 'check':
             return 'wifi';
-          case 'wifiName':
-            return '1337wifi';
-          case 'wifiBSSID':
-            return 'c0:ff:33:c0:d3:55';
-          case 'wifiIPAddress':
-            return '127.0.0.1';
-          case 'requestLocationServiceAuthorization':
-            return 'authorizedAlways';
-          case 'getLocationServiceAuthorization':
-            return 'authorizedAlways';
           default:
             return null;
         }
@@ -61,78 +51,6 @@ void main() {
       final result =
           await methodChannelConnectivity.onConnectivityChanged.first;
       expect(result, ConnectivityResult.wifi);
-    });
-
-    test('getWifiName', () async {
-      final result = await methodChannelConnectivity.getWifiName();
-      expect(result, '1337wifi');
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'wifiName',
-            arguments: null,
-          ),
-        ],
-      );
-    });
-
-    test('getWifiBSSID', () async {
-      final result = await methodChannelConnectivity.getWifiBSSID();
-      expect(result, 'c0:ff:33:c0:d3:55');
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'wifiBSSID',
-            arguments: null,
-          ),
-        ],
-      );
-    });
-
-    test('getWifiIP', () async {
-      final result = await methodChannelConnectivity.getWifiIP();
-      expect(result, '127.0.0.1');
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'wifiIPAddress',
-            arguments: null,
-          ),
-        ],
-      );
-    });
-
-    test('requestLocationServiceAuthorization', () async {
-      final result =
-          await methodChannelConnectivity.requestLocationServiceAuthorization();
-      expect(result, LocationAuthorizationStatus.authorizedAlways);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'requestLocationServiceAuthorization',
-            arguments: <bool>[false],
-          ),
-        ],
-      );
-    });
-
-    test('getLocationServiceAuthorization', () async {
-      final result =
-          await methodChannelConnectivity.getLocationServiceAuthorization();
-      expect(result, LocationAuthorizationStatus.authorizedAlways);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'getLocationServiceAuthorization',
-            arguments: null,
-          ),
-        ],
-      );
     });
 
     test('checkConnectivity', () async {

@@ -109,7 +109,7 @@ run the following command from the root of your cloned repository:
 melos run test:e2e
 ```
 
-A full list of all commands can be found within the [`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/master/melos.yaml)
+A full list of all commands can be found within the [`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/main/melos.yaml)
 file.
 
 ## 5. Contributing code
@@ -125,7 +125,7 @@ keep the code consistent and avoid common pitfalls.
 To start working on a patch:
 
 1. `git fetch upstream`
-2. `git checkout upstream/master -b <name_of_your_branch>`
+2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
 
 Once you have made your changes, ensure that it passes the internal analyzer & formatting checks. The following
