@@ -41,7 +41,6 @@ GeneratedPluginRegistrant.java
 GeneratedPluginRegistrant.swift
 build/
 .flutter-plugins
-test/*.mocks.dart
 
 .project
 .classpath

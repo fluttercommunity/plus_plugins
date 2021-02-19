@@ -1,11 +1,15 @@
-//@dart=2.9
-
 import 'package:connectivity_plus_linux/src/connectivity_real.dart';
 import 'package:connectivity_plus_linux/src/network_manager.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'connectivity_plus_linux_test.mocks.dart';
+
+@GenerateMocks([], customMocks: [
+  MockSpec<NetworkManager>(returnNullOnMissingStub: true),
+])
 void main() {
   test('wireless', () async {
     final linux = ConnectivityLinux();
@@ -45,5 +49,3 @@ void main() {
         emitsInOrder([ConnectivityResult.wifi, ConnectivityResult.none]));
   });
 }
-
-class MockNetworkManager extends Mock implements NetworkManager {}

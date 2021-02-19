@@ -20,6 +20,7 @@ dev_dependencies:
     sdk: flutter
   mockito: ^5.0.0-nullsafety.7
   pedantic: ^1.10.0
+  build_runner: ^1.11.5
 
 flutter:
   plugin:
