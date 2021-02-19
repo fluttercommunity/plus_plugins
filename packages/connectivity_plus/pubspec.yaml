@@ -34,15 +34,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_driver:
-    sdk: flutter
   test: any
   mockito: ^5.0.0-nullsafety.7
   plugin_platform_interface: ^1.1.0-nullsafety.2
   pedantic: ^1.10.0-nullsafety.3
-
-dependency_overrides:
-  args: '^2.0.0-nullsafety'
 
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
