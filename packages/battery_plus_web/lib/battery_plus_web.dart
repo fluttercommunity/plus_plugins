@@ -12,9 +12,10 @@ class BatteryPlusPlugin extends BatteryPlatform {
       : _getBattery = navigator.getBattery;
 
   /// A check to determine if this version of the plugin can be used.
+  // ignore: unnecessary_null_comparison
   bool get isSupported => html.window.navigator.getBattery != null;
 
-  final Future<dynamic> Function() _getBattery;
+  late final Future<dynamic> Function() _getBattery;
 
   /// Factory method that initializes the Battery plugin platform with an instance
   /// of the plugin for the web.
@@ -22,18 +23,20 @@ class BatteryPlusPlugin extends BatteryPlatform {
     BatteryPlatform.instance = BatteryPlusPlugin(html.window.navigator);
   }
 
-  /// Checks the connection status of the device.
+  /// Returns the current battery level in percent.
   @override
   Future<int> get batteryLevel async {
     if (isSupported) {
       //  level is a number representing the system's battery charge level scaled to a value between 0.0 and 1.0
-      return (await _getBattery() as html.BatteryManager).level * 100;
+      final batteryManager = await _getBattery() as html.BatteryManager;
+      final level = batteryManager.level ?? 0;
+      return level * 100 as int;
     }
-    return null;
+    return 0;
   }
 
-  StreamController<BatteryState> _batteryChangeStreamController;
-  Stream<BatteryState> _batteryChange;
+  StreamController<BatteryState>? _batteryChangeStreamController;
+  late Stream<BatteryState> _batteryChange;
 
   /// Returns a Stream of BatteryState changes.
   @override
@@ -43,14 +46,14 @@ class BatteryPlusPlugin extends BatteryPlatform {
 
       _getBattery().then(
         (battery) {
-          _batteryChangeStreamController
+          _batteryChangeStreamController!
               .add(_checkBatteryChargingState(battery.charging));
           setProperty(
             battery,
             'onchargingchange',
             allowInterop(
               (event) {
-                _batteryChangeStreamController
+                _batteryChangeStreamController!
                     .add(_checkBatteryChargingState(battery.charging));
               },
             ),
@@ -59,7 +62,7 @@ class BatteryPlusPlugin extends BatteryPlatform {
       );
 
       _batteryChange =
-          _batteryChangeStreamController.stream.asBroadcastStream();
+          _batteryChangeStreamController!.stream.asBroadcastStream();
     }
     return _batteryChange;
   }

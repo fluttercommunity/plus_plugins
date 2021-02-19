@@ -37,7 +37,7 @@ abstract class BatteryPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// Checks the connection status of the device.
+  /// Returns the current battery level in percent.
   Future<int> get batteryLevel {
     throw UnimplementedError('batteryLevel() has not been implemented.');
   }
