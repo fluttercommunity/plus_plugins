@@ -7,6 +7,7 @@ import 'package:mockito/mockito.dart';
 
 import 'connectivity_plus_linux_test.mocks.dart';
 
+// TODO: manual mocks/fakes
 // generate mock with: flutter pub run build_runner build
 @GenerateMocks([], customMocks: [
   MockSpec<NetworkManager>(returnNullOnMissingStub: true),
