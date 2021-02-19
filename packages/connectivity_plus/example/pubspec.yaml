@@ -15,8 +15,9 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   test: any
-  integration_test: ^1.0.2+2
-  pedantic: ^1.10.0-nullsafety.3
+  integration_test:
+    sdk: flutter
+  pedantic: ^1.10.0
 
 flutter:
   uses-material-design: true

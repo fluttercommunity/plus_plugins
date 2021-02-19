@@ -26,5 +26,5 @@ dev_dependencies:
   test: any
   flutter_test:
     sdk: flutter
-  pedantic: ^1.10.0-nullsafety.3
+  pedantic: ^1.10.0
 

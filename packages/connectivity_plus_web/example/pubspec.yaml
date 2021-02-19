@@ -1,6 +1,10 @@
 name: example
 description: Example web app for the connectivity plugin
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.26.0-0"
+
 dependencies:
   connectivity_plus_web:
     path: ../../connectivity_plus_web
@@ -14,9 +18,6 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  integration_test: ^1.0.2+2
-  mockito: ^4.1.4
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: '>=1.20.0'
+  integration_test:
+    sdk: flutter
+  mockito: ^5.0.0-nullsafety.7
