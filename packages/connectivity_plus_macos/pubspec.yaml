@@ -4,15 +4,15 @@ version: 0.5.0-nullsafety.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
+environment:
+  sdk: ">=2.12.0-259.14.beta <3.0.0"
+  flutter: '>=1.20.0'
+
 flutter:
   plugin:
     platforms:
       macos:
         pluginClass: ConnectivityPlugin
-
-environment:
-  sdk: ">=2.12.0-0 <3.0.0"
-  flutter: '>=1.20.0'
 
 dependencies:
   connectivity_plus_platform_interface: ^0.5.0-nullsafety.0
