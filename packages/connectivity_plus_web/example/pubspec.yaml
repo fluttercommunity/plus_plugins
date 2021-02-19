@@ -1,4 +1,4 @@
-name: example
+name: connectivity_plus_web_example
 description: Example web app for the connectivity plugin
 
 environment:
