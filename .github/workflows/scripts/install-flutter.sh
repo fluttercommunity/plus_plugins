@@ -2,7 +2,7 @@
 
 BRANCH=$1
 
-if [ "$BRANCH" == "dev" ]
+if [ "$BRANCH" == "dev" ] && [ "$2" != "--force" ]
 then
   # TODO Flutter dev branch is currently broken so we're unable to test MacOS.
   echo "TODO: Skipping macOS testing due to Flutter dev branch issue. Switching branch to stable."

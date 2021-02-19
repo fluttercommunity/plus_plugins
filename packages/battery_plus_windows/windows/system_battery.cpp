@@ -3,40 +3,38 @@
 #include <winnt.h>
 
 namespace {
-  enum ACLineStatus {
-    Offline = 0,
-    Online = 1,
-  };
+enum ACLineStatus {
+  Offline = 0,
+  Online = 1,
+};
 
-  enum BatteryLevel {
-    Empty = 0,
-    Full = 100,
-    Unknown = 255,
-  };
+enum BatteryLevel {
+  Empty = 0,
+  Full = 100,
+  Unknown = 255,
+};
 
-  enum BatteryFlag {
-    High = 1, // the battery capacity is at more than 66 percent
-    Low = 2, // the battery capacity is at less than 33 percent
-    Critical = 4, // the battery capacity is at less than five percent
-    Charging = 8,
-    NoBattery = 128 // no system battery
-  };
+enum BatteryFlag {
+  High = 1,      // the battery capacity is at more than 66 percent
+  Low = 2,       // the battery capacity is at less than 33 percent
+  Critical = 4,  // the battery capacity is at less than five percent
+  Charging = 8,
+  NoBattery = 128  // no system battery
+};
 
-  bool GetBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
-    return GetSystemPowerStatus(lpStatus) != 0;
-  }
-
-  bool IsValidBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
-    return lpStatus->BatteryFlag != NoBattery &&
-           lpStatus->BatteryLifePercent != Unknown;
-  }
+bool GetBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
+  return GetSystemPowerStatus(lpStatus) != 0;
 }
+
+bool IsValidBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
+  return lpStatus->BatteryFlag != NoBattery &&
+         lpStatus->BatteryLifePercent != Unknown;
+}
+}  // namespace
 
 SystemBattery::SystemBattery() {}
 
-SystemBattery::~SystemBattery() {
-  StopListen();
-}
+SystemBattery::~SystemBattery() { StopListen(); }
 
 int SystemBattery::GetLevel() const {
   SYSTEM_POWER_STATUS status;
@@ -74,15 +72,14 @@ std::string SystemBattery::GetStatusString() const {
     case BatteryStatus::Discharging:
       return "discharging";
     case BatteryStatus::Full:
+      return "full";
     case BatteryStatus::Unknown:
     default:
-      return "full"; // ### TODO: unknown
+      return "unknown";
   }
 }
 
-int SystemBattery::GetError() const {
-  return GetLastError();
-}
+int SystemBattery::GetError() const { return GetLastError(); }
 
 std::string SystemBattery::GetErrorString() const {
   // ### TODO: FormatMessage()
@@ -94,12 +91,13 @@ bool SystemBattery::StartListen(HWND hwnd, BatteryStatusCallback callback) {
     return false;
   }
   _callback = callback;
-  _notifier = RegisterPowerSettingNotification(
-    hwnd, &GUID_ACDC_POWER_SOURCE, DEVICE_NOTIFY_WINDOW_HANDLE);
+  _notifier = RegisterPowerSettingNotification(hwnd, &GUID_ACDC_POWER_SOURCE,
+                                               DEVICE_NOTIFY_WINDOW_HANDLE);
   return _notifier != nullptr;
 }
 
-void SystemBattery::ProcessMsg(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) {
+void SystemBattery::ProcessMsg(HWND hwnd, UINT message, WPARAM wparam,
+                               LPARAM lparam) {
   if (!_callback) {
     return;
   }

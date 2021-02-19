@@ -101,3 +101,25 @@ jobs:
         run: |
           melos exec -c 3 --dir-exists=test --ignore="*example*" --ignore="*web*" -- \
             flutter test
+  integration_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: 'Install Flutter'
+        run: |
+          ./.github/workflows/scripts/install-flutter.sh dev --force
+      - name: 'Install Tools'
+        run: |
+          ./.github/workflows/scripts/install-tools.sh
+          flutter config --enable-linux-desktop
+          sudo apt update
+          sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb
+          sudo apt install -y network-manager upower
+      - name: 'Bootstrap Workspace'
+        run: melos bootstrap
+      - name: 'Flutter Integration Test'
+        run: |
+          melos run test:e2e:linux

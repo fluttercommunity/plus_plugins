@@ -1,0 +1,23 @@
+name: network_info_plus_web
+description: A stub implementation of the Network Info Plus plugin for Web.
+version: 0.1.1
+homepage: https://plus.fluttercommunity.dev/
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  network_info_plus_platform_interface: ^0.1.1
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+  flutter: '>=1.20.0'
+
+flutter:
+  plugin:
+    platforms:
+      web:
+        pluginClass: NetworkInfoPlusPlugin
+        fileName: network_info_plus_web.dart

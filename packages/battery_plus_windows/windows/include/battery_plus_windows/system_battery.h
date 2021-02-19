@@ -2,7 +2,6 @@
 #define FLUTTER_PLUGIN_BATTERY_PLUS_SYSTEM_BATTERY_H_
 
 #include <flutter_plugin_registrar.h>
-
 #include <windows.h>
 
 #include <functional>

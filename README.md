@@ -41,7 +41,7 @@ PlusPlugins is a set of [Flutter plugins](https://flutter.io/platform-plugins/) 
 
 ### `battery_plus`
 
-> ![battery_plus][battery_plus_badge_pub] [![pub points][battery_plus_badge_pub_points]][battery_plus_pub_points]
+> [![battery_plus][battery_plus_badge_pub]][battery_plus] [![pub points][battery_plus_badge_pub_points]][battery_plus_pub_points]
 
 Flutter plugin for accessing information about the battery state(full, charging, discharging) on Android and iOS.
 
@@ -49,7 +49,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
@@ -57,7 +57,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 ### `connectivity_plus`
 
-> ![connectivity_plus][connectivity_plus_badge_pub] [![pub points][connectivity_plus_badge_pub_points]][connectivity_plus_pub_points]
+> [![connectivity_plus][connectivity_plus_badge_pub]][connectivity_plus] [![pub points][connectivity_plus_badge_pub_points]][connectivity_plus_pub_points]
 
 Flutter plugin for discovering the state of the network (WiFi &
 mobile/cellular) connectivity on Android and iOS.
@@ -66,7 +66,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
 
@@ -74,7 +74,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 ### `device_info_plus`
 
-> ![device_info_plus][device_info_plus_badge_pub] [![pub points][device_info_plus_badge_pub_points]][device_info_plus_pub_points]
+> [![device_info_plus][device_info_plus_badge_pub]][device_info_plus] [![pub points][device_info_plus_badge_pub_points]][device_info_plus_pub_points]
 
 Flutter plugin providing detailed information about the device
   (make, model, etc.), and Android or iOS version the app is running on.
@@ -83,15 +83,15 @@ Flutter plugin providing detailed information about the device
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |        |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
 
 ----
 
 ### `network_info_plus`
 
-> ![network_info_plus][network_info_plus_badge_pub] [![pub points][network_info_plus_badge_pub_points]][network_info_plus_pub_points]
+> [![network_info_plus][network_info_plus_badge_pub]][network_info_plus] [![pub points][network_info_plus_badge_pub_points]][network_info_plus_pub_points]
 
 Flutter plugin for discovering network info.
 
@@ -99,15 +99,15 @@ Flutter plugin for discovering network info.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
+|    ✔️   |  ✔️ |   ✔️  |  ➖  |   ✔️  |   ✔️   |
 
 ----
 
 ### `package_info_plus`
 
-> ![package_info_plus][package_info_plus_badge_pub] [![pub points][package_info_plus_badge_pub_points]][package_info_plus_pub_points]
+> [![package_info_plus][package_info_plus_badge_pub]][package_info_plus] [![pub points][package_info_plus_badge_pub_points]][package_info_plus_pub_points]
 
 Flutter plugin for querying information about the application
   package, such as CFBundleVersion on iOS or versionCode on Android.
@@ -116,7 +116,7 @@ Flutter plugin for querying information about the application
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |  ✔️  |   ✔️    |
 
@@ -124,7 +124,7 @@ Flutter plugin for querying information about the application
 
 ### `sensors_plus`
 
-> ![sensors_plus][sensors_plus_badge_pub] [![pub points][sensors_plus_badge_pub_points]][sensors_plus_pub_points]
+> [![sensors_plus][sensors_plus_badge_pub]][sensors_plus] [![pub points][sensors_plus_badge_pub_points]][sensors_plus_pub_points]
 
 Flutter plugin for accessing accelerometer and gyroscope sensors.
 
@@ -132,7 +132,7 @@ Flutter plugin for accessing accelerometer and gyroscope sensors.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |       |  ✔️  |       |        |
 
@@ -140,7 +140,7 @@ Flutter plugin for accessing accelerometer and gyroscope sensors.
 
 ### `share_plus`
 
-> ![share_plus][share_plus_badge_pub] [![pub points][share_plus_badge_pub_points]][share_plus_pub_points]
+> [![share_plus][share_plus_badge_pub]][share_plus] [![pub points][share_plus_badge_pub_points]][share_plus_pub_points]
 
 Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
 
@@ -148,15 +148,15 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |       |  ✔️  |   ✔️   |    ✔️   |
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
 ----
 
 ### `android_alarm_manager_plus`
 
-> ![android_alarm_manager_plus][android_alarm_manager_plus_badge_pub] [![pub points][android_alarm_manager_plus_badge_pub_points]][android_alarm_manager_plus_pub_points]
+> [![android_alarm_manager_plus][android_alarm_manager_plus_badge_pub]][android_alarm_manager_plus] [![pub points][android_alarm_manager_plus_badge_pub_points]][android_alarm_manager_plus_pub_points]
 
 Flutter plugin for accessing the Android AlarmManager service, and running Dart code in the background when alarms fire.
 
@@ -164,15 +164,15 @@ Flutter plugin for accessing the Android AlarmManager service, and running Dart 
 
 #### Platform Support
 
-| Android | 
+| Android |
 |:-------:|
-|    ✔️    | 
+|    ✔️    |
 
 ----
 
 ### `android_intent_plus`
 
-> ![android_intent_plus][android_intent_plus_badge_pub] [![pub points][android_intent_plus_badge_pub_points]][android_intent_plus_pub_points]
+> [![android_intent_plus][android_intent_plus_badge_pub]][android_intent_plus] [![pub points][android_intent_plus_badge_pub_points]][android_intent_plus_pub_points]
 
 Flutter plugin for launching Android Intents. Not supported on iOS.
 

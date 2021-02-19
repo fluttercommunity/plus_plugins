@@ -11,7 +11,9 @@ themselves accordingly.
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️   |  ✔️ |   ✔️  |     |   ✔️  |   ✔️   |
+|    ✔️   |  ✔️ |   ✔️  |  ➖  |   ✔️  |   ✔️   |
+
+The functionality is not supported on Web.
 
 ## Usage
 

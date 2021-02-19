@@ -35,20 +35,20 @@ enum BrowserName {
 class WebBrowserInfo {
   /// Web Browser info class.
   WebBrowserInfo({
-    this.appCodeName,
-    this.appName,
-    this.appVersion,
-    this.deviceMemory,
-    this.language,
-    this.languages,
-    this.platform,
-    this.product,
-    this.productSub,
-    this.userAgent,
-    this.vendor,
-    this.vendorSub,
-    this.maxTouchPoints,
-    this.hardwareConcurrency,
+    required this.appCodeName,
+    required this.appName,
+    required this.appVersion,
+    required this.deviceMemory,
+    required this.language,
+    required this.languages,
+    required this.platform,
+    required this.product,
+    required this.productSub,
+    required this.userAgent,
+    required this.vendor,
+    required this.vendorSub,
+    required this.maxTouchPoints,
+    required this.hardwareConcurrency,
   });
 
   /// the name of the current browser.

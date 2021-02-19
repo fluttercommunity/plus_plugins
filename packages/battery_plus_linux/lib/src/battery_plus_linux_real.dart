@@ -5,8 +5,6 @@ import 'package:meta/meta.dart';
 
 import 'upower_device.dart';
 
-// ### TODO: introduce an 'unknown' battery state for workstations?
-// https://github.com/fluttercommunity/plus_plugins/issues/61
 extension _ToBatteryState on UPowerBatteryState {
   BatteryState toBatteryState() {
     switch (this) {
@@ -14,8 +12,10 @@ extension _ToBatteryState on UPowerBatteryState {
         return BatteryState.charging;
       case UPowerBatteryState.discharging:
         return BatteryState.discharging;
-      default:
+      case UPowerBatteryState.fullyCharged:
         return BatteryState.full;
+      default:
+        return BatteryState.unknown;
     }
   }
 }

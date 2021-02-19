@@ -1,6 +1,6 @@
 name: battery_plus_windows
 description: Windows implementation of the battery_plus plugin
-version: 0.1.0
+version: 0.2.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -9,7 +9,7 @@ environment:
   flutter: ">=1.20.0"
 
 dependencies:
-  battery_plus_platform_interface: ^0.2.0
+  battery_plus_platform_interface: ^0.3.1
   flutter:
     sdk: flutter
 

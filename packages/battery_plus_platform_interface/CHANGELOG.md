@@ -1,6 +1,14 @@
-## 0.3.0-nullsafety.0
+## 0.4.0-nullsafety.0
 
 - Migrated to null safety
+
+## 0.3.1
+
+- Address pub score
+
+## 0.3.0
+
+- Added "unknown" battery state for batteryless systems.
 
 ## 0.2.0
 

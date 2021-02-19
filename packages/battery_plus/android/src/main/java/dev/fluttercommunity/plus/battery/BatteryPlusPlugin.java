@@ -79,6 +79,9 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     chargingStateChangeReceiver = createChargingStateChangeReceiver(events);
     applicationContext.registerReceiver(
         chargingStateChangeReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+    int status = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
+    publishBatteryStatus(events, status);
   }
 
   @Override
@@ -90,9 +93,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   private int getBatteryLevel() {
     int batteryLevel = -1;
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-      BatteryManager batteryManager =
-          (BatteryManager) applicationContext.getSystemService(applicationContext.BATTERY_SERVICE);
-      batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+      batteryLevel = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
     } else {
       Intent intent =
           new ContextWrapper(applicationContext)
@@ -105,26 +106,38 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     return batteryLevel;
   }
 
+  private int getBatteryProperty(int property) {
+    BatteryManager batteryManager =
+        (BatteryManager) applicationContext.getSystemService(applicationContext.BATTERY_SERVICE);
+    return batteryManager.getIntProperty(property);
+  }
+
+  private static void publishBatteryStatus(final EventSink events, int status) {
+    switch (status) {
+      case BatteryManager.BATTERY_STATUS_CHARGING:
+        events.success("charging");
+        break;
+      case BatteryManager.BATTERY_STATUS_FULL:
+        events.success("full");
+        break;
+      case BatteryManager.BATTERY_STATUS_DISCHARGING:
+      case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
+        events.success("discharging");
+        break;
+      case BatteryManager.BATTERY_STATUS_UNKNOWN:
+        events.success("unknown");
+      default:
+        events.error("UNAVAILABLE", "Charging status unavailable", null);
+        break;
+    }
+  }
+
   private BroadcastReceiver createChargingStateChangeReceiver(final EventSink events) {
     return new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-
-        switch (status) {
-          case BatteryManager.BATTERY_STATUS_CHARGING:
-            events.success("charging");
-            break;
-          case BatteryManager.BATTERY_STATUS_FULL:
-            events.success("full");
-            break;
-          case BatteryManager.BATTERY_STATUS_DISCHARGING:
-            events.success("discharging");
-            break;
-          default:
-            events.error("UNAVAILABLE", "Charging status unavailable", null);
-            break;
-        }
+        publishBatteryStatus(events, status);
       }
     };
   }

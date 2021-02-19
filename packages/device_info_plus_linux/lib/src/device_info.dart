@@ -7,11 +7,11 @@ import 'package:meta/meta.dart';
 
 /// See [DeviceInfoPlatform]
 class DeviceInfoLinux extends DeviceInfoPlatform {
-  LinuxDeviceInfo _cache;
+  LinuxDeviceInfo? _cache;
   final FileSystem _fileSystem;
 
   ///
-  DeviceInfoLinux({@visibleForTesting FileSystem fileSystem})
+  DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem})
       : _fileSystem = fileSystem ?? LocalFileSystem();
 
   @override
@@ -39,33 +39,31 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
     );
   }
 
-  Future<Map<String, String>> _getOsRelease() {
-    return _tryReadKeyValues('/etc/os-release')
-        .then((value) => value ?? _tryReadKeyValues('/usr/lib/os-release'));
+  Future<Map<String, String?>?> _getOsRelease() {
+    return _tryReadKeyValues('/etc/os-release').then((value) async =>
+        value ?? await _tryReadKeyValues('/usr/lib/os-release'));
   }
 
-  Future<Map<String, String>> _getLsbRelease() {
+  Future<Map<String, String?>?> _getLsbRelease() {
     return _tryReadKeyValues('/etc/lsb-release');
   }
 
-  Future<String> _getMachineId() {
+  Future<String?> _getMachineId() {
     return _tryReadValue('/etc/machine-id');
   }
 
-  Future<String> _tryReadValue(String path) {
+  Future<String?> _tryReadValue(String path) {
     return _fileSystem
         .file(path)
         .readAsString()
-        .then((str) => str.trim())
-        .catchError((_) => null);
+        .then((str) => str.trim(), onError: (_) => null);
   }
 
-  Future<Map<String, String>> _tryReadKeyValues(String path) {
+  Future<Map<String, String?>?> _tryReadKeyValues(String path) {
     return _fileSystem
         .file(path)
         .readAsLines()
-        .then((lines) => lines.toKeyValues())
-        .catchError((_) => null);
+        .then((lines) => lines.toKeyValues(), onError: (_) => null);
   }
 }
 
@@ -86,7 +84,7 @@ extension _Unquote on String {
 }
 
 extension _KeyValues on List<String> {
-  Map<String, String> toKeyValues() {
+  Map<String, String?> toKeyValues() {
     return Map.fromEntries(map((line) {
       final parts = line.split('=');
       if (parts.length != 2) return MapEntry(line, null);

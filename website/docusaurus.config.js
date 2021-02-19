@@ -54,7 +54,7 @@ module.exports = {
   },
   plugins: [
     require.resolve('docusaurus-plugin-sass'),
-    require.resolve('@docusaurus/plugin-ideal-image'),
+    // require.resolve('@docusaurus/plugin-ideal-image'),
     path.resolve(__dirname, './docusaurus-plugins/favicon-tags'),
   ],
   presets: [

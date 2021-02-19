@@ -1,0 +1,59 @@
+---
+title: Battery Plus Usage
+sidebar_label: Usage
+hide_title: true
+---
+
+## Using Battery Plus
+
+To use Battery Plus, we provided you with easy to access API. Start by making an instance of `Battery`.
+
+```dart
+final Battery _battery = Battery();
+```
+
+### Access information about the state of device charging
+
+The available states are:
+- **Full**: the battery is at 100%, full of energy.
+- **Charging**: the battery is being charged.
+- **Discharging**: the battery is losing energy.
+- **Unknown**: unable to read the battery state or the device has no battery.
+
+To get these information in realtime, you can subscribe to the stream from the `Battery` API.
+
+```dart
+// The enum that holds different states of a battery
+BatteryState _batteryState;
+// Create a StreamSubscription that will emit BatteryState values
+StreamSubscription<BatteryState> _batteryStateSubscription;
+
+@override
+void initState() {
+  super.initState();
+
+  // Initialize the subscription by listening to onBatteryStateChanged Stream
+  _batteryStateSubscription =
+      _battery.onBatteryStateChanged.listen((BatteryState state) {
+    
+    // Each time the battery state changes, the local state of the widget is updated
+    setState(() {
+      _batteryState = state;
+    });
+  });
+}
+```
+
+:::note
+Trying to run this code on *Android emulator* will result in `Unknown` state, but Android emulator provides a way of emulating the different states from its settings. By clicking the menu icon (three vertical dots) then going to battery section.
+
+On the other hand, there is no way of doing the same on *iOS simulator*, you won't be able to read the state or battery percentage, so it's always `Unknown`, better to debug on a real device, web or desktop.
+:::
+
+### Read current battery energy percentage
+
+Using the same `Battery` instance, it's possible to read the current percentage of energy in the device battery.
+
+```dart
+final batteryLevel = await _battery.batteryLevel;
+```

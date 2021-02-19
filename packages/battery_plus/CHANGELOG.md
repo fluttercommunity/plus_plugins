@@ -1,3 +1,15 @@
+## 0.10.1
+
+- Address pub score
+
+## 0.10.0
+
+- Added "unknown" battery state for batteryless systems.
+
+## 0.9.1
+
+- Send initial battery status for Android
+
 ## 0.9.0
 
 - Add Linux support (`battery_plus_linux`)

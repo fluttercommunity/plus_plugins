@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Address pub score
+
 ## 0.4.0
 
 - Removed members that were moved to network_info_plus

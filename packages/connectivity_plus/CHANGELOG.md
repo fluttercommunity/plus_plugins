@@ -1,3 +1,7 @@
+## 0.8.1
+
+- Address pub score
+
 ## 0.8.0
 
 - Add Windows support (`connectivity_plus_windows`).

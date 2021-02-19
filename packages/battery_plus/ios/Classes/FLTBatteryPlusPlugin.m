@@ -48,6 +48,8 @@
   if (!_eventSink) return;
   UIDeviceBatteryState state = [[UIDevice currentDevice] batteryState];
   switch (state) {
+    case UIDeviceBatteryStateUnknown:
+      _eventSink(@"unknown");
     case UIDeviceBatteryStateFull:
       _eventSink(@"full");
     case UIDeviceBatteryStateCharging:
