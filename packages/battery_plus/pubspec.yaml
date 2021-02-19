@@ -25,11 +25,11 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.0.5
-  battery_plus_platform_interface: ^0.3.1
+  battery_plus_platform_interface: ^0.4.0-nullsafety
   battery_plus_linux: ^0.2.1
-  battery_plus_macos: ^0.2.1
-  battery_plus_web: ^0.3.1
-  battery_plus_windows: ^0.2.1
+  battery_plus_macos: ^0.3.0-nullsafety
+  battery_plus_web: ^0.4.0-nullsafety
+  battery_plus_windows: ^0.3.0-nullsafety
 
 dev_dependencies:
   async: ^2.0.8
