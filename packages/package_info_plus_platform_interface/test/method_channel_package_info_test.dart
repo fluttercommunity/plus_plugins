@@ -2,11 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:mockito/mockito.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus_platform_interface/method_channel_package_info.dart';
-import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,12 @@ void main() {
     test('Cannot be implemented with `implements`', () {
       expect(() {
         PackageInfoPlatform.instance = ImplementsPackageInfoPlatform();
-      }, throwsA(isInstanceOf<NoSuchMethodError>()));
+      }, throwsA(isInstanceOf<AssertionError>()));
+    });
+
+    test('Can be mocked with `implements`', () {
+      final mock = PackageInfoPlatformMock();
+      PackageInfoPlatform.instance = mock;
     });
 
     test('Can be extended', () {
@@ -63,11 +69,11 @@ void main() {
   });
 }
 
-class ImplementsPackageInfoPlatform implements PackageInfoPlatform {
-  @override
-  Future<PackageInfoData> getAll() {
-    throw UnimplementedError();
-  }
-}
+class PackageInfoPlatformMock extends Mock
+    with MockPlatformInterfaceMixin
+    implements PackageInfoPlatform {}
+
+class ImplementsPackageInfoPlatform extends Mock
+    implements PackageInfoPlatform {}
 
 class ExtendsPackageInfoPlatform extends PackageInfoPlatform {}
