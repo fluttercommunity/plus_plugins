@@ -2,7 +2,7 @@ function toReferenceAPI(plugin) {
   return {
     type: "link",
     label: "Reference API",
-    href: `https://pub.dev/documentation/${plugin}/latest/`,
+    href: `https://pub.dev/documentation/${plugin}_plus/latest/`,
   };
 }
 
