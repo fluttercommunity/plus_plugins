@@ -38,6 +38,8 @@ GeneratedPluginRegistrant.h
 GeneratedPluginRegistrant.m
 GeneratedPluginRegistrant.java
 GeneratedPluginRegistrant.swift
+generated_plugin_registrant.*
+generated_plugins.cmake
 build/
 .flutter-plugins
 
