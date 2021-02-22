@@ -33,12 +33,12 @@ void main() {
     } else if (kIsWeb) {
       expect(info.appName, 'package_info_example');
       expect(info.buildNumber, '4');
-      expect(info.packageName, null);
+      expect(info.packageName, isEmpty);
       expect(info.version, '1.2.3');
     } else if (Platform.isLinux) {
       expect(info.appName, 'package_info_example');
       expect(info.buildNumber, '4');
-      expect(info.packageName, null);
+      expect(info.packageName, isEmpty);
       expect(info.version, '1.2.3');
     } else {
       throw (UnsupportedError('platform not supported'));
