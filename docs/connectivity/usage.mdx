@@ -6,7 +6,7 @@ hide_title: true
 
 ## Using Connectivity Plus
 
-To start using Connectivity Plus, initialize the singelton, which will give you accesss to all methods in the API.
+To start using Connectivity Plus, initialize the singleton, which will give you accesss to all methods in the API.
 
 ``` dart
 final Connectivity _connectivity = Connectivity();
@@ -54,7 +54,7 @@ StreamSubscription<ConnectivityResult> _connectivitySubscription;
 #### 2. Listen to the Stream
 
 Use `onConnectivityChanged` method that has a return type `Stream<ConnectivityResult>`, 
-to register a listner.
+to register a listener.
 
 :::note
 Note that connectivity changes are no longer communicated to Android apps 
