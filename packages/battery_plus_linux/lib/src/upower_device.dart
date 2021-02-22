@@ -40,19 +40,17 @@ class UPowerDevice extends DBusRemoteObject {
   void dispose() => client.close();
 
   Future<double> getPercentage() {
-    return getProperty(_kDeviceAddress, 'Percentage')
-        .then(
-          (value) => (value as DBusDouble).value,
-          onError: (error) => print(error),
-        );
+    return getProperty(_kDeviceAddress, 'Percentage').then(
+      (value) => (value as DBusDouble).value,
+      onError: (error) => print(error),
+    );
   }
 
   Future<UPowerBatteryState> getState() {
-    return getProperty(_kDeviceAddress, 'State')
-        .then(
-          (value) => (value as DBusUint32).value.toBatteryState(),
-          onError: (error) => print(error),
-        );
+    return getProperty(_kDeviceAddress, 'State').then(
+      (value) => (value as DBusUint32).value.toBatteryState(),
+      onError: (error) => print(error),
+    );
   }
 
   Stream<UPowerBatteryState> subscribeStateChanged() {

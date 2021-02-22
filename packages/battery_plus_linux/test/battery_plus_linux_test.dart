@@ -28,9 +28,9 @@ void main() {
 }
 
 class MockDevice implements UPowerDevice {
-
   @override
-  Future<DBusMethodResponse> callMethod(String? interface, String member, List<DBusValue> values) async {
+  Future<DBusMethodResponse> callMethod(
+      String? interface, String member, List<DBusValue> values) async {
     throw UnimplementedError();
   }
 
@@ -41,8 +41,7 @@ class MockDevice implements UPowerDevice {
   String get destination => throw UnimplementedError();
 
   @override
-  void dispose() {
-  }
+  void dispose() {}
 
   @override
   Future<Map<String, DBusValue>> getAllProperties(String interface) {
@@ -50,7 +49,8 @@ class MockDevice implements UPowerDevice {
   }
 
   @override
-  Future<Map<DBusObjectPath, Map<String, Map<String, DBusValue>>>> getManagedObjects() {
+  Future<Map<DBusObjectPath, Map<String, Map<String, DBusValue>>>>
+      getManagedObjects() {
     throw UnimplementedError();
   }
 
@@ -101,5 +101,4 @@ class MockDevice implements UPowerDevice {
   Stream<UPowerBatteryState> subscribeStateChanged() {
     return Stream.value(UPowerBatteryState.fullyCharged);
   }
-
 }
