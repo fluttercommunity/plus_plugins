@@ -9,11 +9,16 @@ import 'package:battery_plus/battery_plus.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
 
-class MockBatteryPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements BatteryPlatform {}
+late StreamController<BatteryState> controller;
+
+class MockBatteryPlatform implements BatteryPlatform {
+  @override
+  Future<int> get batteryLevel => Future.value(42);
+
+  @override
+  Stream<BatteryState> get onBatteryStateChanged => controller.stream;
+}
 
 void main() {
   late Battery battery;
@@ -26,18 +31,12 @@ void main() {
   });
 
   test('batteryLevel', () async {
-    when(battery.batteryLevel)
-        .thenAnswer((Invocation invoke) => Future<int>.value(42));
     expect(await battery.batteryLevel, 42);
   });
 
   group('battery state', () {
-    late StreamController<BatteryState> controller;
-
     setUp(() {
       controller = StreamController<BatteryState>();
-      when(battery.onBatteryStateChanged)
-          .thenAnswer((Invocation invoke) => controller.stream);
     });
 
     tearDown(() {
