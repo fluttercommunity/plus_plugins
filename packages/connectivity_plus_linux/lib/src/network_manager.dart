@@ -31,7 +31,7 @@ class NetworkManager extends DBusRemoteObject {
           (value) => (value as DBusString).value,
           onError: (error) => print(error),
         )
-        .then((value) => value);
+        .then((String? value) => value ?? fallback);
   }
 
   Stream<String> subscribeTypeChanged() {
@@ -60,7 +60,7 @@ class NMConnection extends DBusRemoteObject {
           (value) => (value as DBusString).value,
           onError: (error) => print(error),
         )
-        .then((value) => value);
+        .then((String? value) => value ?? '');
   }
 
   Future<List<String>> getDevices() {
@@ -72,7 +72,7 @@ class NMConnection extends DBusRemoteObject {
               .toList(),
           onError: (error) => print(error),
         )
-        .then((value) => value);
+        .then((List<String>? value) => value ?? const <String>[]);
   }
 
   Future<NMDevice?> createDevice() {
