@@ -10,10 +10,10 @@ part of package_info_plus_windows;
 
 class _LANGANDCODEPAGE extends Struct {
   @Uint16()
-  int wLanguage;
+  int? wLanguage;
 
   @Uint16()
-  int wCodePage;
+  int? wCodePage;
 }
 
 final _kernel32 = DynamicLibrary.open('kernel32.dll');
@@ -22,8 +22,8 @@ final _GetUserDefaultLangID = _kernel32
 
 class _FileVersionInfoData {
   _FileVersionInfoData({this.lpBlock, this.lpLang});
-  final Pointer<Uint8> lpBlock;
-  final Pointer<_LANGANDCODEPAGE> lpLang;
+  final Pointer<Uint8>? lpBlock;
+  final Pointer<_LANGANDCODEPAGE>? lpLang;
 }
 
 class _FileVersionInfo {
@@ -32,43 +32,43 @@ class _FileVersionInfo {
 
   _FileVersionInfo(this.filePath) : _data = _getData(filePath);
 
-  void dispose() => calloc.free(_data.lpBlock);
+  void dispose() => calloc.free(_data.lpBlock!);
 
-  String get companyName => getValue('CompanyName');
-  String get companyShortName => getValue('CompanyShortName');
-  String get productName => getValue('ProductName');
-  String get productShortName => getValue('ProductShortName');
-  String get internalName => getValue('InternalName');
-  String get productVersion => getValue('ProductVersion');
-  String get specialBuild => getValue('SpecialBuild');
-  String get originalFilename => getValue('OriginalFilename');
-  String get fileDescription => getValue('FileDescription');
-  String get fileVersion => getValue('FileVersion');
+  String? get companyName => getValue('CompanyName');
+  String? get companyShortName => getValue('CompanyShortName');
+  String? get productName => getValue('ProductName');
+  String? get productShortName => getValue('ProductShortName');
+  String? get internalName => getValue('InternalName');
+  String? get productVersion => getValue('ProductVersion');
+  String? get specialBuild => getValue('SpecialBuild');
+  String? get originalFilename => getValue('OriginalFilename');
+  String? get fileDescription => getValue('FileDescription');
+  String? get fileVersion => getValue('FileVersion');
 
-  String getValue(String name) {
+  String? getValue(String name) {
     final langCodepages = [
       // try the language and codepage from the EXE
-      [_data.lpLang.ref.wLanguage, _data.lpLang.ref.wCodePage],
+      [_data.lpLang!.ref.wLanguage, _data.lpLang!.ref.wCodePage],
       // try the default language and codepage from the EXE
-      [_GetUserDefaultLangID(), _data.lpLang.ref.wCodePage],
+      [_GetUserDefaultLangID(), _data.lpLang!.ref.wCodePage],
       // try the language from the EXE and Latin codepage (most common)
-      [_data.lpLang.ref.wLanguage, 1252],
+      [_data.lpLang!.ref.wLanguage, 1252],
       // try the default language and Latin codepage (most common)
       [_GetUserDefaultLangID(), 1252],
     ];
 
     var value;
-    final lplpBuffer = calloc<IntPtr>();
-    final puLen = calloc<Uint32>();
+    final Pointer<IntPtr>? lplpBuffer = calloc<IntPtr>();
+    final Pointer<Uint32>? puLen = calloc<Uint32>();
 
     String toHex4(int val) => val.toRadixString(16).padLeft(4, '0');
 
     for (final langCodepage in langCodepages) {
-      final lang = toHex4(langCodepage[0]);
-      final codepage = toHex4(langCodepage[1]);
+      final lang = toHex4(langCodepage[0]!);
+      final codepage = toHex4(langCodepage[1]!);
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
       final res =
-          VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
+          VerQueryValue(_data.lpBlock!, lpSubBlock, lplpBuffer!.cast(), puLen!);
       calloc.free(lpSubBlock);
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
@@ -78,8 +78,8 @@ class _FileVersionInfo {
       }
     }
 
-    calloc.free(lplpBuffer);
-    calloc.free(puLen);
+    calloc.free(lplpBuffer!);
+    calloc.free(puLen!);
     return value;
   }
 

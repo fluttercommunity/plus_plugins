@@ -5,8 +5,7 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart'
-    show kIsWeb, required, visibleForTesting;
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:package_info_plus_linux/package_info_plus_linux.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:package_info_plus_windows/package_info_plus_windows.dart';
@@ -21,10 +20,10 @@ class PackageInfo {
   /// See [fromPlatform] for the right API to get a [PackageInfo]
   /// that's actually populated with real data.
   PackageInfo({
-    this.appName,
-    this.packageName,
-    this.version,
-    this.buildNumber,
+    required this.appName,
+    required this.packageName,
+    required this.version,
+    required this.buildNumber,
   });
 
   /// Disables the platform override in order to use a manually registered
@@ -36,7 +35,7 @@ class PackageInfo {
   }
 
   static bool _disablePlatformOverride = false;
-  static PackageInfoPlatform __platform;
+  static PackageInfoPlatform? __platform;
 
   // This is to manually endorse the Desktop plugins until automatic
   // registration of Dart plugins is implemented.
@@ -52,16 +51,16 @@ class PackageInfo {
       }
       __platform ??= PackageInfoPlatform.instance;
     }
-    return __platform;
+    return __platform!;
   }
 
-  static PackageInfo _fromPlatform;
+  static PackageInfo? _fromPlatform;
 
   /// Retrieves package information from the platform.
   /// The result is cached.
   static Future<PackageInfo> fromPlatform() async {
     if (_fromPlatform != null) {
-      return _fromPlatform;
+      return _fromPlatform!;
     }
 
     final platformData = await _platform.getAll();
@@ -71,7 +70,7 @@ class PackageInfo {
       version: platformData.version,
       buildNumber: platformData.buildNumber,
     );
-    return _fromPlatform;
+    return _fromPlatform!;
   }
 
   /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
@@ -91,10 +90,10 @@ class PackageInfo {
   /// If the singleton instance has been initialized already, it is overwritten.
   @visibleForTesting
   static void setMockInitialValues({
-    @required String appName,
-    @required String packageName,
-    @required String version,
-    @required String buildNumber,
+    required String appName,
+    required String packageName,
+    required String version,
+    required String buildNumber,
   }) {
     _fromPlatform = PackageInfo(
         appName: appName,

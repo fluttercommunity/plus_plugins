@@ -1,6 +1,6 @@
 name: package_info_plus_web
 description: Web platform implementation of package_info_plus
-version: 0.2.1
+version: 1.0.0-nullsafety.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -12,21 +12,19 @@ flutter:
         fileName: package_info_plus_web.dart
 
 dependencies:
-  http: ^0.12.0
-  package_info_plus_platform_interface: ^0.3.0
-  platform_detect: ^1.4.0
+  http: ^0.13.0
+  package_info_plus_platform_interface: ^1.0.0-nullsafety
   flutter:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  meta: ^1.1.7
+  meta: ^1.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^4.1.1
-  pedantic: ^1.9.2
+  pedantic: ^1.10.0
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: '>=2.12.0-259.12.beta <3.0.0'
   flutter: ">=1.20.0"
