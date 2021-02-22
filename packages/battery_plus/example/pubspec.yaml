@@ -16,5 +16,8 @@ dev_dependencies:
   integration_test: ^1.0.2
   pedantic: ^1.9.2
 
+dependency_overrides:
+  args: ^2.0.0
+
 flutter:
   uses-material-design: true

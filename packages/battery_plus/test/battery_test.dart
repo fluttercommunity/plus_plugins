@@ -16,8 +16,8 @@ class MockBatteryPlatform extends Mock
     implements BatteryPlatform {}
 
 void main() {
-  Battery battery;
-  MockBatteryPlatform fakePlatform;
+  late Battery battery;
+  late MockBatteryPlatform fakePlatform;
 
   setUp(() {
     fakePlatform = MockBatteryPlatform();
@@ -32,7 +32,7 @@ void main() {
   });
 
   group('battery state', () {
-    StreamController<BatteryState> controller;
+    late StreamController<BatteryState> controller;
 
     setUp(() {
       controller = StreamController<BatteryState>();
@@ -55,9 +55,6 @@ void main() {
 
       controller.add(BatteryState.charging);
       expect(await queue.next, BatteryState.charging);
-
-      controller.add(null);
-      expect(await queue.next, null);
     });
   });
 }
