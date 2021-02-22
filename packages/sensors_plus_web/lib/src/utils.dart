@@ -3,7 +3,7 @@ import 'dart:html' as html;
 /// Receive premission status of the API
 Future<void> checkPremission(
   Function initSensor, {
-  String premissionName,
+  String? premissionName,
 }) async {
   final _premission = html.window.navigator.permissions;
 

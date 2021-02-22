@@ -1,11 +1,11 @@
 name: sensors_plus_web
 description: The web implementation of sensors_plus
-version: 0.2.0
+version: 1.0.0-nullsafety.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0-259.12.beta <3.0.0'
   flutter: '>=1.20.0'
 
 flutter:
@@ -18,13 +18,12 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  sensors_plus_platform_interface: ^0.2.0
+  sensors_plus_platform_interface: ^1.0.0-nullsafety.0
   flutter_web_plugins:
     sdk: flutter
 
 dev_dependencies:
-  test: any
+  test: ^1.16.2
   flutter_test:
     sdk: flutter
-  mockito: ^4.1.2
-  pedantic: ^1.9.2
+  pedantic: ^1.10.0
