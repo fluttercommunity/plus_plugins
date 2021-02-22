@@ -25,8 +25,10 @@ extension UPowerBatteryStateInt on int {
 typedef UPowerBatteryStateCallback = void Function(UPowerBatteryState state);
 
 class UPowerDevice extends DBusRemoteObject {
-  UPowerDevice._({DBusClient? client, DBusObjectPath? path})
-      : super(client, _kInterface, path);
+  UPowerDevice._({
+    required DBusClient client,
+    required DBusObjectPath path,
+  }) : super(client, _kInterface, path);
 
   factory UPowerDevice.display([DBusClient? client]) {
     return UPowerDevice._(
@@ -35,15 +37,14 @@ class UPowerDevice extends DBusRemoteObject {
     );
   }
 
-  void dispose() => client?.close();
+  void dispose() => client.close();
 
   Future<double> getPercentage() {
     return getProperty(_kDeviceAddress, 'Percentage')
         .then(
           (value) => (value as DBusDouble).value,
           onError: (error) => print(error),
-        )
-        .then((value) => value ?? 0.0);
+        );
   }
 
   Future<UPowerBatteryState> getState() {
@@ -51,8 +52,7 @@ class UPowerDevice extends DBusRemoteObject {
         .then(
           (value) => (value as DBusUint32).value.toBatteryState(),
           onError: (error) => print(error),
-        )
-        .then((value) => value ?? UPowerBatteryState.unknown);
+        );
   }
 
   Stream<UPowerBatteryState> subscribeStateChanged() {
