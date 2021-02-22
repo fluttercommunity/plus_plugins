@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dbus/dbus.dart';
 
 const _kInterface = 'org.freedesktop.UPower';
@@ -24,34 +25,32 @@ extension UPowerBatteryStateInt on int {
 typedef UPowerBatteryStateCallback = void Function(UPowerBatteryState state);
 
 class UPowerDevice extends DBusRemoteObject {
-  UPowerDevice._({DBusClient client, DBusObjectPath path})
-      : super(client, _kInterface, path);
+  UPowerDevice._({
+    required DBusClient client,
+    required DBusObjectPath path,
+  }) : super(client, _kInterface, path);
 
-  factory UPowerDevice.display([DBusClient client]) {
+  factory UPowerDevice.display([DBusClient? client]) {
     return UPowerDevice._(
       client: client ?? DBusClient.system(),
       path: DBusObjectPath(_kDisplayDevicePath),
     );
   }
 
-  void dispose() => client?.close();
+  void dispose() => client.close();
 
   Future<double> getPercentage() {
-    return getProperty(_kDeviceAddress, 'Percentage')
-        .then(
-          (value) => (value as DBusDouble).value,
-          onError: (error) => print(error),
-        )
-        .then((value) => value ?? 0.0);
+    return getProperty(_kDeviceAddress, 'Percentage').then(
+      (value) => (value as DBusDouble).value,
+      onError: (error) => print(error),
+    );
   }
 
   Future<UPowerBatteryState> getState() {
-    return getProperty(_kDeviceAddress, 'State')
-        .then(
-          (value) => (value as DBusUint32).value.toBatteryState(),
-          onError: (error) => print(error),
-        )
-        .then((value) => value ?? UPowerBatteryState.unknown);
+    return getProperty(_kDeviceAddress, 'State').then(
+      (value) => (value as DBusUint32).value.toBatteryState(),
+      onError: (error) => print(error),
+    );
   }
 
   Stream<UPowerBatteryState> subscribeStateChanged() {

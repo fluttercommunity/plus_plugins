@@ -24,12 +24,12 @@ class Battery {
   // misuse of creating a second instance from a programmer.
   factory Battery() {
     _singleton ??= Battery._();
-    return _singleton;
+    return _singleton!;
   }
 
   Battery._();
 
-  static Battery _singleton;
+  static Battery? _singleton;
 
   static bool _manualDartRegistrationNeeded = true;
 

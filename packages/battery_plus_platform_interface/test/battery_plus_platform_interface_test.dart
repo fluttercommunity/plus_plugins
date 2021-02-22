@@ -8,7 +8,7 @@ void main() {
 
   group('$MethodChannelBattery', () {
     final log = <MethodCall>[];
-    MethodChannelBattery methodChannelBattery;
+    late MethodChannelBattery methodChannelBattery;
 
     setUp(() async {
       methodChannelBattery = MethodChannelBattery();
@@ -28,7 +28,7 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
-            await ServicesBinding.instance.defaultBinaryMessenger
+            await ServicesBinding.instance!.defaultBinaryMessenger
                 .handlePlatformMessage(
               methodChannelBattery.eventChannel.name,
               methodChannelBattery.eventChannel.codec

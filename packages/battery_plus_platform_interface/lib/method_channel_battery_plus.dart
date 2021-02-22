@@ -23,7 +23,7 @@ class MethodChannelBattery extends BatteryPlatform {
   EventChannel eventChannel =
       EventChannel('dev.fluttercommunity.plus/charging');
 
-  Stream<BatteryState> _onBatteryStateChanged;
+  Stream<BatteryState>? _onBatteryStateChanged;
 
   /// Returns the current battery level in percent.
   @override
@@ -37,6 +37,6 @@ class MethodChannelBattery extends BatteryPlatform {
     _onBatteryStateChanged ??= eventChannel
         .receiveBroadcastStream()
         .map((dynamic event) => parseBatteryState(event));
-    return _onBatteryStateChanged;
+    return _onBatteryStateChanged!;
   }
 }
