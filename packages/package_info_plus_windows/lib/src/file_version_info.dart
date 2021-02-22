@@ -32,7 +32,7 @@ class _FileVersionInfo {
 
   _FileVersionInfo(this.filePath) : _data = _getData(filePath);
 
-  void dispose() => free(_data.lpBlock);
+  void dispose() => calloc.free(_data.lpBlock);
 
   String get companyName => getValue('CompanyName');
   String get companyShortName => getValue('CompanyShortName');
@@ -58,8 +58,8 @@ class _FileVersionInfo {
     ];
 
     var value;
-    final lplpBuffer = allocate<IntPtr>();
-    final puLen = allocate<Uint32>();
+    final lplpBuffer = calloc<IntPtr>();
+    final puLen = calloc<Uint32>();
 
     String toHex4(int val) => val.toRadixString(16).padLeft(4, '0');
 
@@ -67,42 +67,44 @@ class _FileVersionInfo {
       final lang = toHex4(langCodepage[0]);
       final codepage = toHex4(langCodepage[1]);
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
-      final res = VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer, puLen);
-      free(lpSubBlock);
+      final res =
+          VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
+      calloc.free(lpSubBlock);
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
         final ptr = Pointer<Utf16>.fromAddress(lplpBuffer.value);
-        value = ptr.unpackString(puLen.value);
+        value = ptr.toDartString(length: puLen.value);
         break;
       }
     }
 
-    free(lplpBuffer);
-    free(puLen);
+    calloc.free(lplpBuffer);
+    calloc.free(puLen);
     return value;
   }
 
   static _FileVersionInfoData _getData(String filePath) {
     final lptstrFilename = TEXT(filePath);
-    final lpdwDummy = allocate<Uint32>();
+    final lpdwDummy = calloc<Uint32>();
     final dwBlockSize = GetFileVersionInfoSize(lptstrFilename, lpdwDummy);
-    final lpBlock = allocate<Uint8>(count: dwBlockSize);
+    final lpBlock = calloc<Uint8>(dwBlockSize);
     if (GetFileVersionInfo(lptstrFilename, 0, dwBlockSize, lpBlock) == 0) {
       throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
     }
     final lpSubBlock = TEXT(r'\VarFileInfo\Translation');
-    final lpTranslate = allocate<IntPtr>();
-    if (VerQueryValue(lpBlock, lpSubBlock, lpTranslate, lpdwDummy) == 0) {
+    final lpTranslate = calloc<IntPtr>();
+    if (VerQueryValue(lpBlock, lpSubBlock, lpTranslate.cast(), lpdwDummy) ==
+        0) {
       throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
     }
     final data = _FileVersionInfoData(
       lpBlock: lpBlock,
       lpLang: Pointer<_LANGANDCODEPAGE>.fromAddress(lpTranslate.value),
     );
-    free(lptstrFilename);
-    free(lpTranslate);
-    free(lpSubBlock);
-    free(lpdwDummy);
+    calloc.free(lptstrFilename);
+    calloc.free(lpTranslate);
+    calloc.free(lpSubBlock);
+    calloc.free(lpdwDummy);
     return data;
   }
 }
