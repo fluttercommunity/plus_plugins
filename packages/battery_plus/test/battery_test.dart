@@ -7,11 +7,14 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:test/test.dart';
 
 late StreamController<BatteryState> controller;
 
-class MockBatteryPlatform implements BatteryPlatform {
+class MockBatteryPlatform
+    with MockPlatformInterfaceMixin
+    implements BatteryPlatform {
   @override
   Future<int> get batteryLevel => Future.value(42);
 
