@@ -19,7 +19,7 @@ class NetworkManager extends DBusRemoteObject {
 
   factory NetworkManager.system() => NetworkManager(DBusClient.system());
 
-  void dispose() => client?.close();
+  void dispose() => client.close();
 
   Future<String> getPath() => _getString('PrimaryConnection', fallback: '/');
 
@@ -31,7 +31,7 @@ class NetworkManager extends DBusRemoteObject {
           (value) => (value as DBusString).value,
           onError: (error) => print(error),
         )
-        .then((value) => value ?? fallback);
+        .then((String? value) => value ?? fallback);
   }
 
   Stream<String> subscribeTypeChanged() {
@@ -40,16 +40,16 @@ class NetworkManager extends DBusRemoteObject {
         .map((event) => (event.changedProperties[_kType] as DBusString).value);
   }
 
-  Future<NMConnection> createConnection() {
+  Future<NMConnection?> createConnection() {
     return getPath().then((path) => NMConnection.fromPath(client, path));
   }
 }
 
 class NMConnection extends DBusRemoteObject {
-  NMConnection(DBusClient client, {DBusObjectPath path})
+  NMConnection(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
-  factory NMConnection.fromPath(DBusClient client, String path) {
+  static NMConnection? fromPath(DBusClient client, String path) {
     if (path == '/') return null;
     return NMConnection(client, path: DBusObjectPath(path));
   }
@@ -60,7 +60,7 @@ class NMConnection extends DBusRemoteObject {
           (value) => (value as DBusString).value,
           onError: (error) => print(error),
         )
-        .then((value) => value ?? '');
+        .then((String? value) => value ?? '');
   }
 
   Future<List<String>> getDevices() {
@@ -72,10 +72,10 @@ class NMConnection extends DBusRemoteObject {
               .toList(),
           onError: (error) => print(error),
         )
-        .then((value) => value ?? <String>[]);
+        .then((List<String>? value) => value ?? const <String>[]);
   }
 
-  Future<NMDevice> createDevice() {
+  Future<NMDevice?> createDevice() {
     return getDevices().then((devices) {
       if (devices.isEmpty) return null;
       return NMDevice.fromPath(client, devices.first);
@@ -94,7 +94,7 @@ extension NMDeviceInt on int {
 }
 
 class NMDevice extends DBusRemoteObject {
-  NMDevice(DBusClient client, {DBusObjectPath path})
+  NMDevice(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
   factory NMDevice.fromPath(DBusClient client, String path) {
@@ -115,7 +115,7 @@ class NMDevice extends DBusRemoteObject {
     );
   }
 
-  Future<NMWirelessDevice> asWirelessDevice() {
+  Future<NMWirelessDevice?> asWirelessDevice() {
     return getType().then((type) {
       if (type != NMDeviceType.wifi) return null;
       return NMWirelessDevice(client, path: path);
@@ -124,7 +124,7 @@ class NMDevice extends DBusRemoteObject {
 }
 
 class NMWirelessDevice extends DBusRemoteObject {
-  NMWirelessDevice(DBusClient client, {DBusObjectPath path})
+  NMWirelessDevice(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
   Future<String> getHwAddress() {

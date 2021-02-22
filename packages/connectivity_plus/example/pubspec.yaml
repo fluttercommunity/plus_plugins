@@ -2,7 +2,7 @@ name: connectivity_plus_example
 description: Demonstrates how to use the connectivity_plus plugin.
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
 
 dependencies:
   flutter:
@@ -15,7 +15,10 @@ dev_dependencies:
     sdk: flutter
   test: any
   integration_test: ^1.0.2
-  pedantic: ^1.9.2
+  pedantic: ^1.10.0
+
+dependency_overrides:
+  args: ^2.0.0
 
 flutter:
   uses-material-design: true

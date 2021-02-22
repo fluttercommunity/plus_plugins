@@ -5,17 +5,14 @@ import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_
 ConnectivityResult networkInformationToConnectivityResult(
   html.NetworkInformation info,
 ) {
-  if (info == null) {
-    return ConnectivityResult.none;
-  }
   if (info.downlink == 0 && info.rtt == 0) {
     return ConnectivityResult.none;
   }
   if (info.effectiveType != null) {
-    return _effectiveTypeToConnectivityResult(info.effectiveType);
+    return _effectiveTypeToConnectivityResult(info.effectiveType!);
   }
   if (info.type != null) {
-    return _typeToConnectivityResult(info.type);
+    return _typeToConnectivityResult(info.type!);
   }
   return ConnectivityResult.none;
 }

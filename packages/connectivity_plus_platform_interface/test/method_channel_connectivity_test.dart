@@ -12,7 +12,7 @@ void main() {
 
   group('$MethodChannelConnectivity', () {
     final log = <MethodCall>[];
-    MethodChannelConnectivity methodChannelConnectivity;
+    late MethodChannelConnectivity methodChannelConnectivity;
 
     setUp(() async {
       methodChannelConnectivity = MethodChannelConnectivity();
@@ -32,7 +32,7 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
-            await ServicesBinding.instance.defaultBinaryMessenger
+            await ServicesBinding.instance!.defaultBinaryMessenger
                 .handlePlatformMessage(
               methodChannelConnectivity.eventChannel.name,
               methodChannelConnectivity.eventChannel.codec

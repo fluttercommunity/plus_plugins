@@ -2,14 +2,14 @@ name: connectivity_plus_windows
 description: Windows implementation of the connectivity_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 0.1.1
+version: 0.2.0-nullsafety.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.20.0"
 
 dependencies:
-  connectivity_plus_platform_interface: ^0.4.1
+  connectivity_plus_platform_interface: ^0.5.0-nullsafety.0
   flutter:
     sdk: flutter
 

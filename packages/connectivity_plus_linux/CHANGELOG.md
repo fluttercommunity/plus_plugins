@@ -1,3 +1,11 @@
+## 0.4.0-nullsafety.1
+
+- Fixed a case with an unhandled exception
+
+## 0.4.0-nullsafety.0
+
+- Migrated to null safety
+
 ## 0.3.1
 
 - Address pub score

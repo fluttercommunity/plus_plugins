@@ -1,3 +1,7 @@
+## 0.5.0-nullsafety.0
+
+- Migrated to null safety
+
 ## 0.4.1
 
 - Address pub score
