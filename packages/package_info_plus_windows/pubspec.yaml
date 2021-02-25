@@ -1,11 +1,11 @@
 name: package_info_plus_windows
 description: Windows implementation of the package_info_plus plugin
-version: 1.0.0-nullsafety.0
+version: 1.0.0-nullsafety.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
-  sdk: '>=2.12.0-259.12.beta <3.0.0'
+  sdk: '>=2.12.0-259.9.beta <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
