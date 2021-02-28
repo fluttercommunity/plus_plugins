@@ -10,17 +10,20 @@ class NetworkInfoPlusPlugin extends NetworkInfoPlatform {
   }
 
   /// Obtains the wifi name (SSID) of the connected network
-  Future<String> getWifiName() {
+  @override
+  Future<String?> getWifiName() {
     throw UnsupportedError('getWifiName() is not supported on Web.');
   }
 
   /// Obtains the wifi BSSID of the connected network.
-  Future<String> getWifiBSSID() {
+  @override
+  Future<String?> getWifiBSSID() {
     throw UnsupportedError('getWifiBSSID() is not supported on Web.');
   }
 
   /// Obtains the IP address of the connected wifi network
-  Future<String> getWifiIP() {
+  @override
+  Future<String?> getWifiIP() {
     throw UnsupportedError('getWifiIP() is not supported on Web.');
   }
 }

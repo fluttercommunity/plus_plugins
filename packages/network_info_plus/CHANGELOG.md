@@ -1,3 +1,7 @@
+## 1.0.0-nullsafety.0
+
+- Migrate to null-safety.
+
 ## 0.1.2
 
 - Address pub score.

@@ -18,7 +18,7 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
       MethodChannel('dev.fluttercommunity.plus/network_info');
 
   @override
-  Future<String> getWifiName() async {
+  Future<String?> getWifiName() async {
     var wifiName = await methodChannel.invokeMethod<String>('wifiName');
     // as Android might return <unknown ssid>, uniforming result
     // our iOS implementation will return null
@@ -29,12 +29,12 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   }
 
   @override
-  Future<String> getWifiBSSID() {
+  Future<String?> getWifiBSSID() {
     return methodChannel.invokeMethod<String>('wifiBSSID');
   }
 
   @override
-  Future<String> getWifiIP() {
+  Future<String?> getWifiIP() {
     return methodChannel.invokeMethod<String>('wifiIPAddress');
   }
 

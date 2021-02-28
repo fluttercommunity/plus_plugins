@@ -8,8 +8,8 @@ import 'network_manager.dart';
 // Used internally
 // ignore_for_file: public_member_api_docs
 
-typedef _DeviceGetter = Future<String> Function(NMDevice device);
-typedef _ConnectionGetter = Future<String> Function(NMConnection connection);
+typedef _DeviceGetter = Future<String?> Function(NMDevice device);
+typedef _ConnectionGetter = Future<String?> Function(NMConnection connection);
 
 @visibleForTesting
 typedef NetworkManagerFactory = NetworkManager Function();
@@ -18,47 +18,47 @@ typedef NetworkManagerFactory = NetworkManager Function();
 class NetworkInfoLinux extends NetworkInfoPlatform {
   /// Obtains the wifi name (SSID) of the connected network
   @override
-  Future<String> getWifiName() {
+  Future<String?> getWifiName() {
     return _getConnectionValue((connection) => connection.getId());
   }
 
   /// Obtains the IP address of the connected wifi network
   @override
-  Future<String> getWifiIP() {
+  Future<String?> getWifiIP() {
     return _getDeviceValue((device) => device.getIp4());
   }
 
   /// Obtains the wifi BSSID of the connected network.
   @override
-  Future<String> getWifiBSSID() {
+  Future<String?> getWifiBSSID() {
     return _getDeviceValue((device) {
       return device
           .asWirelessDevice()
-          .then((wireless) => wireless?.getHwAddress());
+          .then((wireless) => wireless.getHwAddress());
     });
   }
 
-  Future<String> _getDeviceValue(_DeviceGetter getter) {
+  Future<String?> _getDeviceValue(_DeviceGetter getter) {
     return _getConnectionValue((connection) {
       return connection.createDevice().then((device) {
-        return device != null ? getter(device) : null;
+        return getter(device);
       });
     });
   }
 
-  Future<String> _getConnectionValue(_ConnectionGetter getter) {
+  Future<String?> _getConnectionValue(_ConnectionGetter getter) {
     return _ref().createConnection().then((connection) {
-      return connection != null ? getter(connection) : null;
+      return getter(connection);
     }).whenComplete(_deref);
   }
 
   int _refCount = 0;
-  NetworkManager _manager;
+  NetworkManager? _manager;
 
   NetworkManager _ref() {
     _manager ??= createManager();
     ++_refCount;
-    return _manager;
+    return _manager!;
   }
 
   void _deref() {
@@ -66,7 +66,7 @@ class NetworkInfoLinux extends NetworkInfoPlatform {
     if (--_refCount == 0) {
       scheduleMicrotask(() {
         if (_refCount == 0) {
-          _manager.dispose();
+          _manager!.dispose();
           _manager = null;
         }
       });

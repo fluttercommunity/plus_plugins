@@ -2,7 +2,7 @@ name: network_info_plus_example
 description: Demonstrates how to use the network_info_plus plugin.
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0-259.9.beta <3.0.0'
 
 dependencies:
   flutter:
@@ -13,9 +13,12 @@ dependencies:
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  test: any
+  test: ^1.16.4
   integration_test: ^1.0.2
-  pedantic: ^1.9.2
+  pedantic: ^1.10.0
+
+dependency_overrides:
+  args: ^2.0.0
 
 flutter:
   uses-material-design: true

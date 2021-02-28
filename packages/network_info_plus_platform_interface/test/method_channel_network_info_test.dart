@@ -12,7 +12,7 @@ void main() {
 
   group('$MethodChannelNetworkInfo', () {
     final log = <MethodCall>[];
-    MethodChannelNetworkInfo methodChannelNetworkInfo;
+    late MethodChannelNetworkInfo methodChannelNetworkInfo;
 
     setUp(() async {
       methodChannelNetworkInfo = MethodChannelNetworkInfo();

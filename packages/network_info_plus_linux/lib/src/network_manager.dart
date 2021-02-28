@@ -19,7 +19,7 @@ class NetworkManager extends DBusRemoteObject {
 
   factory NetworkManager.system() => NetworkManager(DBusClient.system());
 
-  void dispose() => client?.close();
+  void dispose() => client.close();
 
   Future<String> getPath() => _getString('PrimaryConnection', fallback: '/');
 
@@ -31,7 +31,7 @@ class NetworkManager extends DBusRemoteObject {
           (value) => (value as DBusString).value,
           onError: (error) => print(error),
         )
-        .then((value) => value ?? fallback);
+        .then((String? value) => value ?? fallback);
   }
 
   Stream<String> subscribeTypeChanged() {
@@ -46,39 +46,33 @@ class NetworkManager extends DBusRemoteObject {
 }
 
 class NMConnection extends DBusRemoteObject {
-  NMConnection(DBusClient client, {DBusObjectPath path})
+  NMConnection(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
   factory NMConnection.fromPath(DBusClient client, String path) {
-    if (path == '/') return null;
     return NMConnection(client, path: DBusObjectPath(path));
   }
 
-  Future<String> getId() {
-    return getProperty(_kActiveConnection, 'Id')
-        .then(
-          (value) => (value as DBusString).value,
-          onError: (error) => print(error),
-        )
-        .then((value) => value ?? '');
+  Future<String?> getId() {
+    return getProperty(_kActiveConnection, 'Id').then(
+      (value) => (value as DBusString).value,
+      onError: (error) => print(error),
+    );
   }
 
-  Future<List<String>> getDevices() {
-    return getProperty(_kActiveConnection, 'Devices')
-        .then(
-          (value) => (value as DBusArray)
-              .children
-              .map((child) => (child as DBusObjectPath).value)
-              .toList(),
-          onError: (error) => print(error),
-        )
-        .then((value) => value ?? <String>[]);
+  Future<List<String>?> getDevices() {
+    return getProperty(_kActiveConnection, 'Devices').then(
+      (value) => (value as DBusArray)
+          .children
+          .map((child) => (child as DBusObjectPath).value)
+          .toList(),
+      onError: (error) => print(error),
+    );
   }
 
   Future<NMDevice> createDevice() {
     return getDevices().then((devices) {
-      if (devices.isEmpty) return null;
-      return NMDevice.fromPath(client, devices.first);
+      return NMDevice.fromPath(client, devices?.first ?? '');
     });
   }
 }
@@ -94,14 +88,14 @@ extension NMDeviceInt on int {
 }
 
 class NMDevice extends DBusRemoteObject {
-  NMDevice(DBusClient client, {DBusObjectPath path})
+  NMDevice(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
   factory NMDevice.fromPath(DBusClient client, String path) {
     return NMDevice(client, path: DBusObjectPath(path));
   }
 
-  Future<String> getIp4() {
+  Future<String?> getIp4() {
     return getProperty(_kDevice, 'Ip4Address').then(
       (value) => (value as DBusUint32).value.toIp4(),
       onError: (error) => print(error),
@@ -109,25 +103,26 @@ class NMDevice extends DBusRemoteObject {
   }
 
   Future<NMDeviceType> getType() {
-    return getProperty(_kDevice, 'DeviceType').then(
-      (value) => (value as DBusUint32).value.toType(),
-      onError: (error) => print(error),
-    );
+    return getProperty(_kDevice, 'DeviceType')
+        .then(
+          (value) => (value as DBusUint32).value.toType(),
+          onError: (error) => print(error),
+        )
+        .then((value) => NMDeviceType.unknown);
   }
 
   Future<NMWirelessDevice> asWirelessDevice() {
     return getType().then((type) {
-      if (type != NMDeviceType.wifi) return null;
       return NMWirelessDevice(client, path: path);
     });
   }
 }
 
 class NMWirelessDevice extends DBusRemoteObject {
-  NMWirelessDevice(DBusClient client, {DBusObjectPath path})
+  NMWirelessDevice(DBusClient client, {required DBusObjectPath path})
       : super(client, _kNetworkManager, path);
 
-  Future<String> getHwAddress() {
+  Future<String?> getHwAddress() {
     return getProperty(_kWireless, 'HwAddress').then(
       (value) => (value as DBusString).value,
       onError: (error) => print(error),

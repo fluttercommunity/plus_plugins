@@ -1,7 +1,7 @@
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 
 /// Convert a String to a LocationAuthorizationStatus value.
-LocationAuthorizationStatus parseLocationAuthorizationStatus(String result) {
+LocationAuthorizationStatus parseLocationAuthorizationStatus(String? result) {
   switch (result) {
     case 'notDetermined':
       return LocationAuthorizationStatus.notDetermined;
