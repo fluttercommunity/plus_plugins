@@ -9,3 +9,13 @@ declare module '*.png' {
   const image: any;
   export default image;
 }
+
+declare module '*/docs/versions' {
+  const versions: Versions;
+
+  type Versions = {
+    plugins: { [plugin: string]: string };
+  };
+
+  export default versions;
+}

@@ -10,6 +10,13 @@ module.exports = {
   organizationName: 'fluttercommunity',
   projectName: 'fluttercommunityplus',
   themeConfig: {
+    announcementBar: {
+      id: 'wip-nullsafety',
+      content:
+        '📣 <a rel="noopener" href="/docs/null_safety"><b>Null-safety versions</b></a> are now available. This Plus documentation hub is currently a work in progress',
+      backgroundColor: '#13B9FD',
+      textColor: '#fff',
+    },
     prism: {
       additionalLanguages: [
         'dart',
@@ -31,6 +38,12 @@ module.exports = {
         src: '/img/fc_logo.png',
       },
       items: [
+        {
+          to: 'docs/overview',
+          activeBasePath: 'docs',
+          label: 'Docs',
+          position: 'right',
+        },
         {
           href: 'https://twitter.com/FlutterComm',
           label: 'Twitter',
@@ -56,6 +69,7 @@ module.exports = {
     require.resolve('docusaurus-plugin-sass'),
     // require.resolve('@docusaurus/plugin-ideal-image'),
     path.resolve(__dirname, './docusaurus-plugins/favicon-tags'),
+    path.resolve(__dirname, './docusaurus-plugins/source-versions'),
   ],
   presets: [
     [

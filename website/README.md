@@ -2,6 +2,10 @@
 
 This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
+## requirement
+
+You must have `npm` version `7+` and `node` version `14+` installed.
+
 ### Installation
 
 ```
@@ -19,5 +23,4 @@ having to restart the server. to access documentation you may navigate to http:/
 
 ## Docs Structure
 
-All mark down files are located under root/Docs folder. We may create different folder for each package to organize it easier. `Sidebar.js` will handle the menu for sidebar in docs website.
-
+All mark down files are located under `root/Docs` folder. We may create different folder for each package to organize it easier. `Sidebar.js` will handle the menu for sidebar in docs website.

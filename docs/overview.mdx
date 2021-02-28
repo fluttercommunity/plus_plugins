@@ -6,23 +6,37 @@ hide_title: true
 ---
 
 <h1 style={{ textAlign: "center", marginBottom: "4rem" }}>
-PlusPlugins Overview
+  PlusPlugins Overview
 </h1>
 
 **Welcome to PlusPlugins!**
 
 PlusPlugins is a set of Flutter plugins that is developed based on existing Flutter plugins with extra functionalities, platforms support, and better maintenance.
 
-:::caution
 PlusPlugins is currently a work in-progress, as we aim towards a stable release. Plugins & documentation may be incomplete
 or missing functionality. See the [roadmap](https://github.com/fluttercommunity/plus_plugins/issues/12) to learn more.
+
+| Plugin                                         | Version                                                                   |
+| ---------------------------------------------- | ------------------------------------------------------------------------- |
+| [Battery Plus](battery/overview)               | <img src="https://img.shields.io/pub/v/battery_plus.svg" />               |
+| [connectivity Plus](battery/overview)          | <img src="https://img.shields.io/pub/v/connectivity_plus.svg" />          |
+| [Device Info Plus](battery/overview)           | <img src="https://img.shields.io/pub/v/device_info_plus.svg" />           |
+| [Network Info Plus](battery/overview)          | <img src="https://img.shields.io/pub/v/network_info_plus.svg" />          |
+| [Package Info Plus](battery/overview)          | <img src="https://img.shields.io/pub/v/package_info_plus.svg" />          |
+| [Sensors Plus](battery/overview)               | <img src="https://img.shields.io/pub/v/sensors_plus.svg" />               |
+| [Share Plus](battery/overview)                 | <img src="https://img.shields.io/pub/v/share_plus.svg" />                 |
+| [Android Alarm Manager Plus](battery/overview) | <img src="https://img.shields.io/pub/v/android_alarm_manager_plus.svg" /> |
+| [Android Intent Plus](battery/overview)        | <img src="https://img.shields.io/pub/v/android_intent_plus.svg" />        |
+
+:::note
+PlusPlugins are all null safety compatible. [check this out](null_safety)
 :::
 
 ```yaml {4} title="pubspec.yaml"
 dependencies:
   flutter:
     sdk: flutter
-  batter_plus: "{{ plugins.batter_plus }}"
+  battery_plus: "^{{ plugins.battery_plus }}"
 ```
 
 Install the plugin by running the following command from the project root:
@@ -30,9 +44,3 @@ Install the plugin by running the following command from the project root:
 ```bash
 $ flutter pub get
 ```
-
-## Plugins
-
-Check out documentation for each package
-
-1. [Battery Plus](battery/overview).
