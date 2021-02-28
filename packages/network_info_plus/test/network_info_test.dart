@@ -18,7 +18,7 @@ const LocationAuthorizationStatus kGetLocationResult =
 
 void main() {
   group('NetworkInfo', () {
-    NetworkInfo networkInfo;
+    late NetworkInfo networkInfo;
     MockNetworkInfoPlatform fakePlatform;
     setUp(() async {
       fakePlatform = MockNetworkInfoPlatform();

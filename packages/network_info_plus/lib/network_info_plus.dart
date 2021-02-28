@@ -25,12 +25,12 @@ class NetworkInfo {
   // misuse of creating a second instance from a programmer.
   factory NetworkInfo() {
     _singleton ??= NetworkInfo._();
-    return _singleton;
+    return _singleton!;
   }
 
   NetworkInfo._();
 
-  static NetworkInfo _singleton;
+  static NetworkInfo? _singleton;
 
   static bool _manualDartRegistrationNeeded = true;
 
@@ -57,7 +57,7 @@ class NetworkInfo {
   ///
   /// From android 8.0 onwards the GPS must be ON (high accuracy)
   /// in order to be able to obtain the SSID.
-  Future<String> getWifiName() {
+  Future<String?> getWifiName() {
     return _platform.getWifiName();
   }
 
@@ -67,12 +67,12 @@ class NetworkInfo {
   ///
   /// From Android 8.0 onwards the GPS must be ON (high accuracy)
   /// in order to be able to obtain the BSSID.
-  Future<String> getWifiBSSID() {
+  Future<String?> getWifiBSSID() {
     return _platform.getWifiBSSID();
   }
 
   /// Obtains the IP address of the connected wifi network
-  Future<String> getWifiIP() {
+  Future<String?> getWifiIP() {
     return _platform.getWifiIP();
   }
 
