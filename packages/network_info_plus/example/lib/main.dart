@@ -40,9 +40,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initNetworkInfo() async {
-    String wifiName, wifiBSSID, wifiIP;
+    String? wifiName, wifiBSSID, wifiIP;
 
     try {
       if (!kIsWeb && Platform.isIOS) {
