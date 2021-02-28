@@ -28,7 +28,7 @@ class Snake extends StatefulWidget {
 class SnakeBoardPainter extends CustomPainter {
   SnakeBoardPainter(this.state, this.cellSize);
 
-  GameState state;
+  GameState? state;
   double cellSize;
 
   @override
@@ -41,7 +41,7 @@ class SnakeBoardPainter extends CustomPainter {
       Rect.fromPoints(Offset.zero, size.bottomLeft(Offset.zero)),
       blackLine,
     );
-    for (final p in state.body) {
+    for (final p in state!.body) {
       final a = Offset(cellSize * p.x, cellSize * p.y);
       final b = Offset(cellSize * (p.x + 1), cellSize * (p.y + 1));
 
@@ -61,10 +61,10 @@ class SnakeState extends State<Snake> {
   }
 
   double cellSize;
-  GameState state;
-  AccelerometerEvent acceleration;
-  StreamSubscription<AccelerometerEvent> _streamSubscription;
-  Timer _timer;
+  GameState? state;
+  AccelerometerEvent? acceleration;
+  late StreamSubscription<AccelerometerEvent> _streamSubscription;
+  late Timer _timer;
 
   @override
   Widget build(BuildContext context) {
@@ -98,12 +98,12 @@ class SnakeState extends State<Snake> {
   void _step() {
     final newDirection = acceleration == null
         ? null
-        : acceleration.x.abs() < 1.0 && acceleration.y.abs() < 1.0
+        : acceleration!.x.abs() < 1.0 && acceleration!.y.abs() < 1.0
             ? null
-            : (acceleration.x.abs() < acceleration.y.abs())
-                ? math.Point<int>(0, acceleration.y.sign.toInt())
-                : math.Point<int>(-acceleration.x.sign.toInt(), 0);
-    state.step(newDirection);
+            : (acceleration!.x.abs() < acceleration!.y.abs())
+                ? math.Point<int>(0, acceleration!.y.sign.toInt())
+                : math.Point<int>(-acceleration!.x.sign.toInt(), 0);
+    state!.step(newDirection);
   }
 }
 
@@ -114,12 +114,12 @@ class GameState {
 
   int rows;
   int columns;
-  int snakeLength;
+  late int snakeLength;
 
   List<math.Point<int>> body = <math.Point<int>>[const math.Point<int>(0, 0)];
   math.Point<int> direction = const math.Point<int>(1, 0);
 
-  void step(math.Point<int> newDirection) {
+  void step(math.Point<int>? newDirection) {
     var next = body.last + direction;
     next = math.Point<int>(next.x % columns, next.y % rows);
 
