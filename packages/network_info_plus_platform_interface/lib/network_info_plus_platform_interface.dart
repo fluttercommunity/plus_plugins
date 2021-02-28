@@ -39,17 +39,17 @@ abstract class NetworkInfoPlatform extends PlatformInterface {
   }
 
   /// Obtains the wifi name (SSID) of the connected network
-  Future<String> getWifiName() {
+  Future<String?> getWifiName() {
     throw UnimplementedError('getWifiName() has not been implemented.');
   }
 
   /// Obtains the wifi BSSID of the connected network.
-  Future<String> getWifiBSSID() {
+  Future<String?> getWifiBSSID() {
     throw UnimplementedError('getWifiBSSID() has not been implemented.');
   }
 
   /// Obtains the IP address of the connected wifi network
-  Future<String> getWifiIP() {
+  Future<String?> getWifiIP() {
     throw UnimplementedError('getWifiIP() has not been implemented.');
   }
 
