@@ -6,23 +6,45 @@ hide_title: true
 ---
 
 <h1 style={{ textAlign: "center", marginBottom: "4rem" }}>
-PlusPlugins Overview
+  PlusPlugins Overview
 </h1>
 
 **Welcome to PlusPlugins!**
 
 PlusPlugins is a set of Flutter plugins that is developed based on existing Flutter plugins with extra functionalities, platforms support, and better maintenance.
 
-:::caution
 PlusPlugins is currently a work in-progress, as we aim towards a stable release. Plugins & documentation may be incomplete
 or missing functionality. See the [roadmap](https://github.com/fluttercommunity/plus_plugins/issues/12) to learn more.
+
+| Plugin                                                            | Version                                                                   |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [Battery Plus](battery_plus/overview)                             | <img src="https://img.shields.io/pub/v/battery_plus.svg" />               |
+| [connectivity Plus](connectivity_plus/overview)                   | <img src="https://img.shields.io/pub/v/connectivity_plus.svg" />          |
+| [Device Info Plus](device_info_plus/overview)                     | <img src="https://img.shields.io/pub/v/device_info_plus.svg" />           |
+| [Network Info Plus](network_info_plus/overview)                   | <img src="https://img.shields.io/pub/v/network_info_plus.svg" />          |
+| [Package Info Plus](package_info_plus/overview)                   | <img src="https://img.shields.io/pub/v/package_info_plus.svg" />          |
+| [Sensors Plus](sensors_plus/overview)                             | <img src="https://img.shields.io/pub/v/sensors_plus.svg" />               |
+| [Share Plus](share_plus/overview)                                 | <img src="https://img.shields.io/pub/v/share_plus.svg" />                 |
+| [Android Alarm Manager Plus](android_alarm_manager_plus/overview) | <img src="https://img.shields.io/pub/v/android_alarm_manager_plus.svg" /> |
+| [Android Intent Plus](android_intent_plus/overview)               | <img src="https://img.shields.io/pub/v/android_intent_plus.svg" />        |
+
+:::note
+PlusPlugins are all null safety compatible. [check this out](null_safety)
 :::
 
-```yaml {4} title="pubspec.yaml"
+```yaml title="pubspec.yaml"
 dependencies:
   flutter:
     sdk: flutter
-  batter_plus: "{{ plugins.batter_plus }}"
+  battery_plus: "^{{ plugins.battery_plus }}"
+  connectivity_plus: "^{{ plugins.connectivity_plus }}"
+  device_info_plus: "^{{ plugins.device_info_plus }}"
+  network_info_plus: "^{{ plugins.network_info_plus }}"
+  package_info_plus: "^{{ plugins.package_info_plus }}"
+  sensors_plus: "^{{ plugins.sensors_plus }}"
+  share_plus: "^{{ plugins.share_plus }}"
+  android_alarm_manager_plus: "^{{ plugins.android_alarm_manager_plus }}"
+  android_intent_plus: "^{{ plugins.android_intent_plus }}"
 ```
 
 Install the plugin by running the following command from the project root:
@@ -30,9 +52,3 @@ Install the plugin by running the following command from the project root:
 ```bash
 $ flutter pub get
 ```
-
-## Plugins
-
-Check out documentation for each package
-
-1. [Battery Plus](battery/overview).

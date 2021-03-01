@@ -49,3 +49,4 @@ build/
 /.fvm
 
 .melos_tool/
+**/*.env

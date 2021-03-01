@@ -1,7 +1,7 @@
 ---
-id: nullsafety
+id: null_safety
 title: Null Safety
-sidebar_label: null safety
+sidebar_label: Null Safety
 ---
 
 Dart [sound null safety](https://dart.dev/null-safety) is currently in beta, however; some plus_plugins packages
@@ -9,9 +9,17 @@ have preview versions of null-safety implementations that are available to use.
 
 The below table outlines the latest null-safe plugin versions:
 
-|        Plugin |                         Version |
-| ------------: | ------------------------------: |
-| `batter_plus` | `^{{ plugins.batter_plus_ns }}` |
+| Plugin                       | Version                                                                                       |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| `battery_plus`               | <img src="https://img.shields.io/pub/v/battery_plus.svg?include_prereleases" />               |
+| `connectivity_plus`          | <img src="https://img.shields.io/pub/v/connectivity_plus.svg?include_prereleases" />          |
+| `device_info_plus`           | <img src="https://img.shields.io/pub/v/device_info_plus.svg?include_prereleases" />           |
+| `network_info_plus`          | <img src="https://img.shields.io/pub/v/network_info_plus.svg?include_prereleases" />          |
+| `package_info_plus`          | <img src="https://img.shields.io/pub/v/package_info_plus.svg?include_prereleases" />          |
+| `sensors_plus`               | <img src="https://img.shields.io/pub/v/sensors_plus.svg?include_prereleases" />               |
+| `share_plus`                 | <img src="https://img.shields.io/pub/v/share_plus.svg?include_prereleases" />                 |
+| `android_alarm_manager_plus` | <img src="https://img.shields.io/pub/v/android_alarm_manager_plus.svg?include_prereleases" /> |
+| `android_intent_plus`        | <img src="https://img.shields.io/pub/v/android_intent_plus.svg?include_prereleases" />        |
 
 ---
 
@@ -21,10 +29,20 @@ The below table outlines the latest null-safe plugin versions:
 Mixing currently **published** null-safety PlusPlugins packages alongside **published** non-nullsafety packages is not supported.
 :::
 
-Not all PlusPlugins packages have null-safety versions available yet. If you need to use the null-safe packages alongside
-the non-null-safe packages then it's recommended you switch to sourcing your PlusPlugins packages directly from the [main
-PlusPlugins repository](https://github.com/fluttercommunity/plus_plugins) (rather than pub.dev) where the packages have
-compatible version constraints.
+```yaml title="pubspec.yaml"
+dependencies:
+  flutter:
+    sdk: flutter
+  battery_plus: "^{{ plugins.battery_plus_ns }}"
+  connectivity_plus: "^{{ plugins.connectivity_plus_ns }}"
+  device_info_plus: "^{{ plugins.device_info_plus_ns }}"
+  network_info_plus: "^{{ plugins.network_info_plus_ns }}"
+  package_info_plus: "^{{ plugins.package_info_plus_ns }}"
+  sensors_plus: "^{{ plugins.sensors_plus_ns }}"
+  share_plus: "^{{ plugins.share_plus_ns }}"
+  android_alarm_manager_plus: "^{{ plugins.android_alarm_manager_plus_ns }}"
+  android_intent_plus: "^{{ plugins.android_intent_plus_ns }}"
+```
 
 ---
 

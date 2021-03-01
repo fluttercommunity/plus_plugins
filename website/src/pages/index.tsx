@@ -49,7 +49,12 @@ function Home() {
 
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
-      <section className={cx(styles.hero, 'bg-flutter-blue-primary-dark dark-bg-flutter-blue-primary-dark')}>
+      <section
+        className={cx(
+          styles.hero,
+          'bg-flutter-blue-primary-dark dark-bg-flutter-blue-primary-dark',
+        )}
+      >
         {/** Left **/}
         <Triangle
           zIndex={1}
@@ -91,7 +96,7 @@ function Home() {
           <h1>{siteConfig.title}</h1>
           <h2>{siteConfig.tagline}</h2>
           <div className={styles.actions}>
-            {/* <Link to={`${siteConfig.baseUrl}docs/overview`}>Get Started &raquo;</Link> */}
+            <Link to={`${siteConfig.baseUrl}docs/overview`}>Get Started &raquo;</Link>
             <Link to="https://github.com/fluttercommunity/plus_plugins">GitHub &raquo;</Link>
           </div>
         </div>
@@ -127,7 +132,7 @@ function Home() {
                     </a>
                   </td>
                   <td>
-                    <a href={`https://pub.dev/documentation/${plugin.pub}/latest/`}>
+                    <a href={`/docs/${plugin.pub}/overview`}>
                       <Docs />
                     </a>
                   </td>
