@@ -1,10 +1,7 @@
-## 0.4.0-nullsafety.1
-
-- Fixed a case with an unhandled exception
-
-## 0.4.0-nullsafety.0
+## 1.0.0
 
 - Migrated to null safety
+- Fixed a case with an unhandled exception
 
 ## 0.3.1
 
