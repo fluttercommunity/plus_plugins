@@ -29,10 +29,20 @@ The below table outlines the latest null-safe plugin versions:
 Mixing currently **published** null-safety PlusPlugins packages alongside **published** non-nullsafety packages is not supported.
 :::
 
-Not all PlusPlugins packages have null-safety versions available yet. If you need to use the null-safe packages alongside
-the non-null-safe packages then it's recommended you switch to sourcing your PlusPlugins packages directly from the [main
-PlusPlugins repository](https://github.com/fluttercommunity/plus_plugins) (rather than pub.dev) where the packages have
-compatible version constraints.
+```yaml title="pubspec.yaml"
+dependencies:
+  flutter:
+    sdk: flutter
+  battery_plus: "^{{ plugins.battery_plus_ns }}"
+  connectivity_plus: "^{{ plugins.connectivity_plus_ns }}"
+  device_info_plus: "^{{ plugins.device_info_plus_ns }}"
+  network_info_plus: "^{{ plugins.network_info_plus_ns }}"
+  package_info_plus: "^{{ plugins.package_info_plus_ns }}"
+  sensors_plus: "^{{ plugins.sensors_plus_ns }}"
+  share_plus: "^{{ plugins.share_plus_ns }}"
+  android_alarm_manager_plus: "^{{ plugins.android_alarm_manager_plus_ns }}"
+  android_intent_plus: "^{{ plugins.android_intent_plus_ns }}"
+```
 
 ---
 

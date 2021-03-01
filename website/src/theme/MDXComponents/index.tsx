@@ -14,18 +14,23 @@ function getVersion(value: string) {
   let output: string = value;
   const pluginsVersion = versions.plugins;
 
-  let regexValue: RegExpExecArray | null = regex.exec(value);
-  if (regexValue !== null) {
-    // This is necessary to avoid infinite loops with zero-width matches
-    if (regexValue.index === regex.lastIndex) {
-      regex.lastIndex++;
-    }
-    const regexInput = regexValue[0];
-    const valueName = regexValue[1].split('.')[1]; // this is plugin name
+  const allMatches = value.match(regex);
 
-    const version = pluginsVersion[valueName] || ' ';
-    output = output.replace(regexInput, version);
-  }
+  allMatches?.forEach(matchString => {
+    let regexValue: RegExpExecArray | null = regex.exec(value);
+    if (regexValue !== null) {
+      // This is necessary to avoid infinite loops with zero-width matches
+      if (regexValue.index === regex.lastIndex) {
+        regex.lastIndex++;
+      }
+      const regexInput = regexValue[0];
+      const valueName = regexValue[1].split('.')[1]; // this is plugin name
+
+      const version = pluginsVersion[valueName] || ' ';
+      output = output.replace(regexInput, version);
+    }
+  });
+
   return output;
 }
 
