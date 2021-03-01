@@ -17,5 +17,10 @@ dev_dependencies:
   share_plus_web:
     path: ../
   http: ^0.12.2
-  mockito: ^4.1.1
+  mockito: ^5.0.0
   integration_test: ^1.0.2
+
+dependency_overrides:
+  args: ^2.0.0
+  convert: ^3.0.0
+  crypto: ^3.0.0

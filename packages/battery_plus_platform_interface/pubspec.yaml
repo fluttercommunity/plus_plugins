@@ -11,10 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.3.0-nullsafety
-  plugin_platform_interface: ^1.1.0-nullsafety
+  meta: ^1.3.0
+  plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.10.0-nullsafety
+  pedantic: ^1.10.0
