@@ -7,6 +7,7 @@
     "help": "docusaurus help",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
+    "serve": "docusaurus serve",
     "deploy": "docusaurus deploy",
     "format": "prettier --write \"**/*.{js,jsx,json,md,mdx}\""
   },
