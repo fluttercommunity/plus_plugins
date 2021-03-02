@@ -1,6 +1,6 @@
 name: network_info_plus_platform_interface
 description: A common platform interface for the network_info_plus plugin.
-version: 1.0.0-nullsafety.0
+version: 1.0.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
