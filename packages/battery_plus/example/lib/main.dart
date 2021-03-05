@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Text('$_batteryState'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.battery_unknown),
         onPressed: () async {
           final batteryLevel = await _battery.batteryLevel;
           // ignore: unawaited_futures
@@ -72,15 +71,16 @@ class _MyHomePageState extends State<MyHomePage> {
               content: Text('Battery: $batteryLevel%'),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('OK'),
                   onPressed: () {
                     Navigator.pop(context);
                   },
+                  child: const Text('OK'),
                 )
               ],
             ),
           );
         },
+        child: const Icon(Icons.battery_unknown),
       ),
     );
   }

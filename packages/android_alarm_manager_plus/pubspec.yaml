@@ -22,5 +22,5 @@ flutter:
         pluginClass: AndroidAlarmManagerPlugin
 
 environment:
-  sdk: ">=2.12.0-133.7.beta <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.12.13+hotfix.5"

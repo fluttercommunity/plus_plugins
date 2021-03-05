@@ -57,16 +57,15 @@ void main() {
   });
 
   group('get onConnectivityChanged', () {
-    test('puts change events in a Stream', () async {
+    test('puts change events in a Stream', () {
       final connection = MockNetworkInformation();
       final plugin =
           NetworkInformationApiConnectivityPlugin.withConnection(connection);
       final results = plugin.onConnectivityChanged;
 
       // Fake a disconnect-reconnect
-      await connection.mockChangeValue(downlink: 0, rtt: 0);
-      await connection.mockChangeValue(
-          downlink: 10, rtt: 50, effectiveType: '4g');
+      connection.mockChangeValue(downlink: 0, rtt: 0);
+      connection.mockChangeValue(downlink: 10, rtt: 50, effectiveType: '4g');
 
       // The stream of results is infinite, so we need to .take(2) for this test to complete.
       expect(
