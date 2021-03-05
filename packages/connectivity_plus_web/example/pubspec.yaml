@@ -2,7 +2,7 @@ name: connectivity_plus_web_example
 description: Example web app for the connectivity plugin
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.26.0-0"
 
 dependencies:
