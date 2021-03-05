@@ -132,9 +132,6 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
               ],
             ),
             ElevatedButton(
-              child: Text(
-                'Schedule OneShot Alarm',
-              ),
               key: ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
                 await AndroidAlarmManager.oneShot(
@@ -146,6 +143,9 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                   wakeup: true,
                 );
               },
+              child: Text(
+                'Schedule OneShot Alarm',
+              ),
             ),
           ],
         ),

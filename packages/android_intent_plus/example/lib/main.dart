@@ -60,21 +60,21 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ElevatedButton(
+              onPressed: _createAlarm,
               child: const Text(
                   'Tap here to set an alarm\non weekdays at 9:30pm.'),
-              onPressed: _createAlarm,
             ),
             ElevatedButton(
-              child: const Text('Tap here to launch Intent with Chooser'),
               onPressed: _openChooser,
+              child: const Text('Tap here to launch Intent with Chooser'),
             ),
             ElevatedButton(
-              child: const Text('Tap here to send Intent as broadcast'),
               onPressed: _sendBroadcast,
+              child: const Text('Tap here to send Intent as broadcast'),
             ),
             ElevatedButton(
-              child: const Text('Tap here to test explicit intents.'),
               onPressed: () => _openExplicitIntentsView(context),
+              child: const Text('Tap here to test explicit intents.'),
             ),
           ],
         ),
@@ -192,43 +192,43 @@ class ExplicitIntentsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               ElevatedButton(
+                onPressed: _openGoogleMapsStreetView,
                 child: const Text(
                     'Tap here to display panorama\nimagery in Google Street View.'),
-                onPressed: _openGoogleMapsStreetView,
               ),
               ElevatedButton(
-                child: const Text('Tap here to display\na map in Google Maps.'),
                 onPressed: _displayMapInGoogleMaps,
+                child: const Text('Tap here to display\na map in Google Maps.'),
               ),
               ElevatedButton(
+                onPressed: _launchTurnByTurnNavigationInGoogleMaps,
                 child: const Text(
                     'Tap here to launch turn-by-turn\nnavigation in Google Maps.'),
-                onPressed: _launchTurnByTurnNavigationInGoogleMaps,
               ),
               ElevatedButton(
-                child: const Text('Tap here to open link in Google Chrome.'),
                 onPressed: _openLinkInGoogleChrome,
+                child: const Text('Tap here to open link in Google Chrome.'),
               ),
               ElevatedButton(
-                child: const Text('Tap here to start activity in new task.'),
                 onPressed: _startActivityInNewTask,
+                child: const Text('Tap here to start activity in new task.'),
               ),
               ElevatedButton(
+                onPressed: _testExplicitIntentFallback,
                 child: const Text(
                     'Tap here to test explicit intent fallback to implicit.'),
-                onPressed: _testExplicitIntentFallback,
               ),
               ElevatedButton(
+                onPressed: _openLocationSettingsConfiguration,
                 child: const Text(
                   'Tap here to open Location Settings Configuration',
                 ),
-                onPressed: _openLocationSettingsConfiguration,
               ),
               ElevatedButton(
+                onPressed: _openApplicationDetails,
                 child: const Text(
                   'Tap here to open Application Details',
                 ),
-                onPressed: _openApplicationDetails,
               ),
             ],
           ),

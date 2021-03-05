@@ -64,8 +64,8 @@ class _ImagePreview extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
                   backgroundColor: Colors.red,
-                  child: Icon(Icons.delete),
-                  onPressed: onDelete),
+                  onPressed: onDelete,
+                  child: Icon(Icons.delete)),
             ),
           ),
         ],

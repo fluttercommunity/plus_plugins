@@ -80,31 +80,31 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Accelerometer: $accelerometer'),
               ],
             ),
-            padding: const EdgeInsets.all(16.0),
           ),
           Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('UserAccelerometer: $userAccelerometer'),
               ],
             ),
-            padding: const EdgeInsets.all(16.0),
           ),
           Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Gyroscope: $gyroscope'),
               ],
             ),
-            padding: const EdgeInsets.all(16.0),
           ),
         ],
       ),
