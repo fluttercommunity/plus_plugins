@@ -50,3 +50,5 @@ build/
 
 .melos_tool/
 **/*.env
+
+lcov.info
