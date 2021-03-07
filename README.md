@@ -9,6 +9,9 @@
   <a href="https://github.com/fluttercommunity/plus_plugins/actions?query=workflow%3Aall_plugins">
     <img src="https://github.com/fluttercommunity/plus_plugins/workflows/all_plugins/badge.svg" alt="all_plugins GitHub Workflow Status"/>
   </a>
+  <a href="https://codecov.io/gh/flutter_community/plus_plugins/">
+    <img src="https://codecov.io/gh/fluttercommunity/plus_plugins/graph/badge.svg" alt="all_plugins Coverage"/>
+  </a>
   <a href="https://twitter.com/FlutterComm">
     <img src="https://img.shields.io/twitter/follow/FlutterComm.svg?colorA=1da1f2&colorB=&label=Follow%20on%20Twitter" alt="Follow on Twitter">
   </a>
