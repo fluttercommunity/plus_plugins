@@ -14,18 +14,23 @@ scripts:
   # Analyze the project for Dart analysis issues.
   #  - Requires `pub global activate tuneup`.
   analyze: >
-    melos exec -c 1 --fail-fast -- \
-      pub global run tuneup check
+    melos exec -c 3 -- \
+      tuneup check
   # Formats the code of all packages (Java, Objective-C, and Dart).
   #  - Requires `flutter_plugin_tools` (`pub global activate flutter_plugin_tools`).
   #  - Requires `git`.
   #  - Requires `clang-format` (can be installed via Brew on MacOS).
-  format: pub global run flutter_plugin_tools format
+  format: flutter pub global run flutter_plugin_tools format
 
   # Build iOS plugin example apps.
   build:examples:ios: >
     melos exec -c 1 --scope="*example*" --fail-fast -- \
       flutter build ios --no-codesign
+
+  # Build example bundles.
+  build:examples:bundle: >
+    melos exec -c 1 --scope="*example*" --fail-fast -- \
+      flutter build bundle
 
   # Build Android plugin example apps.
   build:examples:android: >
@@ -46,6 +51,11 @@ scripts:
   test:web: >
     melos exec -c 1 --fail-fast --dir-exists=test --scope="*web*" -- \
       flutter test --platform=chrome
+
+  # Coverage
+  coverage: >
+    melos exec -c 1 --fail-fast --dir-exists=test --ignore="*example*" --ignore="*web*" -- \
+      flutter test --coverage
 
   # Run all test driver e2e tests in the example apps, use this for mobile.
   # Will target Android/iOS depending on what emulator/simulator you have running.
