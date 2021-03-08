@@ -12,17 +12,19 @@ share dialog.
 Wraps the ACTION_SEND Intent on Android and UIActivityViewController
 on iOS.
 
-Also compatible with Linux by using "mailto" to share text via Email.
-
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Window |
 |:-------:|:---:|:-----:|:---:|:-----:|:------:|
 |    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
 
+Also compatible with Windows and Linux by using "mailto" to share text via Email.
+
+Sharing files is not supported on Windows and Linux.
+
 ## Usage
 
-To use this plugin, add `share` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 ## Example
 
