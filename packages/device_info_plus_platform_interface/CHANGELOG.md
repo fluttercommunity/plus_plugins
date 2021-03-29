@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Fix https://github.com/fluttercommunity/plus_plugins/issues/184: Null values on Android
+
 ## 1.0.0
 
 - Migrated to null safety
