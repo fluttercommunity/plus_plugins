@@ -202,8 +202,6 @@ and open a [pull request](https://github.com/fluttercommunity/plus_plugins/pulls
 
 ## Status
 
-![Status: Experimental](https://img.shields.io/badge/Status-Experimental-blue)
-
 This repository is maintained by FlutterCommunity authors. Issues here are answered by maintainers and other community members on GitHub on a best-effort basis.
 
 [battery_plus]: https://pub.dev/packages/battery_plus
