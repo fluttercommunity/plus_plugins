@@ -1,3 +1,7 @@
+## 1.0.2
+
+ - **FIX**: return Edge for browser name for both new edge and old one (#95).
+
 ## 1.0.1
 
 - Fix https://github.com/fluttercommunity/plus_plugins/issues/184: Null values on Android

@@ -1,3 +1,7 @@
+## 1.0.1
+
+ - **FIX**: version.json lookup (#32).
+
 ## 1.0.0
 
 - Migrate to null-safety
