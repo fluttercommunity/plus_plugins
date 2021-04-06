@@ -1,8 +1,3 @@
-## 1.0.1
-
- - **REFACTOR**: rename e2e test files to _plus_e2e to be compatible with melos (#40).
- - **REFACTOR**: move e2e tests to example/test_driver and update docs (#39).
-
 ## 1.0.0
 
 - Migrate to null safety
