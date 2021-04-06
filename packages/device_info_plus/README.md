@@ -9,8 +9,8 @@ Get current device information from within the Flutter application.
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Windows |
-|:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |   ✔️   |
+| :-----: | :-: | :---: | :-: | :---: | :-----: |
+|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
 
 # Usage
 
@@ -36,9 +36,4 @@ print('Running on ${webBrowserInfo.userAgent}');  // e.g. "Mozilla/5.0 (X11; Ubu
 
 You will find links to the API docs on the [pub page](https://pub.dev/packages/device_info_plus).
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.dev/).
-
-For help on editing plugin code, view the [documentation](https://flutter.dev/platform-plugins/#edit-code).
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)

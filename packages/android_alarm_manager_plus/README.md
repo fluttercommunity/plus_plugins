@@ -7,9 +7,9 @@ Dart code in the background when alarms fire.
 
 ## Platform Support
 
-| Android | 
-|:-------:|
-|    ✔️    | 
+| Android |
+| :-----: |
+|   ✔️    |
 
 ## Getting Started
 
@@ -64,7 +64,6 @@ main() async {
 will not run in the same isolate as the main application. Unlike threads, isolates do not share
 memory and communication between isolates must be done via message passing (see more documentation on
 isolates [here](https://api.dart.dev/stable/2.0.0/dart-isolate/dart-isolate-library.html)).
-
 
 ## Using other plugins in alarm callbacks
 
@@ -145,17 +144,10 @@ To run the test, run from the `example/android` folder:
 
 ### Running End-to-end Flutter Driver tests
 
-Work In Progress.
-
 To run the Flutter Driver tests, cd into `example` and run:
 
 ```
 flutter driver test_driver/android_alarm_manager_e2e.dart
 ```
 
-## Need more help?
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
-
-For help on editing plugin code, view the [documentation](https://flutter.io/platform-plugins/#edit-code).
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)

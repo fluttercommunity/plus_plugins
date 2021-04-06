@@ -17,7 +17,7 @@ PRETTY_NAME="A Linux 1.2.3 LTS"
 BUILD_ID=1
 VARIANT="Community Edition"
 VARIANT_ID=community
-HOME_URL="https://www.flutter.io/"
+HOME_URL="https://www.flutter.dev/"
     ''');
 
     final deviceInfo = DeviceInfoLinux(fileSystem: fs);

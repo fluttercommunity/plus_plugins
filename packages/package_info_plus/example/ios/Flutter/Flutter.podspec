@@ -9,9 +9,9 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Flutter provides an easy and productive way to build and deploy high-performance mobile apps for Android and iOS.
                        DESC
-  s.homepage         = 'https://flutter.io'
+  s.homepage         = 'https://plus.fluttercommunity.dev'
   s.license          = { :type => 'MIT' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
+  s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :git => 'https://github.com/flutter/engine', :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
   s.vendored_frameworks = 'Flutter.framework'

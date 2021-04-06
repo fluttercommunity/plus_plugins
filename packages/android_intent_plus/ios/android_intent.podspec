@@ -12,7 +12,7 @@ Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://github.com/flutter/plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
+  s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/flutter/plugins/tree/main/packages/android_intent' }
   s.documentation_url = 'https://pub.dev/packages/android_intent'
   s.source_files = 'Classes/**/*'
