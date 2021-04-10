@@ -1,3 +1,6 @@
+## 2.0.1
+- Added preview title to iOS share sheet
+
 ## 2.0.0
 
 - Migrated to null safety
