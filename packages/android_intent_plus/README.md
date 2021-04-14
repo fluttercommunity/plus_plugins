@@ -50,26 +50,21 @@ if (platform.isAndroid) {
 Feel free to add support for additional Android intents.
 
 The Dart values supported for the arguments parameter, and their corresponding
-Android values, are listed [here](https://flutter.io/platform-channels/#codec).
+Android values, are listed [here](https://flutter.dev/platform-channels/#codec).
 On the Android side, the arguments are used to populate an Android `Bundle`
 instance. This process currently restricts the use of lists to homogeneous lists
 of integers or strings.
 
 > Note that a similar method does not currently exist for iOS. Instead, the
-[url_launcher](https://pub.dartlang.org/packages/url_launcher) plugin
-can be used for deep linking. Url launcher can also be used for creating
-ACTION_VIEW intents for Android, however this intent plugin also allows
-clients to set extra parameters for the intent.
+> [url_launcher](https://pub.dartlang.org/packages/url_launcher) plugin
+> can be used for deep linking. Url launcher can also be used for creating
+> ACTION_VIEW intents for Android, however this intent plugin also allows
+> clients to set extra parameters for the intent.
 
 ## Platform Support
 
 | Android |
-|:-------:|
-|    ✔️    |
+| :-----: |
+|   ✔️    |
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
-
-For help on editing plugin code, view the [documentation](https://flutter.io/platform-plugins/#edit-code).
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)

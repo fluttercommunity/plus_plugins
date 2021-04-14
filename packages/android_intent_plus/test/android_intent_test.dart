@@ -19,7 +19,7 @@ void main() {
   group('AndroidIntent', () {
     test('raises error if neither an action nor a component is provided', () {
       try {
-        androidIntent = AndroidIntent(data: 'https://flutter.io');
+        androidIntent = AndroidIntent(data: 'https://flutter.dev');
         fail('should raise an AssertionError');
       } on AssertionError catch (e) {
         expect(e.message, 'action or component (or both) must be specified');
@@ -32,7 +32,7 @@ void main() {
       test('pass right params', () async {
         androidIntent = AndroidIntent.private(
             action: 'action_view',
-            data: Uri.encodeFull('https://flutter.io'),
+            data: Uri.encodeFull('https://flutter.dev'),
             flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
             channel: mockChannel,
             platform: FakePlatform(operatingSystem: 'android'),
@@ -40,7 +40,7 @@ void main() {
         await androidIntent.launch();
         verify(mockChannel.invokeMethod<void>('launch', <String, Object>{
           'action': 'action_view',
-          'data': Uri.encodeFull('https://flutter.io'),
+          'data': Uri.encodeFull('https://flutter.dev'),
           'flags':
               androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
           'type': 'video/*',
@@ -87,7 +87,7 @@ void main() {
       test('pass right params', () async {
         androidIntent = AndroidIntent.private(
             action: 'action_view',
-            data: Uri.encodeFull('https://flutter.io'),
+            data: Uri.encodeFull('https://flutter.dev'),
             flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
             channel: mockChannel,
             platform: FakePlatform(operatingSystem: 'android'),
@@ -96,7 +96,7 @@ void main() {
         verify(mockChannel
             .invokeMethod<void>('canResolveActivity', <String, Object>{
           'action': 'action_view',
-          'data': Uri.encodeFull('https://flutter.io'),
+          'data': Uri.encodeFull('https://flutter.dev'),
           'flags':
               androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
           'type': 'video/*',

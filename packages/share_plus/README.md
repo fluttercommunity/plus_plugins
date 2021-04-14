@@ -1,8 +1,6 @@
-
 [![Flutter Community: share_plus](https://fluttercommunity.dev/_github/header/share_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/share_plus.svg)](https://pub.dev/packages/share_plus)
-
 
 # Share plugin
 
@@ -15,8 +13,8 @@ on iOS.
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Window |
-|:-------:|:---:|:-----:|:---:|:-----:|:------:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |   ✔️   |    ✔️   |
+| :-----: | :-: | :---: | :-: | :---: | :----: |
+|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 
@@ -24,31 +22,34 @@ Sharing files is not supported on Windows and Linux.
 
 ## Usage
 
-To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://plus.fluttercommunity.dev/docs/overview).
 
 ## Example
 
 Import the library.
 
-``` dart
+```dart
 import 'package:share_plus/share_plus.dart';
 ```
 
 Then invoke the static `share` method anywhere in your Dart code.
 
-``` dart
+```dart
 Share.share('check out my website https://example.com');
 ```
 
 The `share` method also takes an optional `subject` that will be used when
 sharing to email.
 
-``` dart
+```dart
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
 To share one or multiple files invoke the static `shareFiles` method anywhere in your Dart code. Optionally you can also pass in `text` and `subject`.
-``` dart
+
+```dart
 Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
+
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
