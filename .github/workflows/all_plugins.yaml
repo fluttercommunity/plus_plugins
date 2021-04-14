@@ -34,7 +34,7 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: 'Git Checkout'
         uses: actions/checkout@v2
