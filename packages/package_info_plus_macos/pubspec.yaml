@@ -8,7 +8,7 @@ flutter:
   plugin:
     platforms:
       macos:
-        pluginClass: FLTPackageInfoPlugin
+        pluginClass: FLTPackageInfoPlusPlugin
         fileName: package_info_plus_macos.dart
 
 environment:
