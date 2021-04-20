@@ -4,5 +4,5 @@
 
 #import <FlutterMacOS/FlutterMacOS.h>
 
-@interface FLTPackageInfoPlugin : NSObject <FlutterPlugin>
+@interface FLTPackageInfoPlusPlugin : NSObject <FlutterPlugin>
 @end
