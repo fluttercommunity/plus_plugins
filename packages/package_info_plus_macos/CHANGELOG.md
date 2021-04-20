@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Renamed plugin class to avoid collision with package_info
+
 ## 1.0.0
 
 - Migrate to null-safety
