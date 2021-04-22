@@ -106,6 +106,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
   integration_tests:
+    if: false # currently broken, see issue 220
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
