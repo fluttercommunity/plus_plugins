@@ -27,6 +27,18 @@ var wifiIP = await (NetworkInfo().getWifiIP());network
 var wifiName = await (NetworkInfo().getWifiName());wifi network
 ```
 
+### Android
+
+To successfully get WiFi Name or Wi-Fi BSSID starting with Android O, ensure all of the following conditions are met:
+
+ * If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
+
+ * If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
+
+ * Location services are enabled on the device (under Settings > Location).
+
+**This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
+
 ### iOS 12
 
 To use `.getWifiBSSID()` and `.getWifiName()` on iOS >= 12, the `Access WiFi information capability` in XCode must be enabled. Otherwise, both methods will return null.
