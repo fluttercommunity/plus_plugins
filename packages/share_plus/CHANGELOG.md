@@ -1,3 +1,6 @@
+## 2.0.2
+- Fixed crash on launch when running iOS 12.x and below
+
 ## 2.0.1
 - Added preview title to iOS share sheet
 
