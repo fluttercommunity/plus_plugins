@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Improve documentation
+
 ## 1.0.0
 
 - Migrated to null safety
@@ -30,7 +34,7 @@
 ## 0.6.0
 
 - Fix issue #56: Rename Android and iOS classes and Method Channel to avoid
-collision with the original connectivity package.
+  collision with the original connectivity package.
 
 ## 0.5.0
 

@@ -1,6 +1,6 @@
 name: battery_plus_windows
 description: Windows implementation of the battery_plus plugin
-version: 1.0.0
+version: 1.0.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
