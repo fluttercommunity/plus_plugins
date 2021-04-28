@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Improve documentation
+
 ## 1.0.0
 
 - Migrated to null safety
@@ -13,8 +17,8 @@
 
 ## 0.2.0
 
-* Upgrade to latest platform interface
+- Upgrade to latest platform interface
 
 ## 0.1.0
 
-* Initial release for Linux.
+- Initial release for Linux.
