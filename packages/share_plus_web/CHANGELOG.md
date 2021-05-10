@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Fix #201: avoid call to "tomail:" when canceling "Share"
+
 ## 2.0.1
 
 - Improve documentation
