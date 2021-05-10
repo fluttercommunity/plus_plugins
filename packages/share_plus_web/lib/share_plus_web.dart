@@ -29,10 +29,12 @@ class SharePlusPlugin extends SharePlatform {
   }) async {
     try {
       await _navigator.share({'title': subject, 'text': text});
-    } catch (e) {
+    } on NoSuchMethodError catch (e) {
       //Navigator is not available or the webPage is not served on https
       final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
       await launch(uri);
+    } catch (e) {
+      //Navigator share cancel
     }
   }
 
