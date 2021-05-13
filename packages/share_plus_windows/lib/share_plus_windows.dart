@@ -2,6 +2,7 @@
 library share_plus_windows;
 
 import 'dart:ui';
+import 'dart:web_gl';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
@@ -15,10 +16,17 @@ class ShareWindows extends SharePlatform {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
-    final uri = 'mailto:?'
-        'subject=${Uri.encodeComponent(subject ?? '')}'
-        '&body=${Uri.encodeComponent(text)}';
-    return launch(uri);
+    final queryParameters = {
+      if (subject != null) 'subject': subject,
+      'body': text,
+    };
+
+    var uri = Uri(
+      scheme: 'mailto',
+      queryParameters: queryParameters,
+    );
+
+    return launch(uri.toString());
   }
 
   /// Share files.

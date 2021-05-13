@@ -15,10 +15,17 @@ class ShareLinux extends SharePlatform {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
-    final uri = 'mailto:?'
-        'subject=${Uri.encodeComponent(subject ?? '')}'
-        '&body=${Uri.encodeComponent(text)}';
-    return launch(uri);
+    final queryParameters = {
+      if (subject != null) 'subject': subject,
+      'body': text,
+    };
+
+    var uri = Uri(
+      scheme: 'mailto',
+      queryParameters: queryParameters,
+    );
+
+    return launch(uri.toString());
   }
 
   /// Share files.
