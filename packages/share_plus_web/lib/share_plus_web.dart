@@ -36,7 +36,7 @@ class SharePlusPlugin extends SharePlatform {
         'body': text,
       };
 
-      var uri = Uri(
+      final uri = Uri(
         scheme: 'mailto',
         queryParameters: queryParameters,
       );
