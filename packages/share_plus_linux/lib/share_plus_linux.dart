@@ -15,7 +15,9 @@ class ShareLinux extends SharePlatform {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
-    final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
+    final uri = 'mailto:?'
+        'subject=${Uri.encodeComponent(subject ?? '')}'
+        '&body=${Uri.encodeComponent(text)}';
     return launch(uri);
   }
 

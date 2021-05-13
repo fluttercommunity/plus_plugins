@@ -31,7 +31,9 @@ class SharePlusPlugin extends SharePlatform {
       await _navigator.share({'title': subject, 'text': text});
     } catch (e) {
       //Navigator is not available or the webPage is not served on https
-      final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
+      final uri = 'mailto:?'
+          'subject=${Uri.encodeComponent(subject ?? '')}'
+          '&body=${Uri.encodeComponent(text)}';
       await launch(uri);
     }
   }
