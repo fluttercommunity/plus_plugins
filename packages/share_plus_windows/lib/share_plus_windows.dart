@@ -14,7 +14,7 @@ class ShareWindows extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-  }) {
+  }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
       'body': text,
@@ -25,7 +25,11 @@ class ShareWindows extends SharePlatform {
       queryParameters: queryParameters,
     );
 
-    return launch(uri.toString());
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw Exception('Unable to share on windows');
+    }
   }
 
   /// Share files.

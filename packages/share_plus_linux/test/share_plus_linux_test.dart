@@ -12,17 +12,26 @@ void main() {
 
     expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
   });
+
+  test('throws when url_launcher can\'t launch uri', () async {
+    final mock = MockUrlLauncherPlatform();
+    mock.canLaunchMockValue = false;
+    UrlLauncherPlatform.instance = mock;
+
+    expect(() async => await ShareLinux().share('foo bar'), throwsException);
+  });
 }
 
 class MockUrlLauncherPlatform extends UrlLauncherPlatform {
   String? url;
+  bool canLaunchMockValue = true;
 
   @override
   LinkDelegate? get linkDelegate => throw UnimplementedError();
 
   @override
   Future<bool> canLaunch(String url) async {
-    return true;
+    return canLaunchMockValue;
   }
 
   @override

@@ -19,9 +19,8 @@ class SharePlusPlugin extends SharePlatform {
   SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
-  @override
-
   /// Share text
+  @override
   Future<void> share(
     String text, {
     String? subject,
@@ -41,13 +40,16 @@ class SharePlusPlugin extends SharePlatform {
         queryParameters: queryParameters,
       );
 
-      await launch(uri.toString());
+      if (await canLaunch(uri.toString())) {
+        await launch(uri.toString());
+      } else {
+        throw Exception('Unable to share on web');
+      }
     }
   }
 
-  @override
-
   /// Share files
+  @override
   Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
