@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Hotfix on 2.0.2, improved solution.
+
 ## 2.0.2
 
 - Fixes: share URL is constructed incorrectly #235

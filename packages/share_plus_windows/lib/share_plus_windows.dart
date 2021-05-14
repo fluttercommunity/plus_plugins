@@ -20,9 +20,13 @@ class ShareWindows extends SharePlatform {
       'body': text,
     };
 
+    // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
-      queryParameters: queryParameters,
+      query: queryParameters.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&'),
     );
 
     if (await canLaunch(uri.toString())) {
