@@ -34,7 +34,7 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: 'Git Checkout'
         uses: actions/checkout@v2
@@ -106,6 +106,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
   integration_tests:
+    if: false # currently broken, see issue 220
     runs-on: ${{matrix.os}}
     strategy:
       matrix:

@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Improve documentation
+
 ## 1.0.0
 
 - Migrate to null-safety.
@@ -8,4 +12,4 @@
 
 ## 0.1.0
 
-* Initial release for Windows.
+- Initial release for Windows.

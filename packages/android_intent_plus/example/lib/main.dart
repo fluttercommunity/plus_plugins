@@ -142,7 +142,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
   void _openLinkInGoogleChrome() {
     final intent = AndroidIntent(
         action: 'action_view',
-        data: Uri.encodeFull('https://flutter.io'),
+        data: Uri.encodeFull('https://flutter.dev'),
         package: 'com.android.chrome');
     intent.launch();
   }
@@ -150,7 +150,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
   void _startActivityInNewTask() {
     final intent = AndroidIntent(
       action: 'action_view',
-      data: Uri.encodeFull('https://flutter.io'),
+      data: Uri.encodeFull('https://flutter.dev'),
       flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
     );
     intent.launch();
@@ -159,7 +159,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
   void _testExplicitIntentFallback() {
     final intent = AndroidIntent(
         action: 'action_view',
-        data: Uri.encodeFull('https://flutter.io'),
+        data: Uri.encodeFull('https://flutter.dev'),
         package: 'com.android.chrome.implicit.fallback');
     intent.launch();
   }

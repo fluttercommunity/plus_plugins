@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTPackageInfoPlugin.h"
+#import "FLTPackageInfoPlusPlugin.h"
 
-@implementation FLTPackageInfoPlugin
+@implementation FLTPackageInfoPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel =
       [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/package_info"
                                   binaryMessenger:[registrar messenger]];
-  FLTPackageInfoPlugin* instance = [[FLTPackageInfoPlugin alloc] init];
+  FLTPackageInfoPlusPlugin* instance = [[FLTPackageInfoPlusPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

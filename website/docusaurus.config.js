@@ -10,13 +10,6 @@ module.exports = {
   organizationName: 'fluttercommunity',
   projectName: 'fluttercommunityplus',
   themeConfig: {
-    announcementBar: {
-      id: 'wip-nullsafety',
-      content:
-        '📣 <a rel="noopener" href="/docs/null_safety"><b>Null-safety versions</b></a> are now available. This Plus documentation hub is currently a work in progress',
-      backgroundColor: '#13B9FD',
-      textColor: '#fff',
-    },
     prism: {
       additionalLanguages: [
         'dart',
