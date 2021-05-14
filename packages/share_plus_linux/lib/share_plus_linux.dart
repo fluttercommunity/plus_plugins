@@ -14,9 +14,22 @@ class ShareLinux extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-  }) {
-    final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
-    return launch(uri);
+  }) async {
+    final queryParameters = {
+      if (subject != null) 'subject': subject,
+      'body': text,
+    };
+
+    final uri = Uri(
+      scheme: 'mailto',
+      queryParameters: queryParameters,
+    );
+
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw Exception('Unable to share on linux');
+    }
   }
 
   /// Share files.

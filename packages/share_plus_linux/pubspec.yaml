@@ -1,6 +1,6 @@
 name: share_plus_linux
 description: Linux implementation of the share_plus plugin
-version: 2.0.1
+version: 2.0.2
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -20,3 +20,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic: ^1.10.0
+  url_launcher_platform_interface: ^2.0.2
