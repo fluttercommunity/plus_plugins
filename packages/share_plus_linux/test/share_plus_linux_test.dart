@@ -4,11 +4,11 @@ import 'package:url_launcher_platform_interface/url_launcher_platform_interface.
 import 'package:url_launcher_platform_interface/link.dart';
 
 void main() {
-  test('url encoding is correct', () {
+  test('url encoding is correct', () async {
     final mock = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mock;
 
-    ShareLinux().share('foo&bar', subject: 'bar&foo');
+    await ShareLinux().share('foo&bar', subject: 'bar&foo');
 
     expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
   });
