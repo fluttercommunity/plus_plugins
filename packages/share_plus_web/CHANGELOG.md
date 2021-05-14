@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Fix #235: share URL is constructed incorrectly
+
 ## 2.0.2
 
 - Fix #201: avoid call to "tomail:" when canceling "Share"
