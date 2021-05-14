@@ -2,7 +2,7 @@ name: share_plus_web
 description: Web platform implementation of share_plus
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 2.0.3
+version: 2.0.4
 
 flutter:
   plugin:
