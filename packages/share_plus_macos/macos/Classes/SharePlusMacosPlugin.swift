@@ -3,37 +3,32 @@ import FlutterMacOS
 
 public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePickerDelegate {
   private var subject: String?
+  private var registrar: FlutterPluginRegistrar
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "dev.fluttercommunity.plus/share", binaryMessenger: registrar.messenger)
-    let instance = SharePlusMacosPlugin()
+    let instance = SharePlusMacosPlugin(registrar: registrar)
     registrar.addMethodCallDelegate(instance, channel: channel)
+  }
+
+  init(registrar: FlutterPluginRegistrar) {
+    self.registrar = registrar
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     let args = call.arguments as! [String: Any]
     let origin = originRect(args)
-    guard let view = NSApplication.shared.keyWindow?.contentView else {
-      result(
-        FlutterError(
-          code: "SharePlusMacosPlugin",
-          message: "Missing key window or content view",
-          details: "NSApplication.keyWindow or NSWindow.contentView was nil"
-        )
-      )
-      return
-    }
 
     switch call.method {
     case "share":
       let text = args["text"] as! String
       let subject = args["subject"] as? String
-      shareItems([text], subject: subject, origin: origin, view: view)
+      shareItems([text], subject: subject, origin: origin, view: registrar.view!)
       result(true)
     case "shareFiles":
       let paths = args["paths"] as! [String]
       let urls = paths.map { NSURL.fileURL(withPath: $0) }
-      shareItems(urls, origin: origin, view: view)
+      shareItems(urls, origin: origin, view: registrar.view!)
       result(true)
     default:
       result(FlutterMethodNotImplemented)
