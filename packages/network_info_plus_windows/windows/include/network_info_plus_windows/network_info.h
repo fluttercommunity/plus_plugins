@@ -1,9 +1,9 @@
 #ifndef FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_
 #define FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_
 
+#include <winsock2.h>
 #include <windows.h>
 #include <winerror.h>
-#include <winsock2.h>
 #include <wlanapi.h>
 
 #include <functional>
