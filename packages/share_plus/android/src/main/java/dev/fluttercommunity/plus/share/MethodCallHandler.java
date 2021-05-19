@@ -20,6 +20,7 @@ class MethodCallHandler implements MethodChannel.MethodCallHandler {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public void onMethodCall(MethodCall call, MethodChannel.Result result) {
     switch (call.method) {
       case "share":
