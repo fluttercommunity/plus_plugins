@@ -94,7 +94,11 @@ static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
     (UIActivityViewController *)activityViewController
     API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0)) {
   LPLinkMetadata *metadata = [[LPLinkMetadata alloc] init];
-  metadata.title = _text;
+  if ([_text length] > 0) {
+    metadata.title = _text;
+  } else if ([_subject length] > 0) {
+    metadata.title = _subject;
+  }
   return metadata;
 }
 
