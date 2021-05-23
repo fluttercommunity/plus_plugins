@@ -1,10 +1,11 @@
+// clang-format off
+#include "include/network_info_plus_windows/network_info.h"
+// clang-format on
 #include "include/network_info_plus_windows/network_info_plus_windows_plugin.h"
 
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
-
-#include "include/network_info_plus_windows/network_info.h"
 
 namespace {
 
