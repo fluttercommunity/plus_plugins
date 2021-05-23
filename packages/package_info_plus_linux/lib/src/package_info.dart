@@ -11,7 +11,7 @@ class PackageInfoLinux extends PackageInfoPlatform {
   /// appName, packageName, version, buildNumber
   @override
   Future<PackageInfoData> getAll() async {
-    final versionJson = _getVersionJson();
+    final versionJson = await _getVersionJson();
     return PackageInfoData(
       appName: versionJson['app_name'] ?? '',
       version: versionJson['version'] ?? '',
@@ -20,13 +20,13 @@ class PackageInfoLinux extends PackageInfoPlatform {
     );
   }
 
-  Map<String, dynamic> _getVersionJson() {
+  Future<Map<String, dynamic>> _getVersionJson() async {
     try {
-      final exePath = File('/proc/self/exe').resolveSymbolicLinksSync();
+      final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
       final appPath = path.dirname(exePath);
       final assetPath = path.join(appPath, 'data', 'flutter_assets');
       final versionPath = path.join(assetPath, 'version.json');
-      return jsonDecode(File(versionPath).readAsStringSync());
+      return jsonDecode(await File(versionPath).readAsString());
     } catch (_) {
       return <String, dynamic>{};
     }
