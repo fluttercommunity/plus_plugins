@@ -1,6 +1,10 @@
-## 2.1.1
+# 2.1.2
 
 - Do not tear down method channel onDetachedFromActivity.
+
+## 2.1.1
+
+- Updated iOS share sheet preview title to use subject when text is not set
 
 ## 2.1.0
 

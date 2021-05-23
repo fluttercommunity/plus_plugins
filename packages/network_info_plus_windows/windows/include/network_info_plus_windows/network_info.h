@@ -1,9 +1,11 @@
 #ifndef FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_
 #define FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_
 
+// clang-format off
+#include <winsock2.h>
+// clang-format on
 #include <windows.h>
 #include <winerror.h>
-#include <winsock2.h>
 #include <wlanapi.h>
 
 #include <functional>
