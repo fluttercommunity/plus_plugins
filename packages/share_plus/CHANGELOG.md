@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Updated iOS share sheet preview title to use subject when text is not set
+
 ## 2.1.0
 
 - Fixes #241 resolves issues with deprecations as of android API version 29 and replaces the requirement for external storage locations with an easy application cache usage.
