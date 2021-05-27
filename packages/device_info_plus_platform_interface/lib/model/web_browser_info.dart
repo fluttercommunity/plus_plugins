@@ -112,7 +112,7 @@ class WebBrowserInfo {
       appCodeName: map['appCodeName'],
       appName: map['appName'],
       appVersion: map['appVersion'],
-      deviceMemory: map['deviceMemory'],
+      deviceMemory: map['deviceMemory'] ?? 0,
       language: map['language'],
       languages: map['languages'],
       platform: map['platform'],
