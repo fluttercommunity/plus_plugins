@@ -69,7 +69,7 @@ class WebBrowserInfo {
   final String appVersion;
 
   /// the amount of device memory in gigabytes. This value is an approximation given by rounding to the nearest power of 2 and dividing that number by 1024.
-  final int deviceMemory;
+  final int? deviceMemory;
 
   /// a DOMString representing the preferred language of the user, usually the language of the browser UI. The null value is returned when this is unknown.
   final String language;
@@ -79,7 +79,7 @@ class WebBrowserInfo {
 
   /// the version of the browser as a DOMString.
   /// Note: Do not rely on this property to return the correct value.
-  final String platform;
+  final String? platform;
 
   /// Always returns 'Gecko', on any browser.
   /// Note: Do not rely on this property to return the correct value.
@@ -88,7 +88,7 @@ class WebBrowserInfo {
 
   /// the build number of the current browser
   /// Note: Do not rely on this property to return the correct value.
-  final String productSub;
+  final String? productSub;
 
   /// the build number of the current browser (e.g., "20060909")
   final String userAgent;
@@ -101,10 +101,10 @@ class WebBrowserInfo {
   final String vendorSub;
 
   /// the number of logical processor cores available.
-  final int hardwareConcurrency;
+  final int? hardwareConcurrency;
 
   /// the maximum number of simultaneous touch contact points are supported by the current device.
-  final int maxTouchPoints;
+  final int? maxTouchPoints;
 
   /// Deserializes from the map message received from [Navigator].
   static WebBrowserInfo fromMap(Map<String, dynamic> map) {
@@ -114,7 +114,7 @@ class WebBrowserInfo {
       appVersion: map['appVersion'],
       deviceMemory: map['deviceMemory'],
       language: map['language'],
-      languages: map['languages'],
+      languages: map['languages'] ?? [map['language']],
       platform: map['platform'],
       product: map['product'],
       productSub: map['productSub'],
