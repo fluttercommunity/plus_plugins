@@ -8,7 +8,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:battery_plus_platform_interface/method_channel_battery_plus.dart';
-import 'package:battery_plus_linux/battery_plus_linux.dart';
+import 'package:battery_plus/battery_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart'
