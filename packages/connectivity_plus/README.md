@@ -11,8 +11,8 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
-| :-----: | :-: | :---: | :-: | :---: | :----: |
+| Android | iOS | MacOS | Web | Linux | Windows |
+| :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
 
 ## Usage
