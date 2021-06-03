@@ -6,7 +6,14 @@
 
 #import "Reachability/Reachability.h"
 
-@interface FLTConnectivityPlusPlugin () <FlutterStreamHandler>
+#import <CoreLocation/CoreLocation.h>
+#import "SystemConfiguration/CaptiveNetwork.h"
+
+#include <ifaddrs.h>
+
+#include <arpa/inet.h>
+
+@interface FLTConnectivityPlusPlugin () <FlutterStreamHandler, CLLocationManagerDelegate>
 
 @end
 

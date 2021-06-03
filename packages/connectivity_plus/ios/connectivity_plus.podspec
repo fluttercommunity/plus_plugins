@@ -9,11 +9,11 @@ Pod::Spec.new do |s|
 This plugin allows Flutter apps to discover network connectivity and configure themselves accordingly.
 Downloaded by pub (not CocoaPods).
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins'
+  s.homepage         = 'https://plus.fluttercommunity.dev/'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
-  s.source           = { :http => 'https://github.com/flutter/plugins/tree/main/packages/connectivity/connectivity' }
-  s.documentation_url = 'https://pub.dev/packages/connectivity'
+  s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins' }
+  s.documentation_url = 'https://pub.dev/packages/connectivity_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
