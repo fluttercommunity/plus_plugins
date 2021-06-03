@@ -46,8 +46,8 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y clang-format
-          flutter pub global activate melos
-          flutter pub global activate flutter_plugin_tools
+          pub global activate melos
+          pub global activate flutter_plugin_tools
       - name: 'Bootstrap Workspace'
         run: melos bootstrap
       - name: 'Melos Format'
