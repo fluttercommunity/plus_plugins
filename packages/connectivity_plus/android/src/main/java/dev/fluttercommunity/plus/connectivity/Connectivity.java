@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 package dev.fluttercommunity.plus.connectivity;
+
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
