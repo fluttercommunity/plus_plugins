@@ -99,6 +99,24 @@ function Home() {
             <Link to={`${siteConfig.baseUrl}docs/overview`}>Get Started &raquo;</Link>
             <Link to="https://github.com/fluttercommunity/plus_plugins">GitHub &raquo;</Link>
           </div>
+          <div
+            style={{
+              paddingTop: '1rem',
+            }}
+          >
+            <a
+              href="https://flutter.dev/docs/development/packages-and-plugins/favorites"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <img
+                src="./img/flutter-favorite-badge.png"
+                width="75"
+                height="75"
+                alt="flutter favorite"
+              />
+            </a>
+          </div>
         </div>
       </section>
       <main>
