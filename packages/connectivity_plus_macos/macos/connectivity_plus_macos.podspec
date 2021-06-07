@@ -8,10 +8,11 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
   Desktop implementation of the connectivity plugin
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins/tree/main/packages/connectivity/connectivity_macos'
+  s.homepage         = 'https://plus.fluttercommunity.dev/'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Team' => 'flutter-dev@googlegroups.com' }
-  s.source           = { :http => 'https://github.com/flutter/plugins/tree/main/packages/connectivity/connectivity_macos' }
+  s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins' }
+  s.documentation_url = 'https://pub.dev/packages/connectivity_plus'
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
   s.dependency 'Reachability'

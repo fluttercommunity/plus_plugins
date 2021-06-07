@@ -5,7 +5,7 @@ import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_
 import 'package:connectivity_plus_web/connectivity_plus_web.dart';
 
 /// The web implementation of the ConnectivityPlatform of the Connectivity plugin.
-class DartHtmlConnectivityPlugin extends ConnectivityPlugin {
+class DartHtmlConnectivityPlugin extends ConnectivityPlusPlugin {
   /// Checks the connection status of the device.
   @override
   Future<ConnectivityResult> checkConnectivity() async {

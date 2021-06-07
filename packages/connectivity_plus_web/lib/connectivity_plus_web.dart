@@ -5,7 +5,7 @@ import 'src/network_information_api_connectivity_plugin.dart';
 import 'src/dart_html_connectivity_plugin.dart';
 
 /// The web implementation of the ConnectivityPlatform of the Connectivity plugin.
-class ConnectivityPlugin extends ConnectivityPlatform {
+class ConnectivityPlusPlugin extends ConnectivityPlatform {
   /// Factory method that initializes the connectivity plugin platform with an instance
   /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
