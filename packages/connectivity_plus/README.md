@@ -4,6 +4,9 @@
 
 [![pub package](https://img.shields.io/pub/v/connectivity_plus.svg)](https://pub.dev/packages/connectivity_plus)
 
+<p class="center">
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+</p>
 This plugin allows Flutter apps to discover network connectivity and configure
 themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
@@ -13,7 +16,7 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
+|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
 
 ## Usage
 

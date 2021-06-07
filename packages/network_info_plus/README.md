@@ -4,6 +4,9 @@
 
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
 
+<p class="center">
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+</p>
 This plugin allows Flutter apps to discover network info and configure
 themselves accordingly.
 
@@ -31,11 +34,11 @@ var wifiName = await (NetworkInfo().getWifiName());wifi network
 
 To successfully get WiFi Name or Wi-Fi BSSID starting with Android O, ensure all of the following conditions are met:
 
- * If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
+- If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
 
- * If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
+- If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
 
- * Location services are enabled on the device (under Settings > Location).
+- Location services are enabled on the device (under Settings > Location).
 
 **This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
 

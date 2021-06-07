@@ -4,6 +4,10 @@
 
 [![pub package](https://img.shields.io/pub/v/battery_plus.svg)](https://pub.dev/packages/battery_plus)
 
+<p class="center">
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+</p>
+
 A Flutter plugin to access various information about the battery of the device the app is running on.
 
 ## Platform Support
