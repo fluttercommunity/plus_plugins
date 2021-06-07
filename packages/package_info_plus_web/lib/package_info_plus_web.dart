@@ -23,6 +23,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
 
     final response = await get(url);
     final versionMap = _getVersionMap(response);
+
     return PackageInfoData(
       appName: versionMap['app_name'] ?? '',
       version: versionMap['version'] ?? '',
