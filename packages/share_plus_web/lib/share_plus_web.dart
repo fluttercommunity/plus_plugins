@@ -19,9 +19,8 @@ class SharePlusPlugin extends SharePlatform {
   SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
-  @override
-
   /// Share text
+  @override
   Future<void> share(
     String text, {
     String? subject,
@@ -31,16 +30,30 @@ class SharePlusPlugin extends SharePlatform {
       await _navigator.share({'title': subject, 'text': text});
     } on NoSuchMethodError catch (_) {
       //Navigator is not available or the webPage is not served on https
-      final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
-      await launch(uri);
-    } catch (_) {
-      //Navigator share cancel
+      final queryParameters = {
+        if (subject != null) 'subject': subject,
+        'body': text,
+      };
+
+      // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
+      final uri = Uri(
+        scheme: 'mailto',
+        query: queryParameters.entries
+            .map((e) =>
+                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .join('&'),
+      );
+
+      if (await canLaunch(uri.toString())) {
+        await launch(uri.toString());
+      } else {
+        throw Exception('Unable to share on web');
+      }
     }
   }
 
-  @override
-
   /// Share files
+  @override
   Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,

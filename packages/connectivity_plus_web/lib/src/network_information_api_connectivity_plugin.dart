@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'utils/connectivity_result.dart';
 
 /// The web implementation of the ConnectivityPlatform of the Connectivity plugin.
-class NetworkInformationApiConnectivityPlugin extends ConnectivityPlugin {
+class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
   final html.NetworkInformation _networkInformation;
 
   /// A check to determine if this version of the plugin can be used.

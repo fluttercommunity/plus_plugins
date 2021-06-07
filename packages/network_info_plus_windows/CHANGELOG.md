@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fix include order: #242
+
 ## 1.0.1
 
 - Improve documentation

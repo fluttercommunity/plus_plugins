@@ -14,9 +14,26 @@ class ShareWindows extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-  }) {
-    final uri = Uri.encodeFull('mailto:?subject=$subject&body=$text');
-    return launch(uri);
+  }) async {
+    final queryParameters = {
+      if (subject != null) 'subject': subject,
+      'body': text,
+    };
+
+    // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
+    final uri = Uri(
+      scheme: 'mailto',
+      query: queryParameters.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&'),
+    );
+
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw Exception('Unable to share on windows');
+    }
   }
 
   /// Share files.

@@ -11,16 +11,24 @@ packages:
   - packages/**
 
 scripts:
+  lint:all:
+    run: melos run analyze && melos run format
+    description: Run all static analysis checks
   # Analyze the project for Dart analysis issues.
   #  - Requires `pub global activate tuneup`.
-  analyze: >
-    melos exec -c 3 -- \
-      tuneup check
+  analyze:
+    run: |
+      melos exec -c 5 -- \
+        dart analyze . --fatal-infos
+    description: |
+      Run `dart analyze` in all packages.
+       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
   # Formats the code of all packages (Java, Objective-C, and Dart).
   #  - Requires `flutter_plugin_tools` (`pub global activate flutter_plugin_tools`).
   #  - Requires `git`.
   #  - Requires `clang-format` (can be installed via Brew on MacOS).
-  format: flutter pub global run flutter_plugin_tools format
+  format: pub global run flutter_plugin_tools format
 
   # Build iOS plugin example apps.
   build:examples:ios: >
@@ -48,6 +56,7 @@ scripts:
   test: >
     melos exec -c 1 --fail-fast --dir-exists=test --ignore="*example*" --ignore="*web*" -- \
       flutter test
+
   test:web: >
     melos exec -c 1 --fail-fast --dir-exists=test --scope="*web*" -- \
       flutter test --platform=chrome
@@ -89,10 +98,14 @@ scripts:
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       pub publish --dry-run
 
+  # Clean things very deeply, can be used to establish "pristine checkout" status
+  clean:deep: >
+    git clean -x -d -f -q
+
   # Additional cleanup lifecycle script, executed when `melos clean` is ran.
   postclean: >
     melos exec -- \
-      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea ./.dart-tool/build
+     rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./android/.idea ./.idea ./.dart-tool/build
 
 dev_dependencies:
   pedantic: 1.10.0

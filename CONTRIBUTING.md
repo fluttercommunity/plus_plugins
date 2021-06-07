@@ -122,11 +122,15 @@ Please peruse the
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
+### 5.1 Getting started
+
 To start working on a patch:
 
 1. `git fetch upstream`
 2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
+
+### 5.2 Check the code
 
 Once you have made your changes, ensure that it passes the internal analyzer & formatting checks. The following
 commands can be run locally to highlight any issues before committing your code:
@@ -139,10 +143,18 @@ melos run analyze
 melos run format
 ```
 
+Before opening a Pull-Request, **please increase the build number in the `pubspec.yaml`
+and create a new entry in the `CHANGELOG.md` describing the change**.
+This will help us speed-up the release process for the provided fix or feature.
+
+### 5.3 Commit and push your changes
+
 Assuming all is successful, commit and push your code:
 
 1. `git commit -a -m "<your informative commit message>"`
 2. `git push origin <name_of_your_branch>`
+
+### 5.4 Create a pull request
 
 To send us a pull request:
 
@@ -157,6 +169,11 @@ guide. For example, for a fix to the `sensor_plus` plugin:
 
 `fix(sensor_plus): fixed a bug!`
 
+Please also enable **“Allow edits by maintainers”**, this will help to speed-up the review
+process as well.
+
+### 5.5 Now be patient :)
+
 Plugins tests are run automatically on contributions using GitHub Actions. Depending on
 your code contributions, various tests will be run against your updated code automatically.
 
@@ -164,8 +181,7 @@ Once you've gotten an LGTM from a project maintainer and once your PR has receiv
 the green light from all our automated testing, wait for one the package maintainers
 to merge the pull request.
 
-If you've never submitted code before, you must add your (or your
-organization's) name and contact info to the [AUTHORS](AUTHORS) file.
+Please understand, that this repository is run by volunteers, and the response may be delayed.
 
 ### The review process
 

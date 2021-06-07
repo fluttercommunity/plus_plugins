@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import java.io.File;
@@ -28,6 +27,8 @@ class Share {
   private Context context;
   private Activity activity;
 
+  private String providerAuthority;
+
   /**
    * Constructs a Share object. The {@code context} and {@code activity} are used to start the share
    * intent. The {@code activity} might be null when constructing the {@link Share} object and set
@@ -36,6 +37,8 @@ class Share {
   Share(Context context, Activity activity) {
     this.context = context;
     this.activity = activity;
+
+    this.providerAuthority = getContext().getPackageName() + ".flutter.share_provider";
   }
 
   /**
@@ -66,7 +69,7 @@ class Share {
       throw new IllegalArgumentException("Non-empty path expected");
     }
 
-    clearExternalShareFolder();
+    clearShareCacheFolder();
     ArrayList<Uri> fileUris = getUrisForPaths(paths);
 
     Intent shareIntent = new Intent();
@@ -119,16 +122,21 @@ class Share {
 
   private ArrayList<Uri> getUrisForPaths(List<String> paths) throws IOException {
     ArrayList<Uri> uris = new ArrayList<>(paths.size());
+
     for (String path : paths) {
       File file = new File(path);
-      if (!fileIsOnExternal(file)) {
-        file = copyToExternalShareFolder(file);
+      if (fileIsInShareCache(file)) {
+        // If file was saved in '.../caches/share_plus' it will have been erased by 'clearShareCacheFolder();'
+        throw new IOException(
+            "File to share not allowed to be located in '"
+                + getShareCacheFolder().getCanonicalPath()
+                + "'");
       }
+      file = copyToShareCacheFolder(file);
 
-      uris.add(
-          FileProvider.getUriForFile(
-              getContext(), getContext().getPackageName() + ".flutter.share_provider", file));
+      uris.add(FileProvider.getUriForFile(getContext(), providerAuthority, file));
     }
+
     return uris;
   }
 
@@ -163,19 +171,18 @@ class Share {
     return mimeType.substring(0, mimeType.indexOf("/"));
   }
 
-  private boolean fileIsOnExternal(File file) {
+  private boolean fileIsInShareCache(File file) {
     try {
       String filePath = file.getCanonicalPath();
-      File externalDir = Environment.getExternalStorageDirectory();
-      return externalDir != null && filePath.startsWith(externalDir.getCanonicalPath());
+      return filePath.startsWith(getShareCacheFolder().getCanonicalPath());
     } catch (IOException e) {
       return false;
     }
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  private void clearExternalShareFolder() {
-    File folder = getExternalShareFolder();
+  private void clearShareCacheFolder() {
+    File folder = getShareCacheFolder();
     if (folder.exists()) {
       for (File file : folder.listFiles()) {
         file.delete();
@@ -185,8 +192,8 @@ class Share {
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  private File copyToExternalShareFolder(File file) throws IOException {
-    File folder = getExternalShareFolder();
+  private File copyToShareCacheFolder(File file) throws IOException {
+    File folder = getShareCacheFolder();
     if (!folder.exists()) {
       folder.mkdirs();
     }
@@ -197,8 +204,8 @@ class Share {
   }
 
   @NonNull
-  private File getExternalShareFolder() {
-    return new File(getContext().getExternalCacheDir(), "share");
+  private File getShareCacheFolder() {
+    return new File(getContext().getCacheDir(), "share_plus");
   }
 
   private Context getContext() {

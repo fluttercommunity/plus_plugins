@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fix async loading: #247
+
 ## 1.0.1
 
 - Improve documentation

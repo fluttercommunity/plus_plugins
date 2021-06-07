@@ -1,3 +1,9 @@
+## 1.0.2
+
+- Fix ios bug https://github.com/fluttercommunity/plus_plugins/issues/198
+- Update android https://github.com/fluttercommunity/plus_plugins/issues/62
+- Update Web class naming conflict https://github.com/fluttercommunity/plus_plugins/issues/260
+
 ## 1.0.1
 
 - Improve documentation
