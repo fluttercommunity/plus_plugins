@@ -1,3 +1,7 @@
+## 2.1.3
+
+- Android: migrate to mavenCentral
+
 # 2.1.2
 
 - Do not tear down method channel onDetachedFromActivity.
