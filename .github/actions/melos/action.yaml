@@ -1,0 +1,16 @@
+name: "Melos"
+description: "Bootstrap flutter tools and melos"
+inputs:
+  plugin_name:
+    description: "Plugin Name"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Tools"
+      run: |
+        flutter pub global activate melos
+        flutter config --enable-linux-desktop
+    - name: "Bootstrap Workspace"
+      run: melos bootstrap

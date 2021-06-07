@@ -1,0 +1,23 @@
+name: "Format"
+description: "Run Format for all Plugins"
+inputs:
+  plugin_name:
+    description: "Plugin Name"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Tools"
+      run: |
+        sudo apt update
+        sudo apt install -y clang-format
+        flutter pub global activate melos
+        pub global activate flutter_plugin_tools 0.1.4
+    - name: "Bootstrap Workspace"
+      run: melos bootstrap
+    - name: "Melos Format"
+      run: melos run format
+    - name: "Validate Formatting"
+      run: |
+        ./.github/workflows/scripts/validate-formatting.sh

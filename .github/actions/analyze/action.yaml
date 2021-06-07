@@ -1,0 +1,22 @@
+name: "Analyze"
+description: "Run Analyze for all Plugins"
+inputs:
+  plugin_name:
+    description: "Plugin Name"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Tools"
+      run: |
+        flutter pub global activate melos
+        flutter pub global activate tuneup
+    - name: "Bootstrap Workspace"
+      run: melos bootstrap
+    - name: "Dart Analyze"
+      run: |
+        melos run analyze
+    - name: "Pub Check"
+      run: |
+        melos run lint:pub

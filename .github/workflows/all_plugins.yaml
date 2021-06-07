@@ -1,5 +1,21 @@
 name: all_plugins
 
+github_checkout: &github_checkout
+  name: "Git Checkout"
+  uses: actions/checkout@v2
+  with:
+    fetch-depth: 0
+
+install_flutter: &install_flutter
+  name: "Install Flutter"
+  uses: subosito/flutter-action@v1
+  with:
+    flutter-version: "2.2.1"
+
+bootstrap_tools: &bootstrap_tools
+  name: "Bootstrap Melos/Tools"
+  uses: ./.github/actions/melos
+
 on:
   pull_request:
   push:
@@ -13,69 +29,27 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
-      - name: "Install Tools"
-        run: |
-          flutter pub global activate melos
-          flutter pub global activate tuneup
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-      - name: "Dart Analyze"
-        run: |
-          melos run analyze
-      - name: "Pub Check"
-        run: |
-          melos run lint:pub
+      - *github_checkout
+      - *install_flutter
+      - name: "Analyze"
+        uses: ./.github/actions/analyze
 
   format:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
-      - name: "Install Tools"
-        run: |
-          sudo apt update
-          sudo apt install -y clang-format
-          flutter pub global activate melos
-          pub global activate flutter_plugin_tools 0.1.4
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-      - name: "Melos Format"
-        run: melos run format
-      - name: "Validate Formatting"
-        run: |
-          ./.github/workflows/scripts/validate-formatting.sh
+      - *github_checkout
+      - *install_flutter
+      - name: "Format"
+        uses: ./.github/actions/format
 
   build_examples_dart:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
-      - name: "Install Tools"
-        run: flutter pub global activate melos
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
+      - *github_checkout
+      - *install_flutter
+      - *bootstrap_tools
       - name: "Build Example Snapshots"
         run: |
           melos run build:examples:bundle
@@ -88,18 +62,9 @@ jobs:
     continue-on-error: true
     timeout-minutes: 15
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
-      - name: "Install Tools"
-        run: flutter pub global activate melos
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
+      - *github_checkout
+      - *install_flutter
+      - *bootstrap_tools
       - name: "Flutter Test"
         run: |
           melos run test
@@ -116,7 +81,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
   integration_tests:
-    if: false # currently broken, see issue 220
+    if: ${{ false }} # currently broken, see issue 220
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -124,18 +89,9 @@ jobs:
     continue-on-error: true
     timeout-minutes: 15
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          channel: dev
-      - name: "Install Tools"
-        run: |
-          flutter pub global activate melos
-          flutter config --enable-linux-desktop
+      - *github_checkout
+      - *install_flutter
+      - *bootstrap_tools
       - name: "Setup Linux"
         run: |
           sudo apt update
