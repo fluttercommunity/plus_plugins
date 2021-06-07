@@ -31,11 +31,11 @@ var wifiName = await (NetworkInfo().getWifiName());wifi network
 
 To successfully get WiFi Name or Wi-Fi BSSID starting with Android O, ensure all of the following conditions are met:
 
- * If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
+- If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
 
- * If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
+- If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
 
- * Location services are enabled on the device (under Settings > Location).
+- Location services are enabled on the device (under Settings > Location).
 
 **This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
 
@@ -74,3 +74,5 @@ To request location authorization, make sure to add the following keys to your _
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+
+**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
