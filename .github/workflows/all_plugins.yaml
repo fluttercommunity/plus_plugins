@@ -6,29 +6,31 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'docs/**'
+      - "docs/**"
 
 jobs:
   analyze:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: 'Git Checkout'
+      - name: "Git Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@refs/pull/79/head
-      - name: 'Install Tools'
+      - name: "Install Flutter"
+        uses: subosito/flutter-action
+        with:
+          flutter-version: "2.2.1"
+      - name: "Install Tools"
         run: |
           flutter pub global activate melos
           flutter pub global activate tuneup
-      - name: 'Bootstrap Workspace'
+      - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: 'Dart Analyze'
+      - name: "Dart Analyze"
         run: |
           melos run analyze
-      - name: 'Pub Check'
+      - name: "Pub Check"
         run: |
           melos run lint:pub
 
@@ -36,23 +38,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: 'Git Checkout'
+      - name: "Git Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@refs/pull/79/head
-      - name: 'Install Tools'
+      - name: "Install Flutter"
+        uses: subosito/flutter-action
+        with:
+          flutter-version: "2.2.1"
+      - name: "Install Tools"
         run: |
           sudo apt update
           sudo apt install -y clang-format
           flutter pub global activate melos
           pub global activate flutter_plugin_tools 0.1.4
-      - name: 'Bootstrap Workspace'
+      - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: 'Melos Format'
+      - name: "Melos Format"
         run: melos run format
-      - name: 'Validate Formatting'
+      - name: "Validate Formatting"
         run: |
           ./.github/workflows/scripts/validate-formatting.sh
 
@@ -60,17 +64,19 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: 'Git Checkout'
+      - name: "Git Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@refs/pull/79/head
-      - name: 'Install Tools'
+      - name: "Install Flutter"
+        uses: subosito/flutter-action
+        with:
+          flutter-version: "2.2.1"
+      - name: "Install Tools"
         run: flutter pub global activate melos
-      - name: 'Bootstrap Workspace'
+      - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: 'Build Example Snapshots'
+      - name: "Build Example Snapshots"
         run: |
           melos run build:examples:bundle
 
@@ -82,21 +88,23 @@ jobs:
     continue-on-error: true
     timeout-minutes: 15
     steps:
-      - name: 'Git Checkout'
+      - name: "Git Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@refs/pull/79/head
-      - name: 'Install Tools'
+      - name: "Install Flutter"
+        uses: subosito/flutter-action
+        with:
+          flutter-version: "2.2.1"
+      - name: "Install Tools"
         run: flutter pub global activate melos
-      - name: 'Bootstrap Workspace'
+      - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: 'Flutter Test'
+      - name: "Flutter Test"
         run: |
           melos run test
         if: matrix.os != 'ubuntu-latest'
-      - name: 'Collect Coverage'
+      - name: "Collect Coverage"
         run: |
           melos run coverage
         if: matrix.os == 'ubuntu-latest'
@@ -116,27 +124,27 @@ jobs:
     continue-on-error: true
     timeout-minutes: 15
     steps:
-      - name: 'Git Checkout'
+      - name: "Git Checkout"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@refs/pull/79/head
+      - name: "Install Flutter"
+        uses: subosito/flutter-action
         with:
           channel: dev
-      - name: 'Install Tools'
+      - name: "Install Tools"
         run: |
           flutter pub global activate melos
           flutter config --enable-linux-desktop
-      - name: 'Setup Linux'
+      - name: "Setup Linux"
         run: |
           sudo apt update
           sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb clang-format
           sudo apt install -y network-manager upower
         if: matrix.os == 'ubuntu-latest'
-      - name: 'Bootstrap Workspace'
+      - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: 'Flutter Integration Test'
+      - name: "Flutter Integration Test"
         run: |
           melos run test:e2e:linux
         if: matrix.os == 'ubuntu-latest'
