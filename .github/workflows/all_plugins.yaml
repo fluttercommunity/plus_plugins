@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: "2.2.1"
       - name: "Install Tools"
@@ -43,7 +43,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: "2.2.1"
       - name: "Install Tools"
@@ -69,7 +69,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: "2.2.1"
       - name: "Install Tools"
@@ -93,7 +93,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: "2.2.1"
       - name: "Install Tools"
@@ -129,7 +129,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v1
         with:
           channel: dev
       - name: "Install Tools"
