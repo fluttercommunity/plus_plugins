@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Add cache buster to version.json
+
 ## 1.0.1
 
 - Improve documentation
