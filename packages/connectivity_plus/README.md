@@ -23,7 +23,7 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 Sample usage to check current status:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 var connectivityResult = await (Connectivity().checkConnectivity());
 if (connectivityResult == ConnectivityResult.mobile) {
@@ -41,7 +41,7 @@ You can also listen for network state changes by subscribing to the stream
 exposed by connectivity plugin:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 @override
 initState() {
