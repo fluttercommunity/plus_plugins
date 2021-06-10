@@ -54,7 +54,7 @@ class UPowerDevice extends DBusRemoteObject {
   }
 
   Stream<UPowerBatteryState> subscribeStateChanged() {
-    return subscribePropertiesChanged()
+    return propertiesChanged
         .where((event) => event.changedProperties.containsKey('State'))
         .map((event) => (event.changedProperties['State'] as DBusUint32)
             .value
