@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Update D-Bus package dependency
+
 ## 1.0.2
 
 - Update connectivity plus

@@ -2,7 +2,7 @@ name: connectivity_plus_linux
 description: Linux implementation of the connectivity_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 1.0.2
+version: 1.0.3
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
