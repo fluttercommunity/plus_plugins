@@ -29,8 +29,15 @@ void main() {
 
 class MockDevice implements UPowerDevice {
   @override
-  Future<DBusMethodResponse> callMethod(
-      String? interface, String member, List<DBusValue> values) async {
+  Future<DBusMethodSuccessResponse> callMethod(
+    String? interface,
+    String member,
+    Iterable<DBusValue> values, {
+    DBusSignature? replySignature,
+    bool noReplyExpected = false,
+    bool noAutoStart = false,
+    bool allowInteractiveAuthorization = false,
+  }) async {
     throw UnimplementedError();
   }
 
@@ -49,18 +56,16 @@ class MockDevice implements UPowerDevice {
   }
 
   @override
-  Future<Map<DBusObjectPath, Map<String, Map<String, DBusValue>>>>
-      getManagedObjects() {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<double> getPercentage() {
     return Future.value(56.78);
   }
 
   @override
-  Future<DBusValue> getProperty(String interface, String name) {
+  Future<DBusValue> getProperty(
+    String interface,
+    String name, {
+    DBusSignature? signature,
+  }) {
     throw UnimplementedError();
   }
 
@@ -83,17 +88,12 @@ class MockDevice implements UPowerDevice {
   }
 
   @override
-  Stream<DBusSignal> subscribeObjectManagerSignals() {
+  Stream<DBusPropertiesChangedSignal> get propertiesChanged {
     throw UnimplementedError();
   }
 
   @override
-  Stream<DBusPropertiesChangedSignal> subscribePropertiesChanged() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<DBusSignal> subscribeSignal(String interface, String member) {
+  set propertiesChanged(Stream<DBusPropertiesChangedSignal> propertiesChanged) {
     throw UnimplementedError();
   }
 
