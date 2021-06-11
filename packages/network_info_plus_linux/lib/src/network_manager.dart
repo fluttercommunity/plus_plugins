@@ -35,7 +35,7 @@ class NetworkManager extends DBusRemoteObject {
   }
 
   Stream<String> subscribeTypeChanged() {
-    return subscribePropertiesChanged()
+    return propertiesChanged
         .where((event) => event.changedProperties.containsKey(_kType))
         .map((event) => (event.changedProperties[_kType] as DBusString).value);
   }
