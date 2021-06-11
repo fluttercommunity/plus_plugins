@@ -7,14 +7,13 @@ package dev.fluttercommunity.plus.connectivity;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Build;
 
 /** Reports connectivity related information such as connectivity type and wifi information. */
-class Connectivity {
+public class Connectivity {
   private ConnectivityManager connectivityManager;
 
-  Connectivity(ConnectivityManager connectivityManager) {
+  public Connectivity(ConnectivityManager connectivityManager) {
     this.connectivityManager = connectivityManager;
   }
 
@@ -40,7 +39,7 @@ class Connectivity {
   @SuppressWarnings("deprecation")
   private String getNetworkTypeLegacy() {
     // handle type for Android versions less than Android 9
-    NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+    android.net.NetworkInfo info = connectivityManager.getActiveNetworkInfo();
     if (info == null || !info.isConnected()) {
       return "none";
     }
@@ -57,5 +56,9 @@ class Connectivity {
       default:
         return "none";
     }
+  }
+
+  public ConnectivityManager getConnectivityManager() {
+    return connectivityManager;
   }
 }

@@ -4,6 +4,9 @@
 
 [![pub package](https://img.shields.io/pub/v/connectivity_plus.svg)](https://pub.dev/packages/connectivity_plus)
 
+<p class="center">
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+</p>
 This plugin allows Flutter apps to discover network connectivity and configure
 themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
@@ -11,16 +14,16 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
-| :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
+| Android | iOS | MacOS | Web | Linux | Windows |
+| :-----: | :-: | :---: | :-: | :---: | :-----: |
+|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
 
 ## Usage
 
 Sample usage to check current status:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 var connectivityResult = await (Connectivity().checkConnectivity());
 if (connectivityResult == ConnectivityResult.mobile) {
@@ -38,7 +41,7 @@ You can also listen for network state changes by subscribing to the stream
 exposed by connectivity plugin:
 
 ```dart
-import 'package:connectivity_plus/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 @override
 initState() {
@@ -84,3 +87,5 @@ For help getting started with Flutter, view our online
 [documentation](https://flutter.dev/).
 
 For help on editing plugin code, view the [documentation](https://flutter.dev/platform-plugins/#edit-code).
+
+**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
