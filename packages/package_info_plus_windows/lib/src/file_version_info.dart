@@ -57,7 +57,7 @@ class _FileVersionInfo {
       [_GetUserDefaultLangID(), 1252],
     ];
 
-    var value;
+    String? value;
     final Pointer<IntPtr>? lplpBuffer = calloc<IntPtr>();
     final Pointer<Uint32>? puLen = calloc<Uint32>();
 
@@ -80,7 +80,7 @@ class _FileVersionInfo {
 
     calloc.free(lplpBuffer!);
     calloc.free(puLen!);
-    return value;
+    return value?.replaceFirst(RegExp(r'\u0000$'), '');
   }
 
   static _FileVersionInfoData _getData(String filePath) {
