@@ -151,7 +151,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
       }
 
       UIViewController *topViewController =
-        TopViewControllerForViewController(RootViewController());
+          TopViewControllerForViewController(RootViewController());
       [self shareText:shareText
                  subject:shareSubject
           withController:topViewController
@@ -180,7 +180,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
       }
 
       UIViewController *topViewController =
-        TopViewControllerForViewController(RootViewController());
+          TopViewControllerForViewController(RootViewController());
       [self shareFiles:paths
             withMimeType:mimeTypes
              withSubject:subject
