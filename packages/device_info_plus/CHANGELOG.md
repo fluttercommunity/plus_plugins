@@ -1,3 +1,7 @@
+## 2.0.0
+
+- WebBrowserInfo properties are now nullable
+
 ## 1.0.1
 
 - Improve documentation
