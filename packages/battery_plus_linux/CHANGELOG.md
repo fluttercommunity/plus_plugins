@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Upgrade D-Bus package dependency
+
 ## 1.0.1
 
 - Improve documentation

@@ -12,7 +12,7 @@ themselves accordingly.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
 |   ✔️    | ✔️  |  ✔️   | ➖  |  ✔️   |   ✔️   |
 

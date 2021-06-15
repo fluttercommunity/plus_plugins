@@ -12,7 +12,7 @@ A Flutter plugin to access various information about the battery of the device t
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Window |
+| Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
 |   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
 
