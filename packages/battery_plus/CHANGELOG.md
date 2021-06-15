@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Android: migrate to mavenCentral
+
 ## 1.0.1
 
 - Improve documentation

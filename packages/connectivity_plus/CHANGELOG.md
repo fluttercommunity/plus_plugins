@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Android: migrate to mavenCentral
+
 ## 1.0.2
 
 - Fix ios bug https://github.com/fluttercommunity/plus_plugins/issues/198

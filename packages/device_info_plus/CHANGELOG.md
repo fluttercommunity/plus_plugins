@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Android: migrate to mavenCentral
+
 ## 2.0.0
 
 - WebBrowserInfo properties are now nullable
