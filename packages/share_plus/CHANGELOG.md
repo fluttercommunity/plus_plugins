@@ -1,6 +1,10 @@
-## 2.1.3
+## 2.1.4
 
 - Android: migrate to mavenCentral
+
+# 2.1.3
+
+- Update iOS share target to present on the top ViewController. This fixes "Unable to present" errors when the app is already presenting such as in an add to app scenario.
 
 # 2.1.2
 
