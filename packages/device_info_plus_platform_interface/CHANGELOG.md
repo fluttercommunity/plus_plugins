@@ -1,6 +1,6 @@
-## 1.0.3
+## 2.0.0
 
-- Next properties of the WebBrowserInfo is defined as nullable: deviceMemory, platform, productSub, hardwareConcurrency, maxTouchPoints. 
+- WebBrowserInfo properties are now nullable
 
 ## 1.0.2
 
