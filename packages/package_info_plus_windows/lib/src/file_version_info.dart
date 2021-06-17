@@ -73,14 +73,14 @@ class _FileVersionInfo {
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
         final ptr = Pointer<Utf16>.fromAddress(lplpBuffer.value);
-        value = ptr.toDartString(length: puLen.value);
+        value = ptr.toDartString();
         break;
       }
     }
 
     calloc.free(lplpBuffer!);
     calloc.free(puLen!);
-    return value?.replaceFirst(RegExp(r'\u0000$'), '');
+    return value;
   }
 
   static _FileVersionInfoData _getData(String filePath) {
