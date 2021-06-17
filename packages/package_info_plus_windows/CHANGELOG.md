@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Remove trailing null characters
+
 ## 1.0.1
 
 - Improve documentation
