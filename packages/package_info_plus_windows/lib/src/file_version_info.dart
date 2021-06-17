@@ -57,7 +57,7 @@ class _FileVersionInfo {
       [_GetUserDefaultLangID(), 1252],
     ];
 
-    var value;
+    String? value;
     final Pointer<IntPtr>? lplpBuffer = calloc<IntPtr>();
     final Pointer<Uint32>? puLen = calloc<Uint32>();
 
@@ -73,7 +73,7 @@ class _FileVersionInfo {
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
         final ptr = Pointer<Utf16>.fromAddress(lplpBuffer.value);
-        value = ptr.toDartString(length: puLen.value);
+        value = ptr.toDartString();
         break;
       }
     }
