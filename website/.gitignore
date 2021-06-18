@@ -5,10 +5,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
-.docusaurus
+
 # Firebase cache
 .firebase/
-build
+.docusaurus
+
 # Firebase config
 
 # Uncomment this if you'd like others to create their own Firebase project.
@@ -63,3 +64,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Spell checker output
+spelling.json
