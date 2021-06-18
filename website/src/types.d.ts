@@ -6,7 +6,7 @@ declare module '*.scss' {
 }
 
 declare module '*.png' {
-  const image: any;
+  const image: JSX.Image;
   export default image;
 }
 

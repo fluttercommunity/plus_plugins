@@ -103,7 +103,7 @@ li.menu__list-item > a[target='_blank'] {
   position: relative;
 
   &:before {
-    content: url('/flutterfire/img/link-icon.svg');
+    content: '';
     position: absolute;
     right: 18px;
     top: 8px;

@@ -16,8 +16,8 @@ function getVersion(value: string) {
 
   const allMatches = value.match(regex);
 
-  allMatches?.forEach(matchString => {
-    let regexValue: RegExpExecArray | null = regex.exec(value);
+  allMatches?.forEach(() => {
+    const regexValue: RegExpExecArray | null = regex.exec(value);
     if (regexValue !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (regexValue.index === regex.lastIndex) {
