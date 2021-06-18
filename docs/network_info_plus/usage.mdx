@@ -11,9 +11,11 @@ You can get wi-fi related information using:
 ```dart
 import 'package:network_info_plus/network_info_plus.dart';
 
-var wifiBSSID = await (NetworkInfo().getWifiBSSID());
-var wifiIP = await (NetworkInfo().getWifiIP());network
-var wifiName = await (NetworkInfo().getWifiName());wifi network
+final info = NetworkInfo();
+
+var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
+var wifiIP = await info.getWifiIP(); // 192.168.1.1
+var wifiName = await info.getWifiName(); // FooNetwork
 ```
 ### Android
 
