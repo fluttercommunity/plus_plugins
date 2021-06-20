@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show lookupMimeType;
@@ -73,5 +74,29 @@ class MethodChannelShare extends SharePlatform {
 
   static String _mimeTypeForPath(String path) {
     return lookupMimeType(path) ?? 'application/octet-stream';
+  }
+
+  @override
+  Future<void> shareCrossFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    final mimeTypes = files.map((e) {
+      final mimeType = e.mimeType;
+      if (mimeType != null) {
+        return mimeType;
+      }
+      return _mimeTypeForPath(e.path);
+    }).toList();
+
+    return shareFiles(
+      files.map((e) => e.path).toList(),
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 }
