@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_linux/share_plus_linux.dart';
 import 'package:share_plus_windows/share_plus_windows.dart';
+import 'package:cross_file/cross_file.dart';
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -93,6 +94,33 @@ class Share {
     return _platform.shareFiles(
       paths,
       mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Summons the platform's share sheet to share multiple files.
+  ///
+  /// Wraps the platform's native share dialog. Can share a file.
+  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
+  /// on iOS.
+  ///
+  /// The optional `sharePositionOrigin` parameter can be used to specify a global
+  /// origin rect for the share sheet to popover from on iPads. It has no effect
+  /// on non-iPads.
+  ///
+  /// May throw [PlatformException] or [FormatException]
+  /// from [MethodChannel].
+  static Future<void> shareCrossFiles(
+    List<XFile> paths, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    assert(paths.isNotEmpty);
+    return _platform.shareCrossFiles(
+      paths,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,

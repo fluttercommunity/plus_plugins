@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_share.dart';
@@ -54,6 +55,21 @@ class SharePlatform extends PlatformInterface {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Share files.
+  Future<void> shareCrossFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    return _instance.shareCrossFiles(
+      files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,

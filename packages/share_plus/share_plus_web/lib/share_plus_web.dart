@@ -1,6 +1,7 @@
 import 'dart:html' as html;
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
@@ -61,6 +62,36 @@ class SharePlusPlugin extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
   }) {
-    throw UnimplementedError('shareFiles() has not been implemented on Web.');
+    final files = paths.map((e) => XFile(e)).toList();
+    return shareCrossFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Share files
+  @override
+  Future<void> shareCrossFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    // See https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+
+    await _navigator.share({
+      'files': await Future.wait(files.map(_fromXFile).toList()),
+      'title': subject,
+      'text': text,
+    });
+  }
+
+  Future<html.File> _fromXFile(XFile file) async {
+    return html.File(
+      await file.readAsBytes(),
+      file.name,
+    );
   }
 }
