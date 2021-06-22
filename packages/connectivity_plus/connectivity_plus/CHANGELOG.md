@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Android: Add explicit compiler version to avoid warnings
+
 ## 1.0.3
 
 - Android: migrate to mavenCentral
