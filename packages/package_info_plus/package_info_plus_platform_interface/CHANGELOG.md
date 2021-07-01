@@ -1,3 +1,6 @@
+## 1.0.2
+- Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
+
 ## 1.0.1
 
 - Improve documentation

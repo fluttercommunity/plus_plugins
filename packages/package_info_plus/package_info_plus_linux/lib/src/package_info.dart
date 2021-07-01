@@ -17,6 +17,7 @@ class PackageInfoLinux extends PackageInfoPlatform {
       version: versionJson['version'] ?? '',
       buildNumber: versionJson['build_number'] ?? '',
       packageName: '',
+      buildSignature: '',
     );
   }
 
