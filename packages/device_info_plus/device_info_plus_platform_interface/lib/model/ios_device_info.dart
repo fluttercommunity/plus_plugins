@@ -7,7 +7,7 @@
 /// See: https://developer.apple.com/documentation/uikit/uidevice
 class IosDeviceInfo {
   /// IOS device info class.
-  IosDeviceInfo({
+  const IosDeviceInfo({
     this.name,
     this.systemName,
     this.systemVersion,
@@ -56,12 +56,26 @@ class IosDeviceInfo {
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
   }
+
+  /// Serializes [ IosDeviceInfo ] to a map.
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'model': model,
+      'systemName': systemName,
+      'utsname': utsname._toMap(),
+      'systemVersion': systemVersion,
+      'localizedModel': localizedModel,
+      'identifierForVendor': identifierForVendor,
+      'isPhysicalDevice': isPhysicalDevice.toString(),
+    };
+  }
 }
 
 /// Information derived from `utsname`.
 /// See http://pubs.opengroup.org/onlinepubs/7908799/xsh/sysutsname.h.html for details.
 class IosUtsname {
-  IosUtsname._({
+  const IosUtsname._({
     this.sysname,
     this.nodename,
     this.release,
@@ -93,5 +107,16 @@ class IosUtsname {
       version: map['version'],
       machine: map['machine'],
     );
+  }
+
+  /// Serializes [ IosUtsname ] to map.
+  Map<String, dynamic> _toMap() {
+    return {
+      'release': release,
+      'version': version,
+      'machine': machine,
+      'sysname': sysname,
+      'nodename': nodename,
+    };
   }
 }
