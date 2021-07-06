@@ -25,11 +25,11 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus_platform_interface: ^2.0.0
-  device_info_plus_linux: ^2.0.0
-  device_info_plus_macos: ^2.0.0
-  device_info_plus_web: ^2.0.0
-  device_info_plus_windows: ^2.0.0
+  device_info_plus_platform_interface: ^2.1.0
+  device_info_plus_linux: ^2.1.0
+  device_info_plus_macos: ^2.1.0
+  device_info_plus_web: ^2.1.0
+  device_info_plus_windows: ^2.1.0
 
 dev_dependencies:
   test: ^1.16.4
