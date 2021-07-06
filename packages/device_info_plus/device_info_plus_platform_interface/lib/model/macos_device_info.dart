@@ -5,7 +5,7 @@
 /// Object encapsulating MACOS device information.
 class MacOsDeviceInfo {
   /// Constructs a MacOsDeviceInfo.
-  MacOsDeviceInfo({
+  const MacOsDeviceInfo({
     required this.computerName,
     required this.hostName,
     required this.arch,
@@ -47,6 +47,21 @@ class MacOsDeviceInfo {
 
   /// Device CPU Frequency
   final int cpuFrequency;
+
+  /// Serializes [ MacOsDeviceInfo ] to map.
+  Map<String, dynamic> toMap() {
+    return {
+      'arch': arch,
+      'model': model,
+      'hostName': hostName,
+      'osRelease': osRelease,
+      'activeCPUs': activeCPUs,
+      'memorySize': memorySize,
+      'cpuFrequency': cpuFrequency,
+      'computerName': computerName,
+      'kernelVersion': kernelVersion,
+    };
+  }
 
   /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
   static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {

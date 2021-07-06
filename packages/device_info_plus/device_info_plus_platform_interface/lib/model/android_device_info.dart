@@ -110,6 +110,33 @@ class AndroidDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String?> systemFeatures;
 
+  /// Serializes [ AndroidDeviceInfo ] to map.
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'host': host,
+      'tags': tags,
+      'type': type,
+      'model': model,
+      'board': board,
+      'brand': brand,
+      'device': device,
+      'product': product,
+      'display': display,
+      'hardware': hardware,
+      'androidId': androidId,
+      'bootloader': bootloader,
+      'version': version.toMap(),
+      'fingerprint': fingerprint,
+      'manufacturer': manufacturer,
+      'supportedAbis': supportedAbis,
+      'systemFeatures': systemFeatures,
+      'isPhysicalDevice': isPhysicalDevice,
+      'supported32BitAbis': supported32BitAbis,
+      'supported64BitAbis': supported64BitAbis,
+    };
+  }
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo(
@@ -150,7 +177,7 @@ class AndroidDeviceInfo {
 ///
 /// See: https://developer.android.com/reference/android/os/Build.VERSION.html
 class AndroidBuildVersion {
-  AndroidBuildVersion._({
+  const AndroidBuildVersion._({
     this.baseOS,
     this.codename,
     this.incremental,
@@ -182,6 +209,19 @@ class AndroidBuildVersion {
 
   /// The user-visible security patch level.
   final String? securityPatch;
+
+  /// Serializes [ AndroidBuildVersion ] to map.
+  Map<String, dynamic> toMap() {
+    return {
+      'baseOS': baseOS,
+      'sdkInt': sdkInt,
+      'release': release,
+      'codename': codename,
+      'incremental': incremental,
+      'previewSdkInt': previewSdkInt,
+      'securityPatch': securityPatch,
+    };
+  }
 
   /// Deserializes from the map message received from [_kChannel].
   static AndroidBuildVersion _fromMap(Map<String, dynamic> map) {
