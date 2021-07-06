@@ -1,3 +1,7 @@
+## 2.1.0
+
+- add toMap to models
+
 ## 2.0.0
 
 - WebBrowserInfo properties are now nullable
