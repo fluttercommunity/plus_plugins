@@ -18,10 +18,6 @@ rootProject.allprojects {
         google()
         mavenCentral()
     }
-
-    project.getTasks().withType(JavaCompile){
-        options.compilerArgs.addAll(args)
-    }
 }
 
 apply plugin: 'com.android.library'
