@@ -17,8 +17,8 @@ void main() {
     expect(batteryLevel, isNotNull);
   });
 
-
-  testWidgets('Can get if device is in power mode', (WidgetTester tester) async {
+  testWidgets('Can get if device is in power mode',
+      (WidgetTester tester) async {
     final battery = Battery();
     final isInBatterySaveMode = await battery.isInBatterySaveMode;
     print(isInBatterySaveMode);

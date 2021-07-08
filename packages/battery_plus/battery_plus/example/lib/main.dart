@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              child: const Icon(Icons.battery_unknown),
+              child: const Text('Get battery level'),
             ),
             ElevatedButton(
                 onPressed: () async {
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   showDialog<void>(
                     context: context,
                     builder: (_) => AlertDialog(
-                      content: Text('isOnPowerSaveMode: $isInPowerSaveMode'),
+                      content: Text('Is on low power mode: $isInPowerSaveMode'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   );
                 },
-                child: const Icon(Icons.power_settings_new_rounded))
+                child: const Text('Is on low power mode'))
           ],
         ),
       ),
