@@ -19,6 +19,8 @@ void main() {
         switch (methodCall.method) {
           case 'getBatteryLevel':
             return 100;
+          case 'isInBatterySaveMode':
+            return true;
           default:
             return null;
         }
@@ -56,6 +58,20 @@ void main() {
         <Matcher>[
           isMethodCall(
             'getBatteryLevel',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('isInBatterySaveMode', () async {
+      final result = await methodChannelBattery.isInBatterySaveMode;
+      expect(result, true);
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'isInBatterySaveMode',
             arguments: null,
           ),
         ],
