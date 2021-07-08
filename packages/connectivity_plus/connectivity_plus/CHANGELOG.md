@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Android: Fixed memory leak from registered receiver
+
 ## 1.0.4
 
 - Android: Add explicit compiler version to avoid warnings
