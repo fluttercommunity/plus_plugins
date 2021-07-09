@@ -16,6 +16,7 @@ public class ConnectivityPlugin implements FlutterPlugin {
 
   private MethodChannel methodChannel;
   private EventChannel eventChannel;
+  private ConnectivityBroadcastReceiver receiver;
 
   /** Plugin registration. */
   @SuppressWarnings("deprecation")
@@ -45,8 +46,7 @@ public class ConnectivityPlugin implements FlutterPlugin {
 
     ConnectivityMethodChannelHandler methodChannelHandler =
         new ConnectivityMethodChannelHandler(connectivity);
-    ConnectivityBroadcastReceiver receiver =
-        new ConnectivityBroadcastReceiver(context, connectivity);
+    receiver = new ConnectivityBroadcastReceiver(context, connectivity);
 
     methodChannel.setMethodCallHandler(methodChannelHandler);
     eventChannel.setStreamHandler(receiver);
@@ -55,7 +55,9 @@ public class ConnectivityPlugin implements FlutterPlugin {
   private void teardownChannels() {
     methodChannel.setMethodCallHandler(null);
     eventChannel.setStreamHandler(null);
+    receiver.onCancel(null);
     methodChannel = null;
     eventChannel = null;
+    receiver = null;
   }
 }
