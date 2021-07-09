@@ -48,9 +48,29 @@ abstract class NetworkInfoPlatform extends PlatformInterface {
     throw UnimplementedError('getWifiBSSID() has not been implemented.');
   }
 
-  /// Obtains the IP address of the connected wifi network
+  /// Obtains the IP v4 address of the connected wifi network
   Future<String?> getWifiIP() {
     throw UnimplementedError('getWifiIP() has not been implemented.');
+  }
+
+  /// Obtains the IP v6 address of the connected wifi network
+  Future<String?> getWifiIPv6() {
+    throw UnimplementedError('getWifiIPv6() has not been implemented.');
+  }
+
+  /// Obtains the submask IP address of the connected wifi network
+  Future<String?> getWifiSubmaskIP() {
+    throw UnimplementedError('getWifiSubmaskIP() has not been implemented.');
+  }
+
+  /// Obtains the gateway IP address of the connected wifi network
+  Future<String?> getWifiGatewayIP() {
+    throw UnimplementedError('getWifiGatewayIP() has not been implemented.');
+  }
+
+  /// Obtains the broadcast IP address of the connected wifi network
+  Future<String?> getWifiBroadcastIP() {
+    throw UnimplementedError('getWifiBroadcastIP() has not been implemented.');
   }
 
   /// Request to authorize the location service (Only on iOS).
