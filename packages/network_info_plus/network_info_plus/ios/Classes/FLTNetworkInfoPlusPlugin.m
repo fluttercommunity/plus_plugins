@@ -121,9 +121,9 @@
     result([self getWifiIP]);
   } else if ([call.method isEqualToString:@"wifiIPv6Address"]) {
     result([self getWifiIPv6]);
-  } else if ([call.method isEqualToString:@"wifiSubmaskAddress"]) {
+  } else if ([call.method isEqualToString:@"wifiSubmask"]) {
     result([self getWifiSubmask]);
-  } else if ([call.method isEqualToString:@"wifiBroadcastAddress"]) {
+  } else if ([call.method isEqualToString:@"wifiBroadcast"]) {
     result([self getWifiBroadcast]);
   } else if ([call.method isEqualToString:@"wifiGatewayAddress"]) {
     result([self getGatewayIP]);

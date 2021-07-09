@@ -44,8 +44,8 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   }
 
   @override
-  Future<String?> getWifiSubmaskIP() {
-    return methodChannel.invokeMethod<String>('wifiSubmaskAddress');
+  Future<String?> getWifiSubmask() {
+    return methodChannel.invokeMethod<String>('wifiSubmask');
   }
 
   @override
@@ -54,8 +54,8 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   }
 
   @override
-  Future<String?> getWifiBroadcastIP() {
-    return methodChannel.invokeMethod<String>('wifiBroadcastAddress');
+  Future<String?> getWifiBroadcast() {
+    return methodChannel.invokeMethod<String>('wifiBroadcast');
   }
 
   @override
