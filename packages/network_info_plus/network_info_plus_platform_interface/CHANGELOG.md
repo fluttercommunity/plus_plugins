@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Adding IPv6 information
+- Adding gateway ip address information
+- Adding broadcast information
+- Adding subnet mask information
+
 ## 1.0.1
 
 - Improve documentation
