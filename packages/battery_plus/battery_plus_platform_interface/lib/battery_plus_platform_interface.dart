@@ -42,6 +42,11 @@ abstract class BatteryPlatform extends PlatformInterface {
     throw UnimplementedError('batteryLevel() has not been implemented.');
   }
 
+  /// Returns true if the device is on battery save mode
+  Future<bool> get isInBatterySaveMode {
+    throw UnimplementedError('isInBatterySaveMode() has not been implemented.');
+  }
+
   /// Returns a Stream of BatteryState changes.
   Stream<BatteryState> get onBatteryStateChanged {
     throw UnimplementedError(

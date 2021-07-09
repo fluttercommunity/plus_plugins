@@ -16,6 +16,7 @@ class SystemBattery {
   SystemBattery();
   ~SystemBattery();
 
+  int GetBatterySaveMode() const;
   int GetLevel() const;
 
   BatteryStatus GetStatus() const;

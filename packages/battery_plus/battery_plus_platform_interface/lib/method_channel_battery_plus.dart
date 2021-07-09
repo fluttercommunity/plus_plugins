@@ -31,6 +31,12 @@ class MethodChannelBattery extends BatteryPlatform {
       .invokeMethod<int>('getBatteryLevel')
       .then<int>((dynamic result) => result);
 
+  /// Returns true if the device is on battery save mode
+  @override
+  Future<bool> get isInBatterySaveMode => methodChannel
+      .invokeMethod<bool>('isInBatterySaveMode')
+      .then<bool>((dynamic result) => result);
+
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {

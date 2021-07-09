@@ -35,6 +35,8 @@
     } else {
       result(@(batteryLevel));
     }
+  } else if ([@"isInBatterySaveMode" isEqualToString:call.method]) {
+    result(@([[NSProcessInfo processInfo] isLowPowerModeEnabled]));
   } else {
     result(FlutterMethodNotImplemented);
   }

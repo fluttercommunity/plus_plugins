@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Android, iOS, Windows : add getter for power save mode state
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

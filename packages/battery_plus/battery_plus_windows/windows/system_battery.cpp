@@ -36,6 +36,14 @@ SystemBattery::SystemBattery() {}
 
 SystemBattery::~SystemBattery() { StopListen(); }
 
+int SystemBattery::GetBatterySaveMode() const {
+  SYSTEM_POWER_STATUS status;
+  if (!GetBatteryStatus(&status)) {
+    return -1;
+  }
+  return status.SystemStatusFlag;
+}
+
 int SystemBattery::GetLevel() const {
   SYSTEM_POWER_STATUS status;
   if (!GetBatteryStatus(&status) || !IsValidBatteryStatus(&status)) {
