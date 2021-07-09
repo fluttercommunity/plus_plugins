@@ -24,6 +24,7 @@ class PackageInfo {
     required this.packageName,
     required this.version,
     required this.buildNumber,
+    required this.buildSignature,
   });
 
   /// Disables the platform override in order to use a manually registered
@@ -69,6 +70,7 @@ class PackageInfo {
       packageName: platformData.packageName,
       version: platformData.version,
       buildNumber: platformData.buildNumber,
+      buildSignature: platformData.buildSignature,
     );
     return _fromPlatform!;
   }
@@ -85,6 +87,9 @@ class PackageInfo {
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
 
+  /// The build signature. Empty string on iOS, signing key signature (hex) on Android.
+  final String buildSignature;
+
   /// Initializes the application metadata with mock values for testing.
   ///
   /// If the singleton instance has been initialized already, it is overwritten.
@@ -94,11 +99,14 @@ class PackageInfo {
     required String packageName,
     required String version,
     required String buildNumber,
+    required String buildSignature,
   }) {
     _fromPlatform = PackageInfo(
-        appName: appName,
-        packageName: packageName,
-        version: version,
-        buildNumber: buildNumber);
+      appName: appName,
+      packageName: packageName,
+      version: version,
+      buildNumber: buildNumber,
+      buildSignature: buildSignature,
+    );
   }
 }

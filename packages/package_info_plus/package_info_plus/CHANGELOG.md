@@ -1,3 +1,6 @@
+## 1.0.4
+- Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
+
 ## 1.0.3
 
 - Android: migrate to mavenCentral
