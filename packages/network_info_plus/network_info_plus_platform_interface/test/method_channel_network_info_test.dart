@@ -130,7 +130,7 @@ void main() {
       );
     });
 
-    test('getWifiSubmaskIP', () async {
+    test('getWifiSubmask', () async {
       final result = await methodChannelNetworkInfo.getWifiSubmask();
       expect(result, '255.255.255.0');
       expect(
