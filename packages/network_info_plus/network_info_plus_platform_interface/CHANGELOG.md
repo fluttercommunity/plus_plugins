@@ -1,9 +1,9 @@
 ## 1.1.0
 
-- Adding IPv6 information
-- Adding gateway ip address information
-- Adding broadcast information
-- Adding subnet mask information
+- Adding IPv6 method channel
+- Adding gateway ip address method channel
+- Adding broadcast method channel
+- Adding subnet mask method channel
 
 ## 1.0.1
 
