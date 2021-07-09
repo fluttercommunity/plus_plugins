@@ -1,6 +1,7 @@
 ## 1.0.5
 
-- Android: Fixed memory leak from registered receiver
+- Android: Fix memory leak from registered receiver
+- Android: Fix gradle crash due to previous update in version 1.0.4
 
 ## 1.0.4
 
