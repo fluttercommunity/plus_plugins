@@ -27,6 +27,14 @@ void main() {
             return 'c0:ff:33:c0:d3:55';
           case 'wifiIPAddress':
             return '127.0.0.1';
+          case 'wifiIPv6Address':
+            return '2002:7f00:0001:0:0:0:0:0';
+          case 'wifiBroadcast':
+            return '127.0.0.255';
+          case 'wifiGatewayAddress':
+            return '127.0.0.0';
+          case 'wifiSubmask':
+            return '255.255.255.0';
           case 'requestLocationServiceAuthorization':
             return 'authorizedAlways';
           case 'getLocationServiceAuthorization':
@@ -74,6 +82,62 @@ void main() {
         <Matcher>[
           isMethodCall(
             'wifiIPAddress',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getWifiIPv6', () async {
+      final result = await methodChannelNetworkInfo.getWifiIPv6();
+      expect(result, '2002:7f00:0001:0:0:0:0:0');
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'wifiIPv6Address',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getWifiBroadcast', () async {
+      final result = await methodChannelNetworkInfo.getWifiBroadcast();
+      expect(result, '127.0.0.255');
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'wifiBroadcast',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getWifiGatewayIP', () async {
+      final result = await methodChannelNetworkInfo.getWifiGatewayIP();
+      expect(result, '127.0.0.0');
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'wifiGatewayAddress',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getWifiSubmask', () async {
+      final result = await methodChannelNetworkInfo.getWifiSubmask();
+      expect(result, '255.255.255.0');
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'wifiSubmask',
             arguments: null,
           ),
         ],

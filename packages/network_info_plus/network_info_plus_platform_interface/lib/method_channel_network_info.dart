@@ -39,6 +39,26 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   }
 
   @override
+  Future<String?> getWifiIPv6() {
+    return methodChannel.invokeMethod<String>('wifiIPv6Address');
+  }
+
+  @override
+  Future<String?> getWifiSubmask() {
+    return methodChannel.invokeMethod<String>('wifiSubmask');
+  }
+
+  @override
+  Future<String?> getWifiGatewayIP() {
+    return methodChannel.invokeMethod<String>('wifiGatewayAddress');
+  }
+
+  @override
+  Future<String?> getWifiBroadcast() {
+    return methodChannel.invokeMethod<String>('wifiBroadcast');
+  }
+
+  @override
   Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
     bool requestAlwaysLocationUsage = false,
   }) {

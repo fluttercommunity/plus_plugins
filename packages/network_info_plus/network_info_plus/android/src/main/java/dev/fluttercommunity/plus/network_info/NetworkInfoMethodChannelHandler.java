@@ -37,6 +37,18 @@ class NetworkInfoMethodChannelHandler implements MethodChannel.MethodCallHandler
       case "wifiIPAddress":
         result.success(networkInfo.getWifiIPAddress());
         break;
+      case "wifiBroadcast":
+        result.success(networkInfo.getBroadcast());
+        break;
+      case "wifiSubmask":
+        result.success(networkInfo.getWifiSubnetMask());
+        break;
+      case "wifiGatewayAddress":
+        result.success(networkInfo.getGatewayIpAdress());
+        break;
+      case "wifiIPv6Address":
+        result.success(networkInfo.getIpV6());
+        break;
       default:
         result.notImplemented();
         break;
