@@ -7,19 +7,14 @@ package dev.fluttercommunity.plus.network_info;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
 import java.util.List;
 
-/**
- * Reports network info such as wifi name and address.
- */
+/** Reports network info such as wifi name and address. */
 class NetworkInfo {
   private WifiManager wifiManager;
 
@@ -53,9 +48,9 @@ class NetworkInfo {
 
     if (i_ip != 0)
       ip =
-        String.format(
-          "%d.%d.%d.%d",
-          (i_ip & 0xff), (i_ip >> 8 & 0xff), (i_ip >> 16 & 0xff), (i_ip >> 24 & 0xff));
+          String.format(
+              "%d.%d.%d.%d",
+              (i_ip & 0xff), (i_ip >> 8 & 0xff), (i_ip >> 16 & 0xff), (i_ip >> 24 & 0xff));
 
     return ip;
   }
@@ -108,16 +103,15 @@ class NetworkInfo {
   String getGatewayIpAdress() {
     DhcpInfo dhcpInfo = this.wifiManager.getDhcpInfo();
     int gatewayIPInt = dhcpInfo.gateway;
-    String gatewayIP = String.format(
-      "%d.%d.%d.%d",
-      ((gatewayIPInt) & 0xFF),
-      ((gatewayIPInt >> 8) & 0xFF),
-      ((gatewayIPInt >> 16) & 0xFF),
-      ((gatewayIPInt >> 24) & 0xFF)
-    );
+    String gatewayIP =
+        String.format(
+            "%d.%d.%d.%d",
+            ((gatewayIPInt) & 0xFF),
+            ((gatewayIPInt >> 8) & 0xFF),
+            ((gatewayIPInt >> 16) & 0xFF),
+            ((gatewayIPInt >> 24) & 0xFF));
     return gatewayIP;
   }
-
 
   private WifiInfo getWifiInfo() {
     return wifiManager == null ? null : wifiManager.getConnectionInfo();
@@ -137,18 +131,23 @@ class NetworkInfo {
     return "";
   }
 
-
   private InetAddress getIPv4SubnetFromNetPrefixLength(int netPrefixLength) {
     try {
       int shift = (1 << 31);
       for (int i = netPrefixLength - 1; i > 0; i--) {
         shift = (shift >> 1);
       }
-      String subnet = ((shift >> 24) & 255) + "." + ((shift >> 16) & 255) + "." + ((shift >> 8) & 255) + "." + (shift & 255);
+      String subnet =
+          ((shift >> 24) & 255)
+              + "."
+              + ((shift >> 16) & 255)
+              + "."
+              + ((shift >> 8) & 255)
+              + "."
+              + (shift & 255);
       return InetAddress.getByName(subnet);
     } catch (Exception e) {
     }
     return null;
   }
-
 }

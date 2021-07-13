@@ -44,8 +44,8 @@
 - (NSString*)getGatewayIP {
   struct in_addr gatewayAddr;
   int gatewayAdressResult = getDefaultGateway(&(gatewayAddr.s_addr));
-  if(gatewayAdressResult >= 0) {
-      return [NSString stringWithFormat: @"%s",inet_ntoa(gatewayAddr)];
+  if (gatewayAdressResult >= 0) {
+    return [NSString stringWithFormat:@"%s", inet_ntoa(gatewayAddr)];
   } else {
     return @"error";
   }
@@ -54,7 +54,8 @@
 - (NSString*)getWifiIP {
   struct ifaddrs* temp_addr = [self getWifiInterfaceIPv4];
   if (temp_addr) {
-    return [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_addr)->sin_addr)];
+    return [NSString
+        stringWithUTF8String:inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_addr)->sin_addr)];
   } else {
     return @"error";
   }
@@ -63,9 +64,10 @@
 - (NSString*)getWifiIPv6 {
   struct ifaddrs* temp_addr = [self getWifiInterfaceIPv6];
   if (temp_addr) {
-    char ipv6AddressBuffer[ MAX(INET_ADDRSTRLEN, INET6_ADDRSTRLEN) ];
-    const struct sockaddr_in6 *addr6 = (const struct sockaddr_in6*)temp_addr->ifa_addr;
-    return [NSString stringWithUTF8String:inet_ntop(AF_INET6, &addr6->sin6_addr, ipv6AddressBuffer, INET6_ADDRSTRLEN)];
+    char ipv6AddressBuffer[MAX(INET_ADDRSTRLEN, INET6_ADDRSTRLEN)];
+    const struct sockaddr_in6* addr6 = (const struct sockaddr_in6*)temp_addr->ifa_addr;
+    return [NSString stringWithUTF8String:inet_ntop(AF_INET6, &addr6->sin6_addr, ipv6AddressBuffer,
+                                                    INET6_ADDRSTRLEN)];
   } else {
     return @"error";
   }
@@ -74,7 +76,8 @@
 - (NSString*)getWifiSubmask {
   struct ifaddrs* temp_addr = [self getWifiInterfaceIPv4];
   if (temp_addr) {
-    return [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_netmask)->sin_addr)];
+    return [NSString
+        stringWithUTF8String:inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_netmask)->sin_addr)];
   } else {
     return @"error";
   }
@@ -83,7 +86,8 @@
 - (NSString*)getWifiBroadcast {
   struct ifaddrs* temp_addr = [self getWifiInterfaceIPv4];
   if (temp_addr) {
-    return [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_dstaddr)->sin_addr)];
+    return [NSString
+        stringWithUTF8String:inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_dstaddr)->sin_addr)];
   } else {
     return @"error";
   }
@@ -187,13 +191,13 @@
     temp_addr = interfaces;
     while (temp_addr != NULL) {
       if (temp_addr->ifa_addr->sa_family == AF_INET || temp_addr->ifa_addr->sa_family == AF_INET6) {
-          // en0 is the wifi connection on iOS
-          if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-            if (temp_addr->ifa_addr->sa_family == family) {
-              wifi_addr = temp_addr;
-            } else if (temp_addr->ifa_addr->sa_family == family) {
-              wifi_addr = temp_addr;
-            }
+        // en0 is the wifi connection on iOS
+        if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+          if (temp_addr->ifa_addr->sa_family == family) {
+            wifi_addr = temp_addr;
+          } else if (temp_addr->ifa_addr->sa_family == family) {
+            wifi_addr = temp_addr;
+          }
         }
       }
 
