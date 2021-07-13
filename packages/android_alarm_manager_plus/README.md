@@ -48,7 +48,7 @@ Then in Dart code add:
 ```dart
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
-void printHello() {
+static void printHello() {
   final DateTime now = DateTime.now();
   final int isolateId = Isolate.current.hashCode;
   print("[$now] Hello, world! isolate=${isolateId} function='$printHello'");
