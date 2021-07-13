@@ -29,11 +29,11 @@ void main() {
             return '127.0.0.1';
           case 'wifiIPv6Address':
             return '2002:7f00:0001:0:0:0:0:0';
-          case 'wifiBroadcastAddress':
+          case 'wifiBroadcast':
             return '127.0.0.255';
           case 'wifiGatewayAddress':
             return '127.0.0.0';
-          case 'wifiSubmaskAddress':
+          case 'wifiSubmask':
             return '255.255.255.0';
           case 'requestLocationServiceAuthorization':
             return 'authorizedAlways';
@@ -102,14 +102,14 @@ void main() {
       );
     });
 
-    test('getWifiBroadcastIP', () async {
-      final result = await methodChannelNetworkInfo.getWifiBroadcastIP();
+    test('getWifiBroadcast', () async {
+      final result = await methodChannelNetworkInfo.getWifiBroadcast();
       expect(result, '127.0.0.255');
       expect(
         log,
         <Matcher>[
           isMethodCall(
-            'wifiBroadcastAddress',
+            'wifiBroadcast',
             arguments: null,
           ),
         ],
@@ -130,14 +130,14 @@ void main() {
       );
     });
 
-    test('getWifiSubmaskIP', () async {
-      final result = await methodChannelNetworkInfo.getWifiSubmaskIP();
+    test('getWifiSubmask', () async {
+      final result = await methodChannelNetworkInfo.getWifiSubmask();
       expect(result, '255.255.255.0');
       expect(
         log,
         <Matcher>[
           isMethodCall(
-            'wifiSubmaskAddress',
+            'wifiSubmask',
             arguments: null,
           ),
         ],

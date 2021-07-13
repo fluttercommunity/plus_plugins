@@ -81,9 +81,9 @@ class NetworkInfo {
     return _platform.getWifiIPv6();
   }
 
-  /// Obtains the submask IP address of the connected wifi network
-  Future<String?> getWifiSubmaskIP() {
-    return _platform.getWifiSubmaskIP();
+  /// Obtains the submask of the connected wifi network
+  Future<String?> getWifiSubmask() {
+    return _platform.getWifiSubmask();
   }
 
   /// Obtains the gateway IP address of the connected wifi network
@@ -91,9 +91,9 @@ class NetworkInfo {
     return _platform.getWifiGatewayIP();
   }
 
-  /// Obtains the broadcast IP address of the connected wifi network
-  Future<String?> getWifiBroadcastIP() {
-    return _platform.getWifiBroadcastIP();
+  /// Obtains the broadcast of the connected wifi network
+  Future<String?> getWifiBroadcast() {
+    return _platform.getWifiBroadcast();
   }
 
   /// Request to authorize the location service (Only on iOS).

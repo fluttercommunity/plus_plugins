@@ -74,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiIPv4,
         wifiIPv6,
         wifiGatewayIP,
-        wifiBroadcastIP,
-        wifiSubmaskIP;
+        wifiBroadcast,
+        wifiSubmask;
 
     try {
       if (!kIsWeb && Platform.isIOS) {
@@ -132,17 +132,17 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      wifiSubmaskIP = await _networkInfo.getWifiSubmaskIP();
+      wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
       print(e.toString());
-      wifiSubmaskIP = 'Failed to get Wifi submask address';
+      wifiSubmask = 'Failed to get Wifi submask address';
     }
 
     try {
-      wifiBroadcastIP = await _networkInfo.getWifiBroadcastIP();
+      wifiBroadcast = await _networkInfo.getWifiBroadcast();
     } on PlatformException catch (e) {
       print(e.toString());
-      wifiBroadcastIP = 'Failed to get Wifi broadcast address';
+      wifiBroadcast = 'Failed to get Wifi broadcast';
     }
 
     try {
@@ -153,10 +153,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      wifiSubmaskIP = await _networkInfo.getWifiSubmaskIP();
+      wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
       print(e.toString());
-      wifiSubmaskIP = 'Failed to get Wifi submask address';
+      wifiSubmask = 'Failed to get Wifi submask';
     }
 
     setState(() {
@@ -164,9 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
           'Wifi BSSID: $wifiBSSID\n'
           'Wifi IPv4: $wifiIPv4\n'
           'Wifi IPv6: $wifiIPv6\n'
-          'Wifi Broadcast: $wifiBroadcastIP\n'
+          'Wifi Broadcast: $wifiBroadcast\n'
           'Wifi Gateway: $wifiGatewayIP\n'
-          'Wifi Submask: $wifiSubmaskIP\n';
+          'Wifi Submask: $wifiSubmask\n';
     });
   }
 }
