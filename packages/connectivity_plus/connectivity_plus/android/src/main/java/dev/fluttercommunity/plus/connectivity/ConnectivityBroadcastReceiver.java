@@ -67,7 +67,11 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
         networkCallback = null;
       }
     } else {
-      context.unregisterReceiver(this);
+      try {
+        context.unregisterReceiver(this);
+      } catch (Exception e) {
+        //listen never called, ignore the error
+      }
     }
   }
 

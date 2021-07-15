@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Android: Fix unregisterReceiver call for API < N
+
 ## 1.0.5
 
 - Android: Fix memory leak from registered receiver
