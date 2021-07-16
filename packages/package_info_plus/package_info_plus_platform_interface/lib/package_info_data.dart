@@ -8,6 +8,7 @@ class PackageInfoData {
     required this.packageName,
     required this.version,
     required this.buildNumber,
+    required this.buildSignature,
   });
 
   /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
@@ -21,4 +22,7 @@ class PackageInfoData {
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
+
+  /// The build signature. Contains the signing key signature (hex) on Android and empty string on everything else.
+  final String buildSignature;
 }
