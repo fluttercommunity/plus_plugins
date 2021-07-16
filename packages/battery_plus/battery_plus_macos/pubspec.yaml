@@ -2,14 +2,14 @@ name: battery_plus_macos
 description: An implementation for the macos platform of the Flutter `battery_plus` plugin.
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 1.0.1
+version: 1.0.2
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.20.0"
 
 dependencies:
-  battery_plus_platform_interface: ^1.0.0
+  battery_plus_platform_interface: ^1.1.0
   flutter:
     sdk: flutter
 

@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Upgrade battery_plus_platform_interface dependency
+
 ## 1.0.1
 
 - Improve documentation

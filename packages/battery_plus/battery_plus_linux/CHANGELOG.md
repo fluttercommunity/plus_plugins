@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Upgrade battery_plus_platform_interface dependency
+
 ## 1.0.2
 
 - Upgrade D-Bus package dependency
