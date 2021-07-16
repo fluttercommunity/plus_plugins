@@ -10,8 +10,11 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.PowerManager;
+import android.provider.Settings;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -22,6 +25,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
+import java.util.Locale;
 
 /** BatteryPlusPlugin */
 public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, FlutterPlugin {
@@ -30,6 +34,10 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   private BroadcastReceiver chargingStateChangeReceiver;
   private MethodChannel methodChannel;
   private EventChannel eventChannel;
+
+  public static final String POWER_SAVE_MODE_SAMSUNG = "1";
+  private static final int POWER_SAVE_MODE_XIAOMI = 1;
+  private static final int POWER_SAVE_MODE_HUAWEI = 4;
 
   /** Plugin registration. */
   public static void registerWith(PluginRegistry.Registrar registrar) {
@@ -69,6 +77,14 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
       } else {
         result.error("UNAVAILABLE", "Battery level not available.", null);
       }
+    } else if (call.method.equals("isInBatterySaveMode")) {
+      Boolean isInPowerSaveMode = this.isInPowerSaveMode();
+
+      if (isInPowerSaveMode != null) {
+        result.success(isInPowerSaveMode);
+      } else {
+        result.error("UNAVAILABLE", "Battery save mode not available.", null);
+      }
     } else {
       result.notImplemented();
     }
@@ -104,6 +120,54 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     }
 
     return batteryLevel;
+  }
+
+  private Boolean isInPowerSaveMode() {
+    String manufacturer = Build.MANUFACTURER.toLowerCase(Locale.getDefault());
+    if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      switch (manufacturer) {
+        case "xiaomi":
+          {
+            return getPowerSaveModeForXiaomi();
+          }
+        case "huawei":
+          {
+            return getPowerSaveModeHuawei();
+          }
+        case "samsung":
+          {
+            return getPowerSaveModeSamsung();
+          }
+        default:
+          PowerManager powerManager =
+              (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
+          return powerManager.isPowerSaveMode();
+      }
+    }
+    return null;
+  }
+
+  private boolean getPowerSaveModeSamsung() {
+    String mode = Settings.System.getString(applicationContext.getContentResolver(), "psm_switch");
+    return (mode.equals(POWER_SAVE_MODE_SAMSUNG));
+  }
+
+  private Boolean getPowerSaveModeHuawei() {
+    int mode =
+        Settings.System.getInt(applicationContext.getContentResolver(), "SmartModeStatus", -1);
+    if (mode != -1) {
+      return (mode == POWER_SAVE_MODE_HUAWEI);
+    }
+    return null;
+  }
+
+  private Boolean getPowerSaveModeForXiaomi() {
+    int mode =
+        Settings.System.getInt(applicationContext.getContentResolver(), "POWER_SAVE_MODE_OPEN", -1);
+    if (mode != -1) {
+      return (mode == POWER_SAVE_MODE_XIAOMI);
+    }
+    return null;
   }
 
   private int getBatteryProperty(int property) {

@@ -137,7 +137,17 @@ BatteryStatusStreamHandler::OnCancelInternal(
 
 void BatteryPlusWindowsPlugin::HandleMethodCall(
     const FlMethodCall &method_call, std::unique_ptr<FlMethodResult> result) {
-  if (method_call.method_name().compare("getBatteryLevel") == 0) {
+  if (method_call.method_name().compare("isInBatterySaveMode") == 0) {
+    SystemBattery battery;
+    int batteryStatus = battery.GetBatterySaveMode();
+    if (batteryStatus == 0 || batteryStatus == 1) {
+      bool isBatteryMode = batteryStatus == 1;
+      result->Success(flutter::EncodableValue(isBatteryMode));
+    } else {
+      result->Error(std::to_string(battery.GetError()),
+                    battery.GetErrorString());
+    }
+  } else if (method_call.method_name().compare("getBatteryLevel") == 0) {
     SystemBattery battery;
     int level = battery.GetLevel();
     if (level >= 0) {
