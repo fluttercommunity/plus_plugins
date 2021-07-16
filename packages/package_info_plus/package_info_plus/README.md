@@ -32,17 +32,6 @@ String version = packageInfo.version;
 String buildNumber = packageInfo.buildNumber;
 ```
 
-Or in async mode:
-
-```dart
-PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-  String appName = packageInfo.appName;
-  String packageName = packageInfo.packageName;
-  String version = packageInfo.version;
-  String buildNumber = packageInfo.buildNumber;
-});
-```
-
 ## Known Issues
 
 ### iOS
