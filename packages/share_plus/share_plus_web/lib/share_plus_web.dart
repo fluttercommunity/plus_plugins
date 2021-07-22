@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:html' as html;
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
@@ -62,9 +64,11 @@ class SharePlusPlugin extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
   }) {
-    final files = paths.map((e) => XFile(e)).toList();
+    final text = 'Hello world!';
+    final bytes = utf8.encode(text);
+    final byteList = Uint8List.fromList(bytes);
     return shareCrossFiles(
-      files,
+      [XFile.fromData(byteList, mimeType: 'text/plain', name: 'hello.txt')],
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,

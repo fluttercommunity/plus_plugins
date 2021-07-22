@@ -11,6 +11,7 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:share_plus_linux/share_plus_linux.dart';
 import 'package:share_plus_windows/share_plus_windows.dart';
 import 'package:cross_file/cross_file.dart';
+export 'package:cross_file/cross_file.dart';
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -113,14 +114,14 @@ class Share {
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
   static Future<void> shareCrossFiles(
-    List<XFile> paths, {
+    List<XFile> files, {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
   }) {
-    assert(paths.isNotEmpty);
+    assert(files.isNotEmpty);
     return _platform.shareCrossFiles(
-      paths,
+      files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
