@@ -125,20 +125,36 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         // task.
         PeriodicRequest periodicRequest = PeriodicRequest.fromJson((JSONArray) arguments);
         AlarmService.setPeriodic(context, periodicRequest);
+        ScheduledAlarmsList.addToScheduledAlarmsList(
+          ScheduledAlarmsList.toJson(periodicRequest),
+          context
+        );
         result.success(true);
       } else if (method.equals("Alarm.oneShotAt")) {
         // This message indicates that the Flutter app would like to schedule a one-time
         // task.
         OneShotRequest oneShotRequest = OneShotRequest.fromJson((JSONArray) arguments);
         AlarmService.setOneShot(context, oneShotRequest);
+        ScheduledAlarmsList.addToScheduledAlarmsList(
+          ScheduledAlarmsList.toJson(oneShotRequest),
+          context
+        );
         result.success(true);
       } else if (method.equals("Alarm.cancel")) {
         // This message indicates that the Flutter app would like to cancel a previously
         // scheduled task.
         int requestCode = ((JSONArray) arguments).getInt(0);
         AlarmService.cancel(context, requestCode);
+        // A periodic alarm is not automatically removed when it triggers once, it needs to be
+        // cancelled manually. We need to remove that periodic alarm from list of scheduled alarms
+        // as well.
+        ScheduledAlarmsList.removeFromScheduledAlarmsList(requestCode,context, false);
         result.success(true);
-      } else {
+      } else if(method.equals("Alarm.scheduledAlarms")){
+        // Returns a json array of alarm info, converted to string.
+        result.success(ScheduledAlarmsList.getScheduledAlarms(context));
+      }
+      else {
         result.notImplemented();
       }
     } catch (JSONException e) {
