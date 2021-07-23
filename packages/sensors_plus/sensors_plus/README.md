@@ -9,7 +9,7 @@
 </p>
 A Flutter plugin to access the accelerometer and gyroscope sensors.
 
-## Platfrom Support
+## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
