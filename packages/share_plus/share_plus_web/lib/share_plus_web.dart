@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:html' as html;
+import 'dart:html';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -16,7 +17,7 @@ class SharePlusPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusPlugin();
   }
 
-  final _navigator;
+  final Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
   SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
@@ -85,17 +86,29 @@ class SharePlusPlugin extends SharePlatform {
   }) async {
     // See https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 
-    await _navigator.share({
-      'files': await Future.wait(files.map(_fromXFile).toList()),
-      'title': subject,
-      'text': text,
-    });
+    final webfiles = [];
+    for (final xFile in files) {
+      webfiles.add(await _fromXFile(xFile));
+    }
+    try {
+      await _navigator.share({
+        if (webfiles.isNotEmpty) 'files': webfiles,
+        'title': subject,
+        'text': text,
+      });
+    } catch (_) {
+      // fall back to save the file, if file sharing is not available
+      for (final xFile in files) {
+        // on web the path is ignored
+        await xFile.saveTo('path');
+      }
+    }
   }
 
-  Future<html.File> _fromXFile(XFile file) async {
-    return html.File(
+  static Future<html.Blob> _fromXFile(XFile file) async {
+    return html.Blob(
       await file.readAsBytes(),
-      file.name,
+      file.mimeType,
     );
   }
 }
