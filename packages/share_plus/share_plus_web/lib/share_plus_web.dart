@@ -76,7 +76,14 @@ class SharePlusPlugin extends SharePlatform {
     );
   }
 
-  /// Share files
+  /// Share files.
+  ///
+  /// Remarks for the web implementation:
+  /// This uses the [Web Share API](https://web.dev/web-share/) if it's
+  /// available. Otherwise it falls back to downloading the shared files.
+  /// See [Can I Use - Web Share API](https://caniuse.com/web-share) to
+  /// understand which browsers are supported. This builds on the
+  /// [`cross_file`](https://pub.dev/packages/cross_file) package.
   @override
   Future<void> shareCrossFiles(
     List<XFile> files, {
