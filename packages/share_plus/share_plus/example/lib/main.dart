@@ -95,7 +95,11 @@ class DemoAppState extends State<DemoApp> {
                     final bytes = utf8.encode(text);
                     await Share.shareCrossFiles(
                       [
-                        XFile.fromData(Uint8List.fromList(bytes)),
+                        XFile.fromData(
+                          Uint8List.fromList(bytes),
+                          mimeType: 'text/plain',
+                          name: 'hello.txt',
+                        )
                       ],
                     );
                   },
