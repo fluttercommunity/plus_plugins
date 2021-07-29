@@ -24,9 +24,11 @@ public class Connectivity {
       if (capabilities == null) {
         return "none";
       }
-      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-          || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
         return "wifi";
+      }
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+        return "ethernet";
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         return "mobile";
