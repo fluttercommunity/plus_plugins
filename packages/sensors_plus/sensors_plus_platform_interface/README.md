@@ -8,5 +8,5 @@ A common platform interface for [`sensors_plus`](https://pub.dev/packages/sensor
 
 ## Usage
 
-This package is already included as part of the `sensors_plus` package dependency, and will
-be included when using `sensors_plus` as normal.
+This package is already included as part of the `sensors_plus` package
+dependency, and will be included when using `sensors_plus` as normal.

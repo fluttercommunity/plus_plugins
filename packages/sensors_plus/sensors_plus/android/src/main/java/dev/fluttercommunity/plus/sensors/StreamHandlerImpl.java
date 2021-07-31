@@ -24,7 +24,11 @@ class StreamHandlerImpl implements EventChannel.StreamHandler {
   @Override
   public void onListen(Object arguments, EventChannel.EventSink events) {
     sensorEventListener = createSensorEventListener(events);
-    sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+    // TODO: Could allow developer to alter rate?
+    // sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_FASTEST); // 0
+    // sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_GAME); // 1
+    // sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_UI); // 2
+    sensorManager.registerListener(sensorEventListener, sensor, sensorManager.SENSOR_DELAY_NORMAL); // 3
   }
 
   @Override
