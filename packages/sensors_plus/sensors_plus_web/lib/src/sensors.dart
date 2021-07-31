@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html
-    show LinearAccelerationSensor, Accelerometer, Gyroscope, Magnetometer;
+    show LinearAccelerationSensor, Accelerometer, Gyroscope;
 import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -8,8 +8,8 @@ import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.
 
 /// The sensors plugin.
 class SensorsPlugin extends SensorsPlatform {
-  /// Factory method that initializes the Sensors plugin platform with an
-  /// instance of the plugin for the web.
+  /// Factory method that initializes the Sensors plugin platform with an instance
+  /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
     SensorsPlatform.instance = SensorsPlugin();
   }
@@ -37,11 +37,11 @@ class SensorsPlugin extends SensorsPlatform {
         /// See the note above about feature policy.
         print('$apiName construction was blocked by a feature policy.');
 
-        /// If this feature is not supported or Flag is not enabled yet
+        /// if this feature is not supported or Flag is not enabled yet!
       } else if (error.toString().contains('ReferenceError')) {
         print('$apiName is not supported by the User Agent.');
 
-        /// If this is unknown error, rethrow it
+        /// if this is unknown error, rethrow it
       } else {
         rethrow;
       }
@@ -78,9 +78,7 @@ class SensorsPlugin extends SensorsPlatform {
           _accelerometer.start();
 
           _accelerometer.onError.forEach(
-            (e) =>
-                print('[SensorsPlugin] API supported but something is wrong: '
-                    'Accelerometer $e'),
+            (e) => print('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'Accelerometer()',
@@ -126,9 +124,7 @@ class SensorsPlugin extends SensorsPlatform {
           _gyroscope.start();
 
           _gyroscope.onError.forEach(
-            (e) =>
-                print('[SensorsPlugin] API supported but something is wrong: '
-                    'Gyroscope $e'),
+            (e) => print('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'Gyroscope()',
@@ -175,9 +171,7 @@ class SensorsPlugin extends SensorsPlatform {
           _linearAccelerationSensor.start();
 
           _linearAccelerationSensor.onError.forEach(
-            (e) =>
-                print('[SensorsPlugin] API supported but something is wrong: '
-                    'LinearAccelerationSensor $e'),
+            (e) => print('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'LinearAccelerationSensor()',
@@ -192,53 +186,5 @@ class SensorsPlugin extends SensorsPlatform {
     }
 
     return _userAccelerometerResultStream;
-  }
-
-  StreamController<MagnetometerEvent>? _magnetometerStreamController;
-  late Stream<MagnetometerEvent> _magnetometerResultStream;
-
-  @override
-  Stream<MagnetometerEvent> get magnetometerEvents {
-    if (_magnetometerStreamController == null) {
-      _magnetometerStreamController = StreamController<MagnetometerEvent>();
-      _featureDetected(
-        () {
-          final _magnetometerSensor = html.Magnetometer();
-
-          setProperty(
-            _magnetometerSensor,
-            'onreading',
-            allowInterop(
-              (_) {
-                _magnetometerStreamController!.add(
-                  MagnetometerEvent(
-                    _magnetometerSensor.x as double,
-                    _magnetometerSensor.y as double,
-                    _magnetometerSensor.z as double,
-                  ),
-                );
-              },
-            ),
-          );
-
-          _magnetometerSensor.start();
-
-          _magnetometerSensor.onError.forEach(
-            (e) =>
-                print('[SensorsPlugin] API supported but something is wrong: '
-                    'Magnetometer $e'),
-          );
-        },
-        apiName: 'Magnetometer()',
-        premissionName: 'magnetometer',
-        onError: () {
-          _magnetometerStreamController!.add(MagnetometerEvent(0, 0, 0));
-        },
-      );
-      _magnetometerResultStream =
-          _magnetometerStreamController!.stream.asBroadcastStream();
-    }
-
-    return _magnetometerResultStream;
   }
 }

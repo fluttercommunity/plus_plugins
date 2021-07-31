@@ -21,8 +21,3 @@ Stream<GyroscopeEvent> get gyroscopeEvents {
 Stream<UserAccelerometerEvent> get userAccelerometerEvents {
   return _sensors.userAccelerometerEvents;
 }
-
-/// A broadcast stream of events from the device magnetometer.
-Stream<MagnetometerEvent> get magnetometerEvents {
-  return _sensors.magnetometerEvents;
-}

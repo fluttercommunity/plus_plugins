@@ -6,7 +6,7 @@
 /// and measures the velocity of the device. However, unlike
 /// [AccelerometerEvent], this event does not include the effects of gravity.
 class UserAccelerometerEvent {
-  /// Constructs an instance with the given [x], [y], and [z] values.
+  /// Contructs an instance with the given [x], [y], and [z] values.
   UserAccelerometerEvent(this.x, this.y, this.z);
 
   /// Acceleration force along the x axis (excluding gravity) measured in m/s^2.

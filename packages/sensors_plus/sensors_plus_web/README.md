@@ -8,5 +8,5 @@ The Web implementation of [`sensors_plus`](https://pub.dev/packages/sensors_plus
 
 ## Usage
 
-This package is already included as part of the `sensors_plus` package
-dependency, and will be included when using `sensors_plus` as normal.
+This package is already included as part of the `sensors_plus` package dependency, and will
+be included when using `sensors_plus` as normal.

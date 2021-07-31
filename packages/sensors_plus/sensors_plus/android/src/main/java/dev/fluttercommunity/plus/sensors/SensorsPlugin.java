@@ -20,13 +20,10 @@ public class SensorsPlugin implements FlutterPlugin {
       "dev.fluttercommunity.plus/sensors/gyroscope";
   private static final String USER_ACCELEROMETER_CHANNEL_NAME =
       "dev.fluttercommunity.plus/sensors/user_accel";
-  private static final String MAGNETOMETER_CHANNEL_NAME =
-      "dev.fluttercommunity.plus/sensors/magnetometer";
 
   private EventChannel accelerometerChannel;
   private EventChannel userAccelChannel;
   private EventChannel gyroscopeChannel;
-  private EventChannel magnetometerChannel;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
@@ -66,19 +63,11 @@ public class SensorsPlugin implements FlutterPlugin {
             (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
             Sensor.TYPE_GYROSCOPE);
     gyroscopeChannel.setStreamHandler(gyroScopeStreamHandler);
-
-    magnetometerChannel = new EventChannel(messenger, MAGNETOMETER_CHANNEL_NAME);
-    final StreamHandlerImpl magnetometerStreamHandler =
-        new StreamHandlerImpl(
-            (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
-            Sensor.TYPE_MAGNETIC_FIELD);
-    magnetometerChannel.setStreamHandler(magnetometerStreamHandler);
   }
 
   private void teardownEventChannels() {
     accelerometerChannel.setStreamHandler(null);
     userAccelChannel.setStreamHandler(null);
     gyroscopeChannel.setStreamHandler(null);
-    magnetometerChannel.setStreamHandler(null);
   }
 }

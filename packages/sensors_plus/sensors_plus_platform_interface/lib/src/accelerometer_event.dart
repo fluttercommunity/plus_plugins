@@ -7,7 +7,7 @@
 /// simply, you can use accelerometer readings to tell if the device is moving in
 /// a particular direction.
 class AccelerometerEvent {
-  /// Constructs an instance with the given [x], [y], and [z] values.
+  /// Contructs an instance with the given [x], [y], and [z] values.
   AccelerometerEvent(this.x, this.y, this.z);
 
   /// Acceleration force along the x axis (including gravity) measured in m/s^2.

@@ -28,13 +28,6 @@
       [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
                                 binaryMessenger:[registrar messenger]];
   [gyroscopeChannel setStreamHandler:gyroscopeStreamHandler];
-
-  FLTMagnetometerStreamHandlerPlus* magnetometerStreamHandler =
-      [[FLTMagnetometerStreamHandlerPlus alloc] init];
-  FlutterEventChannel* magnetometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/magnetometer"
-                                binaryMessenger:[registrar messenger]];
-  [magnetometerChannel setStreamHandler:magnetometerStreamHandler];
 }
 
 @end
@@ -116,26 +109,6 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 - (FlutterError*)onCancelWithArguments:(id)arguments {
   [_motionManager stopGyroUpdates];
-  return nil;
-}
-
-@end
-
-@implementation FLTMagnetometerStreamHandlerPlus
-
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
-  _initMotionManager();
-  [_motionManager
-      startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                  withHandler:^(CMMagnetometerData* magData, NSError* error) {
-                    CMMagneticField magneticField = magData.magneticField;
-                    sendTriplet(magneticField.x, magneticField.y, magneticField.z, eventSink);
-                  }];
-  return nil;
-}
-
-- (FlutterError*)onCancelWithArguments:(id)arguments {
-  [_motionManager stopMagnetometerUpdates];
   return nil;
 }
 
