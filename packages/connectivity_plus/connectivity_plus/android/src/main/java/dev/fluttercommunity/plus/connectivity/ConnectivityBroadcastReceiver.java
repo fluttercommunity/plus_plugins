@@ -50,7 +50,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
 
             @Override
             public void onLost(Network network) {
-              sendEvent();
+              sendEvent(Connectivity.CONNECTIVITY_NONE);
             }
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
@@ -92,6 +92,17 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
           @Override
           public void run() {
             events.success(connectivity.getNetworkType());
+          }
+        };
+    mainHandler.post(runnable);
+  }
+
+  private void sendEvent(final String networkType) {
+    Runnable runnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            events.success(networkType);
           }
         };
     mainHandler.post(runnable);
