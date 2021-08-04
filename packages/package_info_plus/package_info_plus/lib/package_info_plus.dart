@@ -24,7 +24,7 @@ class PackageInfo {
     required this.packageName,
     required this.version,
     required this.buildNumber,
-    required this.buildSignature,
+    this.buildSignature = '',
   });
 
   /// Disables the platform override in order to use a manually registered
