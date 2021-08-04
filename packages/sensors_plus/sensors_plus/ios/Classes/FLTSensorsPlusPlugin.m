@@ -125,12 +125,13 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  [_motionManager
       startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                  withHandler:^(CMMagnetometerData* magData, NSError* error) {
-                    CMMagneticField magneticField = magData.magneticField;
-                    sendTriplet(magneticField.x, magneticField.y, magneticField.z, eventSink);
-                  }];
+  [_motionManager startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
+                                      withHandler:^(CMMagnetometerData* magData, NSError* error) {
+                                        CMMagneticField magneticField = magData.magneticField;
+                                        sendTriplet(magneticField.x, magneticField.y,
+                                                    magneticField.z, eventSink);
+                                      }];
   return nil;
 }
 

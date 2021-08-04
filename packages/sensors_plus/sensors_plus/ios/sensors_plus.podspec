@@ -3,8 +3,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'sensors_plus'
-  s.version          = '0.1.0'
-  s.summary          = 'Flutter Community: Sensors Plus'
+  s.version          = '0.0.1'
+  s.summary          = 'Flutter Sensors'
   s.description      = <<-DESC
 Flutter plugin to access the accelerometer, gyroscope, and magnetometer sensors.
                        DESC
