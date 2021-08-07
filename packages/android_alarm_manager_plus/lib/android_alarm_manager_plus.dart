@@ -305,8 +305,8 @@ class AndroidAlarmManager {
   }
 
   /// Get a list of all the upcoming alarms
-  static Future<String> getScheduledAlarms() async{
+  static Future<String> getScheduledAlarms() async {
     final r = await _channel.invokeMethod('Alarm.scheduledAlarms', null);
-    return (r == null)? '[]' : r;
+    return (r == null) ? '[]' : r;
   }
 }

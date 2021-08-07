@@ -29,15 +29,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     AlarmService.enqueueAlarmProcessing(context, intent);
-    int requestCode = intent.getIntExtra("id",0);
+    int requestCode = intent.getIntExtra("id", 0);
     Log.d("Scheduled alarms list", String.valueOf(requestCode));
     // If the alarm being fired is a oneshot alarm, it should be removed from the list of scheduled
     //alarms.
     try {
-      ScheduledAlarmsList.removeFromScheduledAlarmsList(requestCode,context, true);
+      ScheduledAlarmsList.removeFromScheduledAlarmsList(requestCode, context, true);
     } catch (JSONException e) {
       e.printStackTrace();
     }
-
   }
 }
