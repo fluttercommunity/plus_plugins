@@ -22,7 +22,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     final originPath = '${baseUri.origin}${baseUri.path}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
     final versionJsonUrl = Uri.parse(
-        originPath.endsWith('/') ? '${originPath}$versionJson' : '$originPath/$versionJson');
+        originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
 
     final response = await get(versionJsonUrl);
     final versionMap = _getVersionMap(response);
