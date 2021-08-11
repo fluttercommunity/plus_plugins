@@ -10,9 +10,14 @@ import 'package:package_info_plus_platform_interface/package_info_platform_inter
 ///
 /// This class implements the `package:package_info_plus` functionality for the web.
 class PackageInfoPlugin extends PackageInfoPlatform {
+  final Client _client;
+
+  /// Create plugin with http client.
+  PackageInfoPlugin(this._client);
+
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
-    PackageInfoPlatform.instance = PackageInfoPlugin();
+    PackageInfoPlatform.instance = PackageInfoPlugin(Client());
   }
 
   /// Get version.json full url.
@@ -28,8 +33,8 @@ class PackageInfoPlugin extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() async {
     final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final response =
-        await get(versionJsonUrl(window.document.baseUri!, cacheBuster));
+    final response = await _client
+        .get(versionJsonUrl(window.document.baseUri!, cacheBuster));
     final versionMap = _getVersionMap(response);
 
     return PackageInfoData(

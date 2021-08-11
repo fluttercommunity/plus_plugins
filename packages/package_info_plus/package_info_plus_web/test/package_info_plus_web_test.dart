@@ -11,9 +11,9 @@ import 'package_info_plus_web_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   const VERSION_JSON = {
-    'appName': 'package_info_example',
-    'buildNumber': '1',
-    'packageName': 'io.flutter.plugins.packageinfoexample',
+    'app_name': 'package_info_example',
+    'build_number': '1',
+    'package_name': 'io.flutter.plugins.packageinfoexample',
     'version': '1.0',
   };
 
@@ -22,7 +22,7 @@ void main() {
 
   setUp(() {
     client = MockClient();
-    plugin = PackageInfoPlugin();
+    plugin = PackageInfoPlugin(client);
   });
 
   group(
@@ -39,8 +39,8 @@ void main() {
 
           final versionMap = await plugin.getAll();
 
-          expect(versionMap.appName, VERSION_JSON['appName']);
-          expect(versionMap.buildNumber, VERSION_JSON['buildNumber']);
+          expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.buildNumber, VERSION_JSON['build_number']);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, VERSION_JSON['version']);
         },
