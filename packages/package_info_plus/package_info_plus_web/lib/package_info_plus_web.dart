@@ -15,16 +15,19 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     PackageInfoPlatform.instance = PackageInfoPlugin();
   }
 
+  /// Get version.json full url.
+  Uri versionJsonUrl(String baseUrl, int cacheBuster) {
+    final baseUri = Uri.parse(baseUrl);
+    final originPath = '${baseUri.origin}${baseUri.path}';
+    final versionJson = 'version.json?cachebuster=$cacheBuster';
+    return Uri.parse(
+        originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
+  }
+
   @override
   Future<PackageInfoData> getAll() async {
     final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final baseUri = Uri.parse(window.document.baseUri!);
-    final originPath = '${baseUri.origin}${baseUri.path}';
-    final versionJson = 'version.json?cachebuster=$cacheBuster';
-    final versionJsonUrl = Uri.parse(
-        originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
-
-    final response = await get(versionJsonUrl);
+    final response = await get(versionJsonUrl(window.document.baseUri!, cacheBuster));
     final versionMap = _getVersionMap(response);
 
     return PackageInfoData(

@@ -29,7 +29,7 @@ void main() {
     'Package Info Web',
     () {
       test(
-        'Get correct valaues when response status is 200',
+        'Get correct values when response status is 200',
         () async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
@@ -46,7 +46,7 @@ void main() {
         },
       );
       test(
-        'Get empty valaues when response status is not 200',
+        'Get empty values when response status is not 200',
         () async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
@@ -60,6 +60,35 @@ void main() {
           expect(versionMap.buildNumber, isEmpty);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, isEmpty);
+        },
+      );
+      test(
+        'Get correct versionJsonUrl',
+        () {
+          expect(
+            plugin.versionJsonUrl('https://example.com/#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
         },
       );
     },
