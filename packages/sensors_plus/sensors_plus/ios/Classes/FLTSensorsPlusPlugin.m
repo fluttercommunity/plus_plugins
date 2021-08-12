@@ -125,7 +125,6 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-      startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
   [_motionManager startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
                                       withHandler:^(CMMagnetometerData* magData, NSError* error) {
                                         CMMagneticField magneticField = magData.magneticField;
