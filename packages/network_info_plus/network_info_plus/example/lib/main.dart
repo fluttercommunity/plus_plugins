@@ -69,7 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initNetworkInfo() async {
-    String? wifiName, wifiBSSID, wifiIP;
+    String? wifiName,
+        wifiBSSID,
+        wifiIPv4,
+        wifiIPv6,
+        wifiGatewayIP,
+        wifiBroadcast,
+        wifiSubmask;
 
     try {
       if (!kIsWeb && Platform.isIOS) {
@@ -112,16 +118,55 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      wifiIP = await _networkInfo.getWifiIP();
+      wifiIPv4 = await _networkInfo.getWifiIP();
     } on PlatformException catch (e) {
       print(e.toString());
-      wifiIP = 'Failed to get Wifi IP';
+      wifiIPv4 = 'Failed to get Wifi IPv4';
+    }
+
+    try {
+      wifiIPv6 = await _networkInfo.getWifiIPv6();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiIPv6 = 'Failed to get Wifi IPv6';
+    }
+
+    try {
+      wifiSubmask = await _networkInfo.getWifiSubmask();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiSubmask = 'Failed to get Wifi submask address';
+    }
+
+    try {
+      wifiBroadcast = await _networkInfo.getWifiBroadcast();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiBroadcast = 'Failed to get Wifi broadcast';
+    }
+
+    try {
+      wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiGatewayIP = 'Failed to get Wifi gateway address';
+    }
+
+    try {
+      wifiSubmask = await _networkInfo.getWifiSubmask();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      wifiSubmask = 'Failed to get Wifi submask';
     }
 
     setState(() {
       _connectionStatus = 'Wifi Name: $wifiName\n'
           'Wifi BSSID: $wifiBSSID\n'
-          'Wifi IP: $wifiIP\n';
+          'Wifi IPv4: $wifiIPv4\n'
+          'Wifi IPv6: $wifiIPv6\n'
+          'Wifi Broadcast: $wifiBroadcast\n'
+          'Wifi Gateway: $wifiGatewayIP\n'
+          'Wifi Submask: $wifiSubmask\n';
     });
   }
 }
