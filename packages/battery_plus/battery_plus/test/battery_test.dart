@@ -63,7 +63,7 @@ void main() {
 
       controller.add(BatteryState.charging);
       expect(await queue.next, BatteryState.charging);
-      
+
       controller.add(BatteryState.unknown);
       expect(await queue.next, BatteryState.unknown);
     });
