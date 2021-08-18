@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html
-    show LinearAccelerationSensor, Accelerometer, Gyroscope;
+    show LinearAccelerationSensor, Accelerometer, Gyroscope, Magnetometer;
 import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -186,5 +186,53 @@ class SensorsPlugin extends SensorsPlatform {
     }
 
     return _userAccelerometerResultStream;
+  }
+
+  StreamController<MagnetometerEvent>? _magnetometerStreamController;
+  late Stream<MagnetometerEvent> _magnetometerResultStream;
+
+  @override
+  Stream<MagnetometerEvent> get magnetometerEvents {
+    if (_magnetometerStreamController == null) {
+      _magnetometerStreamController = StreamController<MagnetometerEvent>();
+      _featureDetected(
+        () {
+          final _magnetometerSensor = html.Magnetometer();
+
+          setProperty(
+            _magnetometerSensor,
+            'onreading',
+            allowInterop(
+              (_) {
+                _magnetometerStreamController!.add(
+                  MagnetometerEvent(
+                    _magnetometerSensor.x as double,
+                    _magnetometerSensor.y as double,
+                    _magnetometerSensor.z as double,
+                  ),
+                );
+              },
+            ),
+          );
+
+          _magnetometerSensor.start();
+
+          _magnetometerSensor.onError.forEach(
+            (e) =>
+                print('[SensorsPlugin] API supported but something is wrong: '
+                    'Magnetometer $e'),
+          );
+        },
+        apiName: 'Magnetometer()',
+        premissionName: 'magnetometer',
+        onError: () {
+          _magnetometerStreamController!.add(MagnetometerEvent(0, 0, 0));
+        },
+      );
+      _magnetometerResultStream =
+          _magnetometerStreamController!.stream.asBroadcastStream();
+    }
+
+    return _magnetometerResultStream;
   }
 }

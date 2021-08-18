@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Android: Fix to detect no-network when Wi-Fi is disconnected on Android M and above
+
 ## 1.0.6
 
 - Android: Fix unregisterReceiver call for API < N

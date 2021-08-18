@@ -71,9 +71,29 @@ class NetworkInfo {
     return _platform.getWifiBSSID();
   }
 
-  /// Obtains the IP address of the connected wifi network
+  /// Obtains the IPv4 address of the connected wifi network
   Future<String?> getWifiIP() {
     return _platform.getWifiIP();
+  }
+
+  /// Obtains the IPv6 address of the connected wifi network
+  Future<String?> getWifiIPv6() {
+    return _platform.getWifiIPv6();
+  }
+
+  /// Obtains the submask of the connected wifi network
+  Future<String?> getWifiSubmask() {
+    return _platform.getWifiSubmask();
+  }
+
+  /// Obtains the gateway IP address of the connected wifi network
+  Future<String?> getWifiGatewayIP() {
+    return _platform.getWifiGatewayIP();
+  }
+
+  /// Obtains the broadcast of the connected wifi network
+  Future<String?> getWifiBroadcast() {
+    return _platform.getWifiBroadcast();
   }
 
   /// Request to authorize the location service (Only on iOS).
