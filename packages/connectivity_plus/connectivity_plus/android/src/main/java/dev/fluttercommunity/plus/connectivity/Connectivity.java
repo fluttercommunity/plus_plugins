@@ -11,6 +11,9 @@ import android.os.Build;
 
 /** Reports connectivity related information such as connectivity type and wifi information. */
 public class Connectivity {
+  static final String CONNECTIVITY_NONE = "none";
+  static final String CONNECTIVITY_WIFI = "wifi";
+  static final String CONNECTIVITY_MOBILE = "mobile";
   private ConnectivityManager connectivityManager;
 
   public Connectivity(ConnectivityManager connectivityManager) {
@@ -22,14 +25,14 @@ public class Connectivity {
       Network network = connectivityManager.getActiveNetwork();
       NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
       if (capabilities == null) {
-        return "none";
+        return CONNECTIVITY_NONE;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
           || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-        return "wifi";
+        return CONNECTIVITY_WIFI;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-        return "mobile";
+        return CONNECTIVITY_MOBILE;
       }
     }
 
