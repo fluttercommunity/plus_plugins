@@ -27,6 +27,11 @@ Stream<UserAccelerometerEvent> get userAccelerometerEvents {
   return methodChannel.userAccelerometerEvents;
 }
 
+/// A broadcast stream of events from the device magnetometer.
+Stream<MagnetometerEvent> get magnetometerEvents {
+  return methodChannel.magnetometerEvents;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -60,6 +65,18 @@ void main() {
     _initializeFakeSensorChannel(channelName, sensorData);
 
     final event = await userAccelerometerEvents.first;
+
+    expect(event.x, sensorData[0]);
+    expect(event.y, sensorData[1]);
+    expect(event.z, sensorData[2]);
+  });
+
+  test('$magnetometerEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/magnetometer';
+    const sensorData = <double>[8.0, 9.0, 10.0];
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await magnetometerEvents.first;
 
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);

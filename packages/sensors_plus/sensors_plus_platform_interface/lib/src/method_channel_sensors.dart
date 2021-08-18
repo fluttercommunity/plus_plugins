@@ -18,9 +18,13 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _gyroscopeEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
 
+  static const EventChannel _magnetometerEventChannel =
+      EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
+
   Stream<AccelerometerEvent>? _accelerometerEvents;
   Stream<GyroscopeEvent>? _gyroscopeEvents;
   Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
+  Stream<MagnetometerEvent>? _magnetometerEvents;
 
   /// A broadcast stream of events from the device accelerometer.
   @override
@@ -55,5 +59,16 @@ class MethodChannelSensors extends SensorsPlatform {
       return UserAccelerometerEvent(list[0]!, list[1]!, list[2]!);
     });
     return _userAccelerometerEvents!;
+  }
+
+  /// A broadcast stream of events from the device magnetometer.
+  @override
+  Stream<MagnetometerEvent> get magnetometerEvents {
+    _magnetometerEvents ??=
+        _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
+      final list = event.cast<double>();
+      return MagnetometerEvent(list[0]!, list[1]!, list[2]!);
+    });
+    return _magnetometerEvents!;
   }
 }

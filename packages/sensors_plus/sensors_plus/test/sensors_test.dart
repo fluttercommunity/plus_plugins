@@ -47,6 +47,18 @@ void main() {
     expect(event.y, sensorData[1]);
     expect(event.z, sensorData[2]);
   });
+
+  test('$magnetometerEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/magnetometer';
+    const sensorData = <double>[8.0, 9.0, 10.0];
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await magnetometerEvents.first;
+
+    expect(event.x, sensorData[0]);
+    expect(event.y, sensorData[1]);
+    expect(event.z, sensorData[2]);
+  });
 }
 
 void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
