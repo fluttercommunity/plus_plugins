@@ -190,6 +190,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
         break;
       case BatteryManager.BATTERY_STATUS_UNKNOWN:
         events.success("unknown");
+        break;
       default:
         events.error("UNAVAILABLE", "Charging status unavailable", null);
         break;
