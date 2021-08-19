@@ -3,12 +3,13 @@ library share_plus_linux;
 
 import 'dart:ui';
 
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// The Linux implementation of SharePlatform.
 class ShareLinux extends SharePlatform {
   /// Share text.
+  /// Throws a [PlatformException] on invalid URLs and schemes which cannot be handled.
   @override
   Future<void> share(
     String text, {
@@ -29,11 +30,7 @@ class ShareLinux extends SharePlatform {
           .join('&'),
     );
 
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
-    } else {
-      throw Exception('Unable to share on linux');
-    }
+    await launch(uri.toString());
   }
 
   /// Share files.
