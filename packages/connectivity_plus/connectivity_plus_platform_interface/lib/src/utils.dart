@@ -5,6 +5,8 @@ ConnectivityResult parseConnectivityResult(String state) {
   switch (state) {
     case 'wifi':
       return ConnectivityResult.wifi;
+    case 'ethernet':
+      return ConnectivityResult.ethernet;
     case 'mobile':
       return ConnectivityResult.mobile;
     case 'none':
