@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Fix: Add break statements for unknown battery state in Android and iOS implementations
+
 ## 1.1.0
 
 - Android, iOS, Windows : add getter for power save mode state
