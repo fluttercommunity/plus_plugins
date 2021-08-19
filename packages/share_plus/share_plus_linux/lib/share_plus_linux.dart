@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// The Linux implementation of SharePlatform.
 class ShareLinux extends SharePlatform {
   /// Share text.
-  /// Throws a [PlatformException] on invalid URLs and schemes which cannot be handled.
+  /// Throws a [PlatformException] if `mailto:` scheme cannot be handled.
   @override
   Future<void> share(
     String text, {
