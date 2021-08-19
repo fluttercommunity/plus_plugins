@@ -1,7 +1,7 @@
 name: device_info_plus
 description: Flutter plugin providing detailed information about the device
   (make, model, etc.), and Android or iOS version the app is running on.
-version: 2.0.1
+version: 2.1.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -25,11 +25,11 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus_platform_interface: ^2.0.0
-  device_info_plus_linux: ^2.0.0
-  device_info_plus_macos: ^2.0.0
-  device_info_plus_web: ^2.0.0
-  device_info_plus_windows: ^2.0.0
+  device_info_plus_platform_interface: ^2.1.0
+  device_info_plus_linux: ^2.1.0
+  device_info_plus_macos: ^2.1.0
+  device_info_plus_web: ^2.1.0
+  device_info_plus_windows: ^2.1.0
 
 dev_dependencies:
   test: ^1.16.4

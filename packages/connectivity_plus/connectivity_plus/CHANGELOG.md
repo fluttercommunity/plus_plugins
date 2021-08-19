@@ -1,3 +1,16 @@
+## 1.0.7
+
+- Android: Fix to detect no-network when Wi-Fi is disconnected on Android M and above
+
+## 1.0.6
+
+- Android: Fix unregisterReceiver call for API < N
+
+## 1.0.5
+
+- Android: Fix memory leak from registered receiver
+- Android: Fix gradle crash due to previous update in version 1.0.4
+
 ## 1.0.4
 
 - Android: Add explicit compiler version to avoid warnings

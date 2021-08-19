@@ -1,6 +1,6 @@
 name: package_info_plus_windows
 description: Windows implementation of the package_info_plus plugin
-version: 1.0.2
+version: 1.0.3
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -9,7 +9,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  package_info_plus_platform_interface: ^1.0.0
+  package_info_plus_platform_interface: ^1.0.2
   ffi: ^1.0.0
   flutter:
     sdk: flutter

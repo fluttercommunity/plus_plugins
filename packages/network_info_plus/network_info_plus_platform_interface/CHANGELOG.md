@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Adding IPv6 method channel
+- Adding gateway ip address method channel
+- Adding broadcast method channel
+- Adding subnet mask method channel
+
 ## 1.0.1
 
 - Improve documentation

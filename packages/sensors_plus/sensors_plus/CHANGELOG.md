@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Adds magnetometer support
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

@@ -1,3 +1,11 @@
+## 1.0.5
+
+- Remove the `required` keyword of `buildSignature` in `PackageInfo`'s constructor to restore backward compatibility
+
+## 1.0.4
+
+- Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
+
 ## 1.0.3
 
 - Android: migrate to mavenCentral

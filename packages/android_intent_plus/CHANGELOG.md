@@ -1,3 +1,8 @@
+## 1.0.3
+
+- clean up ios folder
+- rename channel name to dev.fluttercommunity.plus in java tests
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

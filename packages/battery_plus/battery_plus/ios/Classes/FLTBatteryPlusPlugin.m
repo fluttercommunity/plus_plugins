@@ -35,6 +35,8 @@
     } else {
       result(@(batteryLevel));
     }
+  } else if ([@"isInBatterySaveMode" isEqualToString:call.method]) {
+    result(@([[NSProcessInfo processInfo] isLowPowerModeEnabled]));
   } else {
     result(FlutterMethodNotImplemented);
   }
@@ -50,6 +52,7 @@
   switch (state) {
     case UIDeviceBatteryStateUnknown:
       _eventSink(@"unknown");
+      break;
     case UIDeviceBatteryStateFull:
       _eventSink(@"full");
     case UIDeviceBatteryStateCharging:

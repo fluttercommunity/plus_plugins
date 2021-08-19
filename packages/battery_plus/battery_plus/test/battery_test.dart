@@ -20,6 +20,9 @@ class MockBatteryPlatform
 
   @override
   Stream<BatteryState> get onBatteryStateChanged => controller.stream;
+
+  @override
+  Future<bool> get isInBatterySaveMode => Future.value(true);
 }
 
 void main() {
@@ -34,6 +37,10 @@ void main() {
 
   test('batteryLevel', () async {
     expect(await battery.batteryLevel, 42);
+  });
+
+  test('isInBatterySaveMode', () async {
+    expect(await battery.isInBatterySaveMode, true);
   });
 
   group('battery state', () {
@@ -56,6 +63,9 @@ void main() {
 
       controller.add(BatteryState.charging);
       expect(await queue.next, BatteryState.charging);
+
+      controller.add(BatteryState.unknown);
+      expect(await queue.next, BatteryState.unknown);
     });
   });
 }
