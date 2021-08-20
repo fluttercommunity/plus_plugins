@@ -1,4 +1,5 @@
 import 'dart:html' as html show NetworkInformation;
+
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 
 /// Converts an incoming NetworkInformation object into the correct ConnectivityResult.
@@ -24,6 +25,7 @@ ConnectivityResult _effectiveTypeToConnectivityResult(String effectiveType) {
     case 'slow-2g':
     case '2g':
     case '3g':
+    case '4g':
       return ConnectivityResult.mobile;
     default:
       return ConnectivityResult.wifi;
