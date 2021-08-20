@@ -1,3 +1,7 @@
+## 2.0.0
+
+- increase flutter SDK version to 1.20.0
+
 ## 1.0.3
 
 - clean up ios folder
