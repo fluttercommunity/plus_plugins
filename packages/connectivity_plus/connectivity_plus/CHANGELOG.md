@@ -1,3 +1,7 @@
+## 1.0.8
+
+- Web: Fix to show `ConnectivityResult.mobile` instead of `ConnectivityResult.wifi` when the network is connected to 4g
+
 ## 1.0.7
 
 - Android: Fix to detect no-network when Wi-Fi is disconnected on Android M and above
