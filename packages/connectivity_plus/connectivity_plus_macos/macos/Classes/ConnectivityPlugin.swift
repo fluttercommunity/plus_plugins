@@ -14,12 +14,17 @@
 
 import Cocoa
 import FlutterMacOS
-import Reachability
+import Network
 import SystemConfiguration.CaptiveNetwork
 
 public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
-  var reach: Reachability?
   var eventSink: FlutterEventSink?
+  var pathMonitor = NWPathMonitor()
+
+  override init() {
+    super.init()
+    pathMonitor.pathUpdateHandler = pathUpdateHandler
+  }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
@@ -39,7 +44,7 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "check":
-      result(statusFromReachability(reachability: Reachability.forInternetConnection()))
+      result(statusFromPath(path: pathMonitor.currentPath))
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -48,14 +53,18 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   /// Returns a string describing connection type
   ///
   /// - Parameters:
-  ///   - reachability: an instance of reachability
+  ///   - path: an instance of NWPath
   /// - Returns: connection type string
-  private func statusFromReachability(reachability: Reachability?) -> String {
-    // checks any non-WWAN connection
-    if reachability?.isReachableViaWiFi() ?? false {
-      return "wifi"
+  private func statusFromPath(path: NWPath) -> String {
+    if path.status == .satisfied {
+        if path.usesInterfaceType(.wifi) {
+            return "wifi"
+        } else if path.usesInterfaceType(.cellular) {
+            return "mobile"
+        } else if path.usesInterfaceType(.wiredEthernet) {
+            return "ethernet"
+        }
     }
-
     return "none"
   }
 
@@ -63,29 +72,17 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     withArguments _: Any?,
     eventSink events: @escaping FlutterEventSink
   ) -> FlutterError? {
-    reach = Reachability.forInternetConnection()
     eventSink = events
-
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(reachabilityChanged),
-      name: NSNotification.Name.reachabilityChanged,
-      object: reach)
-
-    reach?.startNotifier()
-
+    pathMonitor.start(queue: .global(qos: .background))
     return nil
   }
 
-  @objc private func reachabilityChanged(notification: NSNotification) {
-    let reach = notification.object
-    let reachability = statusFromReachability(reachability: reach as? Reachability)
-    eventSink?(reachability)
+  private func pathUpdateHandler(path: NWPath) {
+    eventSink?(statusFromPath(path: path))
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {
-    reach?.stopNotifier()
-    NotificationCenter.default.removeObserver(self)
+    pathMonitor.cancel()
     eventSink = nil
     return nil
   }
