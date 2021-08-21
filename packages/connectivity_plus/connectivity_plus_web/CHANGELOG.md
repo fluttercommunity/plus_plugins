@@ -1,3 +1,7 @@
+## 1.1.0+1
+
+- Fix platform interface dependency
+
 ## 1.1.0
 
 - Add ethernet as connectivity result

@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Update connectivity plus
+
 ## 1.0.2
 
 - Update connectivity plus
