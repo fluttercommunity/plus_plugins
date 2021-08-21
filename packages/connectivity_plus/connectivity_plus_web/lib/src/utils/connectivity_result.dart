@@ -39,6 +39,7 @@ ConnectivityResult _typeToConnectivityResult(String type) {
     case 'none':
       return ConnectivityResult.none;
     case 'bluetooth':
+      return ConnectivityResult.bluetooth;
     case 'cellular':
     case 'mixed':
     case 'other':
