@@ -10,14 +10,14 @@ import 'package:package_info_plus_platform_interface/package_info_platform_inter
 ///
 /// This class implements the `package:package_info_plus` functionality for the web.
 class PackageInfoPlugin extends PackageInfoPlatform {
-  final Client _client;
+  final Client? _client;
 
   /// Create plugin with http client.
-  PackageInfoPlugin(this._client);
+  PackageInfoPlugin([this._client]);
 
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
-    PackageInfoPlatform.instance = PackageInfoPlugin(Client());
+    PackageInfoPlatform.instance = PackageInfoPlugin();
   }
 
   /// Get version.json full url.
@@ -25,16 +25,15 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     final baseUri = Uri.parse(baseUrl);
     final originPath = '${baseUri.origin}${baseUri.path}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
-    return Uri.parse(originPath.endsWith('/')
-        ? '$originPath$versionJson'
-        : '$originPath/$versionJson');
+    return Uri.parse(
+        originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
   }
 
   @override
   Future<PackageInfoData> getAll() async {
     final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final response = await _client
-        .get(versionJsonUrl(window.document.baseUri!, cacheBuster));
+    final url = versionJsonUrl(window.document.baseUri!, cacheBuster);
+    final response = _client == null ? await get(url) : await _client!.get(url);
     final versionMap = _getVersionMap(response);
 
     return PackageInfoData(
