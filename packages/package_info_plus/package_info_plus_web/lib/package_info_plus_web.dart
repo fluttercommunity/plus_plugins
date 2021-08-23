@@ -25,8 +25,9 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     final baseUri = Uri.parse(baseUrl);
     final originPath = '${baseUri.origin}${baseUri.path}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
-    return Uri.parse(
-        originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
+    return Uri.parse(originPath.endsWith('/')
+        ? '$originPath$versionJson'
+        : '$originPath/$versionJson');
   }
 
   @override
