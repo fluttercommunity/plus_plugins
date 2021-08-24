@@ -1,6 +1,6 @@
-## 1.1.0
+## 1.2.0
 
-- Added method to obtain the list of scheduled alarms (thanks @Chinmay-KB)
+- Reverted feature to get scheduled alarms. See Issue #421 for more info.
 
 ## 1.0.2
 
