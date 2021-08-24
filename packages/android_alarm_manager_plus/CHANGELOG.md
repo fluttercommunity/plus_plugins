@@ -1,7 +1,3 @@
-## 1.1.0
-
-- Added method to obtain the list of scheduled alarms (thanks @Chinmay-KB)
-
 ## 1.0.2
 
 - Android: migrate to mavenCentral

@@ -7,8 +7,6 @@ package dev.fluttercommunity.plus.androidalarmmanager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import org.json.JSONException;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
   /**
@@ -29,14 +27,5 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     AlarmService.enqueueAlarmProcessing(context, intent);
-    int requestCode = intent.getIntExtra("id", 0);
-    Log.d("Scheduled alarms list", String.valueOf(requestCode));
-    // If the alarm being fired is a oneshot alarm, it should be removed from the list of scheduled
-    //alarms.
-    try {
-      ScheduledAlarmsList.removeFromScheduledAlarmsList(requestCode, context, true);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
   }
 }
