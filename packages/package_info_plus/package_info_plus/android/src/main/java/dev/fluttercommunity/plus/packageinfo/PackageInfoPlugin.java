@@ -4,10 +4,14 @@
 
 package dev.fluttercommunity.plus.packageinfo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
+import androidx.annotation.NonNull;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -37,25 +41,27 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     applicationContext = null;
     methodChannel.setMethodCallHandler(null);
     methodChannel = null;
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
     try {
       if (call.method.equals("getAll")) {
         PackageManager pm = applicationContext.getPackageManager();
         PackageInfo info = pm.getPackageInfo(applicationContext.getPackageName(), 0);
+
+        String buildSignature = getBuildSignature(pm);
 
         Map<String, String> map = new HashMap<>();
         map.put("appName", info.applicationInfo.loadLabel(pm).toString());
         map.put("packageName", applicationContext.getPackageName());
         map.put("version", info.versionName);
         map.put("buildNumber", String.valueOf(getLongVersionCode(info)));
-        map.put("buildSignature", getBuildSignature(pm));
+        if (buildSignature != null) map.put("buildSignature", buildSignature);
 
         result.success(map);
       } else {
@@ -74,17 +80,33 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
     return info.versionCode;
   }
 
+  @SuppressWarnings("deprecation")
   private String getBuildSignature(PackageManager pm) {
     try {
-      PackageInfo packageInfo =
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        PackageInfo packageInfo = pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
+        if (packageInfo == null
+          || packageInfo.signingInfo == null) {
+          return null;
+        }
+        if(packageInfo.signingInfo.hasMultipleSigners()){
+          return signatureToSha1(packageInfo.signingInfo.getApkContentsSigners()[0].toByteArray());
+        }
+        else{
+          return signatureToSha1(packageInfo.signingInfo.getSigningCertificateHistory()[0].toByteArray());
+        }
+      }
+      else {
+         @SuppressLint("PackageManagerGetSignatures") PackageInfo packageInfo =
           pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNATURES);
-      if (packageInfo == null
+        if (packageInfo == null
           || packageInfo.signatures == null
           || packageInfo.signatures.length == 0
           || packageInfo.signatures[0] == null) {
-        return null;
+          return null;
+        }
+        return signatureToSha1(packageInfo.signatures[0].toByteArray());
       }
-      return signatureToSha1(packageInfo.signatures[0].toByteArray());
     } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
       return null;
     }
