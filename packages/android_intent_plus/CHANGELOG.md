@@ -1,3 +1,12 @@
+## 2.0.0
+
+- increase flutter SDK version to 1.20.0
+
+## 1.0.3
+
+- clean up ios folder
+- rename channel name to dev.fluttercommunity.plus in java tests
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

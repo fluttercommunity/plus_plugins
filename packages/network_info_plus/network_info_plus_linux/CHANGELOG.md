@@ -1,3 +1,8 @@
+## 1.1.0
+
+- Port to nm.dart
+- Add IPv6, gateway IP, subnet mask, broadcast
+
 ## 1.0.2
 
 - Upgrade D-Bus package dependency

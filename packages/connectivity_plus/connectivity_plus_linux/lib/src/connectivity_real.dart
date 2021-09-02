@@ -39,10 +39,11 @@ class ConnectivityLinux extends ConnectivityPlatform {
     if (client.connectivity != NetworkManagerConnectivityState.full) {
       return ConnectivityResult.none;
     }
-    // ### TODO: ConnectivityResult.ethernet
-    if (client.primaryConnectionType.contains('wireless') ||
-        client.primaryConnectionType.contains('ethernet')) {
+    if (client.primaryConnectionType.contains('wireless')) {
       return ConnectivityResult.wifi;
+    }
+    if (client.primaryConnectionType.contains('ethernet')) {
+      return ConnectivityResult.ethernet;
     }
     return ConnectivityResult.mobile;
   }

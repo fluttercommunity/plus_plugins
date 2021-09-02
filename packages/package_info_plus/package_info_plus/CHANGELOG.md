@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Web: Fixed url resolving for the version.json
+
 ## 1.0.5
 
 - Remove the `required` keyword of `buildSignature` in `PackageInfo`'s constructor to restore backward compatibility

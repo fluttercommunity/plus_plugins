@@ -14,6 +14,7 @@ public class Connectivity {
   static final String CONNECTIVITY_NONE = "none";
   static final String CONNECTIVITY_WIFI = "wifi";
   static final String CONNECTIVITY_MOBILE = "mobile";
+  static final String CONNECTIVITY_ETHERNET = "ethernet";
   private ConnectivityManager connectivityManager;
 
   public Connectivity(ConnectivityManager connectivityManager) {
@@ -27,9 +28,11 @@ public class Connectivity {
       if (capabilities == null) {
         return CONNECTIVITY_NONE;
       }
-      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-          || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
         return CONNECTIVITY_WIFI;
+      }
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+        return CONNECTIVITY_ETHERNET;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         return CONNECTIVITY_MOBILE;
@@ -49,6 +52,7 @@ public class Connectivity {
     int type = info.getType();
     switch (type) {
       case ConnectivityManager.TYPE_ETHERNET:
+        return "ethernet";
       case ConnectivityManager.TYPE_WIFI:
       case ConnectivityManager.TYPE_WIMAX:
         return "wifi";

@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Fixes: sharing in isolated sandboxes like Flatpak
+
 ## 2.0.3
 
 - Hotfix on 2.0.2, improved solution.
