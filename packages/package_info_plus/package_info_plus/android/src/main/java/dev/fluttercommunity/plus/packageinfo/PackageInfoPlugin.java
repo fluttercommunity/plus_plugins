@@ -18,17 +18,22 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-/** PackageInfoPlugin */
+/**
+ * PackageInfoPlugin
+ */
 public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   private Context applicationContext;
   private MethodChannel methodChannel;
 
-  /** Plugin registration. */
+  /**
+   * Plugin registration.
+   */
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
@@ -89,15 +94,13 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
           || packageInfo.signingInfo == null) {
           return null;
         }
-        if(packageInfo.signingInfo.hasMultipleSigners()){
+        if (packageInfo.signingInfo.hasMultipleSigners()) {
           return signatureToSha1(packageInfo.signingInfo.getApkContentsSigners()[0].toByteArray());
-        }
-        else{
+        } else {
           return signatureToSha1(packageInfo.signingInfo.getSigningCertificateHistory()[0].toByteArray());
         }
-      }
-      else {
-         @SuppressLint("PackageManagerGetSignatures") PackageInfo packageInfo =
+      } else {
+        @SuppressLint("PackageManagerGetSignatures") PackageInfo packageInfo =
           pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNATURES);
         if (packageInfo == null
           || packageInfo.signatures == null
