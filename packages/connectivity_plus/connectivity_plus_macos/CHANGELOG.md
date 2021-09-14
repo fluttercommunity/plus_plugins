@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update license headers.
+
 ## 1.1.0
 
 - Add ethernet as connectivity result.
