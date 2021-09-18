@@ -8,7 +8,6 @@ import android.content.Context;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** DeviceInfoPlusPlugin */
 public class DeviceInfoPlusPlugin implements FlutterPlugin {
@@ -16,7 +15,8 @@ public class DeviceInfoPlusPlugin implements FlutterPlugin {
   MethodChannel channel;
 
   /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
+  @SuppressWarnings("deprecation")
+  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
     DeviceInfoPlusPlugin plugin = new DeviceInfoPlusPlugin();
     plugin.setupMethodChannel(registrar.messenger(), registrar.context());
   }
