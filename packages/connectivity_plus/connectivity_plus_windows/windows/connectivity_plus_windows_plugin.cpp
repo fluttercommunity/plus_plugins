@@ -1,3 +1,6 @@
+// clang-format off
+#include "include/connectivity_plus_windows/network_manager.h"
+// clang-format on
 #include "include/connectivity_plus_windows/connectivity_plus_windows_plugin.h"
 
 #include <flutter/event_channel.h>
@@ -9,8 +12,6 @@
 
 #include <functional>
 #include <memory>
-
-#include "network_manager.h"
 
 namespace {
 
@@ -45,7 +46,7 @@ class ConnectivityStreamHandler : public FlStreamHandler {
   virtual ~ConnectivityStreamHandler();
 
  protected:
-  void AddConnectivityEvent(bool connected);
+  void AddConnectivityEvent();
 
   std::unique_ptr<FlStreamHandlerError> OnListenInternal(
       const flutter::EncodableValue* arguments,
@@ -97,15 +98,23 @@ void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
   registrar->AddPlugin(std::move(plugin));
 }
 
-static std::string ConnectivityToString(bool isConnected) {
-  return isConnected ? "wifi" : "none";
+static std::string ConnectivityToString(ConnectivityType connectivityType) {
+  switch (connectivityType) {
+  case ConnectivityType::WiFi:
+    return "wifi";
+  case ConnectivityType::Ethernet:
+    return "ethernet";
+  case ConnectivityType::None:
+  default:
+    return "none";
+  }
 }
 
 void ConnectivityPlusWindowsPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue>& method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("check") == 0) {
-    std::string connectivity = ConnectivityToString(manager->IsConnected());
+    std::string connectivity = ConnectivityToString(manager->GetConnectivityType());
     result->Success(flutter::EncodableValue(connectivity));
   } else {
     result->NotImplemented();
@@ -118,8 +127,8 @@ ConnectivityStreamHandler::ConnectivityStreamHandler(
 
 ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
 
-void ConnectivityStreamHandler::AddConnectivityEvent(bool connected) {
-  std::string connectivity = ConnectivityToString(connected);
+void ConnectivityStreamHandler::AddConnectivityEvent() {
+  std::string connectivity = ConnectivityToString(manager->GetConnectivityType());
   sink->Success(flutter::EncodableValue(connectivity));
 }
 
@@ -130,7 +139,7 @@ ConnectivityStreamHandler::OnListenInternal(
   sink = std::move(events);
 
   auto callback = std::bind(&ConnectivityStreamHandler::AddConnectivityEvent,
-                            this, std::placeholders::_1);
+                            this);
 
   if (!manager->StartListen(callback)) {
     return std::make_unique<FlStreamHandlerError>(
@@ -138,7 +147,7 @@ ConnectivityStreamHandler::OnListenInternal(
         nullptr);
   }
 
-  AddConnectivityEvent(manager->IsConnected());
+  AddConnectivityEvent();
   return nullptr;
 }
 
