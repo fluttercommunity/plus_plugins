@@ -14,16 +14,15 @@
 
 import Cocoa
 import FlutterMacOS
-import Network
-import SystemConfiguration.CaptiveNetwork
 
 public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
-  var eventSink: FlutterEventSink?
-  var pathMonitor = NWPathMonitor()
+  private let connectivityProvider: ConnectivityProvider
+  private var eventSink: FlutterEventSink?
 
-  override init() {
+  init(connectivityProvider: ConnectivityProvider) {
+    self.connectivityProvider = connectivityProvider
     super.init()
-    pathMonitor.pathUpdateHandler = pathUpdateHandler
+    self.connectivityProvider.connectivityUpdateHandler = connectivityUpdateHandler
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -35,7 +34,14 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
       name: "dev.fluttercommunity.plus/connectivity_status",
       binaryMessenger: registrar.messenger)
 
-    let instance = ConnectivityPlugin()
+    let connectivityProvider: ConnectivityProvider
+    if #available(macOS 10.14, *) {
+      connectivityProvider = PathMonitorConnectivityProvider()
+    } else {
+      connectivityProvider = ReachabilityConnectivityProvider()
+    }
+
+    let instance = ConnectivityPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
@@ -44,28 +50,23 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "check":
-      result(statusFromPath(path: pathMonitor.currentPath))
+      result(statusFrom(connectivityType: connectivityProvider.currentConnectivityType))
     default:
       result(FlutterMethodNotImplemented)
     }
   }
 
-  /// Returns a string describing connection type
-  ///
-  /// - Parameters:
-  ///   - path: an instance of NWPath
-  /// - Returns: connection type string
-  private func statusFromPath(path: NWPath) -> String {
-    if path.status == .satisfied {
-        if path.usesInterfaceType(.wifi) {
-            return "wifi"
-        } else if path.usesInterfaceType(.cellular) {
-            return "mobile"
-        } else if path.usesInterfaceType(.wiredEthernet) {
-            return "ethernet"
-        }
+  private func statusFrom(connectivityType: ConnectivityType) -> String {
+    switch connectivityType {
+    case .wifi:
+      return "wifi"
+    case .cellular:
+      return "mobile"
+    case .wiredEthernet:
+      return "ethernet"
+    case .none:
+      return "none"
     }
-    return "none"
   }
 
   public func onListen(
@@ -73,16 +74,17 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     eventSink events: @escaping FlutterEventSink
   ) -> FlutterError? {
     eventSink = events
-    pathMonitor.start(queue: .global(qos: .background))
+    connectivityProvider.start()
+    connectivityUpdateHandler(connectivityType: connectivityProvider.currentConnectivityType)
     return nil
   }
 
-  private func pathUpdateHandler(path: NWPath) {
-    eventSink?(statusFromPath(path: path))
+  private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
+    eventSink?(statusFrom(connectivityType: connectivityType))
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {
-    pathMonitor.cancel()
+    connectivityProvider.stop()
     eventSink = nil
     return nil
   }
