@@ -46,10 +46,7 @@ class NetworkListener final : public INetworkEvents {
     return lAddend;
   }
 
-  HRESULT STDMETHODCALLTYPE
-  NetworkAdded(GUID networkId) {
-    return S_OK;
-  }
+  HRESULT STDMETHODCALLTYPE NetworkAdded(GUID networkId) { return S_OK; }
 
   HRESULT STDMETHODCALLTYPE
   NetworkConnectivityChanged(GUID networkId, NLM_CONNECTIVITY newConnectivity) {
@@ -57,10 +54,7 @@ class NetworkListener final : public INetworkEvents {
     return S_OK;
   }
 
-  HRESULT STDMETHODCALLTYPE
-  NetworkDeleted(GUID networkId) {
-    return S_OK;
-  }
+  HRESULT STDMETHODCALLTYPE NetworkDeleted(GUID networkId) { return S_OK; }
 
   HRESULT STDMETHODCALLTYPE
   NetworkPropertyChanged(GUID networkId, NLM_NETWORK_PROPERTY_CHANGE flags) {
@@ -181,17 +175,17 @@ ConnectivityType NetworkManager::GetConnectivityType() const {
       continue;
     }
 
-    if (std::find(adapterIds.begin(), adapterIds.end(), guid) != adapterIds.end()) {
+    if (std::find(adapterIds.begin(), adapterIds.end(), guid) !=
+        adapterIds.end()) {
       switch (addresses->IfType) {
-      case IF_TYPE_ETHERNET_CSMACD:
-        connectivities.insert(ConnectivityType::Ethernet);
-        break;
-      default:
-        connectivities.insert(ConnectivityType::WiFi);
-        break;
+        case IF_TYPE_ETHERNET_CSMACD:
+          connectivities.insert(ConnectivityType::Ethernet);
+          break;
+        default:
+          connectivities.insert(ConnectivityType::WiFi);
+          break;
       }
     }
-
   }
 
   if (connectivities.find(ConnectivityType::WiFi) != connectivities.end()) {
@@ -213,8 +207,7 @@ bool NetworkManager::StartListen(NetworkCallback pCallback) {
   HRESULT hr = pNetworkListManager->QueryInterface(
       IID_IConnectionPointContainer, (void **)&pCPContainer);
   if (SUCCEEDED(hr)) {
-    hr = pCPContainer->FindConnectionPoint(IID_INetworkEvents,
-                                           &pConnectPoint);
+    hr = pCPContainer->FindConnectionPoint(IID_INetworkEvents, &pConnectPoint);
     if (SUCCEEDED(hr)) {
       pListener = new NetworkListener(pCallback);
       hr = pConnectPoint->Advise((IUnknown *)pListener, &dwCookie);

@@ -100,13 +100,13 @@ void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
 
 static std::string ConnectivityToString(ConnectivityType connectivityType) {
   switch (connectivityType) {
-  case ConnectivityType::WiFi:
-    return "wifi";
-  case ConnectivityType::Ethernet:
-    return "ethernet";
-  case ConnectivityType::None:
-  default:
-    return "none";
+    case ConnectivityType::WiFi:
+      return "wifi";
+    case ConnectivityType::Ethernet:
+      return "ethernet";
+    case ConnectivityType::None:
+    default:
+      return "none";
   }
 }
 
@@ -114,7 +114,8 @@ void ConnectivityPlusWindowsPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue>& method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("check") == 0) {
-    std::string connectivity = ConnectivityToString(manager->GetConnectivityType());
+    std::string connectivity =
+        ConnectivityToString(manager->GetConnectivityType());
     result->Success(flutter::EncodableValue(connectivity));
   } else {
     result->NotImplemented();
@@ -128,7 +129,8 @@ ConnectivityStreamHandler::ConnectivityStreamHandler(
 ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
 
 void ConnectivityStreamHandler::AddConnectivityEvent() {
-  std::string connectivity = ConnectivityToString(manager->GetConnectivityType());
+  std::string connectivity =
+      ConnectivityToString(manager->GetConnectivityType());
   sink->Success(flutter::EncodableValue(connectivity));
 }
 
@@ -138,8 +140,8 @@ ConnectivityStreamHandler::OnListenInternal(
     std::unique_ptr<FlEventSink>&& events) {
   sink = std::move(events);
 
-  auto callback = std::bind(&ConnectivityStreamHandler::AddConnectivityEvent,
-                            this);
+  auto callback =
+      std::bind(&ConnectivityStreamHandler::AddConnectivityEvent, this);
 
   if (!manager->StartListen(callback)) {
     return std::make_unique<FlStreamHandlerError>(
