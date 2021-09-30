@@ -17,8 +17,7 @@
   if ([call.method isEqualToString:@"getAll"]) {
     result(@{
       @"appName" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
-          ?: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
-          ?: [NSNull null],
+          ?: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"] ?: [NSNull null],
       @"packageName" : [[NSBundle mainBundle] bundleIdentifier] ?: [NSNull null],
       @"version" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
           ?: [NSNull null],
