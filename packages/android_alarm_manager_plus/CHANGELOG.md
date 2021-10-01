@@ -1,7 +1,3 @@
-## 1.3.0
-
- - **FEAT**: get scheduled alarms functionality added. (#384).
-
 ## 1.2.0
 
 - Reverted feature to get scheduled alarms. See Issue #421 for more info.

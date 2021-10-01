@@ -1,7 +1,3 @@
-## 1.0.7
-
- - **FIX**: fixed version.json path (#403).
-
 ## 1.0.6
 
 - Web: Fixed url resolving for the version.json
