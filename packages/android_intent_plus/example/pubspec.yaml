@@ -14,7 +14,7 @@ dev_dependencies:
   integration_test:
   flutter_driver:
     sdk: flutter
-  pedantic: ^1.8.0
+  flutter_lints: ^1.0.4
 
 # The following section is specific to Flutter.
 flutter:

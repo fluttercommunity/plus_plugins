@@ -15,7 +15,7 @@ dev_dependencies:
     sdk: flutter
   test: ^1.16.4
   integration_test:
-  pedantic: ^1.10.0
+  flutter_lints: ^1.0.4
 
 dependency_overrides:
   args: ^2.0.0
