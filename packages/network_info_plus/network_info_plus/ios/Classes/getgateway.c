@@ -13,14 +13,8 @@
 #include <sys/sysctl.h>
 #include "getgateway.h"
 
-#include "TargetConditionals.h"
-#if TARGET_IPHONE_SIMULATOR
-    #include <net/route.h>
-    #define TypeEN    "en1"
-#else
-    #include "route.h"
-    #define TypeEN    "en0"
-#endif
+#include "route.h"
+#define TypeEN    "en0"
 
 #include <net/if.h>
 #include <string.h>
