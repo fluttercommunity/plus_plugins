@@ -1,6 +1,11 @@
-## 1.1.1
+## 1.2.1
 
 - IOS: Fix issue failed to build on iOS emulator
+
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
 
 ## 1.1.0
 
