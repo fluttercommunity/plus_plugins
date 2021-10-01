@@ -1,3 +1,6 @@
+## 1.0.4
+- Annotate int with external.
+
 ## 1.0.3
 - Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
 
