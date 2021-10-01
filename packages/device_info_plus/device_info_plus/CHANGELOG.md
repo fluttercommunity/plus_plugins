@@ -1,3 +1,7 @@
+## 2.3.0
+
+- suppress Android build deprecation warnings
+
 ## 2.2.0
 
 - migrate integration_test to flutter sdk
