@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   package_info_plus:
     path: ../
-  integration_test: ^1.0.2
+  integration_test:
   universal_io: ^1.0.1
 
 dev_dependencies:

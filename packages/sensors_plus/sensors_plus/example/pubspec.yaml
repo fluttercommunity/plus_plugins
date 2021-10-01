@@ -10,7 +10,7 @@ dependencies:
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  integration_test: ^1.0.2
+  integration_test:
   pedantic: ^1.10.0
 
 flutter:

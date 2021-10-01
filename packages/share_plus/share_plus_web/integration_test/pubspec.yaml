@@ -17,7 +17,7 @@ dev_dependencies:
     path: ../
   http: ^0.12.2
   mockito: ^5.0.0
-  integration_test: ^1.0.2
+  integration_test:
 
 dependency_overrides:
   args: ^2.0.0
