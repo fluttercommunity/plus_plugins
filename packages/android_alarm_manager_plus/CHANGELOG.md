@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Suppress Android build deprecation warnings.
+
 ## 1.3.0
 
 - migrate integration_test to flutter sdk

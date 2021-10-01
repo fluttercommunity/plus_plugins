@@ -13,7 +13,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.view.FlutterNativeView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +53,8 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
    * <p>Once this method is executed, an instance of {@code AndroidAlarmManagerPlugin} will be
    * connected to, and running against, the associated Flutter execution context.
    */
-  public static void registerWith(Registrar registrar) {
+  @SuppressWarnings("deprecation")
+  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
     if (instance == null) {
       instance = new AndroidAlarmManagerPlugin();
     }
