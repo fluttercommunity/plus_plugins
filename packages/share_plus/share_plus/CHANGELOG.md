@@ -1,3 +1,7 @@
+## 2.2.0
+
+- migrate integration_test to flutter sdk
+
 ## 2.1.5
 
 - Fixed: Use NSURL for web links (iOS)
