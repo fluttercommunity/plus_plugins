@@ -1,3 +1,8 @@
+## 1.0.7
+
+- Annotated deprecated embeddingV1 function
+- Upgraded gradle and Android API version
+
 ## 1.0.6
 
 - Web: Fixed url resolving for the version.json
