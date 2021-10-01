@@ -1,6 +1,6 @@
 ## 1.2.0
 
-- fix app name on macOS
+- fix app name on iOS and macOS
 
 ## 1.1.0
 
