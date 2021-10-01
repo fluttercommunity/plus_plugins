@@ -1,3 +1,7 @@
+## 1.1.1
+
+- IOS: Fix issue failed to build on iOS emulator
+
 ## 1.1.0
 
 - Android, IOS: Adding IPv6 information
