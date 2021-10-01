@@ -1,3 +1,7 @@
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
 ## 1.1.0
 
 - Android, IOS: Adding IPv6 information
