@@ -20,7 +20,7 @@ jobs:
       - name: "Install Flutter"
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.2.1"
+          flutter-version: "2.5.2"
       - name: "Install Tools"
         run: |
           flutter pub global activate melos
@@ -33,7 +33,6 @@ jobs:
       - name: "Pub Check"
         run: |
           melos run lint:pub
-
   format:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -45,13 +44,13 @@ jobs:
       - name: "Install Flutter"
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.2.1"
+          flutter-version: "2.5.2"
       - name: "Install Tools"
         run: |
           sudo apt update
           sudo apt install -y clang-format
           flutter pub global activate melos
-          pub global activate flutter_plugin_tools 0.1.4
+          pub global activate flutter_plugin_tools 0.7.1
       - name: "Bootstrap Workspace"
         run: melos bootstrap
       - name: "Melos Format"
@@ -59,7 +58,6 @@ jobs:
       - name: "Validate Formatting"
         run: |
           ./.github/workflows/scripts/validate-formatting.sh
-
   build_examples_dart:
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -71,7 +69,7 @@ jobs:
       - name: "Install Flutter"
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.2.1"
+          flutter-version: "2.5.2"
       - name: "Install Tools"
         run: flutter pub global activate melos
       - name: "Bootstrap Workspace"
@@ -79,7 +77,6 @@ jobs:
       - name: "Build Example Snapshots"
         run: |
           melos run build:examples:bundle
-
   test:
     runs-on: ${{matrix.os}}
     strategy:
@@ -95,7 +92,7 @@ jobs:
       - name: "Install Flutter"
         uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.2.1"
+          flutter-version: "2.5.2"
       - name: "Install Tools"
         run: flutter pub global activate melos
       - name: "Bootstrap Workspace"
