@@ -1,3 +1,7 @@
+## 1.3.0
+
+- Suppress Android build deprecation warnings.
+
 ## 1.2.1
 
 - IOS: Fix issue failed to build on iOS emulator

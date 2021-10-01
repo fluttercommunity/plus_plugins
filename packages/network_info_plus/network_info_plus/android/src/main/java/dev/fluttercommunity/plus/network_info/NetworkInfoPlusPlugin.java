@@ -9,7 +9,6 @@ import android.net.wifi.WifiManager;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** NetworkInfoPlusPlugin */
 public class NetworkInfoPlusPlugin implements FlutterPlugin {
@@ -17,7 +16,8 @@ public class NetworkInfoPlusPlugin implements FlutterPlugin {
   private MethodChannel methodChannel;
 
   /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
+  @SuppressWarnings("deprecation")
+  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
 
     NetworkInfoPlusPlugin plugin = new NetworkInfoPlusPlugin();
     plugin.setupChannels(registrar.messenger(), registrar.context());
