@@ -13,12 +13,11 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  integration_test:
-    sdk: flutter
   share_plus_web:
     path: ../
   http: ^0.12.2
   mockito: ^5.0.0
+  integration_test:
 
 dependency_overrides:
   args: ^2.0.0

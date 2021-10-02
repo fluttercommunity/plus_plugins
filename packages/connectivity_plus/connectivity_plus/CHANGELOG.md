@@ -1,7 +1,3 @@
-## 1.2.0
-
-- migrate integration_test to flutter sdk
-
 ## 1.1.0
 
 - Add ethernet as connectivity result. Supported on Android, Linux, macOS, and Web

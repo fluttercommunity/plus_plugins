@@ -1,7 +1,3 @@
-## 2.2.0
-
-- migrate integration_test to flutter sdk
-
 ## 2.1.0
 
 - add toMap to models
