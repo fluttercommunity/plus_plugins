@@ -1,6 +1,15 @@
-## 1.2.0
+## 1.3.0
 
 - IOS: Use `NEHotspotNetwork` on iOS 14+ to get SSID/BSSID.
+
+## 1.2.1
+
+- IOS: Fix issue failed to build on iOS emulator
+
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
 
 ## 1.1.0
 
