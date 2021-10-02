@@ -1,4 +1,4 @@
-ame: all_plugins
+name: all_plugins
 
 on:
   pull_request:
