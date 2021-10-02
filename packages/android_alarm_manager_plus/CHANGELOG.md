@@ -1,6 +1,10 @@
-## 1.1.0
+## 1.3.0
 
-- Added method to obtain the list of scheduled alarms (thanks @Chinmay-KB)
+- migrate integration_test to flutter sdk
+
+## 1.2.0
+
+- Reverted feature to get scheduled alarms. See Issue #421 for more info.
 
 ## 1.0.2
 

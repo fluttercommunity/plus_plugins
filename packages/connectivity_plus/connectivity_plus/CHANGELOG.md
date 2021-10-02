@@ -1,3 +1,11 @@
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
+## 1.1.0
+
+- Add ethernet as connectivity result. Supported on Android, Linux, macOS, and Web
+
 ## 1.0.8
 
 - Web: Fix to show `ConnectivityResult.mobile` instead of `ConnectivityResult.wifi` when the network is connected to 4g

@@ -104,6 +104,10 @@ jobs:
         run: |
           melos run test
         if: matrix.os != 'ubuntu-latest'
+      - name: "Flutter web Test"
+        run: |
+          melos run test:web
+        if: matrix.os != 'ubuntu-latest'
       - name: "Collect Coverage"
         run: |
           melos run coverage

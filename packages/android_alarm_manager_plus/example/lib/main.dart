@@ -135,9 +135,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
               key: ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
                 await AndroidAlarmManager.oneShot(
-                  // Setting a random duration just for testing purposes.
-                  // This way we can have different alarms for different durations.
-                  Duration(milliseconds: 1000 + Random().nextInt(pow(2, 10))),
+                  const Duration(seconds: 5),
                   // Ensure we have a unique alarm ID.
                   Random().nextInt(pow(2, 31)),
                   callback,
@@ -149,26 +147,6 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 'Schedule OneShot Alarm',
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                setState(() {});
-              },
-              child: Text(
-                'Fetch alarms list',
-              ),
-            ),
-            FutureBuilder(
-                future: AndroidAlarmManager.getScheduledAlarms(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  if (snapshot.hasData) {
-                    return (snapshot.data == '[]')
-                        ? Text('No alarms scheduled')
-                        : Text(snapshot.data);
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                })
           ],
         ),
       ),
