@@ -12,9 +12,9 @@ on:
       - "docs/**"
       - "**.md"
 
-defaults:
-  run:
-    working-directory: packages/sensors_plus
+# defaults:
+#   run:
+#     working-directory: packages/sensors_plus
 
 env:
   PLUS_PLUGIN_SCOPE: "*sensors_plus*"

@@ -12,9 +12,9 @@ on:
       - "docs/**"
       - "**.md"
 
-defaults:
-  run:
-    working-directory: packages/android_alarm_manager_plus
+# defaults:
+#   run:
+#     working-directory: packages/android_alarm_manager_plus
 
 env:
   PLUS_PLUGIN_SCOPE: "*android_alarm_manager_plus*"

@@ -12,9 +12,9 @@ on:
       - "docs/**"
       - "**.md"
 
-defaults:
-  run:
-    working-directory: packages/battery_plus
+# defaults:
+#   run:
+#     working-directory: packages/battery_plus
 
 env:
   PLUS_PLUGIN_SCOPE: "*battery_plus*"

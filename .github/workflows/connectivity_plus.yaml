@@ -12,9 +12,9 @@ on:
       - "docs/**"
       - "**.md"
 
-defaults:
-  run:
-    working-directory: packages/connectivity_plus
+# defaults:
+#   run:
+#     working-directory: packages/connectivity_plus
 
 env:
   PLUS_PLUGIN_SCOPE: "*connectivity_plus*"
