@@ -105,6 +105,7 @@ jobs:
         run: |
           melos exec -c 1 --scope="*example*" --dir-exists="web" -- \
             "flutter build web --no-pub"
+
   test_and_coverage:
     runs-on: ubuntu-latest
     timeout-minutes: 15
