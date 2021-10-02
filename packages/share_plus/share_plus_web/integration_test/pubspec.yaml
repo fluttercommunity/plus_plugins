@@ -18,6 +18,7 @@ dev_dependencies:
   http: ^0.12.2
   mockito: ^5.0.0
   integration_test:
+    sdk: flutter
 
 dependency_overrides:
   args: ^2.0.0
