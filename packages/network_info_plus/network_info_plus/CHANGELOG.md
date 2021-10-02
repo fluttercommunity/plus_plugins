@@ -1,3 +1,7 @@
+## 1.2.0
+
+- IOS: Use `NEHotspotNetwork` on iOS 14+ to get SSID/BSSID.
+
 ## 1.1.0
 
 - Android, IOS: Adding IPv6 information
