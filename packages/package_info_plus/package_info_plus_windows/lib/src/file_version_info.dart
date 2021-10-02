@@ -10,10 +10,10 @@ part of package_info_plus_windows;
 
 class _LANGANDCODEPAGE extends Struct {
   @Uint16()
-  external int? wLanguage;
+  int? wLanguage;
 
   @Uint16()
-  external int? wCodePage;
+  int? wCodePage;
 }
 
 final _kernel32 = DynamicLibrary.open('kernel32.dll');
