@@ -42,6 +42,13 @@ then
   exit
 fi
 
+if [ "$ACTION" == "windows" ]
+then
+  melos exec -c 1 --fail-fast --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" --dir-exists=test_driver -- \
+    flutter drive $FLUTTER_COMMAND_FLAGS -d windows --no-pub --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart --dart-define=CI=true
+  exit
+fi
+
 if [ "$ACTION" == "web" ]
 then
   melos bootstrap --scope="$PLUS_PLUGIN_SCOPE"
