@@ -1,0 +1,97 @@
+name: device_info_plus
+
+on:
+  pull_request:
+    paths:
+      - "packages/device_info_plus/**"
+      - ".github/workflows/device_info_plus.yaml"
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
+
+defaults:
+  run:
+    working-directory: packages/device_info_plus
+
+env:
+  PLUS_PLUGIN_SCOPE: "*device_info_plus*"
+  PLUS_PLUGIN_SCOPE_EXAMPLE: "*device_info_plus_example*"
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: |
+          ./.github/workflows/scripts/install-tools.sh
+      - name: "Build Web Example"
+        run: |
+          flutter config --enable-web
+          ./.github/workflows/scripts/build-example.sh web
+        if: matrix.os == 'ubuntu-latest'
+      - name: "Build Linux Example"
+        run: |
+          flutter config --enable-linux-desktop
+          ./.github/workflows/scripts/build-example.sh linux
+        if: matrix.os == 'ubuntu-latest'
+      - name: "Build Android Example"
+        run: |
+          ./.github/workflows/scripts/build-example.sh android
+        if: matrix.os == 'macos-latest'
+      - name: "Build Web Example"
+        run: |
+          ./.github/workflows/scripts/build-example.sh ios
+        if: matrix.os == 'macos-latest'
+      - name: "Build Web Example"
+        run: |
+          flutter config --enable-macos-desktop
+          ./.github/workflows/scripts/build-example.sh macos
+        if: matrix.os == 'macos-latest'
+      - name: "Build Web Example"
+        run: |
+          flutter config --enable-windows-desktop
+          ./.github/workflows/scripts/build-example.sh windows
+        if: matrix.os == 'windows-latest'
+
+  integration_tests:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: |
+          ./.github/workflows/scripts/install-tools.sh
+      - name: "Setup Linux"
+        run: |
+          sudo apt update
+          sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb clang-format
+          sudo apt install -y network-manager upower
+          flutter config --enable-linux-desktop
+        if: matrix.os == 'ubuntu-latest'
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+      - name: "Flutter Integration Test"
+        run: |
+          melos run test:mobile_e2e
+          melos run test:web_e2e
+          melos run test:linux_e2e
+        if: matrix.os == 'ubuntu-latest'

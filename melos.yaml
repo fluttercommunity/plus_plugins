@@ -128,6 +128,14 @@ scripts:
         - test
       scope: "*web*"
 
+  integration:all:
+    run: |
+      melos run test:mobile_e2e --no-select \ 
+      && melos run test:web_e2e --no-select \ 
+      && melos run test:linux_e2e --no-select \
+      && melos run test:macos_e2e --no-select
+    description: Run all integration tests available on stable channel
+
   test:mobile_e2e:
     run: |
       melos exec -c 1 --fail-fast -- \
@@ -146,7 +154,7 @@ scripts:
         "flutter drive --device-id=web-server --no-pub --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart"
     description: |
       Run all Web test driver e2e tests in a specific example app.
-       - Requires `flutter channel master` (or beta).
+       - Requires `flutter channel stable` (or beta).
        - Requires `flutter config --enable-web` set.
        - Requires chromedriver running on port 4444.
     select-package:
@@ -155,16 +163,13 @@ scripts:
         - test_driver
       scope: "*example*"
 
-  # Run all Linux test driver e2e tests in the example apps.
-  # - Requires `flutter config --enable-linux-desktop` enabled.
-  # - Requires `flutter channel dev && flutter upgrade`.
   test:linux_e2e:
     run: |
       melos exec -c 1 --fail-fast -- \
         "flutter drive -d linux --no-pub --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart"
     description: |
       Run all Linux test driver e2e tests in a specific example app.
-       - Requires `flutter channel master`.
+       - Requires `flutter channel stable`.
        - Requires `flutter config --enable-linux-desktop` set.
     select-package:
       dir-exists:
@@ -178,7 +183,7 @@ scripts:
         "flutter drive -d macos --no-pub --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart"
     description: |
       Run all MacOS test driver e2e tests in a specific example app.
-       - Requires `flutter channel master`.
+       - Requires `flutter channel stable`.
        - Requires `flutter config --enable-macos-desktop` set.
     select-package:
       dir-exists:

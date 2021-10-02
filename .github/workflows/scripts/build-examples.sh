@@ -27,13 +27,27 @@ fi
 if [ "$ACTION" == "macos" ]
 then
   melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" -- \
-    flutter build macos $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --device-id=macos --dart-define=CI=true
+    flutter build macos $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi
 
 if [ "$ACTION" == "linux" ]
 then
   melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" -- \
-    flutter build linux $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --device-id=linux --dart-define=CI=true
+    flutter build linux $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
+  exit
+fi
+
+if [ "$ACTION" == "windows" ]
+then
+  melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" -- \
+    flutter build windows $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
+  exit
+fi
+
+if [ "$ACTION" == "web" ]
+then
+  melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" -- \
+    flutter build web $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi
