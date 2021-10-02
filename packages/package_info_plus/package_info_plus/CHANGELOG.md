@@ -1,7 +1,11 @@
-## 1.1.1
+## 1.2.1
 
 - Annotated deprecated embeddingV1 function
 - Upgraded gradle and Android API version
+
+## 1.2.0
+
+- fix app name on iOS and macOS
 
 ## 1.1.0
 
