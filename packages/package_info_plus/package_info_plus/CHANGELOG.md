@@ -1,3 +1,11 @@
+## 1.2.0
+
+- fix app name on iOS and macOS
+
+## 1.1.0
+
+- migrate integration_test to flutter sdk
+
 ## 1.0.6
 
 - Web: Fixed url resolving for the version.json
