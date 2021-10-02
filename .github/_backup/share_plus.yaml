@@ -1,10 +1,10 @@
-name: device_info_plus
+name: share_plus
 
 on:
   pull_request:
     paths:
-      - "packages/device_info_plus/**"
-      - ".github/workflows/device_info_plus.yaml"
+      - "packages/share_plus/**"
+      - ".github/workflows/share_plus.yaml"
   push:
     branches:
       - main
@@ -14,11 +14,11 @@ on:
 
 # defaults:
 #   run:
-#     working-directory: packages/device_info_plus
+#     working-directory: packages/share_plus
 
 env:
-  PLUS_PLUGIN_SCOPE: "*device_info_plus*"
-  PLUS_PLUGIN_SCOPE_EXAMPLE: "*device_info_plus_example*"
+  PLUS_PLUGIN_SCOPE: "*share_plus*"
+  PLUS_PLUGIN_SCOPE_EXAMPLE: "*share_plus_example*"
 
 jobs:
   build:
@@ -38,12 +38,10 @@ jobs:
           ./.github/workflows/scripts/install-tools.sh
       - name: "Build Web Example"
         run: |
-          flutter config --enable-web
           ./.github/workflows/scripts/build-example.sh web
         if: matrix.os == 'ubuntu-latest'
       - name: "Build Linux Example"
         run: |
-          flutter config --enable-linux-desktop
           ./.github/workflows/scripts/build-example.sh linux
         if: matrix.os == 'ubuntu-latest'
       - name: "Build Android Example"
@@ -56,12 +54,10 @@ jobs:
         if: matrix.os == 'macos-latest'
       - name: "Build Web Example"
         run: |
-          flutter config --enable-macos-desktop
           ./.github/workflows/scripts/build-example.sh macos
         if: matrix.os == 'macos-latest'
       - name: "Build Web Example"
         run: |
-          flutter config --enable-windows-desktop
           ./.github/workflows/scripts/build-example.sh windows
         if: matrix.os == 'windows-latest'
 
@@ -78,8 +74,7 @@ jobs:
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
-        run: |
-          ./.github/workflows/scripts/install-tools.sh
+        run: ./.github/workflows/scripts/install-tools.sh
       - name: "Setup Linux"
         run: |
           sudo apt update
@@ -91,7 +86,7 @@ jobs:
         run: melos bootstrap
       - name: "Flutter Integration Test"
         run: |
-          melos run test:mobile_e2e
-          melos run test:web_e2e
-          melos run test:linux_e2e
+          melos run test:mobile_e2e --no-select
+          melos run test:web_e2e --no-select
+          melos run test:linux_e2e --no-select
         if: matrix.os == 'ubuntu-latest'
