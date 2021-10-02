@@ -8,7 +8,7 @@ on:
       - "**.md"
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - "docs/**"
       - "website/**"
@@ -52,6 +52,7 @@ jobs:
         run: |
           melos exec -c 1 --scope="*example*" -- \
             "flutter pub get"
+
   format:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -84,6 +85,7 @@ jobs:
           melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
             find . -maxdepth 12 -name "*.java" -print0 \| xargs -0 java -jar $HOME/google-java-format.jar --replace
           ./.github/workflows/scripts/validate-formatting.sh
+
   build_examples_dart:
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -103,7 +105,7 @@ jobs:
         run: |
           melos exec -c 1 --scope="*example*" --dir-exists="web" -- \
             "flutter build web --no-pub"
-  test:
+  test_and_coverage:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
