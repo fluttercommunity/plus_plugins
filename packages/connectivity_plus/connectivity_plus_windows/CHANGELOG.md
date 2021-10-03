@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Add ethernet as connectivity result.
+
 ## 1.1.0
 
 - Update connectivity plus

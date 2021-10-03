@@ -9,14 +9,16 @@
  * See full license text in LICENSE file at top of project tree
  */
 
-#include "network_manager.h"
+#include "include/connectivity_plus_windows/network_manager.h"
 
+#include <iphlpapi.h>
 #include <netlistmgr.h>
 #include <ocidl.h>
 
 #include <cassert>
+#include <set>
 
-class NetworkListener final : public INetworkListManagerEvents {
+class NetworkListener final : public INetworkEvents {
  public:
   NetworkListener(NetworkCallback pCb) : pCallback(pCb) {}
 
@@ -26,8 +28,8 @@ class NetworkListener final : public INetworkListManagerEvents {
     HRESULT hr = S_OK;
     if (IsEqualIID(riid, IID_IUnknown)) {
       *ppvObject = (IUnknown *)this;
-    } else if (IsEqualIID(riid, IID_INetworkListManagerEvents)) {
-      *ppvObject = (INetworkListManagerEvents *)this;
+    } else if (IsEqualIID(riid, IID_INetworkEvents)) {
+      *ppvObject = (INetworkEvents *)this;
     } else {
       hr = E_NOINTERFACE;
     }
@@ -44,16 +46,27 @@ class NetworkListener final : public INetworkListManagerEvents {
     return lAddend;
   }
 
+  HRESULT STDMETHODCALLTYPE NetworkAdded(GUID networkId) { return S_OK; }
+
   HRESULT STDMETHODCALLTYPE
-  ConnectivityChanged(NLM_CONNECTIVITY fConnectivity) {
-    Callback(fConnectivity &
-             (NLM_CONNECTIVITY_IPV4_INTERNET | NLM_CONNECTIVITY_IPV6_INTERNET));
+  NetworkConnectivityChanged(GUID networkId, NLM_CONNECTIVITY newConnectivity) {
+    Callback();
     return S_OK;
   }
 
-  void Callback(bool bConnected) {
+  HRESULT STDMETHODCALLTYPE NetworkDeleted(GUID networkId) { return S_OK; }
+
+  HRESULT STDMETHODCALLTYPE
+  NetworkPropertyChanged(GUID networkId, NLM_NETWORK_PROPERTY_CHANGE flags) {
+    if (flags & NLM_NETWORK_PROPERTY_CHANGE_CONNECTION) {
+      Callback();
+    }
+    return S_OK;
+  }
+
+  void Callback() {
     assert(pCallback);
-    pCallback(bConnected);
+    pCallback();
   }
 
  private:
@@ -94,13 +107,96 @@ void NetworkManager::Cleanup() {
   CoUninitialize();
 }
 
-bool NetworkManager::IsConnected() {
-  VARIANT_BOOL Connected = VARIANT_FALSE;
-  HRESULT hr = pNetworkListManager->get_IsConnectedToInternet(&Connected);
-  if (FAILED(hr)) {
-    return false;
+std::vector<GUID> NetworkManager::GetConnectedAdapterIds() const {
+  std::vector<GUID> adapterIds;
+
+  IEnumNetworkConnections *connections = NULL;
+  HRESULT hr = pNetworkListManager->GetNetworkConnections(&connections);
+  if (hr == S_OK) {
+    while (true) {
+      INetworkConnection *connection = NULL;
+      hr = connections->Next(1, &connection, NULL);
+      if (hr != S_OK) {
+        break;
+      }
+
+      VARIANT_BOOL isConnected = VARIANT_FALSE;
+      hr = connection->get_IsConnectedToInternet(&isConnected);
+      if (hr == S_OK && isConnected == VARIANT_TRUE) {
+        GUID guid;
+        hr = connection->GetAdapterId(&guid);
+        if (hr == S_OK) {
+          adapterIds.push_back(std::move(guid));
+        }
+      }
+      connection->Release();
+    }
+    connections->Release();
   }
-  return Connected == VARIANT_TRUE;
+
+  return adapterIds;
+}
+
+ConnectivityType NetworkManager::GetConnectivityType() const {
+  ULONG bufferSize = 15 * 1024;
+  ULONG flags = GAA_FLAG_SKIP_UNICAST | GAA_FLAG_SKIP_ANYCAST |
+                GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_DNS_SERVER |
+                GAA_FLAG_SKIP_FRIENDLY_NAME;
+  std::vector<unsigned char> buffer(bufferSize);
+  PIP_ADAPTER_ADDRESSES addresses =
+      reinterpret_cast<PIP_ADAPTER_ADDRESSES>(&buffer.front());
+  DWORD rc = GetAdaptersAddresses(AF_UNSPEC, flags, 0, addresses, &bufferSize);
+  if (rc == ERROR_BUFFER_OVERFLOW) {
+    buffer.resize(bufferSize);
+    addresses = reinterpret_cast<PIP_ADAPTER_ADDRESSES>(&buffer.front());
+    rc = GetAdaptersAddresses(AF_UNSPEC, flags, 0, addresses, &bufferSize);
+  }
+
+  if (rc != NO_ERROR) {
+    return ConnectivityType::None;
+  }
+
+  std::vector<GUID> adapterIds = GetConnectedAdapterIds();
+  if (adapterIds.empty()) {
+    return ConnectivityType::None;
+  }
+
+  std::set<ConnectivityType> connectivities;
+  for (; addresses != NULL; addresses = addresses->Next) {
+    NET_LUID luid;
+    rc = ConvertInterfaceIndexToLuid(addresses->IfIndex, &luid);
+    if (rc != NO_ERROR) {
+      continue;
+    }
+
+    GUID guid;
+    rc = ConvertInterfaceLuidToGuid(&luid, &guid);
+    if (rc != NO_ERROR) {
+      continue;
+    }
+
+    if (std::find(adapterIds.begin(), adapterIds.end(), guid) !=
+        adapterIds.end()) {
+      switch (addresses->IfType) {
+        case IF_TYPE_ETHERNET_CSMACD:
+          connectivities.insert(ConnectivityType::Ethernet);
+          break;
+        default:
+          connectivities.insert(ConnectivityType::WiFi);
+          break;
+      }
+    }
+  }
+
+  if (connectivities.find(ConnectivityType::WiFi) != connectivities.end()) {
+    return ConnectivityType::WiFi;
+  }
+
+  if (connectivities.find(ConnectivityType::Ethernet) != connectivities.end()) {
+    return ConnectivityType::Ethernet;
+  }
+
+  return ConnectivityType::None;
 }
 
 bool NetworkManager::StartListen(NetworkCallback pCallback) {
@@ -111,8 +207,7 @@ bool NetworkManager::StartListen(NetworkCallback pCallback) {
   HRESULT hr = pNetworkListManager->QueryInterface(
       IID_IConnectionPointContainer, (void **)&pCPContainer);
   if (SUCCEEDED(hr)) {
-    hr = pCPContainer->FindConnectionPoint(IID_INetworkListManagerEvents,
-                                           &pConnectPoint);
+    hr = pCPContainer->FindConnectionPoint(IID_INetworkEvents, &pConnectPoint);
     if (SUCCEEDED(hr)) {
       pListener = new NetworkListener(pCallback);
       hr = pConnectPoint->Advise((IUnknown *)pListener, &dwCookie);
