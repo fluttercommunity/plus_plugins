@@ -19,6 +19,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Classes/**/*.h'
 
   s.platform = :osx
-  s.osx.deployment_target = '10.14'
+  s.osx.deployment_target = '10.11'
 end
-
