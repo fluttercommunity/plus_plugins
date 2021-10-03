@@ -18,7 +18,6 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: any
   pedantic: ^1.10.0
 
 flutter:
