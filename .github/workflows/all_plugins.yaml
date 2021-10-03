@@ -90,17 +90,20 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
+
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
+
       - name: "Bootstrap Workspace"
         run: melos bootstrap
 
@@ -108,15 +111,19 @@ jobs:
         run: melos run build:all
 
       - name: "Build Linux Examples"
-        run: melos run build:example_linux
+        run: |
+          flutter config --enable-linux-desktop
+          melos run build:example_linux
         if: matrix.os == 'ubuntu-latest'
 
-      - name: "Build windows Examples"
-        run: melos run build:example_windows
-        if: matrix.os == 'windows-latest'
+      # - name: "Build windows Examples"
+      #   run: melos run build:example_windows
+      #   if: matrix.os == 'windows-latest'
 
       - name: "Build macos Examples"
-        run: melos run build:example_macos
+        run: |
+          flutter config --enable-macos-desktop
+          melos run build:example_macos
         if: matrix.os == 'macos-latest'
 
   test_and_coverage:
@@ -153,10 +160,7 @@ jobs:
 
   integration_tests:
     # if: false # currently broken, see issue 220
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: macos-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
@@ -196,7 +200,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
       - name: "Drive Android Integration Test"
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
@@ -205,11 +209,11 @@ jobs:
           profile: Nexus 5X
           script: ./.github/workflows/scripts/drive-example.sh android
 
-      - name: "Flutter Windows Integration Test"
-        run: |
-          flutter config --enable-windows-desktop
-          ./.github/workflows/scripts/drive-example.sh windows
-        if: matrix.os == 'windows-latest'
+      # - name: "Flutter Windows Integration Test"
+      #   run: |
+      #     flutter config --enable-windows-desktop
+      #     ./.github/workflows/scripts/drive-example.sh windows
+      #   if: matrix.os == 'windows-latest'
 
       - name: "Drive iOS Integration Test"
         run: |
