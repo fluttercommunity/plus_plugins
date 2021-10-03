@@ -114,7 +114,7 @@ jobs:
       - name: "Build Linux Examples"
         run: |
           flutter config --enable-linux-desktop
-          melos run build:example_linux
+          melos run build:example_linux --no-select
         if: matrix.os == 'ubuntu-latest'
 
       # - name: "Build windows Examples"
@@ -124,7 +124,7 @@ jobs:
       - name: "Build macos Examples"
         run: |
           flutter config --enable-macos-desktop
-          melos run build:example_macos
+          melos run build:example_macos --no-select
         if: matrix.os == 'macos-latest'
 
   test_and_coverage:
