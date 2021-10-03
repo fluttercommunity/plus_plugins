@@ -1,6 +1,10 @@
-## 1.3.0
+## 1.4.0
 
 - [MacOS]: Backport to macOS 10.11
+
+## 1.3.0
+
+- Add ethernet as connectivity result. Supported on Android, iOS, Windows, Linux, macOS, and Web
 
 ## 1.2.0
 

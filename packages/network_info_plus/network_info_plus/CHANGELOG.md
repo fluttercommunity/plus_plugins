@@ -1,3 +1,7 @@
+## 1.3.0
+
+- IOS: Use `NEHotspotNetwork` on iOS 14+ to get SSID/BSSID.
+
 ## 1.2.1
 
 - IOS: Fix issue failed to build on iOS emulator

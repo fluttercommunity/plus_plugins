@@ -1,3 +1,11 @@
+## 1.2.1
+
+- Windows: Annotate int with external in preparation of Flutter 2.5
+
+## 1.2.0
+
+- fix app name on iOS and macOS
+
 ## 1.1.0
 
 - migrate integration_test to flutter sdk
