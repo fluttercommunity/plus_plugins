@@ -1,7 +1,11 @@
-## 1.2.1
+## 1.2.2
 
 - Annotated deprecated embeddingV1 function
 - Upgraded gradle and Android API version
+
+## 1.2.1
+
+- Windows: Annotate int with external in preparation of Flutter 2.5
 
 ## 1.2.0
 
