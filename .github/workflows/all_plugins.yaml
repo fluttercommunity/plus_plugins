@@ -87,10 +87,7 @@ jobs:
           ./.github/workflows/scripts/validate-formatting.sh
 
   build_examples_dart:
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [macos-latest]
+    runs-on: macos-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
