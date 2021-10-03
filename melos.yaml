@@ -154,8 +154,7 @@ scripts:
         "flutter drive --device-id=web-server --no-pub --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart"
     description: |
       Run all Web test driver e2e tests in a specific example app.
-       - Requires `flutter channel stable` (or beta).
-       - Requires `flutter config --enable-web` set.
+       - Requires `flutter channel stable`.
        - Requires chromedriver running on port 4444.
     select-package:
       dir-exists:

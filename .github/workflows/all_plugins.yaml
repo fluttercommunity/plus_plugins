@@ -151,7 +151,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@master
         with:
-          chromedriver-version: "95.0.4638.17"
+          chromedriver-version: "94.0.4606.61"
       - run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
