@@ -1,3 +1,7 @@
+## 1.3.0
+
+- [MacOS]: Backport to macOS 10.11
+
 ## 1.2.0
 
 - migrate integration_test to flutter sdk
