@@ -90,7 +90,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest]
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
@@ -111,11 +111,11 @@ jobs:
         run: melos run build:all
         if: matrix.os == 'macos-latest'
 
-      - name: "Build Linux Examples"
-        run: |
-          flutter config --enable-linux-desktop
-          melos run build:example_linux --no-select
-        if: matrix.os == 'ubuntu-latest'
+      # - name: "Build Linux Examples"
+      #   run: |
+      #     flutter config --enable-linux-desktop
+      #     melos run build:example_linux --no-select
+      #   if: matrix.os == 'ubuntu-latest'
 
       # - name: "Build windows Examples"
       #   run: melos run build:example_windows
