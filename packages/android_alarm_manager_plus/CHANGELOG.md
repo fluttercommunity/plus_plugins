@@ -1,3 +1,11 @@
+## 1.3.0
+
+- migrate integration_test to flutter sdk
+
+## 1.2.0
+
+- Reverted feature to get scheduled alarms. See Issue #421 for more info.
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

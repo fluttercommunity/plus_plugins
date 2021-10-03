@@ -2,25 +2,27 @@ import 'dart:async';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:meta/meta.dart';
-
-import 'network_manager.dart';
+import 'package:nm/nm.dart';
 
 // Used internally
 // ignore_for_file: public_member_api_docs
 
 @visibleForTesting
-typedef NetworkManagerFactory = NetworkManager Function();
+typedef NetworkManagerClientFactory = NetworkManagerClient Function();
 
 /// The Linux implementation of ConnectivityPlatform.
 class ConnectivityLinux extends ConnectivityPlatform {
   /// Checks the connection status of the device.
   @override
-  Future<ConnectivityResult> checkConnectivity() {
-    return _getConnectivity(_ref()).whenComplete(_deref);
+  Future<ConnectivityResult> checkConnectivity() async {
+    final client = createClient();
+    await client.connect();
+    final connectivity = _getConnectivity(client);
+    await client.close();
+    return connectivity;
   }
 
-  int _refCount = 0;
-  NetworkManager? _manager;
+  NetworkManagerClient? _client;
   StreamController<ConnectivityResult>? _controller;
 
   /// Returns a Stream of ConnectivityResults changes.
@@ -28,62 +30,44 @@ class ConnectivityLinux extends ConnectivityPlatform {
   Stream<ConnectivityResult> get onConnectivityChanged {
     _controller ??= StreamController<ConnectivityResult>.broadcast(
       onListen: _startListenConnectivity,
-      onCancel: _deref,
+      onCancel: _stopListenConnectivity,
     );
     return _controller!.stream;
   }
 
-  Future<ConnectivityResult> _getConnectivity(NetworkManager manager) {
-    return manager.getType().then((value) => value.toConnectivityResult());
+  ConnectivityResult _getConnectivity(NetworkManagerClient client) {
+    if (client.connectivity != NetworkManagerConnectivityState.full) {
+      return ConnectivityResult.none;
+    }
+    if (client.primaryConnectionType.contains('wireless')) {
+      return ConnectivityResult.wifi;
+    }
+    if (client.primaryConnectionType.contains('ethernet')) {
+      return ConnectivityResult.ethernet;
+    }
+    return ConnectivityResult.mobile;
   }
 
-  void _startListenConnectivity() {
-    final manager = _ref();
-    manager.getType().then((type) => _addConnectivity(type));
-    manager.subscribeTypeChanged().listen((type) {
-      _addConnectivity(type);
+  Future<void> _startListenConnectivity() async {
+    _client ??= createClient();
+    await _client!.connect();
+    _addConnectivity(_client!);
+    _client!.propertiesChanged.listen((properties) {
+      if (properties.contains('Connectivity')) {
+        _addConnectivity(_client!);
+      }
     });
   }
 
-  void _addConnectivity(String type) {
-    _controller!.add(type.toConnectivityResult());
+  void _addConnectivity(NetworkManagerClient client) {
+    _controller!.add(_getConnectivity(client));
   }
 
-  NetworkManager _ref() {
-    _manager ??= createManager();
-    ++_refCount;
-    return _manager!;
-  }
-
-  void _deref() {
-    // schedules an asynchronous disposal when the last reference is removed
-    if (--_refCount == 0) {
-      scheduleMicrotask(() {
-        if (_refCount == 0) {
-          _manager!.dispose();
-          _manager = null;
-        }
-      });
-    }
+  Future<void> _stopListenConnectivity() async {
+    await _client?.close();
+    _client = null;
   }
 
   @visibleForTesting
-  NetworkManagerFactory createManager = () => NetworkManager.system();
-}
-
-extension _NMConnectivityType on String {
-  ConnectivityResult toConnectivityResult() {
-    if (isEmpty) {
-      return ConnectivityResult.none;
-    }
-    if (contains('wireless')) {
-      return ConnectivityResult.wifi;
-    }
-    // ### TODO: ethernet
-    //if (contains('ethernet')) {
-    //  return ConnectivityResult.ethernet;
-    //}
-    // gsm, cdma, bluetooth, ...
-    return ConnectivityResult.mobile;
-  }
+  NetworkManagerClientFactory createClient = () => NetworkManagerClient();
 }

@@ -56,6 +56,9 @@ class MockUrlLauncherPlatform extends UrlLauncherPlatform {
     String? webOnlyWindowName,
   }) async {
     this.url = url;
+    if (!canLaunchMockValue) {
+      throw Exception();
+    }
     return true;
   }
 }

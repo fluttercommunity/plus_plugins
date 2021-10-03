@@ -1,3 +1,19 @@
+## 1.2.1
+
+- IOS: Fix issue failed to build on iOS emulator
+
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
+
+## 1.1.0
+
+- Android, IOS: Adding IPv6 information
+- Android, IOS: Adding gateway ip address information
+- Android, IOS: Adding broadcast information
+- Android, IOS: Adding subnet mask information
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.version          = '0.0.1'
   s.summary          = 'Flutter Sensors'
   s.description      = <<-DESC
-A Flutter plugin to access the accelerometer and gyroscope sensors.
+Flutter plugin to access the accelerometer, gyroscope, and magnetometer sensors.
                        DESC
   s.homepage         = 'https://github.com/flutter/plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
@@ -16,8 +16,7 @@ A Flutter plugin to access the accelerometer and gyroscope sensors.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  
+
   s.platform = :ios, '8.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end
-

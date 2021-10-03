@@ -9,10 +9,12 @@ import 'package:sensors_plus_platform_interface/src/method_channel_sensors.dart'
 
 import 'src/accelerometer_event.dart';
 import 'src/gyroscope_event.dart';
+import 'src/magnetometer_event.dart';
 import 'src/user_accelerometer_event.dart';
 
 export 'src/accelerometer_event.dart';
 export 'src/gyroscope_event.dart';
+export 'src/magnetometer_event.dart';
 export 'src/user_accelerometer_event.dart';
 
 /// The common platform interface for sensors.
@@ -50,5 +52,10 @@ abstract class SensorsPlatform extends PlatformInterface {
   Stream<UserAccelerometerEvent> get userAccelerometerEvents {
     throw UnimplementedError(
         'userAccelerometerEvents has not been implemented.');
+  }
+
+  /// A broadcast stream of events from the device magnetometer.
+  Stream<MagnetometerEvent> get magnetometerEvents {
+    throw UnimplementedError('magnetometerEvents has not been implemented.');
   }
 }

@@ -1,3 +1,11 @@
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
+## 1.1.0
+
+- Adds magnetometer support
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

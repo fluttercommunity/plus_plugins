@@ -1,4 +1,21 @@
+## 1.2.0
+
+- fix app name on iOS and macOS
+
+## 1.1.0
+
+- migrate integration_test to flutter sdk
+
+## 1.0.6
+
+- Web: Fixed url resolving for the version.json
+
+## 1.0.5
+
+- Remove the `required` keyword of `buildSignature` in `PackageInfo`'s constructor to restore backward compatibility
+
 ## 1.0.4
+
 - Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
 
 ## 1.0.3

@@ -52,6 +52,7 @@
   switch (state) {
     case UIDeviceBatteryStateUnknown:
       _eventSink(@"unknown");
+      break;
     case UIDeviceBatteryStateFull:
       _eventSink(@"full");
     case UIDeviceBatteryStateCharging:

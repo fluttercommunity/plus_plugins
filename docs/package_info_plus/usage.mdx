@@ -20,17 +20,6 @@ String version = packageInfo.version;
 String buildNumber = packageInfo.buildNumber;
 ```
 
-Or in async mode:
-
-```dart
-PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-  String appName = packageInfo.appName;
-  String packageName = packageInfo.packageName;
-  String version = packageInfo.version;
-  String buildNumber = packageInfo.buildNumber;
-});
-```
-
 ## Known Issue
 
 As noted on [issue 20761](https://github.com/flutter/flutter/issues/20761#issuecomment-493434578), package_info on iOS

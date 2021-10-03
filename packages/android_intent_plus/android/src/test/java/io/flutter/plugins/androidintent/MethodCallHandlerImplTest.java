@@ -32,7 +32,7 @@ import org.robolectric.shadows.ShadowPackageManager;
 
 @RunWith(RobolectricTestRunner.class)
 public class MethodCallHandlerImplTest {
-  private static final String CHANNEL_NAME = "plugins.flutter.io/android_intent";
+  private static final String CHANNEL_NAME = "dev.fluttercommunity.plus/android_intent";
   private Context context;
   private IntentSender sender;
   private MethodCallHandlerImpl methodCallHandler;
