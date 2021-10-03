@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Windows: Annotate int with external in preparation of Flutter 2.5
+
 ## 1.0.6
 
 - Web: Fixed url resolving for the version.json

@@ -1,7 +1,9 @@
 ## 1.0.4
-- Annotate int with external.
+
+- Annotate int with external in preparation of Flutter 2.5
 
 ## 1.0.3
+
 - Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
 
 ## 1.0.2
