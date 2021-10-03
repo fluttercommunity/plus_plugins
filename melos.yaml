@@ -166,14 +166,6 @@ scripts:
         - test
       scope: "*web*"
 
-  integration:all:
-    run: |
-      melos run test:mobile_e2e --no-select \ 
-      && melos run test:web_e2e --no-select \ 
-      && melos run test:linux_e2e --no-select \
-      && melos run test:macos_e2e --no-select
-    description: Run all integration tests available on stable channel
-
   test:mobile_e2e:
     run: |
       melos exec -c 1 --fail-fast -- \

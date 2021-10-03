@@ -109,6 +109,7 @@ jobs:
 
       - name: "Build iOs,Android, and web Examples"
         run: melos run build:all
+        if: matrix.os == 'macos-latest'
 
       - name: "Build Linux Examples"
         run: |
@@ -159,7 +160,7 @@ jobs:
           files: packages/*/coverage/lcov.info
 
   integration_tests:
-    # if: false # currently broken, see issue 220
+    if: false # currently broken, see issue 220
     runs-on: macos-latest
     timeout-minutes: 40
     steps:
@@ -179,12 +180,6 @@ jobs:
       - uses: nanasess/setup-chromedriver@master
         with:
           chromedriver-version: "94.0.4606.61"
-
-      - run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-          chromedriver --port=4444
 
       - name: "Setup Linux"
         run: |

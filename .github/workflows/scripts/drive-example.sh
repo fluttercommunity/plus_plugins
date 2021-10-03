@@ -51,9 +51,8 @@ fi
 
 if [ "$ACTION" == "web" ]
 then
-  # make sure chomredive on port 4444 is running before running this script
   melos bootstrap --scope="$PLUS_PLUGIN_SCOPE"
-  melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" --dir-exists=web -- \
+  chromedriver --port=4444 & melos exec -c 1 --scope="$PLUS_PLUGIN_SCOPE_EXAMPLE" --dir-exists=web -- \
     flutter drive $FLUTTER_COMMAND_FLAGS --no-pub --verbose-system-logs --device-id=web-server --target=./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart --dart-define=CI=true
   exit
 fi
