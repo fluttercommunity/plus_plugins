@@ -56,7 +56,7 @@ To run an example, run the `flutter run` command from the `example` directory of
 directory. For example, for `sensors_plus` example:
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter run
 ```
 
@@ -75,7 +75,7 @@ interact with 3rd party services, and mock where possible. To run unit tests for
 with the following commands:
 
 ```bash
-cd packages/sensors_plus
+cd packages/sensors_plus/sensors_plus
 flutter test
 ```
 
@@ -88,14 +88,14 @@ To run e2e tests, run the `flutter drive` command from the plugins main `example
 entry e2e test file.
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter drive --target=./test_driver/sensors_plus_e2e.dart
 ```
 
 To run tests against web environments, run the command as a release build:
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter drive --target=./test_driver/sensors_plus_e2e.dart --release -d chrome
 ```
 
