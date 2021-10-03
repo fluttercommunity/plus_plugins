@@ -1,3 +1,7 @@
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
 ## 1.1.1
 
 - Fix: Add break statements for unknown battery state in Android and iOS implementations
