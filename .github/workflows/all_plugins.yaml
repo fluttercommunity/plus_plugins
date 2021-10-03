@@ -55,7 +55,7 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
         with:
@@ -87,8 +87,11 @@ jobs:
           ./.github/workflows/scripts/validate-formatting.sh
 
   build_examples_dart:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
         with:
@@ -98,33 +101,50 @@ jobs:
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
-          flutter config --enable-web
       - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: "Build Examples"
-        run: |
-          melos exec -c 1 --scope="*example*" --dir-exists="web" -- \
-            "flutter build web --no-pub"
+
+      - name: "Build iOs,Android, and web Examples"
+        run: melos run build:all
+
+      - name: "Build Linux Examples"
+        run: melos run build:example_linux
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: "Build windows Examples"
+        run: melos run build:example_windows
+        if: matrix.os == 'windows-latest'
+
+      - name: "Build macos Examples"
+        run: melos run build:example_macos
+        if: matrix.os == 'macos-latest'
 
   test_and_coverage:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
+
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+
       - name: "Bootstrap Workspace"
         run: melos bootstrap
+
       - name: "Flutter Test"
         run: melos run test --no-select
+
       - name: "Flutter Test - Web"
         run: melos run test:web --no-select
+
       - name: "Collect Coverage"
         run: melos run coverage
+
       - name: Upload Coverage
         uses: codecov/codecov-action@v1
         with:
@@ -132,38 +152,77 @@ jobs:
           files: packages/*/coverage/lcov.info
 
   integration_tests:
-    if: false # currently broken, see issue 220
+    # if: false # currently broken, see issue 220
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-    timeout-minutes: 15
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
+
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+
       - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - uses: actions/checkout@v2
+
       - uses: nanasess/setup-chromedriver@master
         with:
           chromedriver-version: "94.0.4606.61"
+
       - run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
           chromedriver --port=4444
+
       - name: "Setup Linux"
         run: |
           sudo apt update
           sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb clang-format
           sudo apt install -y network-manager upower
         if: matrix.os == 'ubuntu-latest'
-      - name: "Flutter Integration Test"
+
+      - name: "Flutter Linux Integration Test"
         run: |
-          melos run test:web_e2e --no-select
+          flutter config --enable-linux-desktop
+          ./.github/workflows/scripts/drive-example.sh linux
         if: matrix.os == 'ubuntu-latest'
+
+      - name: "Drive Android Integration Test"
+        if: matrix.os == 'ubuntu-latest'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          profile: Nexus 5X
+          script: ./.github/workflows/scripts/drive-example.sh android
+
+      - name: "Flutter Windows Integration Test"
+        run: |
+          flutter config --enable-windows-desktop
+          ./.github/workflows/scripts/drive-example.sh windows
+        if: matrix.os == 'windows-latest'
+
+      - name: "Drive iOS Integration Test"
+        run: |
+          ./.github/workflows/scripts/drive-example.sh ios
+        if: matrix.os == 'macos-latest'
+
+      - name: "Drive MacOS Integration Test"
+        run: |
+          flutter config --enable-macos-desktop
+          ./.github/workflows/scripts/drive-example.sh macos
+        if: matrix.os == 'macos-latest'
+
+      - name: "Drive Web Integration Test"
+        run: |
+          ./.github/workflows/scripts/drive-example.sh web
+        if: matrix.os == 'linux-latest'
