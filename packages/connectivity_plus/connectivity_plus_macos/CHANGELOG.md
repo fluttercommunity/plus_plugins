@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Backport to macOS 10.11
+
 ## 1.1.0
 
 - Add ethernet as connectivity result.

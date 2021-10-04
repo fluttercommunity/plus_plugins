@@ -1,3 +1,7 @@
+## 1.3.1
+
+- Fix `PendingIntent`s for Android 12+
+
 ## 1.3.0
 
 - migrate integration_test to flutter sdk
