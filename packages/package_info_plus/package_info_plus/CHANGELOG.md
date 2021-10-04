@@ -1,6 +1,6 @@
-## 1.2.2
+## 1.3.0
 
-- Annotated deprecated embeddingV1 function
+- Removed deprecated embeddingV1 function
 - Upgraded gradle and Android API version
 
 ## 1.2.1
