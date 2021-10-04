@@ -40,7 +40,7 @@ import org.json.JSONException;
  * </ol>
  */
 public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandler {
-  private final String TAG = "AndroidAlarmManagerPlugin";
+  private static final String TAG = "AndroidAlarmManagerPlugin";
   private Context context;
   private Object initializationLock = new Object();
   private MethodChannel alarmManagerPluginChannel;
