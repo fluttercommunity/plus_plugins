@@ -13,7 +13,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.view.FlutterNativeView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,25 +40,10 @@ import org.json.JSONException;
  * </ol>
  */
 public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandler {
-  private static AndroidAlarmManagerPlugin instance;
   private final String TAG = "AndroidAlarmManagerPlugin";
   private Context context;
   private Object initializationLock = new Object();
   private MethodChannel alarmManagerPluginChannel;
-
-  /**
-   * Registers this plugin with an associated Flutter execution context, represented by the given
-   * {@link Registrar}.
-   *
-   * <p>Once this method is executed, an instance of {@code AndroidAlarmManagerPlugin} will be
-   * connected to, and running against, the associated Flutter execution context.
-   */
-  public static void registerWith(Registrar registrar) {
-    if (instance == null) {
-      instance = new AndroidAlarmManagerPlugin();
-    }
-    instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
@@ -101,7 +85,6 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     alarmManagerPluginChannel = null;
   }
 
-  public AndroidAlarmManagerPlugin() {}
 
   /** Invoked when the Flutter side of this plugin sends a message to the Android side. */
   @Override
