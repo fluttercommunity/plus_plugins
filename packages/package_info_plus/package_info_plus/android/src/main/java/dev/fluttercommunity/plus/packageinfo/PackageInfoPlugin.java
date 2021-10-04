@@ -35,20 +35,10 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   /**
    * Plugin registration.
    */
-  @SuppressWarnings("deprecation")
-  public static void registerWith(Registrar registrar) {
-    final PackageInfoPlugin instance = new PackageInfoPlugin();
-    instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-  }
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
-    onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
-  }
-
-  private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
-    this.applicationContext = applicationContext;
-    methodChannel = new MethodChannel(messenger, "dev.fluttercommunity.plus/package_info");
+    this.applicationContext = binding.getApplicationContext();
+    methodChannel = new MethodChannel(binding.getBinaryMessenger(), "dev.fluttercommunity.plus/package_info");
     methodChannel.setMethodCallHandler(this);
   }
 
