@@ -1,3 +1,7 @@
+## 1.3.2
+
+- Fix build issue introduced in 1.3.1.
+
 ## 1.3.1
 
 - Fix `PendingIntent`s for Android 12+
