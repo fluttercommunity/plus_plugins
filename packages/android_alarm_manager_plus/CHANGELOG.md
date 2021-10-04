@@ -1,7 +1,3 @@
-## 2.0.0
-
-- Remove deprecated method `registerWith` (of Android v1 embedding)
-
 ## 1.3.1
 
 - Fix `PendingIntent`s for Android 12+
