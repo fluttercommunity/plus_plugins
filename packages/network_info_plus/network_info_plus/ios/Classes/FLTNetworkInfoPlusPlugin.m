@@ -5,7 +5,11 @@
 #import "FLTNetworkInfoPlusPlugin.h"
 
 #import <CoreLocation/CoreLocation.h>
+#import "FLTCaptiveNetworkInfoProvider.h"
+#import "FLTHotspotNetworkInfoProvider.h"
+#import "FLTNetworkInfo.h"
 #import "FLTNetworkInfoLocationPlusHandler.h"
+#import "FLTNetworkInfoProvider.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 #import "getgateway.h"
 
@@ -16,6 +20,9 @@
 @interface FLTNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
 
 @property(strong, nonatomic) FLTNetworkInfoLocationPlusHandler* locationHandler;
+@property(strong, nonatomic) id<FLTNetworkInfoProvider> networkInfoProvider;
+
+- (instancetype)initWithNetworkInfoProvider:(id<FLTNetworkInfoProvider>)networkInfoProvider;
 
 @end
 
@@ -23,7 +30,14 @@
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTNetworkInfoPlusPlugin* instance = [[FLTNetworkInfoPlusPlugin alloc] init];
+  id<FLTNetworkInfoProvider> networkInfoProvider;
+  if (@available(iOS 14, *)) {
+    networkInfoProvider = [[FLTHotspotNetworkInfoProvider alloc] init];
+  } else {
+    networkInfoProvider = [[FLTCaptiveNetworkInfoProvider alloc] init];
+  }
+  FLTNetworkInfoPlusPlugin* instance =
+      [[FLTNetworkInfoPlusPlugin alloc] initWithNetworkInfoProvider:networkInfoProvider];
 
   FlutterMethodChannel* channel =
       [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/network_info"
@@ -31,15 +45,14 @@
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
+- (instancetype)initWithNetworkInfoProvider:(id<FLTNetworkInfoProvider>)networkInfoProvider {
+  if ((self = [super init])) {
+    self.networkInfoProvider = networkInfoProvider;
+  }
+  return self;
+}
+
 #pragma mark - Callbacks
-
-- (NSString*)getWifiName {
-  return [self findNetworkInfo:@"SSID"];
-}
-
-- (NSString*)getBSSID {
-  return [self findNetworkInfo:@"BSSID"];
-}
 
 - (NSString*)getGatewayIP {
   struct in_addr gatewayAddr;
@@ -118,9 +131,13 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([call.method isEqualToString:@"wifiName"]) {
-    result([self getWifiName]);
+    [self.networkInfoProvider fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo* networkInfo) {
+      result(networkInfo.SSID);
+    }];
   } else if ([call.method isEqualToString:@"wifiBSSID"]) {
-    result([self getBSSID]);
+    [self.networkInfoProvider fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo* networkInfo) {
+      result(networkInfo.BSSID);
+    }];
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
     result([self getWifiIP]);
   } else if ([call.method isEqualToString:@"wifiIPv6Address"]) {
@@ -156,19 +173,6 @@
 }
 
 #pragma mark - Utils
-
-- (NSString*)findNetworkInfo:(NSString*)key {
-  NSString* info = nil;
-  NSArray* interfaceNames = (__bridge_transfer id)CNCopySupportedInterfaces();
-  for (NSString* interfaceName in interfaceNames) {
-    NSDictionary* networkInfo =
-        (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName);
-    if (networkInfo[key]) {
-      info = networkInfo[key];
-    }
-  }
-  return info;
-}
 
 - (struct ifaddrs*)getWifiInterfaceIPv4 {
   return [self getWifiInterface:AF_INET];
