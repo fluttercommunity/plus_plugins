@@ -5,9 +5,7 @@
 package dev.fluttercommunity.plus.device_info;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
