@@ -1,3 +1,7 @@
+## 1.2.1
+
+- Android: Add additional information about device battery
+
 ## 1.2.0
 
 - migrate integration_test to flutter sdk

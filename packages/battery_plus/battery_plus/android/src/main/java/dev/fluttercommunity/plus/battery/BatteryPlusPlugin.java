@@ -69,24 +69,116 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
 
   @Override
   public void onMethodCall(MethodCall call, Result result) {
-    if (call.method.equals("getBatteryLevel")) {
-      int batteryLevel = getBatteryLevel();
+    Intent intent =
+        new ContextWrapper(applicationContext)
+            .registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    BatteryManager batteryManager =
+        (BatteryManager) applicationContext.getSystemService(Context.BATTERY_SERVICE);
 
-      if (batteryLevel != -1) {
-        result.success(batteryLevel);
-      } else {
-        result.error("UNAVAILABLE", "Battery level not available.", null);
-      }
-    } else if (call.method.equals("isInBatterySaveMode")) {
-      Boolean isInPowerSaveMode = this.isInPowerSaveMode();
+    switch (call.method) {
+      case "isBatteryPresent":
+        result.success(intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT));
 
-      if (isInPowerSaveMode != null) {
-        result.success(isInPowerSaveMode);
-      } else {
-        result.error("UNAVAILABLE", "Battery save mode not available.", null);
-      }
-    } else {
-      result.notImplemented();
+      case "getBatteryLevel":
+        int batteryLevel = getBatteryLevel(intent);
+        if (batteryLevel != -1) result.success(batteryLevel);
+        else result.error("UNAVAILABLE", "Battery level not available.", null);
+        break;
+
+      case "isInBatterySaveMode":
+        Boolean isInPowerSaveMode = this.isInPowerSaveMode();
+        if (isInPowerSaveMode != null) result.success(isInPowerSaveMode);
+        else result.error("UNAVAILABLE", "Battery save mode not available.", null);
+        break;
+
+      case "getBatteryHealth":
+        String batteryHealth = this.getBatteryHealth(intent);
+        if (batteryHealth != "") result.success(batteryHealth);
+        else result.error("UNAVAILABLE", "Battery health is not available.", null);
+        break;
+
+      case "getBatteryCapacity":
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+          result.success(
+              batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER));
+        } else {
+          result.error("UNAVAILABLE", "Battery capacity is not available.", null);
+        }
+        break;
+
+      case "getBatteryPluggedType":
+        String plugged = "";
+        plugged = this.getBatteryPluggedType(intent);
+        if (plugged != "") result.success(plugged);
+        else result.error("UNAVAILABLE", "Battery pluggedin type is not available.", null);
+        break;
+
+      case "getBatteryTechnology":
+        String technology = "";
+
+        if (intent.getExtras() != null) {
+          technology = intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+        }
+        if (technology != "") result.success(technology);
+        else result.error("UNAVAILABLE", "Battery technology is not available.", null);
+        break;
+
+      case "getBatteryTemperature":
+        int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+        if (temperature > 0) result.success(((float) temperature) / 10f);
+        else result.error("UNAVAILABLE", "Battery temperature is not available.", null);
+        break;
+
+      case "getBatteryVoltage":
+        int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+        if (voltage > 0) result.success(voltage);
+        else result.error("UNAVAILABLE", "Battery voltage is not available.", null);
+        break;
+
+      case "getBatteryCurrentAverage":
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+          result.success(
+              batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE));
+        } else {
+          result.error("UNAVAILABLE", "Battery current average is not available.", null);
+        }
+        break;
+
+      case "getBatteryCurrentNow":
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+          result.success(
+              batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW));
+        } else {
+          result.error("UNAVAILABLE", "Battery current now is not available.", null);
+        }
+        break;
+
+      case "getBatteryRemainingCapacity":
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+          result.success(
+              batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_ENERGY_COUNTER));
+        } else {
+          result.error("UNAVAILABLE", "Remaining battery capacity is not available.", null);
+        }
+        break;
+
+      case "getBatteryChargeTimeRemaining":
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+          result.success(batteryManager.computeChargeTimeRemaining());
+        } else {
+          result.error("UNAVAILABLE", "Battery charge time remaining is not available.", null);
+        }
+        break;
+
+      case "getBatteryScale":
+        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        if (scale != -1) result.success(scale);
+        else result.error("UNAVAILABLE", "Battery charge time remaining is not available.", null);
+        break;
+
+      default:
+        result.notImplemented();
+        break;
     }
   }
 
@@ -106,20 +198,71 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     chargingStateChangeReceiver = null;
   }
 
-  private int getBatteryLevel() {
+  private int getBatteryLevel(Intent intent) {
     int batteryLevel = -1;
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
       batteryLevel = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
     } else {
-      Intent intent =
-          new ContextWrapper(applicationContext)
-              .registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
       batteryLevel =
           (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100)
               / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
     }
 
     return batteryLevel;
+  }
+
+  private String getBatteryHealth(Intent intent) {
+    int status = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+    String health = "";
+    switch (status) {
+      case BatteryManager.BATTERY_HEALTH_COLD:
+        health = "BATTERY_HEALTH_COLD";
+        break;
+      case BatteryManager.BATTERY_HEALTH_DEAD:
+        health = "BATTERY_HEALTH_DEAD";
+        break;
+      case BatteryManager.BATTERY_HEALTH_GOOD:
+        health = "BATTERY_HEALTH_GOOD";
+        break;
+      case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+        health = "BATTERY_HEALTH_OVER_VOLTAGE";
+        break;
+      case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+        health = "BATTERY_HEALTH_OVERHEAT";
+        break;
+      case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+        health = "BATTERY_HEALTH_UNSPECIFIED_FAILURE";
+        break;
+      case BatteryManager.BATTERY_HEALTH_UNKNOWN:
+        health = "BATTERY_HEALTH_UNKNOWN";
+        break;
+      default:
+        break;
+    }
+    return health;
+  }
+
+  private String getBatteryPluggedType(Intent intent) {
+    int status = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+    String plugged = "unknown";
+    switch (status) {
+      case BatteryManager.BATTERY_PLUGGED_WIRELESS:
+        plugged = "BATTERY_PLUGGED_WIRELESS";
+        break;
+
+      case BatteryManager.BATTERY_PLUGGED_USB:
+        plugged = "BATTERY_PLUGGED_USB";
+        break;
+
+      case BatteryManager.BATTERY_PLUGGED_AC:
+        plugged = "BATTERY_PLUGGED_AC";
+        break;
+
+      default:
+        plugged = "BATTERY_PLUGGED_NONE";
+        break;
+    }
+    return plugged;
   }
 
   private Boolean isInPowerSaveMode() {

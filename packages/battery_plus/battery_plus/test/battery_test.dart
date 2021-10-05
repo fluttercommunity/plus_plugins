@@ -23,6 +23,42 @@ class MockBatteryPlatform
 
   @override
   Future<bool> get isInBatterySaveMode => Future.value(true);
+
+  @override
+  Future<String> get batteryHealth => Future.value('BATTERY_HEALTH_GOOD');
+
+  @override
+  Future<String> get batteryPluggedType => Future.value('BATTERY_PLUGGED_USB');
+
+  @override
+  Future<String> get batteryTechnology => Future.value('Li-ion');
+
+  @override
+  Future<double> get batteryTemperature => Future.value(25.0);
+
+  @override
+  Future<int> get batteryVoltage => Future.value(5000);
+
+  @override
+  Future<int> get batteryCapacity => Future.value(10000);
+
+  @override
+  Future<int> get batteryChargeTimeRemaining => Future.value(10000);
+
+  @override
+  Future<int> get batteryCurrentAverage => Future.value(500);
+
+  @override
+  Future<int> get batteryCurrentNow => Future.value(500);
+
+  @override
+  Future<bool> get isBatteryPresent => Future.value(true);
+
+  @override
+  Future<int> get batteryRemainingCapacity => Future.value(10000);
+
+  @override
+  Future<int> get batteryScale => Future.value(100);
 }
 
 void main() {
@@ -41,6 +77,54 @@ void main() {
 
   test('isInBatterySaveMode', () async {
     expect(await battery.isInBatterySaveMode, true);
+  });
+
+  test('batteryHealth', () async {
+    expect(await battery.batteryHealth, 'BATTERY_HEALTH_GOOD');
+  });
+
+  test('batteryPluggedType', () async {
+    expect(await battery.batteryPluggedType, 'BATTERY_PLUGGED_USB');
+  });
+
+  test('batteryTechnology', () async {
+    expect(await battery.batteryTechnology, 'Li-ion');
+  });
+
+  test('batteryTemperature', () async {
+    expect(await battery.batteryTemperature, 25.0);
+  });
+
+  test('batteryVoltage', () async {
+    expect(await battery.batteryVoltage, 5000);
+  });
+
+  test('batteryHealth', () async {
+    expect(await battery.batteryHealth, 'BATTERY_HEALTH_GOOD');
+  });
+
+  test('batteryChargeTimeRemaining', () async {
+    expect(await battery.batteryChargeTimeRemaining, 10000);
+  });
+
+  test('batteryCurrentAverage', () async {
+    expect(await battery.batteryCurrentAverage, 500);
+  });
+
+  test('batteryCurrentNow', () async {
+    expect(await battery.batteryCurrent, 500);
+  });
+
+  test('batteryPresent', () async {
+    expect(await battery.isBatteryPresent, true);
+  });
+
+  test('batteryRemainingCapacity', () async {
+    expect(await battery.batteryRemainingCapacity, 10000);
+  });
+
+  test('batteryScale', () async {
+    expect(await battery.batteryScale, 100);
   });
 
   group('battery state', () {

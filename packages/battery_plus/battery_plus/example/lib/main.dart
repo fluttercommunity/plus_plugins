@@ -59,12 +59,35 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Plugin example app'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          shrinkWrap: true,
           children: [
-            Text('$_batteryState'),
-            ElevatedButton(
-              onPressed: () async {
+            ListTile(
+              title: Text('$_batteryState'),
+            ),
+            ListTile(
+              onTap: () async {
+                final isBatteryPresent = await _battery.isBatteryPresent;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Present: $isBatteryPresent'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Is battery present'),
+            ),
+            ListTile(
+              onTap: () async {
                 final batteryLevel = await _battery.batteryLevel;
                 // ignore: unawaited_futures
                 showDialog<void>(
@@ -82,10 +105,247 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              child: const Text('Get battery level'),
+              title: const Text('Get battery level'),
             ),
-            ElevatedButton(
-                onPressed: () async {
+            ListTile(
+              onTap: () async {
+                final batteryHealth = await _battery.batteryHealth;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Health: $batteryHealth'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery Health'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryPluggedType = await _battery.batteryPluggedType;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Health: $batteryPluggedType'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery charging type'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryCapacity = await _battery.batteryCapacity;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Capacity: $batteryCapacity'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery capacity'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryTechnology = await _battery.batteryTechnology;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Technology: $batteryTechnology'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery technology'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryTemperature = await _battery.batteryTemperature;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Temperature: $batteryTemperature'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery temperature'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryVoltage = await _battery.batteryVoltage;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Voltage: $batteryVoltage'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery voltage'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryCurrentAverage =
+                    await _battery.batteryCurrentAverage;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content:
+                        Text('Battery Current Average: $batteryCurrentAverage'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery current average'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryCurrent = await _battery.batteryCurrent;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Current: $batteryCurrent'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery current'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryRemainingCapacity =
+                    await _battery.batteryRemainingCapacity;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text(
+                        'Remaining Battery Capacity: $batteryRemainingCapacity'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get remaining battery capacity'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryScale = await _battery.batteryScale;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text('Battery Scale: $batteryScale'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery scale'),
+            ),
+            ListTile(
+              onTap: () async {
+                final batteryChargeTimeRemaining =
+                    await _battery.batteryChargeTimeRemaining;
+                // ignore: unawaited_futures
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Text(
+                        'Battery Charge Time Remaining: $batteryChargeTimeRemaining'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ),
+                );
+              },
+              title: const Text('Get battery Charge Time Remaining'),
+            ),
+            ListTile(
+                onTap: () async {
                   final isInPowerSaveMode = await _battery.isInBatterySaveMode;
                   // ignore: unawaited_futures
                   showDialog<void>(
@@ -103,7 +363,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   );
                 },
-                child: const Text('Is on low power mode'))
+                title: const Text('Is on low power mode'))
           ],
         ),
       ),

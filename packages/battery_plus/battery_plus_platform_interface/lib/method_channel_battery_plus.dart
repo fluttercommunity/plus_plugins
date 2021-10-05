@@ -25,6 +25,12 @@ class MethodChannelBattery extends BatteryPlatform {
 
   Stream<BatteryState>? _onBatteryStateChanged;
 
+  /// Returns if the battery present
+  @override
+  Future<bool> get isBatteryPresent => methodChannel
+      .invokeMethod<bool>('isBatteryPresent')
+      .then<bool>((dynamic result) => result);
+
   /// Returns the current battery level in percent.
   @override
   Future<int> get batteryLevel => methodChannel
@@ -36,6 +42,72 @@ class MethodChannelBattery extends BatteryPlatform {
   Future<bool> get isInBatterySaveMode => methodChannel
       .invokeMethod<bool>('isInBatterySaveMode')
       .then<bool>((dynamic result) => result);
+
+  /// Returns the current Battery Health state.
+  @override
+  Future<String> get batteryHealth => methodChannel
+      .invokeMethod<String>('getBatteryHealth')
+      .then<String>((dynamic result) => result);
+
+  /// Returns the Battery capacity.
+  @override
+  Future<int> get batteryCapacity => methodChannel
+      .invokeMethod<int>('getBatteryCapacity')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the current Battery Health state.
+  @override
+  Future<String> get batteryPluggedType => methodChannel
+      .invokeMethod<String>('getBatteryPluggedType')
+      .then<String>((dynamic result) => result);
+
+  /// Returns the battery technology.
+  @override
+  Future<String> get batteryTechnology => methodChannel
+      .invokeMethod<String>('getBatteryTechnology')
+      .then<String>((dynamic result) => result);
+
+  /// Returns the battery temperature.
+  @override
+  Future<double> get batteryTemperature => methodChannel
+      .invokeMethod<double>('getBatteryTemperature')
+      .then<double>((dynamic result) => result);
+
+  /// Returns the battery voltage.
+  @override
+  Future<int> get batteryVoltage => methodChannel
+      .invokeMethod<int>('getBatteryVoltage')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the battery current average.
+  @override
+  Future<int> get batteryCurrentAverage => methodChannel
+      .invokeMethod<int>('getBatteryCurrentAverage')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the battery current.
+  @override
+  Future<int> get batteryCurrentNow => methodChannel
+      .invokeMethod<int>('getBatteryCurrentNow')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the remaining battery capacity.
+  @override
+  Future<int> get batteryRemainingCapacity => methodChannel
+      .invokeMethod<int>('getBatteryRemainingCapacity')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the time remaining for full charge
+  @override
+  Future<int> get batteryChargeTimeRemaining => methodChannel
+      .invokeMethod<int>('getBatteryChargeTimeRemaining')
+      .then<int>((dynamic result) => result);
+
+  /// Returns the total battery capacity
+  @override
+  Future<int> get batteryScale => methodChannel
+      .invokeMethod<int>('getBatteryScale')
+      .then<int>((dynamic result) => result);
 
   /// Fires whenever the battery state changes.
   @override

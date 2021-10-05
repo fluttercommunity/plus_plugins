@@ -38,18 +38,62 @@ abstract class BatteryPlatform extends PlatformInterface {
   }
 
   /// Returns the current battery level in percent.
-  Future<int> get batteryLevel {
-    throw UnimplementedError('batteryLevel() has not been implemented.');
-  }
+  Future<bool> get isBatteryPresent =>
+      throw UnimplementedError('isBatteryPresent() has not been implemented.');
+
+  /// Returns the current battery level in percent.
+  Future<int> get batteryLevel =>
+      throw UnimplementedError('getBatteryLevel() has not been implemented.');
 
   /// Returns true if the device is on battery save mode
-  Future<bool> get isInBatterySaveMode {
-    throw UnimplementedError('isInBatterySaveMode() has not been implemented.');
-  }
+  Future<bool> get isInBatterySaveMode => throw UnimplementedError(
+      'isInBatterySaveMode() has not been implemented.');
+
+  ///Returns the current battery health state
+  Future<String> get batteryHealth =>
+      throw UnimplementedError('getBatteryHealth() has not been implemented.');
+
+  ///Returns the battery voltage
+  Future<int> get batteryCapacity => throw UnimplementedError(
+      'getBatteryCapacity() has not been implemented.');
+
+  ///Returns the type of charging plugged
+  Future<String> get batteryPluggedType => throw UnimplementedError(
+      'getBatteryPluggedType() has not been implemented.');
+
+  ///Returns the battery technology
+  Future<String> get batteryTechnology => throw UnimplementedError(
+      'getBatteryTechnology() has not been implemented.');
+
+  ///Returns the battery temperature
+  Future<double> get batteryTemperature => throw UnimplementedError(
+      'getBatteryTemperature() has not been implemented.');
+
+  ///Returns the battery voltage
+  Future<int> get batteryVoltage =>
+      throw UnimplementedError('getBatteryVoltage() has not been implemented.');
+
+  ///Returns the battery current average while charging
+  Future<int> get batteryCurrentAverage => throw UnimplementedError(
+      'getBatteryCurrentAverage() has not been implemented.');
+
+  ///Returns the battery current while charging
+  Future<int> get batteryCurrentNow => throw UnimplementedError(
+      'getBatteryCurrentNow() has not been implemented.');
+
+  ///Returns the remaining battery capacity
+  Future<int> get batteryRemainingCapacity => throw UnimplementedError(
+      'getBatteryRemainingCapacity() has not been implemented.');
+
+  ///Returns the battery charge time remaining capacity
+  Future<int> get batteryChargeTimeRemaining => throw UnimplementedError(
+      'getBatteryChargeTimeRemaining() has not been implemented.');
+
+  ///Returns the total battery capacity
+  Future<int> get batteryScale =>
+      throw UnimplementedError('getBatteryScale() has not been implemented.');
 
   /// Returns a Stream of BatteryState changes.
-  Stream<BatteryState> get onBatteryStateChanged {
-    throw UnimplementedError(
-        'get onBatteryStateChanged has not been implemented.');
-  }
+  Stream<BatteryState> get onBatteryStateChanged => throw UnimplementedError(
+      'get onBatteryStateChanged has not been implemented.');
 }
