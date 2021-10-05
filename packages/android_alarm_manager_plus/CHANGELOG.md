@@ -1,6 +1,11 @@
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
 ## 1.3.3
 
 - Fix for periodic alarm being not being exact after some time by adding `allowWhileIdle` parameter
+
 
 ## 1.3.2
 
