@@ -198,14 +198,13 @@ public class AlarmService extends JobIntentService {
   public static void setPeriodic(
       Context context, AndroidAlarmManagerPlugin.PeriodicRequest request) {
     final boolean repeating = true;
-    final boolean allowWhileIdle = false;
     final boolean alarmClock = false;
     scheduleAlarm(
         context,
         request.requestCode,
         alarmClock,
-        allowWhileIdle,
         repeating,
+        request.allowWhileIdle,
         request.exact,
         request.wakeup,
         request.startMillis,
