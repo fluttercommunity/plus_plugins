@@ -7,10 +7,12 @@ package dev.fluttercommunity.plus.sensors;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+
+import androidx.annotation.NonNull;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** SensorsPlugin */
 public class SensorsPlugin implements FlutterPlugin {
@@ -28,12 +30,6 @@ public class SensorsPlugin implements FlutterPlugin {
   private EventChannel gyroscopeChannel;
   private EventChannel magnetometerChannel;
 
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    SensorsPlugin plugin = new SensorsPlugin();
-    plugin.setupEventChannels(registrar.context(), registrar.messenger());
-  }
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     final Context context = binding.getApplicationContext();
@@ -41,7 +37,7 @@ public class SensorsPlugin implements FlutterPlugin {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     teardownEventChannels();
   }
 
@@ -49,28 +45,28 @@ public class SensorsPlugin implements FlutterPlugin {
     accelerometerChannel = new EventChannel(messenger, ACCELEROMETER_CHANNEL_NAME);
     final StreamHandlerImpl accelerationStreamHandler =
         new StreamHandlerImpl(
-            (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
+            (SensorManager) context.getSystemService(Context.SENSOR_SERVICE),
             Sensor.TYPE_ACCELEROMETER);
     accelerometerChannel.setStreamHandler(accelerationStreamHandler);
 
     userAccelChannel = new EventChannel(messenger, USER_ACCELEROMETER_CHANNEL_NAME);
     final StreamHandlerImpl linearAccelerationStreamHandler =
         new StreamHandlerImpl(
-            (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
+            (SensorManager) context.getSystemService(Context.SENSOR_SERVICE),
             Sensor.TYPE_LINEAR_ACCELERATION);
     userAccelChannel.setStreamHandler(linearAccelerationStreamHandler);
 
     gyroscopeChannel = new EventChannel(messenger, GYROSCOPE_CHANNEL_NAME);
     final StreamHandlerImpl gyroScopeStreamHandler =
         new StreamHandlerImpl(
-            (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
+            (SensorManager) context.getSystemService(Context.SENSOR_SERVICE),
             Sensor.TYPE_GYROSCOPE);
     gyroscopeChannel.setStreamHandler(gyroScopeStreamHandler);
 
     magnetometerChannel = new EventChannel(messenger, MAGNETOMETER_CHANNEL_NAME);
     final StreamHandlerImpl magnetometerStreamHandler =
         new StreamHandlerImpl(
-            (SensorManager) context.getSystemService(context.SENSOR_SERVICE),
+            (SensorManager) context.getSystemService(Context.SENSOR_SERVICE),
             Sensor.TYPE_MAGNETIC_FIELD);
     magnetometerChannel.setStreamHandler(magnetometerStreamHandler);
   }
