@@ -6,6 +6,7 @@ package dev.fluttercommunity.plus.connectivity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -24,7 +25,7 @@ public class ConnectivityPlugin implements FlutterPlugin {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     teardownChannels();
   }
 
