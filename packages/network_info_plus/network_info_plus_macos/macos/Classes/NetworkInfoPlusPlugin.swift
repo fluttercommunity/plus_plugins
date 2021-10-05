@@ -17,6 +17,7 @@ import CoreWLAN
 import FlutterMacOS
 import SystemConfiguration.CaptiveNetwork
 
+
 public class NetworkInfoPlusPlugin: NSObject, FlutterPlugin {
   var cwinterface: CWInterface?
 
@@ -40,9 +41,53 @@ public class NetworkInfoPlusPlugin: NSObject, FlutterPlugin {
     case "wifiBSSID":
       result(cwinterface?.bssid())
     case "wifiIPAddress":
-      result(getWifiIP())
+        result(getWiFiAddress(family: AF_INET))
+    case "wifiIPv6Address":
+        result(getWiFiAddress(family: AF_INET6))
+    case "wifiSubmask":
+        result("")
+    case "wifiBroadcast":
+        result("")
+    case "wifiGatewayAddress":
+        result("")
     default:
       result(FlutterMethodNotImplemented)
     }
   }
 }
+
+// Return IP address of WiFi interface (en0) as a String, or `nil`
+func getWiFiAddress(family: Int32) -> String? {
+    var address : String?
+
+    // Get list of all interfaces on the local machine:
+    var ifaddr : UnsafeMutablePointer<ifaddrs>?
+    guard getifaddrs(&ifaddr) == 0 else { return nil }
+    guard let firstAddr = ifaddr else { return nil }
+
+    // For each interface ...
+    for ifptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+        let interface = ifptr.pointee
+
+        // Check for IPv4 or IPv6 interface:
+        let addrFamily = interface.ifa_addr.pointee.sa_family
+        if addrFamily == UInt8(family) {
+
+            // Check interface name:
+            let name = String(cString: interface.ifa_name)
+            if  name == "en0" {
+
+                // Convert interface address to a human readable string:
+                var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                getnameinfo(interface.ifa_addr, socklen_t(interface.ifa_addr.pointee.sa_len),
+                            &hostname, socklen_t(hostname.count),
+                            nil, socklen_t(0), NI_NUMERICHOST)
+                address = String(cString: hostname)
+            }
+        }
+    }
+    freeifaddrs(ifaddr)
+
+    return address
+}
+
