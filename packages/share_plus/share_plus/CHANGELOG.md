@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Update Android dependencies for plugin and example, bump compileSDK to 31
+
 ## 3.0.0
 
 - Remove deprecated method `registerWith` (of Android v1 embedding)
