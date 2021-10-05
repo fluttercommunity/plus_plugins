@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
 ## 1.4.0
 
 - [MacOS]: Backport to macOS 10.11

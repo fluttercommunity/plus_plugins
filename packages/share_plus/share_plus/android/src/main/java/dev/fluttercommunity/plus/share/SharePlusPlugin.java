@@ -11,7 +11,6 @@ import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** Plugin method host for presenting a share sheet via Intent */
 public class SharePlusPlugin implements FlutterPlugin, ActivityAware {
@@ -20,11 +19,6 @@ public class SharePlusPlugin implements FlutterPlugin, ActivityAware {
   private MethodCallHandler handler;
   private Share share;
   private MethodChannel methodChannel;
-
-  public static void registerWith(Registrar registrar) {
-    SharePlusPlugin plugin = new SharePlusPlugin();
-    plugin.setUpChannel(registrar.context(), registrar.activity(), registrar.messenger());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
