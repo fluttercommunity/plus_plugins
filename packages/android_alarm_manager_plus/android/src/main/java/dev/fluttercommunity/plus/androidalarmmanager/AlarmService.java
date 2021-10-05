@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import androidx.core.app.AlarmManagerCompat;
@@ -136,7 +137,7 @@ public class AlarmService extends JobIntentService {
             context,
             requestCode,
             alarm,
-            (Build.VERSION >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
+            (Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
                 | PendingIntent.FLAG_UPDATE_CURRENT);
 
     // Use the appropriate clock.
@@ -225,7 +226,7 @@ public class AlarmService extends JobIntentService {
             context,
             requestCode,
             alarm,
-            (Build.VERSION >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
+            (Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
                 | PendingIntent.FLAG_NO_CREATE);
     if (existingIntent == null) {
       Log.i(TAG, "cancel: broadcast receiver not found");
