@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
 ## 1.3.2
 
 - Fix build issue introduced in 1.3.1.
