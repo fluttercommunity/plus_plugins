@@ -204,15 +204,17 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
   static final class PeriodicRequest {
     static PeriodicRequest fromJson(JSONArray json) throws JSONException {
       int requestCode = json.getInt(0);
-      boolean exact = json.getBoolean(1);
-      boolean wakeup = json.getBoolean(2);
-      long startMillis = json.getLong(3);
-      long intervalMillis = json.getLong(4);
-      boolean rescheduleOnReboot = json.getBoolean(5);
-      long callbackHandle = json.getLong(6);
+      boolean allowWhileIdle = json.getBoolean(1);
+      boolean exact = json.getBoolean(2);
+      boolean wakeup = json.getBoolean(3);
+      long startMillis = json.getLong(4);
+      long intervalMillis = json.getLong(5);
+      boolean rescheduleOnReboot = json.getBoolean(6);
+      long callbackHandle = json.getLong(7);
 
       return new PeriodicRequest(
           requestCode,
+          allowWhileIdle,
           exact,
           wakeup,
           startMillis,
@@ -222,6 +224,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     }
 
     final int requestCode;
+    final boolean allowWhileIdle;
     final boolean exact;
     final boolean wakeup;
     final long startMillis;
@@ -231,6 +234,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
 
     PeriodicRequest(
         int requestCode,
+        boolean allowWhileIdle,
         boolean exact,
         boolean wakeup,
         long startMillis,
@@ -238,6 +242,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         boolean rescheduleOnReboot,
         long callbackHandle) {
       this.requestCode = requestCode;
+      this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;
       this.wakeup = wakeup;
       this.startMillis = startMillis;

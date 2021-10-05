@@ -246,6 +246,10 @@ class AndroidAlarmManager {
   /// If `startAt` is passed, the timer will first go off at that time and
   /// subsequently run with period `duration`.
   ///
+  /// If `allowWhileIdle` is passed as `true`, the timer will be created with
+  /// Android's `AlarmManagerCompat.setExactAndAllowWhileIdle` or
+  /// `AlarmManagerCompat.setAndAllowWhileIdle`.
+  ///
   /// If `exact` is passed as `true`, the timer will be created with Android's
   /// `AlarmManager.setRepeating`. When `exact` is `false` (the default), the
   /// timer will be created with `AlarmManager.setInexactRepeating`.
@@ -265,6 +269,7 @@ class AndroidAlarmManager {
     int id,
     Function callback, {
     DateTime? startAt,
+    bool allowWhileIdle = false,
     bool exact = false,
     bool wakeup = false,
     bool rescheduleOnReboot = false,
@@ -282,6 +287,7 @@ class AndroidAlarmManager {
     }
     final r = await _channel.invokeMethod<bool>('Alarm.periodic', <dynamic>[
       id,
+      allowWhileIdle,
       exact,
       wakeup,
       first,

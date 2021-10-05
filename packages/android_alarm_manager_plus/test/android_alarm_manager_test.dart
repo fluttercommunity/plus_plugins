@@ -155,6 +155,7 @@ void main() {
               CallbackHandle.fromRawHandle(rawHandle));
 
       final id = 1;
+      final allowWhileIdle = true;
       final exact = true;
       final wakeup = true;
       final rescheduleOnReboot = true;
@@ -163,13 +164,14 @@ void main() {
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');
         expect(call.arguments[0], id);
-        expect(call.arguments[1], exact);
-        expect(call.arguments[2], wakeup);
-        expect(call.arguments[3],
+        expect(call.arguments[1], allowWhileIdle);
+        expect(call.arguments[2], exact);
+        expect(call.arguments[3], wakeup);
+        expect(call.arguments[4],
             (now.millisecondsSinceEpoch + period.inMilliseconds));
-        expect(call.arguments[4], period.inMilliseconds);
-        expect(call.arguments[5], rescheduleOnReboot);
-        expect(call.arguments[6], rawHandle);
+        expect(call.arguments[5], period.inMilliseconds);
+        expect(call.arguments[6], rescheduleOnReboot);
+        expect(call.arguments[7], rawHandle);
         return true;
       });
 
@@ -177,6 +179,7 @@ void main() {
         period,
         id,
         (int id) => null,
+        allowWhileIdle: allowWhileIdle,
         exact: exact,
         wakeup: wakeup,
         rescheduleOnReboot: rescheduleOnReboot,

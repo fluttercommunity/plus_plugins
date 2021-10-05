@@ -1,6 +1,10 @@
-## 1.2.1
+## 2.0.1
 
 - Android: Add additional information about device battery
+
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
 
 ## 1.2.0
 

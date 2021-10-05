@@ -24,7 +24,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry;
 import java.util.Locale;
 
 /** BatteryPlusPlugin */
@@ -38,12 +37,6 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   public static final String POWER_SAVE_MODE_SAMSUNG = "1";
   private static final int POWER_SAVE_MODE_XIAOMI = 1;
   private static final int POWER_SAVE_MODE_HUAWEI = 4;
-
-  /** Plugin registration. */
-  public static void registerWith(PluginRegistry.Registrar registrar) {
-    final BatteryPlusPlugin instance = new BatteryPlusPlugin();
-    instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
