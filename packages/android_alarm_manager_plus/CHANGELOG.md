@@ -1,3 +1,11 @@
+## 1.3.4
+
+- Update Android related dependencies and bump targetSDK to 30 (Android 11)
+
+## 1.3.3
+
+- Fix for periodic alarm being not being exact after some time by adding `allowWhileIdle` parameter
+
 ## 1.3.2
 
 - Fix build issue introduced in 1.3.1.
