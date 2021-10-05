@@ -1,6 +1,8 @@
 ## 2.0.2
 
 - Clean up plugin code and fix potential issues with scheduling persistent alarms
+- Remove outdated info about Embedding V1 from README
+- Add mention when `WidgetsFlutterBinding.ensureInitialized()` is required in README
 
 ## 2.0.1
 

@@ -55,9 +55,12 @@ static void printHello() {
 }
 
 main() async {
-  final int helloAlarmID = 0;
+  // Be sure to add this line if initialize() call happens before runApp()
+  WidgetsFlutterBinding.ensureInitialized();
+
   await AndroidAlarmManager.initialize();
   runApp(...);
+  final int helloAlarmID = 0;
   await AndroidAlarmManager.periodic(const Duration(minutes: 1), helloAlarmID, printHello);
 }
 ```
@@ -73,52 +76,6 @@ If alarm callbacks will need access to other Flutter plugins, including the
 alarm manager plugin itself, it may be necessary to inform the background service how
 to initialize plugins depending on which Flutter Android embedding the application is
 using.
-
-### Flutter Android Embedding V2 (Flutter Version >= 1.12)
-
-For the Flutter Android Embedding V2, plugins are registered with the background
-isolate via reflection so `AlarmService.setPluginRegistrant` does not need to be
-called.
-
-**NOTE: this plugin is not completely compatible with the V2 embedding on
-Flutter versions < 1.12 as the background isolate will not automatically
-register plugins. This can be resolved by running `flutter upgrade` to upgrade
-to the latest Flutter version.**
-
-### Flutter Android Embedding V1 (DEPRECATED)
-
-For the Flutter Android Embedding V1, the background service must be provided a
-callback to register plugins with the background isolate. This is done by giving
-the `AlarmService` a callback to call the application's `onCreate` method. See the example's
-[Application overrides](https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus/example/android/app/src/main/java/io/flutter/plugins/androidalarmmanagerexample/Application.java).
-
-In particular, its `Application` class is as follows:
-
-```java
-public class Application extends FlutterApplication implements PluginRegistrantCallback {
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    AlarmService.setPluginRegistrant(this);
-  }
-
-  @Override
-  public void registerWith(PluginRegistry registry) {
-    GeneratedPluginRegistrant.registerWith(registry);
-  }
-}
-```
-
-Which must be reflected in the application's `AndroidManifest.xml`. E.g.:
-
-```xml
-    <application
-        android:name=".Application"
-        ...
-```
-
-**Note:** Not calling `AlarmService.setPluginRegistrant` will result in an exception being
-thrown when an alarm eventually fires.
 
 ## Plugin Development
 
