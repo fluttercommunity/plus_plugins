@@ -13,9 +13,7 @@
 // limitations under the License.
 
 #import <Foundation/Foundation.h>
-
-#import "SystemConfiguration/CaptiveNetwork.h"
-
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 
+#import "SystemConfiguration/CaptiveNetwork.h"

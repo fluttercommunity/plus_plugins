@@ -64,7 +64,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   }
 
   @Override
-  public void onMethodCall(MethodCall call, @NonNull Result result) {    
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
     Intent intent =
         new ContextWrapper(applicationContext)
             .registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
