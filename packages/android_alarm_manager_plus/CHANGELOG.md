@@ -1,11 +1,15 @@
+## 2.0.1
+
+- Update Android related dependencies and bump targetSDK to 30 (Android 11)
+
 ## 2.0.0
 
 - Remove deprecated method `registerWith` (of Android v1 embedding)
+- Update Android related dependencies and bump targetSDK to 30 (Android 11)
 
 ## 1.3.3
 
 - Fix for periodic alarm being not being exact after some time by adding `allowWhileIdle` parameter
-
 
 ## 1.3.2
 
