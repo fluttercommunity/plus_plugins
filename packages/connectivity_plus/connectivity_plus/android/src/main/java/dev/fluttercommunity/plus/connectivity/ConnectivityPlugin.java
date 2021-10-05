@@ -18,14 +18,6 @@ public class ConnectivityPlugin implements FlutterPlugin {
   private EventChannel eventChannel;
   private ConnectivityBroadcastReceiver receiver;
 
-  /** Plugin registration. */
-  @SuppressWarnings("deprecation")
-  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-
-    ConnectivityPlugin plugin = new ConnectivityPlugin();
-    plugin.setupChannels(registrar.messenger(), registrar.context());
-  }
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     setupChannels(binding.getBinaryMessenger(), binding.getApplicationContext());
