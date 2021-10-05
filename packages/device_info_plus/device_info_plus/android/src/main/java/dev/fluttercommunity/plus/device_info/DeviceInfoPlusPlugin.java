@@ -5,6 +5,9 @@
 package dev.fluttercommunity.plus.device_info;
 
 import android.content.Context;
+
+import androidx.annotation.NonNull;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
@@ -20,7 +23,7 @@ public class DeviceInfoPlusPlugin implements FlutterPlugin {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPlugin.FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPlugin.FlutterPluginBinding binding) {
     tearDownChannel();
   }
 
