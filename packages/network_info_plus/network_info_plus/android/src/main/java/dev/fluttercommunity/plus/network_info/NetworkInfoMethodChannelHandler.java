@@ -5,7 +5,6 @@
 package dev.fluttercommunity.plus.network_info;
 
 import androidx.annotation.NonNull;
-
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 

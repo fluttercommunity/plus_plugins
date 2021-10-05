@@ -107,7 +107,8 @@ class NetworkInfo {
   String getGatewayIpAdress() {
     DhcpInfo dhcpInfo = this.wifiManager.getDhcpInfo();
     int gatewayIPInt = dhcpInfo.gateway;
-    @SuppressLint("DefaultLocale") String gatewayIP =
+    @SuppressLint("DefaultLocale")
+    String gatewayIP =
         String.format(
             "%d.%d.%d.%d",
             ((gatewayIPInt) & 0xFF),
@@ -127,7 +128,8 @@ class NetworkInfo {
       List<InterfaceAddress> intAddrs = ni.getInterfaceAddresses();
       for (InterfaceAddress ia : intAddrs) {
         if (!ia.getAddress().isLoopbackAddress() && ia.getAddress() instanceof Inet4Address) {
-          final InetAddress networkPrefix = getIPv4SubnetFromNetPrefixLength(ia.getNetworkPrefixLength());
+          final InetAddress networkPrefix =
+              getIPv4SubnetFromNetPrefixLength(ia.getNetworkPrefixLength());
           if (networkPrefix != null) {
             return networkPrefix.getHostAddress();
           }
