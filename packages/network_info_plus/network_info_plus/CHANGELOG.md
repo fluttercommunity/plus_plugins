@@ -1,3 +1,9 @@
+## 2.0.2
+
+- Upgrade Android compile SDK version
+- Several code improvements
+- Remove remaining embedding v1 components
+
 ## 2.0.1
 
 - Add IP v6 to MacOS

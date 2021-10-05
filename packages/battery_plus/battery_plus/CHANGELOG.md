@@ -1,6 +1,9 @@
-## 2.0.1
-
+## 2.0.2
 - Android: Add additional information about device battery
+
+## 2.0.1
+- Upgrade Android compile SDK version
+- Several code improvements
 
 ## 2.0.0
 

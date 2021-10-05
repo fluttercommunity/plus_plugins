@@ -4,6 +4,7 @@
 
 package dev.fluttercommunity.plus.connectivity;
 
+import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
@@ -14,7 +15,7 @@ import io.flutter.plugin.common.MethodChannel;
  */
 class ConnectivityMethodChannelHandler implements MethodChannel.MethodCallHandler {
 
-  private Connectivity connectivity;
+  private final Connectivity connectivity;
 
   /**
    * Construct the ConnectivityMethodChannelHandler with a {@code connectivity}. The {@code
@@ -26,14 +27,11 @@ class ConnectivityMethodChannelHandler implements MethodChannel.MethodCallHandle
   }
 
   @Override
-  public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-    switch (call.method) {
-      case "check":
-        result.success(connectivity.getNetworkType());
-        break;
-      default:
-        result.notImplemented();
-        break;
+  public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
+    if ("check".equals(call.method)) {
+      result.success(connectivity.getNetworkType());
+    } else {
+      result.notImplemented();
     }
   }
 }
