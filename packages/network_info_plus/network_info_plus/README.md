@@ -38,7 +38,7 @@ var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 
 ### Android
 
-To successfully get WiFi Name or Wi-Fi BSSID starting with Android O, ensure all of the following conditions are met:
+To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure all of the following conditions are met:
 
 - If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
 
