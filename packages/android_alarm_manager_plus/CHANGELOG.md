@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Clean up plugin code and fix potential issues with scheduling persistent alarms
+
 ## 2.0.1
 
 - Update Android related dependencies and bump targetSDK to 30 (Android 11)
