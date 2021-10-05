@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Add IP v6 to MacOS
+
 ## 2.0.0
 
 - Remove deprecated method `registerWith` (of Android v1 embedding)
