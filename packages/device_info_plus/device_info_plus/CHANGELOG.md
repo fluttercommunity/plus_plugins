@@ -1,3 +1,8 @@
+## 3.0.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
 ## 3.0.0
 
 - Remove deprecated method `registerWith` (of Android v1 embedding)
