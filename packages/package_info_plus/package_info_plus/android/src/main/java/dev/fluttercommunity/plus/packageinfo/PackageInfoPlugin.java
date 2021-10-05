@@ -23,9 +23,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-/**
- * PackageInfoPlugin
- */
+/** PackageInfoPlugin */
 public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   private Context applicationContext;
   private MethodChannel methodChannel;
@@ -38,13 +36,12 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
     return info.versionCode;
   }
 
-  /**
-   * Plugin registration.
-   */
+  /** Plugin registration. */
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     this.applicationContext = binding.getApplicationContext();
-    methodChannel = new MethodChannel(binding.getBinaryMessenger(), "dev.fluttercommunity.plus/package_info");
+    methodChannel =
+        new MethodChannel(binding.getBinaryMessenger(), "dev.fluttercommunity.plus/package_info");
     methodChannel.setMethodCallHandler(this);
   }
 
@@ -84,23 +81,26 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   private String getBuildSignature(PackageManager pm) {
     try {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        PackageInfo packageInfo = pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
-        if (packageInfo == null
-          || packageInfo.signingInfo == null) {
+        PackageInfo packageInfo =
+            pm.getPackageInfo(
+                applicationContext.getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
+        if (packageInfo == null || packageInfo.signingInfo == null) {
           return null;
         }
         if (packageInfo.signingInfo.hasMultipleSigners()) {
           return signatureToSha1(packageInfo.signingInfo.getApkContentsSigners()[0].toByteArray());
         } else {
-          return signatureToSha1(packageInfo.signingInfo.getSigningCertificateHistory()[0].toByteArray());
+          return signatureToSha1(
+              packageInfo.signingInfo.getSigningCertificateHistory()[0].toByteArray());
         }
       } else {
-        @SuppressLint("PackageManagerGetSignatures") PackageInfo packageInfo =
-          pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNATURES);
+        @SuppressLint("PackageManagerGetSignatures")
+        PackageInfo packageInfo =
+            pm.getPackageInfo(applicationContext.getPackageName(), PackageManager.GET_SIGNATURES);
         if (packageInfo == null
-          || packageInfo.signatures == null
-          || packageInfo.signatures.length == 0
-          || packageInfo.signatures[0] == null) {
+            || packageInfo.signatures == null
+            || packageInfo.signatures.length == 0
+            || packageInfo.signatures[0] == null) {
           return null;
         }
         return signatureToSha1(packageInfo.signatures[0].toByteArray());
