@@ -1,5 +1,6 @@
-## 1.3.4
+## 2.0.0
 
+- Remove deprecated method `registerWith` (of Android v1 embedding)
 - Update Android related dependencies and bump targetSDK to 30 (Android 11)
 
 ## 1.3.3

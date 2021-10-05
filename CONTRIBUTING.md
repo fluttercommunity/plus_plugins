@@ -202,10 +202,6 @@ Newly opened PRs first go through initial triage which results in one of:
 We push releases manually, using [Melos](https://github.com/invertase/melos)
 to take care of the hard work.
 
-Changelogs and version updates are automatically updated by a project maintainer
-(via [Melos](https://github.com/invertase/melos)). The new version is automatically
-generated via the commit types and changelogs via the commit messages.
-
 Some things to keep in mind before publishing the release:
 
 - Has CI ran on the master commit and gone green? Even if CI shows as green on
