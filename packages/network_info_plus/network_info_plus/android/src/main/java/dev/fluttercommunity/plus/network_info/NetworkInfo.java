@@ -4,6 +4,7 @@
 
 package dev.fluttercommunity.plus.network_info;
 
+import android.annotation.SuppressLint;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -16,7 +17,7 @@ import java.util.List;
 
 /** Reports network info such as wifi name and address. */
 class NetworkInfo {
-  private WifiManager wifiManager;
+  private final WifiManager wifiManager;
 
   NetworkInfo(WifiManager wifiManager) {
     this.wifiManager = wifiManager;
@@ -39,6 +40,7 @@ class NetworkInfo {
     return bssid;
   }
 
+  @SuppressLint("DefaultLocale")
   String getWifiIPAddress() {
     WifiInfo wifiInfo = null;
     if (wifiManager != null) wifiInfo = wifiManager.getConnectionInfo();
@@ -61,7 +63,7 @@ class NetworkInfo {
     try {
       InetAddress inetAddress = InetAddress.getByName(ip);
       subnet = getIPv4Subnet(inetAddress);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     return subnet;
   }
@@ -79,7 +81,7 @@ class NetworkInfo {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     return broadcastIP;
   }
@@ -91,11 +93,13 @@ class NetworkInfo {
       for (InterfaceAddress interfaceAddress : ni.getInterfaceAddresses()) {
         InetAddress address = interfaceAddress.getAddress();
         if (!address.isLoopbackAddress() && address instanceof Inet6Address) {
-          String ipaddress = address.getHostAddress().split("%")[0];
-          return ipaddress;
+          String ipaddress = address.getHostAddress();
+          if (ipaddress != null) {
+            return ipaddress.split("%")[0];
+          }
         }
       }
-    } catch (Exception ex) {
+    } catch (Exception ignored) {
     }
     return null;
   }
@@ -103,6 +107,7 @@ class NetworkInfo {
   String getGatewayIpAdress() {
     DhcpInfo dhcpInfo = this.wifiManager.getDhcpInfo();
     int gatewayIPInt = dhcpInfo.gateway;
+    @SuppressLint("DefaultLocale")
     String gatewayIP =
         String.format(
             "%d.%d.%d.%d",
@@ -123,10 +128,14 @@ class NetworkInfo {
       List<InterfaceAddress> intAddrs = ni.getInterfaceAddresses();
       for (InterfaceAddress ia : intAddrs) {
         if (!ia.getAddress().isLoopbackAddress() && ia.getAddress() instanceof Inet4Address) {
-          return getIPv4SubnetFromNetPrefixLength(ia.getNetworkPrefixLength()).getHostAddress();
+          final InetAddress networkPrefix =
+              getIPv4SubnetFromNetPrefixLength(ia.getNetworkPrefixLength());
+          if (networkPrefix != null) {
+            return networkPrefix.getHostAddress();
+          }
         }
       }
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     return "";
   }
@@ -146,7 +155,7 @@ class NetworkInfo {
               + "."
               + (shift & 255);
       return InetAddress.getByName(subnet);
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     return null;
   }
