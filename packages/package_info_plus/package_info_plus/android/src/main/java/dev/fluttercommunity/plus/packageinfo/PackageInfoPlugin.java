@@ -12,16 +12,16 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * PackageInfoPlugin
@@ -29,6 +29,14 @@ import java.util.Map;
 public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
   private Context applicationContext;
   private MethodChannel methodChannel;
+
+  @SuppressWarnings("deprecation")
+  private static long getLongVersionCode(PackageInfo info) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      return info.getLongVersionCode();
+    }
+    return info.versionCode;
+  }
 
   /**
    * Plugin registration.
@@ -70,14 +78,6 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
     } catch (PackageManager.NameNotFoundException ex) {
       result.error("Name not found", ex.getMessage(), null);
     }
-  }
-
-  @SuppressWarnings("deprecation")
-  private static long getLongVersionCode(PackageInfo info) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      return info.getLongVersionCode();
-    }
-    return info.versionCode;
   }
 
   @SuppressWarnings("deprecation")
