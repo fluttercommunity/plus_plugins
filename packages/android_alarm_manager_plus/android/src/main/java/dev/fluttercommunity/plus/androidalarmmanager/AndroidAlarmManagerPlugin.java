@@ -68,10 +68,10 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       // - "Alarm.periodic"
       // - "Alarm.cancel"
       alarmManagerPluginChannel =
-        new MethodChannel(
-          messenger,
-          "dev.fluttercommunity.plus/android_alarm_manager",
-          JSONMethodCodec.INSTANCE);
+          new MethodChannel(
+              messenger,
+              "dev.fluttercommunity.plus/android_alarm_manager",
+              JSONMethodCodec.INSTANCE);
 
       // Instantiate a new AndroidAlarmManagerPlugin and connect the primary method channel for
       // Android/Flutter communication.
@@ -87,12 +87,9 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     alarmManagerPluginChannel = null;
   }
 
-  public AndroidAlarmManagerPlugin() {
-  }
+  public AndroidAlarmManagerPlugin() {}
 
-  /**
-   * Invoked when the Flutter side of this plugin sends a message to the Android side.
-   */
+  /** Invoked when the Flutter side of this plugin sends a message to the Android side. */
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     String method = call.method;
@@ -143,9 +140,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     }
   }
 
-  /**
-   * A request to schedule a one-shot Dart task.
-   */
+  /** A request to schedule a one-shot Dart task. */
   static final class OneShotRequest {
     static OneShotRequest fromJson(JSONArray json) throws JSONException {
       int requestCode = json.getInt(0);
@@ -158,14 +153,14 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       long callbackHandle = json.getLong(7);
 
       return new OneShotRequest(
-        requestCode,
-        alarmClock,
-        allowWhileIdle,
-        exact,
-        wakeup,
-        startMillis,
-        rescheduleOnReboot,
-        callbackHandle);
+          requestCode,
+          alarmClock,
+          allowWhileIdle,
+          exact,
+          wakeup,
+          startMillis,
+          rescheduleOnReboot,
+          callbackHandle);
     }
 
     final int requestCode;
@@ -178,14 +173,14 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final long callbackHandle;
 
     OneShotRequest(
-      int requestCode,
-      boolean alarmClock,
-      boolean allowWhileIdle,
-      boolean exact,
-      boolean wakeup,
-      long startMillis,
-      boolean rescheduleOnReboot,
-      long callbackHandle) {
+        int requestCode,
+        boolean alarmClock,
+        boolean allowWhileIdle,
+        boolean exact,
+        boolean wakeup,
+        long startMillis,
+        boolean rescheduleOnReboot,
+        long callbackHandle) {
       this.requestCode = requestCode;
       this.alarmClock = alarmClock;
       this.allowWhileIdle = allowWhileIdle;
@@ -197,9 +192,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     }
   }
 
-  /**
-   * A request to schedule a periodic Dart task.
-   */
+  /** A request to schedule a periodic Dart task. */
   static final class PeriodicRequest {
     static PeriodicRequest fromJson(JSONArray json) throws JSONException {
       int requestCode = json.getInt(0);
@@ -212,14 +205,14 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       long callbackHandle = json.getLong(7);
 
       return new PeriodicRequest(
-        requestCode,
-        allowWhileIdle,
-        exact,
-        wakeup,
-        startMillis,
-        intervalMillis,
-        rescheduleOnReboot,
-        callbackHandle);
+          requestCode,
+          allowWhileIdle,
+          exact,
+          wakeup,
+          startMillis,
+          intervalMillis,
+          rescheduleOnReboot,
+          callbackHandle);
     }
 
     final int requestCode;
@@ -232,14 +225,14 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final long callbackHandle;
 
     PeriodicRequest(
-      int requestCode,
-      boolean allowWhileIdle,
-      boolean exact,
-      boolean wakeup,
-      long startMillis,
-      long intervalMillis,
-      boolean rescheduleOnReboot,
-      long callbackHandle) {
+        int requestCode,
+        boolean allowWhileIdle,
+        boolean exact,
+        boolean wakeup,
+        long startMillis,
+        long intervalMillis,
+        boolean rescheduleOnReboot,
+        long callbackHandle) {
       this.requestCode = requestCode;
       this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;

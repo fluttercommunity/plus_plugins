@@ -12,14 +12,21 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.JobIntentService;
-import io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CountDownLatch;
 
 public class AlarmService extends JobIntentService {
   private static final String TAG = "AlarmService";
@@ -250,7 +257,8 @@ public class AlarmService extends JobIntentService {
     SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
 
     synchronized (persistentAlarmsLock) {
-      Set<String> persistentAlarms = new HashSet<>(prefs.getStringSet(PERSISTENT_ALARMS_SET_KEY, new HashSet<>()));
+      Set<String> persistentAlarms =
+          new HashSet<>(prefs.getStringSet(PERSISTENT_ALARMS_SET_KEY, new HashSet<>()));
       if (persistentAlarms.isEmpty()) {
         RebootBroadcastReceiver.enableRescheduleOnReboot(context);
       }
@@ -266,17 +274,14 @@ public class AlarmService extends JobIntentService {
   private static void clearPersistentAlarm(Context context, int requestCode) {
     SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
     synchronized (persistentAlarmsLock) {
-      Set<String> persistentAlarms = new HashSet<>(prefs.getStringSet(PERSISTENT_ALARMS_SET_KEY, new HashSet<>()));
+      Set<String> persistentAlarms =
+          new HashSet<>(prefs.getStringSet(PERSISTENT_ALARMS_SET_KEY, new HashSet<>()));
       if (!persistentAlarms.contains(Integer.toString(requestCode))) {
         return;
       }
       persistentAlarms.remove(Integer.toString(requestCode));
       String key = getPersistentAlarmKey(requestCode);
-      prefs
-        .edit()
-        .remove(key)
-        .putStringSet(PERSISTENT_ALARMS_SET_KEY, persistentAlarms)
-        .apply();
+      prefs.edit().remove(key).putStringSet(PERSISTENT_ALARMS_SET_KEY, persistentAlarms).apply();
 
       if (persistentAlarms.isEmpty()) {
         RebootBroadcastReceiver.disableRescheduleOnReboot(context);
@@ -298,8 +303,7 @@ public class AlarmService extends JobIntentService {
         String key = getPersistentAlarmKey(requestCode);
         String json = prefs.getString(key, null);
         if (json == null) {
-          Log.e(
-            TAG, "Data for alarm request code " + requestCode + " is invalid.");
+          Log.e(TAG, "Data for alarm request code " + requestCode + " is invalid.");
           continue;
         }
         try {
@@ -313,17 +317,17 @@ public class AlarmService extends JobIntentService {
           long intervalMillis = alarm.getLong("intervalMillis");
           long callbackHandle = alarm.getLong("callbackHandle");
           scheduleAlarm(
-            context,
-            requestCode,
-            alarmClock,
-            allowWhileIdle,
-            repeating,
-            exact,
-            wakeup,
-            startMillis,
-            intervalMillis,
-            false,
-            callbackHandle);
+              context,
+              requestCode,
+              alarmClock,
+              allowWhileIdle,
+              repeating,
+              exact,
+              wakeup,
+              startMillis,
+              intervalMillis,
+              false,
+              callbackHandle);
         } catch (JSONException e) {
           Log.e(TAG, "Data for alarm request code " + requestCode + " is invalid: " + json);
         }
@@ -371,7 +375,7 @@ public class AlarmService extends JobIntentService {
     final CountDownLatch latch = new CountDownLatch(1);
     new Handler(getMainLooper())
         .post(
-          () -> flutterBackgroundExecutor.executeDartCallbackInBackgroundIsolate(intent, latch));
+            () -> flutterBackgroundExecutor.executeDartCallbackInBackgroundIsolate(intent, latch));
 
     try {
       latch.await();
