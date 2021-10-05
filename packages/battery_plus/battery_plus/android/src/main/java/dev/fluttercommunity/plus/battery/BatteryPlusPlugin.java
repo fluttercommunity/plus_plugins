@@ -16,10 +16,8 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.PowerManager;
 import android.provider.Settings;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
