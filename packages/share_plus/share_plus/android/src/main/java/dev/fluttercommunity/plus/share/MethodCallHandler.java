@@ -4,6 +4,8 @@
 
 package dev.fluttercommunity.plus.share;
 
+import androidx.annotation.NonNull;
+
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import java.io.*;
@@ -13,7 +15,7 @@ import java.util.Map;
 /** Handles the method calls for the plugin. */
 class MethodCallHandler implements MethodChannel.MethodCallHandler {
 
-  private Share share;
+  private final Share share;
 
   MethodCallHandler(Share share) {
     this.share = share;
@@ -21,7 +23,7 @@ class MethodCallHandler implements MethodChannel.MethodCallHandler {
 
   @Override
   @SuppressWarnings("unchecked")
-  public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+  public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
     switch (call.method) {
       case "share":
         expectMapArguments(call);
