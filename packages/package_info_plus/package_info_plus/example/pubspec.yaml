@@ -7,18 +7,17 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
+  universal_io: ^2.0.4
   flutter:
     sdk: flutter
   package_info_plus:
     path: ../
-  universal_io: ^1.0.1
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
   integration_test:
     sdk: flutter
-  test: any
+  flutter_driver:
+    sdk: flutter
   pedantic: ^1.10.0
 
 flutter:
