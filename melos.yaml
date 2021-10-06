@@ -243,7 +243,7 @@ scripts:
     melos exec -c 6 -- "flutter clean"
 
 dev_dependencies:
-  pedantic: 1.10.0
+  flutter_lints: 1.0.4
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
