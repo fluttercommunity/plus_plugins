@@ -2,6 +2,45 @@
 
 _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#code-of-conduct)_
 
+## Types of contributions
+
+We welcome all contributions to the project, however some contributions will need extra work in
+order to be accepted.
+
+Here's some examples:
+
+### 🟢 Easily accepted contributions
+
+- Fixing issues
+- Improving the README.md
+- Upgrading deprecated dependencies
+- Improving tests
+
+### 🟡 Need extra consideration
+
+- New features covering all platforms
+
+We need to make sure it works well before merging and each platform needs to be reviewed individually.
+
+- Changing a platform implementation
+
+Ideally an expert in that platform will have to review the change to make sure it works as expected.
+
+### 🔴 Cannot be accepted
+
+- New features covering only one platform 
+ 
+New features should cover at least the mobile platforms (Android and iOS) to be considered, 
+and a plan for the rest must be provided.
+
+- New plugins 
+
+We don't have the capacity to accept new plugins.
+
+# Setup and running
+
+Please follow this steps when working on the PlusPlugins.
+
 ## 1. Things you will need
 
 - Linux, Mac OS X, or Windows.
