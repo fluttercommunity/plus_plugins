@@ -6,6 +6,15 @@
 #
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    # Ignore generated files
+    - '**/*.g.dart'
+    - 'lib/src/generated/*.dart'
+  
+  errors:
+    avoid_print: ignore
+
 linter:
   rules:
     - prefer_final_in_for_each
