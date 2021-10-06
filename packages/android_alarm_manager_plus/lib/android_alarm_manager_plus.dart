@@ -64,14 +64,16 @@ typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 class AndroidAlarmManager {
   static const String _channelName =
       'dev.fluttercommunity.plus/android_alarm_manager';
-  static final MethodChannel _channel =
-      const MethodChannel(_channelName, JSONMethodCodec());
+  static const MethodChannel _channel =
+      MethodChannel(_channelName, JSONMethodCodec());
 
   // Function used to get the current time. It's [DateTime.now] by default.
+  // ignore: prefer_function_declarations_over_variables
   static _Now _now = () => DateTime.now();
 
   // Callback used to get the handle for a callback. It's
   // [PluginUtilities.getCallbackHandle] by default.
+  // ignore: prefer_function_declarations_over_variables
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
 

@@ -11,7 +11,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel channel =
-      MethodChannel('dev.fluttercommunity.plus/device_info');
+      const MethodChannel('dev.fluttercommunity.plus/device_info');
 
   // Method channel for Android devices
   @override

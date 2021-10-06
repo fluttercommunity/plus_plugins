@@ -63,7 +63,7 @@ void main() {
   });
 
   test('sharing file sets correct mimeType', () async {
-    final path = 'tempfile-83649a.png';
+    const path = 'tempfile-83649a.png';
     final file = File(path);
     try {
       file.createSync();
@@ -78,7 +78,7 @@ void main() {
   });
 
   test('sharing file sets passed mimeType', () async {
-    final path = 'tempfile-83649a.png';
+    const path = 'tempfile-83649a.png';
     final file = File(path);
     try {
       file.createSync();

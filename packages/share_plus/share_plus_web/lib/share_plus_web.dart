@@ -13,6 +13,7 @@ class SharePlusPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusPlugin();
   }
 
+  // ignore: prefer_typing_uninitialized_variables
   final _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.

@@ -25,6 +25,7 @@ final ReceivePort port = ReceivePort();
 SharedPreferences prefs;
 
 Future<void> main() async {
+  // ignore: todo
   // TODO(bkonyi): uncomment
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -38,15 +39,17 @@ Future<void> main() async {
   if (!prefs.containsKey(countKey)) {
     await prefs.setInt(countKey, 0);
   }
-  runApp(AlarmManagerExampleApp());
+  runApp(const AlarmManagerExampleApp());
 }
 
 /// Example app for Espresso plugin.
 class AlarmManagerExampleApp extends StatelessWidget {
+  const AlarmManagerExampleApp({Key key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: _AlarmHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -54,7 +57,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  _AlarmHomePage({Key key, this.title}) : super(key: key);
+  const _AlarmHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -126,13 +129,13 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 ),
                 Text(
                   prefs.getInt(countKey).toString(),
-                  key: ValueKey('BackgroundCountText'),
+                  key: const ValueKey('BackgroundCountText'),
                   style: textStyle,
                 ),
               ],
             ),
             ElevatedButton(
-              key: ValueKey('RegisterOneShotAlarm'),
+              key: const ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
                 await AndroidAlarmManager.oneShot(
                   const Duration(seconds: 5),
@@ -143,7 +146,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                   wakeup: true,
                 );
               },
-              child: Text(
+              child: const Text(
                 'Schedule OneShot Alarm',
               ),
             ),

@@ -10,6 +10,7 @@ import 'package_info_plus_web_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
+  // ignore: constant_identifier_names
   const VERSION_JSON = {
     'app_name': 'package_info_example',
     'build_number': '1',

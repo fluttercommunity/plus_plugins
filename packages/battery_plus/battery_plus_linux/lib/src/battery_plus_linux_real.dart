@@ -50,7 +50,7 @@ class BatteryPlusLinux extends BatteryPlatform {
   StreamController<BatteryState>? _stateController;
 
   @visibleForTesting
-  // ignore: public_member_api_docs
+  // ignore: public_member_api_docs, prefer_function_declarations_over_variables
   UPowerDeviceFactory createDevice = () => UPowerDevice.display();
 
   void _addState(UPowerBatteryState value) {

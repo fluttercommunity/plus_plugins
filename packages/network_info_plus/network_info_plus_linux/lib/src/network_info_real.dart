@@ -102,6 +102,7 @@ class NetworkInfoLinux extends NetworkInfoPlatform {
   }
 
   @visibleForTesting
+  // ignore: prefer_function_declarations_over_variables
   NetworkManagerClientFactory createClient = () => NetworkManagerClient();
 }
 
