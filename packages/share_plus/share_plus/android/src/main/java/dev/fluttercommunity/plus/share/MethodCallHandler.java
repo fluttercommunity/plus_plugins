@@ -5,7 +5,6 @@
 package dev.fluttercommunity.plus.share;
 
 import androidx.annotation.NonNull;
-
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import java.io.*;
