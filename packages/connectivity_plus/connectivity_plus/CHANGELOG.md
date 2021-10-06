@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Fix for error: lambda expressions are not supported in -source 7
+
 ## 2.0.1
 
 - Upgrade Android compile SDK version
