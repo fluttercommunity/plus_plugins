@@ -14,7 +14,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 void main() {
   runZonedGuarded(() {
-    runApp(MyApp());
+    runApp(const MyApp());
   }, (dynamic error, dynamic stack) {
     print(error);
     print(stack);
@@ -22,6 +22,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }

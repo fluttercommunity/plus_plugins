@@ -12,7 +12,7 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
 
   ///
   DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem})
-      : _fileSystem = fileSystem ?? LocalFileSystem();
+      : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
   Future<LinuxDeviceInfo> linuxInfo() async {

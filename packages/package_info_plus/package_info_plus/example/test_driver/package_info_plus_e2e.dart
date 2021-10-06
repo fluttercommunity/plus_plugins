@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:package_info_example/main.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:universal_io/io.dart';
 
 void main() {
@@ -46,7 +47,7 @@ void main() {
   });
 
   testWidgets('example', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
     if (Platform.isAndroid) {
       expect(find.text('package_info_example'), findsOneWidget);

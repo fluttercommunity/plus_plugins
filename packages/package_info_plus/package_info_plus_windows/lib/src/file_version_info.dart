@@ -17,6 +17,7 @@ class _LANGANDCODEPAGE extends Struct {
 }
 
 final _kernel32 = DynamicLibrary.open('kernel32.dll');
+// ignore: non_constant_identifier_names
 final _GetUserDefaultLangID = _kernel32
     .lookupFunction<Uint16 Function(), int Function()>('GetUserDefaultLangID');
 
