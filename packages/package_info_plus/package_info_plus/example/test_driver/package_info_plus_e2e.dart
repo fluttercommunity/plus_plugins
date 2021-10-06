@@ -47,7 +47,7 @@ void main() {
   });
 
   testWidgets('example', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
     if (Platform.isAndroid) {
       expect(find.text('package_info_example'), findsOneWidget);
