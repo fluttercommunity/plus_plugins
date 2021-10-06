@@ -24,6 +24,13 @@ application package. This works both on iOS and Android.
 ```dart
 import 'package:package_info_plus/package_info_plus.dart';
 
+... 
+
+// Be sure to add this line if `PackageInfo.fromPlatform()` is called before runApp()
+WidgetsFlutterBinding.ensureInitialized();
+
+...
+
 PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
 String appName = packageInfo.appName;
