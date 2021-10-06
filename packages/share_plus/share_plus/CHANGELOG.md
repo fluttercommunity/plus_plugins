@@ -1,3 +1,9 @@
+## 3.0.2
+
+- Apply code improvements
+- Update gradle for plugin
+- Update flutter dependencies
+
 ## 3.0.1
 
 - Update Android dependencies for plugin and example, bump compileSDK to 31
