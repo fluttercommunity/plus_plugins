@@ -27,6 +27,7 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
         let activeCPUs = Sysctl.activeCPUs
         let memorySize = Sysctl.memSize
         let cpuFrequency = Sysctl.cpuFreq
+        let guuid = SystemUUID.getSystemUUID()
         
         result([
             "computerName": computerName,
@@ -37,7 +38,8 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
             "osRelease": osRelease,
             "activeCPUs": activeCPUs,
             "memorySize": memorySize,
-            "cpuFrequency": cpuFrequency
+            "cpuFrequency": cpuFrequency,
+            "systemGUUID": guuid
         ])
     }
 }
