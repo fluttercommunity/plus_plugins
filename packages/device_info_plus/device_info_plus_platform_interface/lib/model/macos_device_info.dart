@@ -50,7 +50,7 @@ class MacOsDeviceInfo {
   final int cpuFrequency;
 
   /// Device GUUID
-  final int systemGUUID;
+  final String systemGUUID;
 
   /// Serializes [ MacOsDeviceInfo ] to map.
   Map<String, dynamic> toMap() {
