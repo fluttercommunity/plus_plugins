@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:dbus/dbus.dart';
 import 'dart:developer' as developer;
+
+import 'package:dbus/dbus.dart';
 
 const _kInterface = 'org.freedesktop.UPower';
 const _kDeviceAddress = 'org.freedesktop.UPower.Device';
@@ -43,14 +44,16 @@ class UPowerDevice extends DBusRemoteObject {
   Future<double> getPercentage() {
     return getProperty(_kDeviceAddress, 'Percentage').then(
       (value) => (value as DBusDouble).value,
-      onError: (error) => developer.log("Couldn't get percentage", error: error),
+      onError: (error) =>
+          developer.log("Couldn't get percentage", error: error),
     );
   }
 
   Future<UPowerBatteryState> getState() {
     return getProperty(_kDeviceAddress, 'State').then(
       (value) => (value as DBusUint32).value.toBatteryState(),
-      onError: (error) => developer.log("Couldn't get battery state", error: error),
+      onError: (error) =>
+          developer.log("Couldn't get battery state", error: error),
     );
   }
 
