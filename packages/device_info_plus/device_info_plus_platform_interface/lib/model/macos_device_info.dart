@@ -80,7 +80,7 @@ class MacOsDeviceInfo {
       activeCPUs: map['activeCPUs'],
       memorySize: map['memorySize'],
       cpuFrequency: map['cpuFrequency'],
-      systemGUUID: map['systemGUUID'],
+      systemGUID: map['systemGUID'],
     );
   }
 }
