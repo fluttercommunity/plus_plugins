@@ -11,6 +11,7 @@ import 'dart:ui';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 
 /// The [SharedPreferences] key to access the alarm fire count.
 const String countKey = 'count';
@@ -78,7 +79,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   Future<void> _incrementCounter() async {
-    print('Increment counter!');
+    developer.log('Increment counter!');
 
     // Ensure we've loaded the updated count from the background isolate.
     await prefs.reload();
@@ -93,7 +94,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   // The callback for our alarm
   static Future<void> callback() async {
-    print('Alarm fired!');
+    developer.log('Alarm fired!');
 
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();

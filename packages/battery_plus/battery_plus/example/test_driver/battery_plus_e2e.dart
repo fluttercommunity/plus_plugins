@@ -7,6 +7,7 @@
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'dart:developer' as developer;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ void main() {
       (WidgetTester tester) async {
     final battery = Battery();
     final isInBatterySaveMode = await battery.isInBatterySaveMode;
-    print(isInBatterySaveMode);
+    developer.log(isInBatterySaveMode.toString());
     expect(isInBatterySaveMode, isNotNull);
   });
 }
