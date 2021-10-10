@@ -1,3 +1,7 @@
+## 2.0.3
+
+- IOS: Upgrade ios platform to version 10.0
+
 ## 2.0.2
 
 - Fix for error: lambda expressions are not supported in -source 7
