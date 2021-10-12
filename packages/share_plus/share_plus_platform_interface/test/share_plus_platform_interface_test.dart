@@ -5,13 +5,13 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
-import 'package:mockito/mockito.dart';
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
-import 'package:test/test.dart';
-
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
+import 'package:flutter_test/src/deprecated.dart';
+import 'package:mockito/mockito.dart';
+import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:test/test.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
