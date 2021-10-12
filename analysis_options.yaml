@@ -11,9 +11,6 @@ analyzer:
     # Ignore generated files
     - '**/*.g.dart'
     - 'lib/src/generated/*.dart'
-  
-  errors:
-    avoid_print: ignore
 
 linter:
   rules:
