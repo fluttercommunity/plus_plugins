@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
+import 'package:flutter_test/src/deprecated.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:test/test.dart';
 
