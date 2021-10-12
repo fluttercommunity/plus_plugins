@@ -67,7 +67,7 @@ class DemoAppState extends State<DemoApp> {
                     title: const Text('Add image'),
                     onTap: () async {
                       final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.pickImage(
+                      final pickedFile = await imagePicker.getImage(
                         source: ImageSource.gallery,
                       );
                       if (pickedFile != null) {
