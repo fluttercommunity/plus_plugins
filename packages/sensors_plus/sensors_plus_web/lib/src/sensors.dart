@@ -5,6 +5,7 @@ import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
+import 'dart:developer' as developer;
 
 /// The sensors plugin.
 class SensorsPlugin extends SensorsPlatform {
@@ -35,11 +36,11 @@ class SensorsPlugin extends SensorsPlatform {
       /// See Feature-Policy for implementation instructions in the browsers.
       if (error.toString().contains('SecurityError')) {
         /// See the note above about feature policy.
-        print('$apiName construction was blocked by a feature policy.');
+        developer.log('$apiName construction was blocked by a feature policy.');
 
         /// if this feature is not supported or Flag is not enabled yet!
       } else if (error.toString().contains('ReferenceError')) {
-        print('$apiName is not supported by the User Agent.');
+        developer.log('$apiName is not supported by the User Agent.');
 
         /// if this is unknown error, rethrow it
       } else {
@@ -78,7 +79,8 @@ class SensorsPlugin extends SensorsPlatform {
           _accelerometer.start();
 
           _accelerometer.onError.forEach(
-            (e) => print('The Api is supported but something is wrong! $e'),
+            (e) => developer
+                .log('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'Accelerometer()',
@@ -124,7 +126,8 @@ class SensorsPlugin extends SensorsPlatform {
           _gyroscope.start();
 
           _gyroscope.onError.forEach(
-            (e) => print('The Api is supported but something is wrong! $e'),
+            (e) => developer
+                .log('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'Gyroscope()',
@@ -171,7 +174,8 @@ class SensorsPlugin extends SensorsPlatform {
           _linearAccelerationSensor.start();
 
           _linearAccelerationSensor.onError.forEach(
-            (e) => print('The Api is supported but something is wrong! $e'),
+            (e) => developer
+                .log('The Api is supported but something is wrong! $e'),
           );
         },
         apiName: 'LinearAccelerationSensor()',
@@ -218,8 +222,8 @@ class SensorsPlugin extends SensorsPlatform {
           _magnetometerSensor.start();
 
           _magnetometerSensor.onError.forEach(
-            (e) =>
-                print('[SensorsPlugin] API supported but something is wrong: '
+            (e) => developer
+                .log('[SensorsPlugin] API supported but something is wrong: '
                     'Magnetometer $e'),
           );
         },

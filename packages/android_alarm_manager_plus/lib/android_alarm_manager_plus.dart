@@ -8,6 +8,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:developer' as developer;
 
 const String _backgroundName =
     'dev.fluttercommunity.plus/android_alarm_manager_background';
@@ -33,7 +34,7 @@ void _alarmManagerCallbackDispatcher() {
     final closure = PluginUtilities.getCallbackFromHandle(handle);
 
     if (closure == null) {
-      print('Fatal: could not find callback');
+      developer.log('Fatal: could not find callback');
       exit(-1);
     }
 
