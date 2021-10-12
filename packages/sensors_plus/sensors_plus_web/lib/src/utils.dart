@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:html' as html;
+import 'dart:developer' as developer;
 
 /// Receive permission status of the API.
 Future<void> checkPermission(
