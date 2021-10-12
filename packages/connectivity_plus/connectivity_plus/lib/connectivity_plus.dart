@@ -52,6 +52,10 @@ class Connectivity {
   }
 
   /// Fires whenever the connectivity state changes.
+  ///
+  /// On iOS, the connectivity status might not update when WiFi
+  /// status changes, this is a known issue that only affects simulators.
+  /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
   Stream<ConnectivityResult> get onConnectivityChanged {
     return _platform.onConnectivityChanged;
   }
