@@ -1,3 +1,7 @@
+## 3.0.3
+
+- iOS: Fixed sharing malformed URLs
+
 ## 3.0.2
 
 - Apply code improvements
