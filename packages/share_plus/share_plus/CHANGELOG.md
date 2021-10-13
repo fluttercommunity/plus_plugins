@@ -1,3 +1,7 @@
+## 3.0.3
+
+- Improve documentation for `shareFiles` method
+
 ## 3.0.2
 
 - Apply code improvements
