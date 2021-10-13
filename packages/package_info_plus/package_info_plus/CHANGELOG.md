@@ -1,3 +1,20 @@
+## 1.3.0
+
+- Removed deprecated embeddingV1 function
+- Upgraded gradle and Android API version
+
+## 1.2.1
+
+- Windows: Annotate int with external in preparation of Flutter 2.5
+
+## 1.2.0
+
+- fix app name on iOS and macOS
+
+## 1.1.0
+
+- migrate integration_test to flutter sdk
+
 ## 1.0.6
 
 - Web: Fixed url resolving for the version.json

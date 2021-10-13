@@ -11,10 +11,11 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  integration_test: ^1.0.2+2
   flutter_driver:
     sdk: flutter
-  pedantic: ^1.8.0
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
 
 # The following section is specific to Flutter.
 flutter:

@@ -11,6 +11,7 @@ import 'dart:ui';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 
 /// The [SharedPreferences] key to access the alarm fire count.
 const String countKey = 'count';
@@ -25,6 +26,7 @@ final ReceivePort port = ReceivePort();
 SharedPreferences prefs;
 
 Future<void> main() async {
+  // ignore: todo
   // TODO(bkonyi): uncomment
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -38,15 +40,17 @@ Future<void> main() async {
   if (!prefs.containsKey(countKey)) {
     await prefs.setInt(countKey, 0);
   }
-  runApp(AlarmManagerExampleApp());
+  runApp(const AlarmManagerExampleApp());
 }
 
 /// Example app for Espresso plugin.
 class AlarmManagerExampleApp extends StatelessWidget {
+  const AlarmManagerExampleApp({Key key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: _AlarmHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -54,7 +58,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  _AlarmHomePage({Key key, this.title}) : super(key: key);
+  const _AlarmHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -75,7 +79,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   Future<void> _incrementCounter() async {
-    print('Increment counter!');
+    developer.log('Increment counter!');
 
     // Ensure we've loaded the updated count from the background isolate.
     await prefs.reload();
@@ -90,7 +94,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   // The callback for our alarm
   static Future<void> callback() async {
-    print('Alarm fired!');
+    developer.log('Alarm fired!');
 
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
@@ -126,13 +130,13 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 ),
                 Text(
                   prefs.getInt(countKey).toString(),
-                  key: ValueKey('BackgroundCountText'),
+                  key: const ValueKey('BackgroundCountText'),
                   style: textStyle,
                 ),
               ],
             ),
             ElevatedButton(
-              key: ValueKey('RegisterOneShotAlarm'),
+              key: const ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
                 await AndroidAlarmManager.oneShot(
                   const Duration(seconds: 5),
@@ -143,7 +147,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                   wakeup: true,
                 );
               },
-              child: Text(
+              child: const Text(
                 'Schedule OneShot Alarm',
               ),
             ),

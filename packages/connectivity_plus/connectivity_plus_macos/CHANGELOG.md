@@ -1,6 +1,10 @@
-## 1.1.1
+## 1.2.1
 
 - Update license headers.
+
+## 1.2.0
+
+- Backport to macOS 10.11
 
 ## 1.1.0
 

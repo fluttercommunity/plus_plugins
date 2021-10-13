@@ -10,13 +10,14 @@ part of package_info_plus_windows;
 
 class _LANGANDCODEPAGE extends Struct {
   @Uint16()
-  int? wLanguage;
+  external int? wLanguage;
 
   @Uint16()
-  int? wCodePage;
+  external int? wCodePage;
 }
 
 final _kernel32 = DynamicLibrary.open('kernel32.dll');
+// ignore: non_constant_identifier_names
 final _GetUserDefaultLangID = _kernel32
     .lookupFunction<Uint16 Function(), int Function()>('GetUserDefaultLangID');
 

@@ -69,5 +69,6 @@ class ConnectivityLinux extends ConnectivityPlatform {
   }
 
   @visibleForTesting
+  // ignore: prefer_function_declarations_over_variables
   NetworkManagerClientFactory createClient = () => NetworkManagerClient();
 }

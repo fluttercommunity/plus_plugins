@@ -13,7 +13,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.view.FlutterNativeView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,25 +40,10 @@ import org.json.JSONException;
  * </ol>
  */
 public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandler {
-  private static AndroidAlarmManagerPlugin instance;
-  private final String TAG = "AndroidAlarmManagerPlugin";
+  private static final String TAG = "AndroidAlarmManagerPlugin";
   private Context context;
-  private Object initializationLock = new Object();
+  private final Object initializationLock = new Object();
   private MethodChannel alarmManagerPluginChannel;
-
-  /**
-   * Registers this plugin with an associated Flutter execution context, represented by the given
-   * {@link Registrar}.
-   *
-   * <p>Once this method is executed, an instance of {@code AndroidAlarmManagerPlugin} will be
-   * connected to, and running against, the associated Flutter execution context.
-   */
-  public static void registerWith(Registrar registrar) {
-    if (instance == null) {
-      instance = new AndroidAlarmManagerPlugin();
-    }
-    instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
@@ -109,37 +93,43 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     String method = call.method;
     Object arguments = call.arguments;
     try {
-      if (method.equals("AlarmService.start")) {
-        // This message is sent when the Dart side of this plugin is told to initialize.
-        long callbackHandle = ((JSONArray) arguments).getLong(0);
-        // In response, this (native) side of the plugin needs to spin up a background
-        // Dart isolate by using the given callbackHandle, and then setup a background
-        // method channel to communicate with the new background isolate. Once completed,
-        // this onMethodCall() method will receive messages from both the primary and background
-        // method channels.
-        AlarmService.setCallbackDispatcher(context, callbackHandle);
-        AlarmService.startBackgroundIsolate(context, callbackHandle);
-        result.success(true);
-      } else if (method.equals("Alarm.periodic")) {
-        // This message indicates that the Flutter app would like to schedule a periodic
-        // task.
-        PeriodicRequest periodicRequest = PeriodicRequest.fromJson((JSONArray) arguments);
-        AlarmService.setPeriodic(context, periodicRequest);
-        result.success(true);
-      } else if (method.equals("Alarm.oneShotAt")) {
-        // This message indicates that the Flutter app would like to schedule a one-time
-        // task.
-        OneShotRequest oneShotRequest = OneShotRequest.fromJson((JSONArray) arguments);
-        AlarmService.setOneShot(context, oneShotRequest);
-        result.success(true);
-      } else if (method.equals("Alarm.cancel")) {
-        // This message indicates that the Flutter app would like to cancel a previously
-        // scheduled task.
-        int requestCode = ((JSONArray) arguments).getInt(0);
-        AlarmService.cancel(context, requestCode);
-        result.success(true);
-      } else {
-        result.notImplemented();
+      switch (method) {
+        case "AlarmService.start":
+          // This message is sent when the Dart side of this plugin is told to initialize.
+          long callbackHandle = ((JSONArray) arguments).getLong(0);
+          // In response, this (native) side of the plugin needs to spin up a background
+          // Dart isolate by using the given callbackHandle, and then setup a background
+          // method channel to communicate with the new background isolate. Once completed,
+          // this onMethodCall() method will receive messages from both the primary and background
+          // method channels.
+          AlarmService.setCallbackDispatcher(context, callbackHandle);
+          AlarmService.startBackgroundIsolate(context, callbackHandle);
+          result.success(true);
+          break;
+        case "Alarm.periodic":
+          // This message indicates that the Flutter app would like to schedule a periodic
+          // task.
+          PeriodicRequest periodicRequest = PeriodicRequest.fromJson((JSONArray) arguments);
+          AlarmService.setPeriodic(context, periodicRequest);
+          result.success(true);
+          break;
+        case "Alarm.oneShotAt":
+          // This message indicates that the Flutter app would like to schedule a one-time
+          // task.
+          OneShotRequest oneShotRequest = OneShotRequest.fromJson((JSONArray) arguments);
+          AlarmService.setOneShot(context, oneShotRequest);
+          result.success(true);
+          break;
+        case "Alarm.cancel":
+          // This message indicates that the Flutter app would like to cancel a previously
+          // scheduled task.
+          int requestCode = ((JSONArray) arguments).getInt(0);
+          AlarmService.cancel(context, requestCode);
+          result.success(true);
+          break;
+        default:
+          result.notImplemented();
+          break;
       }
     } catch (JSONException e) {
       result.error("error", "JSON error: " + e.getMessage(), null);
@@ -204,15 +194,17 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
   static final class PeriodicRequest {
     static PeriodicRequest fromJson(JSONArray json) throws JSONException {
       int requestCode = json.getInt(0);
-      boolean exact = json.getBoolean(1);
-      boolean wakeup = json.getBoolean(2);
-      long startMillis = json.getLong(3);
-      long intervalMillis = json.getLong(4);
-      boolean rescheduleOnReboot = json.getBoolean(5);
-      long callbackHandle = json.getLong(6);
+      boolean allowWhileIdle = json.getBoolean(1);
+      boolean exact = json.getBoolean(2);
+      boolean wakeup = json.getBoolean(3);
+      long startMillis = json.getLong(4);
+      long intervalMillis = json.getLong(5);
+      boolean rescheduleOnReboot = json.getBoolean(6);
+      long callbackHandle = json.getLong(7);
 
       return new PeriodicRequest(
           requestCode,
+          allowWhileIdle,
           exact,
           wakeup,
           startMillis,
@@ -222,6 +214,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     }
 
     final int requestCode;
+    final boolean allowWhileIdle;
     final boolean exact;
     final boolean wakeup;
     final long startMillis;
@@ -231,6 +224,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
 
     PeriodicRequest(
         int requestCode,
+        boolean allowWhileIdle,
         boolean exact,
         boolean wakeup,
         long startMillis,
@@ -238,6 +232,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         boolean rescheduleOnReboot,
         long callbackHandle) {
       this.requestCode = requestCode;
+      this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;
       this.wakeup = wakeup;
       this.startMillis = startMillis;

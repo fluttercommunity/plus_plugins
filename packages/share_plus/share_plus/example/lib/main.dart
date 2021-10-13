@@ -11,10 +11,12 @@ import 'package:share_plus/share_plus.dart';
 import 'image_previews.dart';
 
 void main() {
-  runApp(DemoApp());
+  runApp(const DemoApp());
 }
 
 class DemoApp extends StatefulWidget {
+  const DemoApp({Key? key}) : super(key: key);
+
   @override
   DemoAppState createState() => DemoAppState();
 }
@@ -61,11 +63,11 @@ class DemoAppState extends State<DemoApp> {
                   const Padding(padding: EdgeInsets.only(top: 12.0)),
                   ImagePreviews(imagePaths, onDelete: _onDeleteImage),
                   ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('Add image'),
+                    leading: const Icon(Icons.add),
+                    title: const Text('Add image'),
                     onTap: () async {
                       final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.getImage(
+                      final pickedFile = await imagePicker.pickImage(
                         source: ImageSource.gallery,
                       );
                       if (pickedFile != null) {

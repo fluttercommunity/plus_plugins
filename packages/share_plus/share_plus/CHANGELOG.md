@@ -1,3 +1,25 @@
+## 3.0.2
+
+- Apply code improvements
+- Update gradle for plugin
+- Update flutter dependencies
+
+## 3.0.1
+
+- Update Android dependencies for plugin and example, bump compileSDK to 31
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 2.2.0
+
+- migrate integration_test to flutter sdk
+
+## 2.1.5
+
+- Fixed: Use NSURL for web links (iOS)
+
 ## 2.1.4
 
 - Android: migrate to mavenCentral

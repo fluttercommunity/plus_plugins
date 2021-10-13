@@ -1,3 +1,16 @@
+## 3.0.1
+
+- Upgrade dependencies and Android compile version
+- Remove some leftover code of Android v1 embedding
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 2.1.0
+
+- migrate integration_test to flutter sdk
+
 ## 2.0.0
 
 - increase flutter SDK version to 1.20.0

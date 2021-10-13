@@ -2,6 +2,45 @@
 
 _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#code-of-conduct)_
 
+## Types of contributions
+
+We welcome all contributions to the project, however some contributions will need extra work in
+order to be accepted.
+
+Here's some examples:
+
+### 🟢 Easily accepted contributions
+
+- Fixing issues
+- Improving the README.md
+- Upgrading deprecated dependencies
+- Improving tests
+
+### 🟡 Need extra consideration
+
+- New features covering all platforms
+
+We need to make sure it works well before merging and each platform needs to be reviewed individually.
+
+- Changing a platform implementation
+
+Ideally an expert in that platform will have to review the change to make sure it works as expected.
+
+### 🔴 Cannot be accepted
+
+- New features covering only one platform 
+ 
+New features should cover at least the mobile platforms (Android and iOS) to be considered, 
+and a plan for the rest must be provided.
+
+- New plugins 
+
+We don't have the capacity to accept new plugins.
+
+# Setup and running
+
+Please follow this steps when working on the PlusPlugins.
+
 ## 1. Things you will need
 
 - Linux, Mac OS X, or Windows.
@@ -56,7 +95,7 @@ To run an example, run the `flutter run` command from the `example` directory of
 directory. For example, for `sensors_plus` example:
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter run
 ```
 
@@ -75,7 +114,7 @@ interact with 3rd party services, and mock where possible. To run unit tests for
 with the following commands:
 
 ```bash
-cd packages/sensors_plus
+cd packages/sensors_plus/sensors_plus
 flutter test
 ```
 
@@ -88,14 +127,14 @@ To run e2e tests, run the `flutter drive` command from the plugins main `example
 entry e2e test file.
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter drive --target=./test_driver/sensors_plus_e2e.dart
 ```
 
 To run tests against web environments, run the command as a release build:
 
 ```bash
-cd packages/sensors_plus/example
+cd packages/sensors_plus/sensors_plus/example
 flutter drive --target=./test_driver/sensors_plus_e2e.dart --release -d chrome
 ```
 
@@ -201,10 +240,6 @@ Newly opened PRs first go through initial triage which results in one of:
 
 We push releases manually, using [Melos](https://github.com/invertase/melos)
 to take care of the hard work.
-
-Changelogs and version updates are automatically updated by a project maintainer
-(via [Melos](https://github.com/invertase/melos)). The new version is automatically
-generated via the commit types and changelogs via the commit messages.
 
 Some things to keep in mind before publishing the release:
 

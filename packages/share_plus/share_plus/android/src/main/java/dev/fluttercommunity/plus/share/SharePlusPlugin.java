@@ -4,35 +4,29 @@
 
 package dev.fluttercommunity.plus.share;
 
-import android.app.Activity;
-import android.content.Context;
+import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** Plugin method host for presenting a share sheet via Intent */
 public class SharePlusPlugin implements FlutterPlugin, ActivityAware {
 
   private static final String CHANNEL = "dev.fluttercommunity.plus/share";
-  private MethodCallHandler handler;
   private Share share;
   private MethodChannel methodChannel;
 
-  public static void registerWith(Registrar registrar) {
-    SharePlusPlugin plugin = new SharePlusPlugin();
-    plugin.setUpChannel(registrar.context(), registrar.activity(), registrar.messenger());
-  }
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
-    setUpChannel(binding.getApplicationContext(), null, binding.getBinaryMessenger());
+    methodChannel = new MethodChannel(binding.getBinaryMessenger(), CHANNEL);
+    share = new Share(binding.getApplicationContext(), null);
+    MethodCallHandler handler = new MethodCallHandler(share);
+    methodChannel.setMethodCallHandler(handler);
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     methodChannel.setMethodCallHandler(null);
     methodChannel = null;
     share = null;
@@ -49,19 +43,12 @@ public class SharePlusPlugin implements FlutterPlugin, ActivityAware {
   }
 
   @Override
-  public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
     onAttachedToActivity(binding);
   }
 
   @Override
   public void onDetachedFromActivityForConfigChanges() {
     onDetachedFromActivity();
-  }
-
-  private void setUpChannel(Context context, Activity activity, BinaryMessenger messenger) {
-    methodChannel = new MethodChannel(messenger, CHANNEL);
-    share = new Share(context, activity);
-    handler = new MethodCallHandler(share);
-    methodChannel.setMethodCallHandler(handler);
   }
 }

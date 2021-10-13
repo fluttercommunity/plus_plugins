@@ -15,7 +15,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Embedding example app loads', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     // Verify that the new embedding example app builds
     if (Platform.isAndroid) {
@@ -50,7 +50,7 @@ void main() {
   }, skip: !Platform.isAndroid);
 
   testWidgets('#launchChooser should not throw', (WidgetTester tester) async {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
       type: 'plain/text',
       data: 'text example',
@@ -59,7 +59,7 @@ void main() {
   }, skip: !Platform.isAndroid);
 
   testWidgets('#sendBroadcast should not throw', (WidgetTester tester) async {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'com.example.broadcast',
     );
     await intent.sendBroadcast();
@@ -67,7 +67,7 @@ void main() {
 
   testWidgets('#canResolveActivity returns true when example Activity is found',
       (WidgetTester tester) async {
-    final intent = AndroidIntent(
+    const intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
       componentName: 'io.flutter.plugins.androidintentexample.MainActivity',

@@ -52,7 +52,7 @@ class _ImagePreview extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 200,
               maxHeight: 200,
             ),
@@ -65,7 +65,7 @@ class _ImagePreview extends StatelessWidget {
               child: FloatingActionButton(
                   backgroundColor: Colors.red,
                   onPressed: onDelete,
-                  child: Icon(Icons.delete)),
+                  child: const Icon(Icons.delete)),
             ),
           ),
         ],

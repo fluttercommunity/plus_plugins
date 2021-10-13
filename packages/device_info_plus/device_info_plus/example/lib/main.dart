@@ -11,17 +11,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:developer' as developer;
 
 void main() {
   runZonedGuarded(() {
-    runApp(MyApp());
+    runApp(const MyApp());
   }, (dynamic error, dynamic stack) {
-    print(error);
-    print(stack);
+    developer.log(error);
+    developer.log(stack);
   });
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }

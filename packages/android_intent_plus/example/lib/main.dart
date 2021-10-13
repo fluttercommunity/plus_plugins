@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:platform/platform.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 /// A sample app for launching intents.
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
         ExplicitIntentsWidget.routeName: (BuildContext context) =>
             const ExplicitIntentsWidget()
@@ -32,8 +34,10 @@ class MyApp extends StatelessWidget {
 
 /// Holds the different intent widgets.
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key key}) : super(key: key);
+
   void _createAlarm() {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'android.intent.action.SET_ALARM',
       arguments: <String, dynamic>{
         'android.intent.extra.alarm.DAYS': <int>[2, 3, 4, 5, 6],
@@ -91,7 +95,7 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _openChooser() {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
       type: 'plain/text',
       data: 'text example',
@@ -100,7 +104,7 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _sendBroadcast() {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'com.example.broadcast',
     );
     intent.sendBroadcast();
@@ -109,6 +113,7 @@ class MyHomePage extends StatelessWidget {
 
 /// Launches intents to specific Android activities.
 class ExplicitIntentsWidget extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const ExplicitIntentsWidget(); // ignore: public_member_api_docs
 
   // ignore: public_member_api_docs
@@ -165,14 +170,14 @@ class ExplicitIntentsWidget extends StatelessWidget {
   }
 
   void _openLocationSettingsConfiguration() {
-    final intent = const AndroidIntent(
+    const AndroidIntent intent = AndroidIntent(
       action: 'action_location_source_settings',
     );
     intent.launch();
   }
 
   void _openApplicationDetails() {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'action_application_details_settings',
       data: 'package:io.flutter.plugins.androidintentexample',
     );

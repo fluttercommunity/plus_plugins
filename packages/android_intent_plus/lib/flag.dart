@@ -4,6 +4,8 @@
 /// https://developer.android.com/reference/android/content/Intent.html#setFlags(int)
 /// for the official documentation on Intent flags. The constants here mirror
 /// the existing [android.content.Intent] ones.
+// ignore_for_file: constant_identifier_names
+
 class Flag {
   /// Specifies how an activity should be launched. Generally set by the system
   /// in conjunction with SINGLE_TASK.
@@ -25,6 +27,7 @@ class Flag {
   /// @deprecated Use [FLAG_ACTIVITY_NEW_DOCUMENT] instead when on API 21 or above.
   ///
   /// See https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
+  // ignore: provide_deprecation_message
   @deprecated
   static const int FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET = 524288;
 

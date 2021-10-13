@@ -1,3 +1,12 @@
+## 1.2.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
 ## 1.1.0
 
 - Adds magnetometer support

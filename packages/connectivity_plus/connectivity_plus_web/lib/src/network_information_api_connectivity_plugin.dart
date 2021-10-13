@@ -45,6 +45,7 @@ class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
         _connectivityResultStreamController!
             .add(networkInformationToConnectivityResult(_networkInformation));
       }));
+      // ignore: todo
       // TODO: Implement the above with _networkInformation.onChange:
       // _networkInformation.onChange.listen((_) {
       //   _connectivityResult
