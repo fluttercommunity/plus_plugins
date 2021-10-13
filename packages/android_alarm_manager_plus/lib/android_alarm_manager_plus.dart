@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:ui';
 
@@ -33,7 +34,7 @@ void _alarmManagerCallbackDispatcher() {
     final closure = PluginUtilities.getCallbackFromHandle(handle);
 
     if (closure == null) {
-      print('Fatal: could not find callback');
+      developer.log('Fatal: could not find callback');
       exit(-1);
     }
 
