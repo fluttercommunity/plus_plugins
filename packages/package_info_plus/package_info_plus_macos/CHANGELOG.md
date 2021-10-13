@@ -1,3 +1,7 @@
+## 1.3.0
+
+- Removed `Reachability` dependency
+
 ## 1.2.0
 
 - fix app name on macOS
