@@ -20,6 +20,8 @@ After importing this plugin to your project as usual, add the following to your
 ```xml
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 <uses-permission android:name="android.permission.WAKE_LOCK"/>
+<!-- For apps with targetSDK=31 (Android 12) -->
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 ```
 
 Next, within the `<application></application>` tags, add:
@@ -34,14 +36,15 @@ Next, within the `<application></application>` tags, add:
     android:exported="false"/>
 <receiver
     android:name="dev.fluttercommunity.plus.androidalarmmanager.RebootBroadcastReceiver"
-    android:enabled="false">
+    android:enabled="false"
+    android:exported="false">
     <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
     </intent-filter>
 </receiver>
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 ```
+Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
 Then in Dart code add:
 
