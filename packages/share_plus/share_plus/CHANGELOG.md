@@ -1,3 +1,7 @@
+## 3.0.4
+
+- iOS: Fixed sharing malformed URLs
+
 ## 3.0.3
 
 - Improve documentation for `shareFiles` method
