@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:html' as html
     show LinearAccelerationSensor, Accelerometer, Gyroscope, Magnetometer;
 import 'dart:js';
 import 'dart:js_util';
+
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
-import 'dart:developer' as developer;
 
 /// The sensors plugin.
 class SensorsPlugin extends SensorsPlatform {
@@ -18,7 +19,7 @@ class SensorsPlugin extends SensorsPlatform {
   void _featureDetected(
     Function initSensor, {
     String? apiName,
-    String? premissionName,
+    String? permissionName,
     Function? onError,
   }) {
     try {
@@ -36,14 +37,17 @@ class SensorsPlugin extends SensorsPlatform {
       /// See Feature-Policy for implementation instructions in the browsers.
       if (error.toString().contains('SecurityError')) {
         /// See the note above about feature policy.
-        developer.log('$apiName construction was blocked by a feature policy.');
+        developer.log('$apiName construction was blocked by a feature policy.',
+            error: error);
 
         /// if this feature is not supported or Flag is not enabled yet!
       } else if (error.toString().contains('ReferenceError')) {
-        developer.log('$apiName is not supported by the User Agent.');
+        developer.log('$apiName is not supported by the User Agent.',
+            error: error);
 
         /// if this is unknown error, rethrow it
       } else {
+        developer.log('Unknown error happened, rethrowing.');
         rethrow;
       }
     }
@@ -79,12 +83,13 @@ class SensorsPlugin extends SensorsPlatform {
           _accelerometer.start();
 
           _accelerometer.onError.forEach(
-            (e) => developer
-                .log('The Api is supported but something is wrong! $e'),
+            (e) => developer.log(
+                'The accelerometer API is supported but something is wrong!',
+                error: e),
           );
         },
         apiName: 'Accelerometer()',
-        premissionName: 'accelerometer',
+        permissionName: 'accelerometer',
         onError: () {
           _accelerometerStreamController!.add(AccelerometerEvent(0, 0, 0));
         },
@@ -126,12 +131,13 @@ class SensorsPlugin extends SensorsPlatform {
           _gyroscope.start();
 
           _gyroscope.onError.forEach(
-            (e) => developer
-                .log('The Api is supported but something is wrong! $e'),
+            (e) => developer.log(
+                'The gyroscope API is supported but something is wrong!',
+                error: e),
           );
         },
         apiName: 'Gyroscope()',
-        premissionName: 'gyroscope',
+        permissionName: 'gyroscope',
         onError: () {
           _gyroscopeEventStreamController!.add(GyroscopeEvent(0, 0, 0));
         },
@@ -174,12 +180,13 @@ class SensorsPlugin extends SensorsPlatform {
           _linearAccelerationSensor.start();
 
           _linearAccelerationSensor.onError.forEach(
-            (e) => developer
-                .log('The Api is supported but something is wrong! $e'),
+            (e) => developer.log(
+                'The linear acceleration API is supported but something is wrong!',
+                error: e),
           );
         },
         apiName: 'LinearAccelerationSensor()',
-        premissionName: 'accelerometer',
+        permissionName: 'accelerometer',
         onError: () {
           _userAccelerometerStreamController!
               .add(UserAccelerometerEvent(0, 0, 0));
@@ -222,13 +229,13 @@ class SensorsPlugin extends SensorsPlatform {
           _magnetometerSensor.start();
 
           _magnetometerSensor.onError.forEach(
-            (e) => developer
-                .log('[SensorsPlugin] API supported but something is wrong: '
-                    'Magnetometer $e'),
+            (e) => developer.log(
+                'The magnetometer API is supported but something is wrong!',
+                error: e),
           );
         },
         apiName: 'Magnetometer()',
-        premissionName: 'magnetometer',
+        permissionName: 'magnetometer',
         onError: () {
           _magnetometerStreamController!.add(MagnetometerEvent(0, 0, 0));
         },

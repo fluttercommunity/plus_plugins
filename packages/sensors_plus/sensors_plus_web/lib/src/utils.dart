@@ -1,37 +1,40 @@
-import 'dart:html' as html;
 import 'dart:developer' as developer;
+import 'dart:html' as html;
 
 /// Receive permission status of the API.
-Future<void> checkPremission(
+Future<void> checkPermission(
   Function initSensor, {
-  String? premissionName,
+  String? permissionName,
 }) async {
-  final _premission = html.window.navigator.permissions;
+  final _permission = html.window.navigator.permissions;
 
   // Check if browser supports this API or supports permission manager
-  if (_premission != null) {
+  if (_permission != null) {
     try {
-      // Request for permission or check premission status
-      final premissionStatus = await _premission.query(
+      // Request for permission or check permission status
+      final permissionStatus = await _permission.query(
         {
-          'name': premissionName,
+          'name': permissionName,
         },
       );
-      if (premissionStatus.state == 'granted') {
-        initSensor();
-      } else if (premissionStatus.state == 'prompt') {
-        /// user needs to intract with this
-        developer.log(
-          'Premission [$premissionName] still has not been granted or denied.',
-        );
-      } else {
-        // If permission is denied, do not do anything
-        developer.log('Permission [$premissionName] to use sensor was denied.');
+      switch (permissionStatus.state) {
+        case 'granted':
+          initSensor();
+          break;
+        case 'prompt':
+          // user needs to interact with this
+          developer.log(
+              'Permission [$permissionName] still has not been granted or denied.');
+          break;
+        default:
+          // If permission is denied, do nothing
+          developer
+              .log('Permission [$permissionName] to use sensor is denied.');
       }
     } catch (e) {
       developer.log(
-        'Integration with Permissions API is not enabled, still try to start app.',
-      );
+          'Integration with Permissions API is not enabled, still trying to start app.',
+          error: e);
       initSensor();
     }
   } else {

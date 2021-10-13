@@ -5,13 +5,13 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:developer' as developer;
 
 // Sets a platform override for desktop to avoid exceptions. See
 // https://flutter.dev/desktop#target-platform-override for more info.
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiName = await _networkInfo.getWifiName();
       }
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi Name', error: e);
       wifiName = 'Failed to get Wifi Name';
     }
 
@@ -116,49 +116,49 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiBSSID = await _networkInfo.getWifiBSSID();
       }
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi BSSID', error: e);
       wifiBSSID = 'Failed to get Wifi BSSID';
     }
 
     try {
       wifiIPv4 = await _networkInfo.getWifiIP();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi IPv4', error: e);
       wifiIPv4 = 'Failed to get Wifi IPv4';
     }
 
     try {
       wifiIPv6 = await _networkInfo.getWifiIPv6();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi IPv6', error: e);
       wifiIPv6 = 'Failed to get Wifi IPv6';
     }
 
     try {
       wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi submask address', error: e);
       wifiSubmask = 'Failed to get Wifi submask address';
     }
 
     try {
       wifiBroadcast = await _networkInfo.getWifiBroadcast();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi broadcast', error: e);
       wifiBroadcast = 'Failed to get Wifi broadcast';
     }
 
     try {
       wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi gateway address', error: e);
       wifiGatewayIP = 'Failed to get Wifi gateway address';
     }
 
     try {
       wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
-      developer.log(e.toString());
+      developer.log('Failed to get Wifi submask', error: e);
       wifiSubmask = 'Failed to get Wifi submask';
     }
 
