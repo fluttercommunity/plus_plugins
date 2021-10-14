@@ -5,6 +5,7 @@
 // @dart=2.9
 
 import 'package:battery_plus/battery_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -21,7 +22,7 @@ void main() {
       (WidgetTester tester) async {
     final battery = Battery();
     final isInBatterySaveMode = await battery.isInBatterySaveMode;
-    print(isInBatterySaveMode);
+    debugPrint('$isInBatterySaveMode');
     expect(isInBatterySaveMode, isNotNull);
   });
 }

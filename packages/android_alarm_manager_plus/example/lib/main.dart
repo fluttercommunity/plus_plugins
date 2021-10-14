@@ -4,6 +4,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:developer' as developer;
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
@@ -78,8 +79,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   Future<void> _incrementCounter() async {
-    print('Increment counter!');
-
+    developer.log('Increment counter!');
     // Ensure we've loaded the updated count from the background isolate.
     await prefs.reload();
 
@@ -93,8 +93,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   // The callback for our alarm
   static Future<void> callback() async {
-    print('Alarm fired!');
-
+    developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
     final currentCount = prefs.getInt(countKey);

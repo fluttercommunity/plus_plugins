@@ -15,8 +15,6 @@
 import Cocoa
 import CoreWLAN
 import FlutterMacOS
-import SystemConfiguration.CaptiveNetwork
-
 
 public class NetworkInfoPlusPlugin: NSObject, FlutterPlugin {
   var cwinterface: CWInterface?
@@ -90,4 +88,3 @@ func getWiFiAddress(family: Int32) -> String? {
 
     return address
 }
-

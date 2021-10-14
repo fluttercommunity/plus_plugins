@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Remove `Reachability` dependency
+
 ## 1.1.0
 
 - Add IP v6 support
