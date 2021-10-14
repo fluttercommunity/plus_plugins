@@ -14,6 +14,7 @@ void main() {
         'osRelease': 'osRelease',
         'computerName': 'computerName',
         'kernelVersion': 'kernelVersion',
+        'systemGUID': 'systemGUID',
       };
 
       test('fromMap should return $MacOsDeviceInfo with correct values', () {
@@ -26,6 +27,7 @@ void main() {
         expect(macosDeviceInfo.cpuFrequency, 2);
         expect(macosDeviceInfo.hostName, 'hostName');
         expect(macosDeviceInfo.osRelease, 'osRelease');
+        expect(macosDeviceInfo.systemGUID, 'systemGUID');
       });
 
       test('toMap should return map with correct key and map', () {
