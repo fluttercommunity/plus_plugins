@@ -1,3 +1,7 @@
+## 3.1.0
+
+- add System GUID to MacOS
+
 ## 3.0.1
 
 - Upgrade Android compile SDK version
