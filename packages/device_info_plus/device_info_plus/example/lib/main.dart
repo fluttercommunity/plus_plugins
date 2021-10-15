@@ -168,6 +168,7 @@ class _MyAppState extends State<MyApp> {
       'activeCPUs': data.activeCPUs,
       'memorySize': data.memorySize,
       'cpuFrequency': data.cpuFrequency,
+      'systemGUID': data.systemGUID,
     };
   }
 

@@ -1,3 +1,7 @@
+## 2.2.0
+
+- add System GUID to MacOS
+
 ## 2.1.0
 
 - add toMap to models
