@@ -9,6 +9,13 @@ import 'package:win32/win32.dart';
 
 /// The Windows implementation of [DeviceInfoPlatform].
 class DeviceInfoWindows extends DeviceInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  // coverage:ignore-start: starts ignoring all next lines
+  static void registerWith() {
+    DeviceInfoPlatform.instance = DeviceInfoWindows();
+  }
+  // coverage:ignore-end: stops ignoring lines
+
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
   Future<WindowsDeviceInfo> windowsInfo() {
