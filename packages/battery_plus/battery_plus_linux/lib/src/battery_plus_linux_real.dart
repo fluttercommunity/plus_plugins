@@ -26,6 +26,11 @@ typedef UPowerDeviceFactory = UPowerDevice Function();
 
 /// The Linux implementation of BatteryPlatform.
 class BatteryPlusLinux extends BatteryPlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    BatteryPlatform.instance = BatteryPlusLinux();
+  }
+
   /// Returns the current battery level in percent.
   @override
   Future<int> get batteryLevel {
