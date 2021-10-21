@@ -12,6 +12,13 @@ typedef NetworkManagerClientFactory = NetworkManagerClient Function();
 
 /// The Linux implementation of ConnectivityPlatform.
 class ConnectivityLinux extends ConnectivityPlatform {
+  /// Register this dart class as the platform implementation for linux
+  // coverage:ignore-start: starts ignoring all next lines
+  static void registerWith() {
+    ConnectivityPlatform.instance = ConnectivityLinux();
+  }
+  // coverage:ignore-end: stops ignoring lines
+
   /// Checks the connection status of the device.
   @override
   Future<ConnectivityResult> checkConnectivity() async {
