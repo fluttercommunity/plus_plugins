@@ -13,6 +13,13 @@ part 'file_version_info.dart';
 
 /// The Windows implementation of [PackageInfoPlatform].
 class PackageInfoWindows extends PackageInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  // coverage:ignore-start: starts ignoring all next lines
+  static void registerWith() {
+    PackageInfoPlatform.instance = PackageInfoWindows();
+  }
+  // coverage:ignore-end: stops ignoring lines
+
   /// Returns a map with the following keys:
   /// appName, packageName, version, buildNumber
   @override
