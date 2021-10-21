@@ -32,22 +32,10 @@ class NetworkInfo {
 
   static NetworkInfo? _singleton;
 
-  static bool _manualDartRegistrationNeeded = true;
-
   // This is to manually endorse Dart implementations until automatic
   // registration of Dart plugins is implemented. For details see
   // https://github.com/flutter/flutter/issues/52267.
   static NetworkInfoPlatform get _platform {
-    if (_manualDartRegistrationNeeded) {
-      // Only do the initial registration if it hasn't already been overridden
-      // with a non-default instance.
-      if (!kIsWeb && NetworkInfoPlatform.instance is MethodChannelNetworkInfo) {
-        if (Platform.isLinux) {
-          NetworkInfoPlatform.instance = NetworkInfoLinux();
-        }
-      }
-      _manualDartRegistrationNeeded = false;
-    }
     return NetworkInfoPlatform.instance;
   }
 
