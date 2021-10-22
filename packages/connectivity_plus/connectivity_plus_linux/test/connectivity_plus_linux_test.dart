@@ -9,6 +9,10 @@ import 'connectivity_plus_linux_test.mocks.dart';
 
 @GenerateMocks([NetworkManagerClient])
 void main() {
+  test('registered instance', () {
+    ConnectivityLinux.registerWith();
+    expect(ConnectivityPlatform.instance, isA<ConnectivityLinux>());
+  });
   test('wireless', () async {
     final linux = ConnectivityLinux();
     linux.createClient = () {
