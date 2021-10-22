@@ -9,11 +9,9 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
   /// Register this dart class as the platform implementation for linux
-  // coverage:ignore-start: starts ignoring all next lines
   static void registerWith() {
     SharePlatform.instance = ShareWindows();
   }
-  // coverage:ignore-end: stops ignoring lines
 
   /// Share text.
   @override

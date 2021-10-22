@@ -1,9 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus_linux/share_plus_linux.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 
 void main() {
+  test('registered instance', () {
+    ShareLinux.registerWith();
+    expect(SharePlatform.instance, isA<ShareLinux>());
+  });
   test('url encoding is correct for &', () async {
     final mock = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mock;
