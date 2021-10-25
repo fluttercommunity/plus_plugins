@@ -63,7 +63,8 @@ be aware that user or system might cancel such alarms by revoking `SCHEDULE_EXAC
 More info can be found in [the official documentation](https://developer.android.com/training/scheduling/alarms#exact-permission-declare)
 
 AndroidAlarmManagerPlus checks if the permission was revoked before scheduling exact alarms, so your app won't get `SecurityException`,
-but will report the issue in logs.
+but will report the issue in logs. However, in case when user grants `SCHEDULE_EXACT_ALARM` permission again AndroidAlarmManagerPlus won't
+reschedule canceled alarms automatically, so it is up to you to handle such cases.
 :::
 
 `printHello` will then run (roughly) every minute, even if the main app ends. However, `printHello`
