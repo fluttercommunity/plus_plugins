@@ -156,7 +156,8 @@ public class AlarmService extends JobIntentService {
           Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
         } else {
           if (allowWhileIdle) {
-            AlarmManagerCompat.setExactAndAllowWhileIdle(manager, clock, startMillis, pendingIntent);
+            AlarmManagerCompat.setExactAndAllowWhileIdle(
+                manager, clock, startMillis, pendingIntent);
           } else {
             AlarmManagerCompat.setExact(manager, clock, startMillis, pendingIntent);
           }

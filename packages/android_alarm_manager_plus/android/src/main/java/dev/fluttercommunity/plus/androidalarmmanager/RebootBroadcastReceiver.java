@@ -14,8 +14,8 @@ import android.util.Log;
 /**
  * Reschedules background work after the Android device reboots.
  *
- * <p>When an Android device reboots, all previously scheduled {@link android.app.AlarmManager} timers are
- * cleared.
+ * <p>When an Android device reboots, all previously scheduled {@link android.app.AlarmManager}
+ * timers are cleared.
  *
  * <p>Timer callbacks registered with the android_alarm_manager plugin can be designated
  * "persistent" and therefore, upon device reboot, should be rescheduled for execution. To
