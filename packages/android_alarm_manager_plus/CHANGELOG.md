@@ -1,3 +1,8 @@
+## 2.0.3
+
+- Handle Android 12 behavior changes for exact alarms scheduling
+- Update plugin documentation
+
 ## 2.0.2
 
 - Clean up plugin code and fix potential issues with scheduling persistent alarms
