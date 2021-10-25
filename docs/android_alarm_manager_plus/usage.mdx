@@ -57,6 +57,15 @@ main() async {
 }
 ```
 
+:::note
+If your app has targetSDK=31 (Android 12) and you would like to create alarms with `alarmClock=true` or `exact=true`
+be aware that user or system might cancel such alarms by revoking `SCHEDULE_EXACT_ALARM` permission.
+More info can be found in [the official documentation](https://developer.android.com/training/scheduling/alarms#exact-permission-declare)
+
+AndroidAlarmManagerPlus checks if the permission was revoked before scheduling exact alarms, so your app won't get `SecurityException`,
+but will report the issue in logs.
+:::
+
 `printHello` will then run (roughly) every minute, even if the main app ends. However, `printHello`
 will not run in the same isolate as the main application. Unlike threads, isolates do not share
 memory and communication between isolates must be done via message passing (see more documentation on
