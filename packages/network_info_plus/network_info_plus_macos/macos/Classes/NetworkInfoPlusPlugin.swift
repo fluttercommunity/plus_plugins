@@ -92,7 +92,7 @@ public class NetworkInfoPlusPlugin: NSObject, FlutterPlugin {
           }
         }
 
-        if rt.pointee.rtm_addrs & (RTA_DST | RTA_GATEWAY) != 0,
+        if rt.pointee.rtm_addrs & (RTA_DST | RTA_GATEWAY) == (RTA_DST | RTA_GATEWAY),
            let sa_dst = sa_tab[Int(RTAX_DST)], let sa_gateway = sa_tab[Int(RTAX_GATEWAY)],
            sa_dst.pointee.sa_family == AF_INET && sa_gateway.pointee.sa_family == AF_INET {
 
