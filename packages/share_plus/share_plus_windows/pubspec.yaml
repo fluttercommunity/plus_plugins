@@ -20,3 +20,11 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.4
   url_launcher_platform_interface: ^2.0.2
+
+flutter:
+  plugin:
+    implements: share_plus
+    platforms:
+      windows:
+        dartPluginClass: ShareWindows
+        pluginClass: none

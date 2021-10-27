@@ -19,3 +19,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.4
+
+flutter:
+  plugin:
+    implements: package_info_plus
+    platforms:
+      windows:
+        dartPluginClass: PackageInfoWindows
+        pluginClass: none

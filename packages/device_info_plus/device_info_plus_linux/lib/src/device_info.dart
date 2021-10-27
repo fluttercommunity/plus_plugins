@@ -7,6 +7,11 @@ import 'package:meta/meta.dart';
 
 /// See [DeviceInfoPlatform]
 class DeviceInfoLinux extends DeviceInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    DeviceInfoPlatform.instance = DeviceInfoLinux();
+  }
+
   LinuxDeviceInfo? _cache;
   final FileSystem _fileSystem;
 

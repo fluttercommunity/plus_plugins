@@ -17,6 +17,11 @@ typedef NetworkManagerClientFactory = NetworkManagerClient Function();
 
 /// The Linux implementation of NetworkInfoPlatform.
 class NetworkInfoLinux extends NetworkInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    NetworkInfoPlatform.instance = NetworkInfoLinux();
+  }
+
   /// Obtains the wifi name (SSID) of the connected network
   @override
   Future<String?> getWifiName() {
