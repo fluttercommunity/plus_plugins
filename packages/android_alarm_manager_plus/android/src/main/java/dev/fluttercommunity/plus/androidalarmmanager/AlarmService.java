@@ -127,7 +127,7 @@ public class AlarmService extends JobIntentService {
             context,
             requestCode,
             alarm,
-            (Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
+            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
                 | PendingIntent.FLAG_UPDATE_CURRENT);
 
     // Use the appropriate clock.
@@ -140,7 +140,11 @@ public class AlarmService extends JobIntentService {
     AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
     if (alarmClock) {
-      AlarmManagerCompat.setAlarmClock(manager, startMillis, pendingIntent, pendingIntent);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !manager.canScheduleExactAlarms()) {
+        Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
+      } else {
+        AlarmManagerCompat.setAlarmClock(manager, startMillis, pendingIntent, pendingIntent);
+      }
       return;
     }
 
@@ -148,10 +152,15 @@ public class AlarmService extends JobIntentService {
       if (repeating) {
         manager.setRepeating(clock, startMillis, intervalMillis, pendingIntent);
       } else {
-        if (allowWhileIdle) {
-          AlarmManagerCompat.setExactAndAllowWhileIdle(manager, clock, startMillis, pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !manager.canScheduleExactAlarms()) {
+          Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
         } else {
-          AlarmManagerCompat.setExact(manager, clock, startMillis, pendingIntent);
+          if (allowWhileIdle) {
+            AlarmManagerCompat.setExactAndAllowWhileIdle(
+                manager, clock, startMillis, pendingIntent);
+          } else {
+            AlarmManagerCompat.setExact(manager, clock, startMillis, pendingIntent);
+          }
         }
       }
     } else {
@@ -215,7 +224,7 @@ public class AlarmService extends JobIntentService {
             context,
             requestCode,
             alarm,
-            (Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0)
+            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
                 | PendingIntent.FLAG_NO_CREATE);
     if (existingIntent == null) {
       Log.i(TAG, "cancel: broadcast receiver not found");
