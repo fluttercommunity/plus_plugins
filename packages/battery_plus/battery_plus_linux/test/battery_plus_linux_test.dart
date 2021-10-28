@@ -10,11 +10,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('registered instance', () {
-    BatteryPlusLinux.registerWith();
-    expect(BatteryPlatform.instance, isA<BatteryPlusLinux>());
+    BatteryLinux.registerWith();
+    expect(BatteryPlatform.instance, isA<BatteryLinux>());
   });
   test('battery level', () async {
-    final battery = BatteryPlusLinux();
+    final battery = BatteryLinux();
     battery.createDevice = () {
       return MockDevice();
     };
@@ -22,7 +22,7 @@ void main() {
   });
 
   test('battery state changes', () {
-    final battery = BatteryPlusLinux();
+    final battery = BatteryLinux();
     battery.createDevice = () {
       return MockDevice();
     };

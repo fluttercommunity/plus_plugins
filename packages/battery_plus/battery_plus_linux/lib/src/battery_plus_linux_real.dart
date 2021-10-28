@@ -25,10 +25,10 @@ extension _ToBatteryState on UPowerBatteryState {
 typedef UPowerDeviceFactory = UPowerDevice Function();
 
 /// The Linux implementation of BatteryPlatform.
-class BatteryPlusLinux extends BatteryPlatform {
+class BatteryLinux extends BatteryPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    BatteryPlatform.instance = BatteryPlusLinux();
+    BatteryPlatform.instance = BatteryLinux();
   }
 
   /// Returns the current battery level in percent.
