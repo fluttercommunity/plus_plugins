@@ -98,6 +98,9 @@ public final class IntentSender {
     }
 
     final PackageManager packageManager = applicationContext.getPackageManager();
+    boolean result =
+        packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
+    Log.d(TAG, "" + result);
 
     return packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
   }
@@ -171,10 +174,6 @@ public final class IntentSender {
       intent.setPackage(packageName);
       if (componentName != null) {
         intent.setComponent(componentName);
-      }
-      if (intent.resolveActivity(applicationContext.getPackageManager()) == null) {
-        Log.i(TAG, "Cannot resolve explicit intent - ignoring package");
-        intent.setPackage(null);
       }
     }
 

@@ -112,13 +112,18 @@ class MyHomePage extends StatelessWidget {
 }
 
 /// Launches intents to specific Android activities.
-class ExplicitIntentsWidget extends StatelessWidget {
+class ExplicitIntentsWidget extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const ExplicitIntentsWidget(); // ignore: public_member_api_docs
 
   // ignore: public_member_api_docs
   static const String routeName = '/explicitIntents';
 
+  @override
+  State<ExplicitIntentsWidget> createState() => _ExplicitIntentsWidgetState();
+}
+
+class _ExplicitIntentsWidgetState extends State<ExplicitIntentsWidget> {
   void _openGoogleMapsStreetView() {
     final intent = AndroidIntent(
         action: 'action_view',
@@ -144,12 +149,19 @@ class ExplicitIntentsWidget extends StatelessWidget {
     intent.launch();
   }
 
-  void _openLinkInGoogleChrome() {
+  bool _intentResolved;
+
+  Future<void> _openLinkInGoogleChrome() async {
     final intent = AndroidIntent(
         action: 'action_view',
         data: Uri.encodeFull('https://flutter.dev'),
         package: 'com.android.chrome');
-    intent.launch();
+    bool intentResolved;
+    final bool result = await intent.canResolveActivity();
+    intentResolved = result;
+    setState(() {
+      _intentResolved = intentResolved;
+    });
   }
 
   void _startActivityInNewTask() {
@@ -214,6 +226,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 onPressed: _openLinkInGoogleChrome,
                 child: const Text('Tap here to open link in Google Chrome.'),
               ),
+              Text("Chrome application exists: $_intentResolved"),
               ElevatedButton(
                 onPressed: _startActivityInNewTask,
                 child: const Text('Tap here to start activity in new task.'),
