@@ -1,3 +1,8 @@
+## 3.2.4
+
+- Added support for Android Background Platform Channels when it using a Flutter
+  version that supports it.
+
 ## 3.2.3
 
 - Fix crash on macOS running on Apple M1

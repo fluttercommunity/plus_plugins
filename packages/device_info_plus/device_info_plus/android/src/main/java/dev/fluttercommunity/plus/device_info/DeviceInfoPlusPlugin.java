@@ -5,14 +5,19 @@
 package dev.fluttercommunity.plus.device_info;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodCodec;
+import io.flutter.plugin.common.StandardMethodCodec;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /** DeviceInfoPlusPlugin */
 public class DeviceInfoPlusPlugin implements FlutterPlugin {
-
+  static final String TAG = "DeviceInfoPlusPlugin";
   MethodChannel channel;
 
   @Override
@@ -26,7 +31,24 @@ public class DeviceInfoPlusPlugin implements FlutterPlugin {
   }
 
   private void setupMethodChannel(BinaryMessenger messenger, Context context) {
-    channel = new MethodChannel(messenger, "dev.fluttercommunity.plus/device_info");
+    String channelName = "dev.fluttercommunity.plus/device_info";
+    // TODO(gaaclarke): Remove reflection guard when https://github.com/flutter/engine/pull/29147
+    // becomes available on the stable branch.
+    try {
+      Class methodChannelClass = Class.forName("io.flutter.plugin.common.MethodChannel");
+      Class taskQueueClass = Class.forName("io.flutter.plugin.common.BinaryMessenger$TaskQueue");
+      Method makeBackgroundTaskQueue = messenger.getClass().getMethod("makeBackgroundTaskQueue");
+      Object taskQueue = makeBackgroundTaskQueue.invoke(messenger);
+      Constructor<MethodChannel> constructor =
+          methodChannelClass.getConstructor(
+              BinaryMessenger.class, String.class, MethodCodec.class, taskQueueClass);
+      channel =
+          constructor.newInstance(messenger, channelName, StandardMethodCodec.INSTANCE, taskQueue);
+      Log.d(TAG, "Use TaskQueues.");
+    } catch (Exception ex) {
+      channel = new MethodChannel(messenger, channelName);
+      Log.d(TAG, "Don't use TaskQueues.");
+    }
     final MethodCallHandlerImpl handler =
         new MethodCallHandlerImpl(context.getContentResolver(), context.getPackageManager());
     channel.setMethodCallHandler(handler);
