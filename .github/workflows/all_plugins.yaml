@@ -63,6 +63,8 @@ jobs:
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
       - name: "Flutter Pub Get"
         run: |
           melos exec -c 1 --scope="*example*" -- \
