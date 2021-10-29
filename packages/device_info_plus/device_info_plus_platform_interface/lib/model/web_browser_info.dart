@@ -129,6 +129,7 @@ class WebBrowserInfo {
   /// Serializes [ WebBrowserInfo ] to a map.
   Map<String, dynamic> toMap() {
     return {
+      'browserName': browserName,
       'appCodeName': appCodeName,
       'appName': appName,
       'appVersion': appVersion,
