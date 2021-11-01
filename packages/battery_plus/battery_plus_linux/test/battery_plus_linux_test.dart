@@ -9,6 +9,10 @@ import 'package:dbus/src/dbus_value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('registered instance', () {
+    BatteryPlusLinux.registerWith();
+    expect(BatteryPlatform.instance, isA<BatteryPlusLinux>());
+  });
   test('battery level', () async {
     final battery = BatteryPlusLinux();
     battery.createDevice = () {

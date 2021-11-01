@@ -8,6 +8,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// The Linux implementation of SharePlatform.
 class ShareLinux extends SharePlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    SharePlatform.instance = ShareLinux();
+  }
+
   /// Share text.
   /// Throws a [PlatformException] if `mailto:` scheme cannot be handled.
   @override

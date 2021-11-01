@@ -2,6 +2,8 @@
 // in package_info_plus_web/test/package_info_plus_web_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: camel_case_types, unnecessary_overrides
+
 import 'dart:async' as _i5;
 import 'dart:convert' as _i6;
 import 'dart:typed_data' as _i7;

@@ -3,43 +3,13 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io' show Platform;
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:share_plus_linux/share_plus_linux.dart';
-import 'package:share_plus_windows/share_plus_windows.dart';
 
 /// Plugin for summoning a platform share sheet.
 class Share {
-  /// Disables the platform override in order to use a manually registered
-  /// [SharePlatform] for testing purposes.
-  /// See https://github.com/flutter/flutter/issues/52267 for more details.
-  @visibleForTesting
-  static set disableSharePlatformOverride(bool override) {
-    _disablePlatformOverride = override;
-  }
-
-  static bool _disablePlatformOverride = false;
-  static SharePlatform? __platform;
-
-  // This is to manually endorse the Linux plugin until automatic registration
-  // of dart plugins is implemented.
-  // See https://github.com/flutter/flutter/issues/52267 for more details.
-  static SharePlatform get _platform {
-    if (__platform == null) {
-      if (!_disablePlatformOverride && !kIsWeb) {
-        if (Platform.isLinux) {
-          __platform = ShareLinux();
-        } else if (Platform.isWindows) {
-          __platform = ShareWindows();
-        }
-      }
-      __platform ??= SharePlatform.instance;
-    }
-    return __platform!;
-  }
+  static SharePlatform get _platform => SharePlatform.instance;
 
   /// Summons the platform's share sheet to share text.
   ///
@@ -74,6 +44,17 @@ class Share {
   /// Wraps the platform's native share dialog. Can share a file.
   /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
   /// on iOS.
+  ///
+  /// The optional `mimeTypes` parameter can be used to specify MIME types for
+  /// the provided files.
+  /// Android supports all natively available MIME types (wildcards like image/*
+  /// are also supported) and it's considered best practice to avoid mixing
+  /// unrelated file types (eg. image/jpg & application/pdf). If MIME types are
+  /// mixed the plugin attempts to find the lowest common denominator. Even
+  /// if MIME types are supplied the receiving app decides if those are used
+  /// or handled.
+  /// On iOS image/jpg, image/jpeg and image/png are handled as images, while
+  /// every other MIME type is considered a normal file.
   ///
   /// The optional `sharePositionOrigin` parameter can be used to specify a global
   /// origin rect for the share sheet to popover from on iPads. It has no effect

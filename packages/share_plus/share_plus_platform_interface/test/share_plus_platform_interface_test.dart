@@ -5,7 +5,8 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter_test/flutter_test.dart' show TestWidgetsFlutterBinding;
+import 'package:flutter_test/flutter_test.dart'
+    show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
 import 'package:mockito/mockito.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
@@ -21,8 +22,9 @@ void main() {
   setUp(() {
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
-    MethodChannelShare.channel
-        .setMockMethodCallHandler((MethodCall call) async {
+    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+        .setMockMethodCallHandler(MethodChannelShare.channel,
+            (MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
     });
@@ -61,7 +63,7 @@ void main() {
   });
 
   test('sharing file sets correct mimeType', () async {
-    final path = 'tempfile-83649a.png';
+    const path = 'tempfile-83649a.png';
     final file = File(path);
     try {
       file.createSync();
@@ -76,7 +78,7 @@ void main() {
   });
 
   test('sharing file sets passed mimeType', () async {
-    final path = 'tempfile-83649a.png';
+    const path = 'tempfile-83649a.png';
     final file = File(path);
     try {
       file.createSync();

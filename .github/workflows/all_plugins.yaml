@@ -2,153 +2,202 @@ name: all_plugins
 
 on:
   pull_request:
+    paths-ignore:
+      - "docs/**"
+      - "website/**"
+      - "**.md"
   push:
     branches:
       - main
     paths-ignore:
       - "docs/**"
+      - "website/**"
+      - "**.md"
 
 jobs:
   analyze:
+    name: "Flutter Analyze"
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - name: "Git Checkout"
+      - name: "Checkout repository"
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: |
-          flutter pub global activate melos
-          flutter pub global activate tuneup
+          ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: "Dart Analyze"
+      - name: "Run Flutter Analyze"
+        run: melos run analyze
+  
+  pub_dev_publish_check:
+    name: "Check pub.dev requirements"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
         run: |
-          melos run analyze
+          ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
       - name: "Pub Check"
         run: |
-          melos run lint:pub
+          melos exec -c 1 --no-private --ignore="*example*" -- \
+            pub publish --dry-run
 
-  format:
+  pub_get_check:
+    name: "Check pub dependencies"
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - name: "Git Checkout"
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: |
+          ./.github/workflows/scripts/install-tools.sh
+      - name: "Flutter Pub Get"
+        run: |
+          melos exec -c 1 --scope="*example*" -- \
+            "flutter pub get"
+
+  check_formatting:
+    name: "Check code formatting"
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: "Checkout repository"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: |
-          sudo apt update
-          sudo apt install -y clang-format
-          flutter pub global activate melos
-          pub global activate flutter_plugin_tools 0.1.4
+          ./.github/workflows/scripts/install-tools.sh
+          curl -sL https://github.com/google/google-java-format/releases/download/google-java-format-1.3/google-java-format-1.3-all-deps.jar -o $HOME/google-java-format.jar
       - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: "Melos Format"
-        run: melos run format
-      - name: "Validate Formatting"
+      - name: "Validate Dart formatting"
         run: |
+          melos exec -c 1 -- \
+            "flutter format ."
+          ./.github/workflows/scripts/validate-formatting.sh
+      - name: "Validate Objective-C formatting"
+        if: ${{ success() || failure() }}
+        run: |
+          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
+            find . -maxdepth 3 -name "*.h" -o -name "*.m" -print0 \| xargs -0 clang-format -i --style=Google --verbose
+          ./.github/workflows/scripts/validate-formatting.sh
+      - name: "Validate Java formatting"
+        if: ${{ success() || failure() }}
+        run: |
+          melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
+            find . -maxdepth 12 -name "*.java" -print0 \| xargs -0 java -jar $HOME/google-java-format.jar --replace
           ./.github/workflows/scripts/validate-formatting.sh
 
-  build_examples_dart:
-    timeout-minutes: 15
+  test_and_coverage:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
-      - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
-      - name: "Install Tools"
-        run: flutter pub global activate melos
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-      - name: "Build Example Snapshots"
-        run: |
-          melos run build:examples:bundle
 
-  test:
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    continue-on-error: true
-    timeout-minutes: 15
-    steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "2.2.1"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+
       - name: "Install Tools"
-        run: flutter pub global activate melos
+        run: ./.github/workflows/scripts/install-tools.sh
+
       - name: "Bootstrap Workspace"
         run: melos bootstrap
+
       - name: "Flutter Test"
-        run: |
-          melos run test
-        if: matrix.os != 'ubuntu-latest'
-      - name: "Flutter web Test"
-        run: |
-          melos run test:web
-        if: matrix.os != 'ubuntu-latest'
+        run: melos run test --no-select
+
+      - name: "Flutter Test - Web"
+        run: melos run test:web --no-select
+
       - name: "Collect Coverage"
-        run: |
-          melos run coverage
-        if: matrix.os == 'ubuntu-latest'
+        run: melos run coverage
+
       - name: Upload Coverage
         uses: codecov/codecov-action@v1
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           files: packages/*/coverage/lcov.info
-        if: matrix.os == 'ubuntu-latest'
 
   integration_tests:
     if: false # currently broken, see issue 220
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    continue-on-error: true
-    timeout-minutes: 15
+    runs-on: macos-latest
+    timeout-minutes: 40
     steps:
-      - name: "Git Checkout"
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 0
+
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          channel: dev
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+
       - name: "Install Tools"
-        run: |
-          flutter pub global activate melos
-          flutter config --enable-linux-desktop
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+
+      - uses: nanasess/setup-chromedriver@master
+        with:
+          chromedriver-version: "94.0.4606.61"
+
       - name: "Setup Linux"
         run: |
           sudo apt update
           sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb clang-format
           sudo apt install -y network-manager upower
         if: matrix.os == 'ubuntu-latest'
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-      - name: "Flutter Integration Test"
+
+      - name: "Flutter Linux Integration Test"
         run: |
-          melos run test:e2e:linux
+          flutter config --enable-linux-desktop
+          ./.github/workflows/scripts/drive-example.sh linux
         if: matrix.os == 'ubuntu-latest'
+
+      - name: "Drive Android Integration Test"
+        if: matrix.os == 'macos-latest'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          profile: Nexus 5X
+          script: ./.github/workflows/scripts/drive-example.sh android
+
+      # - name: "Flutter Windows Integration Test"
+      #   run: |
+      #     flutter config --enable-windows-desktop
+      #     ./.github/workflows/scripts/drive-example.sh windows
+      #   if: matrix.os == 'windows-latest'
+
+      - name: "Drive iOS Integration Test"
+        run: |
+          ./.github/workflows/scripts/drive-example.sh ios
+        if: matrix.os == 'macos-latest'
+
+      - name: "Drive MacOS Integration Test"
+        run: |
+          flutter config --enable-macos-desktop
+          ./.github/workflows/scripts/drive-example.sh macos
+        if: matrix.os == 'macos-latest'
+
+      - name: "Drive Web Integration Test"
+        run: |
+          ./.github/workflows/scripts/drive-example.sh web
+        if: matrix.os == 'linux-latest'

@@ -1,3 +1,24 @@
+## 2.0.2
+
+- Fix for error: lambda expressions are not supported in -source 7
+
+## 2.0.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 1.4.0
+
+- [MacOS]: Backport to macOS 10.11
+
+## 1.3.0
+
+- Add ethernet as connectivity result. Supported on Android, iOS, Windows, Linux, macOS, and Web
+
 ## 1.2.0
 
 - migrate integration_test to flutter sdk

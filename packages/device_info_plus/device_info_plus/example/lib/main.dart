@@ -5,23 +5,25 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
-
+import 'dart:developer' as developer;
 import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 void main() {
   runZonedGuarded(() {
-    runApp(MyApp());
+    runApp(const MyApp());
   }, (dynamic error, dynamic stack) {
-    print(error);
-    print(stack);
+    developer.log("Something went wrong!", error: error, stackTrace: stack);
   });
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -166,6 +168,7 @@ class _MyAppState extends State<MyApp> {
       'activeCPUs': data.activeCPUs,
       'memorySize': data.memorySize,
       'cpuFrequency': data.cpuFrequency,
+      'systemGUID': data.systemGUID,
     };
   }
 

@@ -18,3 +18,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter:
+  plugin:
+    implements: device_info_plus
+    platforms:
+      windows:
+        dartPluginClass: DeviceInfoWindows

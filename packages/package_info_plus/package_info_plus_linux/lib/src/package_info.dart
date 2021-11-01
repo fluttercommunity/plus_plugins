@@ -7,6 +7,11 @@ import 'package:path/path.dart' as path;
 
 /// The Linux implementation of [PackageInfoPlatform].
 class PackageInfoLinux extends PackageInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    PackageInfoPlatform.instance = PackageInfoLinux();
+  }
+
   /// Returns a map with the following keys:
   /// appName, packageName, version, buildNumber
   @override

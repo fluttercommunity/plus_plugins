@@ -1,3 +1,12 @@
+## 2.0.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
 ## 1.2.0
 
 - migrate integration_test to flutter sdk

@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:e2e/e2e.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -63,7 +63,7 @@ void main() {
 
   group('oneshot', () {
     testWidgets('cancelled before it fires', (WidgetTester tester) async {
-      final alarmId = 0;
+      const alarmId = 0;
       final startingValue = await readCounter();
       debugPrint('oneShot start');
       await AndroidAlarmManager.oneShot(
@@ -78,7 +78,7 @@ void main() {
     });
 
     testWidgets('cancelled after it fires', (WidgetTester tester) async {
-      final alarmId = 1;
+      const alarmId = 1;
       final startingValue = await readCounter();
       debugPrint('oneShot start');
       await AndroidAlarmManager.oneShot(
@@ -100,7 +100,7 @@ void main() {
   });
 
   testWidgets('periodic', (WidgetTester tester) async {
-    final alarmId = 2;
+    const alarmId = 2;
     final startingValue = await readCounter();
     await AndroidAlarmManager.periodic(
         const Duration(seconds: 1), alarmId, incrementCounter,

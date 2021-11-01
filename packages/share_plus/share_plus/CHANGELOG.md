@@ -1,3 +1,25 @@
+## 3.0.4
+
+- iOS: Fixed sharing malformed URLs
+
+## 3.0.3
+
+- Improve documentation for `shareFiles` method
+
+## 3.0.2
+
+- Apply code improvements
+- Update gradle for plugin
+- Update flutter dependencies
+
+## 3.0.1
+
+- Update Android dependencies for plugin and example, bump compileSDK to 31
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
 ## 2.2.0
 
 - migrate integration_test to flutter sdk
@@ -10,11 +32,11 @@
 
 - Android: migrate to mavenCentral
 
-# 2.1.3
+## 2.1.3
 
 - Update iOS share target to present on the top ViewController. This fixes "Unable to present" errors when the app is already presenting such as in an add to app scenario.
 
-# 2.1.2
+## 2.1.2
 
 - Do not tear down method channel onDetachedFromActivity.
 

@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus_macos' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
-  s.dependency 'Reachability'
 
   s.platform = :osx
   s.osx.deployment_target = '10.11'

@@ -6,6 +6,7 @@ package dev.fluttercommunity.plus.connectivity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -18,21 +19,13 @@ public class ConnectivityPlugin implements FlutterPlugin {
   private EventChannel eventChannel;
   private ConnectivityBroadcastReceiver receiver;
 
-  /** Plugin registration. */
-  @SuppressWarnings("deprecation")
-  public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-
-    ConnectivityPlugin plugin = new ConnectivityPlugin();
-    plugin.setupChannels(registrar.messenger(), registrar.context());
-  }
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     setupChannels(binding.getBinaryMessenger(), binding.getApplicationContext());
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     teardownChannels();
   }
 

@@ -42,7 +42,7 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
 
   private FlutterEngine backgroundFlutterEngine;
 
-  private AtomicBoolean isCallbackDispatcherReady = new AtomicBoolean(false);
+  private final AtomicBoolean isCallbackDispatcherReady = new AtomicBoolean(false);
 
   /**
    * Sets the {@code PluginRegistrantCallback} used to register plugins with the newly spawned

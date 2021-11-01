@@ -3,12 +3,8 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_linux/device_info_plus_linux.dart';
-import 'package:device_info_plus_windows/device_info_plus_windows.dart';
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
         AndroidBuildVersion,
@@ -26,33 +22,11 @@ class DeviceInfoPlugin {
   /// repeatedly or in performance-sensitive blocks.
   DeviceInfoPlugin();
 
-  /// Disables the platform override in order to use a manually registered
-  /// [DeviceInfoPlatform] for testing purposes.
-  /// See https://github.com/flutter/flutter/issues/52267 for more details.
-  @visibleForTesting
-  static set disableDeviceInfoPlatformOverride(bool override) {
-    _disablePlatformOverride = override;
-  }
-
-  static bool _disablePlatformOverride = false;
-  static DeviceInfoPlatform? __platform;
-
   // This is to manually endorse the Linux plugin until automatic registration
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static DeviceInfoPlatform get _platform {
-    if (__platform == null) {
-      if (!_disablePlatformOverride && !kIsWeb) {
-        if (Platform.isLinux) {
-          __platform = DeviceInfoLinux();
-        } else if (Platform.isWindows) {
-          __platform = DeviceInfoWindows();
-        }
-      }
-      __platform ??= DeviceInfoPlatform.instance;
-    }
-
-    return __platform!;
+    return DeviceInfoPlatform.instance;
   }
 
   /// This information does not change from call to call. Cache it.

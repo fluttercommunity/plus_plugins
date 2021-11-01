@@ -15,6 +15,7 @@ class MacOsDeviceInfo {
     required this.activeCPUs,
     required this.memorySize,
     required this.cpuFrequency,
+    required this.systemGUID,
   });
 
   /// Name given to the local machine.
@@ -48,6 +49,9 @@ class MacOsDeviceInfo {
   /// Device CPU Frequency
   final int cpuFrequency;
 
+  /// Device GUID
+  final String? systemGUID;
+
   /// Serializes [ MacOsDeviceInfo ] to map.
   Map<String, dynamic> toMap() {
     return {
@@ -60,6 +64,7 @@ class MacOsDeviceInfo {
       'cpuFrequency': cpuFrequency,
       'computerName': computerName,
       'kernelVersion': kernelVersion,
+      'systemGUID': systemGUID,
     };
   }
 
@@ -75,6 +80,7 @@ class MacOsDeviceInfo {
       activeCPUs: map['activeCPUs'],
       memorySize: map['memorySize'],
       cpuFrequency: map['cpuFrequency'],
+      systemGUID: map['systemGUID'],
     );
   }
 }

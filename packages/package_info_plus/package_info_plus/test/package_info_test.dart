@@ -28,10 +28,6 @@ void main() {
     }
   });
 
-  setUp(() {
-    PackageInfo.disablePackageInfoPlatformOverride = true;
-  });
-
   tearDown(() {
     log.clear();
   });

@@ -1,3 +1,35 @@
+## 2.0.3
+
+- Handle Android 12 behavior changes for exact alarms scheduling
+- Update plugin documentation
+
+## 2.0.2
+
+- Clean up plugin code and fix potential issues with scheduling persistent alarms
+- Remove outdated info about Embedding V1 from README
+- Add mention when `WidgetsFlutterBinding.ensureInitialized()` is required in README
+
+## 2.0.1
+
+- Update Android related dependencies and bump targetSDK to 30 (Android 11)
+
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+- Update Android related dependencies and bump targetSDK to 30 (Android 11)
+
+## 1.3.3
+
+- Fix for periodic alarm being not being exact after some time by adding `allowWhileIdle` parameter
+
+## 1.3.2
+
+- Fix build issue introduced in 1.3.1.
+
+## 1.3.1
+
+- Fix `PendingIntent`s for Android 12+
+
 ## 1.3.0
 
 - migrate integration_test to flutter sdk

@@ -19,7 +19,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
    * offloading any work to {@link AlarmService#enqueueAlarmProcessing(Context, Intent)}.
    *
    * <p>This method is the beginning of an execution path that will eventually execute a desired
-   * Dart callback function, as registed by the Dart side of the android_alarm_manager plugin.
+   * Dart callback function, as registered by the Dart side of the android_alarm_manager plugin.
    * However, there may be asynchronous gaps between {@code onReceive()} and the eventual invocation
    * of the Dart callback because {@link AlarmService} may need to spin up a Flutter execution
    * context before the callback can be invoked.

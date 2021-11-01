@@ -7,12 +7,17 @@ import 'package:meta/meta.dart';
 
 /// See [DeviceInfoPlatform]
 class DeviceInfoLinux extends DeviceInfoPlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    DeviceInfoPlatform.instance = DeviceInfoLinux();
+  }
+
   LinuxDeviceInfo? _cache;
   final FileSystem _fileSystem;
 
   ///
   DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem})
-      : _fileSystem = fileSystem ?? LocalFileSystem();
+      : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
   Future<LinuxDeviceInfo> linuxInfo() async {

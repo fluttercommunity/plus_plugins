@@ -15,13 +15,8 @@
     android:icon="@mipmap/ic_launcher"
     android:label="android_intent_example">
     <activity
-      android:name=".EmbeddingV1Activity"
-      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale"
-      android:hardwareAccelerated="true"
-      android:theme="@android:style/Theme.Black.NoTitleBar"
-      android:windowSoftInputMode="adjustResize"></activity>
-    <activity
       android:name=".MainActivity"
+      android:exported="true"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale"
       android:hardwareAccelerated="true"
       android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -41,9 +36,10 @@
       android:name="flutterEmbedding"
       android:value="2" />
 
-    <receiver android:name=".MyBroadcastReceiver">
+    <receiver android:name=".MyBroadcastReceiver"
+      android:exported="true">
       <intent-filter>
-        <action android:name="com.example.broadcast"></action>
+        <action android:name="com.example.broadcast" />
       </intent-filter>
     </receiver>
   </application>

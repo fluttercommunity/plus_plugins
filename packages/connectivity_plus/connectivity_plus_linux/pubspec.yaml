@@ -21,10 +21,11 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.11.5
   mockito: ^5.0.0
-  pedantic: ^1.10.0
+  flutter_lints: ^1.0.4
 
 flutter:
   plugin:
+    implements: connectivity_plus
     platforms:
       linux:
         dartPluginClass: ConnectivityLinux
