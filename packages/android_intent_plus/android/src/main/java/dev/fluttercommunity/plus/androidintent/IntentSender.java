@@ -98,10 +98,6 @@ public final class IntentSender {
     }
 
     final PackageManager packageManager = applicationContext.getPackageManager();
-    boolean result =
-        packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
-    Log.d(TAG, "" + result);
-
     return packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null;
   }
 
