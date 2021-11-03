@@ -14,7 +14,8 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         LinuxDeviceInfo,
         MacOsDeviceInfo,
         WindowsDeviceInfo,
-        WebBrowserInfo;
+        WebBrowserInfo,
+        BrowserName;
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {
