@@ -1,3 +1,7 @@
+## 1.3.0
+
+- Add submask, broadcast, gateway info
+
 ## 1.2.0
 
 - Remove `Reachability` dependency
