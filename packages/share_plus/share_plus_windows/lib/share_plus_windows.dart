@@ -8,6 +8,11 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
+  /// Register this dart class as the platform implementation for linux
+  static void registerWith() {
+    SharePlatform.instance = ShareWindows();
+  }
+
   /// Share text.
   @override
   Future<void> share(

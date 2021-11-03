@@ -3,12 +3,9 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
-import 'package:package_info_plus_linux/package_info_plus_linux.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
-import 'package:package_info_plus_windows/package_info_plus_windows.dart';
 
 /// Application metadata. Provides application bundle information on iOS and
 /// application package information on Android.
@@ -27,34 +24,6 @@ class PackageInfo {
     this.buildSignature = '',
   });
 
-  /// Disables the platform override in order to use a manually registered
-  /// [PackageInfoPlatform] for testing purposes.
-  /// See https://github.com/flutter/flutter/issues/52267 for more details.
-  @visibleForTesting
-  static set disablePackageInfoPlatformOverride(bool override) {
-    _disablePlatformOverride = override;
-  }
-
-  static bool _disablePlatformOverride = false;
-  static PackageInfoPlatform? __platform;
-
-  // This is to manually endorse the Desktop plugins until automatic
-  // registration of Dart plugins is implemented.
-  // See https://github.com/flutter/flutter/issues/52267 for more details.
-  static PackageInfoPlatform get _platform {
-    if (__platform == null) {
-      if (!_disablePlatformOverride && !kIsWeb) {
-        if (Platform.isLinux) {
-          __platform = PackageInfoLinux();
-        } else if (Platform.isWindows) {
-          __platform = PackageInfoWindows();
-        }
-      }
-      __platform ??= PackageInfoPlatform.instance;
-    }
-    return __platform!;
-  }
-
   static PackageInfo? _fromPlatform;
 
   /// Retrieves package information from the platform.
@@ -64,7 +33,7 @@ class PackageInfo {
       return _fromPlatform!;
     }
 
-    final platformData = await _platform.getAll();
+    final platformData = await PackageInfoPlatform.instance.getAll();
     _fromPlatform = PackageInfo(
       appName: platformData.appName,
       packageName: platformData.packageName,

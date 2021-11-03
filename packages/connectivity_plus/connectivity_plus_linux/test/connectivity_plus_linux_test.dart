@@ -1,4 +1,4 @@
-import 'package:connectivity_plus_linux/src/connectivity_real.dart';
+import 'package:connectivity_plus_linux/src/connectivity.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -9,6 +9,10 @@ import 'connectivity_plus_linux_test.mocks.dart';
 
 @GenerateMocks([NetworkManagerClient])
 void main() {
+  test('registered instance', () {
+    ConnectivityLinux.registerWith();
+    expect(ConnectivityPlatform.instance, isA<ConnectivityLinux>());
+  });
   test('wireless', () async {
     final linux = ConnectivityLinux();
     linux.createClient = () {

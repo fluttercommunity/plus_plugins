@@ -1,4 +1,4 @@
-import 'package:battery_plus_linux/src/battery_plus_linux_real.dart';
+import 'package:battery_plus_linux/src/battery_plus_linux.dart';
 import 'package:battery_plus_linux/src/upower_device.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:dbus/src/dbus_client.dart';
@@ -9,6 +9,10 @@ import 'package:dbus/src/dbus_value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('registered instance', () {
+    BatteryPlusLinux.registerWith();
+    expect(BatteryPlatform.instance, isA<BatteryPlusLinux>());
+  });
   test('battery level', () async {
     final battery = BatteryPlusLinux();
     battery.createDevice = () {
