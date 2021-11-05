@@ -1,3 +1,7 @@
+## 2.1.0
+
+- macOS: Add submask, broadcast, gateway info
+
 ## 2.0.2
 
 - Upgrade Android compile SDK version

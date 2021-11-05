@@ -1,3 +1,7 @@
+## 2.2.1
+
+- add toMap to WebBrowserInfo
+
 ## 2.2.0
 
 - add System GUID to MacOS

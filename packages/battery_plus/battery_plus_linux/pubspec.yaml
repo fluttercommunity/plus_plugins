@@ -25,5 +25,5 @@ flutter:
     implements: battery_plus
     platforms:
       linux:
-        dartPluginClass: BatteryLinux
+        dartPluginClass: BatteryPlusLinux
         pluginClass: none

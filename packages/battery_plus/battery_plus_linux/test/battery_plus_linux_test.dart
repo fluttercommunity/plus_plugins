@@ -1,4 +1,4 @@
-import 'package:battery_plus_linux/src/battery_plus_linux_real.dart';
+import 'package:battery_plus_linux/src/battery_plus_linux.dart';
 import 'package:battery_plus_linux/src/upower_device.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:dbus/src/dbus_client.dart';
