@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Add Gradle wrapper to Android plugin
+
 ## 2.0.2
 
 - Fix for error: lambda expressions are not supported in -source 7
