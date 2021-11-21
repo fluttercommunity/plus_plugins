@@ -2,12 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// Device information for a Linux system.
 ///
 /// See:
 /// - https://www.freedesktop.org/software/systemd/man/os-release.html
 /// - https://www.freedesktop.org/software/systemd/man/machine-id.html
-class LinuxDeviceInfo {
+class LinuxDeviceInfo implements BaseDeviceInfo {
   /// Constructs a LinuxDeviceInfo.
   /// A string identifying the operating system, without a version component,
 
@@ -137,4 +139,21 @@ class LinuxDeviceInfo {
   /// boot. The machine ID is hexadecimal, 32-character, lowercase ID. When
   /// decoded from hexadecimal, this corresponds to a 16-byte/128-bit value.
   final String? machineId;
+
+  /// Serializes [LinuxDeviceInfo] to a map.
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'version': version,
+      'id': id,
+      'idLike': idLike,
+      'versionCodename': versionCodename,
+      'versionId': versionId,
+      'prettyName': prettyName,
+      'buildId': buildId,
+      'variantId': variantId,
+      'machineId': machineId,
+    };
+  }
 }

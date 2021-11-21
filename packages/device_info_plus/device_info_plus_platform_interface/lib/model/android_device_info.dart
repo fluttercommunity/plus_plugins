@@ -2,10 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// Information derived from `android.os.Build`.
 ///
 /// See: https://developer.android.com/reference/android/os/Build.html
-class AndroidDeviceInfo {
+class AndroidDeviceInfo implements BaseDeviceInfo {
   /// Android device Info class.
   AndroidDeviceInfo({
     required this.version,
@@ -110,7 +112,8 @@ class AndroidDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String?> systemFeatures;
 
-  /// Serializes [ AndroidDeviceInfo ] to map.
+  /// Serializes [AndroidDeviceInfo] to map.
+  @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,

@@ -3,12 +3,15 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
+import 'package:flutter/foundation.dart';
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
         AndroidBuildVersion,
         AndroidDeviceInfo,
+        BaseDeviceInfo,
         IosDeviceInfo,
         IosUtsname,
         LinuxDeviceInfo,
@@ -76,4 +79,25 @@ class DeviceInfoPlugin {
   /// Returns device information for Windows.
   Future<WindowsDeviceInfo> get windowsInfo async =>
       _cachedWindowsDeviceInfo ??= await _platform.windowsInfo()!;
+
+  /// Returns device information for the current platform.
+  Future<BaseDeviceInfo> get deviceInfo async {
+    if (kIsWeb) {
+      return webBrowserInfo;
+    } else {
+      if (Platform.isAndroid) {
+        return androidInfo;
+      } else if (Platform.isIOS) {
+        return iosInfo;
+      } else if (Platform.isLinux) {
+        return linuxInfo;
+      } else if (Platform.isMacOS) {
+        return macOsInfo;
+      } else if (Platform.isWindows) {
+        return windowsInfo;
+      }
+    }
+
+    throw UnsupportedError('Unsupported platform');
+  }
 }
