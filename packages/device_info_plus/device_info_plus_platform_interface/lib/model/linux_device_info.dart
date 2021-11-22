@@ -152,6 +152,7 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
       'versionId': versionId,
       'prettyName': prettyName,
       'buildId': buildId,
+      'variant': variant,
       'variantId': variantId,
       'machineId': machineId,
     };
