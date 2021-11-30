@@ -15,7 +15,7 @@ flutter:
         package: dev.fluttercommunity.plus.connectivity
         pluginClass: ConnectivityPlugin
       ios:
-        pluginClass: FLTConnectivityPlusPlugin
+        pluginClass: ConnectivityPlusPlugin
       linux:
         default_package: connectivity_plus_linux
       macos:
