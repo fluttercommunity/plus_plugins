@@ -1,3 +1,7 @@
+## 3.1.2
+
+- iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+
 ## 3.1.1
 
 - add toMap to WebBrowserInfo
