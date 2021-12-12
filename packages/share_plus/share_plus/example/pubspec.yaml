@@ -6,7 +6,7 @@ dependencies:
     sdk: flutter
   share_plus:
     path: ../
-  image_picker: ^0.8.4+2
+  image_picker: ^0.8.4
 
 dependency_overrides:
   share_plus_linux:
