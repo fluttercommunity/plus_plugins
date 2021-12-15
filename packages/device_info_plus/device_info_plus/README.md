@@ -37,6 +37,17 @@ WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
 print('Running on ${webBrowserInfo.userAgent}');  // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
 ```
 
+One common use case for this plugin is obtaining device information for telemetry or crash-reporting purposes. In this scenario your app is not interested in specific properties, instead it wants to send all it knows about the device to your backend service for further analysis. You can leverage `deviceInfo` property, which returns platform-specific device information in a generic way. You then use it's `toMap` method to serialize all known properties to a `Map`. Your backend service should be prepared to handle new properties, which can be added to this plugin in the future.
+
+```dart
+import 'package:device_info_plus/device_info_plus.dart';
+
+final deviceInfoPlugin = DeviceInfoPlugin();
+final deviceInfo = await deviceInfoPlugin.deviceInfo;
+final map = deviceInfo.toMap();
+// Push [map] to your service.
+```
+
 You will find links to the API docs on the [pub page](https://pub.dev/packages/device_info_plus).
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
