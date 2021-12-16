@@ -19,41 +19,50 @@ void main() {
   WindowsDeviceInfo windowsInfo;
   LinuxDeviceInfo linuxInfo;
   MacOsDeviceInfo macosInfo;
+  BaseDeviceInfo deviceInfo;
 
   setUpAll(() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      iosInfo = await deviceInfoPlugin.iosInfo;
-    } else if (Platform.isAndroid) {
-      androidInfo = await deviceInfoPlugin.androidInfo;
-    } else if (Platform.isWindows) {
-      windowsInfo = await deviceInfoPlugin.windowsInfo;
-    } else if (Platform.isLinux) {
-      linuxInfo = await deviceInfoPlugin.linuxInfo;
-    } else if (Platform.isMacOS) {
-      macosInfo = await deviceInfoPlugin.macOsInfo;
-    }
-
     if (kIsWeb) {
       webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
+    } else {
+      if (Platform.isIOS) {
+        iosInfo = await deviceInfoPlugin.iosInfo;
+      } else if (Platform.isAndroid) {
+        androidInfo = await deviceInfoPlugin.androidInfo;
+      } else if (Platform.isWindows) {
+        windowsInfo = await deviceInfoPlugin.windowsInfo;
+      } else if (Platform.isLinux) {
+        linuxInfo = await deviceInfoPlugin.linuxInfo;
+      } else if (Platform.isMacOS) {
+        macosInfo = await deviceInfoPlugin.macOsInfo;
+      }
     }
+
+    deviceInfo = await deviceInfoPlugin.deviceInfo;
   });
 
   testWidgets('Can get non-null device model', (WidgetTester tester) async {
-    if (Platform.isIOS) {
-      expect(iosInfo.model, isNotNull);
-    } else if (Platform.isAndroid) {
-      expect(androidInfo.model, isNotNull);
-    } else if (Platform.isWindows) {
-      expect(windowsInfo.computerName, isNotNull);
-    } else if (Platform.isLinux) {
-      expect(linuxInfo.name, isNotNull);
-    } else if (Platform.isMacOS) {
-      expect(macosInfo.computerName, isNotNull);
-    }
-
     if (kIsWeb) {
       expect(webBrowserInfo.userAgent, isNotNull);
+      expect(deviceInfo, same(webBrowserInfo));
+    } else {
+      if (Platform.isIOS) {
+        expect(iosInfo.model, isNotNull);
+        expect(deviceInfo, same(iosInfo));
+      } else if (Platform.isAndroid) {
+        expect(androidInfo.model, isNotNull);
+        expect(deviceInfo, same(androidInfo));
+      } else if (Platform.isWindows) {
+        expect(windowsInfo.computerName, isNotNull);
+        expect(deviceInfo, same(windowsInfo));
+      } else if (Platform.isLinux) {
+        expect(linuxInfo.name, isNotNull);
+        expect(deviceInfo, same(linuxInfo));
+      } else if (Platform.isMacOS) {
+        expect(macosInfo.computerName, isNotNull);
+        expect(deviceInfo, same(macosInfo));
+      }
     }
   });
 }

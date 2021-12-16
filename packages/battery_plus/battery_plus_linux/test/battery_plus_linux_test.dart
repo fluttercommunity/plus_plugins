@@ -49,9 +49,6 @@ class MockDevice implements UPowerDevice {
   DBusClient get client => throw UnimplementedError();
 
   @override
-  String get destination => throw UnimplementedError();
-
-  @override
   void dispose() {}
 
   @override
@@ -82,6 +79,9 @@ class MockDevice implements UPowerDevice {
   Future<DBusIntrospectNode> introspect() {
     throw UnimplementedError();
   }
+
+  @override
+  String get name => throw UnimplementedError();
 
   @override
   DBusObjectPath get path => throw UnimplementedError();

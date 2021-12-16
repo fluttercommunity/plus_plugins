@@ -1,6 +1,10 @@
-## 3.1.2
+## 3.2.1
 
 - iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+
+## 3.2.0
+
+- add `deviceInfo`
 
 ## 3.1.1
 

@@ -22,7 +22,7 @@ void main() {
       expect(
         find.byWidgetPredicate(
           (Widget widget) =>
-              widget is Text && widget.data.startsWith('Tap here'),
+              widget is Text && widget.data!.startsWith('Tap here'),
         ),
         findsNWidgets(4),
       );
@@ -31,7 +31,7 @@ void main() {
         find.byWidgetPredicate(
           (Widget widget) =>
               widget is Text &&
-              widget.data.startsWith('This plugin only works with Android'),
+              widget.data!.startsWith('This plugin only works with Android'),
         ),
         findsOneWidget,
       );
@@ -45,7 +45,7 @@ void main() {
     const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.launch(), throwsA((Exception e) {
       return e is PlatformException &&
-          e.message.contains('No Activity found to handle Intent');
+          e.message!.contains('No Activity found to handle Intent');
     }));
   }, skip: !Platform.isAndroid);
 
