@@ -1,3 +1,8 @@
+## 3.0.3
+
+- Added an `ignoredPackages` parameter to specify package names that should not be used to resolve the intent and displayed in the chooser.
+- Updated the `launchChooser` method to not display the specified ignored apps in the picker.
+
 ## 3.0.2
 
 - Fixed the buildIntent method to do not set the pacakage to null if it's not resolvable

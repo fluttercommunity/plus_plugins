@@ -27,6 +27,8 @@ class AndroidIntent {
   /// [package] refers to the package parameter of the intent, can be null.
   /// [componentName] refers to the component name of the intent, can be null.
   /// If not null, then [package] but also be provided.
+  /// [ignoredPackages] is the list of package names that should not be displayed in the selection dialog and
+  /// should not be used to resolve this intent.
   /// [type] refers to the type of the intent, can be null.
   const AndroidIntent({
     this.action,
@@ -36,6 +38,7 @@ class AndroidIntent {
     this.arguments,
     this.package,
     this.componentName,
+    this.ignoredPackages,
     Platform? platform,
     this.type,
   })  : assert(action != null || componentName != null,
@@ -56,6 +59,7 @@ class AndroidIntent {
     this.arguments,
     this.package,
     this.componentName,
+    this.ignoredPackages,
     this.type,
   })  : assert(action != null || componentName != null,
             'action or component (or both) must be specified'),
@@ -100,6 +104,10 @@ class AndroidIntent {
   ///
   /// See https://developer.android.com/reference/android/content/Intent.html#setComponent(android.content.ComponentName).
   final String? componentName;
+
+  /// List of package names that will be excluded from the list of applications to resolve the intent.
+  final List<String>? ignoredPackages;
+
   final MethodChannel _channel;
   final Platform _platform;
 
@@ -139,6 +147,14 @@ class AndroidIntent {
   }
 
   /// Launch the intent with 'createChooser(intent, title)'.
+  /// Show the default selection dialog to allow the user to select
+  /// an application to resolve this intent from the list of available applications.
+  /// If there is no application to resolve this intent, the chooser will be displayed
+  /// with a default message about it.
+  ///
+  /// [action] must be specified.
+  ///
+  /// [package] and [componentName] will be ignored.
   ///
   /// This works only on Android platforms.
   Future<void> launchChooser(String title) async {
@@ -146,6 +162,9 @@ class AndroidIntent {
       return;
     }
 
+    if (action?.isNotEmpty != true) {
+      throw StateError('action must not be null or empty string');
+    }
     final buildArguments = _buildArguments();
     buildArguments['chooserTitle'] = title;
     await _channel.invokeMethod<void>(
@@ -194,6 +213,8 @@ class AndroidIntent {
         'package': package,
         if (componentName != null) 'componentName': componentName,
       },
+      if (ignoredPackages?.isNotEmpty == true)
+        'ignoredPackages': ignoredPackages,
       if (type != null) 'type': type,
     };
   }

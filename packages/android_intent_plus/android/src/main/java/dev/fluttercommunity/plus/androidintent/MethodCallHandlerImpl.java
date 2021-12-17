@@ -15,6 +15,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /** Forwards incoming {@link MethodCall}s to {@link IntentSender#send}. */
@@ -83,11 +84,20 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
                 && !TextUtils.isEmpty((String) call.argument("componentName")))
             ? new ComponentName(packageName, (String) call.argument("componentName"))
             : null;
+    List<String> ignoredPackages = call.argument("ignoredPackages");
     String type = call.argument("type");
 
     Intent intent =
         sender.buildIntent(
-            action, flags, category, data, arguments, packageName, componentName, type);
+            action,
+            flags,
+            category,
+            data,
+            arguments,
+            packageName,
+            componentName,
+            ignoredPackages,
+            type);
 
     if ("launch".equalsIgnoreCase(call.method)) {
       sender.send(intent);
@@ -95,7 +105,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       result.success(null);
     } else if ("launchChooser".equalsIgnoreCase(call.method)) {
       String title = call.argument("chooserTitle");
-      sender.launchChooser(intent, title);
+      sender.launchChooser(intent, title, ignoredPackages);
       result.success(null);
     } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {
       sender.sendBroadcast(intent);

@@ -5,11 +5,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Forms and launches intents. */
 public final class IntentSender {
@@ -61,10 +66,36 @@ public final class IntentSender {
 
   /**
    * Like with {@code send}, creates and launches an intent with the given params, but wraps the
-   * {@code Intent} with {@code Intent.createChooser}.
+   * {@code Intent} with {@code Intent.createChooser}. Displays the default chooser to allow a user
+   * to select an application to resolve the intent from the list of available applications. If
+   * there is no application to resolve this intent, the chooser will be displayed with a default
+   * message about it.
+   *
+   * @param intent built intent for which available applications should be displayed in the chooser.
+   * @param title it will be displayed in the chooser.
+   * @param ignoredPackages list of package names that should not be displayed in the chooser.
    */
-  public void launchChooser(Intent intent, String title) {
-    send(Intent.createChooser(intent, title));
+  public void launchChooser(
+      @NonNull Intent intent, @Nullable String title, @Nullable List<String> ignoredPackages) {
+    if (ignoredPackages == null) {
+      ignoredPackages = new ArrayList();
+    }
+    intent.setComponent(null);
+    intent.setPackage(null);
+    Intent chooser = null;
+    ArrayList<Intent> targetIntents = calculateTargetIntents(intent, ignoredPackages);
+    if (targetIntents.size() > 0) {
+      // Create a chooser with the first element of the list,
+      // removing it from the list to avoid double displaying it in the chooser,
+      // since we add the whole list further using putExtra.
+      chooser = Intent.createChooser(targetIntents.remove(0), title);
+      chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetIntents.toArray(new Parcelable[] {}));
+    } else {
+      // To display the chooser with a default message about the lack of available applications.
+      chooser = Intent.createChooser(new Intent(), title);
+    }
+
+    send(chooser);
   }
 
   /** Creates an intent and sends it as Broadcast. */
@@ -89,7 +120,7 @@ public final class IntentSender {
    * @param intent Fully built intent.
    * @return Whether the package manager found {@link android.content.pm.ResolveInfo} using its
    *     {@link PackageManager#resolveActivity(Intent, int)} method.
-   * @see #buildIntent(String, Integer, String, Uri, Bundle, String, ComponentName, String)
+   * @see #buildIntent(String, Integer, String, Uri, Bundle, String, ComponentName, List, String)
    */
   boolean canResolveActivity(Intent intent) {
     if (applicationContext == null) {
@@ -124,6 +155,8 @@ public final class IntentSender {
    * @param packageName forwarded to {@link Intent#setPackage(String)} if non-null. This is forced
    *     to null if it can't be resolved.
    * @param componentName forwarded to {@link Intent#setComponent(ComponentName)} if non-null.
+   * @param ignoredPackages list of package names that should not be displayed in the chooser and
+   *     should not be used to resolve this intent.
    * @param type forwarded to {@link Intent#setType(String)} if non-null and 'data' parameter is
    *     null. If both 'data' and 'type' is non-null they're forwarded to {@link
    *     Intent#setDataAndType(Uri, String)}
@@ -137,6 +170,7 @@ public final class IntentSender {
       @Nullable Bundle arguments,
       @Nullable String packageName,
       @Nullable ComponentName componentName,
+      @Nullable List<String> ignoredPackages,
       @Nullable String type) {
     if (applicationContext == null) {
       Log.wtf(TAG, "Trying to build an intent before the applicationContext was initialized.");
@@ -172,10 +206,60 @@ public final class IntentSender {
         intent.setComponent(componentName);
       }
     }
+    // If the package is not set, and ignored packages are specified, find a package
+    // to resolve this intent.
+    if (intent.getPackage() == null && ignoredPackages != null && ignoredPackages.size() > 0) {
+      String packageToLaunch = choosePackageToLaunch(intent, ignoredPackages);
+      if (packageToLaunch != null) {
+        intent.setPackage(packageToLaunch);
+      } else {
+        // To throw exception "No Activity found to handle Intent".
+        intent.setAction("foo");
+      }
+    }
     if (intent.resolveActivity(applicationContext.getPackageManager()) == null) {
       Log.i(TAG, "Cannot resolve explicit intent");
     }
 
     return intent;
+  }
+
+  @Nullable
+  private String choosePackageToLaunch(
+      @NonNull Intent intent, @NonNull List<String> ignoredPackages) {
+    ArrayList<Intent> targetIntents = calculateTargetIntents(intent, ignoredPackages);
+
+    if (targetIntents.size() > 0) {
+      return targetIntents.get(0).getPackage();
+    } else {
+      return null;
+    }
+  }
+
+  @NonNull
+  private List<ResolveInfo> getIntentActivities(@NonNull Intent intent) {
+    PackageManager packageManager;
+    if (activity != null) {
+      packageManager = activity.getPackageManager();
+    } else {
+      packageManager = applicationContext.getPackageManager();
+    }
+    return packageManager.queryIntentActivities(intent, 0);
+  }
+
+  @NonNull
+  private ArrayList<Intent> calculateTargetIntents(
+      @NonNull Intent intent, @NonNull List<String> ignoredPackages) {
+    ArrayList<Intent> targetIntents = new ArrayList<Intent>();
+    List<ResolveInfo> intentActivities = getIntentActivities(intent);
+
+    for (ResolveInfo currentInfo : intentActivities) {
+      if (ignoredPackages.indexOf(currentInfo.activityInfo.packageName) == -1) {
+        Intent targetIntent = new Intent(intent);
+        targetIntent.setPackage(currentInfo.activityInfo.packageName);
+        targetIntents.add(targetIntent);
+      }
+    }
+    return targetIntents;
   }
 }
