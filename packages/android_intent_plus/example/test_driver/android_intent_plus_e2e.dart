@@ -58,6 +58,19 @@ void main() {
     await intent.launchChooser('title');
   }, skip: !Platform.isAndroid);
 
+  testWidgets('#launchChooser throws when no action is specified',
+      (WidgetTester tester) async {
+    const intent = AndroidIntent(
+      package: 'io.flutter.plugins.androidintentexample',
+      componentName: 'io.flutter.plugins.androidintentexample.MainActivity',
+    );
+    await expectLater(() async => await intent.launchChooser('title'),
+        throwsA((Error e) {
+      return e is StateError &&
+          e.message.contains('action must not be null or empty string');
+    }));
+  }, skip: !Platform.isAndroid);
+
   testWidgets('#sendBroadcast should not throw', (WidgetTester tester) async {
     const intent = AndroidIntent(
       action: 'com.example.broadcast',
