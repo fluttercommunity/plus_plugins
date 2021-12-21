@@ -9,7 +9,7 @@ import 'package:win32/win32.dart';
 
 /// The Windows implementation of [DeviceInfoPlatform].
 class DeviceInfoWindows extends DeviceInfoPlatform {
-  /// Register this dart class as the platform implementation for linux
+  /// Register this dart class as the platform implementation for windows
   static void registerWith() {
     DeviceInfoPlatform.instance = DeviceInfoWindows();
   }

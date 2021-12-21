@@ -1,3 +1,7 @@
+## 3.2.1
+
+- Use automatic plugin registration on Linux and Windows
+
 ## 3.2.0
 
 - add `deviceInfo`
