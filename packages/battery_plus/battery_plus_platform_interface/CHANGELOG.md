@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update Flutter dependencies
+
 ## 1.1.0
 
 - Add method channel for power save mode state

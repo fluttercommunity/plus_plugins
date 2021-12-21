@@ -2,15 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 import 'battery_plus_platform_interface.dart';
-import 'src/enums.dart';
 import 'src/utils.dart';
 
 /// An implementation of [BatteryPlatform] that uses method channels.
@@ -18,12 +15,12 @@ class MethodChannelBattery extends BatteryPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel methodChannel =
-      MethodChannel('dev.fluttercommunity.plus/battery');
+      const MethodChannel('dev.fluttercommunity.plus/battery');
 
   /// The event channel used to receive BatteryState changes from the native platform.
   @visibleForTesting
   EventChannel eventChannel =
-      EventChannel('dev.fluttercommunity.plus/charging');
+      const EventChannel('dev.fluttercommunity.plus/charging');
 
   Stream<BatteryState>? _onBatteryStateChanged;
 
