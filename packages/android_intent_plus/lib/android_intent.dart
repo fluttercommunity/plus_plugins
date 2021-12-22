@@ -152,8 +152,6 @@ class AndroidIntent {
   /// If there is no application to resolve this intent, the chooser will be displayed
   /// with a default message about it.
   ///
-  /// [action] must be specified.
-  ///
   /// [package] and [componentName] will be ignored.
   ///
   /// This works only on Android platforms.
@@ -162,9 +160,6 @@ class AndroidIntent {
       return;
     }
 
-    if (action?.isNotEmpty != true) {
-      throw StateError('action must not be null or empty string');
-    }
     final buildArguments = _buildArguments();
     buildArguments['chooserTitle'] = title;
     await _channel.invokeMethod<void>(
