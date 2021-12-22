@@ -155,42 +155,6 @@ void main() {
         }));
       });
 
-      test('raises error if the intent has no action', () async {
-        try {
-          androidIntent = AndroidIntent.private(
-            package: 'packageName',
-            componentName: 'componentName',
-            channel: mockChannel,
-            platform: FakePlatform(operatingSystem: 'android'),
-          );
-          await androidIntent.launchChooser('title');
-          fail('should raise a StateError');
-        } on StateError catch (e) {
-          expect(e.message, 'action must not be null or empty string');
-        } catch (e) {
-          fail('should raise a StateError');
-        }
-      });
-
-      test('method succeeds if the intent has an action', () async {
-        androidIntent = AndroidIntent.private(
-            action: 'action_view',
-            data: Uri.encodeFull('https://flutter.io'),
-            flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
-            channel: mockChannel,
-            platform: FakePlatform(operatingSystem: 'android'),
-            type: 'video/*');
-        await androidIntent.launchChooser('title');
-        verify(mockChannel.invokeMethod<void>('launchChooser', <String, Object>{
-          'chooserTitle': 'title',
-          'action': 'action_view',
-          'data': Uri.encodeFull('https://flutter.io'),
-          'flags':
-              androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
-          'type': 'video/*',
-        }));
-      });
-
       test('does nothing when called on iOS', () async {
         androidIntent = AndroidIntent.private(
             action: 'action_view',
