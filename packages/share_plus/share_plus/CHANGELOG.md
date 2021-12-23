@@ -1,5 +1,6 @@
-## 3.0.5
+## 3.1.0
 
+- Android: Migrate to Kotlin
 - Android: Update dependencies, build config updates
 - Example: Fix project title
 
