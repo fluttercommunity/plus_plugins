@@ -1,10 +1,8 @@
 [![Flutter Community: sensors_plus](https://fluttercommunity.dev/_github/header/sensors_plus)](https://github.com/fluttercommunity/community)
-[![pub package](https://img.shields.io/pub/v/sensors_plus.svg)](https://pub.dev/packages/sensors_plus)
+[![pub package](https://img.shields.io/pub/v/battery_plus.svg)](https://pub.dev/packages/battery_plus)
 
-<p align="center">
-  <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites">
-    <img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build">
-  </a>
+<p class="center">
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 </p>
 
 ## Sensors Plus
