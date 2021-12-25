@@ -7,7 +7,7 @@
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 </p>
 
-## Sensors Plus
+# Sensors Plus
 
 A Flutter plugin to access the accelerometer, gyroscope, and magnetometer
 sensors.
