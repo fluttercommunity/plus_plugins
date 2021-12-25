@@ -27,9 +27,6 @@ apply plugin: 'kotlin-android'
 android {
   compileSdkVersion 31
 
-  sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
-  }
   defaultConfig {
     minSdkVersion 16
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
