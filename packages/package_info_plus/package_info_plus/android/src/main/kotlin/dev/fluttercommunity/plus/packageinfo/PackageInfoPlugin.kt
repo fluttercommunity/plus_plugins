@@ -65,26 +65,33 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
         }
     }
 
-    //    @Suppress("Deprecation", "PackageManagerGetSignatures")
+    @Suppress("deprecation", "PackageManagerGetSignatures")
     private fun getBuildSignature(pm: PackageManager): String? {
         return try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val packageInfo = pm.getPackageInfo(
-                    applicationContext!!.packageName, PackageManager.GET_SIGNING_CERTIFICATES)
-                if (packageInfo?.signingInfo == null) {
-                    return null
-                }
-                if (packageInfo.signingInfo.hasMultipleSigners()) {
-                    signatureToSha1(packageInfo.signingInfo.apkContentsSigners.first().toByteArray())
+                    applicationContext!!.packageName,
+                    PackageManager.GET_SIGNING_CERTIFICATES
+                )
+                val signingInfo = packageInfo.signingInfo ?: return null
+
+                if (signingInfo.hasMultipleSigners()) {
+                    signatureToSha1(signingInfo.apkContentsSigners.first().toByteArray())
                 } else {
-                    signatureToSha1(
-                        packageInfo.signingInfo.signingCertificateHistory.first().toByteArray())
+                    signatureToSha1(signingInfo.signingCertificateHistory.first().toByteArray())
                 }
             } else {
-                val packageInfo = pm.getPackageInfo(applicationContext!!.packageName, PackageManager.GET_SIGNATURES)
-                if (packageInfo?.signatures == null || packageInfo.signatures.isEmpty() || packageInfo.signatures[0] == null) {
+                val packageInfo = pm.getPackageInfo(
+                    applicationContext!!.packageName,
+                    PackageManager.GET_SIGNATURES
+                )
+                val signatures = packageInfo.signatures
+
+                if (signatures.isNullOrEmpty() || packageInfo.signatures.first() == null) {
                     null
-                } else signatureToSha1(packageInfo.signatures[0].toByteArray())
+                } else {
+                    signatureToSha1(signatures.first().toByteArray())
+                }
             }
         } catch (e: PackageManager.NameNotFoundException) {
             null
