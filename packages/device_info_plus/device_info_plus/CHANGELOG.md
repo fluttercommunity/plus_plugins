@@ -1,3 +1,7 @@
+## 3.2.1
+
+- Fix warnings when building for macOS
+
 ## 3.2.0
 
 - add `deviceInfo`
