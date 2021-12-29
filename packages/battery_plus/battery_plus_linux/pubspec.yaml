@@ -2,7 +2,7 @@ name: battery_plus_linux
 description: Linux implementation of the battery_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 1.0.3
+version: 1.0.4
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -11,9 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  battery_plus_platform_interface: ^1.1.0
-  dbus: ^0.5.1
-  meta: ^1.3.0
+  battery_plus_platform_interface: ^1.1.1
+  dbus: ^0.6.6
+  meta: ^1.7.0
 
 dev_dependencies:
   flutter_test:

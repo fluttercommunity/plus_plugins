@@ -27,6 +27,19 @@ void main() {
             return ({
               'name': 'iPhone 10',
             });
+          case 'getMacosDeviceInfo':
+            return ({
+              'arch': '',
+              'model': 'MacBookPro',
+              'activeCPUs': 0,
+              'memorySize': 0,
+              'cpuFrequency': 0,
+              'hostName': '',
+              'osRelease': '',
+              'computerName': '',
+              'kernelVersion': '',
+              'systemGUID': null,
+            });
           default:
             return null;
         }
@@ -41,6 +54,11 @@ void main() {
     test('iosInfo', () async {
       final result = await methodChannelDeviceInfo.iosInfo();
       expect(result.name, 'iPhone 10');
+    });
+
+    test('macosInfo', () async {
+      final result = await methodChannelDeviceInfo.macosInfo();
+      expect(result.model, 'MacBookPro');
     });
   });
 }

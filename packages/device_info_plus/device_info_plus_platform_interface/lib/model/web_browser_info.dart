@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// List of supported browsers
 enum BrowserName {
   /// Mozilla Firefox
@@ -32,7 +34,7 @@ enum BrowserName {
 /// Information derived from `navigator`.
 ///
 /// See: https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator
-class WebBrowserInfo {
+class WebBrowserInfo implements BaseDeviceInfo {
   /// Web Browser info class.
   WebBrowserInfo({
     required this.appCodeName,
@@ -126,7 +128,8 @@ class WebBrowserInfo {
     );
   }
 
-  /// Serializes [ WebBrowserInfo ] to a map.
+  /// Serializes [WebBrowserInfo] to a map.
+  @override
   Map<String, dynamic> toMap() {
     return {
       'browserName': browserName,

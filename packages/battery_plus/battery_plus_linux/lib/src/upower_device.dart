@@ -1,4 +1,3 @@
-// ignore: import_of_legacy_library_into_null_safe
 import 'dart:developer' as developer;
 
 import 'package:dbus/dbus.dart';
@@ -30,7 +29,7 @@ class UPowerDevice extends DBusRemoteObject {
   UPowerDevice._({
     required DBusClient client,
     required DBusObjectPath path,
-  }) : super(client, _kInterface, path);
+  }) : super(client, name: _kInterface, path: path);
 
   factory UPowerDevice.display([DBusClient? client]) {
     return UPowerDevice._(
