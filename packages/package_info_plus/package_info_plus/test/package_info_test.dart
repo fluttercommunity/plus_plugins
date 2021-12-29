@@ -44,6 +44,9 @@ void main() {
         isMethodCall('getAll', arguments: null),
       ],
     );
+  }, onPlatform: {
+    'linux':
+        const Skip('PackageInfoPlus on Linux does not use platform channels'),
   });
 
   test('Mock initial values', () async {

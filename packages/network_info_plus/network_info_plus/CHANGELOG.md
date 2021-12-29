@@ -1,3 +1,7 @@
+## 2.1.2
+
+- Update Flutter dependencies
+
 ## 2.1.1
 
 - Fix issue with getWifiInterface on iOS. See PR #605 for more info.
