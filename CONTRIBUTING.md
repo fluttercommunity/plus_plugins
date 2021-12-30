@@ -188,6 +188,8 @@ Before opening a Pull-Request, **please increase the version number in the `pubs
 and create a new entry in the `CHANGELOG.md` describing the change**.
 This will help us speed-up the release process for the provided fix or feature.
 
+If updating a platform package (e.g. `device_info_plus_macos`), please remember to update version and changelog of the main package (e.g. `device_info_plus`).
+
 More info about versioning can be found on [semver.org](https://semver.org/).
 
 ### 5.4 Commit and push your changes
