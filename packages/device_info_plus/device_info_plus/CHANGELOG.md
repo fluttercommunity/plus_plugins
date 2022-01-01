@@ -1,6 +1,7 @@
 ## 3.2.1
 
 - Fix warnings when building for macOS
+- Use automatic plugin registration on Linux and Windows
 
 ## 3.2.0
 
