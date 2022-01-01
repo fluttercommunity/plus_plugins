@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Use automatic plugin registration
+
 ## 2.1.0
 
 - add toMap to models
