@@ -1,6 +1,7 @@
 ## 3.2.1
 
 - iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+- Use automatic plugin registration on Linux and Windows
 
 ## 3.2.0
 
