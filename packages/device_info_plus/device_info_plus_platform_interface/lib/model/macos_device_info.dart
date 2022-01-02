@@ -2,8 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// Object encapsulating MACOS device information.
-class MacOsDeviceInfo {
+class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Constructs a MacOsDeviceInfo.
   const MacOsDeviceInfo({
     required this.computerName,
@@ -52,7 +54,8 @@ class MacOsDeviceInfo {
   /// Device GUID
   final String? systemGUID;
 
-  /// Serializes [ MacOsDeviceInfo ] to map.
+  /// Serializes [MacOsDeviceInfo] to map.
+  @override
   Map<String, dynamic> toMap() {
     return {
       'arch': arch,

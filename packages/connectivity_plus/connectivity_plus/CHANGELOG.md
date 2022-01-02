@@ -1,3 +1,13 @@
+## 2.1.0
+
+- Migrated iOS plugin to Swift
+- Removed dependency to old Reachability pod
+- Added dependency to Reachability.swift pod
+
+## 2.0.3
+
+- Add Gradle wrapper to Android plugin
+
 ## 2.0.2
 
 - Fix for error: lambda expressions are not supported in -source 7

@@ -2,10 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// Information derived from `UIDevice`.
 ///
 /// See: https://developer.apple.com/documentation/uikit/uidevice
-class IosDeviceInfo {
+class IosDeviceInfo implements BaseDeviceInfo {
   /// IOS device info class.
   const IosDeviceInfo({
     this.name,
@@ -57,7 +59,8 @@ class IosDeviceInfo {
     );
   }
 
-  /// Serializes [ IosDeviceInfo ] to a map.
+  /// Serializes [IosDeviceInfo] to a map.
+  @override
   Map<String, dynamic> toMap() {
     return {
       'name': name,

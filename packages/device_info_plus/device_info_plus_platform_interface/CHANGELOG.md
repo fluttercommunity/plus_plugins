@@ -1,3 +1,7 @@
+## 2.3.0
+
+- add `BaseDeviceInfo`
+
 ## 2.2.1
 
 - add toMap to WebBrowserInfo
