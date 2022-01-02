@@ -1,5 +1,8 @@
 /// Connection status check result.
 enum ConnectivityResult {
+  /// Bluetooth: Device connected via bluetooth
+  bluetooth,
+
   /// WiFi: Device connected via Wi-Fi
   wifi,
 

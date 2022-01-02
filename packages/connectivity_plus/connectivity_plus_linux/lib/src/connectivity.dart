@@ -50,6 +50,9 @@ class ConnectivityLinux extends ConnectivityPlatform {
     if (client.primaryConnectionType.contains('ethernet')) {
       return ConnectivityResult.ethernet;
     }
+    if (client.primaryConnectionType.contains('bluetooth')) {
+      return ConnectivityResult.bluetooth;
+    }
     return ConnectivityResult.mobile;
   }
 
