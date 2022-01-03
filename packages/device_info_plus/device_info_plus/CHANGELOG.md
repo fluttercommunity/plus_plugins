@@ -1,3 +1,9 @@
+## 3.2.1
+
+- iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+- Use automatic plugin registration on Linux and Windows
+- Fix warnings when building for macOS
+
 ## 3.2.0
 
 - add `deviceInfo`

@@ -26,7 +26,7 @@
       @"systemVersion" : [device systemVersion],
       @"model" : [device model],
       @"localizedModel" : [device localizedModel],
-      @"identifierForVendor" : [[device identifierForVendor] UUIDString],
+      @"identifierForVendor" : [[device identifierForVendor] UUIDString] ?: [NSNull null],
       @"isPhysicalDevice" : [self isDevicePhysical],
       @"utsname" : @{
         @"sysname" : @(un.sysname),
