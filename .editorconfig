@@ -5,17 +5,16 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+charset = utf-8
 
 [*.dart]
 indent_style = space
 indent_size = 2
-charset = utf-8
 
 # Groovy Gradle build scripts style (build.gradle files)
 [*.gradle]
 indent_style = space
 indent_size = 4
-charset = utf-8
 
 # Kotlin code style according to https://developer.android.com/kotlin/style-guide
 [*.{kt, kts}]
