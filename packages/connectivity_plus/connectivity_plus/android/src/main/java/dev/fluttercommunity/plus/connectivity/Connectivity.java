@@ -15,6 +15,7 @@ public class Connectivity {
   static final String CONNECTIVITY_WIFI = "wifi";
   static final String CONNECTIVITY_MOBILE = "mobile";
   static final String CONNECTIVITY_ETHERNET = "ethernet";
+  static final String CONNECTIVITY_BLUETOOTH = "bluetooth";
   private final ConnectivityManager connectivityManager;
 
   public Connectivity(ConnectivityManager connectivityManager) {
@@ -37,6 +38,9 @@ public class Connectivity {
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         return CONNECTIVITY_MOBILE;
       }
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
+        return CONNECTIVITY_BLUETOOTH;
+      }
     }
 
     return getNetworkTypeLegacy();
@@ -51,6 +55,8 @@ public class Connectivity {
     }
     int type = info.getType();
     switch (type) {
+      case ConnectivityManager.TYPE_BLUETOOTH:
+        return "bluetooth";
       case ConnectivityManager.TYPE_ETHERNET:
         return CONNECTIVITY_ETHERNET;
       case ConnectivityManager.TYPE_WIFI:

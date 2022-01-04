@@ -1,3 +1,7 @@
+## 2.2.1
+
+- Fix build warnings
+
 ## 2.2.0
 
 - add System GUID to MacOS

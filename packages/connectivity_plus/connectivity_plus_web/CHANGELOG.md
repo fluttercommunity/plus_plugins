@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Add bluetooth as connectivity result
+
 ## 1.1.0+1
 
 - Fix platform interface dependency

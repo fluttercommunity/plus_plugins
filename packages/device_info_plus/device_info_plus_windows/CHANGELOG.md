@@ -1,3 +1,8 @@
+## 2.1.1
+
+- Use automatic plugin registration
+- update SDK to >=1.20.0
+
 ## 2.1.0
 
 - add toMap to models
