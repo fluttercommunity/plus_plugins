@@ -23,7 +23,7 @@ const String isolateName = 'isolate';
 final ReceivePort port = ReceivePort();
 
 /// Global [SharedPreferences] object.
-SharedPreferences prefs;
+SharedPreferences? prefs;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,15 +35,16 @@ Future<void> main() async {
     isolateName,
   );
   prefs = await SharedPreferences.getInstance();
-  if (!prefs.containsKey(countKey)) {
-    await prefs.setInt(countKey, 0);
+  if (!prefs!.containsKey(countKey)) {
+    await prefs!.setInt(countKey, 0);
   }
+
   runApp(const AlarmManagerExampleApp());
 }
 
 /// Example app for Espresso plugin.
 class AlarmManagerExampleApp extends StatelessWidget {
-  const AlarmManagerExampleApp({Key key}) : super(key: key);
+  const AlarmManagerExampleApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -56,7 +57,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  const _AlarmHomePage({Key key, this.title}) : super(key: key);
+  const _AlarmHomePage({ Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -79,7 +80,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   Future<void> _incrementCounter() async {
     developer.log('Increment counter!');
     // Ensure we've loaded the updated count from the background isolate.
-    await prefs.reload();
+    await prefs?.reload();
 
     setState(() {
       _counter++;
@@ -87,7 +88,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   // The background
-  static SendPort uiSendPort;
+  static SendPort? uiSendPort;
 
   // The callback for our alarm
   static Future<void> callback() async {
@@ -95,7 +96,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
     final currentCount = prefs.getInt(countKey);
-    await prefs.setInt(countKey, currentCount + 1);
+    await prefs.setInt(countKey, currentCount! + 1);
 
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
@@ -125,7 +126,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                   style: textStyle,
                 ),
                 Text(
-                  prefs.getInt(countKey).toString(),
+                  prefs?.getInt(countKey).toString() ?? '',
                   key: const ValueKey('BackgroundCountText'),
                   style: textStyle,
                 ),
@@ -137,7 +138,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 await AndroidAlarmManager.oneShot(
                   const Duration(seconds: 5),
                   // Ensure we have a unique alarm ID.
-                  Random().nextInt(pow(2, 31)),
+                  Random().nextInt(pow(2, 31) as int),
                   callback,
                   exact: true,
                   wakeup: true,
