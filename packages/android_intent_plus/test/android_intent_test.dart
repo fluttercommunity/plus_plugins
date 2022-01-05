@@ -73,6 +73,20 @@ void main() {
         }));
       });
 
+      test('can send a list of ignored packages', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'action_view',
+          ignoredPackages: ['foo'],
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.launch();
+        verify(mockChannel.invokeMethod<void>('launch', <String, Object>{
+          'action': 'action_view',
+          'ignoredPackages': ['foo'],
+        }));
+      });
+
       test('call in ios platform', () async {
         androidIntent = AndroidIntent.private(
             action: 'action_view',
