@@ -3,6 +3,9 @@ name: sensors_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/sensors_plus/**"
       - ".github/workflows/sensors_plus.yaml"

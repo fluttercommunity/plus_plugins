@@ -3,6 +3,9 @@ name: battery_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/battery_plus/**"
       - ".github/workflows/battery_plus.yaml"

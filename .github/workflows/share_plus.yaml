@@ -3,6 +3,9 @@ name: share_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/share_plus/**"
       - ".github/workflows/share_plus.yaml"

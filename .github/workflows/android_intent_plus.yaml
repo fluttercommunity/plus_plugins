@@ -3,6 +3,9 @@ name: android_intent_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/android_intent_plus/**"
       - ".github/workflows/android_intent_plus.yaml"

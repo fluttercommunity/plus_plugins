@@ -3,6 +3,9 @@ name: package_info_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/package_info_plus/**"
       - ".github/workflows/package_info_plus.yaml"

@@ -3,6 +3,9 @@ name: device_info_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/device_info_plus/**"
       - ".github/workflows/device_info_plus.yaml"
