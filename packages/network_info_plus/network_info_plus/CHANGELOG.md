@@ -1,3 +1,8 @@
+## 2.2.0
+
+- Android: Migrate to Kotlin
+- Android: Update dependencies, build config updates
+
 ## 2.1.4+1
 
 - Add issue_tracker link.
