@@ -28,6 +28,11 @@ After importing this plugin to your project as usual, add the following to your
 <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 ```
 
+Then, correct your existing `android:name` attribute belonging to the `<application>` tag:
+```plain
+android:name="io.flutter.app.FlutterApplication"
+```
+
 Next, within the `<application></application>` tags, add:
 
 ```xml
