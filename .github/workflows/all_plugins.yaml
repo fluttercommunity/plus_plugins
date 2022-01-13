@@ -29,9 +29,13 @@ jobs:
           ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
         run: melos bootstrap
-      - name: "Run Flutter Analyze"
-        run: melos run analyze
-  
+      - name: "Run Dart Analyze"
+        uses: invertase/github-action-dart-analyzer@v1
+        with:
+          fatal-infos: false
+          fatal-warnings: true
+          annotate: true
+
   pub_dev_publish_check:
     name: "Check pub.dev requirements"
     timeout-minutes: 15
