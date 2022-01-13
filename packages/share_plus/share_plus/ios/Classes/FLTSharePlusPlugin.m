@@ -233,7 +233,11 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
     NSString *path = paths[i];
     NSString *pathExtension = [path pathExtension];
     NSString *mimeType = mimeTypes[i];
-    if ([pathExtension.lowercaseString isEqualToString:@"jpg"] ||
+    if ([string rangeOfString:@"data:image/"].location == NSNotFound){
+        NSData *data = [[NSData alloc]initWithBase64EncodedString:strEncodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        UIImage *image =  [UIImage imageWithData:data];
+        [items addObject:image];
+    } else if ([pathExtension.lowercaseString isEqualToString:@"jpg"] ||
         [pathExtension.lowercaseString isEqualToString:@"jpeg"] ||
         [pathExtension.lowercaseString isEqualToString:@"png"] ||
         [mimeType.lowercaseString isEqualToString:@"image/jpg"] ||
