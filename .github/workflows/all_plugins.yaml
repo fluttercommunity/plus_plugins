@@ -17,7 +17,7 @@ on:
 jobs:
   analyze:
     name: "Flutter Analyze"
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
