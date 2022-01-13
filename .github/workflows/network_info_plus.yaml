@@ -3,6 +3,9 @@ name: network_info_plus
 
 on:
   pull_request:
+    paths-ignore:
+      - "**.md"
+      - "**.gitignore"
     paths:
       - "packages/network_info_plus/**"
       - ".github/workflows/network_info_plus.yaml"

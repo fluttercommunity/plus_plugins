@@ -1,19 +1,15 @@
 ---
-name: Found Bug.
-about: You are writing an Flutter application with this plugin but the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
-title: ''
+name: Found Bug
+about: You are using one of plugins in some project but due to the plugin the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
 labels: 'bug'
-assignees: ''
 
 ---
 
-<!-- Thank you for using this plugin!
+<!-- Thank you for using PlusPlugins!
 
      If you are looking for support, please check out our documentation
      or consider asking a question on Stack Overflow:
-      * https://flutter.dev/
-      * https://api.flutter.dev/
-      * https://stackoverflow.com/questions/tagged/flutter?sort=frequent
+      * https://plus.fluttercommunity.dev/docs/overview
 
      If you have found a bug or if our documentation doesn't have an answer
      to what you're looking for, then fill our the template below.
@@ -21,14 +17,9 @@ assignees: ''
 
 ## System info
 
-Issue occurs on: iOS / Android / both
+Platform the Issue occurs on:
 Plugin name:
 Plugin version:
-Flutter doctor output:
-
-```
-paste it here...
-```
 
 ## Steps to Reproduce
 
@@ -46,7 +37,8 @@ paste it here...
 2. ...
 3. ...
 
-## Logs
+<details>
+<summary>Logs</summary>
 
 <!--
       Run your application with `flutter run --verbose` and attach all the
@@ -55,18 +47,18 @@ paste it here...
       to explain how to solve the issue.
 -->
 
-```
-```
-
-<!--
-     Run `flutter analyze` and attach any output of that command below.
-     If there are any analysis errors, try resolving them before filing this issue.
--->
-
-```
+```dart
 ```
 
-<!-- Finally, paste the output of running `flutter doctor -v` here. -->
+</details>
+
+<details>
+<summary>Flutter doctor output</summary>
+
+<!-- Paste the output of running `flutter doctor -v` here. -->
 
 ```
 ```
+
+</details>
+
