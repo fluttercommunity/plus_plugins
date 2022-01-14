@@ -57,7 +57,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  const _AlarmHomePage({ Key? key, required this.title}) : super(key: key);
+  const _AlarmHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -95,7 +95,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
     developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
-    final currentCount = prefs.getInt(countKey)??0;
+    final currentCount = prefs.getInt(countKey) ?? 0;
     await prefs.setInt(countKey, currentCount + 1);
 
     // This will be null if we're running in the background.
