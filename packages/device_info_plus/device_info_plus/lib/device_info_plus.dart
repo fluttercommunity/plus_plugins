@@ -24,7 +24,7 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
 class DeviceInfoPlugin {
   /// No work is done when instantiating the plugin. It's safe to call this
   /// repeatedly or in performance-sensitive blocks.
-  DeviceInfoPlugin();
+  const DeviceInfoPlugin();
 
   // This is to manually endorse the Linux plugin until automatic registration
   // of dart plugins is implemented.
@@ -34,51 +34,51 @@ class DeviceInfoPlugin {
   }
 
   /// This information does not change from call to call. Cache it.
-  AndroidDeviceInfo? _cachedAndroidDeviceInfo;
+  static Future<AndroidDeviceInfo>? _androidDeviceInfoFuture;
 
   /// Information derived from `android.os.Build`.
   ///
   /// See: https://developer.android.com/reference/android/os/Build.html
-  Future<AndroidDeviceInfo> get androidInfo async =>
-      _cachedAndroidDeviceInfo ??= await _platform.androidInfo();
+  Future<AndroidDeviceInfo> get androidInfo =>
+      _androidDeviceInfoFuture ??= _platform.androidInfo();
 
   /// This information does not change from call to call. Cache it.
-  IosDeviceInfo? _cachedIosDeviceInfo;
+  static Future<IosDeviceInfo>? _iosDeviceInfoFuture;
 
   /// Information derived from `UIDevice`.
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
-  Future<IosDeviceInfo> get iosInfo async =>
-      _cachedIosDeviceInfo ??= await _platform.iosInfo();
+  Future<IosDeviceInfo> get iosInfo =>
+      _iosDeviceInfoFuture ??= _platform.iosInfo();
 
   /// This information does not change from call to call. Cache it.
-  LinuxDeviceInfo? _cachedLinuxDeviceInfo;
+  static Future<LinuxDeviceInfo>? _linuxDeviceInfoFuture;
 
   /// Information derived from `/etc/os-release`.
   ///
   /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
-  Future<LinuxDeviceInfo> get linuxInfo async =>
-      _cachedLinuxDeviceInfo ??= await _platform.linuxInfo();
+  Future<LinuxDeviceInfo> get linuxInfo =>
+      _linuxDeviceInfoFuture ??= _platform.linuxInfo();
 
   /// This information does not change from call to call. Cache it.
-  WebBrowserInfo? _cachedWebBrowserInfo;
+  static Future<WebBrowserInfo>? _webBrowserInfoFuture;
 
   /// Information derived from `Navigator`.
-  Future<WebBrowserInfo> get webBrowserInfo async =>
-      _cachedWebBrowserInfo ??= await _platform.webBrowserInfo();
+  Future<WebBrowserInfo> get webBrowserInfo =>
+      _webBrowserInfoFuture ??= _platform.webBrowserInfo();
 
   /// This information does not change from call to call. Cache it.
-  MacOsDeviceInfo? _cachedMacosDeviceInfo;
+  static Future<MacOsDeviceInfo>? _macosDeviceInfoFuture;
 
   /// Returns device information for macos. Information sourced from Sysctl.
-  Future<MacOsDeviceInfo> get macOsInfo async =>
-      _cachedMacosDeviceInfo ??= await _platform.macosInfo();
+  Future<MacOsDeviceInfo> get macOsInfo =>
+      _macosDeviceInfoFuture ??= _platform.macosInfo();
 
-  WindowsDeviceInfo? _cachedWindowsDeviceInfo;
+  static Future<WindowsDeviceInfo>? _windowsDeviceInfoFuture;
 
   /// Returns device information for Windows.
-  Future<WindowsDeviceInfo> get windowsInfo async =>
-      _cachedWindowsDeviceInfo ??= await _platform.windowsInfo()!;
+  Future<WindowsDeviceInfo> get windowsInfo =>
+      _windowsDeviceInfoFuture ??= _platform.windowsInfo()!;
 
   /// Returns device information for the current platform.
   Future<BaseDeviceInfo> get deviceInfo async {
