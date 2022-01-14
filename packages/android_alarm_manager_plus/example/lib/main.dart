@@ -95,8 +95,8 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
     developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
-    final currentCount = prefs.getInt(countKey);
-    await prefs.setInt(countKey, currentCount! + 1);
+    final currentCount = prefs.getInt(countKey)??0;
+    await prefs.setInt(countKey, currentCount + 1);
 
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
