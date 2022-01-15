@@ -26,7 +26,7 @@ dependencies:
     sdk: flutter
   meta: ^1.7.0
   battery_plus_platform_interface: ^1.2.0
-  battery_plus_linux: ^1.0.3
+  battery_plus_linux: ^1.1.0
   battery_plus_macos: ^1.0.2
   battery_plus_web: ^1.0.2
   battery_plus_windows: ^1.0.2
