@@ -3,27 +3,38 @@ import FlutterMacOS
 import IOKit.ps
 
 public class BatteryPlusMacosPlugin: NSObject, FlutterPlugin {
+    private var chargingHandler: BatteryPlusChargingHandler
+
+    init(chargingHandler: BatteryPlusChargingHandler) {
+        self.chargingHandler = chargingHandler
+        super.init()
+    }
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "dev.fluttercommunity.plus/battery", binaryMessenger: registrar.messenger)
         
         let eventChannel = FlutterEventChannel(name: "dev.fluttercommunity.plus/charging", binaryMessenger: registrar.messenger)
-        
-        let instance = BatteryPlusMacosPlugin()
+
+        let chargingHandler = BatteryPlusChargingHandler()
+
+        let instance = BatteryPlusMacosPlugin(chargingHandler: chargingHandler)
         registrar.addMethodCallDelegate(instance, channel: channel)
         
-        eventChannel.setStreamHandler(BatteryPlusChargingHandler())
+        eventChannel.setStreamHandler(chargingHandler)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "getBatteryLevel":
-            handleGetBatteryMethodCall(result)
+            handleGetBatteryLevelMethodCall(result)
+        case "getBatteryState":
+            handleGetBatteryStateMethodCall(result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
     
-    private func handleGetBatteryMethodCall(_ result: FlutterResult){
+    private func handleGetBatteryLevelMethodCall(_ result: FlutterResult){
         let level = getBatteryLevel()
         if(level != -1){
             result(level)
@@ -42,5 +53,10 @@ public class BatteryPlusMacosPlugin: NSObject, FlutterPlugin {
             return currentCapacity;
         }
         return -1
+    }
+
+    private func handleGetBatteryStateMethodCall(_ result: FlutterResult){
+        let state = self.chargingHandler.getBatteryStatus()
+        result(state);
     }
 }
