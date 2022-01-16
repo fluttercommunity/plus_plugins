@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Add batteryState getter
+
 ## 2.0.2
 
 - Update Flutter dependencies

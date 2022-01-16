@@ -21,6 +21,14 @@ void main() {
     expect(battery.batteryLevel, completion(equals(57)));
   });
 
+  test('battery state', () async {
+    final battery = BatteryPlusLinux();
+    battery.createDevice = () {
+      return MockDevice();
+    };
+    expect(battery.batteryState, completion(BatteryState.charging));
+  });
+
   test('battery state changes', () {
     final battery = BatteryPlusLinux();
     battery.createDevice = () {

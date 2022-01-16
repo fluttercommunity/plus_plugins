@@ -46,11 +46,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    _battery.batteryState.then(_updateBatteryState);
     _batteryStateSubscription =
-        _battery.onBatteryStateChanged.listen((BatteryState state) {
-      setState(() {
-        _batteryState = state;
-      });
+        _battery.onBatteryStateChanged.listen(_updateBatteryState);
+  }
+
+  void _updateBatteryState(BatteryState state) {
+    if (_batteryState == state) return;
+    setState(() {
+      _batteryState = state;
     });
   }
 

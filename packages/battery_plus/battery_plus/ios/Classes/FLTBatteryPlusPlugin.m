@@ -35,6 +35,15 @@
     } else {
       result(@(batteryLevel));
     }
+  } else if ([@"getBatteryState" isEqualToString:call.method]) {
+    NSString* state = [self getBatteryState];
+    if (state) {
+      result(state);
+    } else {
+      result([FlutterError errorWithCode:@"UNAVAILABLE"
+                                 message:@"Charging status unavailable"
+                                 details:nil]);
+    }
   } else if ([@"isInBatterySaveMode" isEqualToString:call.method]) {
     result(@([[NSProcessInfo processInfo] isLowPowerModeEnabled]));
   } else {
@@ -48,24 +57,29 @@
 
 - (void)sendBatteryStateEvent {
   if (!_eventSink) return;
+  NSString* state = [self getBatteryState];
+  if (state) {
+    _eventSink(state);
+  } else {
+    _eventSink([FlutterError errorWithCode:@"UNAVAILABLE"
+                                   message:@"Charging status unavailable"
+                                   details:nil]);
+  }
+}
+
+- (NSString*)getBatteryState {
   UIDeviceBatteryState state = [[UIDevice currentDevice] batteryState];
   switch (state) {
     case UIDeviceBatteryStateUnknown:
-      _eventSink(@"unknown");
-      break;
+      return @"unknown";
     case UIDeviceBatteryStateFull:
-      _eventSink(@"full");
+      return @"full";
     case UIDeviceBatteryStateCharging:
-      _eventSink(@"charging");
-      break;
+      return @"charging";
     case UIDeviceBatteryStateUnplugged:
-      _eventSink(@"discharging");
-      break;
+      return @"discharging";
     default:
-      _eventSink([FlutterError errorWithCode:@"UNAVAILABLE"
-                                     message:@"Charging status unavailable"
-                                     details:nil]);
-      break;
+      return nil;
   }
 }
 

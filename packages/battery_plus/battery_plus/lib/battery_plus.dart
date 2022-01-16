@@ -41,6 +41,11 @@ class Battery {
     return _platform.isInBatterySaveMode;
   }
 
+  /// Get battery state
+  Future<BatteryState> get batteryState {
+    return _platform.batteryState;
+  }
+
   /// Fires whenever the battery state changes.
   Stream<BatteryState> get onBatteryStateChanged {
     return _platform.onBatteryStateChanged;
