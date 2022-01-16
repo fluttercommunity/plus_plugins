@@ -1,3 +1,7 @@
+## 2.3.0+1
+
+- Fix LinuxDeviceInfo.name docs
+
 ## 2.3.0
 
 - add `BaseDeviceInfo`
