@@ -1,7 +1,11 @@
+## 3.1.0
+
+- Added `arrayArguments` to explicitly pass array values to an intent
+
 ## 3.0.2
 
 - Fixed the buildIntent method to do not set the pacakage to null if it's not resolvable
-- UPdated the example of resolving intent with explicitly defined package name
+- Updated the example of resolving intent with explicitly defined package name
 
 ## 3.0.1
 
