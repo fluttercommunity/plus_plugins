@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule an alarm.
+
 ## 2.0.3
 
 - Handle Android 12 behavior changes for exact alarms scheduling
