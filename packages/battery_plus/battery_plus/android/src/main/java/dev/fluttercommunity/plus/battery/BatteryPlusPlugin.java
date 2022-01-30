@@ -16,8 +16,12 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.PowerManager;
 import android.provider.Settings;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import java.util.Locale;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -27,7 +31,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import java.util.Locale;
 
 /** BatteryPlusPlugin */
 public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, FlutterPlugin {
@@ -107,7 +110,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
 
   private String getBatteryStatus() {
     int status;
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+    if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.O) {
       status = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
     } else {
       status = BatteryManager.BATTERY_STATUS_UNKNOWN;
@@ -166,7 +169,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     String mode = Settings.System.getString(applicationContext.getContentResolver(), "psm_switch");
     if (mode == null && (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)) {
       PowerManager powerManager =
-              (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
+          (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
       return powerManager.isPowerSaveMode();
     } else {
       return (POWER_SAVE_MODE_SAMSUNG.equals(mode));
