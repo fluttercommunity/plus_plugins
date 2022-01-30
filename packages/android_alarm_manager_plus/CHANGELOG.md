@@ -1,6 +1,6 @@
 ## 2.0.4
 
-- Fix FlutterEngine initialization
+- Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule an alarm.
 
 ## 2.0.3
 
