@@ -1,3 +1,7 @@
+## 2.1.1
+
+- (Android) Fix null pointer exception in `isInBatterySaveMode()` on Samsung devices with One UI
+
 ## 2.1.0
 
 - Add batteryState getter

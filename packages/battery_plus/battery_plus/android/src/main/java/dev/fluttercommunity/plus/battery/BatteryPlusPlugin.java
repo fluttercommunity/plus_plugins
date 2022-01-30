@@ -164,7 +164,12 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
 
   private boolean getPowerSaveModeSamsung() {
     String mode = Settings.System.getString(applicationContext.getContentResolver(), "psm_switch");
-    return (mode.equals(POWER_SAVE_MODE_SAMSUNG));
+    if (mode == null && VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+      PowerManager powerManager = (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
+      return powerManager.isPowerSaveMode();
+    } else {
+      return (POWER_SAVE_MODE_SAMSUNG.equals(mode));
+    }
   }
 
   private Boolean getPowerSaveModeHuawei() {
