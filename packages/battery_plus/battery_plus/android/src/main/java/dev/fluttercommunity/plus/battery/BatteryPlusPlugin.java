@@ -16,12 +16,8 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.PowerManager;
 import android.provider.Settings;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-
-import java.util.Locale;
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -31,6 +27,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import java.util.Locale;
 
 /** BatteryPlusPlugin */
 public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, FlutterPlugin {
