@@ -107,7 +107,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
 
   private String getBatteryStatus() {
     int status;
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+    if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.O) {
       status = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
     } else {
       status = BatteryManager.BATTERY_STATUS_UNKNOWN;
@@ -162,9 +162,15 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     return null;
   }
 
-  private boolean getPowerSaveModeSamsung() {
+  private Boolean getPowerSaveModeSamsung() {
     String mode = Settings.System.getString(applicationContext.getContentResolver(), "psm_switch");
-    return (mode.equals(POWER_SAVE_MODE_SAMSUNG));
+    if (mode == null && (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)) {
+      PowerManager powerManager =
+          (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
+      return powerManager.isPowerSaveMode();
+    } else {
+      return (POWER_SAVE_MODE_SAMSUNG.equals(mode));
+    }
   }
 
   private Boolean getPowerSaveModeHuawei() {
