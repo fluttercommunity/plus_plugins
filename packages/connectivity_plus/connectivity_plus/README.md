@@ -49,7 +49,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 initState() {
   super.initState();
 
-  subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+  var subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
     // Got a new connectivity status!
   })
 }
