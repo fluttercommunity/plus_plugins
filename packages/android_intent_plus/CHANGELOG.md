@@ -1,3 +1,8 @@
+## 3.1.1
+
+- Fix embedding issue in example
+- Update Platform dependency to not use deprecated function
+
 ## 3.1.0
 
 - Added `arrayArguments` to explicitly pass array values to an intent

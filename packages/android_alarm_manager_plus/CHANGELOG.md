@@ -1,3 +1,8 @@
+## 2.0.5
+
+- Fix embedding issue in example
+- Update dependencies in example
+
 ## 2.0.4
 
 - Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule an alarm.

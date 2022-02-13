@@ -1,6 +1,7 @@
 ## 2.2.1
 
 - Bump `nm` plugin to 0.5.0 (connectivity_plus_linux)
+- Fix embedding issue in example
 
 ## 2.2.0
 
