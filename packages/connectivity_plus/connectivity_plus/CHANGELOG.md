@@ -1,3 +1,7 @@
+## 2.2.1
+
+- Fix embedding issue in example
+
 ## 2.2.0
 
 - Add bluetooth as connectivity result. Supported on Android, Linux, and Web
