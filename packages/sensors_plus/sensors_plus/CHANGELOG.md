@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Fix example embedding issues
+
 ## 1.2.1
 
 - Upgrade Android compile SDK version
