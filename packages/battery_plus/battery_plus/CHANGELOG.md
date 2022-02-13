@@ -1,3 +1,8 @@
+## 2.1.2
+
+- Fix embedding issue in example
+- (Android) Update Kotlin and Gradle plugin
+
 ## 2.1.1
 
 - (Android) Fix null pointer exception in `isInBatterySaveMode()` on Samsung devices with One UI
