@@ -1,3 +1,7 @@
+## 1.3.0
+
+- Bump nm plugin to 0.5.0
+
 ## 1.2.0
 
 - Add bluetooth as connectivity result
