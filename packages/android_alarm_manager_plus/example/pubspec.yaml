@@ -10,11 +10,11 @@ dependencies:
     sdk: flutter
   android_alarm_manager_plus:
     path: ../
-  shared_preferences: ^2.0.12
-  path_provider: ^2.0.8
+  shared_preferences: ^2.0.13
+  path_provider: ^2.0.9
 
 dev_dependencies:
-  espresso: ^0.0.1+5
+  espresso: ^0.1.0+4
   flutter_driver:
     sdk: flutter
   flutter_test:
