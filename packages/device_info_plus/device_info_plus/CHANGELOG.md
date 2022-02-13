@@ -1,3 +1,8 @@
+## 3.2.2
+
+- Fix embedding issue in example
+- Update Android dependencies in example
+
 ## 3.2.1
 
 - iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
