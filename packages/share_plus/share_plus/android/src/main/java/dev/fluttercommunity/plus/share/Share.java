@@ -86,7 +86,10 @@ class Share {
       shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris);
       shareIntent.setType(reduceMimeTypes(mimeTypes));
     }
-    if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+    if (text != null){
+        shareIntent.putExtra(Intent.EXTRA_TITLE, text);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+    }
     if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
