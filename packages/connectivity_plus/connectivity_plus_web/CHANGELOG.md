@@ -1,3 +1,7 @@
+## 1.2.1
+
+- Fix stream fallback for unsupported browsers
+
 ## 1.2.0
 
 - Add bluetooth as connectivity result
