@@ -87,8 +87,8 @@ class Share {
       shareIntent.setType(reduceMimeTypes(mimeTypes));
     }
     if (text != null){
-        shareIntent.putExtra(Intent.EXTRA_TITLE, text);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+      shareIntent.putExtra(Intent.EXTRA_TITLE, text);
+      shareIntent.putExtra(Intent.EXTRA_TEXT, text);
     }
     if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
