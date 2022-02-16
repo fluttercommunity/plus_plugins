@@ -86,7 +86,7 @@ class Share {
       shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris);
       shareIntent.setType(reduceMimeTypes(mimeTypes));
     }
-    if (text != null){
+    if (text != null) {
       shareIntent.putExtra(Intent.EXTRA_TITLE, text);
       shareIntent.putExtra(Intent.EXTRA_TEXT, text);
     }
