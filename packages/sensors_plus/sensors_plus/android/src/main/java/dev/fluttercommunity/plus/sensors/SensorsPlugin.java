@@ -33,7 +33,6 @@ public class SensorsPlugin implements FlutterPlugin {
   private StreamHandlerImpl gyroScopeStreamHandler;
   private StreamHandlerImpl magnetometerStreamHandler;
 
-
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
     final Context context = binding.getApplicationContext();
