@@ -1,3 +1,6 @@
+## 1.3.0
+- Cleanup resources on Android in onDetachedFromEngine
+
 ## 1.2.2
 
 - Fix example embedding issues
