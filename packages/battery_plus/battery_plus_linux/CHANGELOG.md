@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update dbus to 0.7.1
+
 ## 1.1.0
 
 - Add batteryState getter

@@ -1,3 +1,8 @@
+## 2.1.3
+
+- Update battery_plus_linux dependency
+- Set min Flutter version to 1.20.0 for all platforms
+
 ## 2.1.2
 
 - Fix embedding issue in example
