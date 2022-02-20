@@ -27,7 +27,7 @@ module.exports = {
     navbar: {
       title: 'Plus Plugins',
       logo: {
-        alt: 'FlutterFire Logo',
+        alt: 'Flutter Community Logo',
         src: '/img/fc_logo.png',
       },
       items: [

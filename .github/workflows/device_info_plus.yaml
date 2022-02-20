@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/device_info_plus/**"
       - ".github/workflows/device_info_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*device_info_plus*"

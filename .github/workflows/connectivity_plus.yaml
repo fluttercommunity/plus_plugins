@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/connectivity_plus/**"
       - ".github/workflows/connectivity_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*connectivity_plus*"

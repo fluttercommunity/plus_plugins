@@ -1,3 +1,11 @@
+## 2.2.2
+
+- Fixed incorrect computer name and version on MacOS
+
+## 2.2.1
+
+- Fix build warnings
+
 ## 2.2.0
 
 - add System GUID to MacOS

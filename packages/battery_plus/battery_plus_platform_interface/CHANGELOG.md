@@ -1,3 +1,12 @@
+## 1.2.1
+
+- Update plugin_platform_interface to 2.1.2
+- Set min Flutter version to 1.20.0
+
+## 1.2.0
+
+- Add batteryState getter
+
 ## 1.1.1
 
 - Update Flutter dependencies

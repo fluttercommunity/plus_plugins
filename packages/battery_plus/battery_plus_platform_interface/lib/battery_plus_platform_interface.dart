@@ -47,6 +47,11 @@ abstract class BatteryPlatform extends PlatformInterface {
     throw UnimplementedError('isInBatterySaveMode() has not been implemented.');
   }
 
+  /// Returns the current battery state in percent.
+  Future<BatteryState> get batteryState {
+    throw UnimplementedError('batteryState() has not been implemented.');
+  }
+
   /// Returns a Stream of BatteryState changes.
   Stream<BatteryState> get onBatteryStateChanged {
     throw UnimplementedError(

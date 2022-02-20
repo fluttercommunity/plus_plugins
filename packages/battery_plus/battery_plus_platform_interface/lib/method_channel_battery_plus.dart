@@ -36,6 +36,12 @@ class MethodChannelBattery extends BatteryPlatform {
       .invokeMethod<bool>('isInBatterySaveMode')
       .then<bool>((dynamic result) => result);
 
+  /// Returns the current battery state in percent.
+  @override
+  Future<BatteryState> get batteryState => methodChannel
+      .invokeMethod<String>('getBatteryState')
+      .then<BatteryState>((dynamic result) => parseBatteryState(result));
+
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {

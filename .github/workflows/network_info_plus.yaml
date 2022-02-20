@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/network_info_plus/**"
       - ".github/workflows/network_info_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*network_info_plus*"

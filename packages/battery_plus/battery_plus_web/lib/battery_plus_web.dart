@@ -35,6 +35,18 @@ class BatteryPlusPlugin extends BatteryPlatform {
     return 0;
   }
 
+  /// Returns the current battery state.
+  @override
+  Future<BatteryState> get batteryState async {
+    if (isSupported) {
+      final battery = await _getBattery() as html.BatteryManager;
+      if (battery.charging != null) {
+        return _checkBatteryChargingState(battery.charging!);
+      }
+    }
+    return BatteryState.unknown;
+  }
+
   StreamController<BatteryState>? _batteryChangeStreamController;
   late Stream<BatteryState> _batteryChange;
 

@@ -1,7 +1,11 @@
+# android_alarm_manager_plus
+
 [![Flutter Community: android_alarm_manager_plus](https://fluttercommunity.dev/_github/header/android_alarm_manager_plus)](https://github.com/fluttercommunity/community)
 
+[![pub package](https://img.shields.io/pub/v/android_alarm_manager_plus.svg)](https://pub.dev/packages/android_alarm_manager_plus)
+[![android_alarm_manager_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml)
+
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-# android_alarm_manager_plus
 
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
