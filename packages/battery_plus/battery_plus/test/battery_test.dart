@@ -19,6 +19,9 @@ class MockBatteryPlatform
   Future<int> get batteryLevel => Future.value(42);
 
   @override
+  Future<BatteryState> get batteryState => Future.value(BatteryState.charging);
+
+  @override
   Stream<BatteryState> get onBatteryStateChanged => controller.stream;
 
   @override
@@ -50,6 +53,10 @@ void main() {
 
     tearDown(() {
       controller.close();
+    });
+
+    test('current', () async {
+      expect(await battery.batteryState, BatteryState.charging);
     });
 
     test('receive values', () async {

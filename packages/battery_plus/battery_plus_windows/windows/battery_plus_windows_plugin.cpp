@@ -156,6 +156,9 @@ void BatteryPlusWindowsPlugin::HandleMethodCall(
       result->Error(std::to_string(battery.GetError()),
                     battery.GetErrorString());
     }
+  } else if (method_call.method_name().compare("getBatteryState") == 0) {
+    SystemBattery battery;
+    result->Success(flutter::EncodableValue(battery.GetStatusString()));
   } else {
     result->NotImplemented();
   }

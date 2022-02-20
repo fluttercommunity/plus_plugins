@@ -1,3 +1,14 @@
+## 3.2.2
+
+- Fix embedding issue in example
+- Update Android dependencies in example
+
+## 3.2.1
+
+- iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+- Use automatic plugin registration on Linux and Windows
+- Fix warnings when building for macOS
+
 ## 3.2.0
 
 - add `deviceInfo`

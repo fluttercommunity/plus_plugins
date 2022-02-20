@@ -11,8 +11,6 @@ import 'base_device_info.dart';
 /// - https://www.freedesktop.org/software/systemd/man/machine-id.html
 class LinuxDeviceInfo implements BaseDeviceInfo {
   /// Constructs a LinuxDeviceInfo.
-  /// A string identifying the operating system, without a version component,
-
   LinuxDeviceInfo({
     required this.name,
     this.version,
@@ -27,6 +25,7 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
     required this.machineId,
   });
 
+  /// A string identifying the operating system, without a version component,
   /// and suitable for presentation to the user.
   ///
   /// Examples: 'Fedora', 'Debian GNU/Linux'.

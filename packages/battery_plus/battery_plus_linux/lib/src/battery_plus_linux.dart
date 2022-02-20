@@ -41,6 +41,16 @@ class BatteryPlusLinux extends BatteryPlatform {
         .whenComplete(() => device.dispose());
   }
 
+  /// Returns the current battery state.
+  @override
+  Future<BatteryState> get batteryState {
+    final device = createDevice();
+    return device
+        .getState()
+        .then((value) => value.toBatteryState())
+        .whenComplete(() => device.dispose());
+  }
+
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {

@@ -1,11 +1,11 @@
+# Android Intent Plugin for Flutter
+
 [![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/android_intent_plus.svg)](https://pub.dev/packages/android_intent_plus)
-[![Flutter Unit Tests](https://github.com/fluttercommunity/android_intent_plus/workflows/Flutter%20Unit%20Tests/badge.svg)](https://github.com/fluttercommunity/android_intent_plus/actions)
+[![android_intent_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml)
 
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-
-# Android Intent Plugin for Flutter
 
 This plugin allows Flutter apps to launch arbitrary intents when the platform
 is Android. If the plugin is invoked on iOS, it will crash your app. In checked

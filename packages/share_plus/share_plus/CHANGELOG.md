@@ -4,6 +4,10 @@
 - Android: Update dependencies, build config updates
 - Example: Fix project title
 
+## 3.0.5
+
+- Fix example embedding issue
+
 ## 3.0.4
 
 - iOS: Fixed sharing malformed URLs

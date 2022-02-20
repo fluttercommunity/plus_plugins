@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/package_info_plus/**"
       - ".github/workflows/package_info_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*package_info_plus*"

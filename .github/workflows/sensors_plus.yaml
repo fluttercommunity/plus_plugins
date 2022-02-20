@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/sensors_plus/**"
       - ".github/workflows/sensors_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*sensors_plus*"

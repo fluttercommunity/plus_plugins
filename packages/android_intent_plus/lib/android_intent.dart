@@ -24,6 +24,8 @@ class AndroidIntent {
   /// intent.
   /// [arguments] is the map that will be converted into an extras bundle and
   /// passed to the intent.
+  /// [arrayArguments] is a map that will be converted into an extra bundle
+  /// as in an array and passed to the intent.
   /// [package] refers to the package parameter of the intent, can be null.
   /// [componentName] refers to the component name of the intent, can be null.
   /// If not null, then [package] but also be provided.
@@ -34,6 +36,7 @@ class AndroidIntent {
     this.category,
     this.data,
     this.arguments,
+    this.arrayArguments,
     this.package,
     this.componentName,
     Platform? platform,
@@ -54,6 +57,7 @@ class AndroidIntent {
     this.category,
     this.data,
     this.arguments,
+    this.arrayArguments,
     this.package,
     this.componentName,
     this.type,
@@ -87,8 +91,16 @@ class AndroidIntent {
   /// The equivalent of `extras`, a generic `Bundle` of data that the Intent can
   /// carry. This is a slot for extraneous data that the listener may use.
   ///
+  /// If the argument contains a list value, then the value will be put in as an
+  /// array list.
+  ///
   /// See https://developer.android.com/reference/android/content/Intent.html#intent-structure.
   final Map<String, dynamic>? arguments;
+
+  /// Similar to [arguments], but in this case the arguments are an array and
+  /// will be added to the intent as in an array extra instead of of an array
+  /// list.
+  final Map<String, List<dynamic>>? arrayArguments;
 
   /// Sets the [data] to only resolve within this given package.
   ///
@@ -190,6 +202,7 @@ class AndroidIntent {
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
+      if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,
         if (componentName != null) 'componentName': componentName,

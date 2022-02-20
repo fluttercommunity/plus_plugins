@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/android_alarm_manager_plus/**"
       - ".github/workflows/android_alarm_manager_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*android_alarm_manager_plus*"

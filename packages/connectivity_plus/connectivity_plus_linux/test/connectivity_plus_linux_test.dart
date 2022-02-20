@@ -13,6 +13,37 @@ void main() {
     ConnectivityLinux.registerWith();
     expect(ConnectivityPlatform.instance, isA<ConnectivityLinux>());
   });
+
+  test('bluetooth', () async {
+    final linux = ConnectivityLinux();
+    linux.createClient = () {
+      final client = MockNetworkManagerClient();
+      when(client.connectivity)
+          .thenReturn(NetworkManagerConnectivityState.full);
+      when(client.primaryConnectionType).thenReturn('bluetooth');
+      return client;
+    };
+    expect(
+      linux.checkConnectivity(),
+      completion(equals(ConnectivityResult.bluetooth)),
+    );
+  });
+
+  test('ethernet', () async {
+    final linux = ConnectivityLinux();
+    linux.createClient = () {
+      final client = MockNetworkManagerClient();
+      when(client.connectivity)
+          .thenReturn(NetworkManagerConnectivityState.full);
+      when(client.primaryConnectionType).thenReturn('ethernet');
+      return client;
+    };
+    expect(
+      linux.checkConnectivity(),
+      completion(equals(ConnectivityResult.ethernet)),
+    );
+  });
+
   test('wireless', () async {
     final linux = ConnectivityLinux();
     linux.createClient = () {
@@ -23,7 +54,9 @@ void main() {
       return client;
     };
     expect(
-        linux.checkConnectivity(), completion(equals(ConnectivityResult.wifi)));
+      linux.checkConnectivity(),
+      completion(equals(ConnectivityResult.wifi)),
+    );
   });
 
   test('no connectivity', () async {

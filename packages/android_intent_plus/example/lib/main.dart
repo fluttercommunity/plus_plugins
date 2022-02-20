@@ -184,6 +184,21 @@ class ExplicitIntentsWidget extends StatelessWidget {
     intent.launch();
   }
 
+  void _openGmail() {
+    const intent = AndroidIntent(
+      action: 'android.intent.action.SEND',
+      arguments: {'android.intent.extra.SUBJECT': 'I am the subject'},
+      arrayArguments: {
+        'android.intent.extra.EMAIL': ['eidac@me.com', 'overbom@mac.com'],
+        'android.intent.extra.CC': ['john@app.com', 'user@app.com'],
+        'android.intent.extra.BCC': ['liam@me.abc', 'abel@me.com'],
+      },
+      package: 'com.google.android.gm',
+      type: 'message/rfc822',
+    );
+    intent.launch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,7 +206,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
         title: const Text('Test explicit intents'),
       ),
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -233,6 +248,12 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 onPressed: _openApplicationDetails,
                 child: const Text(
                   'Tap here to open Application Details',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _openGmail,
+                child: const Text(
+                  'Tap here to open gmail app with details',
                 ),
               ),
             ],
