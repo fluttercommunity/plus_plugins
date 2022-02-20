@@ -1,9 +1,7 @@
 ---
 name: Feature request
-about: Suggest a new idea for this plugin.
-title: ''
+about: Suggest a new idea for one of plugins.
 labels: 'enhancement'
-assignees: ''
 
 ---
 
@@ -11,11 +9,9 @@ assignees: ''
 
      If you are looking for support, please check out our documentation
      or consider asking a question on Stack Overflow:
-      * https://flutter.dev/
-      * https://api.flutter.dev/
-      * https://stackoverflow.com/questions/tagged/flutter?sort=frequent
+      * https://plus.fluttercommunity.dev/docs/overview
 
-     If you have found a bug or if our documentation doesn't have an answer
+     If you would like to see a new feature or if our documentation doesn't have an answer
      to what you're looking for, then fill our the other template.
 -->
 

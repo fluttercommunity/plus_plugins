@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/share_plus/**"
       - ".github/workflows/share_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*share_plus*"

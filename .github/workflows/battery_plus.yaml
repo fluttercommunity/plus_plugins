@@ -6,6 +6,8 @@ on:
     paths:
       - "packages/battery_plus/**"
       - ".github/workflows/battery_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
 
 env:
   PLUGIN_SCOPE: "*battery_plus*"

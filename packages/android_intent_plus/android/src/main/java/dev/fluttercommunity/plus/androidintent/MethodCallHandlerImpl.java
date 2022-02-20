@@ -77,6 +77,8 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     String category = call.argument("category");
     Uri data = call.argument("data") != null ? Uri.parse((String) call.argument("data")) : null;
     Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
+    Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
+    arguments.putAll(arrayArguments);
     String packageName = call.argument("package");
     ComponentName componentName =
         (!TextUtils.isEmpty(packageName)
@@ -159,6 +161,51 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
         bundle.putStringArrayList(key, (ArrayList<String>) value);
       } else if (isStringKeyedMap(value)) {
         bundle.putBundle(key, convertArguments((Map<String, ?>) value));
+      } else {
+        throw new UnsupportedOperationException("Unsupported type " + value);
+      }
+    }
+    return bundle;
+  }
+
+  private static Bundle convertArrayArguments(Map<String, ?> arrayArguments) {
+    Bundle bundle = new Bundle();
+    if (arrayArguments == null) {
+      return bundle;
+    }
+    for (String key : arrayArguments.keySet()) {
+      Object value = arrayArguments.get(key);
+      if (isTypedArrayList(value, Boolean.class)) {
+        ArrayList<Boolean> list = (ArrayList<Boolean>) value;
+        boolean[] array = new boolean[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+          array[i] = list.get(i);
+        }
+        bundle.putBooleanArray(key, array);
+      } else if (isTypedArrayList(value, Integer.class)) {
+        ArrayList<Integer> list = (ArrayList<Integer>) value;
+        int[] array = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+          array[i] = list.get(i);
+        }
+        bundle.putIntArray(key, array);
+      } else if (isTypedArrayList(value, Long.class)) {
+        ArrayList<Long> list = (ArrayList<Long>) value;
+        long[] array = new long[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+          array[i] = list.get(i);
+        }
+        bundle.putLongArray(key, array);
+      } else if (isTypedArrayList(value, Double.class)) {
+        ArrayList<Double> list = (ArrayList<Double>) value;
+        double[] array = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+          array[i] = list.get(i);
+        }
+        bundle.putDoubleArray(key, array);
+      } else if (isTypedArrayList(value, String.class)) {
+        ArrayList<String> list = (ArrayList<String>) value;
+        bundle.putStringArray(key, list.toArray(new String[list.size()]));
       } else {
         throw new UnsupportedOperationException("Unsupported type " + value);
       }

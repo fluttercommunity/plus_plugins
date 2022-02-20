@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Add batteryState getter
+
 ## 1.0.2
 
 - Upgrade battery_plus_platform_interface dependency

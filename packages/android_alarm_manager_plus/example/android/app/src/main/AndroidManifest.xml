@@ -17,7 +17,7 @@
 
     <!-- Cleartext Traffic required by Flutter Espresso, do not use in production -->
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:label="Alarm manager example">
