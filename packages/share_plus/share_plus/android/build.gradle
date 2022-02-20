@@ -2,14 +2,14 @@ group 'dev.fluttercommunity.plus.share'
 version '1.0-SNAPSHOT'
 
 buildscript {
-  ext.kotlin_version = '1.5.32'
+  ext.kotlin_version = '1.6.10'
   repositories {
     google()
     mavenCentral()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.0.4'
+    classpath 'com.android.tools.build:gradle:7.1.1'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }

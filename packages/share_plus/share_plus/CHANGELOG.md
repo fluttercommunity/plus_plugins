@@ -3,6 +3,7 @@
 - Android: Migrate to Kotlin
 - Android: Update dependencies, build config updates
 - Example: Fix project title
+- Example: Set min Flutter version to 1.20.0
 
 ## 3.0.5
 
