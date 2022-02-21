@@ -1,5 +1,11 @@
-## 1.3.0
+## 1.3.1
+
 - Cleanup resources on Android in onDetachedFromEngine
+
+## 1.3.0
+
+- Android: Migrate to Kotlin
+- Android: Update dependencies, build config updates
 
 ## 1.2.2
 
