@@ -4,16 +4,16 @@ version: 1.0.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
 dependencies:
   flutter:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
   network_info_plus_platform_interface: ^1.0.0
-
-environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.20.0"
 
 flutter:
   plugin:
