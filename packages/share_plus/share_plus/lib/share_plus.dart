@@ -79,4 +79,47 @@ class Share {
       sharePositionOrigin: sharePositionOrigin,
     );
   }
+
+  /// Behaves exactly like [share] while providing feedback on how the user
+  /// interacted with the share-sheet. Until the returned future is completed,
+  /// any other call to any share method that returns a result will result in
+  /// a [PlatformException].
+  ///
+  /// Currently only implemented on IOS & Android.
+  static Future<ShareResult> shareWithResult(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(text.isNotEmpty);
+    return _platform.shareWithResult(
+      text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Behaves exactly like [shareFiles] while providing feedback on how the user
+  /// interacted with the share-sheet. Until the returned future is completed,
+  /// any other call to any share method that returns a result will result in
+  /// a [PlatformException].
+  ///
+  /// Currently only implemented on IOS & Android.
+  static Future<ShareResult> shareFilesWithResult(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(paths.isNotEmpty);
+    assert(paths.every((element) => element.isNotEmpty));
+    return _platform.shareFilesWithResult(
+      paths,
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
 }
