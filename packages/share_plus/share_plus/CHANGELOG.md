@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Add *WithResult methods to get feedback on user action
+
 ## 3.1.0
 
 - Android: Migrate to Kotlin
