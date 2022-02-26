@@ -22,6 +22,48 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   return viewController;
 }
 
+// We need the companion to avoid ARC deadlock
+@interface UIActivityViewSuccessCompanion : NSObject
+
+@property FlutterResult result; 
+@property NSString *activityType;
+@property BOOL completed;
+
+- (id)initWithResult:(FlutterResult)result;
+
+@end
+
+@implementation UIActivityViewSuccessCompanion
+
+- (id)initWithResult:(FlutterResult)result {
+  if (self = [super init]) {
+    self.result = result;
+    self.completed = false;
+  }
+  return self;
+}
+
+// We use dealloc as the share-sheet might disappear (e.g. iCloud photo album creation)
+// and could then reappear if the user cancels
+-(void)dealloc {
+  if (self.completed) {
+    self.result(self.activityType);
+  } else {
+    self.result(@"");
+  }
+}
+
+@end
+
+@interface UIActivityViewSuccessController : UIActivityViewController
+
+@property UIActivityViewSuccessCompanion *companion;
+
+@end
+
+@implementation UIActivityViewSuccessController
+@end
+
 @interface SharePlusData : NSObject <UIActivityItemSource>
 
 @property(readonly, nonatomic, copy) NSString *subject;
@@ -127,6 +169,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
                                   binaryMessenger:registrar.messenger];
 
   [shareChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
+    BOOL withResult = [call.method hasSuffix:@"WithResult"];
     NSDictionary *arguments = [call arguments];
     NSNumber *originX = arguments[@"originX"];
     NSNumber *originY = arguments[@"originY"];
@@ -139,7 +182,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
                               [originWidth doubleValue], [originHeight doubleValue]);
     }
 
-    if ([@"share" isEqualToString:call.method]) {
+    if ([@"share" isEqualToString:call.method]  || [@"shareWithResult" isEqualToString:call.method]) {
       NSString *shareText = arguments[@"text"];
       NSString *shareSubject = arguments[@"subject"];
 
@@ -155,9 +198,10 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
       [self shareText:shareText
                  subject:shareSubject
           withController:topViewController
-                atSource:originRect];
-      result(nil);
-    } else if ([@"shareFiles" isEqualToString:call.method]) {
+                atSource:originRect
+                toResult:withResult ? result : nil];
+      if (!withResult) result(nil);
+    } else if ([@"shareFiles" isEqualToString:call.method] || [@"shareFilesWithResult" isEqualToString:call.method]) {
       NSArray *paths = arguments[@"paths"];
       NSArray *mimeTypes = arguments[@"mimeTypes"];
       NSString *subject = arguments[@"subject"];
@@ -186,8 +230,9 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
              withSubject:subject
                 withText:text
           withController:topViewController
-                atSource:originRect];
-      result(nil);
+                atSource:originRect
+                toResult:withResult ? result : nil];
+      if (!withResult) result(nil);
     } else {
       result(FlutterMethodNotImplemented);
     }
@@ -196,12 +241,21 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
 
 + (void)share:(NSArray *)shareItems
     withController:(UIViewController *)controller
-          atSource:(CGRect)origin {
-  UIActivityViewController *activityViewController =
-      [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+          atSource:(CGRect)origin
+          toResult:(FlutterResult)result {
+  UIActivityViewSuccessController *activityViewController =
+      [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems applicationActivities:nil];
   activityViewController.popoverPresentationController.sourceView = controller.view;
   if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
+  }
+  if (result) {
+    UIActivityViewSuccessCompanion *companion = [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
+    activityViewController.companion = companion;
+    activityViewController.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+      companion.activityType = activityType;
+      companion.completed = completed;
+    };
   }
   [controller presentViewController:activityViewController animated:YES completion:nil];
 }
@@ -209,12 +263,13 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
 + (void)shareText:(NSString *)shareText
            subject:(NSString *)subject
     withController:(UIViewController *)controller
-          atSource:(CGRect)origin {
+          atSource:(CGRect)origin
+          toResult:(FlutterResult)result {
   NSObject *data = [[NSURL alloc] initWithString:shareText];
   if (data == nil) {
     data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
   }
-  [self share:@[ data ] withController:controller atSource:origin];
+  [self share:@[ data ] withController:controller atSource:origin toResult:result];
 }
 
 + (void)shareFiles:(NSArray *)paths
@@ -222,7 +277,8 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
        withSubject:(NSString *)subject
           withText:(NSString *)text
     withController:(UIViewController *)controller
-          atSource:(CGRect)origin {
+          atSource:(CGRect)origin
+          toResult:(FlutterResult)result {
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
   if (text || subject) {
@@ -247,7 +303,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
     }
   }
 
-  [self share:items withController:controller atSource:origin];
+  [self share:items withController:controller atSource:origin toResult:result];
 }
 
 @end
