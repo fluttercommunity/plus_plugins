@@ -25,7 +25,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
 // We need the companion to avoid ARC deadlock
 @interface UIActivityViewSuccessCompanion : NSObject
 
-@property FlutterResult result; 
+@property FlutterResult result;
 @property NSString *activityType;
 @property BOOL completed;
 
@@ -45,7 +45,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
 
 // We use dealloc as the share-sheet might disappear (e.g. iCloud photo album creation)
 // and could then reappear if the user cancels
--(void)dealloc {
+- (void)dealloc {
   if (self.completed) {
     self.result(self.activityType);
   } else {
@@ -182,7 +182,8 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
                               [originWidth doubleValue], [originHeight doubleValue]);
     }
 
-    if ([@"share" isEqualToString:call.method]  || [@"shareWithResult" isEqualToString:call.method]) {
+    if ([@"share" isEqualToString:call.method] ||
+        [@"shareWithResult" isEqualToString:call.method]) {
       NSString *shareText = arguments[@"text"];
       NSString *shareSubject = arguments[@"subject"];
 
@@ -201,7 +202,8 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
                 atSource:originRect
                 toResult:withResult ? result : nil];
       if (!withResult) result(nil);
-    } else if ([@"shareFiles" isEqualToString:call.method] || [@"shareFilesWithResult" isEqualToString:call.method]) {
+    } else if ([@"shareFiles" isEqualToString:call.method] ||
+               [@"shareFilesWithResult" isEqualToString:call.method]) {
       NSArray *paths = arguments[@"paths"];
       NSArray *mimeTypes = arguments[@"mimeTypes"];
       NSString *subject = arguments[@"subject"];
@@ -244,18 +246,22 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
           atSource:(CGRect)origin
           toResult:(FlutterResult)result {
   UIActivityViewSuccessController *activityViewController =
-      [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+      [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
+                                               applicationActivities:nil];
   activityViewController.popoverPresentationController.sourceView = controller.view;
   if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
   if (result) {
-    UIActivityViewSuccessCompanion *companion = [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
+    UIActivityViewSuccessCompanion *companion =
+        [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
     activityViewController.companion = companion;
-    activityViewController.completionWithItemsHandler = ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-      companion.activityType = activityType;
-      companion.completed = completed;
-    };
+    activityViewController.completionWithItemsHandler =
+        ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems,
+          NSError *activityError) {
+          companion.activityType = activityType;
+          companion.completed = completed;
+        };
   }
   [controller presentViewController:activityViewController animated:YES completion:nil];
 }
