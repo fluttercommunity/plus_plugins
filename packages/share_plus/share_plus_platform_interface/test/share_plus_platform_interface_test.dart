@@ -32,7 +32,7 @@ void main() {
     });
   });
 
-  test('can set SharePlatform instance', () async {
+  test('can set SharePlatform instance', () {
     final currentId = identityHashCode(SharePlatform.instance);
 
     final newInstance = MethodChannelShare();
@@ -179,7 +179,7 @@ void main() {
     });
   });
 
-  test('witResult methods throws unimplemented on non IOS & Android', () async {
+  test('withResult methods throw unimplemented on non IOS & Android', () async {
     expect(
       () => sharePlatform.shareWithResult('some text to share'),
       throwsA(const TypeMatcher<UnimplementedError>()),
