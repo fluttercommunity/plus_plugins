@@ -84,15 +84,15 @@ class Share {
 
   /// Behaves exactly like [share] while providing feedback on how the user
   /// interacted with the share-sheet. Until the returned future is completed,
-  /// any other call to any share method that returns a result might result in
-  /// a [PlatformException].
+  /// any other call to any share method that returns a result _might_ result in
+  /// a [PlatformException] (on Android).
   ///
-  /// Because IOS and Android provide different feedback on share-sheet interaction,
-  /// a result on IOS will be more specific than on Android. While IOS can detect if
-  /// the user actually completed his selected action or aborted it midway, Android
-  /// only records if the user selected an action or outright dismissed the share-sheet.
+  /// Because IOS, Android and macOS provide different feedback on share-sheet interaction,
+  /// a result on IOS will be more specific than on Android or macOS. While IOS can detect if
+  /// the user actually completed his selected action or aborted it midway, Android and macOS
+  /// only record if the user selected an action or outright dismissed the share-sheet.
   ///
-  /// **Currently only implemented on IOS & Android.**
+  /// **Currently only implemented on IOS, Android and macOS.**
   static Future<ShareResult> shareWithResult(
     String text, {
     String? subject,
@@ -108,15 +108,15 @@ class Share {
 
   /// Behaves exactly like [shareFiles] while providing feedback on how the user
   /// interacted with the share-sheet. Until the returned future is completed,
-  /// any other call to any share method that returns a result might result in
-  /// a [PlatformException].
+  /// any other call to any share method that returns a result _might_ result in
+  /// a [PlatformException] (on Android).
   ///
-  /// Because IOS and Android provide different feedback on share-sheet interaction,
-  /// a result on IOS will be more specific than on Android. While IOS can detect if
-  /// the user actually completed his selected action or aborted it midway, Android
-  /// only records if the user selected an action or outright dismissed the share-sheet.
+  /// Because IOS, Android and macOS provide different feedback on share-sheet interaction,
+  /// a result on IOS will be more specific than on Android or macOS. While IOS can detect if
+  /// the user actually completed his selected action or aborted it midway, Android and macOS
+  /// only record if the user selected an action or outright dismissed the share-sheet.
   ///
-  /// **Currently only implemented on IOS & Android.**
+  /// **Currently only implemented on IOS, Android and macOS.**
   static Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,

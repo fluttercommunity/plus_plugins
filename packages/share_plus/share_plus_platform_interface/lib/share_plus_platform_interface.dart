@@ -67,7 +67,7 @@ class SharePlatform extends PlatformInterface {
     Rect? sharePositionOrigin,
   }) async {
     throw UnimplementedError(
-        'shareWithResult() has only been implemented on IOS & Android');
+        'shareWithResult() has only been implemented on IOS, Android & macOS');
   }
 
   /// Share files with Result.
@@ -79,7 +79,7 @@ class SharePlatform extends PlatformInterface {
     Rect? sharePositionOrigin,
   }) async {
     throw UnimplementedError(
-        'shareWithResult() has only been implemented on IOS & Android');
+        'shareWithResult() has only been implemented on IOS, Android & macOS');
   }
 }
 
