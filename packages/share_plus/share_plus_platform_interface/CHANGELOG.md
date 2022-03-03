@@ -1,4 +1,4 @@
-## 2.0.2
+## 2.1.0
 
 - Add *WithResult methods to get feedback on user action
 
