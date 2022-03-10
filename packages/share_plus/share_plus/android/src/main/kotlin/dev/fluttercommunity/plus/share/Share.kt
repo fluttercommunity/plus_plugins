@@ -58,7 +58,7 @@ internal class Share(private val context: Context, private var activity: Activit
           context,
           0,
           Intent(ShareSuccessManager.BROADCAST_CHANNEL),
-          PendingIntent.FLAG_UPDATE_CURRENT
+          PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         ).getIntentSender()
       )
     } else {
@@ -116,7 +116,7 @@ internal class Share(private val context: Context, private var activity: Activit
           context,
           0,
           Intent(ShareSuccessManager.BROADCAST_CHANNEL),
-          PendingIntent.FLAG_UPDATE_CURRENT
+          PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         ).getIntentSender()
       )
     } else {
