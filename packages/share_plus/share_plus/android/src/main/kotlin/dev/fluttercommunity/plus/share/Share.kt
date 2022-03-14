@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.IOException
@@ -22,6 +23,19 @@ internal class Share(private val context: Context, private var activity: Activit
 
   private val shareCacheFolder: File
     get() = File(getContext().cacheDir, "share_plus")
+
+  
+  /**
+   * API v31+ requires `PendingIntent.FLAG_MUTABLE`, which is not available before
+   * v31. We therefore have to use different flag sets for pre- and post-API v31.
+   */
+  private val pendingIntentFlags: Int by lazy {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+    } else {
+      PendingIntent.FLAG_UPDATE_CURRENT
+    }
+  }
 
   private fun getContext(): Context {
     if (activity != null) {
@@ -58,7 +72,7 @@ internal class Share(private val context: Context, private var activity: Activit
           context,
           0,
           Intent(ShareSuccessManager.BROADCAST_CHANNEL),
-          PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+          pendingIntentFlags
         ).getIntentSender()
       )
     } else {
@@ -116,7 +130,7 @@ internal class Share(private val context: Context, private var activity: Activit
           context,
           0,
           Intent(ShareSuccessManager.BROADCAST_CHANNEL),
-          PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+          pendingIntentFlags
         ).getIntentSender()
       )
     } else {
