@@ -1,9 +1,13 @@
+## 4.0.0
+
+- iOS, Android, MacOS: Add `shareWithResult` methods to get feedback on user action
+- Android: Increased minSdkVersion to 23
+- MacOS: Native sharing implementation
+
 ## 3.1.0
 
 - Android: Migrate to Kotlin
 - Android: Update dependencies, build config updates
-- Example: Fix project title
-- Example: Set min Flutter version to 1.20.0
 
 ## 3.0.5
 

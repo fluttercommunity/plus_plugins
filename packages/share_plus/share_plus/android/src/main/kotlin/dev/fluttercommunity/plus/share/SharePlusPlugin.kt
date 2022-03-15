@@ -9,20 +9,25 @@ import io.flutter.plugin.common.MethodChannel
 /** Plugin method host for presenting a share sheet via Intent  */
 class SharePlusPlugin : FlutterPlugin, ActivityAware {
   private lateinit var share: Share
+  private lateinit var manager: ShareSuccessManager
   private lateinit var methodChannel: MethodChannel
 
   override fun onAttachedToEngine(binding: FlutterPluginBinding) {
     methodChannel = MethodChannel(binding.binaryMessenger, CHANNEL)
-    share = Share(context = binding.applicationContext, activity = null)
-    val handler = MethodCallHandler(share)
+    manager = ShareSuccessManager(binding.applicationContext)
+    manager.register()
+    share = Share(context = binding.applicationContext, activity = null, manager = manager)
+    val handler = MethodCallHandler(share, manager)
     methodChannel.setMethodCallHandler(handler)
   }
 
   override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
+    manager.discard()
     methodChannel.setMethodCallHandler(null)
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    binding.addActivityResultListener(manager)
     share.setActivity(binding.activity)
   }
 

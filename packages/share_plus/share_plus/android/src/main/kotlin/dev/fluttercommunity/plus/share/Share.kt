@@ -1,10 +1,12 @@
 package dev.fluttercommunity.plus.share
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.IOException
@@ -14,13 +16,26 @@ import java.io.IOException
  * intent. The `activity` might be null when constructing the [Share] object and set
  * to non-null when an activity is available using [.setActivity].
  */
-internal class Share(private val context: Context?, private var activity: Activity?) {
+internal class Share(private val context: Context, private var activity: Activity?, private val manager: ShareSuccessManager) {
   private val providerAuthority: String by lazy {
     getContext().packageName + ".flutter.share_provider"
   }
 
   private val shareCacheFolder: File
     get() = File(getContext().cacheDir, "share_plus")
+
+  
+  /**
+   * API v31+ requires `PendingIntent.FLAG_MUTABLE`, which is not available before
+   * v31. We therefore have to use different flag sets for pre- and post-API v31.
+   */
+  private val pendingIntentFlags: Int by lazy {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+      PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+    } else {
+      PendingIntent.FLAG_UPDATE_CURRENT
+    }
+  }
 
   private fun getContext(): Context {
     if (activity != null) {
@@ -40,16 +55,30 @@ internal class Share(private val context: Context?, private var activity: Activi
     this.activity = activity
   }
 
-  fun share(text: String, subject: String?) {
+  fun share(text: String, subject: String?, withResult: Boolean) {
     val shareIntent = Intent().apply {
       action = Intent.ACTION_SEND
       type = "text/plain"
       putExtra(Intent.EXTRA_TEXT, text)
       putExtra(Intent.EXTRA_SUBJECT, subject)
     }
-
-    val chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */)
-    startActivity(chooserIntent)
+    // If we dont want the result we use the old 'createChooser'
+    val chooserIntent = if (withResult) {
+      // Build chooserIntent with broadcast to ShareSuccessManager on success
+      Intent.createChooser(
+        shareIntent,
+        null, // dialog title optional
+        PendingIntent.getBroadcast(
+          context,
+          0,
+          Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+          pendingIntentFlags
+        ).getIntentSender()
+      )
+    } else {
+      Intent.createChooser(shareIntent, null /* dialog title optional */)
+    }
+    startActivity(chooserIntent, withResult)
   }
 
   @Throws(IOException::class)
@@ -57,14 +86,15 @@ internal class Share(private val context: Context?, private var activity: Activi
     paths: List<String>,
     mimeTypes: List<String>?,
     text: String?,
-    subject: String?
+    subject: String?,
+    withResult: Boolean
   ) {
     clearShareCacheFolder()
     val fileUris = getUrisForPaths(paths)
     val shareIntent = Intent()
     when {
       (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-        share(text, subject)
+        share(text, subject, withResult)
         return
       }
       fileUris.size == 1 -> {
@@ -90,7 +120,22 @@ internal class Share(private val context: Context?, private var activity: Activi
     if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
     if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-    val chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */)
+    // If we dont want the result we use the old 'createChooser'
+    val chooserIntent = if (withResult) {
+      // Build chooserIntent with broadcast to ShareSuccessManager on success
+      Intent.createChooser(
+        shareIntent,
+        null, // dialog title optional
+        PendingIntent.getBroadcast(
+          context,
+          0,
+          Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+          pendingIntentFlags
+        ).getIntentSender()
+      )
+    } else {
+      Intent.createChooser(shareIntent, null /* dialog title optional */)
+    }
     val resInfoList = getContext().packageManager.queryIntentActivities(
       chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
     )
@@ -104,16 +149,24 @@ internal class Share(private val context: Context?, private var activity: Activi
         )
       }
     }
-    startActivity(chooserIntent)
+    startActivity(chooserIntent, withResult)
   }
 
-  private fun startActivity(intent: Intent) {
+  private fun startActivity(intent: Intent, withResult: Boolean) {
     when {
       activity != null -> {
-        activity!!.startActivity(intent)
+        if (withResult) {
+          activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
+        } else {
+          activity!!.startActivity(intent)
+        }
       }
       context != null -> {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (withResult) {
+          // We need to cancel the callback to avoid deadlocking on the Dart side
+          manager.unavailable()
+        }
         context.startActivity(intent)
       }
       else -> {

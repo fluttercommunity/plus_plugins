@@ -88,6 +88,17 @@ class DemoAppState extends State<DemoApp> {
                       );
                     },
                   ),
+                  const Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        onPressed: text.isEmpty && imagePaths.isEmpty
+                            ? null
+                            : () => _onShareWithResult(context),
+                        child: const Text('Share With Result'),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -121,5 +132,23 @@ class DemoAppState extends State<DemoApp> {
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
+  }
+
+  void _onShareWithResult(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    ShareResult result;
+    if (imagePaths.isNotEmpty) {
+      result = await Share.shareFilesWithResult(imagePaths,
+          text: text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+    } else {
+      result = await Share.shareWithResult(text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+    }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Share result: ${result.status}"),
+    ));
   }
 }
