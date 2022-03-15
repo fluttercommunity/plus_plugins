@@ -1,3 +1,7 @@
+## 3.0.0
+
+- Version bump
+
 ## 2.0.4
 
 - Fixes: sharing in isolated sandboxes like Flatpak

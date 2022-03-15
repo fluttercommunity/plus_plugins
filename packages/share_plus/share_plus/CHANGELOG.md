@@ -1,3 +1,7 @@
+## 4.0.1
+
+- Hotfix dependencies
+
 ## 4.0.0
 
 - iOS, Android, MacOS: Add `shareWithResult` methods to get feedback on user action
