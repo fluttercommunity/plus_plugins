@@ -16,7 +16,9 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
       } else if path.usesInterfaceType(.cellular) {
         return .cellular
       } else if path.usesInterfaceType(.wiredEthernet) {
-        return .wiredEthernet
+        // .wiredEthernet is available in simulator
+        // but for consistency it is probably correct to report .wifi
+        return .wifi
       }
     }
     return .none
