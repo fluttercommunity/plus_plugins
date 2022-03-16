@@ -3,7 +3,14 @@ import Network
 
 @available(macOS 10.14, *)
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
-  private let pathMonitor = NWPathMonitor()
+  private let pathMonitor: NWPathMonitor
+
+  private var pathMonitor: NWPathMonitor {
+      if (_pathMonitor == nil) {
+          _pathMonitor = NWPathMonitor()
+      }
+      return _pathMonitor!
+  }
 
   public var currentConnectivityType: ConnectivityType {
     let path = pathMonitor.currentPath
@@ -32,6 +39,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   public func stop() {
     pathMonitor.cancel()
+    _pathMonitor = nil
   }
 
   private func pathUpdateHandler(path: NWPath) {
