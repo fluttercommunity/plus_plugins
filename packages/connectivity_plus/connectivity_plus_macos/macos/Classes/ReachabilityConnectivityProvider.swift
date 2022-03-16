@@ -2,11 +2,11 @@ import Foundation
 import Reachability
 
 public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
-  private var reachability: Reachability?
+  private var _reachability: Reachability?
 
   public var currentConnectivityType: ConnectivityType {
-    let reachability = try? self.reachability ?? Reachability()
-    switch reachability?.connection ?? .unavailable {
+    let reachability = ensureReachability()
+    switch reachability.connection ?? .unavailable {
     case .wifi:
       return .wifi
     case .cellular:
@@ -18,8 +18,13 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
 
   public var connectivityUpdateHandler: ConnectivityUpdateHandler?
 
+  override init() {
+    super.init()
+    ensureReachability()
+  }
+
   public func start() {
-    reachability = try? Reachability()
+    let reachability = ensureReachability()
 
     NotificationCenter.default.addObserver(
       self,
@@ -27,17 +32,25 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
       name: .reachabilityChanged,
       object: reachability)
 
-    try? reachability?.startNotifier()
+    try? reachability.startNotifier()
   }
 
   public func stop() {
     NotificationCenter.default.removeObserver(
       self,
       name: .reachabilityChanged,
-      object: reachability)
+      object: _reachability)
 
-    reachability?.stopNotifier()
-    reachability = nil
+    _reachability?.stopNotifier()
+    _reachability = nil
+  }
+
+  private func ensureReachability() -> Reachability {
+    if (_reachability == nil) {
+      let reachability = try? Reachability()
+      _reachability = reachability
+    }
+    return _reachability!
   }
 
   @objc private func reachabilityChanged(notification: NSNotification) {

@@ -3,17 +3,13 @@ import Network
 
 @available(iOS 12, *)
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
-  private var pathMonitor: NWPathMonitor {
-      if (_pathMonitor == nil) {
-          _pathMonitor = NWPathMonitor()
-      }
-      return _pathMonitor!
-  }
 
-  private var _pathMonitor:NWPathMonitor?
+  private let queue = DispatchQueue.global(qos: .background)
+
+  private var _pathMonitor: NWPathMonitor?
 
   public var currentConnectivityType: ConnectivityType {
-    let path = pathMonitor.currentPath
+    let path = ensurePathMonitor().currentPath
     if path.status == .satisfied {
       if path.usesInterfaceType(.wifi) {
         return .wifi
@@ -30,16 +26,26 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   override init() {
     super.init()
-    pathMonitor.pathUpdateHandler = pathUpdateHandler
+    ensurePathMonitor()
   }
 
   public func start() {
-    pathMonitor.start(queue: .main)
+    ensurePathMonitor()
   }
 
   public func stop() {
-    pathMonitor.cancel()
+    _pathMonitor?.cancel()
     _pathMonitor = nil
+  }
+
+  private func ensurePathMonitor() -> NWPathMonitor {
+    if (_pathMonitor == nil) {
+      let pathMonitor = NWPathMonitor()
+      pathMonitor.start(queue: queue)
+      pathMonitor.pathUpdateHandler = pathUpdateHandler
+      _pathMonitor = pathMonitor
+    }
+    return _pathMonitor!
   }
 
   private func pathUpdateHandler(path: NWPath) {
