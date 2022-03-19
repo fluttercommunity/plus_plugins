@@ -33,7 +33,7 @@ internal class MethodCallHandler(private val share: Share, private val manager: 
           )
           result.success(null)
         } catch (e: IOException) {
-          result.error(e.message, null, null)
+          result.error("Share failed", e.message, null)
         }
       }
       "shareWithResult" -> {
@@ -61,7 +61,7 @@ internal class MethodCallHandler(private val share: Share, private val manager: 
             true,
           )
         } catch (e: IOException) {
-          result.error(e.message, null, null)
+          result.error("Share failed", e.message, null)
         }
       }
       else -> result.notImplemented()

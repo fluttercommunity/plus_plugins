@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Set min Flutter to 1.20.0 to match Share plugins on all platforms
+
 ## 3.0.0
 
 - Add *WithResult methods to get feedback on user action

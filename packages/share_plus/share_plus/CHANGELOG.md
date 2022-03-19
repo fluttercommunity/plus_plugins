@@ -1,3 +1,8 @@
+## 4.0.2
+
+- Fix type mismatch on Android for some users
+- Set min Flutter to 1.20.0 for all platforms
+
 ## 4.0.1
 
 - Hotfix dependencies
