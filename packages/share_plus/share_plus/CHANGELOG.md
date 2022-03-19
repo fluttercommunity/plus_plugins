@@ -2,6 +2,7 @@
 
 - Fix type mismatch on Android for some users
 - Set min Flutter to 1.20.0 for all platforms
+- Lower Android minSdkVersion to 22
 
 ## 4.0.1
 

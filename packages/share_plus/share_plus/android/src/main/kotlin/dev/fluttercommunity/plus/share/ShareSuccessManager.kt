@@ -1,10 +1,6 @@
 package dev.fluttercommunity.plus.share
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.BroadcastReceiver
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.ActivityResultListener
 import java.util.concurrent.atomic.AtomicBoolean
@@ -13,7 +9,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Handles the callback based status information about a successful or dismissed
  * share. Used to link multiple different callbacks together for easier use.
  */
-internal class ShareSuccessManager(private val context: Context): BroadcastReceiver(), ActivityResultListener {
+internal class ShareSuccessManager(private val context: Context) : BroadcastReceiver(),
+    ActivityResultListener {
     private var callback: MethodChannel.Result? = null
     private var calledBack: AtomicBoolean = AtomicBoolean(true)
 
@@ -36,13 +33,17 @@ internal class ShareSuccessManager(private val context: Context): BroadcastRecei
      * the componentname of the chosen option or an empty string on dismissal.
      */
     fun setCallback(callback: MethodChannel.Result): Boolean {
-        if (calledBack.compareAndSet(true, false)) {
+        return if (calledBack.compareAndSet(true, false)) {
             calledBack.set(false)
             this.callback = callback
-            return true;
+            true
         } else {
-            callback.error("prior share-sheet did not call back, did you await it? Maybe use non-result variant", null, null)
-            return false;
+            callback.error(
+                "Share callback error",
+                "prior share-sheet did not call back, did you await it? Maybe use non-result variant",
+                null,
+            )
+            false
         }
     }
 
@@ -80,7 +81,9 @@ internal class ShareSuccessManager(private val context: Context): BroadcastRecei
      * Handler called after a sharesheet was closed. Called only on success.
      */
     override fun onReceive(context: Context, intent: Intent) {
-        returnResult(intent.getParcelableExtra<ComponentName>(Intent.EXTRA_CHOSEN_COMPONENT).toString())
+        returnResult(
+            intent.getParcelableExtra<ComponentName>(Intent.EXTRA_CHOSEN_COMPONENT).toString()
+        )
     }
 
     companion object {
