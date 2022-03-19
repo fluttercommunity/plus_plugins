@@ -65,7 +65,7 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
     }
 
     /**
-     * Handler called after a sharesheet was closed. Called regardless of success or
+     * Handler called after a share sheet was closed. Called regardless of success or
      * dismissal.
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {

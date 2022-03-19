@@ -29,8 +29,7 @@ internal class Share(
         get() = File(getContext().cacheDir, "share_plus")
 
     /**
-     * API v31+ requires `PendingIntent.FLAG_MUTABLE`, which is not available before
-     * v31. We therefore have to use different flag sets for pre- and post-API v31.
+     * Setting mutability flags as API v31+ requires.
      */
     private val immutabilityIntentFlags: Int by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -41,13 +40,11 @@ internal class Share(
     }
 
     private fun getContext(): Context {
-        if (activity != null) {
-            return activity!!
+        return if (activity != null) {
+            activity!!
+        } else {
+            context
         }
-        if (context != null) {
-            return context
-        }
-        throw IllegalStateException("Both context and activity are null")
     }
 
     /**
@@ -156,25 +153,19 @@ internal class Share(
     }
 
     private fun startActivity(intent: Intent, withResult: Boolean) {
-        when {
-            activity != null -> {
-                if (withResult) {
-                    activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
-                } else {
-                    activity!!.startActivity(intent)
-                }
+        if (activity != null) {
+            if (withResult) {
+                activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
+            } else {
+                activity!!.startActivity(intent)
             }
-            context != null -> {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                if (withResult) {
-                    // We need to cancel the callback to avoid deadlocking on the Dart side
-                    manager.unavailable()
-                }
-                context.startActivity(intent)
+        } else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            if (withResult) {
+                // We need to cancel the callback to avoid deadlocking on the Dart side
+                manager.unavailable()
             }
-            else -> {
-                throw IllegalStateException("Both context and activity are null")
-            }
+            context.startActivity(intent)
         }
     }
 
