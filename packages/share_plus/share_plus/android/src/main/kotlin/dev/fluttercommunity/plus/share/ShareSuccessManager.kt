@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 internal class ShareSuccessManager(private val context: Context) : BroadcastReceiver(),
     ActivityResultListener {
     private var callback: MethodChannel.Result? = null
-    private var calledBack: AtomicBoolean = AtomicBoolean(true)
+    private var isCalledBack: AtomicBoolean = AtomicBoolean(true)
 
     /**
      * Register listener. Must be called before any share sheet is opened.
@@ -33,8 +33,8 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      * the componentname of the chosen option or an empty string on dismissal.
      */
     fun setCallback(callback: MethodChannel.Result): Boolean {
-        return if (calledBack.compareAndSet(true, false)) {
-            calledBack.set(false)
+        return if (isCalledBack.compareAndSet(true, false)) {
+            isCalledBack.set(false)
             this.callback = callback
             true
         } else {
@@ -58,7 +58,7 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      * Send the result to flutter by invoking the previously set callback.
      */
     private fun returnResult(result: String) {
-        if (calledBack.compareAndSet(false, true) && callback != null) {
+        if (isCalledBack.compareAndSet(false, true) && callback != null) {
             callback!!.success(result)
             callback = null
         }
@@ -69,12 +69,12 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      * dismissal.
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        if (requestCode == ACTIVITY_CODE) {
+        return if (requestCode == ACTIVITY_CODE) {
             returnResult("")
-            return true
+            true
+        } else {
+            false
         }
-
-        return false
     }
 
     /**
