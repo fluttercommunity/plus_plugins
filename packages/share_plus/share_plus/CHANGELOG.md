@@ -2,6 +2,7 @@
 
 - Android: Revert increased minSdkVersion back to 16
 - Gracefully fall back to normal share methods on not supported platforms
+- Improve documentation for `shareWithResult` methods
 
 ## 4.0.2
 

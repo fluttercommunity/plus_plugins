@@ -87,12 +87,17 @@ class Share {
   /// any other call to any share method that returns a result _might_ result in
   /// a [PlatformException] (on Android).
   ///
-  /// Because IOS, Android and macOS provide different feedback on share-sheet interaction,
-  /// a result on IOS will be more specific than on Android or macOS. While IOS can detect if
-  /// the user actually completed his selected action or aborted it midway, Android and macOS
-  /// only record if the user selected an action or outright dismissed the share-sheet.
+  /// Because IOS, Android and macOS provide different feedback on share-sheet
+  /// interaction, a result on IOS will be more specific than on Android or macOS.
+  /// While on IOS the selected action can inform its caller that it was completed
+  /// or dismissed midway (_actions are free to return whatever they want_),
+  /// Android and macOS only record if the user selected an action or outright
+  /// dismissed the share-sheet.
   ///
   /// **Currently only implemented on IOS, Android and macOS.**
+  ///
+  /// Will gracefully fall back to the non result variant if not implemented
+  /// for the current environment and return [ShareResult.unavailable].
   static Future<ShareResult> shareWithResult(
     String text, {
     String? subject,
@@ -111,12 +116,17 @@ class Share {
   /// any other call to any share method that returns a result _might_ result in
   /// a [PlatformException] (on Android).
   ///
-  /// Because IOS, Android and macOS provide different feedback on share-sheet interaction,
-  /// a result on IOS will be more specific than on Android or macOS. While IOS can detect if
-  /// the user actually completed his selected action or aborted it midway, Android and macOS
-  /// only record if the user selected an action or outright dismissed the share-sheet.
+  /// Because IOS, Android and macOS provide different feedback on share-sheet
+  /// interaction, a result on IOS will be more specific than on Android or macOS.
+  /// While on IOS the selected action can inform its caller that it was completed
+  /// or dismissed midway (_actions are free to return whatever they want_),
+  /// Android and macOS only record if the user selected an action or outright
+  /// dismissed the share-sheet.
   ///
   /// **Currently only implemented on IOS, Android and macOS.**
+  ///
+  /// Will gracefully fall back to the non result variant if not implemented
+  /// for the current environment and return [ShareResult.unavailable].
   static Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
