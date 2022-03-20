@@ -1,3 +1,7 @@
+## 4.0.3
+
+- Android: Revert increased minSdkVersion back to 16
+
 ## 4.0.2
 
 - Fix type mismatch on Android for some users
