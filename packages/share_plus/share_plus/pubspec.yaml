@@ -26,7 +26,7 @@ dependencies:
   mime: ^1.0.0
   flutter:
     sdk: flutter
-  share_plus_platform_interface: ^3.0.0
+  share_plus_platform_interface: ^3.0.2
   share_plus_linux: ^3.0.0
   share_plus_macos: ^3.0.0
   share_plus_windows: ^3.0.0

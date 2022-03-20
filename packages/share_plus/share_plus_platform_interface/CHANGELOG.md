@@ -1,3 +1,7 @@
+## 3.0.2
+
+- Gracefully fall back to normal share methods on not supported platforms
+
 ## 3.0.1
 
 - Set min Flutter to 1.20.0 to match Share plugins on all platforms

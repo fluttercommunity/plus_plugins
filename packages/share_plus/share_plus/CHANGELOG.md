@@ -1,6 +1,7 @@
 ## 4.0.3
 
 - Android: Revert increased minSdkVersion back to 16
+- Gracefully fall back to normal share methods on not supported platforms
 
 ## 4.0.2
 
