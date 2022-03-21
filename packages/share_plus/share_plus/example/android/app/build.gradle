@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         applicationId "io.flutter.plugins.shareexample"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
