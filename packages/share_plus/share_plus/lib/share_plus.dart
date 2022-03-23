@@ -92,7 +92,8 @@ class Share {
   /// While on IOS the selected action can inform its caller that it was completed
   /// or dismissed midway (_actions are free to return whatever they want_),
   /// Android and macOS only record if the user selected an action or outright
-  /// dismissed the share-sheet.
+  /// dismissed the share-sheet. It is not guaranteed that the user actually shared
+  /// something.
   ///
   /// **Currently only implemented on IOS, Android and macOS.**
   ///
@@ -121,7 +122,8 @@ class Share {
   /// While on IOS the selected action can inform its caller that it was completed
   /// or dismissed midway (_actions are free to return whatever they want_),
   /// Android and macOS only record if the user selected an action or outright
-  /// dismissed the share-sheet.
+  /// dismissed the share-sheet. It is not guaranteed that the user actually shared
+  /// something.
   ///
   /// **Currently only implemented on IOS, Android and macOS.**
   ///

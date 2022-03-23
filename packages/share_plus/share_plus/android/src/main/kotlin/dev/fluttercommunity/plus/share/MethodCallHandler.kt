@@ -13,24 +13,24 @@ internal class MethodCallHandler(
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         // The user used a *WithResult method
-        val calledWithResult = call.method.endsWith("WithResult")
+        val isResultRequested = call.method.endsWith("WithResult")
         // We don't attempt to return a result if the current API version doesn't support it
-        val withResult = calledWithResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+        val isWithResult = isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
         when (call.method) {
             "share", "shareWithResult" -> {
                 expectMapArguments(call)
-                if (withResult && !manager.setCallback(result)) return
+                if (isWithResult && !manager.setCallback(result)) return
 
                 // Android does not support showing the share sheet at a particular point on screen.
                 share.share(
                     call.argument<Any>("text") as String,
                     call.argument<Any>("subject") as String?,
-                    withResult,
+                    isWithResult,
                 )
 
-                if (!withResult) {
-                    if (calledWithResult) {
+                if (!isWithResult) {
+                    if (isResultRequested) {
                         result.success("dev.fluttercommunity.plus/share/unavailable")
                     } else {
                         result.success(null)
@@ -39,7 +39,7 @@ internal class MethodCallHandler(
             }
             "shareFiles", "shareFilesWithResult" -> {
                 expectMapArguments(call)
-                if (withResult && !manager.setCallback(result)) return
+                if (isWithResult && !manager.setCallback(result)) return
 
                 // Android does not support showing the share sheet at a particular point on screen.
                 try {
@@ -48,11 +48,11 @@ internal class MethodCallHandler(
                         call.argument<List<String>?>("mimeTypes"),
                         call.argument<String?>("text"),
                         call.argument<String?>("subject"),
-                        withResult,
+                        isWithResult,
                     )
 
-                    if (!withResult) {
-                        if (calledWithResult) {
+                    if (!isWithResult) {
+                        if (isResultRequested) {
                             result.success("dev.fluttercommunity.plus/share/unavailable")
                         } else {
                             result.success(null)

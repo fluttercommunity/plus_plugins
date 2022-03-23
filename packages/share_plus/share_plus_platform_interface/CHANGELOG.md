@@ -1,6 +1,6 @@
 ## 3.0.2
 
-- Gracefully fall back to normal share methods on not supported platforms
+- Gracefully fall back from `shareWithResult` to regular `share` methods on unsupported platforms
 
 ## 3.0.1
 
