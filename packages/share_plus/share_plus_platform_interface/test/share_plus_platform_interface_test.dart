@@ -179,17 +179,46 @@ void main() {
     });
   });
 
-  test('withResult methods throw unimplemented on non IOS & Android', () async {
+  test('withResult methods return unavailable on non IOS & Android', () async {
+    const resultUnavailable = ShareResult(
+      'dev.fluttercommunity.plus/share/unavailable',
+      ShareResultStatus.unavailable,
+    );
+
     expect(
-      () => sharePlatform.shareWithResult('some text to share'),
-      throwsA(const TypeMatcher<UnimplementedError>()),
+      sharePlatform.shareWithResult('some text to share'),
+      completion(equals(resultUnavailable)),
     );
 
     await withFile('tempfile-83649d.png', (File fd) async {
       expect(
-        () => sharePlatform.shareFilesWithResult([fd.path]),
-        throwsA(const TypeMatcher<UnimplementedError>()),
+        sharePlatform.shareFilesWithResult([fd.path]),
+        completion(equals(resultUnavailable)),
       );
+    });
+  });
+
+  test('withResult methods invoke normal share on non IOS & Android', () async {
+    await sharePlatform.shareWithResult(
+      'some text to share',
+      subject: 'some subject to share',
+      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+    );
+    verify(mockChannel.invokeMethod<void>('share', <String, dynamic>{
+      'text': 'some text to share',
+      'subject': 'some subject to share',
+      'originX': 1.0,
+      'originY': 2.0,
+      'originWidth': 3.0,
+      'originHeight': 4.0,
+    }));
+
+    await withFile('tempfile-83649e.png', (File fd) async {
+      await sharePlatform.shareFilesWithResult([fd.path]);
+      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+        'paths': [fd.path],
+        'mimeTypes': ['image/png'],
+      }));
     });
   });
 }

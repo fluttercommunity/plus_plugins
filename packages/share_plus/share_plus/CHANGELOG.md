@@ -1,3 +1,9 @@
+## 4.0.3
+
+- Android: Revert increased minSdkVersion back to 16
+- Gracefully fall back from `shareWithResult` to regular `share` methods on unsupported platforms
+- Improve documentation for `shareWithResult` methods
+
 ## 4.0.2
 
 - Fix type mismatch on Android for some users

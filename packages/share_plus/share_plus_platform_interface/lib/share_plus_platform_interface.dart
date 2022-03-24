@@ -66,8 +66,13 @@ class SharePlatform extends PlatformInterface {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
-    throw UnimplementedError(
-        'shareWithResult() has only been implemented on IOS, Android & macOS');
+    await _instance.share(
+      text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
   }
 
   /// Share files with Result.
@@ -78,8 +83,15 @@ class SharePlatform extends PlatformInterface {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    throw UnimplementedError(
-        'shareWithResult() has only been implemented on IOS, Android & macOS');
+    await _instance.shareFiles(
+      paths,
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
   }
 }
 
@@ -94,8 +106,8 @@ class ShareResult {
   ///
   /// Note that an empty string means the share-sheet was
   /// dismissed without any action and the special value
-  /// `dev.fluttercommunity.plus/share/unavailable` is caused
-  /// by an unavailable Android Activity at runtime.
+  /// `dev.fluttercommunity.plus/share/unavailable` points
+  /// to the current environment not supporting share results.
   final String raw;
 
   /// The action the user has taken
@@ -115,3 +127,9 @@ enum ShareResultStatus {
   /// The status can not be determined
   unavailable,
 }
+
+/// Returned if the platform is not supported
+const _resultUnavailable = ShareResult(
+  'dev.fluttercommunity.plus/share/unavailable',
+  ShareResultStatus.unavailable,
+);

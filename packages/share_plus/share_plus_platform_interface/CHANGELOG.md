@@ -1,3 +1,7 @@
+## 3.0.2
+
+- Gracefully fall back from `shareWithResult` to regular `share` methods on unsupported platforms
+
 ## 3.0.1
 
 - Set min Flutter to 1.20.0 to match Share plugins on all platforms
