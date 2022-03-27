@@ -1,3 +1,7 @@
+## 3.2.3
+
+- Update the description of getAndroidId method
+
 ## 3.2.2
 
 - Fix embedding issue in example
