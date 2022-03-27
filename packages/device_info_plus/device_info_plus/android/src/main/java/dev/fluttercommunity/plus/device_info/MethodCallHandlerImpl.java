@@ -98,8 +98,8 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
   }
 
   /**
-   * Returns the Android hardware device ID that is unique between the device + user and app
-   * signing. This key will change if a factory reset is performed on the device or if an APK signing key changes.
+   * Returns the Android hardware device ID that is unique between the device + user and app signing.
+   * This key will change if a factory reset is performed on the device or if an APK signing key changes.
    * @return The android ID
    */
   @SuppressLint("HardwareIds")
