@@ -55,6 +55,14 @@ Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
 
+To share file with specific app invoke the static `shareFileWithApp` method anywhere in your Dart code. You have to pass `appName` defined in `ShareWithAppWindows`.
+Currently supports **Windows** platform only. By default, `ShareWithAppWindows.BY_DEFAULT_APP` will open default app handled by system.
+
+```dart
+Share.shareFileWithApp('${directory.path}/image.jpg',ShareWithAppWindows.BY_DEFAULT_APP );
+Share.shareFileWithApp('${directory.path}/info.txt',ShareWithAppWindows.NOTEPAD );
+```
+
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
 ## Known Issues
