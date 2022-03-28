@@ -93,6 +93,11 @@ class SharePlatform extends PlatformInterface {
 
     return _resultUnavailable;
   }
+
+  /// Share file with specific app.
+  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) async {
+    await _instance.shareFileWithApp(path, appName);
+  }
 }
 
 /// The result of a share to determine what action the
@@ -127,6 +132,31 @@ enum ShareResultStatus {
   /// The status can not be determined
   unavailable,
 }
+
+/// How the user handled the share-sheet
+enum ShareWithAppWindows {
+  /// Most apps can by handled by system, using explorer.exe
+  BY_DEFAULT_APP,
+
+  /// Opens image file in MS Paint
+  MSPAINT,
+
+  /// Opens text file in Notepad
+  NOTEPAD,
+
+  /// Opens text file in Notepad++
+  NOTEPAD_PLUS_PLUS,
+
+  /// Opens Image/SVG/Photoshop file in Adobe PHOTOSHOP
+  PHOTOSHOP,
+
+  /// Launch link specific in Microsoft Edge
+  EDGE,
+
+  /// Launch link specific in Chrome
+  CHROME,
+}
+
 
 /// Returned if the platform is not supported
 const _resultUnavailable = ShareResult(
