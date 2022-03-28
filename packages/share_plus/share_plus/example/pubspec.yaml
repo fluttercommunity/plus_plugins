@@ -7,6 +7,8 @@ dependencies:
   share_plus:
     path: ../
   image_picker: ^0.8.4
+  url_launcher: ^6.0.1
+  file_picker: ^4.5.1
 
 dependency_overrides:
   share_plus_linux:

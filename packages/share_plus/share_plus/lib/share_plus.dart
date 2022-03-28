@@ -6,8 +6,9 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus;
+
+
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus,ShareWithAppWindows;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -145,5 +146,20 @@ class Share {
       text: text,
       sharePositionOrigin: sharePositionOrigin,
     );
+  }
+
+  /// **Currently only implemented on Windows only.**
+  ///
+  /// Will launch desktop with the file or text passed as input data.
+  /// Only limited apps were mentioned in [ShareWithAppWindows].
+  /// most apps can by handled by system by using [ShareWithAppWindows.BY_DEFAULT_APP]
+  /// No result is returned about success of operation
+  ///
+  /// Share file with specific desktop app, skipping Browser launch
+  @override
+  static Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) {
+    assert(path.isNotEmpty);
+    assert(appName!=null);
+    return _platform.shareFileWithApp(path, appName);
   }
 }
