@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore_for_file: public_member_api_docs
-
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,6 +25,9 @@ class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
   List<String> imagePaths = [];
+  String? filePath;
+
+  ShareWithAppWindows? appSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +84,7 @@ class DemoAppState extends State<DemoApp> {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty
-                            ? null
-                            : () => _onShare(context),
+                        onPressed: text.isEmpty && imagePaths.isEmpty ? null : () => _onShare(context),
                         child: const Text('Share'),
                       );
                     },
@@ -92,10 +93,71 @@ class DemoAppState extends State<DemoApp> {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty
-                            ? null
-                            : () => _onShareWithResult(context),
+                        onPressed: text.isEmpty && imagePaths.isEmpty ? null : () => _onShareWithResult(context),
                         child: const Text('Share With Result'),
+                      );
+                    },
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 20.0)),
+                  Divider(),
+
+                  Text(
+                    'File Share, Windows only',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+
+                  ListTile(
+                    leading: const Icon(Icons.add),
+                    title: const Text('Choose file'),
+                    onTap: () async {
+                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                      if (result != null) {
+                        setState(() {
+                          filePath = result.files.single.path!;
+                        });
+                      }
+                    },
+                  ),
+                  Visibility(
+                    visible: filePath!=null,
+                    child: Wrap(
+                        children: List.generate(ShareWithAppWindows.values.length, (index) {
+                          return  Container(
+                            width:200,
+                            child: ListTile(
+                              title: Text(describeEnum(ShareWithAppWindows.values[index]),style: TextStyle(fontSize: 12),),
+                              leading: Radio(
+                                value: ShareWithAppWindows.values[index],
+                                groupValue: appSelected,
+                                onChanged: (ShareWithAppWindows? value) {
+                                  setState(() {
+                                    appSelected = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          );
+                        })),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 8)),
+                  Builder(
+                    builder: (BuildContext context) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ElevatedButton(
+                            onPressed: filePath == null ? null : () => _onShareWithApp(context),
+                            child: const Text('Share With App'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              '${filePath ?? '<file path>'}',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          )
+                        ],
                       );
                     },
                   ),
@@ -123,14 +185,7 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (imagePaths.isNotEmpty) {
-      await Share.shareFiles(imagePaths,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    } else {
-      await Share.share(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      await Share.shareFiles(imagePaths, text: text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
   }
 
@@ -138,17 +193,20 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
     ShareResult result;
     if (imagePaths.isNotEmpty) {
-      result = await Share.shareFilesWithResult(imagePaths,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      result =
+          await Share.shareFilesWithResult(imagePaths, text: text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else {
-      result = await Share.shareWithResult(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      result = await Share.shareWithResult(text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Share result: ${result.status}"),
     ));
+  }
+
+  void _onShareWithApp(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+
+    //  await Share.shareFileWithApp("\"$filePath\"",appSelected! );
+   await Share.shareFileWithApp("$filePath",appSelected! );
   }
 }
