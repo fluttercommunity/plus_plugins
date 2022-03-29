@@ -1,4 +1,4 @@
-## 2.0.5
+## 2.0.6
 
 - Fix AndroidAlarmManager.periodic() not working.
 
