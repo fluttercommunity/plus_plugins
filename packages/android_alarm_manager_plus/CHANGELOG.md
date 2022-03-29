@@ -1,5 +1,9 @@
 ## 2.0.5
 
+- Fix AndroidAlarmManager.periodic() not working.
+
+## 2.0.5
+
 - Fix embedding issue in example
 - Update dependencies in example
 
