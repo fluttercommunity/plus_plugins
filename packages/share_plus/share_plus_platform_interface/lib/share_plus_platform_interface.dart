@@ -59,4 +59,77 @@ class SharePlatform extends PlatformInterface {
       sharePositionOrigin: sharePositionOrigin,
     );
   }
+
+  /// Share text with Result.
+  Future<ShareResult> shareWithResult(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
+    await _instance.share(
+      text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
+  }
+
+  /// Share files with Result.
+  Future<ShareResult> shareFilesWithResult(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    await _instance.shareFiles(
+      paths,
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
+  }
 }
+
+/// The result of a share to determine what action the
+/// user has taken.
+///
+/// [status] provides an easy way to determine how the
+/// share-sheet was handled by the user, while [raw] provides
+/// possible access to the action selected.
+class ShareResult {
+  /// The raw return value from the share.
+  ///
+  /// Note that an empty string means the share-sheet was
+  /// dismissed without any action and the special value
+  /// `dev.fluttercommunity.plus/share/unavailable` points
+  /// to the current environment not supporting share results.
+  final String raw;
+
+  /// The action the user has taken
+  final ShareResultStatus status;
+
+  const ShareResult(this.raw, this.status);
+}
+
+/// How the user handled the share-sheet
+enum ShareResultStatus {
+  /// The user has selected an action
+  success,
+
+  /// The user dismissed the share-sheet
+  dismissed,
+
+  /// The status can not be determined
+  unavailable,
+}
+
+/// Returned if the platform is not supported
+const _resultUnavailable = ShareResult(
+  'dev.fluttercommunity.plus/share/unavailable',
+  ShareResultStatus.unavailable,
+);

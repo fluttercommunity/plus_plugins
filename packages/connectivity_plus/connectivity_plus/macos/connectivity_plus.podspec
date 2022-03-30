@@ -21,4 +21,3 @@ Pod::Spec.new do |s|
   s.platform = :osx
   s.osx.deployment_target = '10.11'
 end
-

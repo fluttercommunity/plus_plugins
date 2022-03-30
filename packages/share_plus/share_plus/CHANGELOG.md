@@ -1,12 +1,73 @@
+## 4.0.3
+
+- Android: Revert increased minSdkVersion back to 16
+- Gracefully fall back from `shareWithResult` to regular `share` methods on unsupported platforms
+- Improve documentation for `shareWithResult` methods
+
+## 4.0.2
+
+- Fix type mismatch on Android for some users
+- Set min Flutter to 1.20.0 for all platforms
+- Lower Android minSdkVersion to 22
+
+## 4.0.1
+
+- Hotfix dependencies
+
+## 4.0.0
+
+- iOS, Android, MacOS: Add `shareWithResult` methods to get feedback on user action
+- Android: Increased minSdkVersion to 23
+- MacOS: Native sharing implementation
+
+## 3.1.0
+
+- Android: Migrate to Kotlin
+- Android: Update dependencies, build config updates
+
+## 3.0.5
+
+- Fix example embedding issue
+
+## 3.0.4
+
+- iOS: Fixed sharing malformed URLs
+
+## 3.0.3
+
+- Improve documentation for `shareFiles` method
+
+## 3.0.2
+
+- Apply code improvements
+- Update gradle for plugin
+- Update flutter dependencies
+
+## 3.0.1
+
+- Update Android dependencies for plugin and example, bump compileSDK to 31
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 2.2.0
+
+- migrate integration_test to flutter sdk
+
+## 2.1.5
+
+- Fixed: Use NSURL for web links (iOS)
+
 ## 2.1.4
 
 - Android: migrate to mavenCentral
 
-# 2.1.3
+## 2.1.3
 
 - Update iOS share target to present on the top ViewController. This fixes "Unable to present" errors when the app is already presenting such as in an add to app scenario.
 
-# 2.1.2
+## 2.1.2
 
 - Do not tear down method channel onDetachedFromActivity.
 

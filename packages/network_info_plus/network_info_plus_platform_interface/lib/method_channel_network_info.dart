@@ -15,7 +15,7 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel methodChannel =
-      MethodChannel('dev.fluttercommunity.plus/network_info');
+      const MethodChannel('dev.fluttercommunity.plus/network_info');
 
   @override
   Future<String?> getWifiName() async {
@@ -36,6 +36,26 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   @override
   Future<String?> getWifiIP() {
     return methodChannel.invokeMethod<String>('wifiIPAddress');
+  }
+
+  @override
+  Future<String?> getWifiIPv6() {
+    return methodChannel.invokeMethod<String>('wifiIPv6Address');
+  }
+
+  @override
+  Future<String?> getWifiSubmask() {
+    return methodChannel.invokeMethod<String>('wifiSubmask');
+  }
+
+  @override
+  Future<String?> getWifiGatewayIP() {
+    return methodChannel.invokeMethod<String>('wifiGatewayAddress');
+  }
+
+  @override
+  Future<String?> getWifiBroadcast() {
+    return methodChannel.invokeMethod<String>('wifiBroadcast');
   }
 
   @override

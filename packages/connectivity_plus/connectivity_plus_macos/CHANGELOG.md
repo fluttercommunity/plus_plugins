@@ -1,3 +1,19 @@
+## 1.2.1
+
+- Update license headers.
+
+## 1.2.0
+
+- Backport to macOS 10.11
+
+## 1.1.0
+
+- Add ethernet as connectivity result.
+
+  NOTE: The functionality is provided by NWPathMonitor, which is available since
+  macOS 10.14. Therefore the minimum macOS deployment target has been changed
+  from 10.11 to 10.14
+
 ## 1.0.2
 
 - Update connectivity plus

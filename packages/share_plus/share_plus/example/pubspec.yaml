@@ -6,17 +6,30 @@ dependencies:
     sdk: flutter
   share_plus:
     path: ../
-  image_picker: ^0.7.0
+  image_picker: ^0.8.4
+
+dependency_overrides:
+  share_plus_linux:
+    path: ../../share_plus_linux
+  share_plus_macos:
+    path: ../../share_plus_macos
+  share_plus_platform_interface:
+    path: ../../share_plus_platform_interface
+  share_plus_web:
+    path: ../../share_plus_web
+  share_plus_windows:
+    path: ../../share_plus_windows
 
 dev_dependencies:
   flutter_driver:
     sdk: flutter
-  integration_test: ^1.0.2
-  pedantic: ^1.10.0
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.9.1+hotfix.2"
+  flutter: ">=1.20.0"

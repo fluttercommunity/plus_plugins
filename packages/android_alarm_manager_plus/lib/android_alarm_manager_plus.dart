@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:ui';
 
@@ -33,7 +34,7 @@ void _alarmManagerCallbackDispatcher() {
     final closure = PluginUtilities.getCallbackFromHandle(handle);
 
     if (closure == null) {
-      print('Fatal: could not find callback');
+      developer.log('Fatal: could not find callback');
       exit(-1);
     }
 
@@ -64,14 +65,16 @@ typedef _GetCallbackHandle = CallbackHandle? Function(Function callback);
 class AndroidAlarmManager {
   static const String _channelName =
       'dev.fluttercommunity.plus/android_alarm_manager';
-  static final MethodChannel _channel =
-      const MethodChannel(_channelName, JSONMethodCodec());
+  static const MethodChannel _channel =
+      MethodChannel(_channelName, JSONMethodCodec());
 
   // Function used to get the current time. It's [DateTime.now] by default.
+  // ignore: prefer_function_declarations_over_variables
   static _Now _now = () => DateTime.now();
 
   // Callback used to get the handle for a callback. It's
   // [PluginUtilities.getCallbackHandle] by default.
+  // ignore: prefer_function_declarations_over_variables
   static _GetCallbackHandle _getCallbackHandle =
       (Function callback) => PluginUtilities.getCallbackHandle(callback);
 
@@ -127,6 +130,9 @@ class AndroidAlarmManager {
   /// If `exact` is passed as `true`, the timer will be created with Android's
   /// `AlarmManagerCompat.setExact`. When `exact` is `false` (the default), the
   /// timer will be created with `AlarmManager.set`.
+  /// For apps with `targetSDK=31` before scheduling an exact alarm a check for
+  /// `SCHEDULE_EXACT_ALARM` permission is required. Otherwise, an exeption will
+  /// be thrown and alarm won't schedule.
   ///
   /// If `wakeup` is passed as `true`, the device will be woken up when the
   /// alarm fires. If `wakeup` is false (the default), the device will not be
@@ -185,6 +191,9 @@ class AndroidAlarmManager {
   /// If `exact` is passed as `true`, the timer will be created with Android's
   /// `AlarmManagerCompat.setExact`. When `exact` is `false` (the default), the
   /// timer will be created with `AlarmManager.set`.
+  /// For apps with `targetSDK=31` before scheduling an exact alarm a check for
+  /// `SCHEDULE_EXACT_ALARM` permission is required. Otherwise, an exeption will
+  /// be thrown and alarm won't schedule.
   ///
   /// If `wakeup` is passed as `true`, the device will be woken up when the
   /// alarm fires. If `wakeup` is false (the default), the device will not be
@@ -246,9 +255,16 @@ class AndroidAlarmManager {
   /// If `startAt` is passed, the timer will first go off at that time and
   /// subsequently run with period `duration`.
   ///
+  /// If `allowWhileIdle` is passed as `true`, the timer will be created with
+  /// Android's `AlarmManagerCompat.setExactAndAllowWhileIdle` or
+  /// `AlarmManagerCompat.setAndAllowWhileIdle`.
+  ///
   /// If `exact` is passed as `true`, the timer will be created with Android's
   /// `AlarmManager.setRepeating`. When `exact` is `false` (the default), the
   /// timer will be created with `AlarmManager.setInexactRepeating`.
+  /// For apps with `targetSDK=31` before scheduling an exact alarm a check for
+  /// `SCHEDULE_EXACT_ALARM` permission is required. Otherwise, an exeption will
+  /// be thrown and alarm won't schedule.
   ///
   /// If `wakeup` is passed as `true`, the device will be woken up when the
   /// alarm fires. If `wakeup` is false (the default), the device will not be
@@ -265,6 +281,7 @@ class AndroidAlarmManager {
     int id,
     Function callback, {
     DateTime? startAt,
+    bool allowWhileIdle = false,
     bool exact = false,
     bool wakeup = false,
     bool rescheduleOnReboot = false,
@@ -282,6 +299,7 @@ class AndroidAlarmManager {
     }
     final r = await _channel.invokeMethod<bool>('Alarm.periodic', <dynamic>[
       id,
+      allowWhileIdle,
       exact,
       wakeup,
       first,

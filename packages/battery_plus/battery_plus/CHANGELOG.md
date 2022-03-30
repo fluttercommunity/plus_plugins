@@ -1,3 +1,42 @@
+## 2.1.3
+
+- Update battery_plus_linux dependency
+- Set min Flutter version to 1.20.0 for all platforms
+
+## 2.1.2
+
+- Fix embedding issue in example
+- (Android) Update Kotlin and Gradle plugin
+
+## 2.1.1
+
+- (Android) Fix null pointer exception in `isInBatterySaveMode()` on Samsung devices with One UI
+
+## 2.1.0
+
+- Add batteryState getter
+
+## 2.0.2
+
+- Update Flutter dependencies
+
+## 2.0.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
+## 2.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 1.2.0
+
+- migrate integration_test to flutter sdk
+
+## 1.1.1
+
+- Fix: Add break statements for unknown battery state in Android and iOS implementations
+
 ## 1.1.0
 
 - Android, iOS, Windows : add getter for power save mode state

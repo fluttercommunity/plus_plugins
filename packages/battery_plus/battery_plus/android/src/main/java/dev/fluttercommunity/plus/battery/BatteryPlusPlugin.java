@@ -4,6 +4,7 @@
 
 package dev.fluttercommunity.plus.battery;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -15,6 +16,8 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.PowerManager;
 import android.provider.Settings;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.EventChannel;
@@ -24,7 +27,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry;
 import java.util.Locale;
 
 /** BatteryPlusPlugin */
@@ -38,12 +40,6 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   public static final String POWER_SAVE_MODE_SAMSUNG = "1";
   private static final int POWER_SAVE_MODE_XIAOMI = 1;
   private static final int POWER_SAVE_MODE_HUAWEI = 4;
-
-  /** Plugin registration. */
-  public static void registerWith(PluginRegistry.Registrar registrar) {
-    final BatteryPlusPlugin instance = new BatteryPlusPlugin();
-    instance.onAttachedToEngine(registrar.context(), registrar.messenger());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
@@ -59,7 +55,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     applicationContext = null;
     methodChannel.setMethodCallHandler(null);
     methodChannel = null;
@@ -68,7 +64,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   }
 
   @Override
-  public void onMethodCall(MethodCall call, Result result) {
+  public void onMethodCall(MethodCall call, @NonNull Result result) {
     if (call.method.equals("getBatteryLevel")) {
       int batteryLevel = getBatteryLevel();
 
@@ -76,6 +72,14 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
         result.success(batteryLevel);
       } else {
         result.error("UNAVAILABLE", "Battery level not available.", null);
+      }
+    } else if (call.method.equals("getBatteryState")) {
+      String batteryStatus = getBatteryStatus();
+
+      if (batteryStatus != null) {
+        result.success(batteryStatus);
+      } else {
+        result.error("UNAVAILABLE", "Charging status not available.", null);
       }
     } else if (call.method.equals("isInBatterySaveMode")) {
       Boolean isInPowerSaveMode = this.isInPowerSaveMode();
@@ -90,14 +94,25 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     }
   }
 
+  @TargetApi(VERSION_CODES.O)
   @Override
   public void onListen(Object arguments, EventSink events) {
     chargingStateChangeReceiver = createChargingStateChangeReceiver(events);
     applicationContext.registerReceiver(
         chargingStateChangeReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
-    int status = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
+    String status = getBatteryStatus();
     publishBatteryStatus(events, status);
+  }
+
+  private String getBatteryStatus() {
+    int status;
+    if (android.os.Build.VERSION.SDK_INT >= VERSION_CODES.O) {
+      status = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS);
+    } else {
+      status = BatteryManager.BATTERY_STATUS_UNKNOWN;
+    }
+    return convertBatteryStatus(status);
   }
 
   @Override
@@ -107,7 +122,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
   }
 
   private int getBatteryLevel() {
-    int batteryLevel = -1;
+    int batteryLevel;
     if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
       batteryLevel = getBatteryProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
     } else {
@@ -147,9 +162,15 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     return null;
   }
 
-  private boolean getPowerSaveModeSamsung() {
+  private Boolean getPowerSaveModeSamsung() {
     String mode = Settings.System.getString(applicationContext.getContentResolver(), "psm_switch");
-    return (mode.equals(POWER_SAVE_MODE_SAMSUNG));
+    if (mode == null && (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)) {
+      PowerManager powerManager =
+          (PowerManager) applicationContext.getSystemService(Context.POWER_SERVICE);
+      return powerManager.isPowerSaveMode();
+    } else {
+      return (POWER_SAVE_MODE_SAMSUNG.equals(mode));
+    }
   }
 
   private Boolean getPowerSaveModeHuawei() {
@@ -170,29 +191,34 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
     return null;
   }
 
+  @RequiresApi(api = VERSION_CODES.LOLLIPOP)
   private int getBatteryProperty(int property) {
     BatteryManager batteryManager =
-        (BatteryManager) applicationContext.getSystemService(applicationContext.BATTERY_SERVICE);
+        (BatteryManager) applicationContext.getSystemService(Context.BATTERY_SERVICE);
     return batteryManager.getIntProperty(property);
   }
 
-  private static void publishBatteryStatus(final EventSink events, int status) {
+  private static String convertBatteryStatus(int status) {
     switch (status) {
       case BatteryManager.BATTERY_STATUS_CHARGING:
-        events.success("charging");
-        break;
+        return "charging";
       case BatteryManager.BATTERY_STATUS_FULL:
-        events.success("full");
-        break;
+        return "full";
       case BatteryManager.BATTERY_STATUS_DISCHARGING:
       case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-        events.success("discharging");
-        break;
+        return "discharging";
       case BatteryManager.BATTERY_STATUS_UNKNOWN:
-        events.success("unknown");
+        return "unknown";
       default:
-        events.error("UNAVAILABLE", "Charging status unavailable", null);
-        break;
+        return null;
+    }
+  }
+
+  private static void publishBatteryStatus(final EventSink events, String status) {
+    if (status != null) {
+      events.success(status);
+    } else {
+      events.error("UNAVAILABLE", "Charging status unavailable", null);
     }
   }
 
@@ -201,7 +227,7 @@ public class BatteryPlusPlugin implements MethodCallHandler, StreamHandler, Flut
       @Override
       public void onReceive(Context context, Intent intent) {
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        publishBatteryStatus(events, status);
+        publishBatteryStatus(events, convertBatteryStatus(status));
       }
     };
   }

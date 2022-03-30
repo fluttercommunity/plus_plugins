@@ -4,6 +4,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:developer' as developer;
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
@@ -22,10 +23,9 @@ const String isolateName = 'isolate';
 final ReceivePort port = ReceivePort();
 
 /// Global [SharedPreferences] object.
-SharedPreferences prefs;
+SharedPreferences? prefs;
 
 Future<void> main() async {
-  // TODO(bkonyi): uncomment
   WidgetsFlutterBinding.ensureInitialized();
 
   // Register the UI isolate's SendPort to allow for communication from the
@@ -35,18 +35,21 @@ Future<void> main() async {
     isolateName,
   );
   prefs = await SharedPreferences.getInstance();
-  if (!prefs.containsKey(countKey)) {
-    await prefs.setInt(countKey, 0);
+  if (!prefs!.containsKey(countKey)) {
+    await prefs!.setInt(countKey, 0);
   }
-  runApp(AlarmManagerExampleApp());
+
+  runApp(const AlarmManagerExampleApp());
 }
 
 /// Example app for Espresso plugin.
 class AlarmManagerExampleApp extends StatelessWidget {
+  const AlarmManagerExampleApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: _AlarmHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -54,7 +57,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  _AlarmHomePage({Key key, this.title}) : super(key: key);
+  const _AlarmHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -75,10 +78,9 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   Future<void> _incrementCounter() async {
-    print('Increment counter!');
-
+    developer.log('Increment counter!');
     // Ensure we've loaded the updated count from the background isolate.
-    await prefs.reload();
+    await prefs?.reload();
 
     setState(() {
       _counter++;
@@ -86,15 +88,14 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   }
 
   // The background
-  static SendPort uiSendPort;
+  static SendPort? uiSendPort;
 
   // The callback for our alarm
   static Future<void> callback() async {
-    print('Alarm fired!');
-
+    developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
     final prefs = await SharedPreferences.getInstance();
-    final currentCount = prefs.getInt(countKey);
+    final currentCount = prefs.getInt(countKey) ?? 0;
     await prefs.setInt(countKey, currentCount + 1);
 
     // This will be null if we're running in the background.
@@ -125,25 +126,25 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                   style: textStyle,
                 ),
                 Text(
-                  prefs.getInt(countKey).toString(),
-                  key: ValueKey('BackgroundCountText'),
+                  prefs?.getInt(countKey).toString() ?? '',
+                  key: const ValueKey('BackgroundCountText'),
                   style: textStyle,
                 ),
               ],
             ),
             ElevatedButton(
-              key: ValueKey('RegisterOneShotAlarm'),
+              key: const ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
                 await AndroidAlarmManager.oneShot(
                   const Duration(seconds: 5),
                   // Ensure we have a unique alarm ID.
-                  Random().nextInt(pow(2, 31)),
+                  Random().nextInt(pow(2, 31) as int),
                   callback,
                   exact: true,
                   wakeup: true,
                 );
               },
-              child: Text(
+              child: const Text(
                 'Schedule OneShot Alarm',
               ),
             ),

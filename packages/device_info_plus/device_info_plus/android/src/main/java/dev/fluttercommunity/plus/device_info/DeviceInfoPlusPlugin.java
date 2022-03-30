@@ -5,21 +5,15 @@
 package dev.fluttercommunity.plus.device_info;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** DeviceInfoPlusPlugin */
 public class DeviceInfoPlusPlugin implements FlutterPlugin {
 
   MethodChannel channel;
-
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    DeviceInfoPlusPlugin plugin = new DeviceInfoPlusPlugin();
-    plugin.setupMethodChannel(registrar.messenger(), registrar.context());
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPlugin.FlutterPluginBinding binding) {
@@ -27,7 +21,7 @@ public class DeviceInfoPlusPlugin implements FlutterPlugin {
   }
 
   @Override
-  public void onDetachedFromEngine(FlutterPlugin.FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull FlutterPlugin.FlutterPluginBinding binding) {
     tearDownChannel();
   }
 

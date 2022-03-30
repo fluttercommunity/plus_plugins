@@ -1,3 +1,39 @@
+## 3.2.2
+
+- Fix embedding issue in example
+- Update Android dependencies in example
+
+## 3.2.1
+
+- iOS: fix `identifierForVendor` (can be `null` in rare circumstances)
+- Use automatic plugin registration on Linux and Windows
+- Fix warnings when building for macOS
+
+## 3.2.0
+
+- add `deviceInfo`
+
+## 3.1.1
+
+- add toMap to WebBrowserInfo
+
+## 3.1.0
+
+- add System GUID to MacOS
+
+## 3.0.1
+
+- Upgrade Android compile SDK version
+- Several code improvements
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 2.2.0
+
+- migrate integration_test to flutter sdk
+
 ## 2.1.0
 
 - add toMap to models

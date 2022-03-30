@@ -1,4 +1,4 @@
-import 'package:battery_plus_linux/src/battery_plus_linux_real.dart';
+import 'package:battery_plus_linux/src/battery_plus_linux.dart';
 import 'package:battery_plus_linux/src/upower_device.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:dbus/src/dbus_client.dart';
@@ -9,12 +9,24 @@ import 'package:dbus/src/dbus_value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('registered instance', () {
+    BatteryPlusLinux.registerWith();
+    expect(BatteryPlatform.instance, isA<BatteryPlusLinux>());
+  });
   test('battery level', () async {
     final battery = BatteryPlusLinux();
     battery.createDevice = () {
       return MockDevice();
     };
     expect(battery.batteryLevel, completion(equals(57)));
+  });
+
+  test('battery state', () async {
+    final battery = BatteryPlusLinux();
+    battery.createDevice = () {
+      return MockDevice();
+    };
+    expect(battery.batteryState, completion(BatteryState.charging));
   });
 
   test('battery state changes', () {
@@ -43,9 +55,6 @@ class MockDevice implements UPowerDevice {
 
   @override
   DBusClient get client => throw UnimplementedError();
-
-  @override
-  String get destination => throw UnimplementedError();
 
   @override
   void dispose() {}
@@ -78,6 +87,9 @@ class MockDevice implements UPowerDevice {
   Future<DBusIntrospectNode> introspect() {
     throw UnimplementedError();
   }
+
+  @override
+  String get name => throw UnimplementedError();
 
   @override
   DBusObjectPath get path => throw UnimplementedError();

@@ -1,3 +1,19 @@
+## 1.3.0
+
+- Bump nm plugin to 0.5.0
+
+## 1.2.0
+
+- Add bluetooth as connectivity result
+
+## 1.1.1
+
+- Dependencies update
+
+## 1.1.0
+
+- Add ethernet as connectivity result
+
 ## 1.0.3
 
 - Update D-Bus package dependency

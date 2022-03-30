@@ -1,8 +1,13 @@
 import 'package:device_info_plus_linux/device_info_plus_linux.dart';
+import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:file/memory.dart';
 
 void main() {
+  test('registered instance', () {
+    DeviceInfoLinux.registerWith();
+    expect(DeviceInfoPlatform.instance, isA<DeviceInfoLinux>());
+  });
   test('os-release', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/os-release')..createSync(recursive: true);

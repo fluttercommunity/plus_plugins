@@ -2,8 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'base_device_info.dart';
+
 /// Object encapsulating MACOS device information.
-class MacOsDeviceInfo {
+class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Constructs a MacOsDeviceInfo.
   const MacOsDeviceInfo({
     required this.computerName,
@@ -15,6 +17,7 @@ class MacOsDeviceInfo {
     required this.activeCPUs,
     required this.memorySize,
     required this.cpuFrequency,
+    required this.systemGUID,
   });
 
   /// Name given to the local machine.
@@ -48,7 +51,11 @@ class MacOsDeviceInfo {
   /// Device CPU Frequency
   final int cpuFrequency;
 
-  /// Serializes [ MacOsDeviceInfo ] to map.
+  /// Device GUID
+  final String? systemGUID;
+
+  /// Serializes [MacOsDeviceInfo] to map.
+  @override
   Map<String, dynamic> toMap() {
     return {
       'arch': arch,
@@ -60,6 +67,7 @@ class MacOsDeviceInfo {
       'cpuFrequency': cpuFrequency,
       'computerName': computerName,
       'kernelVersion': kernelVersion,
+      'systemGUID': systemGUID,
     };
   }
 
@@ -75,6 +83,7 @@ class MacOsDeviceInfo {
       activeCPUs: map['activeCPUs'],
       memorySize: map['memorySize'],
       cpuFrequency: map['cpuFrequency'],
+      systemGUID: map['systemGUID'],
     );
   }
 }

@@ -1,3 +1,19 @@
+## 2.3.0+1
+
+- Fix LinuxDeviceInfo.name docs
+
+## 2.3.0
+
+- add `BaseDeviceInfo`
+
+## 2.2.1
+
+- add toMap to WebBrowserInfo
+
+## 2.2.0
+
+- add System GUID to MacOS
+
 ## 2.1.0
 
 - add toMap to models

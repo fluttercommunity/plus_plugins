@@ -3,22 +3,22 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io' show Platform;
+import 'dart:io';
 
-import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_linux/device_info_plus_linux.dart';
-import 'package:device_info_plus_windows/device_info_plus_windows.dart';
+import 'package:flutter/foundation.dart';
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
         AndroidBuildVersion,
         AndroidDeviceInfo,
+        BaseDeviceInfo,
         IosDeviceInfo,
         IosUtsname,
         LinuxDeviceInfo,
         MacOsDeviceInfo,
         WindowsDeviceInfo,
-        WebBrowserInfo;
+        WebBrowserInfo,
+        BrowserName;
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {
@@ -26,33 +26,11 @@ class DeviceInfoPlugin {
   /// repeatedly or in performance-sensitive blocks.
   DeviceInfoPlugin();
 
-  /// Disables the platform override in order to use a manually registered
-  /// [DeviceInfoPlatform] for testing purposes.
-  /// See https://github.com/flutter/flutter/issues/52267 for more details.
-  @visibleForTesting
-  static set disableDeviceInfoPlatformOverride(bool override) {
-    _disablePlatformOverride = override;
-  }
-
-  static bool _disablePlatformOverride = false;
-  static DeviceInfoPlatform? __platform;
-
   // This is to manually endorse the Linux plugin until automatic registration
   // of dart plugins is implemented.
   // See https://github.com/flutter/flutter/issues/52267 for more details.
   static DeviceInfoPlatform get _platform {
-    if (__platform == null) {
-      if (!_disablePlatformOverride && !kIsWeb) {
-        if (Platform.isLinux) {
-          __platform = DeviceInfoLinux();
-        } else if (Platform.isWindows) {
-          __platform = DeviceInfoWindows();
-        }
-      }
-      __platform ??= DeviceInfoPlatform.instance;
-    }
-
-    return __platform!;
+    return DeviceInfoPlatform.instance;
   }
 
   /// This information does not change from call to call. Cache it.
@@ -101,4 +79,25 @@ class DeviceInfoPlugin {
   /// Returns device information for Windows.
   Future<WindowsDeviceInfo> get windowsInfo async =>
       _cachedWindowsDeviceInfo ??= await _platform.windowsInfo()!;
+
+  /// Returns device information for the current platform.
+  Future<BaseDeviceInfo> get deviceInfo async {
+    if (kIsWeb) {
+      return webBrowserInfo;
+    } else {
+      if (Platform.isAndroid) {
+        return androidInfo;
+      } else if (Platform.isIOS) {
+        return iosInfo;
+      } else if (Platform.isLinux) {
+        return linuxInfo;
+      } else if (Platform.isMacOS) {
+        return macOsInfo;
+      } else if (Platform.isWindows) {
+        return windowsInfo;
+      }
+    }
+
+    throw UnsupportedError('Unsupported platform');
+  }
 }

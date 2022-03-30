@@ -1,3 +1,15 @@
+## 1.1.1
+
+- Update dbus to 0.7.1
+
+## 1.1.0
+
+- Add batteryState getter
+
+## 1.0.4
+
+- Update Flutter dependencies
+
 ## 1.0.3
 
 - Upgrade battery_plus_platform_interface dependency

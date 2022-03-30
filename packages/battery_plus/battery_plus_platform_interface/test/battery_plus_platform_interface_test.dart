@@ -21,6 +21,8 @@ void main() {
             return 100;
           case 'isInBatterySaveMode':
             return true;
+          case 'getBatteryState':
+            return 'charging';
           default:
             return null;
         }
@@ -72,6 +74,20 @@ void main() {
         <Matcher>[
           isMethodCall(
             'isInBatterySaveMode',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getBatteryState', () async {
+      final result = await methodChannelBattery.batteryState;
+      expect(result, BatteryState.charging);
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'getBatteryState',
             arguments: null,
           ),
         ],

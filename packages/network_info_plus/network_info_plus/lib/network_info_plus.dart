@@ -3,13 +3,9 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
-import 'package:network_info_plus_platform_interface/method_channel_network_info.dart';
-import 'package:network_info_plus_linux/network_info_plus_linux.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart'
@@ -32,22 +28,10 @@ class NetworkInfo {
 
   static NetworkInfo? _singleton;
 
-  static bool _manualDartRegistrationNeeded = true;
-
   // This is to manually endorse Dart implementations until automatic
   // registration of Dart plugins is implemented. For details see
   // https://github.com/flutter/flutter/issues/52267.
   static NetworkInfoPlatform get _platform {
-    if (_manualDartRegistrationNeeded) {
-      // Only do the initial registration if it hasn't already been overridden
-      // with a non-default instance.
-      if (!kIsWeb && NetworkInfoPlatform.instance is MethodChannelNetworkInfo) {
-        if (Platform.isLinux) {
-          NetworkInfoPlatform.instance = NetworkInfoLinux();
-        }
-      }
-      _manualDartRegistrationNeeded = false;
-    }
     return NetworkInfoPlatform.instance;
   }
 
@@ -71,9 +55,29 @@ class NetworkInfo {
     return _platform.getWifiBSSID();
   }
 
-  /// Obtains the IP address of the connected wifi network
+  /// Obtains the IPv4 address of the connected wifi network
   Future<String?> getWifiIP() {
     return _platform.getWifiIP();
+  }
+
+  /// Obtains the IPv6 address of the connected wifi network
+  Future<String?> getWifiIPv6() {
+    return _platform.getWifiIPv6();
+  }
+
+  /// Obtains the submask of the connected wifi network
+  Future<String?> getWifiSubmask() {
+    return _platform.getWifiSubmask();
+  }
+
+  /// Obtains the gateway IP address of the connected wifi network
+  Future<String?> getWifiGatewayIP() {
+    return _platform.getWifiGatewayIP();
+  }
+
+  /// Obtains the broadcast of the connected wifi network
+  Future<String?> getWifiBroadcast() {
+    return _platform.getWifiBroadcast();
   }
 
   /// Request to authorize the location service (Only on iOS).

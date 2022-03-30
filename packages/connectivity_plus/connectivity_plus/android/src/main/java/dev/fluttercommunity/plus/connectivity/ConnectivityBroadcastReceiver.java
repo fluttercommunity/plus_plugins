@@ -25,10 +25,10 @@ import io.flutter.plugin.common.EventChannel;
  */
 public class ConnectivityBroadcastReceiver extends BroadcastReceiver
     implements EventChannel.StreamHandler {
-  private Context context;
-  private Connectivity connectivity;
+  private final Context context;
+  private final Connectivity connectivity;
   private EventChannel.EventSink events;
-  private Handler mainHandler = new Handler(Looper.getMainLooper());
+  private final Handler mainHandler = new Handler(Looper.getMainLooper());
   private ConnectivityManager.NetworkCallback networkCallback;
   public static final String CONNECTIVITY_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
 
@@ -50,7 +50,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
 
             @Override
             public void onLost(Network network) {
-              sendEvent();
+              sendEvent(Connectivity.CONNECTIVITY_NONE);
             }
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
@@ -82,18 +82,13 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
     }
   }
 
-  public ConnectivityManager.NetworkCallback getNetworkCallback() {
-    return networkCallback;
+  private void sendEvent() {
+    Runnable runnable = () -> events.success(connectivity.getNetworkType());
+    mainHandler.post(runnable);
   }
 
-  private void sendEvent() {
-    Runnable runnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            events.success(connectivity.getNetworkType());
-          }
-        };
+  private void sendEvent(final String networkType) {
+    Runnable runnable = () -> events.success(networkType);
     mainHandler.post(runnable);
   }
 }

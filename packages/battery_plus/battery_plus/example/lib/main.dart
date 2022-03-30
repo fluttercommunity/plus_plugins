@@ -10,10 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,13 +23,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
@@ -44,11 +46,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    _battery.batteryState.then(_updateBatteryState);
     _batteryStateSubscription =
-        _battery.onBatteryStateChanged.listen((BatteryState state) {
-      setState(() {
-        _batteryState = state;
-      });
+        _battery.onBatteryStateChanged.listen(_updateBatteryState);
+  }
+
+  void _updateBatteryState(BatteryState state) {
+    if (_batteryState == state) return;
+    setState(() {
+      _batteryState = state;
     });
   }
 

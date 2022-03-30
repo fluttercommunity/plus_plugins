@@ -1,9 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_windows/share_plus_windows.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 
 void main() {
+  test('registered instance', () {
+    ShareWindows.registerWith();
+    expect(SharePlatform.instance, isA<ShareWindows>());
+  });
   test('url encoding is correct for &', () async {
     final mock = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mock;

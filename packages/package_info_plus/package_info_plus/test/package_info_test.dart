@@ -28,10 +28,6 @@ void main() {
     }
   });
 
-  setUp(() {
-    PackageInfo.disablePackageInfoPlatformOverride = true;
-  });
-
   tearDown(() {
     log.clear();
   });
@@ -48,6 +44,9 @@ void main() {
         isMethodCall('getAll', arguments: null),
       ],
     );
+  }, onPlatform: {
+    'linux':
+        const Skip('PackageInfoPlus on Linux does not use platform channels'),
   });
 
   test('Mock initial values', () async {

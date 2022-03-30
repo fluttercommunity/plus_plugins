@@ -11,14 +11,25 @@ dependencies:
     sdk: flutter
   package_info_plus:
     path: ../
-  integration_test: ^1.0.2
-  universal_io: ^1.0.1
+
+dependency_overrides:
+  package_info_plus_linux:
+    path: ../../package_info_plus_linux
+  package_info_plus_macos:
+    path: ../../package_info_plus_macos
+  package_info_plus_platform_interface:
+    path: ../../package_info_plus_platform_interface
+  package_info_plus_web:
+    path: ../../package_info_plus_web
+  package_info_plus_windows:
+    path: ../../package_info_plus_windows
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: any
-  pedantic: ^1.10.0
+  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true

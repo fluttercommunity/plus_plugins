@@ -10,10 +10,11 @@ import 'package_info_plus_web_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
+  // ignore: constant_identifier_names
   const VERSION_JSON = {
-    'appName': 'package_info_example',
-    'buildNumber': '1',
-    'packageName': 'io.flutter.plugins.packageinfoexample',
+    'app_name': 'package_info_example',
+    'build_number': '1',
+    'package_name': 'io.flutter.plugins.packageinfoexample',
     'version': '1.0',
   };
 
@@ -22,14 +23,14 @@ void main() {
 
   setUp(() {
     client = MockClient();
-    plugin = PackageInfoPlugin();
+    plugin = PackageInfoPlugin(client);
   });
 
   group(
     'Package Info Web',
     () {
       test(
-        'Get correct valaues when response status is 200',
+        'Get correct values when response status is 200',
         () async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
@@ -39,14 +40,14 @@ void main() {
 
           final versionMap = await plugin.getAll();
 
-          expect(versionMap.appName, VERSION_JSON['appName']);
-          expect(versionMap.buildNumber, VERSION_JSON['buildNumber']);
+          expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.buildNumber, VERSION_JSON['build_number']);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, VERSION_JSON['version']);
         },
       );
       test(
-        'Get empty valaues when response status is not 200',
+        'Get empty values when response status is not 200',
         () async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
@@ -60,6 +61,38 @@ void main() {
           expect(versionMap.buildNumber, isEmpty);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, isEmpty);
+        },
+      );
+      test(
+        'Get correct versionJsonUrl',
+        () {
+          expect(
+            plugin.versionJsonUrl('https://example.com/#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl(
+                'https://example.com/?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl(
+                'https://example.com/a/b/c/?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl(
+                'https://example.com/a/b/c?hello_world=true#/my-page', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
         },
       );
     },

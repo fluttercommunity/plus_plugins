@@ -3,10 +3,12 @@
 [![Flutter Community: network_info_plus](https://fluttercommunity.dev/_github/header/network_info_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
+[![network_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml)
 
 <p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 </p>
+
 This plugin allows Flutter apps to discover network info and configure
 themselves accordingly.
 
@@ -27,14 +29,18 @@ import 'package:network_info_plus/network_info_plus.dart';
 
 final info = NetworkInfo();
 
-var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
-var wifiIP = await info.getWifiIP(); // 192.168.1.1
 var wifiName = await info.getWifiName(); // FooNetwork
+var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
+var wifiIP = await info.getWifiIP(); // 192.168.1.43
+var wifiIPv6 = await info.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+var wifiSubmask = await info.getWifiSubmask(); // 255.255.255.0
+var wifiBroadcast = await info.getWifiBroadcast(); // 192.168.1.255
+var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 ```
 
 ### Android
 
-To successfully get WiFi Name or Wi-Fi BSSID starting with Android O, ensure all of the following conditions are met:
+To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure all of the following conditions are met:
 
 - If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
 

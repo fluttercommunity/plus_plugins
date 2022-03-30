@@ -1,3 +1,39 @@
+## 3.1.1
+
+- Fix embedding issue in example
+- Update Platform dependency to not use deprecated function
+
+## 3.1.0
+
+- Added `arrayArguments` to explicitly pass array values to an intent
+
+## 3.0.2
+
+- Fixed the buildIntent method to do not set the pacakage to null if it's not resolvable
+- Updated the example of resolving intent with explicitly defined package name
+
+## 3.0.1
+
+- Upgrade dependencies and Android compile version
+- Remove some leftover code of Android v1 embedding
+
+## 3.0.0
+
+- Remove deprecated method `registerWith` (of Android v1 embedding)
+
+## 2.1.0
+
+- migrate integration_test to flutter sdk
+
+## 2.0.0
+
+- increase flutter SDK version to 1.20.0
+
+## 1.0.3
+
+- clean up ios folder
+- rename channel name to dev.fluttercommunity.plus in java tests
+
 ## 1.0.2
 
 - Android: migrate to mavenCentral

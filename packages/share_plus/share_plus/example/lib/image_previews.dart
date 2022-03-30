@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Widget for displaying a preview of images
 class ImagePreviews extends StatelessWidget {
@@ -52,7 +51,7 @@ class _ImagePreview extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 200,
               maxHeight: 200,
             ),
@@ -65,7 +64,7 @@ class _ImagePreview extends StatelessWidget {
               child: FloatingActionButton(
                   backgroundColor: Colors.red,
                   onPressed: onDelete,
-                  child: Icon(Icons.delete)),
+                  child: const Icon(Icons.delete)),
             ),
           ),
         ],

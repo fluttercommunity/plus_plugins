@@ -1,3 +1,15 @@
+## 1.2.0
+
+- Add bluetooth as connectivity result
+
+## 1.1.1
+
+- Dependencies update
+
+## 1.1.0
+
+- Add ethernet as connectivity result
+
 ## 1.0.2
 
 - Update connectivity plus

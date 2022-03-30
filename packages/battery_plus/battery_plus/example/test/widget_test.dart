@@ -12,7 +12,7 @@ import 'package:battery_plus_example/main.dart';
 void main() {
   testWidgets('Initial battery value smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     expect(find.text('null'), findsOneWidget);
   });

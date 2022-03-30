@@ -4,6 +4,7 @@
 
 package dev.fluttercommunity.plus.network_info;
 
+import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
@@ -14,7 +15,7 @@ import io.flutter.plugin.common.MethodChannel;
  */
 class NetworkInfoMethodChannelHandler implements MethodChannel.MethodCallHandler {
 
-  private NetworkInfo networkInfo;
+  private final NetworkInfo networkInfo;
 
   /**
    * Construct the NetworkInfoMethodChannelHandler with a {@code networkInfo}. The {@code
@@ -26,7 +27,7 @@ class NetworkInfoMethodChannelHandler implements MethodChannel.MethodCallHandler
   }
 
   @Override
-  public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+  public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
     switch (call.method) {
       case "wifiName":
         result.success(networkInfo.getWifiName());
@@ -36,6 +37,18 @@ class NetworkInfoMethodChannelHandler implements MethodChannel.MethodCallHandler
         break;
       case "wifiIPAddress":
         result.success(networkInfo.getWifiIPAddress());
+        break;
+      case "wifiBroadcast":
+        result.success(networkInfo.getBroadcast());
+        break;
+      case "wifiSubmask":
+        result.success(networkInfo.getWifiSubnetMask());
+        break;
+      case "wifiGatewayAddress":
+        result.success(networkInfo.getGatewayIpAdress());
+        break;
+      case "wifiIPv6Address":
+        result.success(networkInfo.getIpV6());
         break;
       default:
         result.notImplemented();

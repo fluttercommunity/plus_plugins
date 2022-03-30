@@ -1,6 +1,6 @@
 name: connectivity_plus_macos
 description: macOS implementation of the connectivity_plus plugin.
-version: 1.0.2
+version: 1.2.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -15,6 +15,6 @@ flutter:
         pluginClass: ConnectivityPlugin
 
 dependencies:
-  connectivity_plus_platform_interface: ^1.0.2
+  connectivity_plus_platform_interface: ^1.1.0
   flutter:
     sdk: flutter

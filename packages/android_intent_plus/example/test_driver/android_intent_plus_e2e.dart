@@ -15,14 +15,14 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Embedding example app loads', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     // Verify that the new embedding example app builds
     if (Platform.isAndroid) {
       expect(
         find.byWidgetPredicate(
           (Widget widget) =>
-              widget is Text && widget.data.startsWith('Tap here'),
+              widget is Text && widget.data!.startsWith('Tap here'),
         ),
         findsNWidgets(4),
       );
@@ -31,7 +31,7 @@ void main() {
         find.byWidgetPredicate(
           (Widget widget) =>
               widget is Text &&
-              widget.data.startsWith('This plugin only works with Android'),
+              widget.data!.startsWith('This plugin only works with Android'),
         ),
         findsOneWidget,
       );
@@ -45,12 +45,12 @@ void main() {
     const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(() async => await intent.launch(), throwsA((Exception e) {
       return e is PlatformException &&
-          e.message.contains('No Activity found to handle Intent');
+          e.message!.contains('No Activity found to handle Intent');
     }));
   }, skip: !Platform.isAndroid);
 
   testWidgets('#launchChooser should not throw', (WidgetTester tester) async {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
       type: 'plain/text',
       data: 'text example',
@@ -59,7 +59,7 @@ void main() {
   }, skip: !Platform.isAndroid);
 
   testWidgets('#sendBroadcast should not throw', (WidgetTester tester) async {
-    final intent = const AndroidIntent(
+    const intent = AndroidIntent(
       action: 'com.example.broadcast',
     );
     await intent.sendBroadcast();
@@ -67,7 +67,7 @@ void main() {
 
   testWidgets('#canResolveActivity returns true when example Activity is found',
       (WidgetTester tester) async {
-    final intent = AndroidIntent(
+    const intent = AndroidIntent(
       action: 'action_view',
       package: 'io.flutter.plugins.androidintentexample',
       componentName: 'io.flutter.plugins.androidintentexample.MainActivity',

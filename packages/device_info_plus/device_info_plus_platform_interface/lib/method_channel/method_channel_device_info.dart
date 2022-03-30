@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -11,7 +10,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   MethodChannel channel =
-      MethodChannel('dev.fluttercommunity.plus/device_info');
+      const MethodChannel('dev.fluttercommunity.plus/device_info');
 
   // Method channel for Android devices
   @override

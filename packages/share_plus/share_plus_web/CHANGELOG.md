@@ -1,3 +1,7 @@
+## 3.0.0
+
+- Bump dependencies
+
 ## 2.0.4
 
 - Hotfix on 2.0.3, improved solution.

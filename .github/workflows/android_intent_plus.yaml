@@ -1,0 +1,28 @@
+# Build Android Intent Plus Example
+name: android_intent_plus
+
+on:
+  pull_request:
+    paths:
+      - "packages/android_intent_plus/**"
+      - ".github/workflows/android_intent_plus.yaml"
+      - "!**.md"
+      - "!**.gitignore"
+
+env:
+  PLUGIN_SCOPE: "*android_intent_plus*"
+  PLUGIN_EXAMPLE_SCOPE: "*android_intent_example*"
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Build Example"
+        run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart

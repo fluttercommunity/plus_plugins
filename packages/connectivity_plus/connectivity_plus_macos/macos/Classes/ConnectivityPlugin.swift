@@ -1,25 +1,19 @@
-// Copyright 2019 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source is governed by a BSD-style license that can
+// be found in the LICENSE file.
 
 import Cocoa
 import FlutterMacOS
-import Reachability
-import SystemConfiguration.CaptiveNetwork
 
 public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
-  var reach: Reachability?
-  var eventSink: FlutterEventSink?
+  private let connectivityProvider: ConnectivityProvider
+  private var eventSink: FlutterEventSink?
+
+  init(connectivityProvider: ConnectivityProvider) {
+    self.connectivityProvider = connectivityProvider
+    super.init()
+    self.connectivityProvider.connectivityUpdateHandler = connectivityUpdateHandler
+  }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
@@ -30,7 +24,14 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
       name: "dev.fluttercommunity.plus/connectivity_status",
       binaryMessenger: registrar.messenger)
 
-    let instance = ConnectivityPlugin()
+    let connectivityProvider: ConnectivityProvider
+    if #available(macOS 10.14, *) {
+      connectivityProvider = PathMonitorConnectivityProvider()
+    } else {
+      connectivityProvider = ReachabilityConnectivityProvider()
+    }
+
+    let instance = ConnectivityPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
@@ -39,53 +40,41 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "check":
-      result(statusFromReachability(reachability: Reachability.forInternetConnection()))
+      result(statusFrom(connectivityType: connectivityProvider.currentConnectivityType))
     default:
       result(FlutterMethodNotImplemented)
     }
   }
 
-  /// Returns a string describing connection type
-  ///
-  /// - Parameters:
-  ///   - reachability: an instance of reachability
-  /// - Returns: connection type string
-  private func statusFromReachability(reachability: Reachability?) -> String {
-    // checks any non-WWAN connection
-    if reachability?.isReachableViaWiFi() ?? false {
+  private func statusFrom(connectivityType: ConnectivityType) -> String {
+    switch connectivityType {
+    case .wifi:
       return "wifi"
+    case .cellular:
+      return "mobile"
+    case .wiredEthernet:
+      return "ethernet"
+    case .none:
+      return "none"
     }
-
-    return "none"
   }
 
   public func onListen(
     withArguments _: Any?,
     eventSink events: @escaping FlutterEventSink
   ) -> FlutterError? {
-    reach = Reachability.forInternetConnection()
     eventSink = events
-
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(reachabilityChanged),
-      name: NSNotification.Name.reachabilityChanged,
-      object: reach)
-
-    reach?.startNotifier()
-
+    connectivityProvider.start()
+    connectivityUpdateHandler(connectivityType: connectivityProvider.currentConnectivityType)
     return nil
   }
 
-  @objc private func reachabilityChanged(notification: NSNotification) {
-    let reach = notification.object
-    let reachability = statusFromReachability(reachability: reach as? Reachability)
-    eventSink?(reachability)
+  private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
+    eventSink?(statusFrom(connectivityType: connectivityType))
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {
-    reach?.stopNotifier()
-    NotificationCenter.default.removeObserver(self)
+    connectivityProvider.stop()
     eventSink = nil
     return nil
   }

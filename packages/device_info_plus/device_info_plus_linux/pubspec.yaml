@@ -1,12 +1,12 @@
 name: device_info_plus_linux
 description: Linux implementation of the device_info_plus plugin
-version: 2.1.0
+version: 2.1.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.20.0"
 
 dependencies:
   device_info_plus_platform_interface: ^2.1.0
@@ -18,4 +18,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.10.0
+  flutter_lints: ^1.0.4
+
+flutter:
+  plugin:
+    implements: device_info_plus
+    platforms:
+      linux:
+        dartPluginClass: DeviceInfoLinux
