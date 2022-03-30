@@ -1,3 +1,8 @@
+## 1.4.0
+
+- iOS: Corrects magnetometer implementation, returning calibrated values from
+  `DeviceMotion` sensor rather than raw sensor samples
+
 ## 1.3.0
 
 - Android: Migrate to Kotlin
