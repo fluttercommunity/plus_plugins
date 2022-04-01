@@ -1,6 +1,6 @@
 ## 2.4.0
 
-- Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, to WindowsDeviceInfo.
+- Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
 
 ## 2.3.0+1
 
