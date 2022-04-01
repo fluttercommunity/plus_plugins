@@ -27,7 +27,7 @@ class DemoAppState extends State<DemoApp> {
   List<String> imagePaths = [];
   String? filePath;
 
-  ShareWithAppWindows? appSelected;
+  ShareWithAppWindows appSelected=ShareWithAppWindows.BY_DEFAULT_APP;
 
   @override
   Widget build(BuildContext context) {
@@ -107,17 +107,32 @@ class DemoAppState extends State<DemoApp> {
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
 
-                  ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('Choose file'),
-                    onTap: () async {
-                      FilePickerResult? result = await FilePicker.platform.pickFiles();
-                      if (result != null) {
-                        setState(() {
-                          filePath = result.files.single.path!;
-                        });
-                      }
-                    },
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 200,
+                        child: ListTile(
+                          leading: const Icon(Icons.add),
+                          title: const Text('Choose file'),
+                          onTap: () async {
+                            FilePickerResult? result = await FilePicker.platform.pickFiles();
+                            if (result != null) {
+                              setState(() {
+                                filePath = result.files.single.path!;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          '${filePath ?? '<file path>'}',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      )
+                    ],
                   ),
                   Visibility(
                     visible: filePath!=null,
@@ -132,7 +147,7 @@ class DemoAppState extends State<DemoApp> {
                                 groupValue: appSelected,
                                 onChanged: (ShareWithAppWindows? value) {
                                   setState(() {
-                                    appSelected = value;
+                                    appSelected = value!;
                                   });
                                 },
                               ),
@@ -150,13 +165,7 @@ class DemoAppState extends State<DemoApp> {
                             onPressed: filePath == null ? null : () => _onShareWithApp(context),
                             child: const Text('Share With App'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Text(
-                              '${filePath ?? '<file path>'}',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          )
+
                         ],
                       );
                     },
@@ -207,6 +216,6 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     //  await Share.shareFileWithApp("\"$filePath\"",appSelected! );
-   await Share.shareFileWithApp("$filePath",appSelected! );
+   await Share.shareFileWithApp("$filePath",appSelected );
   }
 }

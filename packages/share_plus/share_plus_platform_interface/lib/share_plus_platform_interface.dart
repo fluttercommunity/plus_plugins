@@ -138,23 +138,24 @@ enum ShareWithAppWindows {
   /// Most apps can by handled by system, using explorer.exe
   BY_DEFAULT_APP,
 
-  /// Opens image file in MS Paint
-  MSPAINT,
-
   /// Opens text file in Notepad
   NOTEPAD,
 
   /// Opens text file in Notepad++
   NOTEPAD_PLUS_PLUS,
 
-  /// Opens Image/SVG/Photoshop file in Adobe PHOTOSHOP
-  PHOTOSHOP,
-
   /// Launch link specific in Microsoft Edge
   EDGE,
 
   /// Launch link specific in Chrome
   CHROME,
+
+  /// Opens image file in MS Paint
+  MSPAINT,
+
+  /// Opens Image/SVG/Photoshop file in Adobe PHOTOSHOP
+  PHOTOSHOP,
+
 }
 
 
