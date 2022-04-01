@@ -7,7 +7,6 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
   /// Register this dart class as the platform implementation for linux
@@ -42,10 +41,9 @@ class ShareWindows extends SharePlatform {
 
   /// Share file with specific app, skipping Browser launch
   @override
-  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName)async {
-
-    await Process.run(shareWithAppWindowsCmd[appName]!,[path.toString()],runInShell: true);
-   // throw UnimplementedError('shareFileWith() has not been implemented on Windows.');
+  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) async {
+    await Process.run(shareWithAppWindowsCmd[appName]!, [path.toString()], runInShell: true);
+    // throw UnimplementedError('shareFileWith() has not been implemented on Windows.');
   }
 
   /// Share files.
@@ -69,5 +67,4 @@ class ShareWindows extends SharePlatform {
     ShareWithAppWindows.EDGE: "start msedge",
     ShareWithAppWindows.CHROME: "chrome",
   };
-
 }

@@ -155,9 +155,7 @@ enum ShareWithAppWindows {
 
   /// Opens Image/SVG/Photoshop file in Adobe PHOTOSHOP
   PHOTOSHOP,
-
 }
-
 
 /// Returned if the platform is not supported
 const _resultUnavailable = ShareResult(

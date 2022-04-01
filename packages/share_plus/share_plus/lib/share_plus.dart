@@ -7,8 +7,7 @@ import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus,ShareWithAppWindows;
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus, ShareWithAppWindows;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -159,7 +158,7 @@ class Share {
   @override
   static Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) {
     assert(path.isNotEmpty);
-    assert(appName!=null);
+    assert(appName != null);
     return _platform.shareFileWithApp(path, appName);
   }
 }
