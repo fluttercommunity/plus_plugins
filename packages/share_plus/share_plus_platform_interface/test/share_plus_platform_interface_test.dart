@@ -14,6 +14,8 @@ import 'package:test/test.dart';
 
 import 'package:flutter/services.dart';
 
+import '../lib/share_plus_platform_interface.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -77,6 +79,8 @@ void main() {
       'originHeight': 4.0,
     }));
 
+
+
     await SharePlatform.instance.shareWithResult(
       'some text to share',
       subject: 'some subject to share',
@@ -131,6 +135,15 @@ void main() {
           'originHeight': 4.0,
         },
       ));
+
+      await sharePlatform.shareFileWithApp(
+          fd.path,
+          ShareWithAppWindows.BY_DEFAULT_APP
+      );
+      verify(mockChannel.invokeMethod<void>('shareFileWithApp', <String, dynamic>{
+        'path': fd.path,
+        'appName': ShareWithAppWindows.BY_DEFAULT_APP,
+      }));
     });
   });
 
@@ -221,6 +234,8 @@ void main() {
       }));
     });
   });
+
+
 }
 
 /// Execute a block within a context that handles creation and deletion of a helper file
