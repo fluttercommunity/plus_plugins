@@ -137,7 +137,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
       'computerName': computerName,
       'numberOfCores': numberOfCores,
       'systemMemoryInMegabytes': systemMemoryInMegabytes,
-      'username': userName,
+      'userName': userName,
       'majorVersion': majorVersion,
       'minorVersion': minorVersion,
       'buildNumber': buildNumber,

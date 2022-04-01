@@ -177,7 +177,7 @@ class _MyAppState extends State<MyApp> {
       'numberOfCores': data.numberOfCores,
       'computerName': data.computerName,
       'systemMemoryInMegabytes': data.systemMemoryInMegabytes,
-      'username': data.userName,
+      'userName': data.userName,
       'majorVersion': data.majorVersion,
       'minorVersion': data.minorVersion,
       'buildNumber': data.buildNumber,
