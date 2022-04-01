@@ -198,6 +198,7 @@ class _MyAppState extends State<MyApp> {
       'productName': data.productName,
       'registeredOwner': data.registeredOwner,
       'releaseId': data.releaseId,
+      'deviceId': data.deviceId,
     };
   }
 

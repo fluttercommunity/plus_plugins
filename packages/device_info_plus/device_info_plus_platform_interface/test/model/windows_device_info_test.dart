@@ -25,11 +25,12 @@ void main() {
         digitalProductId: Uint8List.fromList([]),
         displayVersion: '21H2',
         editionId: 'Pro',
-        installDate: DateTime.now(),
+        installDate: DateTime(2022, 04, 02),
         productId: '00000-00000-0000-AAAAA',
         productName: 'Windows 10 Pro',
         registeredOwner: 'registeredOwner',
         releaseId: 'releaseId',
+        deviceId: 'deviceId',
       );
 
       expect(windowsDeviceInfo.toMap(), {
@@ -52,11 +53,12 @@ void main() {
         'digitalProductId': Uint8List.fromList([]),
         'displayVersion': '21H2',
         'editionId': 'Pro',
-        'installDate': DateTime.now(),
+        'installDate': DateTime(2022, 04, 02),
         'productId': '00000-00000-0000-AAAAA',
         'productName': 'Windows 10 Pro',
         'registeredOwner': 'registeredOwner',
         'releaseId': 'releaseId',
+        'deviceId': 'deviceId',
       });
     });
   });

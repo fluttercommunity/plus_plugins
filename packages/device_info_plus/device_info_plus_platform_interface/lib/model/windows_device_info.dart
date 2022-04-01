@@ -34,6 +34,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
     required this.productName,
     required this.registeredOwner,
     required this.releaseId,
+    required this.deviceId,
   });
 
   /// The computer's fully-qualified DNS name, where available.
@@ -114,6 +115,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// Value of `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\InstallDate` registry key.
   final DateTime installDate;
 
+  /// Displayed as "Product ID" in Windows Settings.
   /// Value of `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProductId` registry key.
   /// For example: `00000-00000-0000-AAAAA`.
   final String productId;
@@ -129,6 +131,10 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// Value of `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ReleaseId` registry key.
   /// For example: `1903`.
   final String releaseId;
+
+  /// Displayed as "Device ID" in Windows Settings.
+  /// Value of `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SQMClient\MachineId` registry key.
+  final String deviceId;
 
   /// Serializes [WindowsDeviceInfo] to a map.
   @override
@@ -158,6 +164,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
       'productName': productName,
       'registeredOwner': registeredOwner,
       'releaseId': releaseId,
+      'deviceId': deviceId,
     };
   }
 }

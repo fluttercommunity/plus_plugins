@@ -34,7 +34,8 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     }
     final systemInfo = _getInfoStructPointer();
     final osVersionInfo = _getOSVERSIONINFOEXPointer();
-    // Registry keys can be modified/deleted by users. Thus, enclosed in a try-catch block.
+    // Some registry keys can be modified/deleted by users.
+    // Thus, enclosed in a try-catch block for preventing errors due to any missing value.
     var buildLab = '';
     var buildLabEx = '';
     var digitalProductId = Uint8List.fromList([]);
@@ -45,6 +46,7 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     var productName = '';
     var registeredOwner = '';
     var releaseId = '';
+    var deviceId = '';
     try {
       buildLab = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -52,7 +54,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'BuildLab',
       ) as String;
     } catch (_) {}
-    ;
     try {
       buildLabEx = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -60,7 +61,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'BuildLabEx',
       ) as String;
     } catch (_) {}
-    ;
     try {
       digitalProductId = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -68,7 +68,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'DigitalProductId',
       ) as Uint8List;
     } catch (_) {}
-    ;
     try {
       displayVersion = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -76,7 +75,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'DisplayVersion',
       ) as String;
     } catch (_) {}
-    ;
     try {
       editionId = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -84,7 +82,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'EditionID',
       ) as String;
     } catch (_) {}
-    ;
     try {
       installDate = DateTime.fromMillisecondsSinceEpoch(
         (_getRegistryValue(
@@ -95,7 +92,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
             1000,
       );
     } catch (_) {}
-    ;
     try {
       productId = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -103,7 +99,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'ProductId',
       ) as String;
     } catch (_) {}
-    ;
     try {
       productName = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -111,7 +106,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'ProductName',
       ) as String;
     } catch (_) {}
-    ;
     try {
       registeredOwner = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -119,7 +113,6 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'RegisteredOwner',
       ) as String;
     } catch (_) {}
-    ;
     try {
       releaseId = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
@@ -127,7 +120,13 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
         'ReleaseId',
       ) as String;
     } catch (_) {}
-    ;
+    try {
+      deviceId = _getRegistryValue(
+        HKEY_LOCAL_MACHINE,
+        'SOFTWARE\\Microsoft\\SQMClient\\',
+        'MachineId',
+      ) as String;
+    } catch (_) {}
     GetSystemInfo(systemInfo);
     // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
     _rtlGetVersion!(osVersionInfo);
@@ -161,6 +160,7 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
       productName: productName,
       registeredOwner: registeredOwner,
       releaseId: releaseId,
+      deviceId: deviceId,
     );
     calloc.free(systemInfo);
     calloc.free(osVersionInfo);
