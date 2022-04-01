@@ -1,3 +1,7 @@
+## 4.0.4
+
+- Add, enum `ShareWithAppWindows` to for selective app sharing in windows desktop
+
 ## 4.0.3
 
 - Android: Revert increased minSdkVersion back to 16
