@@ -1,3 +1,7 @@
+## 2.2.0
+
+- Add more information to WindowsDeviceInfo.
+
 ## 2.1.1
 
 - Use automatic plugin registration

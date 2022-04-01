@@ -1,3 +1,7 @@
+## 3.3.0
+
+- Added more information to `WindowsDeviceInfo`.
+
 ## 3.2.2
 
 - Fix embedding issue in example
