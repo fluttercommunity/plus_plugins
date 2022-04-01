@@ -1,6 +1,6 @@
 name: share_plus_windows
 description: Windows implementation of the share_plus plugin
-version: 3.0.0
+version: 3.0.1
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
