@@ -1,5 +1,6 @@
 ## 4.0.4
 
+- Add, Share file with Windows desktop app
 - Add, enum `ShareWithAppWindows` to for selective app sharing in windows desktop
 
 ## 4.0.3
