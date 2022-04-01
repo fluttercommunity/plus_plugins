@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Add `shareFileWithApp`
+
 ## 3.0.0
 
 - Bump dependencies
