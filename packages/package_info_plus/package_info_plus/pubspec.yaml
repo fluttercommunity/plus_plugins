@@ -25,9 +25,9 @@ dependencies:
   flutter:
     sdk: flutter
   package_info_plus_platform_interface: ^1.0.2
-  package_info_plus_linux: ^1.0.3
+  package_info_plus_linux: ^1.0.4
   package_info_plus_macos: ^1.2.0
-  package_info_plus_windows: ^1.0.4
+  package_info_plus_windows: ^1.0.5
   package_info_plus_web: ^1.0.4
 
 dev_dependencies:
