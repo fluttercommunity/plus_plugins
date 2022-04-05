@@ -7,7 +7,7 @@
 - Fixed url resolving for the version.json
 
 ## 1.0.3
-- Add `buildSignature` to Android package info to retrieve the signing certificate SHA1 at runtime.
+- Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
 
 ## 1.0.2
 
