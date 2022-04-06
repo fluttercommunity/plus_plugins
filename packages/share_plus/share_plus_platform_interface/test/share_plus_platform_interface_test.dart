@@ -136,14 +136,7 @@ void main() {
         },
       ));
 
-      await sharePlatform.shareFileWithApp(
-          fd.path,
-          ShareWithAppWindows.BY_DEFAULT_APP
-      );
-      verify(mockChannel.invokeMethod<void>('shareFileWithApp', <String, dynamic>{
-        'path': fd.path,
-        'appName': ShareWithAppWindows.BY_DEFAULT_APP,
-      }));
+
     });
   });
 

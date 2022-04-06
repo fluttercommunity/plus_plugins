@@ -20,9 +20,5 @@ class ShareMacOS extends SharePlatform {
     SharePlatform.instance = ShareMacOS();
   }
 
-  /// Share file with specific app, skipping Browser launch
-  @override
-  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName)async {
-    throw UnimplementedError('shareFileWithApp() has not been implemented on Windows.');
-  }
+
 }

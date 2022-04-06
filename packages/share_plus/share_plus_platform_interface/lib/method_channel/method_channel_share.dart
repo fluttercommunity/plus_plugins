@@ -11,6 +11,8 @@ import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
+import '../share_plus_platform_interface.dart';
+
 /// Plugin for summoning a platform share sheet.
 class MethodChannelShare extends SharePlatform {
   /// [MethodChannel] used to communicate with the platform side.
@@ -49,6 +51,7 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    ShareWithAppWindows? appName
   }) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
@@ -67,6 +70,7 @@ class MethodChannelShare extends SharePlatform {
       params['originWidth'] = sharePositionOrigin.width;
       params['originHeight'] = sharePositionOrigin.height;
     }
+    params['appName'] = appName;
 
     return channel.invokeMethod('shareFiles', params);
   }

@@ -7,6 +7,8 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../share_plus_platform_interface/lib/share_plus_platform_interface.dart';
+
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
   /// Register this dart class as the platform implementation for linux
@@ -29,7 +31,10 @@ class ShareWindows extends SharePlatform {
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
-      query: queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&'),
+      query: queryParameters.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&'),
     );
 
     if (await canLaunch(uri.toString())) {
@@ -39,14 +44,11 @@ class ShareWindows extends SharePlatform {
     }
   }
 
-  /// Share file with specific app, skipping Browser launch
-  @override
-  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) async {
-    await Process.run(shareWithAppWindowsCmd[appName]!, [path.toString()], runInShell: true);
-    // throw UnimplementedError('shareFileWith() has not been implemented on Windows.');
-  }
+
 
   /// Share files.
+  /// [paths] pass only 1 file for Windows platform
+  /// [text] [subject] share text NOT supported for Windows platform
   @override
   Future<void> shareFiles(
     List<String> paths, {
@@ -54,8 +56,13 @@ class ShareWindows extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-  }) {
-    throw UnimplementedError('shareFiles() has not been implemented on Windows.');
+      ShareWithAppWindows appName = ShareWithAppWindows.BY_DEFAULT_APP}) async {
+
+    try {
+      await Process.run(shareWithAppWindowsCmd[appName]!, [paths.first.toString()], runInShell: true);
+    }
+
+    //throw UnimplementedError('shareFiles() has not been implemented on Windows.');
   }
 
   Map<ShareWithAppWindows, String> shareWithAppWindowsCmd = {

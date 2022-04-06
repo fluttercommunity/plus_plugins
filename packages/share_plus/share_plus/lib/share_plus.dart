@@ -147,18 +147,5 @@ class Share {
     );
   }
 
-  /// **Currently only implemented on Windows only.**
-  ///
-  /// Will launch desktop with the file or text passed as input data.
-  /// Only limited apps were mentioned in [ShareWithAppWindows].
-  /// most apps can by handled by system by using [ShareWithAppWindows.BY_DEFAULT_APP]
-  /// No result is returned about success of operation
-  ///
-  /// Share file with specific desktop app, skipping Browser launch
-  @override
-  static Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) {
-    assert(path.isNotEmpty);
-    assert(appName != null);
-    return _platform.shareFileWithApp(path, appName);
-  }
+
 }

@@ -65,11 +65,6 @@ class SharePlusPlugin extends SharePlatform {
     throw UnimplementedError('shareFiles() has not been implemented on Web.');
   }
 
-  /// Share file with specific app, skipping Browser launch
-  @override
-  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName)async {
-    throw UnimplementedError('shareFileWithApp() has not been implemented on Web.');
-  }
 
 
 }

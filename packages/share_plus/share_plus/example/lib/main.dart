@@ -215,7 +215,6 @@ class DemoAppState extends State<DemoApp> {
   void _onShareWithApp(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
 
-    //  await Share.shareFileWithApp("\"$filePath\"",appSelected! );
-   await Share.shareFileWithApp("$filePath",appSelected );
+
   }
 }

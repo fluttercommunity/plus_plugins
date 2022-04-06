@@ -50,13 +50,15 @@ class SharePlatform extends PlatformInterface {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-  }) {
+    ShareWithAppWindows? appName
+    }) {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      appName: appName,
     );
   }
 
@@ -94,10 +96,6 @@ class SharePlatform extends PlatformInterface {
     return _resultUnavailable;
   }
 
-  /// Share file with specific app.
-  Future<void> shareFileWithApp(String path, ShareWithAppWindows appName) async {
-    await _instance.shareFileWithApp(path, appName);
-  }
 }
 
 /// The result of a share to determine what action the
