@@ -74,7 +74,7 @@ class Share {
       String? subject,
       String? text,
       Rect? sharePositionOrigin,
-      ShareWithApp? appName}) {
+      ShareWithApp? appName,}) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     return _platform.shareFiles(

@@ -54,7 +54,7 @@ class ShareWindows extends SharePlatform {
       String? subject,
       String? text,
       Rect? sharePositionOrigin,
-      ShareWithApp? appName}) async {
+      ShareWithApp? appName,}) async {
     try {
       if (appName == null) {
         appName == ShareWithApp.BY_DEFAULT_APP;
