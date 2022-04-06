@@ -45,7 +45,11 @@ class SharePlatform extends PlatformInterface {
 
   /// Share files.
   Future<void> shareFiles(List<String> paths,
-      {List<String>? mimeTypes, String? subject, String? text, Rect? sharePositionOrigin, ShareWithApp? appName}) {
+      {List<String>? mimeTypes,
+      String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      ShareWithApp? appName}) {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
@@ -79,7 +83,12 @@ class SharePlatform extends PlatformInterface {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    await _instance.shareFiles(paths, mimeTypes: mimeTypes, subject: subject, text: text, sharePositionOrigin: sharePositionOrigin, appName: null);
+    await _instance.shareFiles(paths,
+        mimeTypes: mimeTypes,
+        subject: subject,
+        text: text,
+        sharePositionOrigin: sharePositionOrigin,
+        appName: null);
 
     return _resultUnavailable;
   }

@@ -11,7 +11,6 @@ import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-
 /// Plugin for summoning a platform share sheet.
 class MethodChannelShare extends SharePlatform {
   /// [MethodChannel] used to communicate with the platform side.
@@ -44,14 +43,12 @@ class MethodChannelShare extends SharePlatform {
 
   /// Summons the platform's share sheet to share multiple files.
   @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    ShareWithApp? appName
-  }) {
+  Future<void> shareFiles(List<String> paths,
+      {List<String>? mimeTypes,
+      String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      ShareWithApp? appName}) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     final params = <String, dynamic>{

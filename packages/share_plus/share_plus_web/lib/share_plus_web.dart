@@ -55,17 +55,12 @@ class SharePlusPlugin extends SharePlatform {
 
   /// Share files
   @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-        ShareWithApp? appName
-      }) {
+  Future<void> shareFiles(List<String> paths,
+      {List<String>? mimeTypes,
+      String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      ShareWithApp? appName}) {
     throw UnimplementedError('shareFiles() has not been implemented on Web.');
   }
-
-
-
 }

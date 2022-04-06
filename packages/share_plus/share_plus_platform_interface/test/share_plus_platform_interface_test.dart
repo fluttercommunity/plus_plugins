@@ -79,8 +79,6 @@ void main() {
       'originHeight': 4.0,
     }));
 
-
-
     await SharePlatform.instance.shareWithResult(
       'some text to share',
       subject: 'some subject to share',
@@ -135,8 +133,6 @@ void main() {
           'originHeight': 4.0,
         },
       ));
-
-
     });
   });
 
@@ -227,8 +223,6 @@ void main() {
       }));
     });
   });
-
-
 }
 
 /// Execute a block within a context that handles creation and deletion of a helper file

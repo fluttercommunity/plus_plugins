@@ -2,9 +2,6 @@
 // as its instance, which is all the macOS implementation needs. This file
 // is here to silence warnings when publishing to pub.
 
-
-
-
 /// The Windows implementation of `share_plus`.
 library share_plus_macos;
 
@@ -19,6 +16,4 @@ class ShareMacOS extends SharePlatform {
   static void registerWith() {
     SharePlatform.instance = ShareMacOS();
   }
-
-
 }
