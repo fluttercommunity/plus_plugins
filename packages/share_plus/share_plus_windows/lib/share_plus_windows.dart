@@ -7,7 +7,7 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../share_plus_platform_interface/lib/share_plus_platform_interface.dart';
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus, ShareWithApp;
 
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
@@ -31,10 +31,7 @@ class ShareWindows extends SharePlatform {
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
-      query: queryParameters.entries
-          .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-          .join('&'),
+      query: queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&'),
     );
 
     if (await canLaunch(uri.toString())) {
@@ -44,34 +41,33 @@ class ShareWindows extends SharePlatform {
     }
   }
 
-
-
   /// Share files.
   /// [paths] pass only 1 file for Windows platform
   /// [text] [subject] share text NOT supported for Windows platform
   @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-      ShareWithAppWindows appName = ShareWithAppWindows.BY_DEFAULT_APP}) async {
-
+  Future<void> shareFiles(List<String> paths,
+      {List<String>? mimeTypes,
+      String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      ShareWithApp? appName}) async {
     try {
-      await Process.run(shareWithAppWindowsCmd[appName]!, [paths.first.toString()], runInShell: true);
+      if(appName==null){
+        appName==ShareWithApp.BY_DEFAULT_APP;
+      }
+      await Process.run(ShareWithAppCmd[appName]!, [paths.first.toString()], runInShell: true);
+    } catch (e) {
+      throw Exception('Unable to share on windows');
     }
-
-    //throw UnimplementedError('shareFiles() has not been implemented on Windows.');
   }
 
-  Map<ShareWithAppWindows, String> shareWithAppWindowsCmd = {
-    ShareWithAppWindows.BY_DEFAULT_APP: "explorer",
-    ShareWithAppWindows.MSPAINT: "mspaint",
-    ShareWithAppWindows.NOTEPAD: "notepad",
-    ShareWithAppWindows.NOTEPAD_PLUS_PLUS: "start notepad++.exe",
-    ShareWithAppWindows.PHOTOSHOP: "start Photoshop",
-    ShareWithAppWindows.EDGE: "start msedge",
-    ShareWithAppWindows.CHROME: "chrome",
+  Map<ShareWithApp, String> ShareWithAppCmd = {
+    ShareWithApp.BY_DEFAULT_APP: "explorer",
+    ShareWithApp.MS_PAINT: "mspaint",
+    ShareWithApp.NOTEPAD: "notepad",
+    ShareWithApp.NOTEPAD_PLUS_PLUS: "start notepad++.exe",
+    ShareWithApp.PHOTOSHOP: "start Photoshop",
+    ShareWithApp.EDGE: "start msedge",
+    ShareWithApp.CHROME: "chrome",
   };
 }

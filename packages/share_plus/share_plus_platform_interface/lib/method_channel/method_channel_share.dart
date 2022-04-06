@@ -11,7 +11,6 @@ import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-import '../share_plus_platform_interface.dart';
 
 /// Plugin for summoning a platform share sheet.
 class MethodChannelShare extends SharePlatform {

@@ -44,14 +44,8 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files.
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    ShareWithAppWindows? appName
-    }) {
+  Future<void> shareFiles(List<String> paths,
+      {List<String>? mimeTypes, String? subject, String? text, Rect? sharePositionOrigin, ShareWithAppWindows? appName}) {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
@@ -85,17 +79,10 @@ class SharePlatform extends PlatformInterface {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    await _instance.shareFiles(
-      paths,
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    await _instance.shareFiles(paths, mimeTypes: mimeTypes, subject: subject, text: text, sharePositionOrigin: sharePositionOrigin, appName: null);
 
     return _resultUnavailable;
   }
-
 }
 
 /// The result of a share to determine what action the
@@ -149,7 +136,7 @@ enum ShareWithAppWindows {
   CHROME,
 
   /// Opens image file in MS Paint
-  MSPAINT,
+  MS_PAINT,
 
   /// Opens Image/SVG/Photoshop file in Adobe PHOTOSHOP
   PHOTOSHOP,

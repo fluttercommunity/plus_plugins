@@ -52,16 +52,10 @@ To share one or multiple files invoke the static `shareFiles` method anywhere in
 
 ```dart
 Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
-Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
+Share.shareFiles(['${directory.path}/image1.jpg'], appName: ShareWithApp.BY_DEFAULT_APP);
 ```
 
-To share file with specific app invoke the static `shareFileWithApp` method anywhere in your Dart code. You have to pass `appName` defined in `ShareWithAppWindows`.
-Currently supports **Windows** platform only. By default, `ShareWithAppWindows.BY_DEFAULT_APP` will open default app handled by system.
-
-```dart
-Share.shareFileWithApp('${directory.path}/image.jpg',ShareWithAppWindows.BY_DEFAULT_APP );
-Share.shareFileWithApp('${directory.path}/info.txt',ShareWithAppWindows.NOTEPAD );
-```
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
@@ -76,7 +70,7 @@ Due to restrictions set up by Facebook this plugin isn't capable of sharing data
 
 ## Description
 
-Added `shareFileWithApp()` , which can open file with its data as input to specific list of apps . It skips browser requirement to launch an app on desktop. The supported apps in plugin is `MSPAINT, NOTEPAD, PHOTOSHOP, EDGE, CHROME, NOTEPAD_PLUS_PLUS` or `BY_DEFAULT_APP` will  make file handle by system defaults app.
+Added `shareFileWithApp()` , which can open file with its data as input to specific list of apps . It skips browser requirement to launch an app on desktop. The supported apps in plugin is `MS_PAINT, NOTEPAD, PHOTOSHOP, EDGE, CHROME, NOTEPAD_PLUS_PLUS` or `BY_DEFAULT_APP` will  make file handle by system defaults app.
 
 - Select File, it will open by default app handler by Windows or specific app mentioned. It will skip browser need to open desktop app.
 <a href="https://imgur.com/lD9X0YH"><img src="https://i.imgur.com/lD9X0YH.jpg" title="source: imgur.com" /></a>

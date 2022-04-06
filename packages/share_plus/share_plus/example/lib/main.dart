@@ -25,9 +25,9 @@ class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
   List<String> imagePaths = [];
-  String? filePath;
+  String filePath = '';
 
-  ShareWithAppWindows appSelected=ShareWithAppWindows.BY_DEFAULT_APP;
+  ShareWithApp appSelected = ShareWithApp.BY_DEFAULT_APP;
 
   @override
   Widget build(BuildContext context) {
@@ -100,13 +100,11 @@ class DemoAppState extends State<DemoApp> {
                   ),
                   const Padding(padding: EdgeInsets.only(top: 20.0)),
                   Divider(),
-
                   Text(
                     'File Share, Windows only',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
-
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -128,32 +126,35 @@ class DemoAppState extends State<DemoApp> {
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          '${filePath ?? '<file path>'}',
+                          '${filePath}',
                           style: TextStyle(color: Colors.grey),
                         ),
                       )
                     ],
                   ),
                   Visibility(
-                    visible: filePath!=null,
+                    visible: filePath.isNotEmpty,
                     child: Wrap(
-                        children: List.generate(ShareWithAppWindows.values.length, (index) {
-                          return  Container(
-                            width:200,
-                            child: ListTile(
-                              title: Text(describeEnum(ShareWithAppWindows.values[index]),style: TextStyle(fontSize: 12),),
-                              leading: Radio(
-                                value: ShareWithAppWindows.values[index],
-                                groupValue: appSelected,
-                                onChanged: (ShareWithAppWindows? value) {
-                                  setState(() {
-                                    appSelected = value!;
-                                  });
-                                },
-                              ),
-                            ),
-                          );
-                        })),
+                        children: List.generate(ShareWithApp.values.length, (index) {
+                      return Container(
+                        width: 200,
+                        child: ListTile(
+                          title: Text(
+                            describeEnum(ShareWithApp.values[index]),
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          leading: Radio(
+                            value: ShareWithApp.values[index],
+                            groupValue: appSelected,
+                            onChanged: (ShareWithApp? value) {
+                              setState(() {
+                                appSelected = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      );
+                    })),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 8)),
                   Builder(
@@ -162,10 +163,9 @@ class DemoAppState extends State<DemoApp> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ElevatedButton(
-                            onPressed: filePath == null ? null : () => _onShareWithApp(context),
+                            onPressed: filePath.isEmpty? null : () => _onShareWithApp(context),
                             child: const Text('Share With App'),
                           ),
-
                         ],
                       );
                     },
@@ -215,6 +215,6 @@ class DemoAppState extends State<DemoApp> {
   void _onShareWithApp(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
 
-
+    await Share.shareFiles([filePath], appName: appSelected);
   }
 }
