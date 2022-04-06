@@ -45,7 +45,7 @@ class SharePlatform extends PlatformInterface {
 
   /// Share files.
   Future<void> shareFiles(List<String> paths,
-      {List<String>? mimeTypes, String? subject, String? text, Rect? sharePositionOrigin, ShareWithAppWindows? appName}) {
+      {List<String>? mimeTypes, String? subject, String? text, Rect? sharePositionOrigin, ShareWithApp? appName}) {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
@@ -119,7 +119,7 @@ enum ShareResultStatus {
 }
 
 /// How the user handled the share-sheet
-enum ShareWithAppWindows {
+enum ShareWithApp {
   /// Most apps can by handled by system, using explorer.exe
   BY_DEFAULT_APP,
 

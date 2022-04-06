@@ -61,7 +61,7 @@ class SharePlusPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-        ShareWithAppWindows? appName
+        ShareWithApp? appName
       }) {
     throw UnimplementedError('shareFiles() has not been implemented on Web.');
   }

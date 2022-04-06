@@ -50,7 +50,7 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-    ShareWithAppWindows? appName
+    ShareWithApp? appName
   }) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));

@@ -1,6 +1,6 @@
 ## 3.0.3
 
-- Add, enum `ShareWithAppWindows` to for selective app sharing in windows desktop
+- Add, enum `ShareWithApp` to for selective app sharing in windows desktop
 
 ## 3.0.2
 

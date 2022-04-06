@@ -63,7 +63,7 @@ class Share {
   /// on non-iPads.
   ///
   /// The optional `appName` parameter can be used to specify a default app or specific
-  /// app name from [ShareWithApp] for the share. Currently [appName] is supported for Windows platform app
+  /// app name from [ShareWithApp] for the share. Currently [appName] is supported for Windows platform
   /// only.
   ///
   /// May throw [PlatformException] or [FormatException]
