@@ -131,7 +131,7 @@ enum ShareResultStatus {
   unavailable,
 }
 
-/// How the user handled the share-sheet
+/// How the user handled file with specific app
 enum ShareWithApp {
   /// Most apps can by handled by system, using explorer.exe
   BY_DEFAULT_APP,

@@ -11,10 +11,8 @@ import 'package:mockito/mockito.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
 import 'package:test/test.dart';
-
 import 'package:flutter/services.dart';
 
-import '../lib/share_plus_platform_interface.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
