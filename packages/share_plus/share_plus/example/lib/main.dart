@@ -68,7 +68,7 @@ class DemoAppState extends State<DemoApp> {
                   ListTile(
                     leading: const Icon(Icons.add),
                     title: const Text('Add image'),
-                    onTap:() async {
+                    onTap: () async {
                       final imagePicker = ImagePicker();
                       final pickedFile = await imagePicker.pickImage(
                         source: ImageSource.gallery,
@@ -84,7 +84,9 @@ class DemoAppState extends State<DemoApp> {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty ? null : () => _onShare(context),
+                        onPressed: text.isEmpty && imagePaths.isEmpty
+                            ? null
+                            : () => _onShareWithResult(context),
                         child: const Text('Share'),
                       );
                     },
@@ -113,8 +115,9 @@ class DemoAppState extends State<DemoApp> {
                         child: ListTile(
                           leading: const Icon(Icons.add),
                           title: const Text('Choose file'),
-                          onTap:() async {
-                            FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          onTap: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles();
                             if (result != null) {
                               setState(() {
                                 filePath = result.files.single.path!;
@@ -135,7 +138,8 @@ class DemoAppState extends State<DemoApp> {
                   Visibility(
                     visible: filePath.isNotEmpty,
                     child: Wrap(
-                        children: List.generate(ShareWithApp.values.length, (index) {
+                        children: List.generate(ShareWithApp.values.length,
+                                (index) {
                       return Container(
                         width: 200,
                         child: ListTile(
@@ -163,7 +167,9 @@ class DemoAppState extends State<DemoApp> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ElevatedButton(
-                            onPressed: filePath.isEmpty ? null : () => _onShareWithApp(context),
+                            onPressed: filePath.isEmpty
+                                ? null
+                                : () => _onShareWithApp(context),
                             child: const Text('Share With App'),
                           ),
                         ],
@@ -194,7 +200,10 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (imagePaths.isNotEmpty) {
-      await Share.shareFiles(imagePaths, text: text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      await Share.shareFiles(imagePaths,
+          text: text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
   }
 
@@ -202,10 +211,14 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
     ShareResult result;
     if (imagePaths.isNotEmpty) {
-      result =
-          await Share.shareFilesWithResult(imagePaths, text: text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      result = await Share.shareFilesWithResult(imagePaths,
+          text: text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else {
-      result = await Share.shareWithResult(text, subject: subject, sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      result = await Share.shareWithResult(text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Share result: ${result.status}"),
