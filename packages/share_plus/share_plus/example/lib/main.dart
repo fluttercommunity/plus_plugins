@@ -119,7 +119,7 @@ class DemoAppState extends State<DemoApp> {
                         child: ListTile(
                           leading: const Icon(Icons.add),
                           title: const Text('Choose file'),
-                          onTap:Platform.isWindows? () async {
+                          onTap:() async {
                             FilePickerResult? result =
                                 await FilePicker.platform.pickFiles();
                             if (result != null) {
@@ -127,7 +127,7 @@ class DemoAppState extends State<DemoApp> {
                                 filePath = result.files.single.path!;
                               });
                             }
-                          }:null,
+                          },
                         ),
                       ),
                       Padding(
