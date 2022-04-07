@@ -29,10 +29,7 @@ class ShareLinux extends SharePlatform {
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
-      query: queryParameters.entries
-          .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-          .join('&'),
+      query: queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&'),
     );
 
     await launch(uri.toString());
@@ -40,12 +37,14 @@ class ShareLinux extends SharePlatform {
 
   /// Share files.
   @override
-  Future<void> shareFiles(List<String> paths,
-      {List<String>? mimeTypes,
-      String? subject,
-      String? text,
-      Rect? sharePositionOrigin,
-      ShareWithApp? appName}) {
+  Future<void> shareFiles(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    ShareWithApp? appName,
+  }) {
     throw UnimplementedError('shareFiles() has not been implemented on Linux.');
   }
 }

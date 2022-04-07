@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +119,7 @@ class DemoAppState extends State<DemoApp> {
                         child: ListTile(
                           leading: const Icon(Icons.add),
                           title: const Text('Choose file'),
-                          onTap: () async {
+                          onTap:Platform.isWindows? () async {
                             FilePickerResult? result =
                                 await FilePicker.platform.pickFiles();
                             if (result != null) {
@@ -125,7 +127,7 @@ class DemoAppState extends State<DemoApp> {
                                 filePath = result.files.single.path!;
                               });
                             }
-                          },
+                          }:null,
                         ),
                       ),
                       Padding(

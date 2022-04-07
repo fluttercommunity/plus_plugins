@@ -17,8 +17,7 @@ class SharePlusPlugin extends SharePlatform {
   final _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
-      : _navigator = debugNavigator ?? html.window.navigator;
+  SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator}) : _navigator = debugNavigator ?? html.window.navigator;
 
   /// Share text
   @override
@@ -39,10 +38,7 @@ class SharePlusPlugin extends SharePlatform {
       // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
       final uri = Uri(
         scheme: 'mailto',
-        query: queryParameters.entries
-            .map((e) =>
-                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-            .join('&'),
+        query: queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&'),
       );
 
       if (await canLaunch(uri.toString())) {
@@ -55,12 +51,14 @@ class SharePlusPlugin extends SharePlatform {
 
   /// Share files
   @override
-  Future<void> shareFiles(List<String> paths,
-      {List<String>? mimeTypes,
-      String? subject,
-      String? text,
-      Rect? sharePositionOrigin,
-      ShareWithApp? appName}) {
+  Future<void> shareFiles(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    ShareWithApp? appName,
+  }) {
     throw UnimplementedError('shareFiles() has not been implemented on Web.');
   }
 }

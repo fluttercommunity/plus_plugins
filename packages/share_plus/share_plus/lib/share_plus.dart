@@ -7,8 +7,7 @@ import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus, ShareWithApp;
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus, ShareWithApp;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -69,12 +68,14 @@ class Share {
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
-  static Future<void> shareFiles(List<String> paths,
-      {List<String>? mimeTypes,
-      String? subject,
-      String? text,
-      Rect? sharePositionOrigin,
-      ShareWithApp? appName,}) {
+  static Future<void> shareFiles(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    ShareWithApp? appName,
+  }) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     return _platform.shareFiles(
