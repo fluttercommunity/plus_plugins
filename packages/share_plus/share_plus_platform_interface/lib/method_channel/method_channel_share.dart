@@ -15,7 +15,7 @@ class MethodChannelShare extends SharePlatform {
   /// [MethodChannel] used to communicate with the platform side.
   @visibleForTesting
   static const MethodChannel channel =
-  MethodChannel('dev.fluttercommunity.plus/share');
+      MethodChannel('dev.fluttercommunity.plus/share');
 
   /// Summons the platform's share sheet to share text.
   @override
@@ -54,7 +54,8 @@ class MethodChannelShare extends SharePlatform {
     assert(paths.every((element) => element.isNotEmpty));
     final params = <String, dynamic>{
       'paths': paths,
-      'mimeTypes': mimeTypes ?? paths.map((String path) => _mimeTypeForPath(path)).toList(),
+      'mimeTypes': mimeTypes ??
+          paths.map((String path) => _mimeTypeForPath(path)).toList(),
     };
 
     if (subject != null) params['subject'] = subject;

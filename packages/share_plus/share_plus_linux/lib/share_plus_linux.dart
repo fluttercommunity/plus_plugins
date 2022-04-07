@@ -31,7 +31,7 @@ class ShareLinux extends SharePlatform {
       scheme: 'mailto',
       query: queryParameters.entries
           .map((e) =>
-      '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
           .join('&'),
     );
 

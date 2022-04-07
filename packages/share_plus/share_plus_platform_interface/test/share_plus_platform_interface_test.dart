@@ -13,7 +13,6 @@ import 'package:share_plus_platform_interface/method_channel/method_channel_shar
 import 'package:test/test.dart';
 import 'package:flutter/services.dart';
 
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 

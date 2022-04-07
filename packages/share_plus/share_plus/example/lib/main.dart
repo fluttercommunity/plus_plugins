@@ -95,7 +95,9 @@ class DemoAppState extends State<DemoApp> {
                   Builder(
                     builder: (BuildContext context) {
                       return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty ? null : () => _onShareWithResult(context),
+                        onPressed: text.isEmpty && imagePaths.isEmpty
+                            ? null
+                            : () => _onShareWithResult(context),
                         child: const Text('Share With Result'),
                       );
                     },
@@ -138,8 +140,8 @@ class DemoAppState extends State<DemoApp> {
                   Visibility(
                     visible: filePath.isNotEmpty,
                     child: Wrap(
-                        children: List.generate(ShareWithApp.values.length,
-                                (index) {
+                        children:
+                            List.generate(ShareWithApp.values.length, (index) {
                       return Container(
                         width: 200,
                         child: ListTile(

@@ -7,7 +7,8 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus, ShareWithApp;
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
+    show ShareResult, ShareResultStatus, ShareWithApp;
 
 /// The Windows implementation of SharePlatform.
 class ShareWindows extends SharePlatform {
@@ -33,7 +34,7 @@ class ShareWindows extends SharePlatform {
       scheme: 'mailto',
       query: queryParameters.entries
           .map((e) =>
-      '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
           .join('&'),
     );
 
