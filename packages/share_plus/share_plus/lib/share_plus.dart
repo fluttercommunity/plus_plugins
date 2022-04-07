@@ -7,7 +7,8 @@ import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-export 'package:share_plus_platform_interface/share_plus_platform_interface.dart' show ShareResult, ShareResultStatus, ShareWithApp;
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
+    show ShareResult, ShareResultStatus, ShareWithApp;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
