@@ -6,7 +6,7 @@ import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+ import 'package:mockito/mockito.dart';
 import 'package:platform/platform.dart';
 
 void main() {

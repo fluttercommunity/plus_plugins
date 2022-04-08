@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart'
-    show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
+import 'package:flutter_test/flutter_test.dart';
+
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 import 'package:sensors_plus_platform_interface/src/method_channel_sensors.dart';
-import 'package:test/test.dart';
+
 
 final MethodChannelSensors methodChannel = MethodChannelSensors();
 

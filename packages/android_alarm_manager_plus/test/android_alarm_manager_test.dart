@@ -8,7 +8,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
+void main() async {
   String invalidCallback(String foo) => foo;
   // ignore: avoid_returning_null_for_void
   void validCallback(int id) => null;
@@ -21,7 +21,7 @@ void main() {
     testChannel.setMockMethodCallHandler((MethodCall call) => null);
   });
 
-  test('${AndroidAlarmManager.initialize}', () async {
+  test('${await AndroidAlarmManager.initialize}', () async {
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       assert(call.method == 'AlarmService.start');
       return true;
@@ -32,20 +32,20 @@ void main() {
     expect(initialized, isTrue);
   });
 
-  group('${AndroidAlarmManager.oneShotAt}', () {
+  group('${await AndroidAlarmManager.oneShotAt}', () {
     test('validates input', () async {
       final validTime = DateTime.utc(1993);
       const validId = 1;
 
       // Callback should take a single int param.
       await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+           () async=> await AndroidAlarmManager.oneShotAt(
               validTime, validId, invalidCallback),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
-          () => AndroidAlarmManager.oneShotAt(
+          ()async=> await AndroidAlarmManager.oneShotAt(
               validTime, 2147483648, validCallback),
           throwsAssertionError);
     });
@@ -89,7 +89,7 @@ void main() {
     });
   });
 
-  test('${AndroidAlarmManager.oneShot} calls through to oneShotAt', () async {
+  test('${await AndroidAlarmManager.oneShot} calls through to oneShotAt', () async {
     final now = DateTime(1993);
     const rawHandle = 4;
     AndroidAlarmManager.setTestOverrides(
@@ -129,20 +129,20 @@ void main() {
     expect(result, isTrue);
   });
 
-  group('${AndroidAlarmManager.periodic}', () {
+  group('${await AndroidAlarmManager.periodic}', () {
     test('validates input', () async {
       const validDuration = Duration(seconds: 0);
       const validId = 1;
 
       // Callback should take a single int param.
       await expectLater(
-          () => AndroidAlarmManager.periodic(
+          () async=>await AndroidAlarmManager.periodic(
               validDuration, validId, invalidCallback),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
-          () => AndroidAlarmManager.periodic(
+          () async=>await AndroidAlarmManager.periodic(
               validDuration, 2147483648, validCallback),
           throwsAssertionError);
     });
@@ -190,7 +190,7 @@ void main() {
     });
   });
 
-  test('${AndroidAlarmManager.cancel}', () async {
+  test('${ await AndroidAlarmManager.cancel}', () async {
     const id = 1;
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       assert(call.method == 'Alarm.cancel' && call.arguments[0] == id);
