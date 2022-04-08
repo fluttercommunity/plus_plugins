@@ -23,12 +23,14 @@ dependency_overrides:
     path: ../../connectivity_plus_windows
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   flutter_driver:
     sdk: flutter
   integration_test:
     sdk: flutter
-  test: ^1.16.4
   flutter_lints: ^1.0.4
+
 
 flutter:
   uses-material-design: true

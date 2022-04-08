@@ -17,6 +17,8 @@ dependencies:
     sdk: flutter
   flutter:
     sdk: flutter
+  flutter_test:
+    sdk: flutter
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
