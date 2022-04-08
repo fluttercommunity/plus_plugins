@@ -4,12 +4,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+ // IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Connectivity test driver', () {
     Connectivity _connectivity;
@@ -19,8 +18,11 @@ void main() {
     });
 
     testWidgets('test connectivity result', (WidgetTester tester) async {
+      print("11111111");
       final result = await _connectivity.checkConnectivity();
+      print("22222222");
       expect(result, isNotNull);
+      print("33333333333");
     });
   });
 }
