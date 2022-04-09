@@ -34,99 +34,72 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     }
     final systemInfo = _getInfoStructPointer();
     final osVersionInfo = _getOSVERSIONINFOEXPointer();
-    // Some registry keys can be modified/deleted by users.
-    // Thus, enclosed in a try-catch block for preventing errors due to any missing value.
-    var buildLab = '';
-    var buildLabEx = '';
-    var digitalProductId = Uint8List.fromList([]);
-    var displayVersion = '';
-    var editionId = '';
-    var installDate = DateTime.now();
-    var productId = '';
-    var productName = '';
-    var registeredOwner = '';
-    var releaseId = '';
-    var deviceId = '';
-    try {
-      buildLab = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'BuildLab',
-      ) as String;
-    } catch (_) {}
-    try {
-      buildLabEx = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'BuildLabEx',
-      ) as String;
-    } catch (_) {}
-    try {
-      digitalProductId = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'DigitalProductId',
-      ) as Uint8List;
-    } catch (_) {}
-    try {
-      displayVersion = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'DisplayVersion',
-      ) as String;
-    } catch (_) {}
-    try {
-      editionId = _getRegistryValue(
+    final buildLab = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'BuildLab',
+      '',
+    ) as String;
+    final buildLabEx = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'BuildLabEx',
+      '',
+    ) as String;
+    final digitalProductId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'DigitalProductId',
+      Uint8List.fromList([]),
+    ) as Uint8List;
+    final displayVersion = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'DisplayVersion',
+      '',
+    ) as String;
+    final editionId = _getRegistryValue(
         HKEY_LOCAL_MACHINE,
         'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
         'EditionID',
-      ) as String;
-    } catch (_) {}
-    try {
-      installDate = DateTime.fromMillisecondsSinceEpoch(
-        (_getRegistryValue(
-              HKEY_LOCAL_MACHINE,
-              'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-              'InstallDate',
-            ) as int) *
-            1000,
-      );
-    } catch (_) {}
-    try {
-      productId = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'ProductId',
-      ) as String;
-    } catch (_) {}
-    try {
-      productName = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'ProductName',
-      ) as String;
-    } catch (_) {}
-    try {
-      registeredOwner = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'RegisteredOwner',
-      ) as String;
-    } catch (_) {}
-    try {
-      releaseId = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'ReleaseId',
-      ) as String;
-    } catch (_) {}
-    try {
-      deviceId = _getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\SQMClient\\',
-        'MachineId',
-      ) as String;
-    } catch (_) {}
+        '') as String;
+    final installDate = DateTime.fromMillisecondsSinceEpoch(1000 *
+        _getRegistryValue(
+          HKEY_LOCAL_MACHINE,
+          'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+          'InstallDate',
+          0,
+        ) as int);
+    final productId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ProductId',
+      '',
+    ) as String;
+    var productName = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ProductName',
+      '',
+    ) as String;
+    final registeredOwner = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'RegisteredOwner',
+      '',
+    ) as String;
+    final releaseId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ReleaseId',
+      '',
+    ) as String;
+    final deviceId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\SQMClient\\',
+      'MachineId',
+      '',
+    ) as String;
     GetSystemInfo(systemInfo);
     // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
     _rtlGetVersion!(osVersionInfo);
@@ -263,7 +236,12 @@ Pointer<OSVERSIONINFOEX> _getOSVERSIONINFOEXPointer() {
 }
 
 /// Helper function derived from https://github.com/timsneath/win32/blob/main/example/sysinfo.dart.
-dynamic _getRegistryValue(int key, String subKey, String valueName) {
+dynamic _getRegistryValue(
+  int key,
+  String subKey,
+  String valueName,
+  dynamic fallbackValue,
+) {
   dynamic dataValue;
   final subKeyPtr = TEXT(subKey);
   final valueNamePtr = TEXT(valueName);
@@ -271,42 +249,43 @@ dynamic _getRegistryValue(int key, String subKey, String valueName) {
   final dataType = calloc<DWORD>();
   final data = calloc<BYTE>(256);
   final dataSize = calloc<DWORD>()..value = 512;
-  try {
-    var result = RegOpenKeyEx(key, subKeyPtr, 0, KEY_READ, openKeyPtr);
-    if (result == ERROR_SUCCESS) {
-      result = RegQueryValueEx(
-          openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
-
-      if (result == ERROR_SUCCESS) {
-        if (dataType.value == REG_DWORD) {
-          dataValue = data.cast<DWORD>().value;
-        } else if (dataType.value == REG_QWORD) {
-          dataValue = data.cast<QWORD>().value;
-        } else if (dataType.value == REG_SZ) {
-          dataValue = data.cast<Utf16>().toDartString();
-        } else if (dataType.value == REG_BINARY) {
-          final values = <int>[];
-          for (int i = 0; i < 256; i++) {
-            values.add(data.cast<Uint8>().elementAt(i).value);
-          }
-          dataValue = Uint8List.fromList(values);
-        } else {
-          throw WindowsException(HRESULT_FROM_WIN32(ERROR_INVALID_DATA));
-        }
-      } else {
-        throw WindowsException(HRESULT_FROM_WIN32(result));
-      }
-    } else {
-      throw WindowsException(HRESULT_FROM_WIN32(result));
-    }
-  } finally {
+  var result = RegOpenKeyEx(key, subKeyPtr, 0, KEY_READ, openKeyPtr);
+  void freeAllocations() {
     free(subKeyPtr);
     free(valueNamePtr);
     free(openKeyPtr);
     free(data);
     free(dataSize);
+    RegCloseKey(openKeyPtr.value);
   }
-  RegCloseKey(openKeyPtr.value);
 
-  return dataValue;
+  if (result == ERROR_SUCCESS) {
+    result = RegQueryValueEx(
+        openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
+    if (result == ERROR_SUCCESS) {
+      if (dataType.value == REG_DWORD) {
+        dataValue = data.cast<DWORD>().value;
+      } else if (dataType.value == REG_QWORD) {
+        dataValue = data.cast<QWORD>().value;
+      } else if (dataType.value == REG_SZ) {
+        dataValue = data.cast<Utf16>().toDartString();
+      } else if (dataType.value == REG_BINARY) {
+        final values = <int>[];
+        for (int i = 0; i < 256; i++) {
+          values.add(data.cast<Uint8>().elementAt(i).value);
+        }
+        dataValue = Uint8List.fromList(values);
+      } else {
+        throw WindowsException(HRESULT_FROM_WIN32(ERROR_INVALID_DATA));
+      }
+      freeAllocations();
+      return dataValue;
+    } else {
+      freeAllocations();
+      return fallbackValue;
+    }
+  } else {
+    freeAllocations();
+    return fallbackValue;
+  }
 }
