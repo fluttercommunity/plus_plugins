@@ -10,12 +10,16 @@ import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
+import android.util.DisplayMetrics;
+import android.view.Display;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
 
 /**
  * The implementation of {@link MethodChannel.MethodCallHandler} for the plugin. Responsible for
@@ -25,14 +29,19 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
   private final ContentResolver contentResolver;
   private final PackageManager packageManager;
+  private final IGetActivity getActivity;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
-  /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
+  /**
+   * Constructs DeviceInfo.
+   * {@code contentResolver}, {@code packageManager} and {@code getActivity} must not be null.
+   */
+  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager, IGetActivity getActivity) {
     this.contentResolver = contentResolver;
     this.packageManager = packageManager;
+    this.getActivity = getActivity;
   }
 
   @Override
@@ -78,6 +87,23 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       version.put("release", Build.VERSION.RELEASE);
       version.put("sdkInt", Build.VERSION.SDK_INT);
       build.put("version", version);
+
+      final Display display = getActivity.getActivity()
+        .getWindow()
+        .getWindowManager()
+        .getDefaultDisplay();
+      final DisplayMetrics metrics = new DisplayMetrics();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealMetrics(metrics);
+      } else {
+        display.getMetrics(metrics);
+      }
+      Map<String, Object> displayResult = new HashMap<>();
+      displayResult.put("widthPx", (double) metrics.widthPixels);
+      displayResult.put("heightPx", (double) metrics.heightPixels);
+      displayResult.put("xDpi", metrics.xdpi);
+      displayResult.put("yDpi", metrics.ydpi);
+      build.put("displayMetrics", displayResult);
 
       result.success(build);
     } else {

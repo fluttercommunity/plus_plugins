@@ -1,3 +1,7 @@
+## 2.3.1
+
+- Add Android DisplayMetrics to AndroidDeviceInfo
+
 ## 2.3.0+1
 
 - Fix LinuxDeviceInfo.name docs

@@ -101,6 +101,13 @@ class _MyAppState extends State<MyApp> {
       'isPhysicalDevice': build.isPhysicalDevice,
       'androidId': build.androidId,
       'systemFeatures': build.systemFeatures,
+      'displaySizeInches': ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
+      'displayWidthPixels': build.displayMetrics.widthPx,
+      'displayWidthInches': build.displayMetrics.widthInches,
+      'displayHeightPixels': build.displayMetrics.heightPx,
+      'displayHeightInches': build.displayMetrics.heightInches,
+      'displayXDpi': build.displayMetrics.xDpi,
+      'displayYDpi': build.displayMetrics.yDpi,
     };
   }
 

@@ -1,3 +1,7 @@
+## 3.2.3
+
+- Add support for Android display metrics
+
 ## 3.2.2
 
 - Fix embedding issue in example
