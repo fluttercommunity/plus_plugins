@@ -250,7 +250,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
   // Force subject when sharing a raw url or files
-  if(![subject isKindOfClass:[NSNull class]]) {
+  if (![subject isKindOfClass:[NSNull class]]) {
     [activityViewController setValue:subject forKey:@"subject"];
   }
   activityViewController.popoverPresentationController.sourceView = controller.view;
@@ -280,7 +280,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   if (data == nil) {
     data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
   }
-  
+
   [self share:@[ data ]
          withSubject:subject
       withController:controller
@@ -319,11 +319,7 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
     }
   }
 
-  [self share:items
-         withSubject:subject
-      withController:controller
-            atSource:origin
-            toResult:result];
+  [self share:items withSubject:subject withController:controller atSource:origin toResult:result];
 }
 
 @end
