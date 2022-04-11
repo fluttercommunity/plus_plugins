@@ -1,6 +1,10 @@
+## 3.2.4
+
+- Update the description of getAndroidId method 
+
 ## 3.2.3
 
-- Update the description of getAndroidId method
+- Fix crash on macOS running on Apple M1
 
 ## 3.2.2
 
