@@ -1,6 +1,6 @@
 ## 4.0.4
 
-- Fix subject not working when sharing raw url or files via email
+- iOS: Fix subject not working when sharing raw url or files via email
 
 ## 4.0.3
 
