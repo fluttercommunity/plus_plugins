@@ -336,83 +336,85 @@ typedef struct ctrace {
 
 extern void ctrace_record(ctrace_t *);
 
-#define RT_LOCK_ASSERT_HELD(_rt) \
+#define RT_LOCK_ASSERT_HELD(_rt)                                               \
   lck_mtx_assert(&(_rt)->rt_lock, LCK_MTX_ASSERT_OWNED)
 
-#define RT_LOCK_ASSERT_NOTHELD(_rt) \
+#define RT_LOCK_ASSERT_NOTHELD(_rt)                                            \
   lck_mtx_assert(&(_rt)->rt_lock, LCK_MTX_ASSERT_NOTOWNED)
 
-#define RT_LOCK(_rt)                 \
-  do {                               \
-    if (!rte_debug)                  \
-      lck_mtx_lock(&(_rt)->rt_lock); \
-    else                             \
-      rt_lock(_rt, FALSE);           \
+#define RT_LOCK(_rt)                                                           \
+  do {                                                                         \
+    if (!rte_debug)                                                            \
+      lck_mtx_lock(&(_rt)->rt_lock);                                           \
+    else                                                                       \
+      rt_lock(_rt, FALSE);                                                     \
   } while (0)
 
-#define RT_LOCK_SPIN(_rt)                 \
-  do {                                    \
-    if (!rte_debug)                       \
-      lck_mtx_lock_spin(&(_rt)->rt_lock); \
-    else                                  \
-      rt_lock(_rt, TRUE);                 \
+#define RT_LOCK_SPIN(_rt)                                                      \
+  do {                                                                         \
+    if (!rte_debug)                                                            \
+      lck_mtx_lock_spin(&(_rt)->rt_lock);                                      \
+    else                                                                       \
+      rt_lock(_rt, TRUE);                                                      \
   } while (0)
 
-#define RT_CONVERT_LOCK(_rt)               \
-  do {                                     \
-    RT_LOCK_ASSERT_HELD(_rt);              \
-    lck_mtx_convert_spin(&(_rt)->rt_lock); \
+#define RT_CONVERT_LOCK(_rt)                                                   \
+  do {                                                                         \
+    RT_LOCK_ASSERT_HELD(_rt);                                                  \
+    lck_mtx_convert_spin(&(_rt)->rt_lock);                                     \
   } while (0)
 
-#define RT_UNLOCK(_rt)                 \
-  do {                                 \
-    if (!rte_debug)                    \
-      lck_mtx_unlock(&(_rt)->rt_lock); \
-    else                               \
-      rt_unlock(_rt);                  \
+#define RT_UNLOCK(_rt)                                                         \
+  do {                                                                         \
+    if (!rte_debug)                                                            \
+      lck_mtx_unlock(&(_rt)->rt_lock);                                         \
+    else                                                                       \
+      rt_unlock(_rt);                                                          \
   } while (0)
 
-#define RT_ADDREF_LOCKED(_rt)                                                \
-  do {                                                                       \
-    if (!rte_debug) {                                                        \
-      RT_LOCK_ASSERT_HELD(_rt);                                              \
-      if (++(_rt)->rt_refcnt == 0) panic("RT_ADDREF(%p) bad refcnt\n", _rt); \
-    } else {                                                                 \
-      rtref(_rt);                                                            \
-    }                                                                        \
-  } while (0)
-
-/*
- * Spin variant mutex is used here; caller is responsible for
- * converting any previously-held similar lock to full mutex.
- */
-#define RT_ADDREF(_rt)     \
-  do {                     \
-    RT_LOCK_SPIN(_rt);     \
-    RT_ADDREF_LOCKED(_rt); \
-    RT_UNLOCK(_rt);        \
-  } while (0)
-
-#define RT_REMREF_LOCKED(_rt)                                              \
-  do {                                                                     \
-    if (!rte_debug) {                                                      \
-      RT_LOCK_ASSERT_HELD(_rt);                                            \
-      if ((_rt)->rt_refcnt == 0) panic("RT_REMREF(%p) bad refcnt\n", _rt); \
-      --(_rt)->rt_refcnt;                                                  \
-    } else {                                                               \
-      (void)rtunref(_rt);                                                  \
-    }                                                                      \
+#define RT_ADDREF_LOCKED(_rt)                                                  \
+  do {                                                                         \
+    if (!rte_debug) {                                                          \
+      RT_LOCK_ASSERT_HELD(_rt);                                                \
+      if (++(_rt)->rt_refcnt == 0)                                             \
+        panic("RT_ADDREF(%p) bad refcnt\n", _rt);                              \
+    } else {                                                                   \
+      rtref(_rt);                                                              \
+    }                                                                          \
   } while (0)
 
 /*
  * Spin variant mutex is used here; caller is responsible for
  * converting any previously-held similar lock to full mutex.
  */
-#define RT_REMREF(_rt)     \
-  do {                     \
-    RT_LOCK_SPIN(_rt);     \
-    RT_REMREF_LOCKED(_rt); \
-    RT_UNLOCK(_rt);        \
+#define RT_ADDREF(_rt)                                                         \
+  do {                                                                         \
+    RT_LOCK_SPIN(_rt);                                                         \
+    RT_ADDREF_LOCKED(_rt);                                                     \
+    RT_UNLOCK(_rt);                                                            \
+  } while (0)
+
+#define RT_REMREF_LOCKED(_rt)                                                  \
+  do {                                                                         \
+    if (!rte_debug) {                                                          \
+      RT_LOCK_ASSERT_HELD(_rt);                                                \
+      if ((_rt)->rt_refcnt == 0)                                               \
+        panic("RT_REMREF(%p) bad refcnt\n", _rt);                              \
+      --(_rt)->rt_refcnt;                                                      \
+    } else {                                                                   \
+      (void)rtunref(_rt);                                                      \
+    }                                                                          \
+  } while (0)
+
+/*
+ * Spin variant mutex is used here; caller is responsible for
+ * converting any previously-held similar lock to full mutex.
+ */
+#define RT_REMREF(_rt)                                                         \
+  do {                                                                         \
+    RT_LOCK_SPIN(_rt);                                                         \
+    RT_REMREF_LOCKED(_rt);                                                     \
+    RT_UNLOCK(_rt);                                                            \
   } while (0)
 
 #define RTFREE(_rt) rtfree(_rt)

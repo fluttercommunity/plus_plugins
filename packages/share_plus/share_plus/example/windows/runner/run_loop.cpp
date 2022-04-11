@@ -44,12 +44,12 @@ void RunLoop::Run() {
 }
 
 void RunLoop::RegisterFlutterInstance(
-    flutter::FlutterEngine* flutter_instance) {
+    flutter::FlutterEngine *flutter_instance) {
   flutter_instances_.insert(flutter_instance);
 }
 
 void RunLoop::UnregisterFlutterInstance(
-    flutter::FlutterEngine* flutter_instance) {
+    flutter::FlutterEngine *flutter_instance) {
   flutter_instances_.erase(flutter_instance);
 }
 

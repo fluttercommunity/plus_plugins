@@ -11,9 +11,11 @@ static UIViewController *RootViewController() {
   return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
-static UIViewController *TopViewControllerForViewController(UIViewController *viewController) {
+static UIViewController *
+TopViewControllerForViewController(UIViewController *viewController) {
   if (viewController.presentedViewController) {
-    return TopViewControllerForViewController(viewController.presentedViewController);
+    return TopViewControllerForViewController(
+        viewController.presentedViewController);
   }
   if ([viewController isKindOfClass:[UINavigationController class]]) {
     return TopViewControllerForViewController(
@@ -43,8 +45,8 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   return self;
 }
 
-// We use dealloc as the share-sheet might disappear (e.g. iCloud photo album creation)
-// and could then reappear if the user cancels
+// We use dealloc as the share-sheet might disappear (e.g. iCloud photo album
+// creation) and could then reappear if the user cancels
 - (void)dealloc {
   if (self.completed) {
     self.result(self.activityType);
@@ -71,11 +73,13 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
 @property(readonly, nonatomic, copy) NSString *path;
 @property(readonly, nonatomic, copy) NSString *mimeType;
 
-- (instancetype)initWithSubject:(NSString *)subject text:(NSString *)text NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSubject:(NSString *)subject
+                           text:(NSString *)text NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)init __attribute__((unavailable("Use initWithSubject:text: instead")));
+- (instancetype)init
+    __attribute__((unavailable("Use initWithSubject:text: instead")));
 
 @end
 
@@ -104,7 +108,8 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   return self;
 }
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+- (id)activityViewControllerPlaceholderItem:
+    (UIActivityViewController *)activityViewController {
   return @"";
 }
 
@@ -123,12 +128,14 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   }
 }
 
-- (NSString *)activityViewController:(UIActivityViewController *)activityViewController
+- (NSString *)activityViewController:
+                  (UIActivityViewController *)activityViewController
               subjectForActivityType:(UIActivityType)activityType {
   return _subject;
 }
 
-- (UIImage *)activityViewController:(UIActivityViewController *)activityViewController
+- (UIImage *)activityViewController:
+                 (UIActivityViewController *)activityViewController
       thumbnailImageForActivityType:(UIActivityType)activityType
                       suggestedSize:(CGSize)suggestedSize {
   if (!_path || !_mimeType || ![_mimeType hasPrefix:@"image/"]) {
@@ -168,77 +175,81 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
       [FlutterMethodChannel methodChannelWithName:PLATFORM_CHANNEL
                                   binaryMessenger:registrar.messenger];
 
-  [shareChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-    BOOL withResult = [call.method hasSuffix:@"WithResult"];
-    NSDictionary *arguments = [call arguments];
-    NSNumber *originX = arguments[@"originX"];
-    NSNumber *originY = arguments[@"originY"];
-    NSNumber *originWidth = arguments[@"originWidth"];
-    NSNumber *originHeight = arguments[@"originHeight"];
+  [shareChannel
+      setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
+        BOOL withResult = [call.method hasSuffix:@"WithResult"];
+        NSDictionary *arguments = [call arguments];
+        NSNumber *originX = arguments[@"originX"];
+        NSNumber *originY = arguments[@"originY"];
+        NSNumber *originWidth = arguments[@"originWidth"];
+        NSNumber *originHeight = arguments[@"originHeight"];
 
-    CGRect originRect = CGRectZero;
-    if (originX && originY && originWidth && originHeight) {
-      originRect = CGRectMake([originX doubleValue], [originY doubleValue],
-                              [originWidth doubleValue], [originHeight doubleValue]);
-    }
-
-    if ([@"share" isEqualToString:call.method] ||
-        [@"shareWithResult" isEqualToString:call.method]) {
-      NSString *shareText = arguments[@"text"];
-      NSString *shareSubject = arguments[@"subject"];
-
-      if (shareText.length == 0) {
-        result([FlutterError errorWithCode:@"error"
-                                   message:@"Non-empty text expected"
-                                   details:nil]);
-        return;
-      }
-
-      UIViewController *topViewController =
-          TopViewControllerForViewController(RootViewController());
-      [self shareText:shareText
-                 subject:shareSubject
-          withController:topViewController
-                atSource:originRect
-                toResult:withResult ? result : nil];
-      if (!withResult) result(nil);
-    } else if ([@"shareFiles" isEqualToString:call.method] ||
-               [@"shareFilesWithResult" isEqualToString:call.method]) {
-      NSArray *paths = arguments[@"paths"];
-      NSArray *mimeTypes = arguments[@"mimeTypes"];
-      NSString *subject = arguments[@"subject"];
-      NSString *text = arguments[@"text"];
-
-      if (paths.count == 0) {
-        result([FlutterError errorWithCode:@"error"
-                                   message:@"Non-empty paths expected"
-                                   details:nil]);
-        return;
-      }
-
-      for (NSString *path in paths) {
-        if (path.length == 0) {
-          result([FlutterError errorWithCode:@"error"
-                                     message:@"Each path must not be empty"
-                                     details:nil]);
-          return;
+        CGRect originRect = CGRectZero;
+        if (originX && originY && originWidth && originHeight) {
+          originRect =
+              CGRectMake([originX doubleValue], [originY doubleValue],
+                         [originWidth doubleValue], [originHeight doubleValue]);
         }
-      }
 
-      UIViewController *topViewController =
-          TopViewControllerForViewController(RootViewController());
-      [self shareFiles:paths
-            withMimeType:mimeTypes
-             withSubject:subject
-                withText:text
-          withController:topViewController
-                atSource:originRect
-                toResult:withResult ? result : nil];
-      if (!withResult) result(nil);
-    } else {
-      result(FlutterMethodNotImplemented);
-    }
-  }];
+        if ([@"share" isEqualToString:call.method] ||
+            [@"shareWithResult" isEqualToString:call.method]) {
+          NSString *shareText = arguments[@"text"];
+          NSString *shareSubject = arguments[@"subject"];
+
+          if (shareText.length == 0) {
+            result([FlutterError errorWithCode:@"error"
+                                       message:@"Non-empty text expected"
+                                       details:nil]);
+            return;
+          }
+
+          UIViewController *topViewController =
+              TopViewControllerForViewController(RootViewController());
+          [self shareText:shareText
+                     subject:shareSubject
+              withController:topViewController
+                    atSource:originRect
+                    toResult:withResult ? result : nil];
+          if (!withResult)
+            result(nil);
+        } else if ([@"shareFiles" isEqualToString:call.method] ||
+                   [@"shareFilesWithResult" isEqualToString:call.method]) {
+          NSArray *paths = arguments[@"paths"];
+          NSArray *mimeTypes = arguments[@"mimeTypes"];
+          NSString *subject = arguments[@"subject"];
+          NSString *text = arguments[@"text"];
+
+          if (paths.count == 0) {
+            result([FlutterError errorWithCode:@"error"
+                                       message:@"Non-empty paths expected"
+                                       details:nil]);
+            return;
+          }
+
+          for (NSString *path in paths) {
+            if (path.length == 0) {
+              result([FlutterError errorWithCode:@"error"
+                                         message:@"Each path must not be empty"
+                                         details:nil]);
+              return;
+            }
+          }
+
+          UIViewController *topViewController =
+              TopViewControllerForViewController(RootViewController());
+          [self shareFiles:paths
+                withMimeType:mimeTypes
+                 withSubject:subject
+                    withText:text
+              withController:topViewController
+                    atSource:originRect
+                    toResult:withResult ? result : nil];
+          if (!withResult)
+            result(nil);
+        } else {
+          result(FlutterMethodNotImplemented);
+        }
+      }];
 }
 
 + (void)share:(NSArray *)shareItems
@@ -249,11 +260,14 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   UIActivityViewSuccessController *activityViewController =
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
+
   // Force subject when sharing a raw url or files
   if (![subject isKindOfClass:[NSNull class]]) {
     [activityViewController setValue:subject forKey:@"subject"];
   }
-  activityViewController.popoverPresentationController.sourceView = controller.view;
+
+  activityViewController.popoverPresentationController.sourceView =
+      controller.view;
   if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
@@ -268,7 +282,9 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
           companion.completed = completed;
         };
   }
-  [controller presentViewController:activityViewController animated:YES completion:nil];
+  [controller presentViewController:activityViewController
+                           animated:YES
+                         completion:nil];
 }
 
 + (void)shareText:(NSString *)shareText
@@ -280,7 +296,6 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
   if (data == nil) {
     data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
   }
-
   [self share:@[ data ]
          withSubject:subject
       withController:controller
@@ -319,7 +334,11 @@ static UIViewController *TopViewControllerForViewController(UIViewController *vi
     }
   }
 
-  [self share:items withSubject:subject withController:controller atSource:origin toResult:result];
+  [self share:items
+         withSubject:subject
+      withController:controller
+            atSource:origin
+            toResult:result];
 }
 
 @end

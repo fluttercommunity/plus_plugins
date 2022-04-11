@@ -5,4 +5,4 @@
 // it for both the runner and the Flutter library.
 void CreateAndAttachConsole();
 
-#endif  // RUNNER_UTILS_H_
+#endif // RUNNER_UTILS_H_
