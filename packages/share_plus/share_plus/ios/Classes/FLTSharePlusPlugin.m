@@ -253,12 +253,19 @@ TopViewControllerForViewController(UIViewController *viewController) {
 }
 
 + (void)share:(NSArray *)shareItems
+       withSubject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
           toResult:(FlutterResult)result {
   UIActivityViewSuccessController *activityViewController =
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
+
+  // Force subject when sharing a raw url or files
+  if (![subject isKindOfClass:[NSNull class]]) {
+    [activityViewController setValue:subject forKey:@"subject"];
+  }
+
   activityViewController.popoverPresentationController.sourceView =
       controller.view;
   if (!CGRectIsEmpty(origin)) {
@@ -290,6 +297,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
     data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
   }
   [self share:@[ data ]
+         withSubject:subject
       withController:controller
             atSource:origin
             toResult:result];
@@ -326,7 +334,11 @@ TopViewControllerForViewController(UIViewController *viewController) {
     }
   }
 
-  [self share:items withController:controller atSource:origin toResult:result];
+  [self share:items
+         withSubject:subject
+      withController:controller
+            atSource:origin
+            toResult:result];
 }
 
 @end

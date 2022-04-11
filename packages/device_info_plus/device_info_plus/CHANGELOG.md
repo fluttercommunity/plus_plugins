@@ -1,3 +1,7 @@
+## 3.2.3
+
+- Fix crash on macOS running on Apple M1
+
 ## 3.2.2
 
 - Fix embedding issue in example
