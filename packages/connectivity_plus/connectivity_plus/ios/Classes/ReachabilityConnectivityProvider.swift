@@ -6,7 +6,7 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
 
   public var currentConnectivityType: ConnectivityType {
     let reachability = try? self.reachability ?? Reachability()
-    switch reachability?.connection ?? .unavailable {
+    switch reachability?.connection {
     case .wifi:
       return .wifi
     case .cellular:
