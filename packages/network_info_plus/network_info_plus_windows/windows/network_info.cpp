@@ -54,8 +54,8 @@ static std::string FormatIpAddress(PIP_ADAPTER_ADDRESSES pIpAdapterAddress) {
   return std::string(inet_ntop(AF_INET, &(sa_in->sin_addr), buffer, 64));
 }
 
-static std::string GetAdapterAddress(
-    LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdapterAddresses) {
+static std::string
+GetAdapterAddress(LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdapterAddresses) {
   IF_LUID ifLuid;
   if (ConvertInterfaceGuidToLuid(pGuid, &ifLuid) != NO_ERROR) {
     return "";

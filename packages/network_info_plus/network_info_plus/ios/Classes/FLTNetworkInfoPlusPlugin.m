@@ -4,7 +4,6 @@
 
 #import "FLTNetworkInfoPlusPlugin.h"
 
-#import <CoreLocation/CoreLocation.h>
 #import "FLTCaptiveNetworkInfoProvider.h"
 #import "FLTHotspotNetworkInfoProvider.h"
 #import "FLTNetworkInfo.h"
@@ -12,6 +11,7 @@
 #import "FLTNetworkInfoProvider.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 #import "getgateway.h"
+#import <CoreLocation/CoreLocation.h>
 
 #include <ifaddrs.h>
 
@@ -20,33 +20,35 @@
 
 @interface FLTNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
 
-@property(strong, nonatomic) FLTNetworkInfoLocationPlusHandler* locationHandler;
+@property(strong, nonatomic) FLTNetworkInfoLocationPlusHandler *locationHandler;
 @property(strong, nonatomic) id<FLTNetworkInfoProvider> networkInfoProvider;
 
-- (instancetype)initWithNetworkInfoProvider:(id<FLTNetworkInfoProvider>)networkInfoProvider;
+- (instancetype)initWithNetworkInfoProvider:
+    (id<FLTNetworkInfoProvider>)networkInfoProvider;
 
 @end
 
 @implementation FLTNetworkInfoPlusPlugin {
 }
 
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
++ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   id<FLTNetworkInfoProvider> networkInfoProvider;
   if (@available(iOS 14, *)) {
     networkInfoProvider = [[FLTHotspotNetworkInfoProvider alloc] init];
   } else {
     networkInfoProvider = [[FLTCaptiveNetworkInfoProvider alloc] init];
   }
-  FLTNetworkInfoPlusPlugin* instance =
-      [[FLTNetworkInfoPlusPlugin alloc] initWithNetworkInfoProvider:networkInfoProvider];
+  FLTNetworkInfoPlusPlugin *instance = [[FLTNetworkInfoPlusPlugin alloc]
+      initWithNetworkInfoProvider:networkInfoProvider];
 
-  FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/network_info"
-                                  binaryMessenger:[registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:@"dev.fluttercommunity.plus/network_info"
+            binaryMessenger:[registrar messenger]];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
-- (instancetype)initWithNetworkInfoProvider:(id<FLTNetworkInfoProvider>)networkInfoProvider {
+- (instancetype)initWithNetworkInfoProvider:
+    (id<FLTNetworkInfoProvider>)networkInfoProvider {
   if ((self = [super init])) {
     self.networkInfoProvider = networkInfoProvider;
   }
@@ -55,7 +57,7 @@
 
 #pragma mark - Callbacks
 
-- (NSString*)getGatewayIP {
+- (NSString *)getGatewayIP {
   struct in_addr gatewayAddr;
   int gatewayAdressResult = getDefaultGateway(&(gatewayAddr.s_addr));
   if (gatewayAdressResult >= 0) {
@@ -65,74 +67,78 @@
   }
 }
 
-- (NSString*)getWifiIP {
-  __block NSString* addr = nil;
+- (NSString *)getWifiIP {
+  __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
-                    usingBlock:^(struct ifaddrs* ifaddr) {
+                    usingBlock:^(struct ifaddrs *ifaddr) {
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
 }
 
-- (NSString*)getWifiIPv6 {
-  __block NSString* addr = nil;
+- (NSString *)getWifiIPv6 {
+  __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET6
-                    usingBlock:^(struct ifaddrs* ifaddr) {
+                    usingBlock:^(struct ifaddrs *ifaddr) {
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
 }
 
-- (NSString*)getWifiSubmask {
-  __block NSString* addr = nil;
+- (NSString *)getWifiSubmask {
+  __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
-                    usingBlock:^(struct ifaddrs* ifaddr) {
+                    usingBlock:^(struct ifaddrs *ifaddr) {
                       addr = [self descriptionForAddress:ifaddr->ifa_netmask];
                     }];
   return addr;
 }
 
-- (NSString*)getWifiBroadcast {
-  __block NSString* addr = nil;
+- (NSString *)getWifiBroadcast {
+  __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
-                    usingBlock:^(struct ifaddrs* ifaddr) {
+                    usingBlock:^(struct ifaddrs *ifaddr) {
                       addr = [self descriptionForAddress:ifaddr->ifa_dstaddr];
                     }];
   return addr;
 }
 
-- (NSString*)convertCLAuthorizationStatusToString:(CLAuthorizationStatus)status {
+- (NSString *)convertCLAuthorizationStatusToString:
+    (CLAuthorizationStatus)status {
   switch (status) {
-    case kCLAuthorizationStatusNotDetermined: {
-      return @"notDetermined";
-    }
-    case kCLAuthorizationStatusRestricted: {
-      return @"restricted";
-    }
-    case kCLAuthorizationStatusDenied: {
-      return @"denied";
-    }
-    case kCLAuthorizationStatusAuthorizedAlways: {
-      return @"authorizedAlways";
-    }
-    case kCLAuthorizationStatusAuthorizedWhenInUse: {
-      return @"authorizedWhenInUse";
-    }
-    default: {
-      return @"unknown";
-    }
+  case kCLAuthorizationStatusNotDetermined: {
+    return @"notDetermined";
+  }
+  case kCLAuthorizationStatusRestricted: {
+    return @"restricted";
+  }
+  case kCLAuthorizationStatusDenied: {
+    return @"denied";
+  }
+  case kCLAuthorizationStatusAuthorizedAlways: {
+    return @"authorizedAlways";
+  }
+  case kCLAuthorizationStatusAuthorizedWhenInUse: {
+    return @"authorizedWhenInUse";
+  }
+  default: {
+    return @"unknown";
+  }
   }
 }
 
-- (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
+- (void)handleMethodCall:(FlutterMethodCall *)call
+                  result:(FlutterResult)result {
   if ([call.method isEqualToString:@"wifiName"]) {
-    [self.networkInfoProvider fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo* networkInfo) {
-      result(networkInfo.SSID);
-    }];
+    [self.networkInfoProvider
+        fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo *networkInfo) {
+          result(networkInfo.SSID);
+        }];
   } else if ([call.method isEqualToString:@"wifiBSSID"]) {
-    [self.networkInfoProvider fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo* networkInfo) {
-      result(networkInfo.BSSID);
-    }];
+    [self.networkInfoProvider
+        fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo *networkInfo) {
+          result(networkInfo.BSSID);
+        }];
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
     result([self getWifiIP]);
   } else if ([call.method isEqualToString:@"wifiIPv6Address"]) {
@@ -144,23 +150,26 @@
   } else if ([call.method isEqualToString:@"wifiGatewayAddress"]) {
     result([self getGatewayIP]);
   } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
-    result([self convertCLAuthorizationStatusToString:[FLTNetworkInfoLocationPlusHandler
-                                                          locationAuthorizationStatus]]);
-  } else if ([call.method isEqualToString:@"requestLocationServiceAuthorization"]) {
-    NSArray* arguments = call.arguments;
+    result([self
+        convertCLAuthorizationStatusToString:[FLTNetworkInfoLocationPlusHandler
+                                                 locationAuthorizationStatus]]);
+  } else if ([call.method
+                 isEqualToString:@"requestLocationServiceAuthorization"]) {
+    NSArray *arguments = call.arguments;
     BOOL always = [arguments.firstObject boolValue];
     __weak typeof(self) weakSelf = self;
     [self.locationHandler
         requestLocationAuthorization:always
                           completion:^(CLAuthorizationStatus status) {
-                            result([weakSelf convertCLAuthorizationStatusToString:status]);
+                            result([weakSelf
+                                convertCLAuthorizationStatusToString:status]);
                           }];
   } else {
     result(FlutterMethodNotImplemented);
   }
 }
 
-- (FLTNetworkInfoLocationPlusHandler*)locationHandler {
+- (FLTNetworkInfoLocationPlusHandler *)locationHandler {
   if (!_locationHandler) {
     _locationHandler = [FLTNetworkInfoLocationPlusHandler new];
   }
@@ -169,9 +178,10 @@
 
 #pragma mark - Utils
 
-- (void)enumerateWifiAddresses:(NSInteger)family usingBlock:(void (^)(struct ifaddrs*))block {
-  struct ifaddrs* interfaces = NULL;
-  struct ifaddrs* temp_addr = NULL;
+- (void)enumerateWifiAddresses:(NSInteger)family
+                    usingBlock:(void (^)(struct ifaddrs *))block {
+  struct ifaddrs *interfaces = NULL;
+  struct ifaddrs *temp_addr = NULL;
   int success = 0;
 
   // retrieve the current interfaces - returns 0 on success
@@ -182,7 +192,8 @@
     while (temp_addr != NULL) {
       if (temp_addr->ifa_addr->sa_family == family) {
         // en0 is the wifi connection on iOS
-        if ([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+        if ([[NSString stringWithUTF8String:temp_addr->ifa_name]
+                isEqualToString:@"en0"]) {
           block(temp_addr);
         }
       }
@@ -195,9 +206,10 @@
   freeifaddrs(interfaces);
 }
 
-- (NSString*)descriptionForAddress:(struct sockaddr*)addr {
+- (NSString *)descriptionForAddress:(struct sockaddr *)addr {
   char hostname[NI_MAXHOST];
-  getnameinfo(addr, addr->sa_len, hostname, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+  getnameinfo(addr, addr->sa_len, hostname, NI_MAXHOST, NULL, 0,
+              NI_NUMERICHOST);
   return [NSString stringWithUTF8String:hostname];
 }
 

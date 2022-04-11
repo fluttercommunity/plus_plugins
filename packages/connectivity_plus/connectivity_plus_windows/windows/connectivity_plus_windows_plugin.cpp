@@ -25,37 +25,37 @@ typedef flutter::StreamHandlerError<flutter::EncodableValue>
     FlStreamHandlerError;
 
 class ConnectivityPlusWindowsPlugin : public flutter::Plugin {
- public:
+public:
   ConnectivityPlusWindowsPlugin();
   virtual ~ConnectivityPlusWindowsPlugin();
 
   std::shared_ptr<NetworkManager> GetManager() const;
 
-  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows* registrar);
+  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
- private:
-  void HandleMethodCall(const FlMethodCall& method_call,
+private:
+  void HandleMethodCall(const FlMethodCall &method_call,
                         std::unique_ptr<FlMethodResult> result);
 
   std::shared_ptr<NetworkManager> manager;
 };
 
 class ConnectivityStreamHandler : public FlStreamHandler {
- public:
+public:
   ConnectivityStreamHandler(std::shared_ptr<NetworkManager> manager);
   virtual ~ConnectivityStreamHandler();
 
- protected:
+protected:
   void AddConnectivityEvent();
 
-  std::unique_ptr<FlStreamHandlerError> OnListenInternal(
-      const flutter::EncodableValue* arguments,
-      std::unique_ptr<FlEventSink>&& sink) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnListenInternal(const flutter::EncodableValue *arguments,
+                   std::unique_ptr<FlEventSink> &&sink) override;
 
-  std::unique_ptr<FlStreamHandlerError> OnCancelInternal(
-      const flutter::EncodableValue* arguments) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnCancelInternal(const flutter::EncodableValue *arguments) override;
 
- private:
+private:
   std::shared_ptr<NetworkManager> manager;
   std::unique_ptr<FlEventSink> sink;
 };
@@ -69,13 +69,13 @@ ConnectivityPlusWindowsPlugin::~ConnectivityPlusWindowsPlugin() {
   manager->Cleanup();
 }
 
-std::shared_ptr<NetworkManager> ConnectivityPlusWindowsPlugin::GetManager()
-    const {
+std::shared_ptr<NetworkManager>
+ConnectivityPlusWindowsPlugin::GetManager() const {
   return manager;
 }
 
 void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
-    flutter::PluginRegistrarWindows* registrar) {
+    flutter::PluginRegistrarWindows *registrar) {
   auto plugin = std::make_unique<ConnectivityPlusWindowsPlugin>();
 
   auto methodChannel =
@@ -84,7 +84,7 @@ void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
           &flutter::StandardMethodCodec::GetInstance());
 
   methodChannel->SetMethodCallHandler(
-      [plugin_pointer = plugin.get()](const auto& call, auto result) {
+      [plugin_pointer = plugin.get()](const auto &call, auto result) {
         plugin_pointer->HandleMethodCall(call, std::move(result));
       });
 
@@ -100,18 +100,18 @@ void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
 
 static std::string ConnectivityToString(ConnectivityType connectivityType) {
   switch (connectivityType) {
-    case ConnectivityType::WiFi:
-      return "wifi";
-    case ConnectivityType::Ethernet:
-      return "ethernet";
-    case ConnectivityType::None:
-    default:
-      return "none";
+  case ConnectivityType::WiFi:
+    return "wifi";
+  case ConnectivityType::Ethernet:
+    return "ethernet";
+  case ConnectivityType::None:
+  default:
+    return "none";
   }
 }
 
 void ConnectivityPlusWindowsPlugin::HandleMethodCall(
-    const flutter::MethodCall<flutter::EncodableValue>& method_call,
+    const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("check") == 0) {
     std::string connectivity =
@@ -136,8 +136,8 @@ void ConnectivityStreamHandler::AddConnectivityEvent() {
 
 std::unique_ptr<FlStreamHandlerError>
 ConnectivityStreamHandler::OnListenInternal(
-    const flutter::EncodableValue* arguments,
-    std::unique_ptr<FlEventSink>&& events) {
+    const flutter::EncodableValue *arguments,
+    std::unique_ptr<FlEventSink> &&events) {
   sink = std::move(events);
 
   auto callback =
@@ -155,13 +155,13 @@ ConnectivityStreamHandler::OnListenInternal(
 
 std::unique_ptr<FlStreamHandlerError>
 ConnectivityStreamHandler::OnCancelInternal(
-    const flutter::EncodableValue* arguments) {
+    const flutter::EncodableValue *arguments) {
   manager->StopListen();
   sink.reset();
   return nullptr;
 }
 
-}  // namespace
+} // namespace
 
 void ConnectivityPlusWindowsPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {
