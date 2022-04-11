@@ -1,3 +1,7 @@
+## 2.2.2
+
+- Reachability.swift ".unavailable" for iOS is deprecated.
+
 ## 2.2.1
 
 - Bump `nm` plugin to 0.5.0 (connectivity_plus_linux)

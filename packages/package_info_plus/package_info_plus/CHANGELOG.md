@@ -1,3 +1,13 @@
+## 1.4.2
+
+- Web: Resolve package_name
+- Linux: Resolve package_name
+
+## 1.4.1
+
+- Windows: Fix MissingPluginException
+- Linux: Fix MissingPluginException
+
 ## 1.4.0
 
 - Android: Migrate to Kotlin
