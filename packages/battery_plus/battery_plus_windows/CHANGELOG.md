@@ -1,3 +1,7 @@
+## 1.1.3
+
+- Reapply the changes in 1.1.1 (no compile issues in this package).
+
 ## 1.1.2
 
 - Revert changes in 1.1.1 due to compile issues
