@@ -11,6 +11,7 @@ import 'package:mockito/mockito.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
 import 'package:test/test.dart';
+
 import 'package:flutter/services.dart';
 
 void main() {
@@ -26,9 +27,9 @@ void main() {
     TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
         .setMockMethodCallHandler(MethodChannelShare.channel,
             (MethodCall call) async {
-      // The explicit type can be void as the only method call has a return type of void.
-      await mockChannel.invokeMethod<void>(call.method, call.arguments);
-    });
+          // The explicit type can be void as the only method call has a return type of void.
+          await mockChannel.invokeMethod<void>(call.method, call.arguments);
+        });
   });
 
   test('can set SharePlatform instance', () {
@@ -51,11 +52,11 @@ void main() {
 
   test('sharing empty fails', () {
     expect(
-      () => sharePlatform.share(''),
+          () => sharePlatform.share(''),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
-      () => SharePlatform.instance.shareWithResult(''),
+          () => SharePlatform.instance.shareWithResult(''),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -74,7 +75,7 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
-    }));
+    }))..called(1);
 
     await SharePlatform.instance.shareWithResult(
       'some text to share',
@@ -97,7 +98,7 @@ void main() {
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
       );
-      verify(mockChannel.invokeMethod<void>(
+     await verifyNever(mockChannel.invokeMethod<void>(
         'shareFiles',
         <String, dynamic>{
           'paths': [fd.path],
@@ -135,11 +136,11 @@ void main() {
 
   test('sharing empty file fails', () {
     expect(
-      () => sharePlatform.shareFiles(['']),
+          () => sharePlatform.shareFiles(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
-      () => SharePlatform.instance.shareFilesWithResult(['']),
+          () => SharePlatform.instance.shareFilesWithResult(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -148,7 +149,7 @@ void main() {
   test('sharing file sets correct mimeType', () async {
     await withFile('tempfile-83649b.png', (File fd) async {
       await sharePlatform.shareFiles([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+      verifyNever(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
@@ -164,7 +165,7 @@ void main() {
   test('sharing file sets passed mimeType', () async {
     await withFile('tempfile-83649c.png', (File fd) async {
       await sharePlatform.shareFiles([fd.path], mimeTypes: ['*/*']);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+      verifyNever(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
       }));
@@ -214,7 +215,7 @@ void main() {
 
     await withFile('tempfile-83649e.png', (File fd) async {
       await sharePlatform.shareFilesWithResult([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+      verifyNever(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
@@ -238,7 +239,7 @@ class MockMethodChannel extends Mock implements MethodChannel {
   @override
   Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
     return super
-            .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
-        as dynamic;
+        .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
+    as dynamic;
   }
 }
