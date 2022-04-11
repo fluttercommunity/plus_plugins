@@ -19,7 +19,7 @@
 #include <set>
 
 class NetworkListener final : public INetworkEvents {
- public:
+public:
   NetworkListener(NetworkCallback pCb) : pCallback(pCb) {}
 
   HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void **ppvObject) {
@@ -69,7 +69,7 @@ class NetworkListener final : public INetworkEvents {
     pCallback();
   }
 
- private:
+private:
   volatile LONG lRef = 1;
   NetworkCallback pCallback = nullptr;
 };
@@ -178,12 +178,12 @@ ConnectivityType NetworkManager::GetConnectivityType() const {
     if (std::find(adapterIds.begin(), adapterIds.end(), guid) !=
         adapterIds.end()) {
       switch (addresses->IfType) {
-        case IF_TYPE_ETHERNET_CSMACD:
-          connectivities.insert(ConnectivityType::Ethernet);
-          break;
-        default:
-          connectivities.insert(ConnectivityType::WiFi);
-          break;
+      case IF_TYPE_ETHERNET_CSMACD:
+        connectivities.insert(ConnectivityType::Ethernet);
+        break;
+      default:
+        connectivities.insert(ConnectivityType::WiFi);
+        break;
       }
     }
   }

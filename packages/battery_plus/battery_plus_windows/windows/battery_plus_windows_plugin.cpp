@@ -25,32 +25,32 @@ typedef flutter::StreamHandlerError<flutter::EncodableValue>
     FlStreamHandlerError;
 
 class BatteryPlusWindowsPlugin : public flutter::Plugin {
- public:
+public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
   BatteryPlusWindowsPlugin(flutter::PluginRegistrarWindows *registrar);
   ~BatteryPlusWindowsPlugin();
 
- private:
+private:
   void HandleMethodCall(const FlMethodCall &method_call,
                         std::unique_ptr<FlMethodResult> result);
 };
 
 class BatteryStatusStreamHandler : public FlStreamHandler {
- public:
+public:
   BatteryStatusStreamHandler(flutter::PluginRegistrarWindows *registrar);
 
- protected:
+protected:
   void AddStatusEvent(BatteryStatus status);
 
-  std::unique_ptr<FlStreamHandlerError> OnListenInternal(
-      const flutter::EncodableValue *arguments,
-      std::unique_ptr<FlEventSink> &&events) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnListenInternal(const flutter::EncodableValue *arguments,
+                   std::unique_ptr<FlEventSink> &&events) override;
 
-  std::unique_ptr<FlStreamHandlerError> OnCancelInternal(
-      const flutter::EncodableValue *arguments) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnCancelInternal(const flutter::EncodableValue *arguments) override;
 
- private:
+private:
   int _delegate = -1;
   SystemBattery _battery;
   std::unique_ptr<FlEventSink> _events;
@@ -164,7 +164,7 @@ void BatteryPlusWindowsPlugin::HandleMethodCall(
   }
 }
 
-}  // namespace
+} // namespace
 
 void BatteryPlusWindowsPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {
