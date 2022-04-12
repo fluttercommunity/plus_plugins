@@ -1,7 +1,7 @@
 import Foundation
 import Network
 
-@available(macOS 10.14, *)
+@available(iOS 12, *)
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private let queue = DispatchQueue.global(qos: .background)
@@ -16,7 +16,9 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
       } else if path.usesInterfaceType(.cellular) {
         return .cellular
       } else if path.usesInterfaceType(.wiredEthernet) {
-        return .wiredEthernet
+        // .wiredEthernet is available in simulator
+        // but for consistency it is probably correct to report .wifi
+        return .wifi
       }
     }
     return .none

@@ -1,3 +1,7 @@
+## 2.3.0
+
+- Add iOS ConnectivityProvider based on NWPathMonitor for iOS 12+.
+
 ## 2.2.2
 
 - Reachability.swift ".unavailable" for iOS is deprecated.
