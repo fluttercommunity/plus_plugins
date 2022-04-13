@@ -1,3 +1,7 @@
+## 1.3.2
+
+- Fix: Android no longer crashes when app is closed if streams weren't listened to
+
 ## 1.3.1
 
 - Fix: unregister listeners on Android in `onDetachFromEngine` to not receive sensors events after app was killed
