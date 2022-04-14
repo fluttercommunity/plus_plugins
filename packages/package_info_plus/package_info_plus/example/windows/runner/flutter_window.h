@@ -11,23 +11,23 @@
 
 // A window that does nothing but host a Flutter view.
 class FlutterWindow : public Win32Window {
- public:
+public:
   // Creates a new FlutterWindow driven by the |run_loop|, hosting a
   // Flutter view running |project|.
-  explicit FlutterWindow(RunLoop* run_loop,
-                         const flutter::DartProject& project);
+  explicit FlutterWindow(RunLoop *run_loop,
+                         const flutter::DartProject &project);
   virtual ~FlutterWindow();
 
- protected:
+protected:
   // Win32Window:
   bool OnCreate() override;
   void OnDestroy() override;
   LRESULT MessageHandler(HWND window, UINT const message, WPARAM const wparam,
                          LPARAM const lparam) noexcept override;
 
- private:
+private:
   // The run loop driving events for this window.
-  RunLoop* run_loop_;
+  RunLoop *run_loop_;
 
   // The project to run.
   flutter::DartProject project_;
@@ -36,4 +36,4 @@ class FlutterWindow : public Win32Window {
   std::unique_ptr<flutter::FlutterViewController> flutter_controller_;
 };
 
-#endif  // RUNNER_FLUTTER_WINDOW_H_
+#endif // RUNNER_FLUTTER_WINDOW_H_

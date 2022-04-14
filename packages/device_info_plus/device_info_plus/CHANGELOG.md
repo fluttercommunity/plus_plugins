@@ -1,6 +1,10 @@
-## 3.3.0
+## 3.2.4
 
 - Added more information to `WindowsDeviceInfo`.
+
+## 3.2.3
+
+- Fix crash on macOS running on Apple M1
 
 ## 3.2.2
 

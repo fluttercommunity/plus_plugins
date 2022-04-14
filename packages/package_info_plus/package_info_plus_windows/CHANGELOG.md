@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Fix MissingPluginException
+
 ## 1.0.4
 
 - Annotate int with external in preparation of Flutter 2.5

@@ -101,7 +101,7 @@ jobs:
         if: ${{ success() || failure() }}
         run: |
           melos exec -c 4 --ignore="*platform_interface*" --ignore="*web*" -- \
-            find . -maxdepth 3 -name "*.h" -o -name "*.m" -print0 \| xargs -0 clang-format -i --style=Google --verbose
+            find . -maxdepth 3 -name "*.h" -o -name "*.m" -print0 \| xargs -0 clang-format -i --verbose
           ./.github/workflows/scripts/validate-formatting.sh
       - name: "Validate Java formatting"
         if: ${{ success() || failure() }}
