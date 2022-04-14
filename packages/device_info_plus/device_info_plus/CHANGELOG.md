@@ -1,4 +1,4 @@
-## 3.2.4
+## 3.3.0
 
 - Added more information to `WindowsDeviceInfo`.
 

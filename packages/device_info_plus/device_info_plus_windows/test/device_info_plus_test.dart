@@ -86,7 +86,9 @@ void main() {
       expect(windowsInfo.deviceId, isNotEmpty);
     });
   } else {
-    final deviceInfo = DeviceInfoWindows();
-    expect(deviceInfo.windowsInfo, throwsArgumentError);
+    test('exception on non-windows platforms', () async {
+      final deviceInfo = DeviceInfoWindows();
+      expect(deviceInfo.windowsInfo, throwsArgumentError);
+    });
   }
 }
