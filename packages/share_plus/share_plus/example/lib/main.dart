@@ -29,7 +29,7 @@ class DemoAppState extends State<DemoApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Share Plus Plugin Demo',
+      title: 'Share Plus Plus Plugin Demo',
       home: Scaffold(
           appBar: AppBar(
             title: const Text('Share Plus Plugin Demo'),

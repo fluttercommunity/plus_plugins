@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
     show ShareResult, ShareResultStatus;
 
