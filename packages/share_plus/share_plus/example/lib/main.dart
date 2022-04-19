@@ -122,7 +122,6 @@ class DemoAppState extends State<DemoApp> {
     // has its position and size after it's built.
     final box = context.findRenderObject() as RenderBox?;
 
-
     if (imagePaths.isNotEmpty) {
       await Share.shareFiles(imagePaths,
           text: text,
