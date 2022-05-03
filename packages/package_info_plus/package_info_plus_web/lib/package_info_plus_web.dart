@@ -23,7 +23,8 @@ class PackageInfoPlugin extends PackageInfoPlatform {
   /// Get version.json full url.
   Uri versionJsonUrl(String baseUrl, int cacheBuster) {
     final baseUri = Uri.parse(baseUrl);
-    final originPath = '${baseUri.origin}${baseUri.path}';
+    final originPath =
+        '${baseUri.origin}${baseUri.path.replaceAll('index.html', '')}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
     return Uri.parse(originPath.endsWith('/')
         ? '$originPath$versionJson'
