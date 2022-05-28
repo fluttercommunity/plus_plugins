@@ -7,40 +7,40 @@
 
 @implementation FLTSensorsPlusPlugin
 
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTAccelerometerStreamHandlerPlus* accelerometerStreamHandler =
++ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
+  FLTAccelerometerStreamHandlerPlus *accelerometerStreamHandler =
       [[FLTAccelerometerStreamHandlerPlus alloc] init];
-  FlutterEventChannel* accelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/accelerometer"
-                                binaryMessenger:[registrar messenger]];
+  FlutterEventChannel *accelerometerChannel = [FlutterEventChannel
+      eventChannelWithName:@"dev.fluttercommunity.plus/sensors/accelerometer"
+           binaryMessenger:[registrar messenger]];
   [accelerometerChannel setStreamHandler:accelerometerStreamHandler];
 
-  FLTUserAccelStreamHandlerPlus* userAccelerometerStreamHandler =
+  FLTUserAccelStreamHandlerPlus *userAccelerometerStreamHandler =
       [[FLTUserAccelStreamHandlerPlus alloc] init];
-  FlutterEventChannel* userAccelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/user_accel"
-                                binaryMessenger:[registrar messenger]];
+  FlutterEventChannel *userAccelerometerChannel = [FlutterEventChannel
+      eventChannelWithName:@"dev.fluttercommunity.plus/sensors/user_accel"
+           binaryMessenger:[registrar messenger]];
   [userAccelerometerChannel setStreamHandler:userAccelerometerStreamHandler];
 
-  FLTGyroscopeStreamHandlerPlus* gyroscopeStreamHandler =
+  FLTGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
       [[FLTGyroscopeStreamHandlerPlus alloc] init];
-  FlutterEventChannel* gyroscopeChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
-                                binaryMessenger:[registrar messenger]];
+  FlutterEventChannel *gyroscopeChannel = [FlutterEventChannel
+      eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
+           binaryMessenger:[registrar messenger]];
   [gyroscopeChannel setStreamHandler:gyroscopeStreamHandler];
 
-  FLTMagnetometerStreamHandlerPlus* magnetometerStreamHandler =
+  FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
       [[FLTMagnetometerStreamHandlerPlus alloc] init];
-  FlutterEventChannel* magnetometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/magnetometer"
-                                binaryMessenger:[registrar messenger]];
+  FlutterEventChannel *magnetometerChannel = [FlutterEventChannel
+      eventChannelWithName:@"dev.fluttercommunity.plus/sensors/magnetometer"
+           binaryMessenger:[registrar messenger]];
   [magnetometerChannel setStreamHandler:magnetometerStreamHandler];
 }
 
 @end
 
 const double GRAVITY = 9.8;
-CMMotionManager* _motionManager;
+CMMotionManager *_motionManager;
 
 void _initMotionManager() {
   if (!_motionManager) {
@@ -48,8 +48,9 @@ void _initMotionManager() {
   }
 }
 
-static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) {
-  NSMutableData* event = [NSMutableData dataWithCapacity:3 * sizeof(Float64)];
+static void sendTriplet(Float64 x, Float64 y, Float64 z,
+                        FlutterEventSink sink) {
+  NSMutableData *event = [NSMutableData dataWithCapacity:3 * sizeof(Float64)];
   [event appendBytes:&x length:sizeof(Float64)];
   [event appendBytes:&y length:sizeof(Float64)];
   [event appendBytes:&z length:sizeof(Float64)];
@@ -58,21 +59,25 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @implementation FLTAccelerometerStreamHandlerPlus
 
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                           withHandler:^(CMAccelerometerData* accelerometerData, NSError* error) {
-                             CMAcceleration acceleration = accelerometerData.acceleration;
+                           withHandler:^(CMAccelerometerData *accelerometerData,
+                                         NSError *error) {
+                             CMAcceleration acceleration =
+                                 accelerometerData.acceleration;
                              // Multiply by gravity, and adjust sign values to
                              // align with Android.
-                             sendTriplet(-acceleration.x * GRAVITY, -acceleration.y * GRAVITY,
+                             sendTriplet(-acceleration.x * GRAVITY,
+                                         -acceleration.y * GRAVITY,
                                          -acceleration.z * GRAVITY, eventSink);
                            }];
   return nil;
 }
 
-- (FlutterError*)onCancelWithArguments:(id)arguments {
+- (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopAccelerometerUpdates];
   return nil;
 }
@@ -81,20 +86,23 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @implementation FLTUserAccelStreamHandlerPlus
 
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
-                          withHandler:^(CMDeviceMotion* data, NSError* error) {
+                          withHandler:^(CMDeviceMotion *data, NSError *error) {
                             CMAcceleration acceleration = data.userAcceleration;
-                            // Multiply by gravity, and adjust sign values to align with Android.
-                            sendTriplet(-acceleration.x * GRAVITY, -acceleration.y * GRAVITY,
+                            // Multiply by gravity, and adjust sign values to
+                            // align with Android.
+                            sendTriplet(-acceleration.x * GRAVITY,
+                                        -acceleration.y * GRAVITY,
                                         -acceleration.z * GRAVITY, eventSink);
                           }];
   return nil;
 }
 
-- (FlutterError*)onCancelWithArguments:(id)arguments {
+- (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopDeviceMotionUpdates];
   return nil;
 }
@@ -103,18 +111,20 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @implementation FLTGyroscopeStreamHandlerPlus
 
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
-                  withHandler:^(CMGyroData* gyroData, NSError* error) {
+                  withHandler:^(CMGyroData *gyroData, NSError *error) {
                     CMRotationRate rotationRate = gyroData.rotationRate;
-                    sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z, eventSink);
+                    sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
+                                eventSink);
                   }];
   return nil;
 }
 
-- (FlutterError*)onCancelWithArguments:(id)arguments {
+- (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopGyroUpdates];
   return nil;
 }
@@ -123,18 +133,22 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 
 @implementation FLTMagnetometerStreamHandlerPlus
 
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  [_motionManager startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                                      withHandler:^(CMMagnetometerData* magData, NSError* error) {
-                                        CMMagneticField magneticField = magData.magneticField;
-                                        sendTriplet(magneticField.x, magneticField.y,
-                                                    magneticField.z, eventSink);
-                                      }];
+  [_motionManager
+      startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
+                          withHandler:^(CMMagnetometerData *magData,
+                                        NSError *error) {
+                            CMMagneticField magneticField =
+                                magData.magneticField;
+                            sendTriplet(magneticField.x, magneticField.y,
+                                        magneticField.z, eventSink);
+                          }];
   return nil;
 }
 
-- (FlutterError*)onCancelWithArguments:(id)arguments {
+- (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopMagnetometerUpdates];
   return nil;
 }

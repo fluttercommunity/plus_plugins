@@ -20,7 +20,7 @@ struct IUnknown;
 typedef std::function<void()> NetworkCallback;
 
 class NetworkManager {
- public:
+public:
   NetworkManager();
   ~NetworkManager();
 
@@ -35,7 +35,7 @@ class NetworkManager {
   bool HasError() const;
   int GetError() const;
 
- private:
+private:
   std::vector<GUID> GetConnectedAdapterIds() const;
 
   DWORD dwCookie = 0;
@@ -46,4 +46,4 @@ class NetworkManager {
   NetworkListener *pListener = NULL;
 };
 
-#endif  // NETWORK_MANAGER_H
+#endif // NETWORK_MANAGER_H

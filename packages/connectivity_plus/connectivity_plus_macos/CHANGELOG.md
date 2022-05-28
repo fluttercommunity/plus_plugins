@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Fix connectivity stream can not be reused (after hot-restart) on MacOS 10.14+.
+
 ## 1.2.1
 
 - Update license headers.

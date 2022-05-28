@@ -15,7 +15,7 @@ typedef std::function<std::string(LPGUID, PWLAN_CONNECTION_ATTRIBUTES)>
     WlanQuery;
 
 class NetworkInfo {
- public:
+public:
   NetworkInfo();
   ~NetworkInfo();
 
@@ -27,7 +27,7 @@ class NetworkInfo {
   std::string GetWifiBssid() const;
   std::string GetWifiIpAddress() const;
 
- private:
+private:
   void Init();
   void Cleanup();
   std::string Query(WlanQuery query);
@@ -36,4 +36,4 @@ class NetworkInfo {
   HANDLE _hClient = NULL;
 };
 
-#endif  // FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_
+#endif // FLUTTER_PLUGIN_NETWORK_INFO_PLUS_NETWORK_INFO_H_

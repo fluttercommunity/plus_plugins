@@ -1,3 +1,7 @@
+## 1.3.1
+
+- Fix: unregister listeners on Android in `onDetachFromEngine` to not receive sensors events after app was killed
+
 ## 1.3.0
 
 - Android: Migrate to Kotlin
