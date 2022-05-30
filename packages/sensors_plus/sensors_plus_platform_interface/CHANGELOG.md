@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update Flutter lints and fix analyzer warnings
+
 ## 1.1.0
 
 - Adds magnetometer support

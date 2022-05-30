@@ -1,6 +1,7 @@
 ## 1.3.2
 
 - Fix: Android no longer crashes when app is closed if streams weren't listened to
+- Update Flutter lints and fix analyzer warnings
 
 ## 1.3.1
 
