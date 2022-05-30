@@ -1,3 +1,8 @@
+## 1.3.1
+
+- Update Flutter lints
+- Resolve analyzer issues
+
 ## 1.3.0
 
 - Bump nm plugin to 0.5.0

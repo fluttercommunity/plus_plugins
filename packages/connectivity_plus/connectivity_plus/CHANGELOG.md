@@ -1,3 +1,7 @@
+## 2.3.1
+
+- Update Dev dependencies
+
 ## 2.3.0
 
 - Add iOS ConnectivityProvider based on NWPathMonitor for iOS 12+.

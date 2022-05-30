@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Update dependencies
+- Fix analyzer issues
+
 ## 1.2.0
 
 - Add bluetooth as connectivity result
