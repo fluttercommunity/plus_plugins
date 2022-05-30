@@ -1,3 +1,7 @@
+## 2.1.4
+
+- Update dev dependencies
+
 ## 2.1.3
 
 - Update battery_plus_linux dependency

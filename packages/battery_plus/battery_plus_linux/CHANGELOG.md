@@ -1,3 +1,8 @@
+## 1.1.2
+
+- Update dbus to 0.7.5
+- Update Flutter lints
+
 ## 1.1.1
 
 - Update dbus to 0.7.1
