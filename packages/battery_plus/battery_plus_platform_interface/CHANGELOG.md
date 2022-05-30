@@ -1,6 +1,6 @@
 ## 1.2.2
 
-- Update Flutter lints
+- Update flutter_lints to 2.0.1
 - Fix analyzer warning
 
 ## 1.2.1

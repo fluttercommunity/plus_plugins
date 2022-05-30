@@ -1,6 +1,7 @@
 ## 2.3.1
 
-- Update Dev dependencies
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
 
 ## 2.3.0
 

@@ -1,6 +1,7 @@
 ## 1.2.1
 
-- Update dependencies
+- Update flutter_lints to 2.0.1
+- Update plugin_platform_interface to 2.1.2
 - Fix analyzer issues
 
 ## 1.2.0
