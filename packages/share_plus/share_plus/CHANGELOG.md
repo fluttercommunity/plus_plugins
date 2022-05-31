@@ -1,3 +1,8 @@
+## 4.0.5
+
+- Update dependencies
+- Fix analyzer warnings
+
 ## 4.0.4
 
 - iOS: Fix subject not working when sharing raw url or files via email

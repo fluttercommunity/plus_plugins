@@ -1,3 +1,8 @@
+## 2.3.1
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+
 ## 2.3.0
 
 - Add iOS ConnectivityProvider based on NWPathMonitor for iOS 12+.

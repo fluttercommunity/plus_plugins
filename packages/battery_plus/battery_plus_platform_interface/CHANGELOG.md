@@ -1,3 +1,8 @@
+## 1.2.2
+
+- Update flutter_lints to 2.0.1
+- Fix analyzer warning
+
 ## 1.2.1
 
 - Update plugin_platform_interface to 2.1.2
