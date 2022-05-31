@@ -19,9 +19,10 @@ labels: 'bug'
 
 ## System info
 
-- Platform the Issue occurs on:
+- Platform + Version the Issue occurs on:
 - Plugin name:
 - Plugin version:
+- Flutter SDK version:
 
 ## Steps to Reproduce
 
