@@ -13,13 +13,15 @@ labels: 'bug'
 
      If you have found a bug or if our documentation doesn't have an answer
      to what you're looking for, then fill our the template below.
+     
+     IMPORTANT: Bug reports that don't follow this template will be closed
 -->
 
 ## System info
 
-Platform the Issue occurs on:
-Plugin name:
-Plugin version:
+- Platform the Issue occurs on:
+- Plugin name:
+- Plugin version:
 
 ## Steps to Reproduce
 
@@ -47,7 +49,8 @@ Plugin version:
       to explain how to solve the issue.
 -->
 
-```dart
+```
+    replace with log output
 ```
 
 </details>
@@ -58,6 +61,7 @@ Plugin version:
 <!-- Paste the output of running `flutter doctor -v` here. -->
 
 ```
+     replace with doctor output
 ```
 
 </details>
