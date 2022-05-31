@@ -12,9 +12,10 @@ jobs:
         id: stale
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          stale-issue-message: 'This issue is stale because it has been open 30 days with no activity. Remove stale label or comment or this will be closed in 5 days'
+          stale-issue-message: 'This issue is stale because it has been open 120 days with no activity. Remove stale label or comment or this will be closed in 30 days'
           days-before-stale: 120
           days-before-close: 30
-          exempt-issue-labels: 'blocked,must,should,keep'
-      - name: Print outputs
-        run: echo ${{ join(steps.stale.outputs.*, ',') }}
+          stale-issue-label: stale
+          stale-pr-label: stale
+          exempt-issue-labels: keep-open
+          exempt-pr-labels: keep-open
