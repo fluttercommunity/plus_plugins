@@ -19,4 +19,4 @@ jobs:
           stale-pr-label: stale
           exempt-issue-labels: keep-open
           exempt-pr-labels: keep-open
-          operations-per-run: 300
+          operations-per-run: 1000
