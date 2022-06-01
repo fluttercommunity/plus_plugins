@@ -1,3 +1,7 @@
+## 2.3.2
+
+- iOS: Send events on main thread (#846)
+
 ## 2.3.1
 
 - Update flutter_lints to 2.0.1
