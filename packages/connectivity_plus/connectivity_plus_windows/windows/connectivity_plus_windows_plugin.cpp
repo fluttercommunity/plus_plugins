@@ -38,9 +38,6 @@ private:
                         std::unique_ptr<FlMethodResult> result);
 
   std::shared_ptr<NetworkManager> manager;
-  std::unique_ptr<FlEventChannel> _eventChannel;
-  std::unique_ptr<flutter::MethodChannel<flutter::EncodableValue>>
-      _methodChannel;
 };
 
 class ConnectivityStreamHandler : public FlStreamHandler {
@@ -81,21 +78,21 @@ void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
     flutter::PluginRegistrarWindows *registrar) {
   auto plugin = std::make_unique<ConnectivityPlusWindowsPlugin>();
 
-  _methodChannel =
+  auto methodChannel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
           registrar->messenger(), "dev.fluttercommunity.plus/connectivity",
           &flutter::StandardMethodCodec::GetInstance());
 
-  _methodChannel->SetMethodCallHandler(
+  methodChannel->SetMethodCallHandler(
       [plugin_pointer = plugin.get()](const auto &call, auto result) {
         plugin_pointer->HandleMethodCall(call, std::move(result));
       });
 
-  _eventChannel = std::make_unique<FlEventChannel>(
+  auto eventChannel = std::make_unique<FlEventChannel>(
       registrar->messenger(), "dev.fluttercommunity.plus/connectivity_status",
       &flutter::StandardMethodCodec::GetInstance());
 
-  _eventChannel->SetStreamHandler(
+  eventChannel->SetStreamHandler(
       std::make_unique<ConnectivityStreamHandler>(plugin->GetManager()));
 
   registrar->AddPlugin(std::move(plugin));

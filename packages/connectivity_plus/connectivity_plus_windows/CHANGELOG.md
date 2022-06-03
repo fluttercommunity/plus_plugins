@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Revert changes in 1.2.1
+
 ## 1.2.1
 
 - Fixes a crash when adding a listener to a destroyed channel

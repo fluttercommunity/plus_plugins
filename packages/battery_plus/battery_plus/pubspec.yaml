@@ -29,7 +29,7 @@ dependencies:
   battery_plus_linux: ^1.1.1
   battery_plus_macos: ^1.1.0
   battery_plus_web: ^1.1.0
-  battery_plus_windows: ^1.1.1
+  battery_plus_windows: ^1.1.2
 
 dev_dependencies:
   flutter_test:
