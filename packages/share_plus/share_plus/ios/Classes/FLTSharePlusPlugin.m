@@ -4,6 +4,7 @@
 
 #import "FLTSharePlusPlugin.h"
 #import "LinkPresentation/LPLinkMetadata.h"
+#import "LinkPresentation/LPMetadataProvider.h"
 
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
@@ -77,6 +78,9 @@ TopViewControllerForViewController(UIViewController *viewController) {
                            text:(NSString *)text NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithFile:(NSString *)path
+                    mimeType:(NSString *)mimeType
+                     subject:(NSString *)subject NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init
     __attribute__((unavailable("Use initWithSubject:text: instead")));
@@ -104,6 +108,18 @@ TopViewControllerForViewController(UIViewController *viewController) {
   if (self) {
     _path = path;
     _mimeType = mimeType;
+  }
+  return self;
+}
+
+- (instancetype)initWithFile:(NSString *)path
+                    mimeType:(NSString *)mimeType
+                     subject:(NSString *)subject {
+  self = [super init];
+  if (self) {
+    _path = path;
+    _mimeType = mimeType;
+    _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
   }
   return self;
 }
@@ -158,11 +174,42 @@ TopViewControllerForViewController(UIViewController *viewController) {
     (UIActivityViewController *)activityViewController
     API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0)) {
   LPLinkMetadata *metadata = [[LPLinkMetadata alloc] init];
-  if ([_text length] > 0) {
-    metadata.title = _text;
-  } else if ([_subject length] > 0) {
+
+  if ([_subject length] > 0) {
     metadata.title = _subject;
+  } else if ([_text length] > 0) {
+    metadata.title = _text;
   }
+
+  if (_path) {
+    NSString *extesnion = [_path pathExtension];
+
+    unsigned long long rawSize = (
+        [[[NSFileManager defaultManager] attributesOfItemAtPath:_path
+                                                          error:nil] fileSize]);
+    NSString *readableSize = [NSByteCountFormatter
+        stringFromByteCount:rawSize
+                 countStyle:NSByteCountFormatterCountStyleFile];
+
+    NSString *description = @"";
+
+    if (![extesnion isEqualToString:@""]) {
+      description =
+          [description stringByAppendingString:[extesnion uppercaseString]];
+      description = [description stringByAppendingString:@" • "];
+      description = [description stringByAppendingString:readableSize];
+    } else {
+      description = [description stringByAppendingString:readableSize];
+    }
+
+    // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
+    metadata.originalURL = [NSURL fileURLWithPath:description];
+    if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
+      metadata.imageProvider = [[NSItemProvider alloc]
+          initWithObject:[UIImage imageWithContentsOfFile:_path]];
+    }
+  }
+
   return metadata;
 }
 
@@ -312,26 +359,13 @@ TopViewControllerForViewController(UIViewController *viewController) {
           toResult:(FlutterResult)result {
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
-  if (text || subject) {
-    [items addObject:[[SharePlusData alloc] initWithSubject:subject text:text]];
-  }
-
   for (int i = 0; i < [paths count]; i++) {
     NSString *path = paths[i];
     NSString *pathExtension = [path pathExtension];
     NSString *mimeType = mimeTypes[i];
-    if ([pathExtension.lowercaseString isEqualToString:@"jpg"] ||
-        [pathExtension.lowercaseString isEqualToString:@"jpeg"] ||
-        [pathExtension.lowercaseString isEqualToString:@"png"] ||
-        [mimeType.lowercaseString isEqualToString:@"image/jpg"] ||
-        [mimeType.lowercaseString isEqualToString:@"image/jpeg"] ||
-        [mimeType.lowercaseString isEqualToString:@"image/png"]) {
-      UIImage *image = [UIImage imageWithContentsOfFile:path];
-      [items addObject:image];
-    } else {
-      NSURL *fileUrl = [NSURL fileURLWithPath:path];
-      [items addObject:fileUrl];
-    }
+    [items addObject:[[SharePlusData alloc] initWithFile:path
+                                                mimeType:mimeType
+                                                 subject:subject]];
   }
 
   [self share:items

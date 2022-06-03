@@ -1,3 +1,7 @@
+## 4.0.6
+
+- iOS: Fix file names not preserved and poor previews for files
+
 ## 4.0.5
 
 - Update dependencies
