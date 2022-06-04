@@ -98,9 +98,11 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
   }
 
   /**
-   * Returns the Android hardware device ID that is unique between the device + user and app
-   * signing. This key will change if the app is uninstalled or its data is cleared. Device factory
-   * reset will also result in a value change.
+   * On devices with Android >= 8.0 (API level 26) returns an ID that is unique to each combination
+   * of app-signing key, user, and device. The value may change if a factory reset is performed on
+   * the device or if an APK signing key changes. On devices with Android < 8.0 (API level 26)
+   * returns an ID that is randomly generated when the user first sets up the device and should
+   * remain constant for the lifetime of the user's device.
    *
    * @return The android ID
    */
