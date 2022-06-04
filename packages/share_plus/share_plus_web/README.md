@@ -8,5 +8,5 @@ The Web implementation of [`share_plus`](https://pub.dev/packages/share_plus).
 
 ## Usage
 
-This package is already included as part of the `share_plus` package dependency, and will
+This package is already included as part of the `share_plus` package dependency, and will 
 be included when using `share_plus` as normal.
