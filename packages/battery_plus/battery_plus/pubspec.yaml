@@ -8,7 +8,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: dev.fluttercommunity.plus.battery
+        package: dev.fluttercommunity.plus.battery 
         pluginClass: BatteryPlusPlugin
       ios:
         pluginClass: FLTBatteryPlusPlugin
