@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: flutter 
   network_info_plus_platform_interface: ^1.1.2
 dev_dependencies:
   flutter_test:
