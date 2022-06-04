@@ -4,7 +4,7 @@ description: Flutter plugin for accessing the Android AlarmManager service, and
 version: 2.0.5
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-
+ 
 dependencies:
   flutter:
     sdk: flutter
