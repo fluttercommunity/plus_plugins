@@ -81,9 +81,7 @@ For example:
 Builder(
   builder: (BuildContext context) {
     return ElevatedButton(
-      onPressed: text.isEmpty && imagePaths.isEmpty
-                 ? null
-                 : () => _onShare(context),
+      onPressed: () => _onShare(context),
           child: const Text('Share'),
      );
   },
