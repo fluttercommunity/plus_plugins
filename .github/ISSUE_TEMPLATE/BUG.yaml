@@ -67,13 +67,23 @@ body:
     validations:
       required: true
   - type: textarea
+    id: code
+    attributes:
+      label: Code Sample
+      render: dart
+      description: |
+        Include a minimal code sample that can be used to reproduce the error.
+        e.g. The call to the plus_plugins method.
+    validations:
+      required: false
+  - type: textarea
     id: logs
     attributes:
       label: Logs
       render: shell
       description: |
-        Run your application with `flutter run --verbose` and attach all the
-        log output below between the lines with the backticks. If there is an
+        Run your application with `flutter run --verbose` and attach **all the
+        log output** below between the lines with the backticks. If there is an
         exception, please see if the error message includes enough information
         to explain how to solve the issue.
     validations:
