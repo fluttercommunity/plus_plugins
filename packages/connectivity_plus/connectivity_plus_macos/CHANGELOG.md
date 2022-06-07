@@ -1,3 +1,7 @@
+## 1.2.3
+
+- Send events on main thread
+
 ## 1.2.2
 
 - Fix connectivity stream can not be reused (after hot-restart) on MacOS 10.14+.

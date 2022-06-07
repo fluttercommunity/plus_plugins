@@ -1,3 +1,7 @@
+## 2.3.3
+
+- macOS: Send events on main thread
+
 ## 2.3.2
 
 - iOS: Send events on main thread (#846)

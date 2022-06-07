@@ -70,7 +70,9 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   }
 
   private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
-    eventSink?(statusFrom(connectivityType: connectivityType))
+    DispatchQueue.main.async {
+      self.eventSink?(self.statusFrom(connectivityType: connectivityType))
+    }
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {
