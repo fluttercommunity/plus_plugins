@@ -1,3 +1,7 @@
+## 4.0.8
+
+- iOS: Fix 'Save Image' option not showing
+
 ## 4.0.7
 
 - Add documentation iPad

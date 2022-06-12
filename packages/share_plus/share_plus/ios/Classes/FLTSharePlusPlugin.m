@@ -126,7 +126,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 - (id)activityViewControllerPlaceholderItem:
     (UIActivityViewController *)activityViewController {
-  return @"";
+  return [self activityViewController:activityViewController
+                  itemForActivityType:nil];
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController
