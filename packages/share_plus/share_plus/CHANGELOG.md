@@ -1,3 +1,7 @@
+## 4.0.9
+
+- iOS: Fix 'share text' not showing when share files
+
 ## 4.0.8
 
 - iOS: Fix 'Save Image' option not showing
