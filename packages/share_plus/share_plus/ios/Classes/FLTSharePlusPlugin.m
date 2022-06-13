@@ -76,8 +76,10 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 - (instancetype)initWithSubject:(NSString *)subject
                            text:(NSString *)text NS_DESIGNATED_INITIALIZER;
+
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
+
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType
                      subject:(NSString *)subject NS_DESIGNATED_INITIALIZER;
@@ -368,6 +370,12 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
+
+  NSObject *data = [[NSURL alloc] initWithString:text];
+  if (data == nil) {
+    data = [[SharePlusData alloc] initWithSubject:subject text:text];
+  }
+  [items addObject:data];
 
   [self share:items
          withSubject:subject
