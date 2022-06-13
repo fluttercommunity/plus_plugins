@@ -1,3 +1,7 @@
+## 2.3.4
+
+- Disables internal use of `NetworkInformationAPI` which is still experimental
+
 ## 2.3.3
 
 - macOS: Send events on main thread
