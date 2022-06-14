@@ -370,12 +370,13 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
-
-  NSObject *data = [[NSURL alloc] initWithString:text];
-  if (data == nil) {
-    data = [[SharePlusData alloc] initWithSubject:subject text:text];
+  if (text == nil) {
+    NSObject *data = [[NSURL alloc] initWithString:text];
+    if (data == nil) {
+      data = [[SharePlusData alloc] initWithSubject:subject text:text];
+    }
+    [items addObject:data];
   }
-  [items addObject:data];
 
   [self share:items
          withSubject:subject
