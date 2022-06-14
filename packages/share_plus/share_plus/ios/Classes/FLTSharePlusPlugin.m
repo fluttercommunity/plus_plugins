@@ -370,7 +370,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                 mimeType:mimeType
                                                  subject:subject]];
   }
-  if (text == nil) {
+  if (text != nil) {
     NSObject *data = [[NSURL alloc] initWithString:text];
     if (data == nil) {
       data = [[SharePlusData alloc] initWithSubject:subject text:text];
