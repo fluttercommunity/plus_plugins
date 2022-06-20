@@ -145,7 +145,8 @@ tests against plugins. For example, to run all e2e tests across all plugins at o
 run the following command from the root of your cloned repository:
 
 ```bash
-melos run test:e2e
+# for mobile testing (Android or iOS)
+melos run test:mobile_e2e
 ```
 
 A full list of all commands can be found within the [`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/main/melos.yaml)
