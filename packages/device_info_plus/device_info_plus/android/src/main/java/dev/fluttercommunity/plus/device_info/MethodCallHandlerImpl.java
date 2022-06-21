@@ -4,12 +4,10 @@
 
 package dev.fluttercommunity.plus.device_info;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
 import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -23,7 +21,6 @@ import java.util.Map;
  */
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
-  private final ContentResolver contentResolver;
   private final PackageManager packageManager;
 
   /** Substitute for missing values. */
@@ -31,7 +28,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
   /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
   MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
-    this.contentResolver = contentResolver;
     this.packageManager = packageManager;
   }
 
@@ -63,7 +59,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       build.put("tags", Build.TAGS);
       build.put("type", Build.TYPE);
       build.put("isPhysicalDevice", !isEmulator());
-      build.put("androidId", getAndroidId());
 
       build.put("systemFeatures", Arrays.asList(getSystemFeatures()));
 
@@ -95,20 +90,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       features[i] = featureInfos[i].name;
     }
     return features;
-  }
-
-  /**
-   * On devices with Android >= 8.0 (API level 26) returns an ID that is unique to each combination
-   * of app-signing key, user, and device. The value may change if a factory reset is performed on
-   * the device or if an APK signing key changes. On devices with Android < 8.0 (API level 26)
-   * returns an ID that is randomly generated when the user first sets up the device and should
-   * remain constant for the lifetime of the user's device.
-   *
-   * @return The android ID
-   */
-  @SuppressLint("HardwareIds")
-  private String getAndroidId() {
-    return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
   }
 
   /**

@@ -1,6 +1,12 @@
+## 4.0.0
+
+- **Breaking change** Remove `AndroidId` getter to avoid Google Play policies violations
+- Update flutter_lints to 2.0.1
+- Remove explicit `test` dependency to use `flutter_test` from Flutter SDK
+
 ## 3.2.4
 
-- Update the description of getAndroidId method  
+- Update the description of getAndroidId method
 
 ## 3.2.3
 

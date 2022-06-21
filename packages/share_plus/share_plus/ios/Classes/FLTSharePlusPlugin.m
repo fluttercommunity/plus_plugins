@@ -128,8 +128,9 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 - (id)activityViewControllerPlaceholderItem:
     (UIActivityViewController *)activityViewController {
-  return [self activityViewController:activityViewController
-                  itemForActivityType:nil];
+  return [self
+      activityViewController:activityViewController
+         itemForActivityType:@"dev.fluttercommunity.share_plus.placeholder"];
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController
@@ -138,13 +139,18 @@ TopViewControllerForViewController(UIViewController *viewController) {
     return _text;
   }
 
-  if ([_mimeType hasPrefix:@"image/"]) {
+  // If the shared file is an image return an UIImage for the placeholder
+  // to show a preview.
+  if ([activityType
+          isEqualToString:@"dev.fluttercommunity.share_plus.placeholder"] &&
+      [_mimeType hasPrefix:@"image/"]) {
     UIImage *image = [UIImage imageWithContentsOfFile:_path];
     return image;
-  } else {
-    NSURL *url = [NSURL fileURLWithPath:_path];
-    return url;
   }
+
+  // Return an NSURL for the real share to conserve the file name
+  NSURL *url = [NSURL fileURLWithPath:_path];
+  return url;
 }
 
 - (NSString *)activityViewController:
@@ -364,7 +370,6 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
   for (int i = 0; i < [paths count]; i++) {
     NSString *path = paths[i];
-    NSString *pathExtension = [path pathExtension];
     NSString *mimeType = mimeTypes[i];
     [items addObject:[[SharePlusData alloc] initWithFile:path
                                                 mimeType:mimeType

@@ -41,7 +41,7 @@ If you are interested in the action your user performed with the share sheet, yo
 ```dart
 final result = await Share.shareWithResult('check out my website https://example.com');
 
-if (result.status != ShareResultStatus.success) {
+if (result.status == ShareResultStatus.success) {
     print('thank you for sharing my website!');
 }
 ```

@@ -1,3 +1,7 @@
+## 1.2.4
+
+- Stop sending events once flutter engine detached
+
 ## 1.2.3
 
 - Send events on main thread
