@@ -1,3 +1,7 @@
+## 2.3.5
+
+- Stop sending events once flutter engine detached on iOS/macOS (#865)
+
 ## 2.3.4
 
 - Disables internal use of `NetworkInformationAPI` which is still experimental
