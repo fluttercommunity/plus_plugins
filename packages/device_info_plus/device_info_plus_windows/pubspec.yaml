@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   device_info_plus_platform_interface: ^2.1.0
-  ffi: ^2.0.0
+  ffi: ^2.0.1
   flutter:
     sdk: flutter
   win32: ^2.7.0
