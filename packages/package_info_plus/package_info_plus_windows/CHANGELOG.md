@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Update ffi dependency
+
 ## 1.0.5
 
 - Fix MissingPluginException

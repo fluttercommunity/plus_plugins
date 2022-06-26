@@ -1,3 +1,7 @@
+## 1.4.3
+
+- Windows: Update ffi dependency
+
 ## 1.4.2
 
 - Web: Resolve package_name
