@@ -71,9 +71,9 @@ class BatteryPlusLinux extends BatteryPlatform {
     _stateController!.add(value.toBatteryState());
   }
 
-  void _startListenState() {
+  Future<void> _startListenState() async {
     _stateClient ??= createClient();
-    _stateClient!
+    await _stateClient!
         .connect()
         .then((_) => _addState(_stateClient!.displayDevice.state));
     _stateClient!.displayDevice.propertiesChanged.listen((properties) {
