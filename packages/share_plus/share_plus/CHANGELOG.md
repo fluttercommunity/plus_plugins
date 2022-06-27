@@ -1,3 +1,7 @@
+## 4.0.10
+
+- iOS: Fix 'share text' not showing when share files
+
 ## 4.0.9
 
 - iOS: Fix image file names not preserved
