@@ -27,11 +27,10 @@ void main() {
       test('fromMap should return $WebBrowserInfo with correct values', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
 
-        expect(webBrowserInfo.browserName, BrowserName.safari);
         expect(webBrowserInfo.appCodeName, 'appCodeName');
         expect(webBrowserInfo.appName, 'appName');
         expect(webBrowserInfo.appVersion, 'appVersion');
-        expect(webBrowserInfo.browserName, BrowserName.safari.name);
+        expect(webBrowserInfo.browserName, BrowserName.safari);
         expect(webBrowserInfo.deviceMemory, 42);
         expect(webBrowserInfo.language, 'language');
         expect(webBrowserInfo.languages, ['en', 'es']);
