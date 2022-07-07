@@ -59,9 +59,9 @@ class IosDeviceInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [IosDeviceInfo] to a map.
+  /// Serializes [IosDeviceInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'name': name,
       'model': model,

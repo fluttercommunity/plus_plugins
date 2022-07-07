@@ -139,9 +139,9 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
   /// decoded from hexadecimal, this corresponds to a 16-byte/128-bit value.
   final String? machineId;
 
-  /// Serializes [LinuxDeviceInfo] to a map.
+  /// Serializes [LinuxDeviceInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'name': name,
       'version': version,

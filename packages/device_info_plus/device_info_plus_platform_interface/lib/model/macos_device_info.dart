@@ -54,9 +54,9 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Device GUID
   final String? systemGUID;
 
-  /// Serializes [MacOsDeviceInfo] to map.
+  /// Serializes [MacOsDeviceInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'arch': arch,
       'model': model,

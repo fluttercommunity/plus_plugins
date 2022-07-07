@@ -112,9 +112,9 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String?> systemFeatures;
 
-  /// Serializes [AndroidDeviceInfo] to map.
+  /// Serializes [AndroidDeviceInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'id': id,
       'host': host,

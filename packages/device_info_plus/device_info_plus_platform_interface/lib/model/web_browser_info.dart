@@ -128,9 +128,9 @@ class WebBrowserInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [WebBrowserInfo] to a map.
+  /// Serializes [WebBrowserInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'browserName': browserName,
       'appCodeName': appCodeName,

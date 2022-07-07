@@ -23,9 +23,9 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// This may not be the same as available memory.
   final int systemMemoryInMegabytes;
 
-  /// Serializes [WindowsDeviceInfo] to a map.
+  /// Serializes [WindowsDeviceInfo] to a json.
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'computerName': computerName,
       'numberOfCores': numberOfCores,
