@@ -1,3 +1,7 @@
+## 2.3.1+0
+
+- breaking change: toMap renamed as toJson for dart:convert compatibility
+
 ## 2.3.0+1
 
 - Fix LinuxDeviceInfo.name docs
