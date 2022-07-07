@@ -1,3 +1,7 @@
+## 1.2.3
+
+- fix Bad state: Stream has already been listened to (#943)
+
 ## 1.2.2
 
 - Disables internal use of `NetworkInformationAPI` which is still experimental
