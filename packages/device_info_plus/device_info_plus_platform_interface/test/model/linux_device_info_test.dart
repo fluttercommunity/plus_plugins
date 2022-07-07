@@ -1,36 +1,44 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/linux_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$LinuxDeviceInfo', () {
-    test('toMap should return map with correct key and map', () {
-      final linuxDeviceInfo = LinuxDeviceInfo(
-        name: 'name',
-        version: 'version',
-        id: 'id',
-        idLike: ['idLike'],
-        versionCodename: 'versionCodename',
-        versionId: 'versionId',
-        prettyName: 'prettyName',
-        buildId: 'buildId',
-        variant: 'variant',
-        variantId: 'variantId',
-        machineId: 'machineId',
-      );
+    const linuxDeviceInfoMap = <String, Object?>{
+      'name': 'name',
+      'version': 'version',
+      'id': 'id',
+      'idLike': ['idLike'],
+      'versionCodename': 'versionCodename',
+      'versionId': 'versionId',
+      'prettyName': 'prettyName',
+      'buildId': 'buildId',
+      'variant': 'variant',
+      'variantId': 'variantId',
+      'machineId': 'machineId',
+    };
 
-      expect(linuxDeviceInfo.toJson(), {
-        'name': 'name',
-        'version': 'version',
-        'id': 'id',
-        'idLike': ['idLike'],
-        'versionCodename': 'versionCodename',
-        'versionId': 'versionId',
-        'prettyName': 'prettyName',
-        'buildId': 'buildId',
-        'variant': 'variant',
-        'variantId': 'variantId',
-        'machineId': 'machineId',
-      });
+    final linuxDeviceInfo = LinuxDeviceInfo(
+      name: 'name',
+      version: 'version',
+      id: 'id',
+      idLike: ['idLike'],
+      versionCodename: 'versionCodename',
+      versionId: 'versionId',
+      prettyName: 'prettyName',
+      buildId: 'buildId',
+      variant: 'variant',
+      variantId: 'variantId',
+      machineId: 'machineId',
+    );
+    test('toJson should return map with correct key and map', () {
+      expect(linuxDeviceInfo.toJson(), linuxDeviceInfoMap);
+    });
+    test('jsonEncode / jsonDecode should return the correct map', () {
+      final json = jsonEncode(linuxDeviceInfo.toJson());
+
+      expect(jsonDecode(json), linuxDeviceInfoMap);
     });
   });
 }

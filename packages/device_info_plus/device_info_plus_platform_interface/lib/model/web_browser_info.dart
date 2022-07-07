@@ -40,6 +40,7 @@ class WebBrowserInfo implements BaseDeviceInfo {
     required this.appCodeName,
     required this.appName,
     required this.appVersion,
+    required this.browserName,
     required this.deviceMemory,
     required this.language,
     required this.languages,
@@ -51,12 +52,7 @@ class WebBrowserInfo implements BaseDeviceInfo {
     required this.vendorSub,
     required this.maxTouchPoints,
     required this.hardwareConcurrency,
-  });
-
-  /// the name of the current browser.
-  BrowserName get browserName {
-    return _parseUserAgentToBrowserName();
-  }
+  }) : assert(browserName == _parseUserAgentToBrowserName(userAgent));
 
   /// the internal "code" name of the current browser.
   /// Note: Do not rely on this property to return the correct value.
@@ -69,6 +65,9 @@ class WebBrowserInfo implements BaseDeviceInfo {
   /// the version of the browser as a DOMString.
   /// Note: Do not rely on this property to return the correct value.
   final String? appVersion;
+
+  /// the name of the current browser.
+  final BrowserName browserName;
 
   /// the amount of device memory in gigabytes. This value is an approximation given by rounding to the nearest power of 2 and dividing that number by 1024.
   final int? deviceMemory;
@@ -109,11 +108,13 @@ class WebBrowserInfo implements BaseDeviceInfo {
   final int? maxTouchPoints;
 
   /// Deserializes from the map message received from [Navigator].
-  static WebBrowserInfo fromMap(Map<String, dynamic> map) {
+  factory WebBrowserInfo.fromMap(Map<String, dynamic> map) {
     return WebBrowserInfo(
       appCodeName: map['appCodeName'],
       appName: map['appName'],
       appVersion: map['appVersion'],
+      browserName: _broserNameFromString(map['browserName']) ??
+          _parseUserAgentToBrowserName(map['userAgent']),
       deviceMemory: map['deviceMemory'],
       language: map['language'],
       languages: map['languages'],
@@ -132,10 +133,10 @@ class WebBrowserInfo implements BaseDeviceInfo {
   @override
   Map<String, Object?> toJson() {
     return {
-      'browserName': browserName,
       'appCodeName': appCodeName,
       'appName': appName,
       'appVersion': appVersion,
+      'browserName': browserName.name,
       'deviceMemory': deviceMemory,
       'language': language,
       'languages': languages,
@@ -149,36 +150,44 @@ class WebBrowserInfo implements BaseDeviceInfo {
       'maxTouchPoints': maxTouchPoints,
     };
   }
+}
 
-  BrowserName _parseUserAgentToBrowserName() {
-    final _userAgent = userAgent;
-    if (_userAgent == null) {
-      return BrowserName.unknown;
-    } else if (_userAgent.contains('Firefox')) {
-      return BrowserName.firefox;
-      // "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
-    } else if (_userAgent.contains('SamsungBrowser')) {
-      return BrowserName.samsungInternet;
-      // "Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G955F Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/9.4 Chrome/67.0.3396.87 Mobile Safari/537.36
-    } else if (_userAgent.contains('Opera') || _userAgent.contains('OPR')) {
-      return BrowserName.opera;
-      // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106"
-    } else if (_userAgent.contains('Trident')) {
-      return BrowserName.msie;
-      // "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
-    } else if (_userAgent.contains('Edg')) {
-      return BrowserName.edge;
-      // https://docs.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-string
-      // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43"
-      // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
-    } else if (_userAgent.contains('Chrome')) {
-      return BrowserName.chrome;
-      // "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
-    } else if (_userAgent.contains('Safari')) {
-      return BrowserName.safari;
-      // "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
-    } else {
-      return BrowserName.unknown;
+BrowserName? _broserNameFromString(String? name) {
+  for (final browserName in BrowserName.values) {
+    if (browserName.name == name) {
+      return browserName;
     }
+  }
+  return null;
+}
+
+BrowserName _parseUserAgentToBrowserName(userAgent) {
+  if (userAgent == null) {
+    return BrowserName.unknown;
+  } else if (userAgent.contains('Firefox')) {
+    return BrowserName.firefox;
+    // "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+  } else if (userAgent.contains('SamsungBrowser')) {
+    return BrowserName.samsungInternet;
+    // "Mozilla/5.0 (Linux; Android 9; SAMSUNG SM-G955F Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/9.4 Chrome/67.0.3396.87 Mobile Safari/537.36
+  } else if (userAgent.contains('Opera') || userAgent.contains('OPR')) {
+    return BrowserName.opera;
+    // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 OPR/57.0.3098.106"
+  } else if (userAgent.contains('Trident')) {
+    return BrowserName.msie;
+    // "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
+  } else if (userAgent.contains('Edg')) {
+    return BrowserName.edge;
+    // https://docs.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-string
+    // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43"
+    // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+  } else if (userAgent.contains('Chrome')) {
+    return BrowserName.chrome;
+    // "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+  } else if (userAgent.contains('Safari')) {
+    return BrowserName.safari;
+    // "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+  } else {
+    return BrowserName.unknown;
   }
 }

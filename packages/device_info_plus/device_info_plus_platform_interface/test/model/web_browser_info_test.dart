@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/web_browser_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$WebBrowserInfo', () {
     group('fromMap | toMap', () {
-      const webBrowserInfoMap = <String, dynamic>{
-        'browserName': BrowserName.safari,
+      final webBrowserInfoMap = <String, dynamic>{
         'appCodeName': 'appCodeName',
         'appName': 'appName',
         'appVersion': 'appVersion',
+        'browserName': BrowserName.safari.name,
         'deviceMemory': 42,
         'language': 'language',
         'languages': ['en', 'es'],
@@ -42,9 +44,31 @@ void main() {
         expect(webBrowserInfo.maxTouchPoints, 42);
       });
 
-      test('toMap should return map with correct key and map', () {
+      test('toJson should return map with correct key and map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
         expect(webBrowserInfo.toJson(), webBrowserInfoMap);
+      });
+
+      test('provided a map without `browserName` `userAgent` is parsed', () {
+        final mapWithoutBrowserName = {...webBrowserInfoMap};
+        mapWithoutBrowserName.remove('browserName');
+        final webBrowserInfo = WebBrowserInfo.fromMap(mapWithoutBrowserName);
+        expect(webBrowserInfo.toJson(), webBrowserInfoMap);
+      });
+
+      test('when `browserName` does not match `userAgent` throws Error', () {
+        final wrongMap = {...webBrowserInfoMap};
+        wrongMap['browserName'] = BrowserName.chrome.name;
+        expect(
+          () => WebBrowserInfo.fromMap(wrongMap),
+          throwsA(isA<AssertionError>()),
+        );
+      });
+
+      test('jsonEncode / jsonDecode should return the correct map', () {
+        final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
+        final json = jsonEncode(webBrowserInfo.toJson());
+        expect(jsonDecode(json), webBrowserInfoMap);
       });
     });
   });

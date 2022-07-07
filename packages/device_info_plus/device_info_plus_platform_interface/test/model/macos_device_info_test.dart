@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -64,10 +66,17 @@ void main() {
         expect(macosDeviceInfo.systemGUID, 'systemGUID');
       });
 
-      test('toMap should return map with correct key and map', () {
+      test('toJson should return map with correct key and map', () {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
 
         expect(macosDeviceInfo.toJson(), macosDeviceInfoMap);
+      });
+      test('jsonEncode / jsonDecode should return the correct map', () {
+        final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
+
+        final json = jsonEncode(macosDeviceInfo.toJson());
+
+        expect(jsonDecode(json), macosDeviceInfoMap);
       });
     });
   });

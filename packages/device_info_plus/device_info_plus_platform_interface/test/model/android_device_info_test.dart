@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/android_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -17,7 +19,7 @@ void main() {
       const supported32BitAbis = <String?>['x86 (IA-32)', 'MMX'];
       const supported64BitAbis = <String?>['x86-64', 'MMX', 'SSSE3'];
       const systemFeatures = ['FEATURE_AUDIO_PRO', 'FEATURE_AUDIO_OUTPUT'];
-      final androidDeviceInfoMap = <String, dynamic>{
+      const androidDeviceInfoMap = <String, dynamic>{
         'id': 'id',
         'host': 'host',
         'tags': 'tags',
@@ -74,11 +76,20 @@ void main() {
         expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
       });
 
-      test('toMap should return map with correct key and map', () {
+      test('toJson should return map with correct key and map', () {
         final androidDeviceInfo =
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
         expect(androidDeviceInfo.toJson(), androidDeviceInfoMap);
+      });
+
+      test('jsonEncode / jsonDecode should return the correct map', () {
+        final androidDeviceInfo =
+            AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
+
+        final json = jsonEncode(androidDeviceInfo.toJson());
+
+        expect(jsonDecode(json), androidDeviceInfoMap);
       });
     });
   });
