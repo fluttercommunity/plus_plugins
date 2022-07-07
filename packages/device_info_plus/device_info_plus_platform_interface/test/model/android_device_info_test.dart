@@ -87,7 +87,7 @@ void main() {
         final androidDeviceInfo =
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
-        final json = jsonEncode(androidDeviceInfo.toJson());
+        final json = jsonEncode(androidDeviceInfo);
 
         expect(jsonDecode(json), androidDeviceInfoMap);
       });

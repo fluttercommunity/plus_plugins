@@ -49,7 +49,7 @@ void main() {
       test('jsonEncode / jsonDecode should return the correct map', () {
         final androidDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
 
-        final json = jsonEncode(androidDeviceInfo.toJson());
+        final json = jsonEncode(androidDeviceInfo);
 
         expect(jsonDecode(json), iosDeviceInfoMap);
       });

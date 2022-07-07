@@ -36,7 +36,7 @@ void main() {
       expect(linuxDeviceInfo.toJson(), linuxDeviceInfoMap);
     });
     test('jsonEncode / jsonDecode should return the correct map', () {
-      final json = jsonEncode(linuxDeviceInfo.toJson());
+      final json = jsonEncode(linuxDeviceInfo);
 
       expect(jsonDecode(json), linuxDeviceInfoMap);
     });

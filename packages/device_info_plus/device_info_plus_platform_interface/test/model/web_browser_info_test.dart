@@ -67,7 +67,7 @@ void main() {
 
       test('jsonEncode / jsonDecode should return the correct map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
-        final json = jsonEncode(webBrowserInfo.toJson());
+        final json = jsonEncode(webBrowserInfo);
         expect(jsonDecode(json), webBrowserInfoMap);
       });
     });

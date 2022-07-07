@@ -35,7 +35,7 @@ void main() {
       test('toMap should return map with correct key and map', () {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
 
-        expect(macosDeviceInfo.toJson(), macosDeviceInfoMap);
+        expect(macosDeviceInfo, macosDeviceInfoMap);
       });
     });
 
