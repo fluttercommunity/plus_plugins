@@ -31,6 +31,7 @@ void main() {
         expect(webBrowserInfo.appCodeName, 'appCodeName');
         expect(webBrowserInfo.appName, 'appName');
         expect(webBrowserInfo.appVersion, 'appVersion');
+        expect(webBrowserInfo.browserName, BrowserName.safari.name);
         expect(webBrowserInfo.deviceMemory, 42);
         expect(webBrowserInfo.language, 'language');
         expect(webBrowserInfo.languages, ['en', 'es']);
@@ -50,15 +51,18 @@ void main() {
       });
 
       test('provided a map without `browserName` `userAgent` is parsed', () {
-        final mapWithoutBrowserName = {...webBrowserInfoMap};
-        mapWithoutBrowserName.remove('browserName');
+        final mapWithoutBrowserName = {...webBrowserInfoMap}
+          ..remove('browserName');
+
         final webBrowserInfo = WebBrowserInfo.fromMap(mapWithoutBrowserName);
+
         expect(webBrowserInfo.toJson(), webBrowserInfoMap);
       });
 
       test('when `browserName` does not match `userAgent` throws Error', () {
-        final wrongMap = {...webBrowserInfoMap};
-        wrongMap['browserName'] = BrowserName.chrome.name;
+        final wrongMap = {...webBrowserInfoMap}..['browserName'] =
+            BrowserName.chrome.name;
+
         expect(
           () => WebBrowserInfo.fromMap(wrongMap),
           throwsA(isA<AssertionError>()),
@@ -67,7 +71,9 @@ void main() {
 
       test('jsonEncode / jsonDecode should return the correct map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
+
         final json = jsonEncode(webBrowserInfo);
+
         expect(jsonDecode(json), webBrowserInfoMap);
       });
     });
