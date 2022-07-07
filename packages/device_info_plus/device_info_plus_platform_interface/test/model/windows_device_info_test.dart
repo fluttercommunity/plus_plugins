@@ -10,7 +10,7 @@ void main() {
         systemMemoryInMegabytes: 16,
       );
 
-      expect(windowsDeviceInfo.toMap(), {
+      expect(windowsDeviceInfo.toJson(), {
         'computerName': 'computerName',
         'numberOfCores': 4,
         'systemMemoryInMegabytes': 16,

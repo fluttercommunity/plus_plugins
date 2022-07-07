@@ -41,7 +41,7 @@ void main() {
       test('toMap should return map with correct key and map', () {
         final iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
 
-        expect(iosDeviceInfo.toMap(), iosDeviceInfoMap);
+        expect(iosDeviceInfo.toJson(), iosDeviceInfoMap);
       });
     });
   });

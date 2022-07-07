@@ -78,7 +78,7 @@ void main() {
         final androidDeviceInfo =
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
-        expect(androidDeviceInfo.toMap(), androidDeviceInfoMap);
+        expect(androidDeviceInfo.toJson(), androidDeviceInfoMap);
       });
     });
   });

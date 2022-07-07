@@ -18,7 +18,7 @@ void main() {
         machineId: 'machineId',
       );
 
-      expect(linuxDeviceInfo.toMap(), {
+      expect(linuxDeviceInfo.toJson(), {
         'name': 'name',
         'version': 'version',
         'id': 'id',

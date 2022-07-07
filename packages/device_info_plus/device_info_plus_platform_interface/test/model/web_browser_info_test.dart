@@ -44,7 +44,7 @@ void main() {
 
       test('toMap should return map with correct key and map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
-        expect(webBrowserInfo.toMap(), webBrowserInfoMap);
+        expect(webBrowserInfo.toJson(), webBrowserInfoMap);
       });
     });
   });

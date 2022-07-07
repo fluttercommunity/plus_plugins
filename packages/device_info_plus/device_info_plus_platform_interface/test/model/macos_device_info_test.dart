@@ -33,7 +33,7 @@ void main() {
       test('toMap should return map with correct key and map', () {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
 
-        expect(macosDeviceInfo.toMap(), macosDeviceInfoMap);
+        expect(macosDeviceInfo.toJson(), macosDeviceInfoMap);
       });
     });
 
@@ -67,7 +67,7 @@ void main() {
       test('toMap should return map with correct key and map', () {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
 
-        expect(macosDeviceInfo.toMap(), macosDeviceInfoMap);
+        expect(macosDeviceInfo.toJson(), macosDeviceInfoMap);
       });
     });
   });
