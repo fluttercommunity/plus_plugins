@@ -142,8 +142,7 @@ jobs:
           token: ${{secrets.CODECOV_TOKEN}}
           files: packages/*/coverage/lcov.info
 
-  integration_tests:
-    if: false # currently broken, see issue 220
+  integration_tests_android:
     runs-on: macos-latest
     timeout-minutes: 40
     steps:
@@ -160,23 +159,6 @@ jobs:
       - name: "Bootstrap Workspace"
         run: melos bootstrap
 
-      - uses: nanasess/setup-chromedriver@master
-        with:
-          chromedriver-version: "94.0.4606.61"
-
-      - name: "Setup Linux"
-        run: |
-          sudo apt update
-          sudo apt install -y cmake dbus libblkid-dev libgtk-3-dev liblzma-dev ninja-build pkg-config xvfb clang-format
-          sudo apt install -y network-manager upower
-        if: matrix.os == 'ubuntu-latest'
-
-      - name: "Flutter Linux Integration Test"
-        run: |
-          flutter config --enable-linux-desktop
-          ./.github/workflows/scripts/drive-example.sh linux
-        if: matrix.os == 'ubuntu-latest'
-
       - name: "Drive Android Integration Test"
         if: matrix.os == 'macos-latest'
         uses: reactivecircus/android-emulator-runner@v2
@@ -185,26 +167,4 @@ jobs:
           arch: x86_64
           target: google_apis
           profile: Nexus 5X
-          script: ./.github/workflows/scripts/drive-example.sh android
-
-      # - name: "Flutter Windows Integration Test"
-      #   run: |
-      #     flutter config --enable-windows-desktop
-      #     ./.github/workflows/scripts/drive-example.sh windows
-      #   if: matrix.os == 'windows-latest'
-
-      - name: "Drive iOS Integration Test"
-        run: |
-          ./.github/workflows/scripts/drive-example.sh ios
-        if: matrix.os == 'macos-latest'
-
-      - name: "Drive MacOS Integration Test"
-        run: |
-          flutter config --enable-macos-desktop
-          ./.github/workflows/scripts/drive-example.sh macos
-        if: matrix.os == 'macos-latest'
-
-      - name: "Drive Web Integration Test"
-        run: |
-          ./.github/workflows/scripts/drive-example.sh web
-        if: matrix.os == 'linux-latest'
+          script: ./.github/workflows/scripts/integration_test.sh android
