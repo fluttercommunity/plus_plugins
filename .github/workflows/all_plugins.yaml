@@ -143,7 +143,7 @@ jobs:
           files: packages/*/coverage/lcov.info
 
   integration_tests_android:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
@@ -159,8 +159,7 @@ jobs:
       - name: "Bootstrap Workspace"
         run: melos bootstrap
 
-      - name: "Drive Android Integration Test"
-        if: matrix.os == 'macos-latest'
+      - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
