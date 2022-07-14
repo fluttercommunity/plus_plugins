@@ -143,7 +143,7 @@ jobs:
           files: packages/*/coverage/lcov.info
 
   integration_tests_android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2.3.4
