@@ -1,6 +1,6 @@
 ## 2.3.6
 
-- fix Bad state: Stream has already been listened to (#943)
+- Web: Fix Bad state: Stream has already been listened to (#943)
 
 ## 2.3.5
 
