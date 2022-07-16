@@ -15,7 +15,7 @@ env:
 
 jobs:
   android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -28,7 +28,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
