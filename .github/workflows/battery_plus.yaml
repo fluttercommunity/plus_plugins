@@ -11,7 +11,7 @@ on:
 
 env:
   PLUGIN_SCOPE: "*battery_plus*"
-  PLUGIN_EXAMPLE_SCOPE: "*battery_plus_example*"
+  PLUGIN_EXAMPLE_SCOPE: "*battery_example*"
 
 jobs:
   android:
