@@ -43,6 +43,12 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+
+      # Required for Android builds
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
       - name: "Bootstrap Workspace"
         run: melos bootstrap
       - name: "Android Integration Test"
