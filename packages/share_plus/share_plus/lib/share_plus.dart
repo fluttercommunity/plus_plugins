@@ -23,8 +23,8 @@ class Share {
   /// user chooses to send an email.
   ///
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
-  /// origin rect for the share sheet to popover from on iPads. It has no effect
-  /// on non-iPads.
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
@@ -59,8 +59,8 @@ class Share {
   /// every other MIME type is considered a normal file.
   ///
   /// The optional `sharePositionOrigin` parameter can be used to specify a global
-  /// origin rect for the share sheet to popover from on iPads. It has no effect
-  /// on non-iPads.
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
