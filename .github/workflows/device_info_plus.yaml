@@ -58,7 +58,7 @@ jobs:
           arch: x86_64
           target: google_apis
           profile: Nexus 5X
-          script: ./.github/workflows/scripts/integration-test.sh android device_info_plus_example
+          script: ./.github/workflows/scripts/integration-test.sh android device_info_example
 
   ios:
     runs-on: macos-latest
