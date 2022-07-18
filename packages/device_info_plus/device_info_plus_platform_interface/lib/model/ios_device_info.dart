@@ -44,8 +44,23 @@ class IosDeviceInfo implements BaseDeviceInfo {
   /// Operating system information derived from `sys/utsname.h`.
   final IosUtsname utsname;
 
+  /// Serializes [IosDeviceInfo] to a map.
+  @override
+  Map<String, Object?> toMap() {
+    return {
+      'name': name,
+      'model': model,
+      'systemName': systemName,
+      'utsname': utsname._toMap(),
+      'systemVersion': systemVersion,
+      'localizedModel': localizedModel,
+      'identifierForVendor': identifierForVendor,
+      'isPhysicalDevice': isPhysicalDevice.toString(),
+    };
+  }
+
   /// Deserializes from the map message received from [_kChannel].
-  static IosDeviceInfo fromMap(Map<String, dynamic> map) {
+  factory IosDeviceInfo.fromMap(Map<String, dynamic> map) {
     return IosDeviceInfo(
       name: map['name'],
       systemName: map['systemName'],
@@ -59,20 +74,12 @@ class IosDeviceInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [IosDeviceInfo] to a json.
+  /// Serializes [IosDeviceInfo] to a json compatible map.
+  /// This method will be called by `jsonEncode` in [dart:convert].
+  ///
+  /// E.g.: jsonEncode(deviceInfo)
   @override
-  Map<String, Object?> toJson() {
-    return {
-      'name': name,
-      'model': model,
-      'systemName': systemName,
-      'utsname': utsname._toMap(),
-      'systemVersion': systemVersion,
-      'localizedModel': localizedModel,
-      'identifierForVendor': identifierForVendor,
-      'isPhysicalDevice': isPhysicalDevice.toString(),
-    };
-  }
+  Map<String, Object?> toJson() => toMap();
 }
 
 /// Information derived from `utsname`.
@@ -113,7 +120,7 @@ class IosUtsname {
   }
 
   /// Serializes [ IosUtsname ] to map.
-  Map<String, dynamic> _toMap() {
+  Map<String, Object?> _toMap() {
     return {
       'release': release,
       'version': version,

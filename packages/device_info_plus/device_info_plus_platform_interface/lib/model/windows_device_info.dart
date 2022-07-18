@@ -23,13 +23,20 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// This may not be the same as available memory.
   final int systemMemoryInMegabytes;
 
-  /// Serializes [WindowsDeviceInfo] to a json.
+  /// Serializes [WindowsDeviceInfo] to a map.
   @override
-  Map<String, Object?> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'computerName': computerName,
       'numberOfCores': numberOfCores,
       'systemMemoryInMegabytes': systemMemoryInMegabytes,
     };
   }
+
+  /// Serializes [WindowsDeviceInfo] to a json compatible map.
+  /// This method will be called by `jsonEncode` in [dart:convert].
+  ///
+  /// E.g.: jsonEncode(deviceInfo)
+  @override
+  Map<String, Object?> toJson() => toMap();
 }

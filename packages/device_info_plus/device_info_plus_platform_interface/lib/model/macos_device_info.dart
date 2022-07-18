@@ -54,9 +54,9 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Device GUID
   final String? systemGUID;
 
-  /// Serializes [MacOsDeviceInfo] to a json.
+  /// Serializes [MacOsDeviceInfo] to map.
   @override
-  Map<String, Object?> toJson() {
+  Map<String, Object?> toMap() {
     return {
       'arch': arch,
       'model': model,
@@ -72,7 +72,7 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   }
 
   /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
-  static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {
+  factory MacOsDeviceInfo.fromMap(Map<dynamic, dynamic> map) {
     return MacOsDeviceInfo(
       computerName: map['computerName'],
       hostName: map['hostName'],
@@ -86,4 +86,11 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
       systemGUID: map['systemGUID'],
     );
   }
+
+  /// Serializes [MacOsDeviceInfo] to a json compatible map.
+  /// This method will be called by `jsonEncode` in [dart:convert].
+  ///
+  /// E.g.: jsonEncode(deviceInfo)
+  @override
+  Map<String, Object?> toJson() => toMap();
 }

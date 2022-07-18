@@ -112,9 +112,9 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String?> systemFeatures;
 
-  /// Serializes [AndroidDeviceInfo] to a json.
+  /// Serializes [AndroidDeviceInfo] to map.
   @override
-  Map<String, Object?> toJson() {
+  Map<String, Object?> toMap() {
     return {
       'id': id,
       'host': host,
@@ -141,7 +141,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   }
 
   /// Deserializes from the message received from [_kChannel].
-  static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
+  factory AndroidDeviceInfo.fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo(
       version: AndroidBuildVersion._fromMap(
           map['version']?.cast<String, dynamic>() ?? {}),
@@ -167,6 +167,13 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
     );
   }
+
+  /// Serializes [AndroidDeviceInfo] to a json compatible map.
+  /// This method will be called by `jsonEncode` in [dart:convert].
+  ///
+  /// E.g.: jsonEncode(deviceInfo)
+  @override
+  Map<String, Object?> toJson() => toMap();
 
   /// Deserializes message as List<String>
   static List<String?> _fromList(dynamic message) {

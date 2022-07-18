@@ -129,7 +129,32 @@ class WebBrowserInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [WebBrowserInfo] to a json.
+  /// Serializes [WebBrowserInfo] to a map.
+  @override
+  Map<String, Object?> toMap() {
+    return {
+      'browserName': browserName,
+      'appCodeName': appCodeName,
+      'appName': appName,
+      'appVersion': appVersion,
+      'deviceMemory': deviceMemory,
+      'language': language,
+      'languages': languages,
+      'platform': platform,
+      'product': product,
+      'productSub': productSub,
+      'userAgent': userAgent,
+      'vendor': vendor,
+      'vendorSub': vendorSub,
+      'hardwareConcurrency': hardwareConcurrency,
+      'maxTouchPoints': maxTouchPoints,
+    };
+  }
+
+  /// Serializes [WebBrowserInfo] to a json compatible map.
+  /// This method will be called by `jsonEncode` in [dart:convert].
+  ///
+  /// E.g.: jsonEncode(deviceInfo)
   @override
   Map<String, Object?> toJson() {
     return {
