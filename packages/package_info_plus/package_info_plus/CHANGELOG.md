@@ -1,5 +1,9 @@
 ## 2.0.0
-- Windows: Update ffi dependency
+- **Breaking change**. Bump minimum dart version to 2.17.0.
+- Windows: Updated package_info_plus_windows to version 2.0.0.
+- MacOS: Updated package_info_plus_macos to 1.3.0.
+- Updated test to 1.21.1.
+- Updated flutter_lints to 2.0.1.
 
 ## 1.4.2
 
