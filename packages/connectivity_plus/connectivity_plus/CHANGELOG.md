@@ -1,3 +1,7 @@
+## 2.3.6
+
+- Web: Fix Bad state: Stream has already been listened to (#943)
+
 ## 2.3.5
 
 - Stop sending events once flutter engine detached on iOS/macOS (#865)
