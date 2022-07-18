@@ -17,11 +17,11 @@ void main() {
       'systemMemoryInMegabytes': 16,
     };
     test('toJson should return map with correct key and map', () {
-      expect(windowsDeviceInfo.toJson(), windowsDeviceInfoMap);
+      expect(windowsDeviceInfo.toMap(), windowsDeviceInfoMap);
     });
 
     test('jsonEncode / jsonDecode should return the correct map', () {
-      final json = jsonEncode(windowsDeviceInfo.toJson());
+      final json = jsonEncode(windowsDeviceInfo.toMap());
 
       expect(jsonDecode(json), windowsDeviceInfoMap);
     });

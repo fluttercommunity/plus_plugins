@@ -46,7 +46,7 @@ void main() {
 
       test('toJson should return map with correct key and map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
-        expect(webBrowserInfo.toJson(), webBrowserInfoMap);
+        expect(webBrowserInfo.toMap(), webBrowserInfoMap);
       });
 
       test('provided a map without `browserName` `userAgent` is parsed', () {
@@ -55,7 +55,7 @@ void main() {
 
         final webBrowserInfo = WebBrowserInfo.fromMap(mapWithoutBrowserName);
 
-        expect(webBrowserInfo.toJson(), webBrowserInfoMap);
+        expect(webBrowserInfo.toMap(), webBrowserInfoMap);
       });
 
       test('when `browserName` does not match `userAgent` throws Error', () {
@@ -71,7 +71,7 @@ void main() {
       test('jsonEncode / jsonDecode should return the correct map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
 
-        final json = jsonEncode(webBrowserInfo);
+        final json = jsonEncode(webBrowserInfo.toMap());
 
         expect(jsonDecode(json), webBrowserInfoMap);
       });

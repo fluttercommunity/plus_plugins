@@ -43,13 +43,13 @@ void main() {
       test('toJson should return map with correct key and map', () {
         final iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
 
-        expect(iosDeviceInfo.toJson(), iosDeviceInfoMap);
+        expect(iosDeviceInfo.toMap(), iosDeviceInfoMap);
       });
 
       test('jsonEncode / jsonDecode should return the correct map', () {
         final androidDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
 
-        final json = jsonEncode(androidDeviceInfo);
+        final json = jsonEncode(androidDeviceInfo.toMap());
 
         expect(jsonDecode(json), iosDeviceInfoMap);
       });

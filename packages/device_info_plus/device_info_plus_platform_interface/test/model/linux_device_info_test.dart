@@ -33,10 +33,10 @@ void main() {
       machineId: 'machineId',
     );
     test('toJson should return map with correct key and map', () {
-      expect(linuxDeviceInfo.toJson(), linuxDeviceInfoMap);
+      expect(linuxDeviceInfo.toMap(), linuxDeviceInfoMap);
     });
     test('jsonEncode / jsonDecode should return the correct map', () {
-      final json = jsonEncode(linuxDeviceInfo);
+      final json = jsonEncode(linuxDeviceInfo.toMap());
 
       expect(jsonDecode(json), linuxDeviceInfoMap);
     });

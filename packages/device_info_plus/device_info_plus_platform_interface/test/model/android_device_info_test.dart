@@ -80,14 +80,14 @@ void main() {
         final androidDeviceInfo =
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
-        expect(androidDeviceInfo.toJson(), androidDeviceInfoMap);
+        expect(androidDeviceInfo.toMap(), androidDeviceInfoMap);
       });
 
       test('jsonEncode / jsonDecode should return the correct map', () {
         final androidDeviceInfo =
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
-        final json = jsonEncode(androidDeviceInfo);
+        final json = jsonEncode(androidDeviceInfo.toMap());
 
         expect(jsonDecode(json), androidDeviceInfoMap);
       });

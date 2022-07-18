@@ -73,13 +73,6 @@ class IosDeviceInfo implements BaseDeviceInfo {
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
   }
-
-  /// Serializes [IosDeviceInfo] to a json compatible map.
-  /// This method will be called by `jsonEncode` in [dart:convert].
-  ///
-  /// E.g.: jsonEncode(deviceInfo)
-  @override
-  Map<String, Object?> toJson() => toMap();
 }
 
 /// Information derived from `utsname`.

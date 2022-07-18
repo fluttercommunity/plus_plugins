@@ -168,13 +168,6 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [AndroidDeviceInfo] to a json compatible map.
-  /// This method will be called by `jsonEncode` in [dart:convert].
-  ///
-  /// E.g.: jsonEncode(deviceInfo)
-  @override
-  Map<String, Object?> toJson() => toMap();
-
   /// Deserializes message as List<String>
   static List<String?> _fromList(dynamic message) {
     final List<dynamic> list = message;
