@@ -1,6 +1,6 @@
 name: package_info_example
 description: Demonstrates how to use the package_info_plus plugin.
-version: 1.2.4
+version: 1.2.3+4
 publish_to: 'none'
 
 environment:
