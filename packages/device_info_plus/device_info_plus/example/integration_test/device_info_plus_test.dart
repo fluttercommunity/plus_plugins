@@ -67,7 +67,6 @@ void main() {
   });
 
   testWidgets('Check all android info values are set', (WidgetTester tester) async {
-    if (Platform.isAndroid) {
       expect(androidInfo.version.baseOS, isNotNull);
       expect(androidInfo.version.codename, isNotNull);
       expect(androidInfo.version.incremental, isNotNull);
@@ -99,6 +98,5 @@ void main() {
       expect(androidInfo.isPhysicalDevice, isNotNull);
       expect(androidInfo.androidId, isNull);
       expect(androidInfo.systemFeatures, isNotNull);
-    }
   });
 }
