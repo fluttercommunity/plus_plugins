@@ -65,4 +65,70 @@ void main() {
       }
     }
   });
+
+  testWidgets('iphone', (WidgetTester tester) async {
+    if (Platform.isIOS) {
+      expect(iosInfo.name, isNotNull);
+      expect(iosInfo.systemName, equals('iOS'));
+      expect(iosInfo.systemVersion, isNotNull);
+      expect(iosInfo.model, equals('iPhone'));
+      expect(iosInfo.localizedModel, equals('iPhone'));
+
+      expect(iosInfo.identifierForVendor, isNotNull);
+      expect(iosInfo.isPhysicalDevice, isNotNull);
+
+      expect(iosInfo.utsname.sysname, equals('Darwin'));
+      expect(iosInfo.utsname.nodename, isNotNull);
+      expect(iosInfo.utsname.release, isNotNull);
+      expect(iosInfo.utsname.version, isNotNull);
+      expect(iosInfo.utsname.machine, isNotNull);
+    }
+  });
+
+  testWidgets('android', (WidgetTester tester) async {
+    if (Platform.isAndroid) {
+      expect(androidInfo.version.baseOS, isNotNull);
+      expect(androidInfo.version.codename, isNotNull);
+      expect(androidInfo.version.incremental, isNotNull);
+      expect(androidInfo.version.previewSdkInt, isNotNull);
+      expect(androidInfo.version.release, isNotNull);
+      expect(isInteger(androidInfo.version.sdkInt), true);
+      expect(androidInfo.version.securityPatch, isNotNull);
+
+      expect(androidInfo.board, isNotNull);
+      expect(androidInfo.bootloader, isNotNull);
+      expect(androidInfo.brand, isNotNull);
+      expect(androidInfo.device, isNotNull);
+      expect(androidInfo.display, isNotNull);
+      expect(androidInfo.fingerprint, isNotNull);
+      expect(androidInfo.hardware, isNotNull);
+
+      expect(androidInfo.host, isNotNull);
+      expect(androidInfo.id, isNotNull);
+      expect(androidInfo.manufacturer, isNotNull);
+      expect(androidInfo.model, isNotNull);
+      expect(androidInfo.product, isNotNull);
+
+      expect(androidInfo.supported32BitAbis, isNotNull);
+      expect(androidInfo.supported64BitAbis, isNotNull);
+      expect(androidInfo.supportedAbis, isNotNull);
+
+      expect(androidInfo.tags, isNotNull);
+      expect(androidInfo.type, isNotNull);
+      expect(androidInfo.isPhysicalDevice, isNotNull);
+      // expect(androidInfo.androidId, isNotNull);
+      expect(androidInfo.systemFeatures, isNotNull);
+    }
+  });
+
+  testWidgets('Windows', (WidgetTester tester) async {
+    if (Platform.isWindows) {
+    }
+  });
 }
+
+bool isInteger(num value) =>
+    value is int || value == value.roundToDouble() || value != null;
+
+bool isString(String value) =>
+    value != null;
