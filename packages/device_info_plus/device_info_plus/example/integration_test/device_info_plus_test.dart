@@ -122,7 +122,11 @@ void main() {
   });
 
   testWidgets('Windows', (WidgetTester tester) async {
-    if (Platform.isWindows) {}
+    if (Platform.isWindows) {
+      expect(windowsInfo.computerName, isNotNull);
+      expect(windowsInfo.numberOfCores, isNotNull);
+      expect(windowsInfo.systemMemoryInMegabytes, isNotNull);
+    }
   });
 }
 
