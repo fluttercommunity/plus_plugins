@@ -146,6 +146,22 @@ void main() {
       expect(webBrowserInfo.hardwareConcurrency, isNotNull);
     }
   });
+
+  testWidgets('Linux', (WidgetTester tester) async {
+    if (Platform.isLinux) {
+      expect(linuxInfo.name, isNotNull);
+      expect(linuxInfo.version, isNotNull);
+      expect(linuxInfo.id, isNotNull);
+      expect(linuxInfo.idLike, isNotNull);
+      expect(linuxInfo.versionCodename, isNotNull);
+      expect(linuxInfo.versionId, isNotNull);
+      expect(linuxInfo.prettyName, isNotNull);
+      expect(linuxInfo.buildId, isNotNull);
+      expect(linuxInfo.variant, isNotNull);
+      expect(linuxInfo.variantId, isNotNull);
+      expect(linuxInfo.machineId, isNotNull);
+    }
+  });
 }
 
 bool isInteger(num value) =>
