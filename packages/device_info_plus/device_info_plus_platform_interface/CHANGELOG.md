@@ -1,6 +1,6 @@
 ## 2.3.1+0
 
-- breaking change: toMap renamed as toJson for dart:convert compatibility
+- ensure `toMap()` output compatible with `jsonEncode`
 
 ## 2.3.0+1
 
