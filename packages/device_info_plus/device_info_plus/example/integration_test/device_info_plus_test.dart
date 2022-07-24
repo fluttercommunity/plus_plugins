@@ -66,7 +66,7 @@ void main() {
     }
   });
 
-  testWidgets('iphone', (WidgetTester tester) async {
+  testWidgets('iOS', (WidgetTester tester) async {
     if (Platform.isIOS) {
       expect(iosInfo.name, isNotNull);
       expect(iosInfo.systemName, equals('iOS'));
