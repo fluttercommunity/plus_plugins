@@ -129,23 +129,23 @@ void main() {
     }
   });
 
-  // testWidgets('WebBrowser', (WidgetTester tester) async {
-  //   if (kIsWeb) {
-  //     expect(webBrowserInfo.appCodeName, isNotNull);
-  //     expect(webBrowserInfo.appName, isNotNull);
-  //     expect(webBrowserInfo.appVersion, isNotNull);
-  //     expect(webBrowserInfo.deviceMemory, isNotNull);
-  //     expect(webBrowserInfo.language, isNotNull);
-  //     expect(webBrowserInfo.platform, isNotNull);
-  //     expect(webBrowserInfo.product, isNotNull);
-  //     expect(webBrowserInfo.productSub, isNotNull);
-  //     expect(webBrowserInfo.userAgent, isNotNull);
-  //     expect(webBrowserInfo.vendor, isNotNull);
-  //     expect(webBrowserInfo.vendorSub, isNotNull);
-  //     expect(webBrowserInfo.maxTouchPoints, isNotNull);
-  //     expect(webBrowserInfo.hardwareConcurrency, isNotNull);
-  //   }
-  // });
+  testWidgets('WebBrowser', (WidgetTester tester) async {
+    if (kIsWeb) {
+      expect(webBrowserInfo.appCodeName, isNotNull);
+      expect(webBrowserInfo.appName, isNotNull);
+      expect(webBrowserInfo.appVersion, isNotNull);
+      expect(webBrowserInfo.deviceMemory, isNotNull);
+      expect(webBrowserInfo.language, isNotNull);
+      expect(webBrowserInfo.platform, isNotNull);
+      expect(webBrowserInfo.product, isNotNull);
+      expect(webBrowserInfo.productSub, isNotNull);
+      expect(webBrowserInfo.userAgent, isNotNull);
+      expect(webBrowserInfo.vendor, isNotNull);
+      expect(webBrowserInfo.vendorSub, isNotNull);
+      expect(webBrowserInfo.maxTouchPoints, isNotNull);
+      expect(webBrowserInfo.hardwareConcurrency, isNotNull);
+    }
+  });
 }
 
 bool isInteger(num value) =>
