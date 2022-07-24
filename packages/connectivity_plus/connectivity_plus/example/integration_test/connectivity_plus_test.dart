@@ -23,4 +23,16 @@ void main() {
       expect(result, isNotNull);
     });
   });
+
+  group('Test changes', () {
+    Connectivity _connectivity;
+
+    setUpAll(() async {
+      _connectivity = Connectivity();
+    });
+
+    testWidgets("test", (WidgetTester tester) async {
+      final 
+    });
+  });
 }
