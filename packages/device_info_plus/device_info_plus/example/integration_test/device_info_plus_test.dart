@@ -121,14 +121,14 @@ void main() {
     }
   });
 
-  // testWidgets('Windows', (WidgetTester tester) async {
-  //   if (Platform.isWindows) {
-  //     expect(windowsInfo.computerName, isNotNull);
-  //     expect(windowsInfo.numberOfCores, isNotNull);
-  //     expect(windowsInfo.systemMemoryInMegabytes, isNotNull);
-  //   }
-  // });
-  //
+  testWidgets('Windows', (WidgetTester tester) async {
+    if (Platform.isWindows) {
+      expect(windowsInfo.computerName, isNotNull);
+      expect(windowsInfo.numberOfCores, isNotNull);
+      expect(windowsInfo.systemMemoryInMegabytes, isNotNull);
+    }
+  });
+
   // testWidgets('WebBrowser', (WidgetTester tester) async {
   //   if (kIsWeb) {
   //     expect(webBrowserInfo.appCodeName, isNotNull);
