@@ -6,6 +6,7 @@
 
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:integration_test/integration_test.dart';
@@ -160,6 +161,21 @@ void main() {
       expect(linuxInfo.variant, isNotNull);
       expect(linuxInfo.variantId, isNotNull);
       expect(linuxInfo.machineId, isNotNull);
+    }
+  });
+
+  testWidgets('MacOS', (WidgetTester tester) async {
+    if (Platform.isMacOS) {
+      expect(macosInfo.computerName, isNotNull);
+      expect(macosInfo.hostName, isNotNull);
+      expect(macosInfo.arch, isNotNull);
+      expect(macosInfo.model, isNotNull);
+      expect(macosInfo.kernelVersion, isNotNull);
+      expect(macosInfo.osRelease, isNotNull);
+      expect(macosInfo.activeCPUs, isNotNull);
+      expect(macosInfo.memorySize, isNotNull);
+      expect(macosInfo.cpuFrequency, isNotNull);
+      expect(macosInfo.systemGUID, isNotNull);
     }
   });
 }
