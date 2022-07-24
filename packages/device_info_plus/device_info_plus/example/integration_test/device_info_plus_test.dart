@@ -67,25 +67,6 @@ void main() {
     }
   });
 
-  testWidgets('iOS', (WidgetTester tester) async {
-    if (Platform.isIOS) {
-      expect(iosInfo.name, isNotNull);
-      expect(iosInfo.systemName, equals('iOS'));
-      expect(iosInfo.systemVersion, isNotNull);
-      expect(iosInfo.model, equals('iPhone'));
-      expect(iosInfo.localizedModel, equals('iPhone'));
-
-      expect(iosInfo.identifierForVendor, isNotNull);
-      expect(iosInfo.isPhysicalDevice, isNotNull);
-
-      expect(iosInfo.utsname.sysname, equals('Darwin'));
-      expect(iosInfo.utsname.nodename, isNotNull);
-      expect(iosInfo.utsname.release, isNotNull);
-      expect(iosInfo.utsname.version, isNotNull);
-      expect(iosInfo.utsname.machine, isNotNull);
-    }
-  });
-
   testWidgets('android', (WidgetTester tester) async {
     if (Platform.isAndroid) {
       expect(androidInfo.version.baseOS, isNotNull);
@@ -93,7 +74,7 @@ void main() {
       expect(androidInfo.version.incremental, isNotNull);
       expect(androidInfo.version.previewSdkInt, isNotNull);
       expect(androidInfo.version.release, isNotNull);
-      expect(isInteger(androidInfo.version.sdkInt), true);
+      expect(androidInfo.version.sdkInt, isNotNull);
       expect(androidInfo.version.securityPatch, isNotNull);
 
       expect(androidInfo.board, isNotNull);
@@ -121,66 +102,5 @@ void main() {
       expect(androidInfo.systemFeatures, isNotNull);
     }
   });
-
-  testWidgets('Windows', (WidgetTester tester) async {
-    if (Platform.isWindows) {
-      expect(windowsInfo.computerName, isNotNull);
-      expect(windowsInfo.numberOfCores, isNotNull);
-      expect(windowsInfo.systemMemoryInMegabytes, isNotNull);
-    }
-  });
-
-  testWidgets('WebBrowser', (WidgetTester tester) async {
-    if (kIsWeb) {
-      expect(webBrowserInfo.appCodeName, isNotNull);
-      expect(webBrowserInfo.appName, isNotNull);
-      expect(webBrowserInfo.appVersion, isNotNull);
-      expect(webBrowserInfo.deviceMemory, isNotNull);
-      expect(webBrowserInfo.language, isNotNull);
-      expect(webBrowserInfo.platform, isNotNull);
-      expect(webBrowserInfo.product, isNotNull);
-      expect(webBrowserInfo.productSub, isNotNull);
-      expect(webBrowserInfo.userAgent, isNotNull);
-      expect(webBrowserInfo.vendor, isNotNull);
-      expect(webBrowserInfo.vendorSub, isNotNull);
-      expect(webBrowserInfo.maxTouchPoints, isNotNull);
-      expect(webBrowserInfo.hardwareConcurrency, isNotNull);
-    }
-  });
-
-  testWidgets('Linux', (WidgetTester tester) async {
-    if (Platform.isLinux) {
-      expect(linuxInfo.name, isNotNull);
-      expect(linuxInfo.version, isNotNull);
-      expect(linuxInfo.id, isNotNull);
-      expect(linuxInfo.idLike, isNotNull);
-      expect(linuxInfo.versionCodename, isNotNull);
-      expect(linuxInfo.versionId, isNotNull);
-      expect(linuxInfo.prettyName, isNotNull);
-      expect(linuxInfo.buildId, isNotNull);
-      expect(linuxInfo.variant, isNotNull);
-      expect(linuxInfo.variantId, isNotNull);
-      expect(linuxInfo.machineId, isNotNull);
-    }
-  });
-
-  testWidgets('MacOS', (WidgetTester tester) async {
-    if (Platform.isMacOS) {
-      expect(macosInfo.computerName, isNotNull);
-      expect(macosInfo.hostName, isNotNull);
-      expect(macosInfo.arch, isNotNull);
-      expect(macosInfo.model, isNotNull);
-      expect(macosInfo.kernelVersion, isNotNull);
-      expect(macosInfo.osRelease, isNotNull);
-      expect(macosInfo.activeCPUs, isNotNull);
-      expect(macosInfo.memorySize, isNotNull);
-      expect(macosInfo.cpuFrequency, isNotNull);
-      expect(macosInfo.systemGUID, isNotNull);
-    }
-  });
 }
 
-bool isInteger(num value) =>
-    value is int || value == value.roundToDouble() || value != null;
-
-bool isString(String value) => value != null;
