@@ -6,7 +6,6 @@
 
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:integration_test/integration_test.dart';
@@ -67,7 +66,7 @@ void main() {
     }
   });
 
-  testWidgets('android', (WidgetTester tester) async {
+  testWidgets('Check all android info values are set', (WidgetTester tester) async {
     if (Platform.isAndroid) {
       expect(androidInfo.version.baseOS, isNotNull);
       expect(androidInfo.version.codename, isNotNull);
