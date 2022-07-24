@@ -116,19 +116,17 @@ void main() {
       expect(androidInfo.tags, isNotNull);
       expect(androidInfo.type, isNotNull);
       expect(androidInfo.isPhysicalDevice, isNotNull);
-      // expect(androidInfo.androidId, isNotNull);
+      expect(androidInfo.androidId, isNull);
       expect(androidInfo.systemFeatures, isNotNull);
     }
   });
 
   testWidgets('Windows', (WidgetTester tester) async {
-    if (Platform.isWindows) {
-    }
+    if (Platform.isWindows) {}
   });
 }
 
 bool isInteger(num value) =>
     value is int || value == value.roundToDouble() || value != null;
 
-bool isString(String value) =>
-    value != null;
+bool isString(String value) => value != null;
