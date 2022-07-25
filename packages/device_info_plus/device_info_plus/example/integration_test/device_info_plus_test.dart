@@ -99,5 +99,5 @@ void main() {
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.androidId, isNull);
     expect(androidInfo.systemFeatures, isNotNull);
-  });
+  }, skip: !Platform.isAndroid);
 }
