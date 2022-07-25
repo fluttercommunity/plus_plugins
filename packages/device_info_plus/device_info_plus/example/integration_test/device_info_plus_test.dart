@@ -66,37 +66,38 @@ void main() {
     }
   });
 
-  testWidgets('Check all android info values are set', (WidgetTester tester) async {
-      expect(androidInfo.version.baseOS, isNotNull);
-      expect(androidInfo.version.codename, isNotNull);
-      expect(androidInfo.version.incremental, isNotNull);
-      expect(androidInfo.version.previewSdkInt, isNotNull);
-      expect(androidInfo.version.release, isNotNull);
-      expect(androidInfo.version.sdkInt, equals(30));
-      expect(androidInfo.version.securityPatch, isNotNull);
+  testWidgets('Check all android info values are set',
+      (WidgetTester tester) async {
+    expect(androidInfo.version.baseOS, isNotNull);
+    expect(androidInfo.version.codename, isNotNull);
+    expect(androidInfo.version.incremental, isNotNull);
+    expect(androidInfo.version.previewSdkInt, isNotNull);
+    expect(androidInfo.version.release, isNotNull);
+    expect(androidInfo.version.sdkInt, equals(30));
+    expect(androidInfo.version.securityPatch, isNotNull);
 
-      expect(androidInfo.board, isNotNull);
-      expect(androidInfo.bootloader, isNotNull);
-      expect(androidInfo.brand, isNotNull);
-      expect(androidInfo.device, isNotNull);
-      expect(androidInfo.display, isNotNull);
-      expect(androidInfo.fingerprint, isNotNull);
-      expect(androidInfo.hardware, isNotNull);
+    expect(androidInfo.board, isNotNull);
+    expect(androidInfo.bootloader, isNotNull);
+    expect(androidInfo.brand, isNotNull);
+    expect(androidInfo.device, isNotNull);
+    expect(androidInfo.display, isNotNull);
+    expect(androidInfo.fingerprint, isNotNull);
+    expect(androidInfo.hardware, isNotNull);
 
-      expect(androidInfo.host, isNotNull);
-      expect(androidInfo.id, isNotNull);
-      expect(androidInfo.manufacturer, isNotNull);
-      expect(androidInfo.model, isNotNull);
-      expect(androidInfo.product, isNotNull);
+    expect(androidInfo.host, isNotNull);
+    expect(androidInfo.id, isNotNull);
+    expect(androidInfo.manufacturer, isNotNull);
+    expect(androidInfo.model, isNotNull);
+    expect(androidInfo.product, isNotNull);
 
-      expect(androidInfo.supported32BitAbis, isNotNull);
-      expect(androidInfo.supported64BitAbis, isNotNull);
-      expect(androidInfo.supportedAbis, isNotNull);
+    expect(androidInfo.supported32BitAbis, isNotNull);
+    expect(androidInfo.supported64BitAbis, isNotNull);
+    expect(androidInfo.supportedAbis, isNotNull);
 
-      expect(androidInfo.tags, isNotNull);
-      expect(androidInfo.type, isNotNull);
-      expect(androidInfo.isPhysicalDevice, isNotNull);
-      expect(androidInfo.androidId, isNull);
-      expect(androidInfo.systemFeatures, isNotNull);
+    expect(androidInfo.tags, isNotNull);
+    expect(androidInfo.type, isNotNull);
+    expect(androidInfo.isPhysicalDevice, isNotNull);
+    expect(androidInfo.androidId, isNull);
+    expect(androidInfo.systemFeatures, isNotNull);
   });
 }
