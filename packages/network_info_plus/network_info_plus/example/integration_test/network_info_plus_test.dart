@@ -24,6 +24,16 @@ void main() {
         expect((await _networkInfo.getLocationServiceAuthorization()),
             LocationAuthorizationStatus.notDetermined);
       }
+    }, skip: !Platform.isIOS);
+
+    testWidgets('test non-null network value', (WidgetTester tester) async {
+      expect(_networkInfo.getWifiName(), isNotNull);
+      expect(_networkInfo.getWifiBSSID(), isNotNull);
+      expect(_networkInfo.getWifiIP(), isNotNull);
+      expect(_networkInfo.getWifiIPv6(), isNotNull);
+      expect(_networkInfo.getWifiSubmask(), isNotNull);
+      expect(_networkInfo.getWifiGatewayIP(), isNotNull);
+      expect(_networkInfo.getWifiBroadcast(), isNotNull);
     });
   });
 }
