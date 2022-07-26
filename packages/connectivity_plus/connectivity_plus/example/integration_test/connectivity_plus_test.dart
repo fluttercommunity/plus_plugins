@@ -4,6 +4,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -13,6 +14,7 @@ void main() {
 
   group('Connectivity test driver', () {
     Connectivity _connectivity;
+    ConnectivityResult _connectionStatusExpected = ConnectivityResult.wifi;
 
     setUpAll(() async {
       _connectivity = Connectivity();
@@ -22,17 +24,17 @@ void main() {
       final result = await _connectivity.checkConnectivity();
       expect(result, isNotNull);
     });
-  });
 
-  group('Test changes', () {
-    Connectivity _connectivity;
+    testWidgets('test wifi or cellular', (WidgetTester tester) async {
+      final result = await _connectivity.checkConnectivity();
 
-    setUpAll(() async {
-      _connectivity = Connectivity();
-    });
+      StreamSubscription<ConnectivityResult> _connectivitySubscription;
+      // _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-    testWidgets("test", (WidgetTester tester) async {
-      final 
+      ConnectivityResult _connectionStatus = ConnectivityResult.none;
+      _connectionStatus = result;
+
+      expect(_connectionStatus, equals(_connectionStatusExpected));
     });
   });
 }
