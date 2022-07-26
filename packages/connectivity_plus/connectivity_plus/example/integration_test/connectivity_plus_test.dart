@@ -5,6 +5,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -28,13 +29,10 @@ void main() {
     testWidgets('test wifi or cellular', (WidgetTester tester) async {
       final result = await _connectivity.checkConnectivity();
 
-      StreamSubscription<ConnectivityResult> _connectivitySubscription;
-      // _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-
       ConnectivityResult _connectionStatus = ConnectivityResult.none;
       _connectionStatus = result;
 
       expect(_connectionStatus, equals(_connectionStatusExpected));
-    });
+    }, skip: !Platform.isAndroid);
   });
 }
