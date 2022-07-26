@@ -25,11 +25,11 @@ void main() {
       expect(result, isNotNull);
     });
 
-    testWidgets('connectivity on Android emulator should be wifi', (WidgetTester tester) async {
+    testWidgets('connectivity on Android emulator should be wifi',
+        (WidgetTester tester) async {
       final result = await _connectivity.checkConnectivity();
 
       expect(result, ConnectivityResult.wifi);
-
     }, skip: !Platform.isAndroid);
   });
 }
