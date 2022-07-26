@@ -3,6 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'sensors_plus'
+  #should we change this version?
   s.version          = '0.0.1'
   s.summary          = 'Flutter Sensors'
   s.description      = <<-DESC
