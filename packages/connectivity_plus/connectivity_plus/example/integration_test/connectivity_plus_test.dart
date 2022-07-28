@@ -14,7 +14,6 @@ void main() {
 
   group('Connectivity test driver', () {
     Connectivity _connectivity;
-    ConnectivityResult _connectionStatusExpected = ConnectivityResult.wifi;
 
     setUpAll(() async {
       _connectivity = Connectivity();
