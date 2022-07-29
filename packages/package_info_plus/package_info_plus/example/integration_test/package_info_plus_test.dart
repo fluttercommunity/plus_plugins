@@ -13,6 +13,18 @@ import 'package:package_info_example/main.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  group('all kinds of platform', () async {
+    final info = await PackageInfo.fromPlatform();
+
+    testWidgets('Android', (WidgetTester tester) async {
+      expect(info.appName, 'package_info_example');
+      expect(info.buildNumber, '4');
+      expect(info.buildSignature, isNotEmpty);
+      expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
+      expect(info.version, '1.2.3');
+    }, skip: !Platform.isAndroid);
+  });
+
   testWidgets('fromPlatform', (WidgetTester tester) async {
     final info = await PackageInfo.fromPlatform();
     // These tests are based on the example app. The tests should be updated if any related info changes.
