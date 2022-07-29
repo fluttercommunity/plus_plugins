@@ -30,19 +30,19 @@ void main() {
 
   group('Can get if device is in power mode', () {
     testWidgets('Can get if device is in power mode',
-            (WidgetTester tester) async {
-          final battery = Battery();
-          final isInBatterySaveMode = await battery.isInBatterySaveMode;
-          debugPrint('$isInBatterySaveMode');
-          expect(isInBatterySaveMode, isNotNull);
-        }, skip: !Platform.isAndroid);
+        (WidgetTester tester) async {
+      final battery = Battery();
+      final isInBatterySaveMode = await battery.isInBatterySaveMode;
+      debugPrint('$isInBatterySaveMode');
+      expect(isInBatterySaveMode, isNotNull);
+    }, skip: !Platform.isAndroid);
   });
 
   testWidgets('Can get if device is in power mode',
-          (WidgetTester tester) async {
-        final battery = Battery();
-        final isInBatterySaveMode = await battery.isInBatterySaveMode;
-        debugPrint('$isInBatterySaveMode');
-        expect(isInBatterySaveMode, isNotNull);
-      });
+      (WidgetTester tester) async {
+    final battery = Battery();
+    final isInBatterySaveMode = await battery.isInBatterySaveMode;
+    debugPrint('$isInBatterySaveMode');
+    expect(isInBatterySaveMode, isNotNull);
+  });
 }
