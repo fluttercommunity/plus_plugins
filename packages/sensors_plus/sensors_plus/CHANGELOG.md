@@ -1,6 +1,11 @@
+## 1.3.4
+
+- Additonal fixes for crash issue: "Error: Sending a message before the FlutterEngine has been run."
+
 ## 1.3.3
 
 - Fix: "crash on iOS: Sending a message before the FlutterEngine has been run"
+
 ## 1.3.2
 
 - Fix: Android no longer crashes when app is closed if streams weren't listened to
