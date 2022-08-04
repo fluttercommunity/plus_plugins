@@ -12,14 +12,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path/path.dart' as path;
 
-String adbPath() {
-  final String androidHome = Platform.environment['ANDROID_HOME'] ?? Platform.environment['ANDROID_SDK_ROOT'];
-  if (androidHome == null) {
-    return 'adb';
-  } else {
-    return path.join(androidHome, 'platform-tools', 'adb');
-  }
-}
+// String adbPath() {
+//   final String androidHome = Platform.environment['ANDROID_HOME'] ?? Platform.environment['ANDROID_SDK_ROOT'];
+//   if (androidHome == null) {
+//     return 'adb';
+//   } else {
+//     return path.join(androidHome, 'platform-tools', 'adb');
+//   }
+// }
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
