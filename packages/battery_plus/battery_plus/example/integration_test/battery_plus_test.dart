@@ -38,8 +38,8 @@ void main() {
     expect(isInBatterySaveMode, isNotNull);
   });
 
-  testWidgets('test if device is in power mode', (WidgetTester tester) async {
-    await Process.run(adbPath(), [
+  testWidgets('test if device is in low power mode', (WidgetTester tester) async {
+    await Process.run('/Users/runner/Library/Android/sdk/platform-tools/adb', [
       'shell',
       'dumpsys',
       'battery',
