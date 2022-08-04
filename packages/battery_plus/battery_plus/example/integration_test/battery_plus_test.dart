@@ -41,7 +41,8 @@ void main() {
   testWidgets('test if device is in low power mode',
       (WidgetTester tester) async {
     await Process.run(
-        'adb', ['shell', 'dumpsys', 'battery', 'set', 'level', '5'], runInShell: true);
+        'adb', ['shell', 'dumpsys', 'battery', 'set', 'level', '5'],
+        runInShell: true);
 //    await Process.run('adb', [
 //      'shell',
 //      'pm',
