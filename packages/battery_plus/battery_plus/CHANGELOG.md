@@ -1,3 +1,8 @@
+## 2.1.4
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+
 ## 2.1.3
 
 - Update battery_plus_linux dependency

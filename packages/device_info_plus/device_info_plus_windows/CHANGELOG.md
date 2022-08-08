@@ -1,6 +1,16 @@
-## 2.2.0
+## 3.0.2
 
 - Add more information to WindowsDeviceInfo.
+
+## 3.0.1
+
+- Update ffi to 2.0.1
+
+## 3.0.0
+
+- Update ffi to 2.0.0
+- Update win32 to 2.7.0
+- **Breaking change** Min Dart version is 2.17 now due to dependencies requirements
 
 ## 2.1.1
 

@@ -1,3 +1,16 @@
+## 1.2.3
+
+- fix Bad state: Stream has already been listened to (#943)
+
+## 1.2.2
+
+- Disables internal use of `NetworkInformationAPI` which is still experimental
+
+## 1.2.1
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+
 ## 1.2.0
 
 - Add bluetooth as connectivity result

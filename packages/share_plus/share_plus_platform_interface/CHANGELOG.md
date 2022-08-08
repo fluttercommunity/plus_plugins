@@ -1,3 +1,7 @@
+## 3.0.3
+
+- Update dependencies
+
 ## 3.0.2
 
 - Gracefully fall back from `shareWithResult` to regular `share` methods on unsupported platforms

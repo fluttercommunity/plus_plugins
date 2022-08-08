@@ -62,27 +62,27 @@ class SensorsPlugin extends SensorsPlatform {
       _accelerometerStreamController = StreamController<AccelerometerEvent>();
       _featureDetected(
         () {
-          final _accelerometer = html.Accelerometer();
+          final accelerometer = html.Accelerometer();
 
           setProperty(
-            _accelerometer,
+            accelerometer,
             'onreading',
             allowInterop(
               (_) {
                 _accelerometerStreamController!.add(
                   AccelerometerEvent(
-                    _accelerometer.x as double,
-                    _accelerometer.y as double,
-                    _accelerometer.z as double,
+                    accelerometer.x as double,
+                    accelerometer.y as double,
+                    accelerometer.z as double,
                   ),
                 );
               },
             ),
           );
 
-          _accelerometer.start();
+          accelerometer.start();
 
-          _accelerometer.onError.forEach(
+          accelerometer.onError.forEach(
             (e) => developer.log(
                 'The accelerometer API is supported but something is wrong!',
                 error: e),
@@ -110,27 +110,27 @@ class SensorsPlugin extends SensorsPlatform {
       _gyroscopeEventStreamController = StreamController<GyroscopeEvent>();
       _featureDetected(
         () {
-          final _gyroscope = html.Gyroscope();
+          final gyroscope = html.Gyroscope();
 
           setProperty(
-            _gyroscope,
+            gyroscope,
             'onreading',
             allowInterop(
               (_) {
                 _gyroscopeEventStreamController!.add(
                   GyroscopeEvent(
-                    _gyroscope.x as double,
-                    _gyroscope.y as double,
-                    _gyroscope.z as double,
+                    gyroscope.x as double,
+                    gyroscope.y as double,
+                    gyroscope.z as double,
                   ),
                 );
               },
             ),
           );
 
-          _gyroscope.start();
+          gyroscope.start();
 
-          _gyroscope.onError.forEach(
+          gyroscope.onError.forEach(
             (e) => developer.log(
                 'The gyroscope API is supported but something is wrong!',
                 error: e),
@@ -159,27 +159,27 @@ class SensorsPlugin extends SensorsPlatform {
           StreamController<UserAccelerometerEvent>();
       _featureDetected(
         () {
-          final _linearAccelerationSensor = html.LinearAccelerationSensor();
+          final linearAccelerationSensor = html.LinearAccelerationSensor();
 
           setProperty(
-            _linearAccelerationSensor,
+            linearAccelerationSensor,
             'onreading',
             allowInterop(
               (_) {
                 _userAccelerometerStreamController!.add(
                   UserAccelerometerEvent(
-                    _linearAccelerationSensor.x as double,
-                    _linearAccelerationSensor.y as double,
-                    _linearAccelerationSensor.z as double,
+                    linearAccelerationSensor.x as double,
+                    linearAccelerationSensor.y as double,
+                    linearAccelerationSensor.z as double,
                   ),
                 );
               },
             ),
           );
 
-          _linearAccelerationSensor.start();
+          linearAccelerationSensor.start();
 
-          _linearAccelerationSensor.onError.forEach(
+          linearAccelerationSensor.onError.forEach(
             (e) => developer.log(
                 'The linear acceleration API is supported but something is wrong!',
                 error: e),
@@ -208,27 +208,27 @@ class SensorsPlugin extends SensorsPlatform {
       _magnetometerStreamController = StreamController<MagnetometerEvent>();
       _featureDetected(
         () {
-          final _magnetometerSensor = html.Magnetometer();
+          final magnetometerSensor = html.Magnetometer();
 
           setProperty(
-            _magnetometerSensor,
+            magnetometerSensor,
             'onreading',
             allowInterop(
               (_) {
                 _magnetometerStreamController!.add(
                   MagnetometerEvent(
-                    _magnetometerSensor.x as double,
-                    _magnetometerSensor.y as double,
-                    _magnetometerSensor.z as double,
+                    magnetometerSensor.x as double,
+                    magnetometerSensor.y as double,
+                    magnetometerSensor.z as double,
                   ),
                 );
               },
             ),
           );
 
-          _magnetometerSensor.start();
+          magnetometerSensor.start();
 
-          _magnetometerSensor.onError.forEach(
+          magnetometerSensor.onError.forEach(
             (e) => developer.log(
                 'The magnetometer API is supported but something is wrong!',
                 error: e),
