@@ -2,6 +2,7 @@
 library device_info_plus_windows;
 
 import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:ffi/ffi.dart';
@@ -14,20 +15,129 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     DeviceInfoPlatform.instance = DeviceInfoWindows();
   }
 
+  WindowsDeviceInfo? _cache;
+
+  /// Returns Windows information like major version, minor version, build number & platform ID.
+  void Function(Pointer<OSVERSIONINFOEX>)? _rtlGetVersion;
+
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
   Future<WindowsDeviceInfo> windowsInfo() {
-    final system_info = _getInfoStructPointer();
+    return Future.value(_cache ??= _getInfo());
+  }
 
-    GetSystemInfo(system_info);
-
+  WindowsDeviceInfo _getInfo() {
+    if (_rtlGetVersion == null) {
+      _rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
+          Void Function(Pointer<OSVERSIONINFOEX>),
+          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
+    }
+    final systemInfo = _getInfoStructPointer();
+    final osVersionInfo = _getOSVERSIONINFOEXPointer();
+    final buildLab = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'BuildLab',
+      '',
+    ) as String;
+    final buildLabEx = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'BuildLabEx',
+      '',
+    ) as String;
+    final digitalProductId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'DigitalProductId',
+      Uint8List.fromList([]),
+    ) as Uint8List;
+    final displayVersion = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'DisplayVersion',
+      '',
+    ) as String;
+    final editionId = _getRegistryValue(
+        HKEY_LOCAL_MACHINE,
+        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+        'EditionID',
+        '') as String;
+    final installDate = DateTime.fromMillisecondsSinceEpoch(1000 *
+        _getRegistryValue(
+          HKEY_LOCAL_MACHINE,
+          'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+          'InstallDate',
+          0,
+        ) as int);
+    final productId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ProductId',
+      '',
+    ) as String;
+    var productName = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ProductName',
+      '',
+    ) as String;
+    final registeredOwner = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'RegisteredOwner',
+      '',
+    ) as String;
+    final releaseId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+      'ReleaseId',
+      '',
+    ) as String;
+    final deviceId = _getRegistryValue(
+      HKEY_LOCAL_MACHINE,
+      'SOFTWARE\\Microsoft\\SQMClient\\',
+      'MachineId',
+      '',
+    ) as String;
+    GetSystemInfo(systemInfo);
+    // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
+    _rtlGetVersion!(osVersionInfo);
+    // Handle [productName] for Windows 11 separately (as per Raymond Chen's comment).
+    // https://stackoverflow.com/questions/69460588/how-can-i-find-the-windows-product-name-in-windows-11
+    if (osVersionInfo.ref.dwBuildNumber >= 22000) {
+      productName = productName.replaceAll('10', '11');
+    }
     final data = WindowsDeviceInfo(
-      numberOfCores: system_info.ref.dwNumberOfProcessors,
+      numberOfCores: systemInfo.ref.dwNumberOfProcessors,
       computerName: _getComputerName(),
       systemMemoryInMegabytes: _getSystemMemoryInMegabytes(),
+      userName: _getUserName(),
+      majorVersion: osVersionInfo.ref.dwMajorVersion,
+      minorVersion: osVersionInfo.ref.dwMinorVersion,
+      buildNumber: osVersionInfo.ref.dwBuildNumber,
+      platformId: osVersionInfo.ref.dwPlatformId,
+      csdVersion: osVersionInfo.ref.szCSDVersion,
+      servicePackMajor: osVersionInfo.ref.wServicePackMajor,
+      servicePackMinor: osVersionInfo.ref.wServicePackMinor,
+      suitMask: osVersionInfo.ref.wSuiteMask,
+      productType: osVersionInfo.ref.wProductType,
+      reserved: osVersionInfo.ref.wReserved,
+      buildLab: buildLab,
+      buildLabEx: buildLabEx,
+      digitalProductId: digitalProductId,
+      displayVersion: displayVersion,
+      editionId: editionId,
+      installDate: installDate,
+      productId: productId,
+      productName: productName,
+      registeredOwner: registeredOwner,
+      releaseId: releaseId,
+      deviceId: deviceId,
     );
-    calloc.free(system_info);
-    return Future.value(data);
+    calloc.free(systemInfo);
+    calloc.free(osVersionInfo);
+    return data;
   }
 }
 
@@ -74,6 +184,23 @@ String _getComputerName() {
   return name;
 }
 
+String _getUserName() {
+  const UNLEN = 256;
+  final pcbBuffer = calloc<DWORD>()..value = UNLEN + 1;
+  final lpBuffer = wsalloc(UNLEN + 1);
+  try {
+    final result = GetUserName(lpBuffer, pcbBuffer);
+    if (result != 0) {
+      return lpBuffer.toDartString();
+    } else {
+      throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+    }
+  } finally {
+    free(pcbBuffer);
+    free(lpBuffer);
+  }
+}
+
 Pointer<SYSTEM_INFO> _getInfoStructPointer() {
   final pointer = calloc<SYSTEM_INFO>();
   pointer.ref
@@ -89,4 +216,76 @@ Pointer<SYSTEM_INFO> _getInfoStructPointer() {
     ..wProcessorLevel = 0
     ..wProcessorRevision = 0;
   return pointer;
+}
+
+Pointer<OSVERSIONINFOEX> _getOSVERSIONINFOEXPointer() {
+  final pointer = calloc<OSVERSIONINFOEX>();
+  pointer.ref
+    ..dwOSVersionInfoSize = sizeOf<OSVERSIONINFOEX>()
+    ..dwBuildNumber = 0
+    ..dwMajorVersion = 0
+    ..dwMinorVersion = 0
+    ..dwPlatformId = 0
+    ..szCSDVersion = ''
+    ..wServicePackMajor = 0
+    ..wServicePackMinor = 0
+    ..wSuiteMask = 0
+    ..wProductType = 0
+    ..wReserved = 0;
+  return pointer;
+}
+
+/// Helper function derived from https://github.com/timsneath/win32/blob/main/example/sysinfo.dart.
+dynamic _getRegistryValue(
+  int key,
+  String subKey,
+  String valueName,
+  dynamic fallbackValue,
+) {
+  dynamic dataValue;
+  final subKeyPtr = TEXT(subKey);
+  final valueNamePtr = TEXT(valueName);
+  final openKeyPtr = calloc<HANDLE>();
+  final dataType = calloc<DWORD>();
+  final data = calloc<BYTE>(256);
+  final dataSize = calloc<DWORD>()..value = 512;
+  var result = RegOpenKeyEx(key, subKeyPtr, 0, KEY_READ, openKeyPtr);
+  void freeAllocations() {
+    free(subKeyPtr);
+    free(valueNamePtr);
+    free(openKeyPtr);
+    free(data);
+    free(dataSize);
+    RegCloseKey(openKeyPtr.value);
+  }
+
+  if (result == ERROR_SUCCESS) {
+    result = RegQueryValueEx(
+        openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
+    if (result == ERROR_SUCCESS) {
+      if (dataType.value == REG_DWORD) {
+        dataValue = data.cast<DWORD>().value;
+      } else if (dataType.value == REG_QWORD) {
+        dataValue = data.cast<QWORD>().value;
+      } else if (dataType.value == REG_SZ) {
+        dataValue = data.cast<Utf16>().toDartString();
+      } else if (dataType.value == REG_BINARY) {
+        final values = <int>[];
+        for (int i = 0; i < 256; i++) {
+          values.add(data.cast<Uint8>().elementAt(i).value);
+        }
+        dataValue = Uint8List.fromList(values);
+      } else {
+        throw WindowsException(HRESULT_FROM_WIN32(ERROR_INVALID_DATA));
+      }
+      freeAllocations();
+      return dataValue;
+    } else {
+      freeAllocations();
+      return fallbackValue;
+    }
+  } else {
+    freeAllocations();
+    return fallbackValue;
+  }
 }
