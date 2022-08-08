@@ -1,5 +1,9 @@
 ## 2.1.3
 
+- Removed ssid.replace("\"") in getWifiName.java because it was also removing " from the name of WIFI 
+
+## 2.1.3
+
 - Update nm dependency to be compatible with fresh versions of other Plus plugins
 - Set min Flutter version to 1.20.0 for all platforms
 

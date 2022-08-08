@@ -27,7 +27,6 @@ class NetworkInfo {
     WifiInfo wifiInfo = getWifiInfo();
     String ssid = null;
     if (wifiInfo != null) ssid = wifiInfo.getSSID();
-    if (ssid != null) ssid = ssid.replaceAll("\"", ""); // Android returns "SSID"
     return ssid;
   }
 
