@@ -1,3 +1,7 @@
+## 2.1.3+1
+
+- Add issue_tracker link.
+
 ## 2.1.3
 
 - Update nm dependency to be compatible with fresh versions of other Plus plugins
