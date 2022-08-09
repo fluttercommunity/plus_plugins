@@ -1,3 +1,7 @@
+## 4.0.10+1
+
+- Add issue_tracker link.
+
 ## 4.0.10
 
 - iOS: Fix 'share text' not showing when share files
