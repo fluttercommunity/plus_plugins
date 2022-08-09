@@ -1,3 +1,7 @@
+## 4.1.0
+
+- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+
 ## 4.0.2
 
 - Added more information to `WindowsDeviceInfo`.
