@@ -1,3 +1,7 @@
+## 1.3.4+1
+
+- Add issue_tracker link.
+
 ## 1.3.4
 
 - Additonal fixes for crash issue: "Error: Sending a message before the FlutterEngine has been run."
