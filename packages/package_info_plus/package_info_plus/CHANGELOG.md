@@ -1,3 +1,7 @@
+## 1.4.3+1
+
+- Add issue_tracker link.
+
 ## 1.4.3
 
 - Windows: Updated package_info_plus_windows to version 2.0.0.
