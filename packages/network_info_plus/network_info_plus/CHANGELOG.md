@@ -1,6 +1,6 @@
 ## 2.1.4
 
-- Removed ssid.replace("\"") in getWifiName.java because it was also removing " from the name of WIFI 
+- Android: Plugin no longer removes `"` from SSID name.
 
 ## 2.1.3
 
