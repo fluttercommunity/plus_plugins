@@ -4,12 +4,22 @@
 
 // @dart=2.9
 
-import 'dart:io';
+import 'dart:io' show Platform, Process;
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:path/path.dart' as path;
+
+String getAdbPath(String adbHome) {
+  final androidHome = adbHome;
+  if (androidHome == null) {
+    return 'adb';
+  } else {
+    return path.join(androidHome, 'platform-tools', 'adb');
+  }
+}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -30,13 +40,27 @@ void main() {
 
   testWidgets('test if device is in low power mode',
       (WidgetTester tester) async {
-    final battery = Battery();
+        var result = await Process.run('which', ['adb']);
+        // final String androidHome = result.stdout;
+        final String androidHome = result.stdout;
+        print(androidHome);
 
-    await Process.run(
-        'adb', ['shell', 'dumpsys', 'battery', 'set', 'level', '5'],
-    runInShell: true);
+    final result2 = await Process.run(
+        getAdbPath(androidHome), ['shell', 'dumpsys', 'battery', 'set', 'level', '5']);
 
-    expect(await battery.batteryLevel, 5);
+    // var result = await Process.start(adbPath(), ['shell', 'dumpsys', 'battery', 'set', 'level', '5']);
 
+    // Map<String, String> envVars = Platform.environment;
+    // print(envVars['']);
+    // print(envVars['ANDROID_ROOT']);
+
+    print(getAdbPath(androidHome));
+    // print(_adbHome);
+
+    // var result = await Process.start('which', ['adb']);
+    //
+    // print('$result');
+    // print(result);
+    // var exit Code = await result.exitCode;
   });
 }
