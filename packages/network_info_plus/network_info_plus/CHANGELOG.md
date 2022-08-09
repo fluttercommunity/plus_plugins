@@ -1,3 +1,7 @@
+## 2.1.4
+
+- Removed ssid.replace("\"") in getWifiName.java because it was also removing " from the name of WIFI 
+
 ## 2.1.3
 
 - Update nm dependency to be compatible with fresh versions of other Plus plugins
