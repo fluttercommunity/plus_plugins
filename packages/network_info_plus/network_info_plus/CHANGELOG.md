@@ -1,6 +1,11 @@
-## 2.1.3+1
+## 2.1.4+1
 
 - Add issue_tracker link.
+
+## 2.1.4
+
+- Android: Plugin no longer removes `"` from SSID name.
+
 
 ## 2.1.3
 
