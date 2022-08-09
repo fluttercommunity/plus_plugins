@@ -10,16 +10,6 @@ import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-// import 'package:path/path.dart' as path;
-
-// String adbPath() {
-//   final String androidHome = Platform.environment['ANDROID_HOME'] ?? Platform.environment['ANDROID_SDK_ROOT'];
-//   if (androidHome == null) {
-//     return 'adb';
-//   } else {
-//     return path.join(androidHome, 'platform-tools', 'adb');
-//   }
-// }
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -40,21 +30,13 @@ void main() {
 
   testWidgets('test if device is in low power mode',
       (WidgetTester tester) async {
+    final battery = Battery();
+
     await Process.run(
         'adb', ['shell', 'dumpsys', 'battery', 'set', 'level', '5'],
-        runInShell: true);
-//    await Process.run('adb', [
-//      'shell',
-//      'pm',
-//      'grant',
-//      'dev.steenbakker.mobile_scanner_example',
-//      'android.permission.CAMERA'
-//    ]);
-    final battery = Battery();
-    final isInBatterySaveMode = await battery.isInBatterySaveMode;
-    if (isInBatterySaveMode) {
-      debugPrint('$isInBatterySaveMode');
-      expect(isInBatterySaveMode, isTrue);
-    }
+    runInShell: true);
+
+    expect(await battery.batteryLevel, 5);
+
   });
 }
