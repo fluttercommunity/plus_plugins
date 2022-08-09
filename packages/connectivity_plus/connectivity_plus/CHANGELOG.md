@@ -1,3 +1,7 @@
+## 2.3.6+1
+
+- Add issue_tracker link.
+
 ## 2.3.6
 
 - Web: Fix Bad state: Stream has already been listened to (#943)
