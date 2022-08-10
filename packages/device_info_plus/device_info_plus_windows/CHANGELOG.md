@@ -1,3 +1,11 @@
+## 3.0.3
+
+- Revert changes in 3.0.2
+
+## 3.0.2
+
+- Add more information to WindowsDeviceInfo.
+
 ## 3.0.1
 
 - Update ffi to 2.0.1
