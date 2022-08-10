@@ -72,7 +72,8 @@ public class AlarmService extends JobIntentService {
    * AlarmService.initialized} message. Processes all alarm events that came in while the isolate
    * was starting.
    */
-  /* package */ static void onInitialized() {
+  /* package */
+  static void onInitialized() {
     Log.i(TAG, "AlarmService started!");
     synchronized (alarmQueue) {
       // Handle all the alarm events received before the Dart isolate was
@@ -103,7 +104,8 @@ public class AlarmService extends JobIntentService {
       long startMillis,
       long intervalMillis,
       boolean rescheduleOnReboot,
-      long callbackHandle) {
+      long callbackHandle,
+      JSONObject params) {
     if (rescheduleOnReboot) {
       addPersistentAlarm(
           context,
@@ -115,13 +117,15 @@ public class AlarmService extends JobIntentService {
           wakeup,
           startMillis,
           intervalMillis,
-          callbackHandle);
+          callbackHandle,
+          params);
     }
 
     // Create an Intent for the alarm and set the desired Dart callback handle.
     Intent alarm = new Intent(context, AlarmBroadcastReceiver.class);
     alarm.putExtra("id", requestCode);
     alarm.putExtra("callbackHandle", callbackHandle);
+    alarm.putExtra("params", params == null ? null : params.toString());
     PendingIntent pendingIntent =
         PendingIntent.getBroadcast(
             context,
@@ -190,7 +194,8 @@ public class AlarmService extends JobIntentService {
         request.startMillis,
         0,
         request.rescheduleOnReboot,
-        request.callbackHandle);
+        request.callbackHandle,
+        request.params);
   }
 
   /** Schedules a periodic alarm to be executed repeatedly in the future. */
@@ -209,7 +214,8 @@ public class AlarmService extends JobIntentService {
         request.startMillis,
         request.intervalMillis,
         request.rescheduleOnReboot,
-        request.callbackHandle);
+        request.callbackHandle,
+        request.params);
   }
 
   /** Cancels an alarm with ID {@code requestCode}. */
@@ -248,7 +254,8 @@ public class AlarmService extends JobIntentService {
       boolean wakeup,
       long startMillis,
       long intervalMillis,
-      long callbackHandle) {
+      long callbackHandle,
+      JSONObject params) {
     HashMap<String, Object> alarmSettings = new HashMap<>();
     alarmSettings.put("alarmClock", alarmClock);
     alarmSettings.put("allowWhileIdle", allowWhileIdle);
@@ -258,6 +265,7 @@ public class AlarmService extends JobIntentService {
     alarmSettings.put("startMillis", startMillis);
     alarmSettings.put("intervalMillis", intervalMillis);
     alarmSettings.put("callbackHandle", callbackHandle);
+    alarmSettings.put("params", params);
     JSONObject obj = new JSONObject(alarmSettings);
     String key = getPersistentAlarmKey(requestCode);
     SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
@@ -322,6 +330,7 @@ public class AlarmService extends JobIntentService {
           long startMillis = alarm.getLong("startMillis");
           long intervalMillis = alarm.getLong("intervalMillis");
           long callbackHandle = alarm.getLong("callbackHandle");
+          JSONObject params = alarm.getJSONObject("params");
           scheduleAlarm(
               context,
               requestCode,
@@ -333,7 +342,8 @@ public class AlarmService extends JobIntentService {
               startMillis,
               intervalMillis,
               false,
-              callbackHandle);
+              callbackHandle,
+              params);
         } catch (JSONException e) {
           Log.e(TAG, "Data for alarm request code " + requestCode + " is invalid: " + json);
         }

@@ -45,6 +45,10 @@ void _alarmManagerCallbackDispatcher() {
     } else if (closure is Function(int)) {
       final int id = args[1];
       closure(id);
+    } else if (closure is Function(int, Map<String, dynamic>)) {
+      final int id = args[1];
+      final Map<String, dynamic> params = args[2];
+      closure(id, params);
     }
   });
 
@@ -114,6 +118,7 @@ class AndroidAlarmManager {
   /// class.
   ///
   /// `callback` can be `Function()` or `Function(int)`
+  /// or `Function(int,Map<String,dynamic>)`
   ///
   /// The timer is uniquely identified by `id`. Calling this function again
   /// with the same `id` will cancel and replace the existing timer.
@@ -142,6 +147,9 @@ class AndroidAlarmManager {
   /// across reboots. If `rescheduleOnReboot` is false (the default), the alarm
   /// will not be rescheduled after a reboot and will not be executed.
   ///
+  /// You can send extra data in `params`, If you want receive extra data You must
+  /// implement `callback` as Function(int,Map<String,dynamic>)
+  ///
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShot(
@@ -153,17 +161,15 @@ class AndroidAlarmManager {
     bool exact = false,
     bool wakeup = false,
     bool rescheduleOnReboot = false,
+    Map<String, dynamic> params = const {},
   }) =>
-      oneShotAt(
-        _now().add(delay),
-        id,
-        callback,
-        alarmClock: alarmClock,
-        allowWhileIdle: allowWhileIdle,
-        exact: exact,
-        wakeup: wakeup,
-        rescheduleOnReboot: rescheduleOnReboot,
-      );
+      oneShotAt(_now().add(delay), id, callback,
+          alarmClock: alarmClock,
+          allowWhileIdle: allowWhileIdle,
+          exact: exact,
+          wakeup: wakeup,
+          rescheduleOnReboot: rescheduleOnReboot,
+          params: params);
 
   /// Schedules a one-shot timer to run `callback` at `time`.
   ///
@@ -179,7 +185,8 @@ class AndroidAlarmManager {
   /// The timer is uniquely identified by `id`. Calling this function again
   /// with the same `id` will cancel and replace the existing timer.
   ///
-  /// `id` will passed to `callback` if it is of type `Function(int)`
+  /// `id` will passed to `callback` if it is of type `Function(int)` or
+  /// `Function(int,Map<String,dynamic>)`
   ///
   /// If `alarmClock` is passed as `true`, the timer will be created with
   /// Android's `AlarmManagerCompat.setAlarmClock`.
@@ -203,6 +210,9 @@ class AndroidAlarmManager {
   /// across reboots. If `rescheduleOnReboot` is false (the default), the alarm
   /// will not be rescheduled after a reboot and will not be executed.
   ///
+  /// You can send extra data in `params`, If you want receive extra data You must
+  /// implement `callback` as Function(int,Map<String,dynamic>)
+  ///
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShotAt(
@@ -214,9 +224,12 @@ class AndroidAlarmManager {
     bool exact = false,
     bool wakeup = false,
     bool rescheduleOnReboot = false,
+    Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() || callback is Function(int));
+    assert(callback is Function() ||
+        callback is Function(int) ||
+        callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
     final startMillis = time.millisecondsSinceEpoch;
     final handle = _getCallbackHandle(callback);
@@ -232,6 +245,7 @@ class AndroidAlarmManager {
       startMillis,
       rescheduleOnReboot,
       handle.toRawHandle(),
+      params,
     ]);
     return (r == null) ? false : r;
   }
@@ -246,6 +260,7 @@ class AndroidAlarmManager {
   /// class.
   ///
   /// `callback` can be `Function()` or `Function(int)`
+  /// or `Function(int,Map<String,dynamic>)`
   ///
   /// The repeating timer is uniquely identified by `id`. Calling this function
   /// again with the same `id` will cancel and replace the existing timer.
@@ -274,6 +289,9 @@ class AndroidAlarmManager {
   /// across reboots. If `rescheduleOnReboot` is false (the default), the alarm
   /// will not be rescheduled after a reboot and will not be executed.
   ///
+  /// You can send extra data in `params`, If you want receive extra data You must
+  /// implement `callback` as Function(int,Map<String,dynamic>)
+  ///
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> periodic(
@@ -285,9 +303,12 @@ class AndroidAlarmManager {
     bool exact = false,
     bool wakeup = false,
     bool rescheduleOnReboot = false,
+    Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() || callback is Function(int));
+    assert(callback is Function() ||
+        callback is Function(int) ||
+        callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
     final now = _now().millisecondsSinceEpoch;
     final period = duration.inMilliseconds;
@@ -305,7 +326,8 @@ class AndroidAlarmManager {
       first,
       period,
       rescheduleOnReboot,
-      handle.toRawHandle()
+      handle.toRawHandle(),
+      params,
     ]);
     return (r == null) ? false : r;
   }

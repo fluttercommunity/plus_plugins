@@ -16,6 +16,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.view.FlutterNativeView;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Flutter plugin for running one-shot and periodic tasks sometime in the future on Android.
@@ -149,6 +150,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       long startMillis = json.getLong(5);
       boolean rescheduleOnReboot = json.getBoolean(6);
       long callbackHandle = json.getLong(7);
+      JSONObject params = json.getJSONObject(8);
 
       return new OneShotRequest(
           requestCode,
@@ -158,7 +160,8 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
           wakeup,
           startMillis,
           rescheduleOnReboot,
-          callbackHandle);
+          callbackHandle,
+          params);
     }
 
     final int requestCode;
@@ -169,6 +172,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final long startMillis;
     final boolean rescheduleOnReboot;
     final long callbackHandle;
+    final JSONObject params;
 
     OneShotRequest(
         int requestCode,
@@ -178,7 +182,8 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         boolean wakeup,
         long startMillis,
         boolean rescheduleOnReboot,
-        long callbackHandle) {
+        long callbackHandle,
+        JSONObject params) {
       this.requestCode = requestCode;
       this.alarmClock = alarmClock;
       this.allowWhileIdle = allowWhileIdle;
@@ -187,6 +192,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       this.startMillis = startMillis;
       this.rescheduleOnReboot = rescheduleOnReboot;
       this.callbackHandle = callbackHandle;
+      this.params = params;
     }
   }
 
@@ -201,7 +207,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       long intervalMillis = json.getLong(5);
       boolean rescheduleOnReboot = json.getBoolean(6);
       long callbackHandle = json.getLong(7);
-
+      JSONObject params = json.getJSONObject(8);
       return new PeriodicRequest(
           requestCode,
           allowWhileIdle,
@@ -210,7 +216,8 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
           startMillis,
           intervalMillis,
           rescheduleOnReboot,
-          callbackHandle);
+          callbackHandle,
+          params);
     }
 
     final int requestCode;
@@ -221,6 +228,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
     final long intervalMillis;
     final boolean rescheduleOnReboot;
     final long callbackHandle;
+    final JSONObject params;
 
     PeriodicRequest(
         int requestCode,
@@ -230,7 +238,8 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
         long startMillis,
         long intervalMillis,
         boolean rescheduleOnReboot,
-        long callbackHandle) {
+        long callbackHandle,
+        JSONObject params) {
       this.requestCode = requestCode;
       this.allowWhileIdle = allowWhileIdle;
       this.exact = exact;
@@ -239,6 +248,7 @@ public class AndroidAlarmManagerPlugin implements FlutterPlugin, MethodCallHandl
       this.intervalMillis = intervalMillis;
       this.rescheduleOnReboot = rescheduleOnReboot;
       this.callbackHandle = callbackHandle;
+      this.params = params;
     }
   }
 }

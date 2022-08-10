@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.text.TextUtils;
 import android.util.Log;
 import io.flutter.FlutterInjector;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -24,7 +25,8 @@ import io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback;
 import io.flutter.view.FlutterCallbackInformation;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 /**
  * An background execution abstraction which handles initializing a background isolate running a
  * callback dispatcher, used to invoke Dart callbacks while backgrounded.
@@ -193,7 +195,15 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
     // attention to the type of the callback handle as storing this value in a
     // variable of the wrong size will cause the callback lookup to fail.
     long callbackHandle = intent.getLongExtra("callbackHandle", 0);
-
+    String paramsJsonString = intent.getStringExtra("params");
+    JSONObject params =null;
+    if (!TextUtils.isEmpty(paramsJsonString)) {
+      try {
+        params = new JSONObject(paramsJsonString);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
     // If another thread is waiting, then wake that thread when the callback returns a result.
     MethodChannel.Result result = null;
     if (latch != null) {
@@ -221,7 +231,7 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
     // provided.
     backgroundChannel.invokeMethod(
         "invokeAlarmManagerCallback",
-        new Object[] {callbackHandle, intent.getIntExtra("id", -1)},
+        new Object[] {callbackHandle, intent.getIntExtra("id", -1), params},
         result);
   }
 

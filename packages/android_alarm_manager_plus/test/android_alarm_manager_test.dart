@@ -63,6 +63,7 @@ void main() {
       const exact = true;
       const wakeup = true;
       const rescheduleOnReboot = true;
+      const params = <String,dynamic>{"title":"myAlarm"};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.oneShotAt');
@@ -74,6 +75,7 @@ void main() {
         expect(call.arguments[5], alarm.millisecondsSinceEpoch);
         expect(call.arguments[6], rescheduleOnReboot);
         expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], params);
         return true;
       });
 
@@ -83,7 +85,8 @@ void main() {
           allowWhileIdle: allowWhileIdle,
           exact: exact,
           wakeup: wakeup,
-          rescheduleOnReboot: rescheduleOnReboot);
+          rescheduleOnReboot: rescheduleOnReboot,
+          params: params);
 
       expect(result, isTrue);
     });
@@ -104,7 +107,7 @@ void main() {
     const exact = true;
     const wakeup = true;
     const rescheduleOnReboot = true;
-
+    const params = <String,dynamic>{"title":"myAlarm"};
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       expect(call.method, 'Alarm.oneShotAt');
       expect(call.arguments[0], id);
@@ -116,6 +119,7 @@ void main() {
           call.arguments[5], now.millisecondsSinceEpoch + alarm.inMilliseconds);
       expect(call.arguments[6], rescheduleOnReboot);
       expect(call.arguments[7], rawHandle);
+      expect(call.arguments[8], params);
       return true;
     });
 
@@ -124,7 +128,8 @@ void main() {
         allowWhileIdle: allowWhileIdle,
         exact: exact,
         wakeup: wakeup,
-        rescheduleOnReboot: rescheduleOnReboot);
+        rescheduleOnReboot: rescheduleOnReboot,
+        params: params);
 
     expect(result, isTrue);
   });
@@ -161,6 +166,7 @@ void main() {
       const wakeup = true;
       const rescheduleOnReboot = true;
       const period = Duration(seconds: 1);
+      const params = <String,dynamic>{"title":"myAlarm"};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');
@@ -173,6 +179,7 @@ void main() {
         expect(call.arguments[5], period.inMilliseconds);
         expect(call.arguments[6], rescheduleOnReboot);
         expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], params);
         return true;
       });
 
@@ -184,6 +191,7 @@ void main() {
         exact: exact,
         wakeup: wakeup,
         rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
       );
 
       expect(result, isTrue);

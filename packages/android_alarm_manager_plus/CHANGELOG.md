@@ -1,3 +1,7 @@
+## 2.0.6+2
+
+- Now we can send extra data as Map to alarm manager and receive it in our callback
+
 ## 2.0.6+1
 
 - Add issue_tracker link.
