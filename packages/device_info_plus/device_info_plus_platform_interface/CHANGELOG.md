@@ -1,3 +1,7 @@
+## 2.5.0
+
+- Revert 2.4.0 changes
+
 ## 2.4.0
 
 - Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.

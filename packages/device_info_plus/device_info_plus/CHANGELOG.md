@@ -1,3 +1,7 @@
+## 4.0.3
+
+- Reverted changes in 4.0.2
+
 ## 4.0.2
 
 - Added more information to `WindowsDeviceInfo`.
