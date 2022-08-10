@@ -1,3 +1,7 @@
+## 2.1.4+1
+
+- Add issue_tracker link.
+
 ## 2.1.4
 
 - Update flutter_lints to 2.0.1
