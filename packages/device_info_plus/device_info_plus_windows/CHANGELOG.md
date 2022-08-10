@@ -1,7 +1,3 @@
-## 3.0.2
-
-- Add more information to WindowsDeviceInfo.
-
 ## 3.0.1
 
 - Update ffi to 2.0.1
