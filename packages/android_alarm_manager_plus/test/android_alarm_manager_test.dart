@@ -63,7 +63,7 @@ void main() {
       const exact = true;
       const wakeup = true;
       const rescheduleOnReboot = true;
-      const params = <String,dynamic>{"title":"myAlarm"};
+      const params = <String, dynamic>{"title": "myAlarm"};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.oneShotAt');
@@ -107,7 +107,7 @@ void main() {
     const exact = true;
     const wakeup = true;
     const rescheduleOnReboot = true;
-    const params = <String,dynamic>{"title":"myAlarm"};
+    const params = <String, dynamic>{"title": "myAlarm"};
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       expect(call.method, 'Alarm.oneShotAt');
       expect(call.arguments[0], id);
@@ -166,7 +166,7 @@ void main() {
       const wakeup = true;
       const rescheduleOnReboot = true;
       const period = Duration(seconds: 1);
-      const params = <String,dynamic>{"title":"myAlarm"};
+      const params = <String, dynamic>{"title": "myAlarm"};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');

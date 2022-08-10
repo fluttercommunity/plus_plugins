@@ -196,7 +196,7 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
     // variable of the wrong size will cause the callback lookup to fail.
     long callbackHandle = intent.getLongExtra("callbackHandle", 0);
     String paramsJsonString = intent.getStringExtra("params");
-    JSONObject params =null;
+    JSONObject params = null;
     if (!TextUtils.isEmpty(paramsJsonString)) {
       try {
         params = new JSONObject(paramsJsonString);
