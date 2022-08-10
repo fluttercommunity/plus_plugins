@@ -1,3 +1,7 @@
+## 2.0.6+1
+
+- Add issue_tracker link.
+
 ## 2.0.6
 
 - Fix AndroidAlarmManager.periodic() not working.

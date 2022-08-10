@@ -10,6 +10,7 @@
 NSMutableDictionary<NSString *, FlutterEventChannel *> *_eventChannels;
 NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
     *_streamHandlers;
+BOOL _isCleanUp = NO;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   // alloc channels names
@@ -72,6 +73,8 @@ NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
                      forKey:magnetometerStreamHandlerName];
   [_streamHandlers setObject:magnetometerStreamHandler
                       forKey:accelerometerStreamHandlerName];
+
+  _isCleanUp = NO;
 }
 
 - (void)detachFromEngineForRegistrar:
@@ -80,6 +83,7 @@ NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
 }
 
 static void _cleanUp() {
+  _isCleanUp = YES;
   for (FlutterEventChannel *channel in _eventChannels.allValues) {
     [channel setStreamHandler:nil];
   }
@@ -103,6 +107,9 @@ void _initMotionManager() {
 
 static void sendTriplet(Float64 x, Float64 y, Float64 z,
                         FlutterEventSink sink) {
+  if (_isCleanUp) {
+    return;
+  }
   // even if we removed all with [detachFromEngineForRegistrar] we stull can
   // receive and fire some events from sensors til deataching
   @try {
@@ -131,6 +138,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                  accelerometerData.acceleration;
                              // Multiply by gravity, and adjust sign values to
                              // align with Android.
+                             if (_isCleanUp) {
+                               return;
+                             }
                              sendTriplet(-acceleration.x * GRAVITY,
                                          -acceleration.y * GRAVITY,
                                          -acceleration.z * GRAVITY, eventSink);
@@ -160,6 +170,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                             CMAcceleration acceleration = data.userAcceleration;
                             // Multiply by gravity, and adjust sign values to
                             // align with Android.
+                            if (_isCleanUp) {
+                              return;
+                            }
                             sendTriplet(-acceleration.x * GRAVITY,
                                         -acceleration.y * GRAVITY,
                                         -acceleration.z * GRAVITY, eventSink);
@@ -187,6 +200,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
       startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
                   withHandler:^(CMGyroData *gyroData, NSError *error) {
                     CMRotationRate rotationRate = gyroData.rotationRate;
+                    if (_isCleanUp) {
+                      return;
+                    }
                     sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
                                 eventSink);
                   }];
@@ -215,6 +231,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                         NSError *error) {
                             CMMagneticField magneticField =
                                 magData.magneticField;
+                            if (_isCleanUp) {
+                              return;
+                            }
                             sendTriplet(magneticField.x, magneticField.y,
                                         magneticField.z, eventSink);
                           }];
