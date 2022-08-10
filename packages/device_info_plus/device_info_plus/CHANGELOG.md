@@ -1,6 +1,7 @@
 ## 4.1.0
 
-- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+- Remove `androidId` (that already got removed from the method channel in 4.0.0, thus always returned null)
+- There is a **new, separate [pub.dev package](https://pub.dev/packages/android_id) for getting the correct `androidId`**
 
 ## 4.0.3
 
