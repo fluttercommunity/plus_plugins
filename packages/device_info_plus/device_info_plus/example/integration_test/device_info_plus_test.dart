@@ -5,10 +5,9 @@
 // @dart=2.9
 
 import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
@@ -98,6 +97,7 @@ void main() {
     expect(androidInfo.tags, isNotNull);
     expect(androidInfo.type, isNotNull);
     expect(androidInfo.isPhysicalDevice, isNotNull);
+    expect(androidInfo.androidId, isNull);
     expect(androidInfo.systemFeatures, isNotNull);
   }, skip: !Platform.isAndroid);
 }

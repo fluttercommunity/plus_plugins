@@ -99,6 +99,7 @@ class _MyAppState extends State<MyApp> {
       'tags': build.tags,
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
+      'androidId': build.androidId,
       'systemFeatures': build.systemFeatures,
     };
   }
