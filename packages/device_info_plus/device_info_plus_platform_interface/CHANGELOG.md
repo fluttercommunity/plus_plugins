@@ -1,7 +1,3 @@
-## 2.6.1
-
-- Revert 2.6.0
-
 ## 2.6.0
 
 - Remove `androidId` (that was removed in the MethodChannel, and always returned null)

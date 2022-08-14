@@ -29,7 +29,6 @@ void main() {
         'product': 'product',
         'display': 'display',
         'hardware': 'hardware',
-        'androidId': 'androidId',
         'isPhysicalDevice': true,
         'bootloader': 'bootloader',
         'fingerprint': 'fingerprint',
@@ -56,7 +55,6 @@ void main() {
         expect(androidDeviceInfo.product, 'product');
         expect(androidDeviceInfo.display, 'display');
         expect(androidDeviceInfo.hardware, 'hardware');
-        expect(androidDeviceInfo.androidId, 'androidId');
         expect(androidDeviceInfo.bootloader, 'bootloader');
         expect(androidDeviceInfo.isPhysicalDevice, isTrue);
         expect(androidDeviceInfo.fingerprint, 'fingerprint');

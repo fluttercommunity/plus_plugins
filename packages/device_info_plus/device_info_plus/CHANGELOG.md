@@ -1,7 +1,3 @@
-## 4.1.1
-
-- Revert changes in 4.1.0
-
 ## 4.1.0
 
 - Remove `androidId` (that already got removed from the method channel in 4.0.0, thus always returned null)
