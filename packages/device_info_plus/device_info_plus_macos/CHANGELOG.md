@@ -1,3 +1,7 @@
+## 3.0.0
+
+- platform interface to 3.0.0
+
 ## 2.2.3
 
 - Fix crash on macOS running on Apple M1

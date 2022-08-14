@@ -1,3 +1,7 @@
+## 3.0.0
+
+- platform interface to 3.0.0
+
 ## 2.1.0
 
 - add toMap to models
