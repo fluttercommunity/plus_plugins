@@ -1,3 +1,7 @@
+## 4.0.0
+
+- platform interface to 3.0.0
+
 ## 3.0.3
 
 - Revert changes in 3.0.2
