@@ -29,6 +29,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     this.tags,
     this.type,
     this.isPhysicalDevice,
+    this.androidId,
     required List<String?> systemFeatures,
   })  : supported32BitAbis = List<String?>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String?>.unmodifiable(supported64BitAbis),
@@ -92,6 +93,9 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// `false` if the application is running in an emulator, `true` otherwise.
   final bool? isPhysicalDevice;
 
+  /// The Android hardware device ID that is unique between the device + user and app signing.
+  final String? androidId;
+
   /// Describes what features are available on the current device.
   ///
   /// This can be used to check if the device has, for example, a front-facing
@@ -123,6 +127,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       'product': product,
       'display': display,
       'hardware': hardware,
+      'androidId': androidId,
       'bootloader': bootloader,
       'version': version.toMap(),
       'fingerprint': fingerprint,
@@ -158,6 +163,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       tags: map['tags'],
       type: map['type'],
       isPhysicalDevice: map['isPhysicalDevice'],
+      androidId: map['androidId'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
     );
   }
