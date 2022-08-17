@@ -27,6 +27,11 @@ class NetworkInfo {
     WifiInfo wifiInfo = getWifiInfo();
     String ssid = null;
     if (wifiInfo != null) ssid = wifiInfo.getSSID();
+    if(ssid!=null)
+    {
+      ssid=ssid?.replaceFirst('"', '');
+      ssid=ssid?.replaceFirst('"', '',ssid.length-1);
+    }
     return ssid;
   }
 
