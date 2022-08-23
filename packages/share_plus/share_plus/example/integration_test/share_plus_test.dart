@@ -4,13 +4,10 @@
 
 // @dart=2.9
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/common.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'package:share_example/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
