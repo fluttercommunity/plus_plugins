@@ -15,7 +15,8 @@ void main() {
     expect(Share.share('message', subject: 'title'), completes);
   });
 
-  testWidgets('Test', (WidgetTester tester) async {
+  testWidgets('Tests if the expected non-null result is returned',
+      (WidgetTester tester) async {
     expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
   });
 }
