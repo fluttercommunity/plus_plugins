@@ -261,6 +261,22 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
           UIViewController *topViewController =
               TopViewControllerForViewController(RootViewController());
+          BOOL isCoordinateSpaceOfSourceView =
+              CGRectContainsRect(topViewController.view.frame, originRect);
+          if (!isCoordinateSpaceOfSourceView) {
+            result([FlutterError
+                errorWithCode:@"error"
+                      message:[NSString
+                                  stringWithFormat:
+                                      @"sharePositionOrigin: %@ must be within "
+                                      @"coordinate space of source view: %@",
+                                      NSStringFromCGRect(originRect),
+                                      NSStringFromCGRect(
+                                          topViewController.view.bounds)]
+                      details:nil]);
+            return;
+          }
+
           [self shareText:shareText
                      subject:shareSubject
               withController:topViewController

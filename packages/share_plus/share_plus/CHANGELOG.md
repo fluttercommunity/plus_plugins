@@ -1,3 +1,7 @@
+## 4.0.10+2
+
+- iOS: Throw PlatformException when iPad share dialog not appearing (sharePositionOrigin not in sourceView)
+
 ## 4.0.10+1
 
 - Add issue_tracker link.
