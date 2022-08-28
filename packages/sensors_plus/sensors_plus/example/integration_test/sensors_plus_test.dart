@@ -34,6 +34,31 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
+  testWidgets('Can subscript to gyroscopeEvents and get expected events',
+      (WidgetTester tester) async {
+    final completer = Completer<GyroscopeEvent>();
+    StreamSubscription<GyroscopeEvent> subscription;
+    subscription = gyroscopeEvents.listen((GyroscopeEvent event) {
+      completer.complete(event);
+      subscription.cancel();
+    });
+    print(await completer.future);
+    print(await completer.future.runtimeType);
+
+    final completer2 = Completer<GyroscopeEvent>();
+    StreamSubscription<GyroscopeEvent> expectSubscription;
+    expectSubscription = gyroscopeEvents.listen((GyroscopeEvent event) {
+      completer2.complete(GyroscopeEvent(0.0, 0.0, 0.0));
+      expectSubscription.cancel();
+    });
+
+    print(await completer2.future);
+    print(await completer2.future.runtimeType);
+
+    expect(await completer.future.runtimeType,
+        await completer2.future.runtimeType);
+  });
+
   testWidgets(
       'Can subscript to userAccelerometerEvents and get non-null events',
       (WidgetTester tester) async {
