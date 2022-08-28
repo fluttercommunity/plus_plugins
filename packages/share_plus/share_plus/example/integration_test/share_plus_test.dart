@@ -11,11 +11,12 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Can launch share', (WidgetTester tester) async {
+  testWidgets('Test if it can launch share properly.',
+      (WidgetTester tester) async {
     expect(Share.share('message', subject: 'title'), completes);
   });
 
-  testWidgets('Tests if the expected non-null result is returned',
+  testWidgets('Test if the expected non-null result is returned.',
       (WidgetTester tester) async {
     expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
   });
