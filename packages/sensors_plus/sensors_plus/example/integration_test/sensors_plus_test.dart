@@ -12,7 +12,7 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Can subscript to accelerometerEvents and get non-null events',
+  testWidgets('Can subscribe to accelerometerEvents and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<AccelerometerEvent>();
     StreamSubscription<AccelerometerEvent> subscription;
@@ -23,7 +23,7 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
-  testWidgets('Can subscript to gyroscopeEvents and get non-null events',
+  testWidgets('Can subscribe to gyroscopeEvents and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<GyroscopeEvent>();
     StreamSubscription<GyroscopeEvent> subscription;
@@ -34,7 +34,7 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
-  testWidgets('Can subscript to gyroscopeEvents and get expected events',
+  testWidgets('Can subscribe to gyroscopeEvents and get expected events',
       (WidgetTester tester) async {
     final completer = Completer<GyroscopeEvent>();
     StreamSubscription<GyroscopeEvent> subscription;
@@ -60,7 +60,7 @@ void main() {
   });
 
   testWidgets(
-      'Can subscript to userAccelerometerEvents and get non-null events',
+      'Can subscribe to userAccelerometerEvents and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<UserAccelerometerEvent>();
     StreamSubscription<UserAccelerometerEvent> subscription;
@@ -72,7 +72,7 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
-  testWidgets('Can subscript to magnetometerEvent and get non-null events',
+  testWidgets('Can subscribe to magnetometerEvent and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<MagnetometerEvent>();
     StreamSubscription<MagnetometerEvent> subscription;
