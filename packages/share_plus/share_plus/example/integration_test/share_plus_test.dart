@@ -14,4 +14,8 @@ void main() {
   testWidgets('Can launch share', (WidgetTester tester) async {
     expect(Share.share('message', subject: 'title'), completes);
   });
+
+  testWidgets('Can launch shareWithResult', (WidgetTester tester) async {
+    expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
+  });
 }
