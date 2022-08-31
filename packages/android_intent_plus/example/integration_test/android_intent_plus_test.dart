@@ -50,7 +50,7 @@ void main() {
     }));
   }, skip: !Platform.isAndroid);
 
-  testWidgets('#set an alarm on weekdays at 9:30pm',
+  testWidgets('#set an alarm on weekdays at 9:30pm should not throw',
       (WidgetTester tester) async {
     const intent = AndroidIntent(
         action: 'android.intent.action.SET_ALARM',
@@ -62,7 +62,6 @@ void main() {
           'android.intent.extra.alarm.MESSAGE': 'Just for Integration test',
         });
     await intent.launch();
-    // expect(await intent.launch().runtimeType, 'string');
   }, skip: !Platform.isAndroid);
 
   testWidgets('#launchChooser should not throw', (WidgetTester tester) async {
