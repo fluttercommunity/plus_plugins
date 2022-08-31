@@ -25,17 +25,20 @@ void main() {
   });
 
   testWidgets('Can subscribe to accelerometerEvents and get expected events',
-          (WidgetTester tester) async {
-        final completer = Completer<AccelerometerEvent>();
-        StreamSubscription<AccelerometerEvent> subscription;
-        subscription = accelerometerEvents.listen((AccelerometerEvent event) {
-          completer.complete(event);
-          subscription.cancel();
-        });
+      (WidgetTester tester) async {
+    final completer = Completer<AccelerometerEvent>();
+    StreamSubscription<AccelerometerEvent> subscription;
+    subscription = accelerometerEvents.listen((AccelerometerEvent event) {
+      completer.complete(event);
+      subscription.cancel();
+    });
 
-        final event = await completer.future;
-        expect(await event.toString(), AccelerometerEvent(0.0, 9.776321411132812, 0.812345027923584).toString());
-      }, skip: !Platform.isAndroid);
+    final event = await completer.future;
+    expect(
+        await event.toString(),
+        AccelerometerEvent(0.0, 9.776321411132812, 0.812345027923584)
+            .toString());
+  }, skip: !Platform.isAndroid);
 
   testWidgets('Can subscribe to gyroscopeEvents and get non-null events',
       (WidgetTester tester) async {
