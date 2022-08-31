@@ -5,6 +5,7 @@
 // @dart=2.9
 
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:integration_test/integration_test.dart';
@@ -42,22 +43,10 @@ void main() {
       completer.complete(event);
       subscription.cancel();
     });
-    print(await completer.future);
-    print(await completer.future.runtimeType);
 
-    final completer2 = Completer<GyroscopeEvent>();
-    StreamSubscription<GyroscopeEvent> expectSubscription;
-    expectSubscription = gyroscopeEvents.listen((GyroscopeEvent event) {
-      completer2.complete(GyroscopeEvent(0.0, 0.0, 0.0));
-      expectSubscription.cancel();
-    });
-
-    print(await completer2.future);
-    print(await completer2.future.runtimeType);
-
-    expect(await completer.future.runtimeType,
-        await completer2.future.runtimeType);
-  });
+    final event = await completer.future;
+    expect(event.toString(), GyroscopeEvent(0, 0, 0).toString());
+  }, skip: !Platform.isAndroid);
 
   testWidgets(
       'Can subscribe to userAccelerometerEvents and get non-null events',
