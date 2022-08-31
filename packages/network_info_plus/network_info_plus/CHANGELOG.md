@@ -1,3 +1,7 @@
+## 2.1.5
+
+- IOS: Fix potential issues with building native Objective C code.
+
 ## 2.1.4+1
 
 - Add issue_tracker link.
@@ -5,7 +9,6 @@
 ## 2.1.4
 
 - Android: Plugin no longer removes `"` from SSID name.
-
 
 ## 2.1.3
 
@@ -49,7 +52,6 @@
 ## 1.2.0
 
 - migrate integration_test to flutter sdk
-
 
 ## 1.1.0
 

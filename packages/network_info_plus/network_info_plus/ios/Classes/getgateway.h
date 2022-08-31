@@ -5,6 +5,8 @@
 //  Created by Dimitri Dessus on 08/07/2021.
 //
 
+#include <netinet/in.h>
+
 #ifndef getgateway_h
 #define getgateway_h
 
