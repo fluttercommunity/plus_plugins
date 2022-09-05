@@ -55,6 +55,8 @@ Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
 
+__NOTE: Sharing files via iOS [does currently not work](https://github.com/fluttercommunity/plus_plugins/issues/730). We're working on fixing this in a future release.__
+
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
 ## Known Issues
