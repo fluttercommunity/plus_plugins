@@ -24,6 +24,10 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
+  // The acceleration value is +9.81, which corresponds to the acceleration of
+  // the device (0 m/s^2) minus the force of gravity (-9.81 m/s^2)
+  // When the device lies flat on a table.
+  // You can refer to this link for more information.
   testWidgets('Can subscribe to accelerometerEvents and get expected events',
       (WidgetTester tester) async {
     final completer = Completer<AccelerometerEvent>();
@@ -34,10 +38,8 @@ void main() {
     });
 
     final event = await completer.future;
-    expect(
-        await event.toString(),
-        AccelerometerEvent(0.0, 9.776321411132812, 0.812345027923584)
-            .toString());
+    expect(event.toString(),
+        AccelerometerEvent(0.0, 9.809988975524902, 0.0).toString());
   }, skip: !Platform.isAndroid);
 
   testWidgets('Can subscribe to gyroscopeEvents and get non-null events',
