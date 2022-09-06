@@ -92,7 +92,7 @@ void main() {
     final event = await completer.future;
     expect(
         event.toString(),
-        UserAccelerometerEvent(0, 0.0033512115478515625, 0.0002784132957458496)
+        UserAccelerometerEvent(0.00004880757842329331, 0.0033588409423828125, 0.00019186735153198242)
             .toString());
   });
 
