@@ -132,13 +132,3 @@ jobs:
 
       - name: "Flutter Test - Web"
         run: melos run test:web --no-select
-
-      - name: "Collect Coverage"
-        run: melos run coverage
-
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
-          files: packages/*/coverage/lcov.info
-
