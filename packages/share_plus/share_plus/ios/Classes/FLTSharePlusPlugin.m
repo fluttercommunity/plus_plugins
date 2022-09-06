@@ -348,10 +348,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
           toResult:(FlutterResult)result {
-  NSObject *data = [[NSURL alloc] initWithString:shareText];
-  if (data == nil) {
-    data = [[SharePlusData alloc] initWithSubject:subject text:shareText];
-  }
+  NSObject *data = [[SharePlusData alloc] initWithSubject:subject
+                                                     text:shareText];
   [self share:@[ data ]
          withSubject:subject
       withController:controller
@@ -376,10 +374,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                                                  subject:subject]];
   }
   if (text != nil) {
-    NSObject *data = [[NSURL alloc] initWithString:text];
-    if (data == nil) {
-      data = [[SharePlusData alloc] initWithSubject:subject text:text];
-    }
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
     [items addObject:data];
   }
 
