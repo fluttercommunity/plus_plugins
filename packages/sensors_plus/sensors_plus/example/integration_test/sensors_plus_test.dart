@@ -27,7 +27,7 @@ void main() {
   // The acceleration value is +9.81, which corresponds to the acceleration of
   // the device (0 m/s^2) minus the force of gravity (-9.81 m/s^2)
   // When the device lies flat on a table.
-  // You can refer to this link for more information.
+  // You can refer to this [link](http://josejuansanchez.org/android-sensors-overview/accelerometer/README.html) for more information.
   testWidgets('Can subscribe to accelerometerEvents and get expected events',
       (WidgetTester tester) async {
     final completer = Completer<AccelerometerEvent>();
