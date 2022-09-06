@@ -79,6 +79,23 @@ void main() {
     expect(await completer.future, isNotNull);
   });
 
+  testWidgets(
+      'Can subscribe to userAccelerometerEvents and get expected events',
+      (WidgetTester tester) async {
+    final completer = Completer<UserAccelerometerEvent>();
+    StreamSubscription<UserAccelerometerEvent> subscription;
+    subscription =
+        userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+      completer.complete(event);
+      subscription.cancel();
+    });
+    final event = await completer.future;
+    expect(
+        event.toString(),
+        UserAccelerometerEvent(0, 0.0033512115478515625, 0.0002784132957458496)
+            .toString());
+  });
+
   testWidgets('Can subscribe to magnetometerEvent and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<MagnetometerEvent>();
