@@ -11,4 +11,5 @@
           android:resource="@xml/flutter_share_file_paths"/>
       </provider>
     </application>
+  <uses-sdk android:minSdkVersion="22" />
 </manifest>
