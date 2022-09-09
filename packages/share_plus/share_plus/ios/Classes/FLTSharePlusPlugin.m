@@ -261,27 +261,13 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
           UIViewController *topViewController =
               TopViewControllerForViewController(RootViewController());
-          BOOL isCoordinateSpaceOfSourceView =
-              CGRectContainsRect(topViewController.view.frame, originRect);
-          if (!isCoordinateSpaceOfSourceView) {
-            result([FlutterError
-                errorWithCode:@"error"
-                      message:[NSString
-                                  stringWithFormat:
-                                      @"sharePositionOrigin: %@ must be within "
-                                      @"coordinate space of source view: %@",
-                                      NSStringFromCGRect(originRect),
-                                      NSStringFromCGRect(
-                                          topViewController.view.bounds)]
-                      details:nil]);
-            return;
-          }
 
           [self shareText:shareText
                      subject:shareSubject
               withController:topViewController
                     atSource:originRect
-                    toResult:withResult ? result : nil];
+                    toResult:result
+                  withResult:withResult];
           if (!withResult)
             result(nil);
         } else if ([@"shareFiles" isEqualToString:call.method] ||
@@ -315,7 +301,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
                     withText:text
               withController:topViewController
                     atSource:originRect
-                    toResult:withResult ? result : nil];
+                    toResult:result
+                  withResult:withResult];
           if (!withResult)
             result(nil);
         } else {
@@ -328,7 +315,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
        withSubject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result {
+          toResult:(FlutterResult)result
+        withResult:(BOOL)withResult {
   UIActivityViewSuccessController *activityViewController =
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
@@ -340,10 +328,32 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
   activityViewController.popoverPresentationController.sourceView =
       controller.view;
+  BOOL isCoordinateSpaceOfSourceView =
+      CGRectContainsRect(controller.view.frame, origin);
+
+  // If device is e.g. an iPad then hasPopoverPresentationController is true
+  BOOL hasPopoverPresentationController =
+      [activityViewController popoverPresentationController] != NULL;
+  if (hasPopoverPresentationController &&
+      (!isCoordinateSpaceOfSourceView || CGRectIsEmpty(origin))) {
+    NSString *sharePositionIssue = [NSString
+        stringWithFormat:
+            @"sharePositionOrigin: argument must be set, %@ must be non-zero "
+            @"and within coordinate space of source view: %@",
+            NSStringFromCGRect(origin),
+            NSStringFromCGRect(controller.view.bounds)];
+
+    result([FlutterError errorWithCode:@"error"
+                               message:sharePositionIssue
+                               details:nil]);
+    return;
+  }
+
   if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
-  if (result) {
+
+  if (withResult) {
     UIActivityViewSuccessCompanion *companion =
         [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
     activityViewController.companion = companion;
@@ -363,14 +373,16 @@ TopViewControllerForViewController(UIViewController *viewController) {
            subject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result {
+          toResult:(FlutterResult)result
+        withResult:(BOOL)withResult {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
   [self share:@[ data ]
          withSubject:subject
       withController:controller
             atSource:origin
-            toResult:result];
+            toResult:result
+          withResult:withResult];
 }
 
 + (void)shareFiles:(NSArray *)paths
@@ -379,7 +391,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
           withText:(NSString *)text
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result {
+          toResult:(FlutterResult)result
+        withResult:(BOOL)withResult {
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
   for (int i = 0; i < [paths count]; i++) {
@@ -398,7 +411,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
          withSubject:subject
       withController:controller
             atSource:origin
-            toResult:result];
+            toResult:result
+          withResult:withResult];
 }
 
 @end

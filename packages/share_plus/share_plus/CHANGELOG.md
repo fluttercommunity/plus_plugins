@@ -1,6 +1,7 @@
 ## 4.2.0
 
 - iOS: Throw PlatformException when iPad share dialog not appearing (sharePositionOrigin not in sourceView)
+
 ## 4.1.0
 
 - iOS: Fix text sharing.
