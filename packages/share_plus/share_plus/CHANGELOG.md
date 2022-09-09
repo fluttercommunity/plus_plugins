@@ -1,6 +1,15 @@
 ## 4.2.0
 
 - iOS: Throw PlatformException when iPad share dialog not appearing (sharePositionOrigin not in sourceView)
+## 4.1.0
+
+- iOS: Fix text sharing.
+  - Previously, the text was being encoded as a URL, this caused the share sheet to appear empty.
+  - Now the shared text is not encoded as a URL anymore but rather shared as plain text.
+  - Sharing text + subject + attachments should work on apps that support that (e.g. Mail app).
+  - Example: Sharing Text + Image on Telegram is possible and both are shared.
+  - Some apps still have limitations with sharing. For example, Gmail app does not support the subject field.
+  - Related issue: #730
 
 ## 4.0.10+1
 

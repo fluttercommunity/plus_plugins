@@ -110,7 +110,7 @@ jobs:
             find . -maxdepth 12 -name "*.java" -print0 \| xargs -0 java -jar $HOME/google-java-format.jar --replace
           ./.github/workflows/scripts/validate-formatting.sh
 
-  test_and_coverage:
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -132,13 +132,4 @@ jobs:
 
       - name: "Flutter Test - Web"
         run: melos run test:web --no-select
-
-      - name: "Collect Coverage"
-        run: melos run coverage
-
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
-          files: packages/*/coverage/lcov.info
 
