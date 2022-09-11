@@ -1,3 +1,10 @@
+# 4.2.0
+
+- iOS: Fix Instagram does not show up in provider list for web links
+  - issue #459 appear again
+  - put back NSURL for the shareText, and text is pure URL
+  - using LPMetadataProvider to get LPLinkMetadata make the user experience better
+
 ## 4.1.0
 
 - iOS: Fix text sharing.
