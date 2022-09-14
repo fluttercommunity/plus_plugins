@@ -1,3 +1,7 @@
+## 2.0.7
+
+- Add pragma('vm:entry-point') to alarm manager callback to avoid tree shaking.
+
 ## 2.0.6+1
 
 - Add issue_tracker link.
