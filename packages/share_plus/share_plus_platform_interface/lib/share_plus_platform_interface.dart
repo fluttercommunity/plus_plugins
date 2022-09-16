@@ -10,7 +10,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'method_channel/method_channel_share.dart';
 
 /// The interface that implementations of `share_plus` must implement.
-class SharePlatform extends PlatformInterface {
+abstract class SharePlatform extends PlatformInterface {
   /// Constructs a SharePlatform.
   SharePlatform() : super(token: _token);
 
@@ -29,6 +29,16 @@ class SharePlatform extends PlatformInterface {
     PlatformInterface.verifyToken(instance, _token);
     _instance = instance;
   }
+
+  /// Share internal method.
+  Future<ShareResult> shareInternal({
+    String? text,
+    String? subject,
+    Uri? url,
+    List<String>? paths,
+    List<String>? mimeTypes,
+    Rect? sharePositionOrigin,
+  });
 
   /// Share text.
   Future<void> share(

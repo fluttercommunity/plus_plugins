@@ -18,6 +18,73 @@ class MethodChannelShare extends SharePlatform {
   static const MethodChannel channel =
       MethodChannel('dev.fluttercommunity.plus/share');
 
+  @override
+  Future<ShareResult> shareInternal({
+    String? text,
+    String? subject,
+    Uri? url,
+    List<String>? paths,
+    List<String>? mimeTypes,
+    Rect? sharePositionOrigin,
+  }) async {
+    final params = <String, dynamic>{
+      if (subject != null) 'subject': subject,
+      if (text != null) 'text': text,
+      if (url != null) 'url': url.toString(),
+      if (paths != null) 'paths': paths,
+      if (paths != null)
+        'mimeTypes': mimeTypes ??
+            paths.map((String path) => _mimeTypeForPath(path)).toList(),
+    };
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    final result =
+        await channel.invokeMethod<String>('shareInternal', params) ??
+            'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
+  }
+
+  /// Summons the platform's share sheet to share.
+  @override
+  Future<ShareResult> shareFilesWithResult(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(paths.isNotEmpty);
+    assert(paths.every((element) => element.isNotEmpty));
+    final params = <String, dynamic>{
+      'paths': paths,
+      'mimeTypes': mimeTypes ??
+          paths.map((String path) => _mimeTypeForPath(path)).toList(),
+    };
+
+    if (subject != null) params['subject'] = subject;
+    if (text != null) params['text'] = text;
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    final result =
+        await channel.invokeMethod<String>('shareFilesWithResult', params) ??
+            'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
+  }
+
   /// Summons the platform's share sheet to share text.
   @override
   Future<void> share(
