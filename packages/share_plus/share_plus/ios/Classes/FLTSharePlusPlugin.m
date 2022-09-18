@@ -82,7 +82,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
 - (instancetype)initWithSubject:(NSString *)subject
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata 
+- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata
     NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithFile:(NSString *)path
@@ -397,7 +397,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
     return;
   }
 
-  if (@available(iOS 13, *) && ([[url scheme] isEqualToString:@"http"] || 
+  if (@available(iOS 13, *) && ([[url scheme] isEqualToString:@"http"] ||
                                 [[url scheme] isEqualToString:@"https"])) {
     LPMetadataProvider *metadataProvider = [[LPMetadataProvider alloc] init];
     [metadataProvider
