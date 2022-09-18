@@ -82,7 +82,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
 - (instancetype)initWithSubject:(NSString *)subject
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata 
+    NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
@@ -113,13 +114,13 @@ TopViewControllerForViewController(UIViewController *viewController) {
 }
 
 - (instancetype)initWithSubject:(NSString *)subject url:(NSURL *)url {
-   self = [super init];
-   if (self) {
-     _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
-     _url = url;
-   }
-   return self;
- }
+  self = [super init];
+  if (self) {
+    _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
+    _url = url;
+  }
+  return self;
+}
 
 - (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata {
   self = [super init];
@@ -164,7 +165,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
   }
 
   if (_url != nil) {
-      return _url;
+    return _url;
   }
 
   if (!_path || !_mimeType) {
@@ -396,42 +397,44 @@ TopViewControllerForViewController(UIViewController *viewController) {
     return;
   }
 
-  if (@available(iOS 13, *) && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+  if (@available(iOS 13, *) && ([[url scheme] isEqualToString:@"http"] || 
+                                [[url scheme] isEqualToString:@"https"])) {
     LPMetadataProvider *metadataProvider = [[LPMetadataProvider alloc] init];
-    [metadataProvider startFetchingMetadataForURL:url
-                                completionHandler:^(LPLinkMetadata *metadata, NSError *error){
-        if(!error){
-            if (subject != nil && [subject length] > 0) {
-                metadata.title = subject;
-            }
-            NSObject *data = [[SharePlusData alloc] initWithLinkMetadata:metadata];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self share:@[ data ]
-                       withSubject:subject
-                    withController:controller
-                          atSource:origin
-                          toResult:result];
-            });
+    [metadataProvider
+        startFetchingMetadataForURL:url
+                  completionHandler:^(LPLinkMetadata *metadata,
+                                      NSError *error) {
+                    if (!error) {
+                      if (subject != nil && [subject length] > 0) {
+                        metadata.title = subject;
+                      }
+                      NSObject *data =
+                          [[SharePlusData alloc] initWithLinkMetadata:metadata];
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                        [self share:@[ data ]
+                               withSubject:subject
+                            withController:controller
+                                  atSource:origin
+                                  toResult:result];
+                      });
 
-            return;
-        }
+                      return;
+                    }
 
-        NSLog(@"FetchingMetadataForURL %@ got error: %@", url, error);
-        NSObject *data = [[SharePlusData alloc] initWithSubject:subject
-                                                            url:url];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self share:@[ data ]
-                   withSubject:subject
-                withController:controller
-                      atSource:origin
-                      toResult:result];
-        });
-
-    }];
-  }
-  else {
-    NSObject *data = [[SharePlusData alloc] initWithSubject:subject
-                                                        url:url];
+                    NSLog(@"FetchingMetadataForURL %@ got error: %@", url,
+                          error);
+                    NSObject *data =
+                        [[SharePlusData alloc] initWithSubject:subject url:url];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      [self share:@[ data ]
+                             withSubject:subject
+                          withController:controller
+                                atSource:origin
+                                toResult:result];
+                    });
+                  }];
+  } else {
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject url:url];
     [self share:@[ data ]
            withSubject:subject
         withController:controller
