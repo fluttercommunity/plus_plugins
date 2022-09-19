@@ -73,9 +73,17 @@ TopViewControllerForViewController(UIViewController *viewController) {
 @property(readonly, nonatomic, copy) NSString *text;
 @property(readonly, nonatomic, copy) NSString *path;
 @property(readonly, nonatomic, copy) NSString *mimeType;
+@property(readonly, nonatomic, copy) LPLinkMetadata *linkMetadata;
+@property(readonly, nonatomic, copy) NSURL *url;
 
 - (instancetype)initWithSubject:(NSString *)subject
                            text:(NSString *)text NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithSubject:(NSString *)subject
+                            url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata
+    NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
@@ -101,6 +109,23 @@ TopViewControllerForViewController(UIViewController *viewController) {
   if (self) {
     _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
     _text = text;
+  }
+  return self;
+}
+
+- (instancetype)initWithSubject:(NSString *)subject url:(NSURL *)url {
+  self = [super init];
+  if (self) {
+    _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
+    _url = url;
+  }
+  return self;
+}
+
+- (instancetype)initWithLinkMetadata:(LPLinkMetadata *)metadata {
+  self = [super init];
+  if (self) {
+    _linkMetadata = metadata;
   }
   return self;
 }
@@ -135,6 +160,14 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(UIActivityType)activityType {
+  if (_linkMetadata != nil) {
+    return _linkMetadata.originalURL;
+  }
+
+  if (_url != nil) {
+    return _url;
+  }
+
   if (!_path || !_mimeType) {
     return _text;
   }
@@ -182,6 +215,10 @@ TopViewControllerForViewController(UIViewController *viewController) {
 - (LPLinkMetadata *)activityViewControllerLinkMetadata:
     (UIActivityViewController *)activityViewController
     API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0)) {
+  if (_linkMetadata != nil) {
+    return _linkMetadata;
+  }
+
   LPLinkMetadata *metadata = [[LPLinkMetadata alloc] init];
 
   if ([_subject length] > 0) {
@@ -348,13 +385,63 @@ TopViewControllerForViewController(UIViewController *viewController) {
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
           toResult:(FlutterResult)result {
-  NSObject *data = [[SharePlusData alloc] initWithSubject:subject
-                                                     text:shareText];
-  [self share:@[ data ]
-         withSubject:subject
-      withController:controller
-            atSource:origin
-            toResult:result];
+  NSURL *url = [NSURL URLWithString:shareText];
+  if (!url || ![url scheme] || ![url host]) {
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject
+                                                       text:shareText];
+    [self share:@[ data ]
+           withSubject:subject
+        withController:controller
+              atSource:origin
+              toResult:result];
+    return;
+  }
+
+  if (@available(iOS 13, *) && ([[url scheme] isEqualToString:@"http"] ||
+                                [[url scheme] isEqualToString:@"https"])) {
+    LPMetadataProvider *metadataProvider = [[LPMetadataProvider alloc] init];
+    [metadataProvider
+        startFetchingMetadataForURL:url
+                  completionHandler:^(LPLinkMetadata *metadata,
+                                      NSError *error) {
+                    if (!error) {
+                      if (subject != nil && [subject length] > 0) {
+                        metadata.title = subject;
+                      }
+                      NSObject *data =
+                          [[SharePlusData alloc] initWithLinkMetadata:metadata];
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                        [self share:@[ data ]
+                               withSubject:subject
+                            withController:controller
+                                  atSource:origin
+                                  toResult:result];
+                      });
+
+                      return;
+                    }
+
+                    NSLog(@"FetchingMetadataForURL %@ got error: %@", url,
+                          error);
+                    NSObject *data =
+                        [[SharePlusData alloc] initWithSubject:subject url:url];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      [self share:@[ data ]
+                             withSubject:subject
+                          withController:controller
+                                atSource:origin
+                                toResult:result];
+                    });
+                  }];
+  } else {
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject url:url];
+    [self share:@[ data ]
+           withSubject:subject
+        withController:controller
+              atSource:origin
+              toResult:result];
+    return;
+  }
 }
 
 + (void)shareFiles:(NSArray *)paths
