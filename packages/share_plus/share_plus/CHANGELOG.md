@@ -2,7 +2,7 @@
 
 - iOS: Throw PlatformException when iPad share dialog not appearing (sharePositionOrigin not in sourceView)
 
-# 4.2.0
+## 4.2.0
 
 - iOS: Fix Instagram does not show up in provider list for web links
   - issue #459 appear again
