@@ -373,14 +373,16 @@ TopViewControllerForViewController(UIViewController *viewController) {
            subject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result {
+          toResult:(FlutterResult)result
+         withResult:(BOOL)withResult {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
   [self share:@[ data ]
          withSubject:subject
       withController:controller
             atSource:origin
-            toResult:result];
+            toResult:result
+            withResult:withResult];
 }
 
 + (void)shareFiles:(NSArray *)paths
