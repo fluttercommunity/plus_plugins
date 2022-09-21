@@ -374,7 +374,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
           toResult:(FlutterResult)result
-         withResult:(BOOL)withResult {
+        withResult:(BOOL)withResult {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
   [self share:@[ data ]
@@ -382,7 +382,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
       withController:controller
             atSource:origin
             toResult:result
-            withResult:withResult];
+          withResult:withResult];
 }
 
 + (void)shareFiles:(NSArray *)paths
