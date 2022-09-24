@@ -223,12 +223,15 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   [_motionManager
       startDeviceMotionUpdatesUsingReferenceFrame:
           CMAttitudeReferenceFrameXArbitraryCorrectedZVertical
-                                          ToQueue:[[NSOperationQueue alloc] init]
-                                      withHandler:^(CMDeviceMotion *motionData, NSError *error) {
-                                        // The `magneticField` is CMCalibratedMagneticField
-                                        // which has an `accuracy` and a CMMagneticField.
-                                        CMMagneticField field = motionData.magneticField.field;
-                                        sendTriplet(field.x, field.y, field.z, eventSink);
+                                          ToQueue:[[NSOperationQueue alloc]
+                                                      init]
+                                      withHandler:^(CMDeviceMotion *motionData,
+                                                    NSError *error) {
+                                        // The `magneticField` is a
+                                        // CMCalibratedMagneticField.
+                                        CMMagneticField b =
+                                            motionData.magneticField.field;
+                                        sendTriplet(b.x, b.y, b.z, eventSink);
                                       }];
   return nil;
 }
