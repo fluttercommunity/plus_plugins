@@ -1,3 +1,24 @@
+## 1.4.3+1
+
+- Add issue_tracker link.
+
+## 1.4.3
+
+- Windows: Updated package_info_plus_windows to version 2.0.0.
+- MacOS: Updated package_info_plus_macos to 1.3.0.
+- Updated test to 1.21.1.
+- Updated flutter_lints to 2.0.1.
+
+## 1.4.2
+
+- Web: Resolve package_name
+- Linux: Resolve package_name
+
+## 1.4.1
+
+- Windows: Fix MissingPluginException
+- Linux: Fix MissingPluginException
+
 ## 1.4.0
 
 - Android: Migrate to Kotlin

@@ -18,7 +18,8 @@
 }
 
 - (void)requestLocationAuthorization:(BOOL)always
-                          completion:(FLTNetworkInfoLocationPlusCompletion)completionHandler {
+                          completion:(FLTNetworkInfoLocationPlusCompletion)
+                                         completionHandler {
   CLAuthorizationStatus status = CLLocationManager.authorizationStatus;
   if (status != kCLAuthorizationStatusAuthorizedWhenInUse && always) {
     completionHandler(kCLAuthorizationStatusDenied);

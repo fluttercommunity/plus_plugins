@@ -1,3 +1,11 @@
+## 3.0.0
+
+- platform interface to 3.0.0
+
+## 2.2.3
+
+- Fix crash on macOS running on Apple M1
+
 ## 2.2.2
 
 - Fixed incorrect computer name and version on MacOS

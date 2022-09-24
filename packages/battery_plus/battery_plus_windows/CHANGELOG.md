@@ -1,3 +1,11 @@
+## 1.1.2
+
+- Revert changes in 1.1.1 due to compile issues
+
+## 1.1.1
+
+- Fixes a crash when adding a listener to a destroyed channel
+
 ## 1.1.0
 
 - Add batteryState getter

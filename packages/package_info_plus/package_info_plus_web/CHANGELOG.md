@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Resolve package_name
+
 ## 1.0.4
 
 - Fixed url resolving for the version.json

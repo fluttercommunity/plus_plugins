@@ -32,7 +32,7 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
-            await ServicesBinding.instance!.defaultBinaryMessenger
+            await ServicesBinding.instance.defaultBinaryMessenger
                 .handlePlatformMessage(
               methodChannelBattery.eventChannel.name,
               methodChannelBattery.eventChannel.codec

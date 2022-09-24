@@ -7,34 +7,84 @@
 
 @implementation FLTSensorsPlusPlugin
 
+NSMutableDictionary<NSString *, FlutterEventChannel *> *_eventChannels;
+NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
+    *_streamHandlers;
+BOOL _isCleanUp = NO;
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
+  _eventChannels = [NSMutableDictionary dictionary];
+  _streamHandlers = [NSMutableDictionary dictionary];
+
   FLTAccelerometerStreamHandlerPlus *accelerometerStreamHandler =
       [[FLTAccelerometerStreamHandlerPlus alloc] init];
+  NSString *accelerometerStreamHandlerName =
+      @"dev.fluttercommunity.plus/sensors/accelerometer";
   FlutterEventChannel *accelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/accelerometer"
+      [FlutterEventChannel eventChannelWithName:accelerometerStreamHandlerName
                                 binaryMessenger:[registrar messenger]];
   [accelerometerChannel setStreamHandler:accelerometerStreamHandler];
+  [_eventChannels setObject:accelerometerChannel
+                     forKey:accelerometerStreamHandlerName];
+  [_streamHandlers setObject:accelerometerStreamHandler
+                      forKey:accelerometerStreamHandlerName];
 
   FLTUserAccelStreamHandlerPlus *userAccelerometerStreamHandler =
       [[FLTUserAccelStreamHandlerPlus alloc] init];
-  FlutterEventChannel *userAccelerometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/user_accel"
-                                binaryMessenger:[registrar messenger]];
+  NSString *userAccelerometerStreamHandlerName =
+      @"dev.fluttercommunity.plus/sensors/user_accel";
+  FlutterEventChannel *userAccelerometerChannel = [FlutterEventChannel
+      eventChannelWithName:userAccelerometerStreamHandlerName
+           binaryMessenger:[registrar messenger]];
   [userAccelerometerChannel setStreamHandler:userAccelerometerStreamHandler];
+  [_eventChannels setObject:userAccelerometerChannel
+                     forKey:userAccelerometerStreamHandlerName];
+  [_streamHandlers setObject:userAccelerometerStreamHandler
+                      forKey:accelerometerStreamHandlerName];
 
   FLTGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
       [[FLTGyroscopeStreamHandlerPlus alloc] init];
+  NSString *gyroscopeStreamHandlerName =
+      @"dev.fluttercommunity.plus/sensors/gyroscope";
   FlutterEventChannel *gyroscopeChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/gyroscope"
+      [FlutterEventChannel eventChannelWithName:gyroscopeStreamHandlerName
                                 binaryMessenger:[registrar messenger]];
   [gyroscopeChannel setStreamHandler:gyroscopeStreamHandler];
+  [_eventChannels setObject:gyroscopeChannel forKey:gyroscopeStreamHandlerName];
+  [_streamHandlers setObject:gyroscopeStreamHandler
+                      forKey:accelerometerStreamHandlerName];
 
   FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
       [[FLTMagnetometerStreamHandlerPlus alloc] init];
+  NSString *magnetometerStreamHandlerName =
+      @"dev.fluttercommunity.plus/sensors/magnetometer";
   FlutterEventChannel *magnetometerChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/sensors/magnetometer"
+      [FlutterEventChannel eventChannelWithName:magnetometerStreamHandlerName
                                 binaryMessenger:[registrar messenger]];
   [magnetometerChannel setStreamHandler:magnetometerStreamHandler];
+  [_eventChannels setObject:magnetometerChannel
+                     forKey:magnetometerStreamHandlerName];
+  [_streamHandlers setObject:magnetometerStreamHandler
+                      forKey:accelerometerStreamHandlerName];
+
+  _isCleanUp = NO;
+}
+
+- (void)detachFromEngineForRegistrar:
+    (NSObject<FlutterPluginRegistrar> *)registrar {
+  _cleanUp();
+}
+
+static void _cleanUp() {
+  _isCleanUp = YES;
+  for (FlutterEventChannel *channel in _eventChannels.allValues) {
+    [channel setStreamHandler:nil];
+  }
+  [_eventChannels removeAllObjects];
+  for (NSObject<FlutterStreamHandler> *handler in _streamHandlers.allValues) {
+    [handler onCancelWithArguments:nil];
+  }
+  [_streamHandlers removeAllObjects];
 }
 
 @end
@@ -48,25 +98,44 @@ void _initMotionManager() {
   }
 }
 
-static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) {
-  NSMutableData *event = [NSMutableData dataWithCapacity:3 * sizeof(Float64)];
-  [event appendBytes:&x length:sizeof(Float64)];
-  [event appendBytes:&y length:sizeof(Float64)];
-  [event appendBytes:&z length:sizeof(Float64)];
-  sink([FlutterStandardTypedData typedDataWithFloat64:event]);
+static void sendTriplet(Float64 x, Float64 y, Float64 z,
+                        FlutterEventSink sink) {
+  if (_isCleanUp) {
+    return;
+  }
+  // Even after [detachFromEngineForRegistrar] some events may still be received
+  // and fired until fully detached.
+  @try {
+    NSMutableData *event = [NSMutableData dataWithCapacity:3 * sizeof(Float64)];
+    [event appendBytes:&x length:sizeof(Float64)];
+    [event appendBytes:&y length:sizeof(Float64)];
+    [event appendBytes:&z length:sizeof(Float64)];
+
+    sink([FlutterStandardTypedData typedDataWithFloat64:event]);
+  } @catch (NSException *e) {
+    NSLog(@"Error: %@ %@", e, [e userInfo]);
+  } @finally {
+  }
 }
 
 @implementation FLTAccelerometerStreamHandlerPlus
 
-- (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                           withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-                             CMAcceleration acceleration = accelerometerData.acceleration;
+                           withHandler:^(CMAccelerometerData *accelerometerData,
+                                         NSError *error) {
+                             CMAcceleration acceleration =
+                                 accelerometerData.acceleration;
                              // Multiply by gravity, and adjust sign values to
                              // align with Android.
-                             sendTriplet(-acceleration.x * GRAVITY, -acceleration.y * GRAVITY,
+                             if (_isCleanUp) {
+                               return;
+                             }
+                             sendTriplet(-acceleration.x * GRAVITY,
+                                         -acceleration.y * GRAVITY,
                                          -acceleration.z * GRAVITY, eventSink);
                            }];
   return nil;
@@ -77,11 +146,16 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
   return nil;
 }
 
+- (void)dealloc {
+  _cleanUp();
+}
+
 @end
 
 @implementation FLTUserAccelStreamHandlerPlus
 
-- (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
@@ -89,7 +163,11 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
                             CMAcceleration acceleration = data.userAcceleration;
                             // Multiply by gravity, and adjust sign values to
                             // align with Android.
-                            sendTriplet(-acceleration.x * GRAVITY, -acceleration.y * GRAVITY,
+                            if (_isCleanUp) {
+                              return;
+                            }
+                            sendTriplet(-acceleration.x * GRAVITY,
+                                        -acceleration.y * GRAVITY,
                                         -acceleration.z * GRAVITY, eventSink);
                           }];
   return nil;
@@ -100,17 +178,26 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
   return nil;
 }
 
+- (void)dealloc {
+  _cleanUp();
+}
+
 @end
 
 @implementation FLTGyroscopeStreamHandlerPlus
 
-- (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   [_motionManager
       startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
                   withHandler:^(CMGyroData *gyroData, NSError *error) {
                     CMRotationRate rotationRate = gyroData.rotationRate;
-                    sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z, eventSink);
+                    if (_isCleanUp) {
+                      return;
+                    }
+                    sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
+                                eventSink);
                   }];
   return nil;
 }
@@ -120,23 +207,26 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
   return nil;
 }
 
+- (void)dealloc {
+  _cleanUp();
+}
+
 @end
 
 @implementation FLTMagnetometerStreamHandlerPlus
 
-- (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  // Allow iOS to present calibration interaction
+  // Allow iOS to present calibration interaction.
   _motionManager.showsDeviceMovementDisplay = YES;
   [_motionManager
       startDeviceMotionUpdatesUsingReferenceFrame:
           CMAttitudeReferenceFrameXArbitraryCorrectedZVertical
                                           ToQueue:[[NSOperationQueue alloc] init]
                                       withHandler:^(CMDeviceMotion *motionData, NSError *error) {
-                                        // The `magneticField` from CMDeviceMotion
-                                        // is of type CMCalibratedMagneticField
-                                        // which has an `accuracy` and a standard
-                                        // CMMagneticField `field`.
+                                        // The `magneticField` is CMCalibratedMagneticField
+                                        // which has an `accuracy` and a CMMagneticField.
                                         CMMagneticField field = motionData.magneticField.field;
                                         sendTriplet(field.x, field.y, field.z, eventSink);
                                       }];
@@ -146,6 +236,10 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z, FlutterEventSink sink) 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopDeviceMotionUpdates];
   return nil;
+}
+
+- (void)dealloc {
+  _cleanUp();
 }
 
 @end
