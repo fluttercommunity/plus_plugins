@@ -22,7 +22,7 @@ class DemoApp extends StatefulWidget {
 }
 
 class DemoAppState extends State<DemoApp> {
-  String text = '';
+  String text = '' // compilation fail
   String subject = '';
   List<String> imagePaths = [];
 
