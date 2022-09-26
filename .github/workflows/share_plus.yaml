@@ -32,7 +32,7 @@ jobs:
 
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
-          
+
   android_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
@@ -100,7 +100,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
   windows:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
