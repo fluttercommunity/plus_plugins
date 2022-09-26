@@ -11,7 +11,7 @@ on:
 
 env:
   PLUGIN_SCOPE: "*battery_plus*"
-  PLUGIN_EXAMPLE_SCOPE: "*battery_example*"
+  PLUGIN_EXAMPLE_SCOPE: "*battery_plus_example*"
 
 jobs:
   android:
@@ -59,7 +59,7 @@ jobs:
           target: google_apis
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android battery_plus_example
-      
+
   ios:
     runs-on: macos-latest
     timeout-minutes: 30
@@ -100,6 +100,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
   windows:
+    if: false # Disabled until Windows CI scripts are done
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
