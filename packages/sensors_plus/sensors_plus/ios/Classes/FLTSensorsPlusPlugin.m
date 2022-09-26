@@ -92,7 +92,7 @@ static void _cleanUp() {
 const double GRAVITY = 9.8;
 CMMotionManager *_motionManager;
 
-void _initMotionManager() {
+void _initMotionManager(void) {
   if (!_motionManager) {
     _motionManager = [[CMMotionManager alloc] init];
   }
@@ -222,8 +222,12 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   _motionManager.showsDeviceMovementDisplay = YES;
   [_motionManager
       startDeviceMotionUpdatesUsingReferenceFrame:
-          CMAttitudeReferenceFrameXArbitraryCorrectedZVertical
-                                          ToQueue:[[NSOperationQueue alloc]
+          // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
+          // "Using this reference frame may require device movement to
+          // calibrate the magnetometer," which is desired to ensure the
+          // DeviceMotion actually has updated, calibrated geomagnetic data.
+          CMAttitudeReferenceFrameXMagneticNorthZVertical
+                                          toQueue:[[NSOperationQueue alloc]
                                                       init]
                                       withHandler:^(CMDeviceMotion *motionData,
                                                     NSError *error) {
@@ -231,6 +235,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                         // CMCalibratedMagneticField.
                                         CMMagneticField b =
                                             motionData.magneticField.field;
+                                        if (_isCleanUp) {
+                                          return;
+                                        }
                                         sendTriplet(b.x, b.y, b.z, eventSink);
                                       }];
   return nil;
