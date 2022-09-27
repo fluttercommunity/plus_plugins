@@ -48,23 +48,23 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "getBatteryLevel" -> {
-                val batteryLevel = batteryLevel
-                if (batteryLevel != -1) {
-                    result.success(batteryLevel)
+                val currentBatteryLevel = getBatteryLevel()
+                if (currentBatteryLevel != -1) {
+                    result.success(currentBatteryLevel)
                 } else {
                     result.error("UNAVAILABLE", "Battery level not available.", null)
                 }
             }
             "getBatteryState" -> {
-                val batteryStatus = batteryStatus
-                if (batteryStatus != null) {
-                    result.success(batteryStatus)
+                val currentBatteryStatus = getBatteryState()
+                if (currentBatteryStatus != null) {
+                    result.success(currentBatteryStatus)
                 } else {
                     result.error("UNAVAILABLE", "Charging status not available.", null)
                 }
             }
             "isInBatterySaveMode" -> {
-                val isInPowerSaveMode = isInPowerSaveMode
+                val isInPowerSaveMode = isInPowerSaveMode()
                 if (isInPowerSaveMode != null) {
                     result.success(isInPowerSaveMode)
                 } else {
@@ -78,78 +78,79 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     @TargetApi(VERSION_CODES.O)
     override fun onListen(arguments: Any, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        applicationContext!!.registerReceiver(
-            chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val status = batteryStatus
+        applicationContext!!.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val status = getBatteryState()
         publishBatteryStatus(events, status)
     }
-
-    private val batteryStatus: String?
-        get() {
-            val status: Int = if (VERSION.SDK_INT >= VERSION_CODES.O) {
-                getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS)
-            } else {
-                BatteryManager.BATTERY_STATUS_UNKNOWN
-            }
-            return convertBatteryStatus(status)
-        }
 
     override fun onCancel(arguments: Any) {
         applicationContext!!.unregisterReceiver(chargingStateChangeReceiver)
         chargingStateChangeReceiver = null
     }
 
-    private val batteryLevel: Int
-        get() {
-            val batteryLevel: Int = if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                getBatteryProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-            } else {
-                val intent = ContextWrapper(applicationContext)
-                    .registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-                (intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100
-                    / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1))
-            }
-            return batteryLevel
+    private fun getBatteryState(): String? {
+        val status: Int = if (VERSION.SDK_INT >= VERSION_CODES.O) {
+            getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS)
+        } else {
+            BatteryManager.BATTERY_STATUS_UNKNOWN
         }
-    private val isInPowerSaveMode: Boolean?
-        get() {
-            val manufacturer = Build.MANUFACTURER.lowercase(Locale.getDefault())
-            return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                when (manufacturer) {
-                    "xiaomi" -> powerSaveModeForXiaomi
-                    "huawei" -> powerSaveModeHuawei
-                    "samsung" -> powerSaveModeSamsung
-                    else -> {
-                        val powerManager = applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
-                        powerManager.isPowerSaveMode
-                    }
+        return convertBatteryStatus(status)
+    }
+
+    private fun getBatteryLevel(): Int {
+        return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            getBatteryProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        } else {
+            val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            (intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1))
+        }
+    }
+
+    private fun isInPowerSaveMode(): Boolean? {
+        val deviceManufacturer = Build.MANUFACTURER.lowercase(Locale.getDefault())
+
+        return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            when (deviceManufacturer) {
+                "xiaomi" -> isXiaomiPowerSaveModeActive()
+                "huawei" -> isHuaweiPowerSaveModeActive()
+                "samsung" -> isSamsungPowerSaveModeActive()
+                else -> {
+                    val powerManager = applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
+                    powerManager.isPowerSaveMode
                 }
-            } else null
-        }
-    private val powerSaveModeSamsung: Boolean
-        get() {
-            val mode = Settings.System.getString(applicationContext!!.contentResolver, "psm_switch")
-            return if (mode == null && VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                val powerManager = applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
-                powerManager.isPowerSaveMode
-            } else {
-                POWER_SAVE_MODE_SAMSUNG == mode
             }
+        } else {
+            null
         }
-    private val powerSaveModeHuawei: Boolean?
-        get() {
-            val mode = Settings.System.getInt(applicationContext!!.contentResolver, "SmartModeStatus", -1)
-            return if (mode != -1) {
-                mode == POWER_SAVE_MODE_HUAWEI
-            } else null
+    }
+
+    private fun isSamsungPowerSaveModeActive(): Boolean {
+        val mode = Settings.System.getString(applicationContext!!.contentResolver, "psm_switch")
+        return if (mode == null && VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            val powerManager = applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
+            powerManager.isPowerSaveMode
+        } else {
+            POWER_SAVE_MODE_SAMSUNG == mode
         }
-    private val powerSaveModeForXiaomi: Boolean?
-        get() {
-            val mode = Settings.System.getInt(applicationContext!!.contentResolver, "POWER_SAVE_MODE_OPEN", -1)
-            return if (mode != -1) {
-                mode == POWER_SAVE_MODE_XIAOMI
-            } else null
+    }
+
+    private fun isHuaweiPowerSaveModeActive(): Boolean? {
+        val mode = Settings.System.getInt(applicationContext!!.contentResolver, "SmartModeStatus", -1)
+        return if (mode != -1) {
+            mode == POWER_SAVE_MODE_HUAWEI
+        } else {
+            null
         }
+    }
+
+    private fun isXiaomiPowerSaveModeActive(): Boolean? {
+        val mode = Settings.System.getInt(applicationContext!!.contentResolver, "POWER_SAVE_MODE_OPEN", -1)
+        return if (mode != -1) {
+            mode == POWER_SAVE_MODE_XIAOMI
+        } else {
+            null
+        }
+    }
 
     @RequiresApi(api = VERSION_CODES.LOLLIPOP)
     private fun getBatteryProperty(property: Int): Int {
@@ -170,8 +171,7 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         return when (status) {
             BatteryManager.BATTERY_STATUS_CHARGING -> "charging"
             BatteryManager.BATTERY_STATUS_FULL -> "full"
-            BatteryManager.BATTERY_STATUS_DISCHARGING,
-            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "discharging"
+            BatteryManager.BATTERY_STATUS_DISCHARGING, BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "discharging"
             BatteryManager.BATTERY_STATUS_UNKNOWN -> "unknown"
             else -> null
         }
