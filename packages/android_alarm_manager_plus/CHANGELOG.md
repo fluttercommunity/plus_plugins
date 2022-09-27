@@ -1,3 +1,7 @@
+## 2.0.7+1
+
+- Add FAQ to README.md
+
 ## 2.0.7
 
 - Add pragma('vm:entry-point') to alarm manager callback to avoid tree shaking.

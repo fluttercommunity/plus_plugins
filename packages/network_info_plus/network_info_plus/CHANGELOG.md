@@ -1,3 +1,11 @@
+## 2.2.0
+
+- Android: Migrate to Kotlin
+- Android: Bump targetSDK to 33 (Android 13)
+- Android: Update dependencies, build config updates
+- Android: Fixed getWifiBroadcast to not add redundant `/` symbol
+- Update Flutter dependencies
+
 ## 2.1.4+1
 
 - Add issue_tracker link.

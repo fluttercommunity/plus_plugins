@@ -5,6 +5,7 @@
 // @dart=2.9
 
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:integration_test/integration_test.dart';
@@ -12,6 +13,7 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  // NOTE: The accelerometer events are not returned on iOS simulators.
   testWidgets('Can subscript to accelerometerEvents and get non-null events',
       (WidgetTester tester) async {
     final completer = Completer<AccelerometerEvent>();
@@ -21,5 +23,5 @@ void main() {
       subscription.cancel();
     });
     expect(await completer.future, isNotNull);
-  });
+  }, skip: !Platform.isAndroid);
 }
