@@ -1,3 +1,35 @@
+## 1.4.0
+
+- iOS: Corrects magnetometer implementation, returning calibrated values from
+  `DeviceMotion` sensor rather than raw sensor samples
+  
+## 1.3.4+1
+
+- Add issue_tracker link.
+
+## 1.3.4
+
+- Additonal fixes for crash issue: "Error: Sending a message before the FlutterEngine has been run."
+
+## 1.3.3
+
+- Fix: "crash on iOS: Sending a message before the FlutterEngine has been run"
+
+## 1.3.2
+
+- Fix: Android no longer crashes when app is closed if streams weren't listened to
+- Update flutter_lints to 2.0.1
+- Fix analyzer warnings
+
+## 1.3.1
+
+- Fix: unregister listeners on Android in `onDetachFromEngine` to not receive sensors events after app was killed
+
+## 1.3.0
+
+- Android: Migrate to Kotlin
+- Android: Update dependencies, build config updates
+
 ## 1.2.2
 
 - Fix example embedding issues

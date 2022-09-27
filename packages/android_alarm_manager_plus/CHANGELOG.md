@@ -1,3 +1,19 @@
+## 2.0.7+1
+
+- Add FAQ to README.md
+
+## 2.0.7
+
+- Add pragma('vm:entry-point') to alarm manager callback to avoid tree shaking.
+
+## 2.0.6+1
+
+- Add issue_tracker link.
+
+## 2.0.6
+
+- Fix AndroidAlarmManager.periodic() not working.
+
 ## 2.0.5
 
 - Fix embedding issue in example

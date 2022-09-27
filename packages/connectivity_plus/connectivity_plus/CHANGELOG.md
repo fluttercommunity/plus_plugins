@@ -1,3 +1,44 @@
+## 2.3.7
+
+- iOS: Reduce compiler warnings
+
+## 2.3.6+1
+
+- Add issue_tracker link.
+
+## 2.3.6
+
+- Web: Fix Bad state: Stream has already been listened to (#943)
+
+## 2.3.5
+
+- Stop sending events once flutter engine detached on iOS/macOS (#865)
+
+## 2.3.4
+
+- Disables internal use of `NetworkInformationAPI` which is still experimental
+
+## 2.3.3
+
+- macOS: Send events on main thread
+
+## 2.3.2
+
+- iOS: Send events on main thread (#846)
+
+## 2.3.1
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+
+## 2.3.0
+
+- Add iOS ConnectivityProvider based on NWPathMonitor for iOS 12+.
+
+## 2.2.2
+
+- Reachability.swift ".unavailable" for iOS is deprecated.
+
 ## 2.2.1
 
 - Bump `nm` plugin to 0.5.0 (connectivity_plus_linux)

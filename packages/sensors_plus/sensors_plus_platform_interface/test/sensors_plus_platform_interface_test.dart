@@ -87,7 +87,7 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
   const standardMethod = StandardMethodCodec();
 
   void _emitEvent(ByteData? event) {
-    ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
       channelName,
       event,
       (ByteData? reply) {},

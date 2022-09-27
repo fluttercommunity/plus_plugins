@@ -1,3 +1,13 @@
+## 3.0.1
+
+- Update dependencies
+- Fix analyzer warnings
+- Update `urlLauncher` and replace deprecated `launch` calls
+
+## 3.0.0
+
+- Bump dependencies
+
 ## 2.0.3
 
 - Hotfix on 2.0.2, improved solution.

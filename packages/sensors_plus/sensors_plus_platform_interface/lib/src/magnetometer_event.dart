@@ -5,7 +5,7 @@
 ///
 /// Consider that these samples may bear effects of Earth's magnetic field as
 /// well as local factors such as the metal of the device itself or nearby
-/// magnets.
+/// magnets, though most devices compensate for these factors.
 ///
 /// A compass is an example of a general utility for magnetometer data.
 class MagnetometerEvent {

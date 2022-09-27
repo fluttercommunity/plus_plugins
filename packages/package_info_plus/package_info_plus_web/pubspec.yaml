@@ -1,6 +1,6 @@
 name: package_info_plus_web
 description: Web platform implementation of package_info_plus
-version: 1.0.4
+version: 1.0.5
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 

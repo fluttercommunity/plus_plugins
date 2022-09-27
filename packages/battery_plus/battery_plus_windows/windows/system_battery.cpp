@@ -15,11 +15,11 @@ enum BatteryLevel {
 };
 
 enum BatteryFlag {
-  High = 1,      // the battery capacity is at more than 66 percent
-  Low = 2,       // the battery capacity is at less than 33 percent
-  Critical = 4,  // the battery capacity is at less than five percent
+  High = 1,     // the battery capacity is at more than 66 percent
+  Low = 2,      // the battery capacity is at less than 33 percent
+  Critical = 4, // the battery capacity is at less than five percent
   Charging = 8,
-  NoBattery = 128  // no system battery
+  NoBattery = 128 // no system battery
 };
 
 bool GetBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
@@ -30,7 +30,7 @@ bool IsValidBatteryStatus(LPSYSTEM_POWER_STATUS lpStatus) {
   return lpStatus->BatteryFlag != NoBattery &&
          lpStatus->BatteryLifePercent != Unknown;
 }
-}  // namespace
+} // namespace
 
 SystemBattery::SystemBattery() {}
 
@@ -75,15 +75,15 @@ BatteryStatus SystemBattery::GetStatus() const {
 
 std::string SystemBattery::GetStatusString() const {
   switch (GetStatus()) {
-    case BatteryStatus::Charging:
-      return "charging";
-    case BatteryStatus::Discharging:
-      return "discharging";
-    case BatteryStatus::Full:
-      return "full";
-    case BatteryStatus::Unknown:
-    default:
-      return "unknown";
+  case BatteryStatus::Charging:
+    return "charging";
+  case BatteryStatus::Discharging:
+    return "discharging";
+  case BatteryStatus::Full:
+    return "full";
+  case BatteryStatus::Unknown:
+  default:
+    return "unknown";
   }
 }
 
