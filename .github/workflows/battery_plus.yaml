@@ -88,7 +88,7 @@ jobs:
         with:
           model: 'iPhone 8'
       - name: "Run Integration Test"
-        run: ./.github/workflows/scripts/integration-test.sh ios share_plus_example
+        run: ./.github/workflows/scripts/integration-test.sh ios battery_plus_example
 
   macos:
     runs-on: macos-latest
