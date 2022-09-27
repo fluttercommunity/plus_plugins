@@ -13,12 +13,9 @@ NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
 BOOL _isCleanUp = NO;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  // alloc channels names
   _eventChannels = [NSMutableDictionary dictionary];
   _streamHandlers = [NSMutableDictionary dictionary];
 
-  // Accelerometer init
-  //
   FLTAccelerometerStreamHandlerPlus *accelerometerStreamHandler =
       [[FLTAccelerometerStreamHandlerPlus alloc] init];
   NSString *accelerometerStreamHandlerName =
@@ -45,8 +42,6 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:userAccelerometerStreamHandler
                       forKey:accelerometerStreamHandlerName];
 
-  // Gyroscopee init
-  //
   FLTGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
       [[FLTGyroscopeStreamHandlerPlus alloc] init];
   NSString *gyroscopeStreamHandlerName =
@@ -59,8 +54,6 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:gyroscopeStreamHandler
                       forKey:accelerometerStreamHandlerName];
 
-  // Magnerometer init
-  //
   FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
       [[FLTMagnetometerStreamHandlerPlus alloc] init];
   NSString *magnetometerStreamHandlerName =
@@ -99,7 +92,7 @@ static void _cleanUp() {
 const double GRAVITY = 9.8;
 CMMotionManager *_motionManager;
 
-void _initMotionManager() {
+void _initMotionManager(void) {
   if (!_motionManager) {
     _motionManager = [[CMMotionManager alloc] init];
   }
@@ -110,8 +103,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   if (_isCleanUp) {
     return;
   }
-  // even if we removed all with [detachFromEngineForRegistrar] we stull can
-  // receive and fire some events from sensors til deataching
+  // Even after [detachFromEngineForRegistrar] some events may still be received
+  // and fired until fully detached.
   @try {
     NSMutableData *event = [NSMutableData dataWithCapacity:3 * sizeof(Float64)];
     [event appendBytes:&x length:sizeof(Float64)];
@@ -225,23 +218,33 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
+  // Allow iOS to present calibration interaction.
+  _motionManager.showsDeviceMovementDisplay = YES;
   [_motionManager
-      startMagnetometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                          withHandler:^(CMMagnetometerData *magData,
-                                        NSError *error) {
-                            CMMagneticField magneticField =
-                                magData.magneticField;
-                            if (_isCleanUp) {
-                              return;
-                            }
-                            sendTriplet(magneticField.x, magneticField.y,
-                                        magneticField.z, eventSink);
-                          }];
+      startDeviceMotionUpdatesUsingReferenceFrame:
+          // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
+          // "Using this reference frame may require device movement to
+          // calibrate the magnetometer," which is desired to ensure the
+          // DeviceMotion actually has updated, calibrated geomagnetic data.
+          CMAttitudeReferenceFrameXMagneticNorthZVertical
+                                          toQueue:[[NSOperationQueue alloc]
+                                                      init]
+                                      withHandler:^(CMDeviceMotion *motionData,
+                                                    NSError *error) {
+                                        // The `magneticField` is a
+                                        // CMCalibratedMagneticField.
+                                        CMMagneticField b =
+                                            motionData.magneticField.field;
+                                        if (_isCleanUp) {
+                                          return;
+                                        }
+                                        sendTriplet(b.x, b.y, b.z, eventSink);
+                                      }];
   return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopMagnetometerUpdates];
+  [_motionManager stopDeviceMotionUpdates];
   return nil;
 }
 
