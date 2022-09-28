@@ -97,3 +97,17 @@ body:
         Paste the output of running `flutter doctor -v` here.
     validations:
       required: true
+  - type: checkboxes
+    id: self-checks
+    attributes:
+      label: Checklist before submitting a bug
+      description: Please verify all the following items before submitting a bug. All options must be selected.
+      options:
+        - label: Using the latest version of the plugin
+          required: true
+        - label: All dependencies are up to date with `flutter pub upgrade`
+          required: true
+        - label: Did a `flutter clean`
+          required: true
+        - label: I tried running the example project
+          required: true
