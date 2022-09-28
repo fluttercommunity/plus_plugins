@@ -242,7 +242,6 @@ class AndroidBuildVersion {
   }
 }
 
-
 /// Details for the current display
 ///
 /// See: https://developer.android.com/reference/android/util/DisplayMetrics

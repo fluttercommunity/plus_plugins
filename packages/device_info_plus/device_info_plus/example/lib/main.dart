@@ -100,7 +100,8 @@ class _MyAppState extends State<MyApp> {
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
       'systemFeatures': build.systemFeatures,
-      'displaySizeInches': ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
+      'displaySizeInches':
+          ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
       'displayWidthPixels': build.displayMetrics.widthPx,
       'displayWidthInches': build.displayMetrics.widthInches,
       'displayHeightPixels': build.displayMetrics.heightPx,
