@@ -30,8 +30,12 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
-  /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
+  /**
+   * Constructs DeviceInfo.
+   * {@code contentResolver}, {@code packageManager} and {@code getActivity} must not be null.
+   */
+  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager, IGetActivity getActivity) {
+    this.contentResolver = contentResolver;
     this.packageManager = packageManager;
     this.getActivity = getActivity;
   }
