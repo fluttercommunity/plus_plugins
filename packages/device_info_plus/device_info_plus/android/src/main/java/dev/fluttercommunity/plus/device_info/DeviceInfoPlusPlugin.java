@@ -19,53 +19,53 @@ import io.flutter.plugin.common.MethodChannel;
  */
 public class DeviceInfoPlusPlugin implements FlutterPlugin, ActivityAware, IGetActivity {
 
-  MethodChannel channel;
-  Activity activity;
+    MethodChannel channel;
+    Activity activity;
 
-  @Override
-  public void onAttachedToEngine(FlutterPlugin.FlutterPluginBinding binding) {
-    setupMethodChannel(binding.getBinaryMessenger(), binding.getApplicationContext());
-  }
+    @Override
+    public void onAttachedToEngine(FlutterPlugin.FlutterPluginBinding binding) {
+        setupMethodChannel(binding.getBinaryMessenger(), binding.getApplicationContext());
+    }
 
-  @Override
-  public void onDetachedFromEngine(@NonNull FlutterPlugin.FlutterPluginBinding binding) {
-    tearDownChannel();
-  }
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPlugin.FlutterPluginBinding binding) {
+        tearDownChannel();
+    }
 
-  @Override
-  public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
-    activity = binding.getActivity();
-  }
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+    }
 
-  @Override
-  public void onDetachedFromActivityForConfigChanges() {
-    activity = null;
-  }
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+        activity = null;
+    }
 
-  @Override
-  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
-    activity = binding.getActivity();
-  }
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+    }
 
-  @Override
-  public void onDetachedFromActivity() {
-    activity = null;
-  }
+    @Override
+    public void onDetachedFromActivity() {
+        activity = null;
+    }
 
-  @Override
-  public Activity getActivity() {
-    return activity;
-  }
+    @Override
+    public Activity getActivity() {
+        return activity;
+    }
 
-  private void setupMethodChannel(BinaryMessenger messenger, Context context) {
-    channel = new MethodChannel(messenger, "dev.fluttercommunity.plus/device_info");
-    final MethodCallHandlerImpl handler =
-            new MethodCallHandlerImpl(context.getContentResolver(), context.getPackageManager());
-    channel.setMethodCallHandler(handler);
-  }
+    private void setupMethodChannel(BinaryMessenger messenger, Context context) {
+        channel = new MethodChannel(messenger, "dev.fluttercommunity.plus/device_info");
+        final MethodCallHandlerImpl handler =
+                new MethodCallHandlerImpl(context.getContentResolver(), context.getPackageManager());
+        channel.setMethodCallHandler(handler);
+    }
 
-  private void tearDownChannel() {
-    channel.setMethodCallHandler(null);
-    channel = null;
-  }
+    private void tearDownChannel() {
+        channel.setMethodCallHandler(null);
+        channel = null;
+    }
 }
