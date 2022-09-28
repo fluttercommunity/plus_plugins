@@ -36,6 +36,11 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
+  public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
+    eventSink = nil
+    connectivityProvider.stop()
+  }
+
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "check":
@@ -69,7 +74,9 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
   }
 
   private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
-    eventSink?(statusFrom(connectivityType: connectivityType))
+    DispatchQueue.main.async {
+      self.eventSink?(self.statusFrom(connectivityType: connectivityType))
+    }
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {

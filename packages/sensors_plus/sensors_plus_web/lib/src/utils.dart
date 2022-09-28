@@ -6,13 +6,13 @@ Future<void> checkPermission(
   Function initSensor, {
   String? permissionName,
 }) async {
-  final _permission = html.window.navigator.permissions;
+  final permission = html.window.navigator.permissions;
 
   // Check if browser supports this API or supports permission manager
-  if (_permission != null) {
+  if (permission != null) {
     try {
       // Request for permission or check permission status
-      final permissionStatus = await _permission.query(
+      final permissionStatus = await permission.query(
         {
           'name': permissionName,
         },

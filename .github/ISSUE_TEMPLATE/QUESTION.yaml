@@ -1,0 +1,24 @@
+name: I need help
+description: You have a question for how to achieve a particular effect, or you need help with using a particular API.
+title: "[Question]: "
+labels: ["question"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for using PlusPlugins!
+
+        Please check out our documentation first:
+        * https://plus.fluttercommunity.dev/docs/overview
+
+        If you can't find the answer there, please consider asking a question on
+        the Stack Overflow Web site:
+        * https://stackoverflow.com/questions/tagged/flutter?sort=frequent
+  - type: textarea
+    id: question
+    attributes:
+      label: What is your question?
+    validations:
+      required: true

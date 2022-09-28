@@ -1,3 +1,57 @@
+## 4.4.0
+
+- Reverted changes in 4.2.0 due to crash issues. See #1081
+
+## 4.3.0
+
+- iOS: Throw PlatformException when iPad share dialog not appearing (sharePositionOrigin not in sourceView)
+
+## 4.2.0
+
+- iOS: Fix Instagram does not show up in provider list for web links
+  - issue #459 appear again
+  - put back NSURL for the shareText, when text is pure URL
+  - using LPMetadataProvider to get LPLinkMetadata make the user experience better
+
+## 4.1.0
+
+- iOS: Fix text sharing.
+  - Previously, the text was being encoded as a URL, this caused the share sheet to appear empty.
+  - Now the shared text is not encoded as a URL anymore but rather shared as plain text.
+  - Sharing text + subject + attachments should work on apps that support that (e.g. Mail app).
+  - Example: Sharing Text + Image on Telegram is possible and both are shared.
+  - Some apps still have limitations with sharing. For example, Gmail app does not support the subject field.
+  - Related issue: #730
+
+## 4.0.10+1
+
+- Add issue_tracker link.
+
+## 4.0.10
+
+- iOS: Fix 'share text' not showing when share files
+
+## 4.0.9
+
+- iOS: Fix image file names not preserved
+
+## 4.0.8
+
+- iOS: Fix 'Save Image' option not showing
+
+## 4.0.7
+
+- Add documentation iPad
+
+## 4.0.6
+
+- iOS: Fix file names not preserved and poor previews for files
+
+## 4.0.5
+
+- Update dependencies
+- Fix analyzer warnings
+
 ## 4.0.4
 
 - iOS: Fix subject not working when sharing raw url or files via email

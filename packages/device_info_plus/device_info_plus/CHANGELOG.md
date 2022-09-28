@@ -1,7 +1,43 @@
-## 3.2.4
+## 4.1.3
 
 - Added support for Android Background Platform Channels when it using a Flutter
   version that supports it.
+
+## 4.1.2
+
+- Redo changes in 4.1.0
+- device_info_plus_platform_interface to 3.0.0
+
+## 4.1.1
+
+- Revert changes in 4.1.0
+
+## 4.1.0
+
+- Remove `androidId` (that already got removed from the method channel in 4.0.0, thus always returned null)
+- There is a **new, separate [pub.dev package](https://pub.dev/packages/android_id) for getting the correct `androidId`**
+
+## 4.0.3
+
+- Reverted changes in 4.0.2
+
+## 4.0.2
+
+- Added more information to `WindowsDeviceInfo`.
+
+## 4.0.1
+
+- Update dependencies
+
+## 4.0.0
+
+- **Breaking change** Remove `AndroidId` getter to avoid Google Play policies violations
+- Update flutter_lints to 2.0.1
+- Remove explicit `test` dependency to use `flutter_test` from Flutter SDK
+
+## 3.2.4
+
+- Update the description of getAndroidId method
 
 ## 3.2.3
 

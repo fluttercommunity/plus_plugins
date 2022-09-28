@@ -29,6 +29,7 @@ void main() {
             (MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
+      return null;
     });
   });
 
