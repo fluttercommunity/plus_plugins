@@ -17,7 +17,7 @@ FLUTTER_PLUGIN_EXPORT void BatteryPlusWindowsPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)
-}  // extern "C"
+} // extern "C"
 #endif
 
-#endif  // FLUTTER_PLUGIN_BATTERY_PLUS_WINDOWS_PLUGIN_H_
+#endif // FLUTTER_PLUGIN_BATTERY_PLUS_WINDOWS_PLUGIN_H_

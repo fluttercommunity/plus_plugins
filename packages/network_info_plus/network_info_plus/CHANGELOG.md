@@ -1,3 +1,20 @@
+## 2.2.0
+
+- Android: Migrate to Kotlin
+- Android: Bump targetSDK to 33 (Android 13)
+- Android: Update dependencies, build config updates
+- Android: Fixed getWifiBroadcast to not add redundant `/` symbol
+- Update Flutter dependencies
+
+## 2.1.4+1
+
+- Add issue_tracker link.
+
+## 2.1.4
+
+- Android: Plugin no longer removes `"` from SSID name.
+
+
 ## 2.1.3
 
 - Update nm dependency to be compatible with fresh versions of other Plus plugins

@@ -84,6 +84,27 @@ alarm manager plugin itself, it may be necessary to inform the background servic
 to initialize plugins depending on which Flutter Android embedding the application is
 using.
 
+## FAQ
+
+### Does this plugin support to invoke a method after reboot?
+
+From the Android AlarmManager documentation:
+
+> Registered alarms are retained while the device is asleep (and can optionally wake the device up if they go off
+during that time), but will be cleared if it is turned off and rebooted.
+
+https://developer.android.com/reference/android/app/AlarmManager
+
+### My alarm is not firing after force stopping the app
+
+The Android OS will not fire alarms for apps that have been force stopped.
+
+StackOverflow response: https://stackoverflow.com/questions/11241794/alarm-set-in-app-with-alarmmanager-got-removed-when-app-force-stop
+
+### My alarm is not firing on a specific device
+
+Likely the device is running some battery optimization software that is preventing the alarm from firing.
+
 ## Plugin Development
 
 ### Running Flutter unit tests

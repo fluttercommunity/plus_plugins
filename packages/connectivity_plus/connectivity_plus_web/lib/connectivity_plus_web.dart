@@ -9,7 +9,16 @@ class ConnectivityPlusPlugin extends ConnectivityPlatform {
   /// Factory method that initializes the connectivity plugin platform with an instance
   /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    if (NetworkInformationApiConnectivityPlugin.isSupported()) {
+    // Since the `NetworkInformationApi` is currently an experimental API and
+    // does not provide a reliable way to check a connectivity change
+    // from an onnline state to an offline state,
+    // its implementation is disabled for now.
+    // See also: https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API
+    //
+    // TODO: use `NetworkInformationApiConnectivityPlugin.isSupported()` when it becomes a stable DOM API.
+    const isSupported = false;
+
+    if (isSupported) {
       ConnectivityPlatform.instance = NetworkInformationApiConnectivityPlugin();
     } else {
       ConnectivityPlatform.instance = DartHtmlConnectivityPlugin();

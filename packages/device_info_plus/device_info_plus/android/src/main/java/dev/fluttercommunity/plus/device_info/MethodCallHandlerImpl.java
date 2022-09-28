@@ -4,22 +4,19 @@
 
 package dev.fluttercommunity.plus.device_info;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.Display;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The implementation of {@link MethodChannel.MethodCallHandler} for the plugin. Responsible for
@@ -27,19 +24,14 @@ import io.flutter.plugin.common.MethodChannel;
  */
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
-  private final ContentResolver contentResolver;
   private final PackageManager packageManager;
   private final IGetActivity getActivity;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
-  /**
-   * Constructs DeviceInfo.
-   * {@code contentResolver}, {@code packageManager} and {@code getActivity} must not be null.
-   */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager, IGetActivity getActivity) {
-    this.contentResolver = contentResolver;
+  /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
+  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
     this.packageManager = packageManager;
     this.getActivity = getActivity;
   }
@@ -72,7 +64,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       build.put("tags", Build.TAGS);
       build.put("type", Build.TYPE);
       build.put("isPhysicalDevice", !isEmulator());
-      build.put("androidId", getAndroidId());
 
       build.put("systemFeatures", Arrays.asList(getSystemFeatures()));
 
@@ -121,18 +112,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       features[i] = featureInfos[i].name;
     }
     return features;
-  }
-
-  /**
-   * Returns the Android hardware device ID that is unique between the device + user and app
-   * signing. This key will change if the app is uninstalled or its data is cleared. Device factory
-   * reset will also result in a value change.
-   *
-   * @return The android ID
-   */
-  @SuppressLint("HardwareIds")
-  private String getAndroidId() {
-    return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
   }
 
   /**

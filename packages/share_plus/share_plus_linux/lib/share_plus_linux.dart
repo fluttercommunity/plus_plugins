@@ -35,7 +35,7 @@ class ShareLinux extends SharePlatform {
           .join('&'),
     );
 
-    await launch(uri.toString());
+    await launchUrl(uri);
   }
 
   /// Share files.
