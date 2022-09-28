@@ -8,11 +8,9 @@ import 'package:device_info_plus_platform_interface/model/macos_device_info.dart
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_device_info.dart';
-
 import 'model/android_device_info.dart';
 import 'model/ios_device_info.dart';
 import 'model/linux_device_info.dart';
-import 'model/macos_device_info.dart';
 import 'model/web_browser_info.dart';
 import 'model/windows_device_info.dart';
 
