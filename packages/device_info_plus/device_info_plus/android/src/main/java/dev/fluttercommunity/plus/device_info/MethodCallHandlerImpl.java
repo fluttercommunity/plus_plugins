@@ -25,13 +25,12 @@ import java.util.Map;
  */
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
+    private final ContentResolver contentResolver;
     private final PackageManager packageManager;
     private final IGetActivity getActivity;
 
-    /**
-     * Substitute for missing values.
-     */
-    private static final String[] EMPTY_STRING_LIST = new String[]{};
+    /** Substitute for missing values. */
+    private static final String[] EMPTY_STRING_LIST = new String[] {};
 
     /**
      * Constructs DeviceInfo.
@@ -86,7 +85,10 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
             version.put("sdkInt", Build.VERSION.SDK_INT);
             build.put("version", version);
 
-            final Display display = getActivity.getActivity().getWindow().getWindowManager().getDefaultDisplay();
+            final Display display = getActivity.getActivity()
+                    .getWindow()
+                    .getWindowManager()
+                    .getDefaultDisplay();
             final DisplayMetrics metrics = new DisplayMetrics();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 display.getRealMetrics(metrics);
@@ -123,6 +125,21 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
      * detection systems
      */
     private boolean isEmulator() {
-        return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")) || Build.FINGERPRINT.startsWith("generic") || Build.FINGERPRINT.startsWith("unknown") || Build.HARDWARE.contains("goldfish") || Build.HARDWARE.contains("ranchu") || Build.MODEL.contains("google_sdk") || Build.MODEL.contains("Emulator") || Build.MODEL.contains("Android SDK built for x86") || Build.MANUFACTURER.contains("Genymotion") || Build.PRODUCT.contains("sdk_google") || Build.PRODUCT.contains("google_sdk") || Build.PRODUCT.contains("sdk") || Build.PRODUCT.contains("sdk_x86") || Build.PRODUCT.contains("vbox86p") || Build.PRODUCT.contains("emulator") || Build.PRODUCT.contains("simulator");
+        return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.HARDWARE.contains("goldfish")
+                || Build.HARDWARE.contains("ranchu")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || Build.PRODUCT.contains("sdk_google")
+                || Build.PRODUCT.contains("google_sdk")
+                || Build.PRODUCT.contains("sdk")
+                || Build.PRODUCT.contains("sdk_x86")
+                || Build.PRODUCT.contains("vbox86p")
+                || Build.PRODUCT.contains("emulator")
+                || Build.PRODUCT.contains("simulator");
     }
 }

@@ -59,8 +59,8 @@ public class DeviceInfoPlusPlugin implements FlutterPlugin, ActivityAware, IGetA
 
     private void setupMethodChannel(BinaryMessenger messenger, Context context) {
         channel = new MethodChannel(messenger, "dev.fluttercommunity.plus/device_info");
-        final MethodCallHandlerImpl handler =
-                new MethodCallHandlerImpl(context.getContentResolver(), context.getPackageManager());
+        final MethodCallHandlerImpl handler = new MethodCallHandlerImpl(context.getContentResolver(),
+                context.getPackageManager(), this);
         channel.setMethodCallHandler(handler);
     }
 
