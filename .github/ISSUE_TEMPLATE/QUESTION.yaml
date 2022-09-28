@@ -22,3 +22,17 @@ body:
       label: What is your question?
     validations:
       required: true
+  - type: checkboxes
+    id: self-checks
+    attributes:
+      label: Checklist before submitting a question
+      description: Please verify all the following items before submitting a question. All options must be selected.
+      options:
+        - label: Using the latest version of the plugin
+          required: true
+        - label: All dependencies are up to date with `flutter pub upgrade`
+          required: true
+        - label: Did a `flutter clean`
+          required: true
+        - label: I tried running the example project
+          required: true
