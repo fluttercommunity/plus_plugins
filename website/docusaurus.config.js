@@ -67,7 +67,7 @@ module.exports = {
         docs: {
           path: '../docs',
           sidebarPath: require.resolve('../docs/sidebars.js'),
-          editUrl: 'https://github.com/fluttercommunity/plus/edit/master/docs/',
+          editUrl: 'https://github.com/fluttercommunity/plus/edit/main/docs/',
         },
         gtag: {
           trackingID: 'G-0G7Q1JL01Z',
