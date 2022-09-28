@@ -69,18 +69,18 @@ class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
 
   /// periodically checks the current network state
   Stream<ConnectivityResult> _webPseudoStream() {
-    final StreamController<ConnectivityResult> _webStream =
+    final StreamController<ConnectivityResult> webStream =
         StreamController.broadcast();
     Timer.periodic(
       const Duration(milliseconds: 250),
       (timer) async {
         final result = await checkConnectivity();
         if (result != _lastFallbackState) {
-          _webStream.add(result);
+          webStream.add(result);
         }
       },
     );
-    return _webStream.stream;
+    return webStream.stream;
   }
 }
 
