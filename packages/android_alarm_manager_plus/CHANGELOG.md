@@ -1,6 +1,14 @@
-## 2.0.6+2
+## 2.0.8
 
 - Now we can send extra data as Map to alarm manager and receive it in our callback
+
+## 2.0.7+1
+
+- Add FAQ to README.md
+
+## 2.0.7
+
+- Add pragma('vm:entry-point') to alarm manager callback to avoid tree shaking.
 
 ## 2.0.6+1
 

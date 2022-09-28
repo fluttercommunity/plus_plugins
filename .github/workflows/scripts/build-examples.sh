@@ -27,15 +27,15 @@ fi
 if [ "$ACTION" == "macos" ]
 then
   melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
-    -- flutter config --enable-macos-desktop \
     -- flutter build macos $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi
 
 if [ "$ACTION" == "linux" ]
 then
+  sudo apt-get install ninja-build libgtk-3-dev
+  flutter doctor -v
   melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
-    -- flutter config --enable-linux-desktop \
     -- flutter build linux $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi
@@ -43,7 +43,6 @@ fi
 if [ "$ACTION" == "windows" ]
 then
   melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
-    -- flutter config --enable-windows-desktop \
     -- flutter build windows $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi

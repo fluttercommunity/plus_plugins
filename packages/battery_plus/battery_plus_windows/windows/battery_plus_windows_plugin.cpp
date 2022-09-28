@@ -34,6 +34,8 @@ public:
 private:
   void HandleMethodCall(const FlMethodCall &method_call,
                         std::unique_ptr<FlMethodResult> result);
+  std::unique_ptr<FlMethodChannel> _methodChannel;
+  std::unique_ptr<FlEventChannel> _eventChannel;
 };
 
 class BatteryStatusStreamHandler : public FlStreamHandler {
@@ -64,19 +66,19 @@ void BatteryPlusWindowsPlugin::RegisterWithRegistrar(
 
 BatteryPlusWindowsPlugin::BatteryPlusWindowsPlugin(
     flutter::PluginRegistrarWindows *registrar) {
-  auto methodChannel = std::make_unique<FlMethodChannel>(
+  _methodChannel = std::make_unique<FlMethodChannel>(
       registrar->messenger(), "dev.fluttercommunity.plus/battery",
       &flutter::StandardMethodCodec::GetInstance());
 
-  methodChannel->SetMethodCallHandler([this](const auto &call, auto result) {
+  _methodChannel->SetMethodCallHandler([this](const auto &call, auto result) {
     HandleMethodCall(call, std::move(result));
   });
 
-  auto eventChannel = std::make_unique<FlEventChannel>(
+  _eventChannel = std::make_unique<FlEventChannel>(
       registrar->messenger(), "dev.fluttercommunity.plus/charging",
       &flutter::StandardMethodCodec::GetInstance());
 
-  eventChannel->SetStreamHandler(
+  _eventChannel->SetStreamHandler(
       std::make_unique<BatteryStatusStreamHandler>(registrar));
 }
 

@@ -40,6 +40,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
     _pathMonitor = nil
   }
 
+  @discardableResult
   private func ensurePathMonitor() -> NWPathMonitor {
     if (_pathMonitor == nil) {
       let pathMonitor = NWPathMonitor()

@@ -1,3 +1,17 @@
+## 4.1.2
+
+- Redo changes in 4.1.0
+- device_info_plus_platform_interface to 3.0.0
+
+## 4.1.1
+
+- Revert changes in 4.1.0
+
+## 4.1.0
+
+- Remove `androidId` (that already got removed from the method channel in 4.0.0, thus always returned null)
+- There is a **new, separate [pub.dev package](https://pub.dev/packages/android_id) for getting the correct `androidId`**
+
 ## 4.0.3
 
 - Reverted changes in 4.0.2

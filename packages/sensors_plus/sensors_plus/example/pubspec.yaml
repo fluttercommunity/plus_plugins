@@ -1,4 +1,4 @@
-name: sensors_example
+name: sensors_plus_example
 description: Demonstrates how to use the sensors plugin.
 
 dependencies:

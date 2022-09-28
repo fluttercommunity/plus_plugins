@@ -1,3 +1,16 @@
+## 3.0.0
+
+- Redo 2.6.0 into 3.0.0
+- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+
+## 2.6.1
+
+- Revert 2.6.0
+
+## 2.6.0
+
+- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+
 ## 2.5.0
 
 - Revert 2.4.0 changes

@@ -1,3 +1,7 @@
+## 2.3.7
+
+- iOS: Reduce compiler warnings
+
 ## 2.3.6+1
 
 - Add issue_tracker link.
