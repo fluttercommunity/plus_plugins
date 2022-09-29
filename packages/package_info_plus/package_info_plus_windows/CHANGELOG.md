@@ -1,6 +1,6 @@
-## 2.1.0
+## 3.0.0
 
-- Allow win32 3.x to be used.
+- Add information about the store, through which the application was installed
 
 ## 2.0.0
 

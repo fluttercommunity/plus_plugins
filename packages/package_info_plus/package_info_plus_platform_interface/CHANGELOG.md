@@ -1,4 +1,9 @@
+## 2.0.0
+
+- Add information about the store, through which the application was installed
+
 ## 1.0.2
+
 - Add `buildSignature` to Android package info to retrieve the signing certifiate SHA1 at runtime.
 
 ## 1.0.1

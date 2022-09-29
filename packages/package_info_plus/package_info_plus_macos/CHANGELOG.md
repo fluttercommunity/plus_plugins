@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Add information about the store, through which the application was installed
+
 ## 1.3.0
 
 - Removed `Reachability` dependency

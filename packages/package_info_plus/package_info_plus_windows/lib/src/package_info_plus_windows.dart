@@ -30,6 +30,7 @@ class PackageInfoWindows extends PackageInfoPlatform {
       version: versions.getOrNull(0) ?? '',
       buildNumber: versions.getOrNull(1) ?? '',
       buildSignature: '',
+      installerStore: null,
     );
     info.dispose();
     return Future.value(data);
