@@ -92,7 +92,8 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         val status: Int = if (VERSION.SDK_INT >= VERSION_CODES.O) {
             getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS)
         } else {
-            BatteryManager.BATTERY_STATUS_UNKNOWN
+            val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            intent!!.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
         }
         return convertBatteryStatus(status)
     }
