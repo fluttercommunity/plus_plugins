@@ -12,10 +12,16 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Can launch share', (WidgetTester tester) async {
-    expect(Share.share('message', subject: 'title'), completes);
+    expect(
+        Share.shareV2(ShareMode.text, ReturnMode.none,
+            text: 'message', subject: 'title'),
+        completes);
   });
 
   testWidgets('Can launch shareWithResult', (WidgetTester tester) async {
-    expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
+    expect(
+        Share.shareV2(ShareMode.text, ReturnMode.shareResult,
+            text: 'message', subject: 'title'),
+        isNotNull);
   });
 }

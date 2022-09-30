@@ -123,12 +123,14 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (imagePaths.isNotEmpty) {
-      await Share.shareFiles(imagePaths,
+      await Share.shareV2(ShareMode.files, ReturnMode.none,
+          paths: imagePaths,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else {
-      await Share.share(text,
+      await Share.shareV2(ShareMode.text, ReturnMode.none,
+          text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
@@ -138,12 +140,14 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
     ShareResult result;
     if (imagePaths.isNotEmpty) {
-      result = await Share.shareFilesWithResult(imagePaths,
+      result = await Share.shareV2(ShareMode.files, ReturnMode.shareResult,
+          paths: imagePaths,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else {
-      result = await Share.shareWithResult(text,
+      result = await Share.shareV2(ShareMode.text, ReturnMode.shareResult,
+          text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }

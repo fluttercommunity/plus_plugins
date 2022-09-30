@@ -23,20 +23,13 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
-    assert(text.isNotEmpty);
-    final params = <String, dynamic>{
-      'text': text,
-      'subject': subject,
-    };
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    return channel.invokeMethod<void>('share', params);
+    return shareV2(
+      ShareMode.text,
+      ReturnMode.none,
+      text: text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   /// Summons the platform's share sheet to share multiple files.
@@ -48,25 +41,15 @@ class MethodChannelShare extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
   }) {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes ??
-          paths.map((String path) => _mimeTypeForPath(path)).toList(),
-    };
-
-    if (subject != null) params['subject'] = subject;
-    if (text != null) params['text'] = text;
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    return channel.invokeMethod('shareFiles', params);
+    return shareV2(
+      ShareMode.files,
+      ReturnMode.none,
+      text: text,
+      subject: subject,
+      paths: paths,
+      mimeTypes: mimeTypes,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   /// Summons the platform's share sheet to share text and returns the result.
@@ -76,24 +59,13 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
-    assert(text.isNotEmpty);
-    final params = <String, dynamic>{
-      'text': text,
-      'subject': subject,
-    };
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    final result =
-        await channel.invokeMethod<String>('shareWithResult', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
-
-    return ShareResult(result, _statusFromResult(result));
+    return shareV2(
+      ShareMode.text,
+      ReturnMode.shareResult,
+      text: text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   /// Summons the platform's share sheet to share multiple files and returns the result.
@@ -105,16 +77,28 @@ class MethodChannelShare extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes ??
-          paths.map((String path) => _mimeTypeForPath(path)).toList(),
-    };
+    return shareV2(
+      ShareMode.files,
+      ReturnMode.shareResult,
+      text: text,
+      subject: subject,
+      paths: paths,
+      mimeTypes: mimeTypes,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
 
-    if (subject != null) params['subject'] = subject;
-    if (text != null) params['text'] = text;
+  @override
+  Future<ShareResult> shareV2(
+    ShareMode shareMode,
+    ReturnMode retMode, {
+    String? subject,
+    String? text,
+    List<String>? paths,
+    List<String>? mimeTypes,
+    Rect? sharePositionOrigin,
+  }) async {
+    final params = <String, dynamic>{};
 
     if (sharePositionOrigin != null) {
       params['originX'] = sharePositionOrigin.left;
@@ -123,11 +107,40 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result =
-        await channel.invokeMethod<String>('shareFilesWithResult', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
-
-    return ShareResult(result, _statusFromResult(result));
+    switch (shareMode) {
+      case ShareMode.text:
+        assert(text != null && text.isNotEmpty);
+        params['text'] = text;
+        params['subject'] = subject;
+        switch (retMode) {
+          case ReturnMode.none:
+            await channel.invokeMethod('share', params);
+            return _resultEmpty;
+          case ReturnMode.shareResult:
+            final result =
+                await channel.invokeMethod<String>('shareWithResult', params) ??
+                    'dev.fluttercommunity.plus/share/unavailable';
+            return ShareResult(result, _statusFromResult(result));
+        }
+      case ShareMode.files:
+        assert(paths != null && paths.isNotEmpty);
+        assert(paths!.every((element) => element.isNotEmpty));
+        params['paths'] = paths;
+        params['mimeTypes'] = mimeTypes ??
+            paths!.map((String path) => _mimeTypeForPath(path)).toList();
+        if (subject != null) params['subject'] = subject;
+        if (text != null) params['text'] = text;
+        switch (retMode) {
+          case ReturnMode.none:
+            await channel.invokeMethod('shareFiles', params);
+            return _resultEmpty;
+          case ReturnMode.shareResult:
+            final result = await channel.invokeMethod<String>(
+                    'shareFilesWithResult', params) ??
+                'dev.fluttercommunity.plus/share/unavailable';
+            return ShareResult(result, _statusFromResult(result));
+        }
+    }
   }
 
   static String _mimeTypeForPath(String path) {
@@ -145,3 +158,9 @@ class MethodChannelShare extends SharePlatform {
     }
   }
 }
+
+/// Returned if the status should be ignored
+const _resultEmpty = ShareResult(
+  'dev.fluttercommunity.plus/share/empty',
+  ShareResultStatus.empty,
+);

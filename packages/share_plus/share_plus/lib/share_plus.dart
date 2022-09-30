@@ -7,7 +7,7 @@ import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus;
+    show ShareMode, ReturnMode, ShareResult, ShareResultStatus;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -28,14 +28,16 @@ class Share {
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
+  @Deprecated('Use shareV2 instead.')
   static Future<void> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
   }) {
-    assert(text.isNotEmpty);
-    return _platform.share(
-      text,
+    return shareV2(
+      ShareMode.text,
+      ReturnMode.none,
+      text: text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
     );
@@ -64,6 +66,7 @@ class Share {
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
+  @Deprecated('Use shareV2 instead.')
   static Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -71,10 +74,10 @@ class Share {
     String? text,
     Rect? sharePositionOrigin,
   }) {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    return _platform.shareFiles(
-      paths,
+    return shareV2(
+      ShareMode.files,
+      ReturnMode.none,
+      paths: paths,
       mimeTypes: mimeTypes,
       subject: subject,
       text: text,
@@ -99,14 +102,16 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
+  @Deprecated('Use shareV2 instead.')
   static Future<ShareResult> shareWithResult(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
-    assert(text.isNotEmpty);
-    return _platform.shareWithResult(
-      text,
+    return shareV2(
+      ShareMode.text,
+      ReturnMode.shareResult,
+      text: text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
     );
@@ -129,6 +134,7 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
+  @Deprecated('Use shareV2 instead.')
   static Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -136,13 +142,33 @@ class Share {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    return _platform.shareFilesWithResult(
-      paths,
+    return shareV2(
+      ShareMode.files,
+      ReturnMode.shareResult,
+      paths: paths,
       mimeTypes: mimeTypes,
       subject: subject,
       text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  static Future<ShareResult> shareV2(
+    ShareMode shareMode,
+    ReturnMode retMode, {
+    String? subject,
+    String? text,
+    List<String>? paths,
+    List<String>? mimeTypes,
+    Rect? sharePositionOrigin,
+  }) {
+    return _platform.shareV2(
+      shareMode,
+      retMode,
+      subject: subject,
+      text: text,
+      paths: paths,
+      mimeTypes: mimeTypes,
       sharePositionOrigin: sharePositionOrigin,
     );
   }

@@ -31,6 +31,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share text.
+  @Deprecated('Use shareV2 instead.')
   Future<void> share(
     String text, {
     String? subject,
@@ -44,6 +45,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files.
+  @Deprecated('Use shareV2 instead.')
   Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -61,6 +63,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share text with Result.
+  @Deprecated('Use shareV2 instead.')
   Future<ShareResult> shareWithResult(
     String text, {
     String? subject,
@@ -76,6 +79,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files with Result.
+  @Deprecated('Use shareV2 instead.')
   Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -92,6 +96,26 @@ class SharePlatform extends PlatformInterface {
     );
 
     return _resultUnavailable;
+  }
+
+  Future<ShareResult> shareV2(
+    ShareMode shareMode,
+    ReturnMode retMode, {
+    String? subject,
+    String? text,
+    List<String>? paths,
+    List<String>? mimeTypes,
+    Rect? sharePositionOrigin,
+  }) async {
+    return _instance.shareV2(
+      shareMode,
+      retMode,
+      subject: subject,
+      text: text,
+      paths: paths,
+      mimeTypes: mimeTypes,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 }
 
@@ -116,6 +140,16 @@ class ShareResult {
   const ShareResult(this.raw, this.status);
 }
 
+enum ShareMode {
+  text,
+  files,
+}
+
+enum ReturnMode {
+  none,
+  shareResult,
+}
+
 /// How the user handled the share-sheet
 enum ShareResultStatus {
   /// The user has selected an action
@@ -126,6 +160,9 @@ enum ShareResultStatus {
 
   /// The status can not be determined
   unavailable,
+
+  /// The status is empty and can be ignored
+  empty,
 }
 
 /// Returned if the platform is not supported
