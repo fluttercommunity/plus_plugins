@@ -16,6 +16,12 @@ then
     "flutter test -d linux ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
+if [ "$ACTION" == "windows" ]
+then
+  melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
+    "flutter test -d windows ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
+fi
+
 if [ "$ACTION" == "macos" ]
 then
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
