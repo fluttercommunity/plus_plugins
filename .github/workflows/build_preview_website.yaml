@@ -3,6 +3,11 @@ on:
   pull_request:
     paths-ignore:
       - "packages/**"
+      - ".github/**"
+      - "**.yaml"
+      - "**.yml"
+      - "CODE_OF_CONDUCT.md"
+      - "CONTRIBUTING.md"
 
 defaults:
   run:
