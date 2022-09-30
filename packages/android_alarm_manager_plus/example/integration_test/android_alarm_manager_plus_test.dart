@@ -5,16 +5,25 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:android_alarm_manager_plus_example/main.dart' as app;
 
-Future<void> main() async {
-  final driver = await FlutterDriver.connect();
-  final data = await driver.requestData(
-    null,
-    timeout: const Duration(minutes: 1),
-  );
-  await driver.close();
-  final Map<String, dynamic> result = jsonDecode(data);
-  exit(result['result'] == 'true' ? 0 : 1);
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('AlarmManager test', (WidgetTester tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    // Find the button and tap it.
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    // Verify that our counter has incremented.
+    expect(find.text('1'), findsOneWidget);
+  });
 }
