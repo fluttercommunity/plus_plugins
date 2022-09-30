@@ -1,7 +1,3 @@
-## 2.0.8
-
-- Add integration tests.
-
 ## 2.0.7+1
 
 - Add FAQ to README.md

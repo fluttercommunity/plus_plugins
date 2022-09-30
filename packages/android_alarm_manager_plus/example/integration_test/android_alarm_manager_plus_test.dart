@@ -14,6 +14,9 @@ class AlarmHelpers {
   }
 }
 
+/// NOTE: The AndroidAlarmManager callbacks must be either a top-level function
+/// or a static method from a class. Therefore, the callbacks are not currently
+/// verifiable.
 Future<void> main() async {
   String invalidCallback(String foo) => foo;
   void validCallback(int id) {
@@ -93,7 +96,7 @@ Future<void> main() async {
 
     group('oneShot', () {
       test('sends arguments to the device', () async {
-        const delay = Duration(seconds: 1);
+        const delay = Duration(milliseconds: 100);
         const id = 1;
         const alarmClock = true;
         const allowWhileIdle = true;
