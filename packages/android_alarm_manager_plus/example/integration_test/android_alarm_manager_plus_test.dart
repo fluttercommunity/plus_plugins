@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:android_alarm_manager_example/main.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
@@ -12,41 +10,29 @@ import 'package:integration_test/integration_test.dart';
 
 class AlarmHelpers {
   static void alarmTest() {
-    // ignore: avoid_returning_null_for_void
-    return null;
+    return;
   }
 }
 
 Future<void> main() async {
   String invalidCallback(String foo) => foo;
-  // ignore: avoid_returning_null_for_void
-  void validCallback(int id) => null;
+  void validCallback(int id) {
+    return;
+  }
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Example app loads', (WidgetTester tester) async {
     await tester.pumpWidget(const AlarmManagerExampleApp());
 
-    // Verify that the  example app builds
-    if (Platform.isAndroid) {
-      expect(
-        find.byWidgetPredicate(
-          (Widget widget) =>
-              widget is Text &&
-              widget.data!.startsWith('Schedule OneShot Alarm'),
-        ),
-        findsOneWidget,
-      );
-    } else {
-      expect(
-        find.byWidgetPredicate(
-          (Widget widget) =>
-              widget is Text &&
-              widget.data!.startsWith('This plugin only works with Android'),
-        ),
-        findsOneWidget,
-      );
-    }
+    // Verify that the example app builds
+    expect(
+      find.byWidgetPredicate(
+        (Widget widget) =>
+            widget is Text && widget.data!.startsWith('Schedule OneShot Alarm'),
+      ),
+      findsOneWidget,
+    );
   });
 
   group('AndroidAlarmManager', () {
@@ -62,21 +48,23 @@ Future<void> main() async {
 
         // Callback should take a single int param.
         await expectLater(
-            () => AndroidAlarmManager.oneShotAt(
-                  validTime,
-                  validId,
-                  invalidCallback,
-                ),
-            throwsAssertionError);
+          () => AndroidAlarmManager.oneShotAt(
+            validTime,
+            validId,
+            invalidCallback,
+          ),
+          throwsAssertionError,
+        );
 
         // ID should be less than 32 bits.
         await expectLater(
-            () => AndroidAlarmManager.oneShotAt(
-                  validTime,
-                  2147483648,
-                  validCallback,
-                ),
-            throwsAssertionError);
+          () => AndroidAlarmManager.oneShotAt(
+            validTime,
+            2147483648,
+            validCallback,
+          ),
+          throwsAssertionError,
+        );
       });
 
       test('sends arguments to the device', () async {
