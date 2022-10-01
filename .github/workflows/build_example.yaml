@@ -5,6 +5,7 @@ on:
     inputs:
       os:
         required: true
+        type: string
 
 jobs:
   build_example:

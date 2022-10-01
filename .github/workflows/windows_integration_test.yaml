@@ -5,6 +5,7 @@ on:
     inputs:
       folder:
         required: true
+        type: string
 
 jobs:
   windows_integration_test:
