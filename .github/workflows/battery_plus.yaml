@@ -146,7 +146,7 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
         shell: bash
-        run: melos bootstrap
+        run: flutter pub global run melos bootstrap
       - name: "Web Integration Test"
         shell: bash
         run: ./.github/workflows/scripts/integration-test.sh windows battery_plus_example

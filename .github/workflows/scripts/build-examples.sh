@@ -5,7 +5,7 @@ DEFAULT_TARGET="./test_driver/MELOS_PARENT_PACKAGE_NAME_e2e.dart"
 ACTION=$1
 TARGET_FILE=${2:-$DEFAULT_TARGET}
 
-melos bootstrap --scope="$PLUGIN_SCOPE"
+flutter pub global run melos bootstrap --scope="$PLUGIN_SCOPE"
 
 if [ "$ACTION" == "android" ]
 then
