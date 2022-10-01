@@ -90,5 +90,3 @@ For help getting started with Flutter, view our online
 [documentation](https://flutter.dev/).
 
 For help on editing plugin code, view the [documentation](https://flutter.dev/platform-plugins/#edit-code).
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
