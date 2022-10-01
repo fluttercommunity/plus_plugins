@@ -1,6 +1,10 @@
 # Build Package Info Plus Example
 name: package_info_plus
 
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -123,13 +127,10 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v2
       - name: "Install Flutter"
-        shell: bash
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
-        shell: bash
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
-        shell: bash
         run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
 
   windows_integration_test:
@@ -139,13 +140,10 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v2
       - name: "Install Flutter"
-        shell: bash
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
-        shell: bash
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Run Integration Test"
-        shell: bash
         run: ./.github/workflows/scripts/integration-test.sh windows package_info_plus_example
 
   web:

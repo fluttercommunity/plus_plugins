@@ -1,6 +1,10 @@
 # Build Network Info Plus Example
 name: network_info_plus
 
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -137,13 +141,10 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v2
       - name: "Install Flutter"
-        shell: bash
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
-        shell: bash
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Run Integration Test"
-        shell: bash
         run: ./.github/workflows/scripts/integration-test.sh windows network_info_plus_example
 
   web:
