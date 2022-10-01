@@ -76,14 +76,14 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     }
 
     @TargetApi(VERSION_CODES.O)
-    override fun onListen(arguments: Any, events: EventSink) {
+    override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        applicationContext!!.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        applicationContext?.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val status = getBatteryStatus()
         publishBatteryStatus(events, status)
     }
 
-    override fun onCancel(arguments: Any) {
+    override fun onCancel(arguments: Any?) {
         applicationContext!!.unregisterReceiver(chargingStateChangeReceiver)
         chargingStateChangeReceiver = null
     }
