@@ -1,14 +1,11 @@
-name: Window Integration Test
+# Call this workflow to build Example in windows
+name: Build example in windows
 
 on:
   workflow_call:
-    inputs:
-      folder:
-        required: true
-        type: string
 
 jobs:
-  windows_integration_test:
+  build_example:
     runs-on: windows-latest
     timeout-minutes: 30
     defaults:
@@ -21,5 +18,5 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
-      - name: "Windows Integration Test"
-        run: ./.github/workflows/scripts/integration-test.sh windows ${{ inputs.folder }}
+      - name: "Build Example"
+        run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart

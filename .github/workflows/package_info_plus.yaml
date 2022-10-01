@@ -117,17 +117,12 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
   windows:
-    runs-on: windows-latest
-    timeout-minutes: 30
-    steps:
-      - name: "Checkout repository"
-        uses: actions/checkout@v2
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
-      - name: "Install Tools"
-        run: ./.github/workflows/scripts/install-tools.sh
-      - name: "Build Example"
-        run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
+    uses: ./.github/workflows/windows/build_example.yaml
+
+  windows_integration_test:
+    uses: ./.github/workflows/windows/integration_test.yaml
+    with:
+      package: package_info_plus_example
 
   web:
     runs-on: ubuntu-latest
