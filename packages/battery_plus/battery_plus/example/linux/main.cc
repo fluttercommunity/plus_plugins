@@ -1,6 +1,6 @@
 #include "my_application.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   // Only X11 is currently supported.
   // Wayland support is being developed:
   // https://github.com/flutter/flutter/issues/57932.

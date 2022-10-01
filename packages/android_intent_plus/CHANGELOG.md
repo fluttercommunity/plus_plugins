@@ -1,12 +1,25 @@
-## 3.0.3
+## 3.2.0
 
 - Added an `ignoredPackages` parameter to specify package names that should not be used to resolve the intent and displayed in the chooser.
 - Updated the `launchChooser` method to not display the specified ignored apps in the picker.
 
+## 3.1.1+1
+
+- Add issue_tracker link.
+
+## 3.1.1
+
+- Fix embedding issue in example
+- Update Platform dependency to not use deprecated function
+
+## 3.1.0
+
+- Added `arrayArguments` to explicitly pass array values to an intent
+
 ## 3.0.2
 
 - Fixed the buildIntent method to do not set the pacakage to null if it's not resolvable
-- UPdated the example of resolving intent with explicitly defined package name
+- Updated the example of resolving intent with explicitly defined package name
 
 ## 3.0.1
 

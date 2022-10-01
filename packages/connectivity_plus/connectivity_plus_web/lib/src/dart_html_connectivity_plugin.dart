@@ -20,7 +20,7 @@ class DartHtmlConnectivityPlugin extends ConnectivityPlusPlugin {
   @override
   Stream<ConnectivityResult> get onConnectivityChanged {
     if (_connectivityResult == null) {
-      _connectivityResult = StreamController<ConnectivityResult>();
+      _connectivityResult = StreamController<ConnectivityResult>.broadcast();
       // Fallback to dart:html window.onOnline / window.onOffline
       html.window.onOnline.listen((event) {
         _connectivityResult!.add(ConnectivityResult.wifi);

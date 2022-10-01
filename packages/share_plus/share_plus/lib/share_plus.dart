@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
+    show ShareResult, ShareResultStatus;
 
 /// Plugin for summoning a platform share sheet.
 class Share {
@@ -21,8 +23,8 @@ class Share {
   /// user chooses to send an email.
   ///
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
-  /// origin rect for the share sheet to popover from on iPads. It has no effect
-  /// on non-iPads.
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
@@ -57,8 +59,8 @@ class Share {
   /// every other MIME type is considered a normal file.
   ///
   /// The optional `sharePositionOrigin` parameter can be used to specify a global
-  /// origin rect for the share sheet to popover from on iPads. It has no effect
-  /// on non-iPads.
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
@@ -72,6 +74,71 @@ class Share {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     return _platform.shareFiles(
+      paths,
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Behaves exactly like [share] while providing feedback on how the user
+  /// interacted with the share-sheet. Until the returned future is completed,
+  /// any other call to any share method that returns a result _might_ result in
+  /// a [PlatformException] (on Android).
+  ///
+  /// Because IOS, Android and macOS provide different feedback on share-sheet
+  /// interaction, a result on IOS will be more specific than on Android or macOS.
+  /// While on IOS the selected action can inform its caller that it was completed
+  /// or dismissed midway (_actions are free to return whatever they want_),
+  /// Android and macOS only record if the user selected an action or outright
+  /// dismissed the share-sheet. It is not guaranteed that the user actually shared
+  /// something.
+  ///
+  /// **Currently only implemented on IOS, Android and macOS.**
+  ///
+  /// Will gracefully fall back to the non result variant if not implemented
+  /// for the current environment and return [ShareResult.unavailable].
+  static Future<ShareResult> shareWithResult(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(text.isNotEmpty);
+    return _platform.shareWithResult(
+      text,
+      subject: subject,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Behaves exactly like [shareFiles] while providing feedback on how the user
+  /// interacted with the share-sheet. Until the returned future is completed,
+  /// any other call to any share method that returns a result _might_ result in
+  /// a [PlatformException] (on Android).
+  ///
+  /// Because IOS, Android and macOS provide different feedback on share-sheet
+  /// interaction, a result on IOS will be more specific than on Android or macOS.
+  /// While on IOS the selected action can inform its caller that it was completed
+  /// or dismissed midway (_actions are free to return whatever they want_),
+  /// Android and macOS only record if the user selected an action or outright
+  /// dismissed the share-sheet. It is not guaranteed that the user actually shared
+  /// something.
+  ///
+  /// **Currently only implemented on IOS, Android and macOS.**
+  ///
+  /// Will gracefully fall back to the non result variant if not implemented
+  /// for the current environment and return [ShareResult.unavailable].
+  static Future<ShareResult> shareFilesWithResult(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(paths.isNotEmpty);
+    assert(paths.every((element) => element.isNotEmpty));
+    return _platform.shareFilesWithResult(
       paths,
       mimeTypes: mimeTypes,
       subject: subject,

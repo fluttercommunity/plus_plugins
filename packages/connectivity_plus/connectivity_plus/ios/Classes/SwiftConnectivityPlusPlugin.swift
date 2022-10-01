@@ -23,12 +23,22 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
       name: "dev.fluttercommunity.plus/connectivity_status",
       binaryMessenger: registrar.messenger())
 
-    let connectivityProvider = ReachabilityConnectivityProvider()
+    let connectivityProvider: ConnectivityProvider
+    if #available(iOS 12, *) {
+      connectivityProvider = PathMonitorConnectivityProvider()
+    } else {
+      connectivityProvider = ReachabilityConnectivityProvider()
+    }
 
     let instance = SwiftConnectivityPlusPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
+  }
+
+  public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
+    eventSink = nil
+    connectivityProvider.stop()
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -64,7 +74,9 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
   }
 
   private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
-    eventSink?(statusFrom(connectivityType: connectivityType))
+    DispatchQueue.main.async {
+      self.eventSink?(self.statusFrom(connectivityType: connectivityType))
+    }
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {

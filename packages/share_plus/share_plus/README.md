@@ -1,16 +1,16 @@
+# Share plugin
+
 [![Flutter Community: share_plus](https://fluttercommunity.dev/_github/header/share_plus)](https://github.com/fluttercommunity/community)
 
+[![share_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/share_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/share_plus.yaml)
 [![pub package](https://img.shields.io/pub/v/share_plus.svg)](https://pub.dev/packages/share_plus)
 
-<p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
-# Share plugin
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a>
 
 A Flutter plugin to share content from your Flutter app via the platform's
 share dialog.
 
-Wraps the ACTION_SEND Intent on Android and UIActivityViewController
+Wraps the `ACTION_SEND` Intent on Android and `UIActivityViewController`
 on iOS.
 
 ## Platform Support
@@ -61,7 +61,41 @@ Check out our documentation website to learn more. [Plus plugins documentation](
 
 ### Mobile platforms (Android and iOS)
 
+#### Facebook limitations (WhatsApp, Instagram, Facebook Messenger)
+
 Due to restrictions set up by Facebook this plugin isn't capable of sharing data reliably to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger. If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing)) or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
 
+#### iPad
 
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
+`share_plus` requires iPad users to provide the `sharePositionOrigin` parameter.
+
+Without it, `share_plus` will not work on iPads and may cause a crash or
+letting the UI not responding.
+
+To avoid that problem, provide the `sharePositionOrigin`.
+
+For example:
+
+```dart
+// Use Builder to get the widget context
+Builder(
+  builder: (BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => _onShare(context),
+          child: const Text('Share'),
+     );
+  },
+),
+
+// _onShare method:
+final box = context.findRenderObject() as RenderBox?;
+
+await Share.share(
+  text,
+  subject: subject,
+  sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+);
+```
+
+See the `main.dart` in the `example` for a complete example.
+

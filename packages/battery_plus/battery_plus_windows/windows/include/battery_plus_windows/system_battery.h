@@ -12,7 +12,7 @@ enum class BatteryStatus { Full, Charging, Discharging, Error, Unknown };
 typedef std::function<void(BatteryStatus)> BatteryStatusCallback;
 
 class SystemBattery {
- public:
+public:
   SystemBattery();
   ~SystemBattery();
 
@@ -29,9 +29,9 @@ class SystemBattery {
   void ProcessMsg(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
   bool StopListen();
 
- private:
+private:
   HPOWERNOTIFY _notifier = nullptr;
   BatteryStatusCallback _callback = nullptr;
 };
 
-#endif  // FLUTTER_PLUGIN_BATTERY_PLUS_SYSTEM_BATTERY_H_
+#endif // FLUTTER_PLUGIN_BATTERY_PLUS_SYSTEM_BATTERY_H_

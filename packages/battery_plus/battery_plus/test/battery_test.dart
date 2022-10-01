@@ -7,8 +7,8 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:test/test.dart';
 
 late StreamController<BatteryState> controller;
 
@@ -17,6 +17,9 @@ class MockBatteryPlatform
     implements BatteryPlatform {
   @override
   Future<int> get batteryLevel => Future.value(42);
+
+  @override
+  Future<BatteryState> get batteryState => Future.value(BatteryState.charging);
 
   @override
   Stream<BatteryState> get onBatteryStateChanged => controller.stream;
@@ -50,6 +53,10 @@ void main() {
 
     tearDown(() {
       controller.close();
+    });
+
+    test('current', () async {
+      expect(await battery.batteryState, BatteryState.charging);
     });
 
     test('receive values', () async {

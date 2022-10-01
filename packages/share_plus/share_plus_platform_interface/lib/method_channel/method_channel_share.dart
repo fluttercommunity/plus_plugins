@@ -3,12 +3,10 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show lookupMimeType;
-
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 /// Plugin for summoning a platform share sheet.
@@ -71,7 +69,79 @@ class MethodChannelShare extends SharePlatform {
     return channel.invokeMethod('shareFiles', params);
   }
 
+  /// Summons the platform's share sheet to share text and returns the result.
+  @override
+  Future<ShareResult> shareWithResult(
+    String text, {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(text.isNotEmpty);
+    final params = <String, dynamic>{
+      'text': text,
+      'subject': subject,
+    };
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    final result =
+        await channel.invokeMethod<String>('shareWithResult', params) ??
+            'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
+  }
+
+  /// Summons the platform's share sheet to share multiple files and returns the result.
+  @override
+  Future<ShareResult> shareFilesWithResult(
+    List<String> paths, {
+    List<String>? mimeTypes,
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(paths.isNotEmpty);
+    assert(paths.every((element) => element.isNotEmpty));
+    final params = <String, dynamic>{
+      'paths': paths,
+      'mimeTypes': mimeTypes ??
+          paths.map((String path) => _mimeTypeForPath(path)).toList(),
+    };
+
+    if (subject != null) params['subject'] = subject;
+    if (text != null) params['text'] = text;
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    final result =
+        await channel.invokeMethod<String>('shareFilesWithResult', params) ??
+            'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
+  }
+
   static String _mimeTypeForPath(String path) {
     return lookupMimeType(path) ?? 'application/octet-stream';
+  }
+
+  static ShareResultStatus _statusFromResult(String result) {
+    switch (result) {
+      case '':
+        return ShareResultStatus.dismissed;
+      case 'dev.fluttercommunity.plus/share/unavailable':
+        return ShareResultStatus.unavailable;
+      default:
+        return ShareResultStatus.success;
+    }
   }
 }

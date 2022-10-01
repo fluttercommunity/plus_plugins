@@ -1,0 +1,119 @@
+name: Bug Report
+description: You are using one of plugins in some project but due to the plugin the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for using PlusPlugins!
+
+        If you are looking for support, please check out our documentation
+        or consider asking a question on Stack Overflow:
+        * https://plus.fluttercommunity.dev/docs/overview
+
+        If you have found a bug or if our documentation doesn't have an answer
+        to what you're looking for, then fill our the template below.
+     
+        IMPORTANT: Bug reports that don't follow this template will be closed
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: Platform + Version the Issue occurs on
+      placeholder: ex. Android 12
+    validations:
+      required: true
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin
+      description: Plugin name
+      placeholder: ex. share_plus
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Plugin version
+      placeholder: ex. 1.2.3
+    validations:
+      required: true
+  - type: input
+    id: sdk
+    attributes:
+      label: Flutter SDK
+      description: Flutter SDK Version
+      placeholder: ex. 3.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please tell us exactly how to reproduce the problem you are running into.
+
+        Please attach a small application (ideally just one main.dart file) that
+        reproduces the problem. You could use https://gist.github.com/ for this.
+
+        If the problem is with your application's rendering, then please attach
+        a screenshot and explain what the problem is.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Sample
+      render: dart
+      description: |
+        Include a minimal code sample that can be used to reproduce the error.
+        e.g. The call to the plus_plugins method.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      render: shell
+      description: |
+        Run your application with `flutter run --verbose` and attach **all the
+        log output** below between the lines with the backticks. If there is an
+        exception, please see if the error message includes enough information
+        to explain how to solve the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Flutter Doctor
+      render: shell
+      description: |
+        Paste the output of running `flutter doctor -v` here.
+    validations:
+      required: true
+  - type: checkboxes
+    id: self-checks
+    attributes:
+      label: Checklist before submitting a bug
+      description: Please verify all the following items before submitting a bug. All options must be selected.
+      options:
+        - label: I Google'd a solution and I couldn't find it
+          required: true
+        - label: I searched on StackOverflow for a solution and I couldn't find it
+          required: true
+        - label: I read the README.md file of the plugin
+          required: true
+        - label: I'm using the latest version of the plugin
+          required: true
+        - label: All dependencies are up to date with `flutter pub upgrade`
+          required: true
+        - label: I did a `flutter clean`
+          required: true
+        - label: I tried running the example project
+          required: true

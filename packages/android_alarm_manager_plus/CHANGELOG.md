@@ -1,3 +1,28 @@
+## 2.0.7+1
+
+- Add FAQ to README.md
+
+## 2.0.7
+
+- Add pragma('vm:entry-point') to alarm manager callback to avoid tree shaking.
+
+## 2.0.6+1
+
+- Add issue_tracker link.
+
+## 2.0.6
+
+- Fix AndroidAlarmManager.periodic() not working.
+
+## 2.0.5
+
+- Fix embedding issue in example
+- Update dependencies in example
+
+## 2.0.4
+
+- Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule an alarm.
+
 ## 2.0.3
 
 - Handle Android 12 behavior changes for exact alarms scheduling

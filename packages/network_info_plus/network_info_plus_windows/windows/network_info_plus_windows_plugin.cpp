@@ -10,14 +10,14 @@
 namespace {
 
 class NetworkInfoPlusWindowsPlugin : public flutter::Plugin {
- public:
+public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
   NetworkInfoPlusWindowsPlugin();
 
   virtual ~NetworkInfoPlusWindowsPlugin();
 
- private:
+private:
   void HandleMethodCall(
       const flutter::MethodCall<flutter::EncodableValue> &method_call,
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
@@ -75,7 +75,7 @@ void NetworkInfoPlusWindowsPlugin::HandleMethodResult(
   }
 }
 
-}  // namespace
+} // namespace
 
 void NetworkInfoPlusWindowsPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {

@@ -25,32 +25,34 @@ typedef flutter::StreamHandlerError<flutter::EncodableValue>
     FlStreamHandlerError;
 
 class BatteryPlusWindowsPlugin : public flutter::Plugin {
- public:
+public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
   BatteryPlusWindowsPlugin(flutter::PluginRegistrarWindows *registrar);
   ~BatteryPlusWindowsPlugin();
 
- private:
+private:
   void HandleMethodCall(const FlMethodCall &method_call,
                         std::unique_ptr<FlMethodResult> result);
+  std::unique_ptr<FlMethodChannel> _methodChannel;
+  std::unique_ptr<FlEventChannel> _eventChannel;
 };
 
 class BatteryStatusStreamHandler : public FlStreamHandler {
- public:
+public:
   BatteryStatusStreamHandler(flutter::PluginRegistrarWindows *registrar);
 
- protected:
+protected:
   void AddStatusEvent(BatteryStatus status);
 
-  std::unique_ptr<FlStreamHandlerError> OnListenInternal(
-      const flutter::EncodableValue *arguments,
-      std::unique_ptr<FlEventSink> &&events) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnListenInternal(const flutter::EncodableValue *arguments,
+                   std::unique_ptr<FlEventSink> &&events) override;
 
-  std::unique_ptr<FlStreamHandlerError> OnCancelInternal(
-      const flutter::EncodableValue *arguments) override;
+  std::unique_ptr<FlStreamHandlerError>
+  OnCancelInternal(const flutter::EncodableValue *arguments) override;
 
- private:
+private:
   int _delegate = -1;
   SystemBattery _battery;
   std::unique_ptr<FlEventSink> _events;
@@ -64,19 +66,19 @@ void BatteryPlusWindowsPlugin::RegisterWithRegistrar(
 
 BatteryPlusWindowsPlugin::BatteryPlusWindowsPlugin(
     flutter::PluginRegistrarWindows *registrar) {
-  auto methodChannel = std::make_unique<FlMethodChannel>(
+  _methodChannel = std::make_unique<FlMethodChannel>(
       registrar->messenger(), "dev.fluttercommunity.plus/battery",
       &flutter::StandardMethodCodec::GetInstance());
 
-  methodChannel->SetMethodCallHandler([this](const auto &call, auto result) {
+  _methodChannel->SetMethodCallHandler([this](const auto &call, auto result) {
     HandleMethodCall(call, std::move(result));
   });
 
-  auto eventChannel = std::make_unique<FlEventChannel>(
+  _eventChannel = std::make_unique<FlEventChannel>(
       registrar->messenger(), "dev.fluttercommunity.plus/charging",
       &flutter::StandardMethodCodec::GetInstance());
 
-  eventChannel->SetStreamHandler(
+  _eventChannel->SetStreamHandler(
       std::make_unique<BatteryStatusStreamHandler>(registrar));
 }
 
@@ -156,12 +158,15 @@ void BatteryPlusWindowsPlugin::HandleMethodCall(
       result->Error(std::to_string(battery.GetError()),
                     battery.GetErrorString());
     }
+  } else if (method_call.method_name().compare("getBatteryState") == 0) {
+    SystemBattery battery;
+    result->Success(flutter::EncodableValue(battery.GetStatusString()));
   } else {
     result->NotImplemented();
   }
 }
 
-}  // namespace
+} // namespace
 
 void BatteryPlusWindowsPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar) {

@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "start": "docusaurus start",
@@ -14,51 +14,42 @@
     "check:spelling": "./node_modules/.bin/spellchecker --quiet --files=\"docs/**/*.{md,mdx}\" --dictionaries=\"./dictionary.js\" --reports=\"./spelling.json\" --plugins spell indefinite-article repeated-words syntax-mentions syntax-urls frontmatter"
   },
   "engines": {
-    "node": ">=14.15.0",
-    "npm": ">=7"
+    "node": "16",
+    "npm": "8"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-beta.0",
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.0",
-    "@docusaurus/plugin-google-gtag": "^2.0.0-beta.0",
-    "@docusaurus/preset-classic": "^2.0.0-beta.0",
-    "@types/classnames": "^2.3.1",
-    "@types/lodash.get": "^4.4.6",
-    "@types/react": "^17.0.5",
-    "@types/react-router-dom": "^5.1.7",
-    "axios": "^0.21.1",
-    "classnames": "^2.3.1",
-    "compare-versions": "^3.6.0",
-    "docusaurus-plugin-sass": "^0.2.0",
-    "dotenv": "^10.0.0",
+    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/plugin-google-gtag": "^2.1.0",
+    "@docusaurus/preset-classic": "^2.1.0",
+    "@types/lodash.get": "^4.4.7",
+    "@types/react": "^17.0.50",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.2",
+    "compare-versions": "^5.0.1",
+    "docusaurus-plugin-sass": "^0.2.2",
+    "dotenv": "^16.0.2",
     "lodash.get": "^4.4.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-medium-image-zoom": "^4.3.4",
-    "react-router-dom": "^5.2.0",
-    "sass": "^1.35.1"
+    "react-medium-image-zoom": "^5.0.3",
+    "react-router-dom": "^6.4.1",
+    "sass": "^1.55.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "eslint": "^7.26.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
-    "prettier": "^2.3.0",
-    "spellchecker-cli": "^4.4.0",
-    "typescript": "^4.2.4"
+    "@docusaurus/module-type-aliases": "^2.1.0",
+    "@tsconfig/docusaurus": "^1.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "prettier": "^2.7.1",
+    "spellchecker-cli": "^6.0.2",
+    "typescript": "^4.8.4"
   }
 }

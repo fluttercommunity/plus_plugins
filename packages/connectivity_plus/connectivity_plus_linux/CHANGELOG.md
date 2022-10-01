@@ -1,3 +1,13 @@
+## 1.3.1
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+- Resolve analyzer issues
+
+## 1.3.0
+
+- Bump nm plugin to 0.5.0
+
 ## 1.2.0
 
 - Add bluetooth as connectivity result

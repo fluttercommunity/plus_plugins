@@ -1,3 +1,28 @@
+## 3.0.0
+
+- Redo 2.6.0 into 3.0.0
+- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+
+## 2.6.1
+
+- Revert 2.6.0
+
+## 2.6.0
+
+- Remove `androidId` (that was removed in the MethodChannel, and always returned null)
+
+## 2.5.0
+
+- Revert 2.4.0 changes
+
+## 2.4.0
+
+- Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
+
+## 2.3.0+1
+
+- Fix LinuxDeviceInfo.name docs
+
 ## 2.3.0
 
 - add `BaseDeviceInfo`

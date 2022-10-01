@@ -21,6 +21,8 @@ void main() {
             return 100;
           case 'isInBatterySaveMode':
             return true;
+          case 'getBatteryState':
+            return 'charging';
           default:
             return null;
         }
@@ -30,7 +32,7 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'listen':
-            await ServicesBinding.instance!.defaultBinaryMessenger
+            await ServicesBinding.instance.defaultBinaryMessenger
                 .handlePlatformMessage(
               methodChannelBattery.eventChannel.name,
               methodChannelBattery.eventChannel.codec
@@ -72,6 +74,20 @@ void main() {
         <Matcher>[
           isMethodCall(
             'isInBatterySaveMode',
+            arguments: null,
+          ),
+        ],
+      );
+    });
+
+    test('getBatteryState', () async {
+      final result = await methodChannelBattery.batteryState;
+      expect(result, BatteryState.charging);
+      expect(
+        log,
+        <Matcher>[
+          isMethodCall(
+            'getBatteryState',
             arguments: null,
           ),
         ],

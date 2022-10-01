@@ -1,12 +1,11 @@
-# sensors
+# Sensors Plus
 
 [![Flutter Community: sensors_plus](https://fluttercommunity.dev/_github/header/sensors_plus)](https://github.com/fluttercommunity/community)
 
-[![pub package](https://img.shields.io/pub/v/sensors_plus.svg)](https://pub.dev/packages/sensors_plus)
+[![sensors_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/sensors_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/sensors_plus.yaml)
+[![pub package](https://img.shields.io/pub/v/battery_plus.svg)](https://pub.dev/packages/battery_plus)
 
-<p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a>
 
 A Flutter plugin to access the accelerometer, gyroscope, and magnetometer
 sensors.
@@ -70,9 +69,3 @@ Also see the `example` subdirectory for an example application that uses the
 sensor data.
 
 Check out our website to learn more: [Plus Plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
-
-**Important:** As of January 2021, the Flutter team is no longer accepting
-non-critical PRs for the original set of plugins in `flutter/plugins`, and
-instead they should be submitted in this project.
-[You can read more about this announcement here](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note)
-as well as [in the Flutter 2 announcement blog post](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65).

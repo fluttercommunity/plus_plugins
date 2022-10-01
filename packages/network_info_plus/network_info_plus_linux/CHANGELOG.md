@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Bump nm dependency to 0.5.0
+
 ## 1.1.1
 
 - Update Flutter dependencies

@@ -11,21 +11,22 @@
   FlutterEventSink _eventSink;
 }
 
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FLTBatteryPlusPlugin* instance = [[FLTBatteryPlusPlugin alloc] init];
++ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
+  FLTBatteryPlusPlugin *instance = [[FLTBatteryPlusPlugin alloc] init];
 
-  FlutterMethodChannel* channel =
-      [FlutterMethodChannel methodChannelWithName:@"dev.fluttercommunity.plus/battery"
-                                  binaryMessenger:[registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:@"dev.fluttercommunity.plus/battery"
+            binaryMessenger:[registrar messenger]];
 
   [registrar addMethodCallDelegate:instance channel:channel];
-  FlutterEventChannel* chargingChannel =
-      [FlutterEventChannel eventChannelWithName:@"dev.fluttercommunity.plus/charging"
-                                binaryMessenger:[registrar messenger]];
+  FlutterEventChannel *chargingChannel = [FlutterEventChannel
+      eventChannelWithName:@"dev.fluttercommunity.plus/charging"
+           binaryMessenger:[registrar messenger]];
   [chargingChannel setStreamHandler:instance];
 }
 
-- (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
+- (void)handleMethodCall:(FlutterMethodCall *)call
+                  result:(FlutterResult)result {
   if ([@"getBatteryLevel" isEqualToString:call.method]) {
     int batteryLevel = [self getBatteryLevel];
     if (batteryLevel == -1) {
@@ -35,6 +36,15 @@
     } else {
       result(@(batteryLevel));
     }
+  } else if ([@"getBatteryState" isEqualToString:call.method]) {
+    NSString *state = [self getBatteryState];
+    if (state) {
+      result(state);
+    } else {
+      result([FlutterError errorWithCode:@"UNAVAILABLE"
+                                 message:@"Charging status unavailable"
+                                 details:nil]);
+    }
   } else if ([@"isInBatterySaveMode" isEqualToString:call.method]) {
     result(@([[NSProcessInfo processInfo] isLowPowerModeEnabled]));
   } else {
@@ -42,35 +52,41 @@
   }
 }
 
-- (void)onBatteryStateDidChange:(NSNotification*)notification {
+- (void)onBatteryStateDidChange:(NSNotification *)notification {
   [self sendBatteryStateEvent];
 }
 
 - (void)sendBatteryStateEvent {
-  if (!_eventSink) return;
+  if (!_eventSink)
+    return;
+  NSString *state = [self getBatteryState];
+  if (state) {
+    _eventSink(state);
+  } else {
+    _eventSink([FlutterError errorWithCode:@"UNAVAILABLE"
+                                   message:@"Charging status unavailable"
+                                   details:nil]);
+  }
+}
+
+- (NSString *)getBatteryState {
   UIDeviceBatteryState state = [[UIDevice currentDevice] batteryState];
   switch (state) {
-    case UIDeviceBatteryStateUnknown:
-      _eventSink(@"unknown");
-      break;
-    case UIDeviceBatteryStateFull:
-      _eventSink(@"full");
-    case UIDeviceBatteryStateCharging:
-      _eventSink(@"charging");
-      break;
-    case UIDeviceBatteryStateUnplugged:
-      _eventSink(@"discharging");
-      break;
-    default:
-      _eventSink([FlutterError errorWithCode:@"UNAVAILABLE"
-                                     message:@"Charging status unavailable"
-                                     details:nil]);
-      break;
+  case UIDeviceBatteryStateUnknown:
+    return @"unknown";
+  case UIDeviceBatteryStateFull:
+    return @"full";
+  case UIDeviceBatteryStateCharging:
+    return @"charging";
+  case UIDeviceBatteryStateUnplugged:
+    return @"discharging";
+  default:
+    return nil;
   }
 }
 
 - (int)getBatteryLevel {
-  UIDevice* device = UIDevice.currentDevice;
+  UIDevice *device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
   if (device.batteryState == UIDeviceBatteryStateUnknown) {
     return -1;
@@ -81,18 +97,20 @@
 
 #pragma mark FlutterStreamHandler impl
 
-- (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
   _eventSink = eventSink;
   [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
   [self sendBatteryStateEvent];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onBatteryStateDidChange:)
-                                               name:UIDeviceBatteryStateDidChangeNotification
-                                             object:nil];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(onBatteryStateDidChange:)
+             name:UIDeviceBatteryStateDidChangeNotification
+           object:nil];
   return nil;
 }
 
-- (FlutterError*)onCancelWithArguments:(id)arguments {
+- (FlutterError *)onCancelWithArguments:(id)arguments {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   _eventSink = nil;
   return nil;

@@ -1,3 +1,41 @@
+## 2.2.1
+
+- Fix: batteryState always return unknown on API < 26
+
+## 2.2.0
+
+- Android: Migrate to Kotlin
+- Android: Bump targetSDK to 33 (Android 13)
+- Android: Update dependencies, build config updates
+- Update Flutter dependencies
+
+## 2.1.4+1
+
+- Add issue_tracker link.
+
+## 2.1.4
+
+- Update flutter_lints to 2.0.1
+- Update dev dependencies
+
+## 2.1.3
+
+- Update battery_plus_linux dependency
+- Set min Flutter version to 1.20.0 for all platforms
+
+## 2.1.2
+
+- Fix embedding issue in example
+- (Android) Update Kotlin and Gradle plugin
+
+## 2.1.1
+
+- (Android) Fix null pointer exception in `isInBatterySaveMode()` on Samsung devices with One UI
+
+## 2.1.0
+
+- Add batteryState getter
+
 ## 2.0.2
 
 - Update Flutter dependencies
