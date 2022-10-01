@@ -1,8 +1,9 @@
 name: Build website preview
 on:
   pull_request:
-    paths-ignore:
-      - "packages/**"
+    paths:
+      - "docs/**"
+      - "website/**"
 
 defaults:
   run:
