@@ -18,11 +18,11 @@ void main() {
   testWidgets('Can get battery level', (WidgetTester tester) async {
     final batteryLevel = await Battery().batteryLevel;
     expect(batteryLevel, isNotNull);
-  }, skip: !Platform.isAndroid);
+  }, skip: !Platform.isAndroid && !Platform.isMacOS);
 
   testWidgets('Can get if device is in battery save mode',
       (WidgetTester tester) async {
     final isInBatterySaveMode = await Battery().isInBatterySaveMode;
     expect(isInBatterySaveMode, false);
-  });
+  }, skip: !Platform.isAndroid && !Platform.isIOS && !Platform.isWindows);
 }
