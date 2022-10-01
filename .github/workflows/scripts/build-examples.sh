@@ -42,9 +42,7 @@ fi
 
 if [ "$ACTION" == "windows" ]
 then
-  flutter config --enable-windows-desktop
-  flutter doctor -v
-  melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
+  flutter pub global run melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
     -- flutter build windows $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
   exit
 fi
