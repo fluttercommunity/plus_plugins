@@ -13,6 +13,14 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  String getPlatformName() {
+    String platformName = Platform.operatingSystem;
+    if (Platform.isAndroid) {
+      platformName += ' emulator';
+    }
+    return platformName;
+  }
+
   group('Connectivity test driver', () {
     Connectivity _connectivity;
 
@@ -25,11 +33,11 @@ void main() {
       expect(result, isNotNull);
     });
 
-    testWidgets('connectivity on Android emulator should be wifi',
+    testWidgets('connectivity on ${getPlatformName()} should be wifi',
         (WidgetTester tester) async {
       final result = await _connectivity.checkConnectivity();
 
       expect(result, ConnectivityResult.wifi);
-    }, skip: !Platform.isAndroid);
+    }, skip: !Platform.isMacOS && !Platform.isAndroid);
   });
 }
