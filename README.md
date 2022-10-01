@@ -1,6 +1,8 @@
 <p align="center">
   <h1 align="center">Plus plugins</h1>
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="./website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+  <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener">
+    <img src="./website/static/img/flutter-favorite-badge.png" width="100" alt="build">
+   </a>
 </p>
 
 <p align="center">
