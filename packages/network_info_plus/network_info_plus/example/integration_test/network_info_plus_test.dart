@@ -35,6 +35,6 @@ void main() {
       expect(_networkInfo.getWifiSubmask(), isNotNull);
       expect(_networkInfo.getWifiGatewayIP(), isNotNull);
       expect(_networkInfo.getWifiBroadcast(), isNotNull);
-    }, skip: Platform.isWindows);
+    });
   });
 }
