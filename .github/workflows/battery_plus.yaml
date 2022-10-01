@@ -117,7 +117,6 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
   windows:
-    runs-on: windows-latest
     uses: ./.github/workflows/build_example.yaml
     with:
       os: windows
