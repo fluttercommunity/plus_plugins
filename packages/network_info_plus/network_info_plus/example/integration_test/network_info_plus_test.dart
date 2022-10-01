@@ -5,8 +5,9 @@
 // @dart=2.9
 
 import 'dart:io';
-import 'package:integration_test/integration_test.dart';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 void main() {
@@ -34,6 +35,6 @@ void main() {
       expect(_networkInfo.getWifiSubmask(), isNotNull);
       expect(_networkInfo.getWifiGatewayIP(), isNotNull);
       expect(_networkInfo.getWifiBroadcast(), isNotNull);
-    });
+    }, skip: Platform.isWindows);
   });
 }
