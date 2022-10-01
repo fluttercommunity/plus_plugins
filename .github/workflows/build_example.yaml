@@ -1,0 +1,23 @@
+name: Build Example
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+
+jobs:
+  build_example:
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Build Example"
+        run: ./.github/workflows/scripts/build-examples.sh ${{ inputs.os }} ./lib/main.dart

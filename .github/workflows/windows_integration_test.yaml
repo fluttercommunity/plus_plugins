@@ -1,0 +1,24 @@
+name: Window Integration Test
+
+on:
+  workflow_call:
+    inputs:
+      folder:
+        required: true
+
+jobs:
+  windows_integration_test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Windows Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh windows ${{ inputs.folder }}
