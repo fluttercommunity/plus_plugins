@@ -20,12 +20,13 @@ void main() {
       _networkInfo = NetworkInfo();
     });
 
-    testWidgets('test location methods, iOS only', (WidgetTester tester) async {
+    testWidgets('test location methods, iOS and MacOS only',
+        (WidgetTester tester) async {
       if (Platform.isIOS) {
         expect((await _networkInfo.getLocationServiceAuthorization()),
             LocationAuthorizationStatus.notDetermined);
       }
-    }, skip: !Platform.isIOS);
+    }, skip: !Platform.isIOS && !Platform.isMacOS);
 
     testWidgets('test non-null network value', (WidgetTester tester) async {
       expect(_networkInfo.getWifiName(), isNotNull);
