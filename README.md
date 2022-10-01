@@ -1,12 +1,4 @@
 <p align="center">
-  <a href="https://plus.fluttercommunity.dev/">
-    Flutter Community Plus Plugins<br/>
-  </a>
-  <h1 align="center">Plus plugins</h1>
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="./website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
-
-<p align="center">
   <a href="https://github.com/fluttercommunity/plus_plugins/actions?query=workflow%3Aall_plugins">
     <img src="https://github.com/fluttercommunity/plus_plugins/workflows/all_plugins/badge.svg" alt="all_plugins GitHub Workflow Status"/>
   </a>
@@ -17,9 +9,8 @@
 
 ---
 
-PlusPlugins is a set of Flutter plugins that is developed based on existing [Flutter plugins](https://github.com/flutter/plugins) with extra functionalities, platforms support, and better maintenance.
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
+PlusPlugins is a set of Flutter plugins that is developed based on plugins, which previously existed as a part of [Flutter plugins](https://github.com/flutter/plugins),
+with extra functionalities, support for more platforms and better maintenance.
 
 [Feedback](https://github.com/fluttercommunity/plus_plugins/issues) and [Pull Requests](https://github.com/fluttercommunity/plus_plugins/pulls) are most welcome!
 
