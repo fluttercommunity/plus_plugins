@@ -23,4 +23,4 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Windows Integration Test"
-        run: ./.github/workflows/scripts/integration-test.sh windows ${{ package.folder }}
+        run: ./.github/workflows/scripts/integration-test.sh windows ${{ package.package }}
