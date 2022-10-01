@@ -117,10 +117,10 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
   
   windows:
-    uses: ./.github/workflows/windows/build_example.yaml
+    uses: ./.github/workflows/windows_build_example.yaml
 
   windows_integration_test:
-    uses: ./.github/workflows/windows/integration_test.yaml
+    uses: ./.github/workflows/windows_integration_test.yaml
     with:
       package: device_info_plus_example
 
