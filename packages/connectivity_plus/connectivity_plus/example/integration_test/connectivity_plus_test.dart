@@ -31,5 +31,12 @@ void main() {
 
       expect(result, ConnectivityResult.wifi);
     }, skip: !Platform.isAndroid);
+    
+    testWidgets('connectivity on Linux should be wifi',
+        (WidgetTester tester) async {
+      final result = await _connectivity.checkConnectivity();
+
+      expect(result, ConnectivityResult.wifi);
+    }, skip: !Platform.isLinux);
   });
 }

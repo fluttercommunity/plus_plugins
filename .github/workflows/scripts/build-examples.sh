@@ -33,7 +33,8 @@ fi
 
 if [ "$ACTION" == "linux" ]
 then
-  sudo apt-get install ninja-build libgtk-3-dev
+  sudo apt-get update 
+  sudo apt-get install -y clang cmake ninja-build libgtk-3-dev build-essential
   flutter doctor -v
   melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \
     -- flutter build linux $FLUTTER_COMMAND_FLAGS --debug --target="$TARGET_FILE" --dart-define=CI=true
