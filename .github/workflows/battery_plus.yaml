@@ -134,7 +134,7 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
-  linux-integration-test:
+  linux_integration_test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
