@@ -144,6 +144,8 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Install UPower"
+        run: sudo apt install upower
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh linux battery_plus_example
   
