@@ -1,3 +1,7 @@
+## 1.2.5
+
+- Discard usued warnings for `ensurePathMonitor` & `ensureReachability` call in macOS.
+
 ## 1.2.4
 
 - Stop sending events once flutter engine detached
