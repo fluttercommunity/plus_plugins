@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$AndroidDeviceInfo', () {
-    group('fromMap | toMap', () {
+    group('fromMap', () {
       const androidBuildVersionMap = <String, dynamic>{
         'sdkInt': 16,
         'baseOS': 'baseOS',
@@ -70,13 +70,6 @@ void main() {
         expect(androidDeviceInfo.version.codename, 'codename');
         expect(androidDeviceInfo.version.incremental, 'incremental');
         expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
-      });
-
-      test('toMap should return map with correct key and map', () {
-        final androidDeviceInfo =
-            AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
-
-        expect(androidDeviceInfo.toMap(), androidDeviceInfoMap);
       });
     });
   });

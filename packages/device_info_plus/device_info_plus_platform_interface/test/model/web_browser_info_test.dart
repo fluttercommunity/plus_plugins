@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$WebBrowserInfo', () {
-    group('fromMap | toMap', () {
+    group('fromMap', () {
       const webBrowserInfoMap = <String, dynamic>{
         'browserName': BrowserName.safari,
         'appCodeName': 'appCodeName',
@@ -40,11 +40,6 @@ void main() {
         expect(webBrowserInfo.vendorSub, 'vendorSub');
         expect(webBrowserInfo.hardwareConcurrency, 2);
         expect(webBrowserInfo.maxTouchPoints, 42);
-      });
-
-      test('toMap should return map with correct key and map', () {
-        final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
-        expect(webBrowserInfo.toMap(), webBrowserInfoMap);
       });
     });
   });

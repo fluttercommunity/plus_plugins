@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Depreacate `toMap` method
+
 ## 3.0.0
 
 - Redo 2.6.0 into 3.0.0

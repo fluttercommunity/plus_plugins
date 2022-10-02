@@ -22,14 +22,4 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// The physically installed memory in the computer.
   /// This may not be the same as available memory.
   final int systemMemoryInMegabytes;
-
-  /// Serializes [WindowsDeviceInfo] to a map.
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'computerName': computerName,
-      'numberOfCores': numberOfCores,
-      'systemMemoryInMegabytes': systemMemoryInMegabytes,
-    };
-  }
 }

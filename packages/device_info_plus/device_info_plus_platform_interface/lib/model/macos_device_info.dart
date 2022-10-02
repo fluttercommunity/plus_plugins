@@ -54,23 +54,6 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Device GUID
   final String? systemGUID;
 
-  /// Serializes [MacOsDeviceInfo] to map.
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'arch': arch,
-      'model': model,
-      'hostName': hostName,
-      'osRelease': osRelease,
-      'activeCPUs': activeCPUs,
-      'memorySize': memorySize,
-      'cpuFrequency': cpuFrequency,
-      'computerName': computerName,
-      'kernelVersion': kernelVersion,
-      'systemGUID': systemGUID,
-    };
-  }
-
   /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
   static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {
     return MacOsDeviceInfo(

@@ -58,21 +58,6 @@ class IosDeviceInfo implements BaseDeviceInfo {
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
   }
-
-  /// Serializes [IosDeviceInfo] to a map.
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'model': model,
-      'systemName': systemName,
-      'utsname': utsname._toMap(),
-      'systemVersion': systemVersion,
-      'localizedModel': localizedModel,
-      'identifierForVendor': identifierForVendor,
-      'isPhysicalDevice': isPhysicalDevice.toString(),
-    };
-  }
 }
 
 /// Information derived from `utsname`.
@@ -110,16 +95,5 @@ class IosUtsname {
       version: map['version'],
       machine: map['machine'],
     );
-  }
-
-  /// Serializes [ IosUtsname ] to map.
-  Map<String, dynamic> _toMap() {
-    return {
-      'release': release,
-      'version': version,
-      'machine': machine,
-      'sysname': sysname,
-      'nodename': nodename,
-    };
   }
 }

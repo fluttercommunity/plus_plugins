@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$IosDeviceInfo', () {
-    group('fromMap | toMap', () {
+    group('fromMap', () {
       const iosUtsnameMap = <String, dynamic>{
         'release': 'release',
         'version': 'version',
@@ -36,12 +36,6 @@ void main() {
         expect(iosDeviceInfo.utsname.machine, 'machine');
         expect(iosDeviceInfo.utsname.sysname, 'sysname');
         expect(iosDeviceInfo.utsname.nodename, 'nodename');
-      });
-
-      test('toMap should return map with correct key and map', () {
-        final iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
-
-        expect(iosDeviceInfo.toMap(), iosDeviceInfoMap);
       });
     });
   });

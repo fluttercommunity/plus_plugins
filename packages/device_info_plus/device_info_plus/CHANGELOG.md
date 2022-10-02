@@ -1,3 +1,8 @@
+## 4.1.3
+
+- Depreacate `toMap` method
+- device_info_plus_platform_interface to 3.0.1
+
 ## 4.1.2
 
 - Redo changes in 4.1.0

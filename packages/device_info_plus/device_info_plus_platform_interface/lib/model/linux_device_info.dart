@@ -138,22 +138,4 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
   /// boot. The machine ID is hexadecimal, 32-character, lowercase ID. When
   /// decoded from hexadecimal, this corresponds to a 16-byte/128-bit value.
   final String? machineId;
-
-  /// Serializes [LinuxDeviceInfo] to a map.
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'version': version,
-      'id': id,
-      'idLike': idLike,
-      'versionCodename': versionCodename,
-      'versionId': versionId,
-      'prettyName': prettyName,
-      'buildId': buildId,
-      'variant': variant,
-      'variantId': variantId,
-      'machineId': machineId,
-    };
-  }
 }
