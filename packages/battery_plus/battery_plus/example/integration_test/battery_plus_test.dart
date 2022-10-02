@@ -14,15 +14,24 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   final bool batteryLevelIsImplemented = Platform.isAndroid || Platform.isMacOS;
+  final bool batteryStateIsImplemented = Platform.isAndroid ||
+      Platform.isIOS ||
+      Platform.isMacOS ||
+      Platform.isWindows;
   final bool isInBatterySaveModeIsImplemented =
       Platform.isAndroid || Platform.isIOS || Platform.isWindows;
 
-  /// Throws [PlatformException] on iOS simulator.
+  /// Throws [PlatformException] on iOS simulator and Windows.
   /// Run on Android only.
   testWidgets('Can get battery level', (WidgetTester tester) async {
     final batteryLevel = await Battery().batteryLevel;
     expect(batteryLevel, isNotNull);
   }, skip: !batteryLevelIsImplemented);
+
+  testWidgets('Can get battery state', (WidgetTester tester) async {
+    final batteryState = await Battery().batteryState;
+    expect(batteryState, isNotNull);
+  }, skip: !batteryStateIsImplemented);
 
   testWidgets('Can get if device is in battery save mode',
       (WidgetTester tester) async {
