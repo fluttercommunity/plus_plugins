@@ -3,6 +3,7 @@
 [![Flutter Community: network_info_plus](https://fluttercommunity.dev/_github/header/network_info_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
+[![pub points](https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/network_info_plus/score)
 [![network_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml)
 
 <p class="center">
@@ -85,5 +86,3 @@ To request location authorization, make sure to add the following keys to your _
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
