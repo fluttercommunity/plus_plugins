@@ -1,7 +1,9 @@
 package dev.fluttercommunity.plus.network_info
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import android.os.Build
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -24,7 +26,13 @@ class NetworkInfoPlusPlugin : FlutterPlugin {
         methodChannel = MethodChannel(messenger, CHANNEL)
         val wifiManager =
             context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val networkInfo = NetworkInfo(wifiManager)
+
+        var connectivityManager: ConnectivityManager? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            connectivityManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        }
+
+        val networkInfo = NetworkInfo(wifiManager, connectivityManager)
         val methodChannelHandler = NetworkInfoMethodChannelHandler(networkInfo)
         methodChannel.setMethodCallHandler(methodChannelHandler)
     }
