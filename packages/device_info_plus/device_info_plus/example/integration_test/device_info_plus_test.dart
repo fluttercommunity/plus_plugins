@@ -100,4 +100,18 @@ void main() {
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.systemFeatures, isNotNull);
   }, skip: !Platform.isAndroid);
+
+  testWidgets('Check all macos info values are set',
+      ((WidgetTester tester) async {
+    expect(macosInfo.computerName, isNotNull);
+    expect(macosInfo.hostName, isNotNull);
+    expect(macosInfo.arch, isNotNull);
+    expect(macosInfo.model, isNotNull);
+    expect(macosInfo.kernelVersion, isNotNull);
+    expect(macosInfo.osRelease, isNotNull);
+    expect(macosInfo.activeCPUs, isNotNull);
+    expect(macosInfo.memorySize, isNotNull);
+    expect(macosInfo.cpuFrequency, isNotNull);
+    expect(macosInfo.systemGUID, isNotNull);
+  }), skip: !Platform.isMacOS);
 }
