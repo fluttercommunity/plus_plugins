@@ -1,3 +1,7 @@
+## 4.1.3
+
+- Update dependencies
+
 ## 4.1.2
 
 - Redo changes in 4.1.0
