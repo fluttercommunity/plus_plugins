@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_device_info.dart';
 
 /// Device information for a Linux system.
@@ -156,4 +158,8 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
       'machineId': machineId,
     };
   }
+
+  /// `toJson()` returns a JSON string representation of [LinuxDeviceInfo] Model.
+  @override
+  String toJson() => jsonEncode(toMap());
 }

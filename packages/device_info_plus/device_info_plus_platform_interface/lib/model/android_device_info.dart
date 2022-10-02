@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_device_info.dart';
 
 /// Information derived from `android.os.Build`.
@@ -135,6 +137,9 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     };
   }
 
+  /// `toJson()` returns a JSON string representation of [AndroidDeviceInfo] Model.
+  String toJson() => jsonEncode(toMap());
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo(
@@ -219,6 +224,9 @@ class AndroidBuildVersion {
       'securityPatch': securityPatch,
     };
   }
+
+  /// `toJson()` returns a JSON string representation of [AndroidBuildVersion] Model.
+  String toJson() => jsonEncode(toMap());
 
   /// Deserializes from the map message received from [_kChannel].
   static AndroidBuildVersion _fromMap(Map<String, dynamic> map) {

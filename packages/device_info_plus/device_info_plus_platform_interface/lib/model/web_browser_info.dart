@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_device_info.dart';
 
 /// List of supported browsers
@@ -149,6 +151,10 @@ class WebBrowserInfo implements BaseDeviceInfo {
       'maxTouchPoints': maxTouchPoints,
     };
   }
+
+  /// `toJson()` returns a JSON string representation of [WebBrowserInfo] Model.
+  @override
+  String toJson() => jsonEncode(toMap());
 
   BrowserName _parseUserAgentToBrowserName() {
     final _userAgent = userAgent;

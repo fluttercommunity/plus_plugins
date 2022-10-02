@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_device_info.dart';
 
 /// Information derived from `UIDevice`.
@@ -73,6 +75,10 @@ class IosDeviceInfo implements BaseDeviceInfo {
       'isPhysicalDevice': isPhysicalDevice.toString(),
     };
   }
+
+  /// `toJson()` returns a JSON string representation of [IosDeviceInfo] Model.
+  @override
+  String toJson() => jsonEncode(toMap());
 }
 
 /// Information derived from `utsname`.

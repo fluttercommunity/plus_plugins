@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_device_info.dart';
 
 /// Object encapsulating MACOS device information.
@@ -86,4 +88,8 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
       systemGUID: map['systemGUID'],
     );
   }
+
+  /// `toJson()` returns a JSON string representation of [MacOsDeviceInfo] Model.
+  @override
+  String toJson() => jsonEncode(toMap());
 }
