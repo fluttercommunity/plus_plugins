@@ -138,6 +138,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   }
 
   /// `toJson()` returns a JSON string representation of [AndroidDeviceInfo] Model.
+  @override
   String toJson() => jsonEncode(toMap());
 
   /// Deserializes from the message received from [_kChannel].
