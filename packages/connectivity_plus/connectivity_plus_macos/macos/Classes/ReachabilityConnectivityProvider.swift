@@ -20,7 +20,7 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
 
   override init() {
     super.init()
-    ensureReachability()
+    _ = ensureReachability()
   }
 
   public func start() {
