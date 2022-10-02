@@ -1,6 +1,6 @@
 ## 2.3.8
 
-- Discard usued warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.
+- Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.
 
 ## 2.3.7
 
