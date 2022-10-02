@@ -2,7 +2,7 @@
 name: android_alarm_manager_plus
 
 concurrency:
-  group: android_alarm_manager_plus_${{ github.ref }}
+  group: android_alarm_manager_plus_${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 on:

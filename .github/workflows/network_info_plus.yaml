@@ -2,7 +2,7 @@
 name: network_info_plus
 
 concurrency:
-  group: network_info_plus_${{ github.ref }}
+  group: network_info_plus_${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 defaults:

@@ -2,7 +2,7 @@
 name: connectivity_plus
 
 concurrency:
-  group: connectivity_plus_${{ github.ref }}
+  group: connectivity_plus_${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 defaults:

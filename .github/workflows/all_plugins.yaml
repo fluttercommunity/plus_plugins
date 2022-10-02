@@ -1,7 +1,7 @@
 name: all_plugins
 
 concurrency:
-  group: all_plugins_${{ github.ref }}
+  group: all_plugins_${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 on:

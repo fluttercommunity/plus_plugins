@@ -2,7 +2,7 @@
 name: battery_plus
 
 concurrency:
-  group: battery_plus_${{ github.ref }}
+  group: battery_plus_${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 defaults:
