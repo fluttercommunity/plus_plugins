@@ -24,6 +24,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   final int systemMemoryInMegabytes;
 
   /// Serializes [WindowsDeviceInfo] to a map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {
