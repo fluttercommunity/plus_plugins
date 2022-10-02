@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/ios_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -42,6 +44,15 @@ void main() {
         final iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
 
         expect(iosDeviceInfo.toMap(), iosDeviceInfoMap);
+      });
+      test('toJson should return correct json string', () {
+        final iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
+        final iosDeviceInfoJson = jsonEncode(iosDeviceInfo.toMap());
+        expect(
+          iosDeviceInfo.toJson(),
+          iosDeviceInfoJson,
+          reason: 'toJson should return correct json string',
+        );
       });
     });
   });

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -68,6 +70,15 @@ void main() {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
 
         expect(macosDeviceInfo.toMap(), macosDeviceInfoMap);
+      });
+      test('toJson should return correct json string', () {
+        final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
+        final macosDeviceInfoJson = jsonEncode(macosDeviceInfo.toMap());
+        expect(
+          macosDeviceInfo.toJson(),
+          macosDeviceInfoJson,
+          reason: 'toJson should return correct json string',
+        );
       });
     });
   });

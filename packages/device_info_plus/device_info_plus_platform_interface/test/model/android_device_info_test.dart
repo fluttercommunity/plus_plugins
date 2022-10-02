@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/android_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -77,6 +79,16 @@ void main() {
             AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
 
         expect(androidDeviceInfo.toMap(), androidDeviceInfoMap);
+      });
+      test('toJson should return correct json string', () {
+        final androidDeviceInfo =
+            AndroidDeviceInfo.fromMap(androidDeviceInfoMap);
+        final androidDeviceInfoJson = jsonEncode(androidDeviceInfo.toMap());
+        expect(
+          androidDeviceInfo.toJson(),
+          androidDeviceInfoJson,
+          reason: 'toJson should return correct json string',
+        );
       });
     });
   });

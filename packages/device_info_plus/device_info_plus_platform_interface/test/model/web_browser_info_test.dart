@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_info_plus_platform_interface/model/web_browser_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -45,6 +47,15 @@ void main() {
       test('toMap should return map with correct key and map', () {
         final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
         expect(webBrowserInfo.toMap(), webBrowserInfoMap);
+      });
+      test('toJson should return correct json string', () {
+        final webBrowserInfo = WebBrowserInfo.fromMap(webBrowserInfoMap);
+        final webBrowserInfoJson = jsonEncode(webBrowserInfo.toMap());
+        expect(
+          webBrowserInfo.toJson(),
+          webBrowserInfoJson,
+          reason: 'toJson should return correct json string',
+        );
       });
     });
   });
