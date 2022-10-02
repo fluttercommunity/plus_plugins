@@ -1,7 +1,3 @@
-## 4.1.1
-
-- platform interface to 3.0.1
-
 ## 4.1.0
 
 - Allow win32 3.x to be used.

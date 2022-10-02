@@ -128,6 +128,28 @@ class WebBrowserInfo implements BaseDeviceInfo {
     );
   }
 
+  /// Serializes [WebBrowserInfo] to a map.
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'browserName': browserName,
+      'appCodeName': appCodeName,
+      'appName': appName,
+      'appVersion': appVersion,
+      'deviceMemory': deviceMemory,
+      'language': language,
+      'languages': languages,
+      'platform': platform,
+      'product': product,
+      'productSub': productSub,
+      'userAgent': userAgent,
+      'vendor': vendor,
+      'vendorSub': vendorSub,
+      'hardwareConcurrency': hardwareConcurrency,
+      'maxTouchPoints': maxTouchPoints,
+    };
+  }
+
   BrowserName _parseUserAgentToBrowserName() {
     final _userAgent = userAgent;
     if (_userAgent == null) {

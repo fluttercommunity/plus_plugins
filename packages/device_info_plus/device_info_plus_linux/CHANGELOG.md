@@ -1,8 +1,3 @@
-## 3.0.1
-
-- Depreacate `toMap` method
-- device_info_plus_platform_interface to 3.0.1
-
 ## 3.0.0
 
 - platform interface to 3.0.0

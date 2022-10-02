@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('$MacOsDeviceInfo', () {
-    group('fromMap', () {
+    group('fromMap | toMap', () {
       const macosDeviceInfoMap = <String, dynamic>{
         'arch': 'arch',
         'model': 'model',
@@ -29,9 +29,15 @@ void main() {
         expect(macosDeviceInfo.osRelease, 'osRelease');
         expect(macosDeviceInfo.systemGUID, isNull);
       });
+
+      test('toMap should return map with correct key and map', () {
+        final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
+
+        expect(macosDeviceInfo.toMap(), macosDeviceInfoMap);
+      });
     });
 
-    group('fromMap', () {
+    group('fromMap | toMap', () {
       const macosDeviceInfoMap = <String, dynamic>{
         'arch': 'arch',
         'model': 'model',
@@ -56,6 +62,12 @@ void main() {
         expect(macosDeviceInfo.hostName, 'hostName');
         expect(macosDeviceInfo.osRelease, 'osRelease');
         expect(macosDeviceInfo.systemGUID, 'systemGUID');
+      });
+
+      test('toMap should return map with correct key and map', () {
+        final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
+
+        expect(macosDeviceInfo.toMap(), macosDeviceInfoMap);
       });
     });
   });
