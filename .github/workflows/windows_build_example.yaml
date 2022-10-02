@@ -3,9 +3,19 @@ name: Build example in windows
 
 on:
   workflow_call:
+    inputs:
+      PLUGIN_SCOPE:
+        required: true
+        type: string
+      PLUGIN_EXAMPLE_SCOPE:
+        required: true
+        type: string
 
 jobs:
   build_example:
+    env:
+      PLUGIN_SCOPE: ${{ inputs.PLUGIN_SCOPE }}
+      PLUGIN_EXAMPLE_SCOPE: ${{ inputs.PLUGIN_EXAMPLE_SCOPE }}
     runs-on: windows-latest
     timeout-minutes: 30
     defaults:

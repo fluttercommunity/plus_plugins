@@ -118,6 +118,9 @@ jobs:
 
   windows:
     uses: ./.github/workflows/windows_build_example.yaml
+    with:
+      PLUGIN_SCOPE: "*package_info_plus*"
+      PLUGIN_EXAMPLE_SCOPE: "*package_info_plus_example*"
 
   windows_integration_test:
     uses: ./.github/workflows/windows_integration_test.yaml
