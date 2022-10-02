@@ -13,8 +13,7 @@ fi
 
 if [ "$ACTION" == "linux" ]
 then
-  sudo apt-get update
-  sudo apt-get install -y clang cmake ninja-build libgtk-3-dev xvfb
+  sudo apt-get install ninja-build libgtk-3-dev
   export DISPLAY=:99
   sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \

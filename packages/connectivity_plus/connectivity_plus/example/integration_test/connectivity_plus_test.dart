@@ -39,11 +39,11 @@ void main() {
       expect(result, ConnectivityResult.ethernet);
     }, skip: !Platform.isMacOS);
 
-    testWidgets('connectivity on Linux should be ethernet',
+    testWidgets('connectivity on Linux should be none',
         (WidgetTester tester) async {
       final result = await _connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.ethernet);
+      expect(result, ConnectivityResult.none);
     }, skip: !Platform.isLinux);
   });
 }
