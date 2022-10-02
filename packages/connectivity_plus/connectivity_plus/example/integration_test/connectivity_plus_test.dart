@@ -32,11 +32,11 @@ void main() {
       expect(result, ConnectivityResult.wifi);
     }, skip: !Platform.isAndroid);
 
-    testWidgets('connectivity on MacOS should be wifi',
+    testWidgets('connectivity on MacOS should be ethernet',
         (WidgetTester tester) async {
       final result = await _connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.wifi);
+      expect(result, ConnectivityResult.ethernet);
     }, skip: !Platform.isMacOS);
   });
 }
