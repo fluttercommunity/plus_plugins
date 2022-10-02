@@ -118,9 +118,15 @@ void main() {
   testWidgets('Check all Linux info values are available',
       ((WidgetTester tester) async {
     expect(linuxInfo.name, equals('Linux'));
+    expect(linuxInfo.version, isNull);
+    expect(linuxInfo.id, equals('linux'));
     expect(linuxInfo.idLike, isNull);
+    expect(linuxInfo.versionCodename, isNull);
+    expect(linuxInfo.versionId, isNull);
+    expect(linuxInfo.prettyName, 'Linux');
     expect(linuxInfo.buildId, isNull);
     expect(linuxInfo.variant, isNull);
     expect(linuxInfo.variantId, isNull);
-  }), skip: !Platform.Linux);
+    expect(linuxInfo.machineId, isNull);
+  }), skip: !Platform.isLinux);
 }
