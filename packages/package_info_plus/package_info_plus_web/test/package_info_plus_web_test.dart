@@ -46,6 +46,7 @@ void main() {
           expect(versionMap.version, VERSION_JSON['version']);
         },
       );
+
       test(
         'Get empty values when response status is not 200',
         () async {
@@ -63,8 +64,9 @@ void main() {
           expect(versionMap.version, isEmpty);
         },
       );
+
       test(
-        'Get correct versionJsonUrl',
+        'Get correct versionJsonUrl for http and https',
         () {
           expect(
             plugin.versionJsonUrl('https://example.com/#/my-page', 1),
@@ -95,6 +97,78 @@ void main() {
           );
         },
       );
+
+      test('Get correct versionJsonUrl for chrome-extensions', () {
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh', 1),
+          Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh/a/b/c', 1),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh/#my-page', 1),
+          Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl(
+              'chrome-extension://abcdefgh/a/b/c/#my-page', 1),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+        );
+      });
+
+      test('Get correct origin for http and https', () {
+        expect(
+          plugin.origin(Uri.parse('https://example.com/#/my-page')),
+          'https://example.com',
+        );
+        expect(
+          plugin.origin(Uri.parse('https://example.com/a/b/c/#/my-page')),
+          'https://example.com',
+        );
+        expect(
+          plugin.origin(Uri.parse('https://example.com/a/b/c/#/my-page')),
+          'https://example.com',
+        );
+        expect(
+          plugin.origin(
+              Uri.parse('https://example.com/?hello_world=true#/my-page')),
+          'https://example.com',
+        );
+        expect(
+          plugin.origin(Uri.parse(
+              'https://example.com/a/b/c/?hello_world=true#/my-page')),
+          'https://example.com',
+        );
+        expect(
+          plugin.origin(
+              Uri.parse('https://example.com/a/b/c?hello_world=true#/my-page')),
+          'https://example.com',
+        );
+      });
+
+      test('Get correct origin for chrome-extensions', () {
+        expect(
+          plugin.origin(Uri.parse('chrome-extension://abcdefgh')),
+          'chrome-extension://abcdefgh',
+        );
+        expect(
+          plugin.origin(Uri.parse('chrome-extension://abcdefgh/a/b/c')),
+          'chrome-extension://abcdefgh',
+        );
+        expect(
+          plugin.origin(Uri.parse('chrome-extension://abcdefgh/#my-page')),
+          'chrome-extension://abcdefgh',
+        );
+        expect(
+          plugin
+              .origin(Uri.parse('chrome-extension://abcdefgh/a/b/c/#my-page')),
+          'chrome-extension://abcdefgh',
+        );
+      });
     },
   );
 }
