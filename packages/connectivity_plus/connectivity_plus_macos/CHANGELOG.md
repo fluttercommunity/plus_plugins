@@ -1,6 +1,6 @@
 ## 1.2.5
 
-- Discard usued warnings for `ensurePathMonitor` & `ensureReachability` call in macOS.
+- Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in macOS.
 
 ## 1.2.4
 
