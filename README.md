@@ -22,7 +22,9 @@ support for more platforms and better maintenance.
 
 [Feedback](https://github.com/fluttercommunity/plus_plugins/issues) and [Pull Requests](https://github.com/fluttercommunity/plus_plugins/pulls) are most welcome!
 
-## Plugins
+You can check : [Setup and Run](https://github.com/fluttercommunity/plus_plugins/blob/main/CONTRIBUTING.md) to set this Project up into your device perfectly.
+
+## Plugins 🛠
 
 **Table of contents:**
 
@@ -185,21 +187,28 @@ Flutter plugin for launching Android Intents. Not supported on iOS.
 
 ---
 
-## Issues
+## Issues 📓
 
 Please file PlusPlugins specific issues, bugs, or feature requests in our [issue tracker](https://github.com/fluttercommunity/plus_plugins/issues/new).
 
 Plugin issues that are not specific to PlusPlugins can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
 
-## Contributing
+## Contributing 🧧
 
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/fluttercommunity/plus_plugins/blob/master/CONTRIBUTING.md)
 and open a [pull request](https://github.com/fluttercommunity/plus_plugins/pulls).
 
-## Status
+## Status ⏳
 
 This repository is maintained by FlutterCommunity authors. Issues here are answered by maintainers and other community members on GitHub on a best-effort basis.
+
+---
+
+<p align="center">
+  Head over to <a href="https://invertase.io">Invertase.io</a> for more Projects
+</p>
+
 
 [battery_plus]: https://pub.dev/packages/battery_plus
 [battery_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus
