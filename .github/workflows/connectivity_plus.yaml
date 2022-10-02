@@ -1,6 +1,10 @@
 # Build Connectivity Info Plus Example
 name: connectivity_plus
 
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -117,8 +121,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
   windows:
-    if: false # Disabled until Windows CI scripts are done
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -129,6 +132,19 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
+
+  windows_integration_test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh windows connectivity_plus_example
 
   web:
     runs-on: ubuntu-latest

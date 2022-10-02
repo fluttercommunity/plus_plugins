@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ACTION=$1
 SCOPE=$2
 
@@ -14,6 +16,12 @@ then
   sudo apt-get install ninja-build libgtk-3-dev
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test -d linux ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
+fi
+
+if [ "$ACTION" == "windows" ]
+then
+  melos.bat exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
+    "flutter test -d windows ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
 if [ "$ACTION" == "macos" ]
