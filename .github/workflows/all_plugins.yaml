@@ -1,5 +1,9 @@
 name: all_plugins
 
+concurrency:
+  group: all_plugins_${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths-ignore:

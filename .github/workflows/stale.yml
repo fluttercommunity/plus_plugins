@@ -1,4 +1,9 @@
 name: 'Stale issue handler'
+
+concurrency:
+  group: stale_issue_handler_${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   schedule:

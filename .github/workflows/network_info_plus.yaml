@@ -1,6 +1,10 @@
 # Build Network Info Plus Example
 name: network_info_plus
 
+concurrency:
+  group: network_info_plus_${{ github.ref }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
