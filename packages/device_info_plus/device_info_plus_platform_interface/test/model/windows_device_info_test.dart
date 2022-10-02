@@ -17,14 +17,19 @@ void main() {
         'numberOfCores': 4,
         'systemMemoryInMegabytes': 16,
       });
-      test('toJson should return correct json string', () {
-        final windowsDeviceInfoJson = jsonEncode(windowsDeviceInfo.toMap());
-        expect(
-          windowsDeviceInfo.toJson(),
-          windowsDeviceInfoJson,
-          reason: 'toJson should return correct json string',
-        );
-      });
+    });
+    test('toJson should return correct json string', () {
+      final windowsDeviceInfo = WindowsDeviceInfo(
+        computerName: 'computerName',
+        numberOfCores: 4,
+        systemMemoryInMegabytes: 16,
+      );
+      final windowsDeviceInfoJson = jsonEncode(windowsDeviceInfo.toMap());
+      expect(
+        windowsDeviceInfo.toJson(),
+        windowsDeviceInfoJson,
+        reason: 'toJson should return correct json string',
+      );
     });
   });
 }

@@ -7,7 +7,6 @@ void main() {
   group('$WebBrowserInfo', () {
     group('fromMap | toMap', () {
       const webBrowserInfoMap = <String, dynamic>{
-        'browserName': BrowserName.safari,
         'appCodeName': 'appCodeName',
         'appName': 'appName',
         'appVersion': 'appVersion',
