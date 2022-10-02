@@ -1,3 +1,7 @@
+## 2.3.8
+
+- Discard usued warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.
+
 ## 2.3.7
 
 - iOS: Reduce compiler warnings
