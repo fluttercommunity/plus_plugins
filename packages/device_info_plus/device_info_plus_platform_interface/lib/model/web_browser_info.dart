@@ -134,7 +134,6 @@ class WebBrowserInfo implements BaseDeviceInfo {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'browserName': browserName,
       'appCodeName': appCodeName,
       'appName': appName,
       'appVersion': appVersion,
