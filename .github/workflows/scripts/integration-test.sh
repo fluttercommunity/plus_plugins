@@ -14,8 +14,11 @@ fi
 if [ "$ACTION" == "linux" ]
 then
   sudo apt-get install ninja-build libgtk-3-dev
+  # Testrunner is headless. Required create virtual display for the linux tests to run.
+  export DISPLAY=:99
+  sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
-    "flutter test -d linux ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
+  "flutter test -d linux ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
 if [ "$ACTION" == "windows" ]

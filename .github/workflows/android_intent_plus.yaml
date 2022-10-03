@@ -1,6 +1,10 @@
 # Build Android Intent Plus Example
 name: android_intent_plus
 
+concurrency:
+  group: android_intent_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
@@ -28,7 +32,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
@@ -47,7 +51,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Bootstrap Workspace"
         run: melos bootstrap
