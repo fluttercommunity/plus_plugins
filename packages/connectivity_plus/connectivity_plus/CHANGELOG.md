@@ -1,3 +1,7 @@
+## 2.3.9
+
+- Discard unused warnings for `switch reachability.connection ?? .unavailable` in macOS by removing `?? .unavailable` as left side of nil coalescing operator '??' has non-optional type 'Reachability.Connection', so the right side is never used.
+
 ## 2.3.8
 
 - Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.
