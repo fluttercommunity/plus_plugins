@@ -23,6 +23,7 @@ flutter:
         default_package: share_plus_windows
 
 dependencies:
+  cross_file: ^0.3.3+2
   meta: ^1.7.0
   mime: ^1.0.2
   flutter:

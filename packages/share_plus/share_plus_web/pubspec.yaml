@@ -12,6 +12,7 @@ flutter:
         fileName: share_plus_web.dart
 
 dependencies:
+  cross_file: ^0.3.3+2
   share_plus_platform_interface: ^3.0.2
   url_launcher: ^6.1.2
   flutter:
@@ -19,6 +20,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   meta: ^1.7.0
+  mime: ^1.0.0
 
 dev_dependencies:
   flutter_test:

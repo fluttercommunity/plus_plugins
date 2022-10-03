@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_share.dart';
@@ -60,6 +61,21 @@ class SharePlatform extends PlatformInterface {
     );
   }
 
+  /// Share [XFile] objects.
+  Future<void> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    return _instance.shareXFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
   /// Share text with Result.
   Future<ShareResult> shareWithResult(
     String text, {
@@ -86,6 +102,23 @@ class SharePlatform extends PlatformInterface {
     await _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+
+    return _resultUnavailable;
+  }
+
+  /// Share [XFile] objects with Result.
+  Future<ShareResult> shareXFilesWithResult(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    await _instance.shareXFiles(
+      files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,

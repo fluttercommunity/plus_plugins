@@ -55,6 +55,17 @@ Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
 
+On web you can use `SharePlus.shareCrossFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
+if it's available. Otherwise it falls back to downloading the shared files.
+See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
+which browsers are supported. This builds on the [`cross_file`](https://pub.dev/packages/cross_file)
+package.
+
+
+```dart
+Share.shareCrossFiles([XFile('assets/hello.txt')], text: 'Great picture');
+```
+
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
 ## Known Issues

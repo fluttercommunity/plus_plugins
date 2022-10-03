@@ -24,6 +24,7 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  List<String> imageNames = [];
   List<String> imagePaths = [];
 
   @override
@@ -73,6 +74,7 @@ class DemoAppState extends State<DemoApp> {
                       if (pickedFile != null) {
                         setState(() {
                           imagePaths.add(pickedFile.path);
+                          imageNames.add(pickedFile.name);
                         });
                       }
                     },
@@ -109,6 +111,7 @@ class DemoAppState extends State<DemoApp> {
   void _onDeleteImage(int position) {
     setState(() {
       imagePaths.removeAt(position);
+      imageNames.removeAt(position);
     });
   }
 
@@ -123,7 +126,11 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (imagePaths.isNotEmpty) {
-      await Share.shareFiles(imagePaths,
+      final files = <XFile>[];
+      for (var i = 0; i < imagePaths.length; i++) {
+        files.add(XFile(imagePaths[i], name: imageNames[i]));
+      }
+      await Share.shareXFiles(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
@@ -138,7 +145,11 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
     ShareResult result;
     if (imagePaths.isNotEmpty) {
-      result = await Share.shareFilesWithResult(imagePaths,
+      final files = <XFile>[];
+      for (var i = 0; i < imagePaths.length; i++) {
+        files.add(XFile(imagePaths[i], name: imageNames[i]));
+      }
+      result = await Share.shareXFilesWithResult(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);

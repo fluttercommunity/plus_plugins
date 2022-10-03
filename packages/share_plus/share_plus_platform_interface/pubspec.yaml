@@ -5,6 +5,7 @@ homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 dependencies:
+  cross_file: ^0.3.3+2
   flutter:
     sdk: flutter
   meta: ^1.7.0

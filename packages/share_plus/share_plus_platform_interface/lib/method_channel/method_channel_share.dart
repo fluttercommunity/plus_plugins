@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show lookupMimeType;
@@ -69,6 +70,26 @@ class MethodChannelShare extends SharePlatform {
     return channel.invokeMethod('shareFiles', params);
   }
 
+  /// Summons the platform's share sheet to share multiple files.
+  @override
+  Future<void> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    final mimeTypes =
+        files.map((e) => e.mimeType ?? _mimeTypeForPath(e.path)).toList();
+
+    return shareFiles(
+      files.map((e) => e.path).toList(),
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
   /// Summons the platform's share sheet to share text and returns the result.
   @override
   Future<ShareResult> shareWithResult(
@@ -128,6 +149,26 @@ class MethodChannelShare extends SharePlatform {
             'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
+  }
+
+  /// Summons the platform's share sheet to share multiple files.
+  @override
+  Future<ShareResult> shareXFilesWithResult(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    final mimeTypes =
+        files.map((e) => e.mimeType ?? _mimeTypeForPath(e.path)).toList();
+
+    return shareFilesWithResult(
+      files.map((e) => e.path).toList(),
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   static String _mimeTypeForPath(String path) {

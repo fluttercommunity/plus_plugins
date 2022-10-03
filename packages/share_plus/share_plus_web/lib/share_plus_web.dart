@@ -1,8 +1,10 @@
 import 'dart:html' as html;
-import 'dart:ui';
+import 'dart:typed_data';
 
+import 'package:cross_file/cross_file.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:meta/meta.dart';
+import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,8 +15,7 @@ class SharePlusPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusPlugin();
   }
 
-  // ignore: prefer_typing_uninitialized_variables
-  final _navigator;
+  final html.Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
   SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
@@ -61,7 +62,107 @@ class SharePlusPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-  }) {
-    throw UnimplementedError('shareFiles() has not been implemented on Web.');
+  }) async {
+    final files = <XFile>[];
+    for (var i = 0; i < paths.length; i++) {
+      files.add(XFile(paths[i], mimeType: mimeTypes?[i]));
+    }
+    return shareXFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Share [XFile] objects.
+  ///
+  /// Remarks for the web implementation:
+  /// This uses the [Web Share API](https://web.dev/web-share/) if it's
+  /// available. Otherwise it falls back to downloading the shared files.
+  /// See [Can I Use - Web Share API](https://caniuse.com/web-share) to
+  /// understand which browsers are supported. This builds on the
+  /// [`cross_file`](https://pub.dev/packages/cross_file) package.
+  @override
+  Future<void> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    // See https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+
+    final webFiles = <html.File>[];
+    for (final xFile in files) {
+      webFiles.add(await _fromXFile(xFile));
+    }
+    try {
+      await _navigator.share({
+        if (subject?.isNotEmpty ?? false) 'title': subject,
+        if (text?.isNotEmpty ?? false) 'text': text,
+        if (webFiles.isNotEmpty) 'files': webFiles,
+      });
+    } on NoSuchMethodError catch (exception, stackTrace) {
+      FlutterError.onError?.call(FlutterErrorDetails(
+        exception: exception,
+        stack: stackTrace,
+        context: DiagnosticsNode.message('while trying to share file(s)'),
+        library: 'share_plus_web',
+        informationCollector: () => [
+          DiagnosticsNode.message(
+            'The web share API is not available on the current browser. '
+            'Falling back to downloading the files. '
+            'Subject and text are discarded if given.',
+          ),
+        ],
+      ));
+      // fall back to save the file, if file sharing is not available
+      for (final xFile in files) {
+        // on web the path is ignored
+        await xFile.saveTo('path');
+      }
+    } catch (exception, stackTrace) {
+      // Ideally we would be able to catch JSs NotAllowedError and TypeError,
+      // but we can't, so here we are.
+      // Reasons for failures are listed here:
+      // https://w3c.github.io/web-share/
+      FlutterError.onError?.call(FlutterErrorDetails(
+        exception: exception,
+        stack: stackTrace,
+        context: DiagnosticsNode.message('while trying to share a file(s)'),
+        library: 'share_plus_web',
+        informationCollector: () => [
+          DiagnosticsNode.message(
+            'This failure can be caused by various problems: '
+            'A file type is being blocked due to security considerations. '
+            'Files is empty or the browser does not support it. '
+            'See https://w3c.github.io/web-share/ for further information. '
+            'Falling back to downloading the files. '
+            'Subject and text are discarded if given.',
+          ),
+        ],
+      ));
+      // fall back to save the file, if file sharing is not available
+      for (final xFile in files) {
+        // on web the path is ignored
+        await xFile.saveTo('path');
+      }
+    }
+  }
+
+  static Future<html.File> _fromXFile(XFile file) async {
+    final bytes = await file.readAsBytes();
+    return html.File(
+      [ByteData.sublistView(bytes)],
+      file.name,
+      {
+        'type': file.mimeType ?? _mimeTypeForPath(file, bytes),
+      },
+    );
+  }
+
+  static String _mimeTypeForPath(XFile file, Uint8List bytes) {
+    return lookupMimeType(file.name, headerBytes: bytes) ??
+        'application/octet-stream';
   }
 }
