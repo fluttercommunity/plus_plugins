@@ -114,4 +114,18 @@ void main() {
     expect(macosInfo.cpuFrequency, isNotNull);
     expect(macosInfo.systemGUID, isNotNull);
   }), skip: !Platform.isMacOS);
+
+  testWidgets('Check all Linux info values are available',
+      ((WidgetTester tester) async {
+    expect(linuxInfo.name, isNotNull);
+    expect(linuxInfo.version, isNotNull);
+    expect(linuxInfo.id, isNotNull);
+    expect(linuxInfo.idLike, isNotNull);
+    expect(linuxInfo.versionCodename, isNotNull);
+    expect(linuxInfo.versionId, isNotNull);
+    expect(linuxInfo.prettyName, isNotNull);
+    expect(linuxInfo.buildId, isNull);
+    expect(linuxInfo.variant, isNull);
+    expect(linuxInfo.variantId, isNull);
+  }), skip: !Platform.isLinux);
 }
