@@ -1,3 +1,8 @@
+## 4.5.0
+
+- Add `shareXFiles` and `shareXFilesWithResult` implementations
+- Enable `shareFiles*` implementations on Web
+
 ## 4.4.0
 
 - Reverted changes in 4.2.0 due to crash issues. See #1081
