@@ -21,11 +21,12 @@
     struct utsname un;
     uname(&un);
 
-    NSString* machine;
+    NSString *machine;
     if ([[self isDevicePhysical] isEqualToString:@"true"]) {
       machine = @(un.machine);
     } else {
-      machine = [[NSProcessInfo processInfo] environment][@"SIMULATOR_MODEL_IDENTIFIER"];
+      machine = [[NSProcessInfo processInfo]
+          environment][@"SIMULATOR_MODEL_IDENTIFIER"];
     }
 
     result(@{
