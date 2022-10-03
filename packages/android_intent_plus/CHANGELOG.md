@@ -1,3 +1,7 @@
+## 3.2.0
+
+- Add `action_apn_settings` intent support
+
 ## 3.1.2
 
 - Fix explicit intent fallback to implicit
