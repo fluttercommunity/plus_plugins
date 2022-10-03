@@ -1,6 +1,10 @@
 # Build Package Info Plus Example
 name: package_info_plus
 
+concurrency:
+  group: package_info_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash

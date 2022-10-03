@@ -1,6 +1,10 @@
 # Build Battery Plus Example
 name: battery_plus
 
+concurrency:
+  group: battery_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
@@ -32,7 +36,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
@@ -51,7 +55,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Bootstrap Workspace"
         run: melos bootstrap
@@ -90,7 +94,7 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v1
         with:
-          model: 'iPhone 8'
+          model: "iPhone 8"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios battery_plus_example
 

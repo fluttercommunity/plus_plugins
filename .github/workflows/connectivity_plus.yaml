@@ -1,6 +1,10 @@
 # Build Connectivity Info Plus Example
 name: connectivity_plus
 
+concurrency:
+  group: connectivity_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
