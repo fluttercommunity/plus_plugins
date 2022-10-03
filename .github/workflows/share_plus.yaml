@@ -107,7 +107,7 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
-  macos-integration-test:
+  macos_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
     steps:
@@ -133,7 +133,7 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
      
-  linux-integration-test:
+  linux_integration_test:
     if: false # TODO: enable this if it is possible to register a mailto protocol handler on github hosted runners
     runs-on: ubuntu-latest
     timeout-minutes: 30
