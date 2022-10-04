@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiSubmask;
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
+      if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
           status = await _networkInfo.requestLocationServiceAuthorization();
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
+      if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
           status = await _networkInfo.requestLocationServiceAuthorization();

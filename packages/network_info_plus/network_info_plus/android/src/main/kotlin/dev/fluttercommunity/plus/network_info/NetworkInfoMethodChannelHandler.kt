@@ -1,5 +1,6 @@
 package dev.fluttercommunity.plus.network_info
 
+import android.app.Activity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -11,6 +12,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 internal class NetworkInfoMethodChannelHandler(private val networkInfo: NetworkInfo) :
     MethodCallHandler {
 
+    var activity: Activity? = null
+
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "wifiName" -> result.success(networkInfo.getWifiName())
@@ -20,6 +23,12 @@ internal class NetworkInfoMethodChannelHandler(private val networkInfo: NetworkI
             "wifiSubmask" -> result.success(networkInfo.getWifiSubnetMask())
             "wifiGatewayAddress" -> result.success(networkInfo.getGatewayIPAddress())
             "wifiIPv6Address" -> result.success(networkInfo.getIpV6())
+            "getLocationServiceAuthorization" -> networkInfo.getLocationServiceAuthorizationWithResult(
+                activity, result
+            )
+            "requestLocationServiceAuthorization" -> networkInfo.requestLocationServiceAuthorization(
+                activity, result
+            )
             else -> result.notImplemented()
         }
     }

@@ -41,15 +41,44 @@ var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 
 ### Android
 
+Your app must target API level 33 (Android 13) or higher to use this plugin to support the latest `NEARBY_WIFI_DEVICES` permission.
+
+```groovy
+// app/build.gradle
+...
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        ...
+        targetSdkVersion 33
+    }
+}
+```
+
 To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure all of the following conditions are met:
 
-- If your app is targeting Android 10 (API level 29) SDK or higher, your app needs to have the ACCESS_FINE_LOCATION permission.
+- If your app supports Android 13 (API level 33) or higher, you must add the `NEARBY_WIFI_DEVICES` permission to `AndroidManifest.xml`.
 
-- If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
+- If your app supports Android 10 (API level 29) SDK or higher, you must add the `ACCESS_FINE_LOCATION` permission to `AndroidManifest.xml`.
+
+- If your app supports lower than Android 10 (API level 29) SDK, you must add the `ACCESS_COARSE_LOCATION` permission.
+
+```xml
+<!-- AndroidManifest.xml -->
+...
+<!-- Android >=13 -->
+<uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation" />
+<!-- Android 10-12 -->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<!-- Android <10 -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+```
 
 - Location services are enabled on the device (under Settings > Location).
 
-**This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
+There is a helper method provided in this plugin to request the location authorization: `requestLocationServiceAuthorization`.
 
 ### iOS 12
 

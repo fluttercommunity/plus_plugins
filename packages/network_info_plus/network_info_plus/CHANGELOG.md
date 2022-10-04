@@ -1,3 +1,6 @@
+## 2.3.0
+- Android: Add `getLocationServiceAuthorization` and `requestLocationServiceAuthorization` permissions support
+
 ## 2.2.0
 
 - Android: Migrate to Kotlin
