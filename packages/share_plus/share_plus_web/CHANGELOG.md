@@ -1,7 +1,8 @@
 ## 3.1.0
 
-- Add `shareXFiles` and `shareXFilesWithResult` implementations
-- Enable `shareFiles*` implementations
+- Add `shareXFiles` implementations
+- Deprecate `shareFiles*` implementations
+- Enable `shareXFiles` implementations on Web
 
 ## 3.0.1
 
