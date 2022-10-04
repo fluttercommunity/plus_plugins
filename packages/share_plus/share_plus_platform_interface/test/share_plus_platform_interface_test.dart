@@ -232,13 +232,6 @@ void main() {
         completion(equals(resultUnavailable)),
       );
     });
-
-    await withFile('tempfile-83649d.png', (File fd) async {
-      expect(
-        sharePlatform.shareXFiles([XFile(fd.path)]),
-        completion(equals(resultUnavailable)),
-      );
-    });
   });
 
   test('withResult methods invoke normal share on non IOS & Android', () async {
