@@ -67,6 +67,15 @@ void main() {
     }
   });
 
+  testWidgets('Can get non-null iOS utsname fields',
+      (WidgetTester tester) async {
+    expect(iosInfo.utsname.machine, 'iPhone10,4');
+    expect(iosInfo.utsname.nodename, isNotNull);
+    expect(iosInfo.utsname.release, isNotNull);
+    expect(iosInfo.utsname.sysname, isNotNull);
+    expect(iosInfo.utsname.version, isNotNull);
+  }, skip: !Platform.isIOS);
+
   testWidgets('Check all android info values are set',
       (WidgetTester tester) async {
     expect(androidInfo.version.baseOS, isNotNull);
