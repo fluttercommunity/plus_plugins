@@ -1,3 +1,7 @@
+## 4.5.0
+
+- iOS: Remove usage of deprecated UIApplication.keyWindow in iOS 13+
+
 ## 4.4.0
 
 - Reverted changes in 4.2.0 due to crash issues. See #1081
