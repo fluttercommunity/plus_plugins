@@ -1,3 +1,7 @@
+## 4.1.3
+
+- Detects iOS simulator device id instead of simulator's underlying architecture.
+
 ## 4.1.2
 
 - Redo changes in 4.1.0

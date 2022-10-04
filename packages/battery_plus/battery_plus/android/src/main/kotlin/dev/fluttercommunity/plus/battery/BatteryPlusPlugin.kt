@@ -75,15 +75,14 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         }
     }
 
-    @TargetApi(VERSION_CODES.O)
-    override fun onListen(arguments: Any, events: EventSink) {
+    override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        applicationContext!!.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        applicationContext?.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val status = getBatteryStatus()
         publishBatteryStatus(events, status)
     }
 
-    override fun onCancel(arguments: Any) {
+    override fun onCancel(arguments: Any?) {
         applicationContext!!.unregisterReceiver(chargingStateChangeReceiver)
         chargingStateChangeReceiver = null
     }
@@ -92,7 +91,8 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         val status: Int = if (VERSION.SDK_INT >= VERSION_CODES.O) {
             getBatteryProperty(BatteryManager.BATTERY_PROPERTY_STATUS)
         } else {
-            BatteryManager.BATTERY_STATUS_UNKNOWN
+            val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
         }
         return convertBatteryStatus(status)
     }

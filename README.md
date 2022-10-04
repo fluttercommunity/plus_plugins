@@ -1,9 +1,8 @@
+<h1 align="center">Plus plugins</h1>
 <p align="center">
-  <a href="https://plus.fluttercommunity.dev/">
-    Flutter Community Plus Plugins<br/>
-  </a>
-  <h1 align="center">Plus plugins</h1>
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="./website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+<a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener">
+    <img src="./website/static/img/flutter-favorite-badge.png" width="20%" alt="build">
+</a>
 </p>
 
 <p align="center">
@@ -17,9 +16,9 @@
 
 ---
 
-PlusPlugins is a set of Flutter plugins that is developed based on existing [Flutter plugins](https://github.com/flutter/plugins) with extra functionalities, platforms support, and better maintenance.
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)
+PlusPlugins is a set of Flutter plugins that is developed based on plugins, which previously existed
+as a part of [Flutter plugins](https://github.com/flutter/plugins), with extra functionalities,
+support for more platforms and better maintenance.
 
 [Feedback](https://github.com/fluttercommunity/plus_plugins/issues) and [Pull Requests](https://github.com/fluttercommunity/plus_plugins/pulls) are most welcome!
 
@@ -205,45 +204,45 @@ This repository is maintained by FlutterCommunity authors. Issues here are answe
 [battery_plus]: https://pub.dev/packages/battery_plus
 [battery_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus
 [battery_plus_pub_points]: https://pub.dev/packages/battery_plus/score
-[battery_plus_badge_pub_points]: https://badges.bar/battery_plus/pub%20points
+[battery_plus_badge_pub_points]: https://img.shields.io/pub/points/battery_plus?color=2E8B57&label=pub%20points
 [battery_plus_badge_pub]: https://img.shields.io/pub/v/battery_plus.svg
 [connectivity_plus]: https://pub.dev/packages/connectivity_plus
 [connectivity_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus
 [connectivity_plus_pub_points]: https://pub.dev/packages/connectivity_plus/score
-[connectivity_plus_badge_pub_points]: https://badges.bar/connectivity_plus/pub%20points
+[connectivity_plus_badge_pub_points]: https://img.shields.io/pub/points/connectivity_plus?color=2E8B57&label=pub%20points
 [connectivity_plus_badge_pub]: https://img.shields.io/pub/v/connectivity_plus.svg
 [network_info_plus]: https://pub.dev/packages/network_info_plus
 [network_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus
 [network_info_plus_pub_points]: https://pub.dev/packages/network_info_plus/score
-[network_info_plus_badge_pub_points]: https://badges.bar/network_info_plus/pub%20points
+[network_info_plus_badge_pub_points]: https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points
 [network_info_plus_badge_pub]: https://img.shields.io/pub/v/network_info_plus.svg
 [android_alarm_manager_plus]: https://pub.dev/packages/android_alarm_manager_plus
 [android_alarm_manager_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus
 [android_alarm_manager_plus_pub_points]: https://pub.dev/packages/android_alarm_manager_plus/score
-[android_alarm_manager_plus_badge_pub_points]: https://badges.bar/android_alarm_manager_plus/pub%20points
+[android_alarm_manager_plus_badge_pub_points]: https://img.shields.io/pub/points/android_alarm_manager_plus?color=2E8B57&label=pub%20points
 [android_alarm_manager_plus_badge_pub]: https://img.shields.io/pub/v/android_alarm_manager_plus.svg
 [android_intent_plus]: https://pub.dev/packages/android_intent_plus
 [android_intent_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_intent_plus
 [android_intent_plus_pub_points]: https://pub.dev/packages/android_intent_plus/score
-[android_intent_plus_badge_pub_points]: https://badges.bar/android_intent_plus/pub%20points
+[android_intent_plus_badge_pub_points]: https://img.shields.io/pub/points/android_intent_plus?color=2E8B57&label=pub%20points
 [android_intent_plus_badge_pub]: https://img.shields.io/pub/v/android_intent_plus.svg
 [device_info_plus]: https://pub.dev/packages/device_info_plus
 [device_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus
 [device_info_plus_pub_points]: https://pub.dev/packages/device_info_plus/score
-[device_info_plus_badge_pub_points]: https://badges.bar/device_info_plus/pub%20points
+[device_info_plus_badge_pub_points]: https://img.shields.io/pub/points/device_info_plus?color=2E8B57&label=pub%20points
 [device_info_plus_badge_pub]: https://img.shields.io/pub/v/device_info_plus.svg
 [package_info_plus]: https://pub.dev/packages/package_info_plus
 [package_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
 [package_info_plus_pub_points]: https://pub.dev/packages/package_info_plus/score
-[package_info_plus_badge_pub_points]: https://badges.bar/package_info_plus/pub%20points
+[package_info_plus_badge_pub_points]: https://img.shields.io/pub/points/package_info_plus?color=2E8B57&label=pub%20points
 [package_info_plus_badge_pub]: https://img.shields.io/pub/v/package_info_plus.svg
 [sensors_plus]: https://pub.dev/packages/sensors_plus
 [sensors_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus
 [sensors_plus_pub_points]: https://pub.dev/packages/sensors_plus/score
-[sensors_plus_badge_pub_points]: https://badges.bar/sensors_plus/pub%20points
+[sensors_plus_badge_pub_points]: https://img.shields.io/pub/points/sensors_plus?color=2E8B57&label=pub%20points
 [sensors_plus_badge_pub]: https://img.shields.io/pub/v/sensors_plus.svg
 [share_plus]: https://pub.dev/packages/share_plus
 [share_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus
 [share_plus_pub_points]: https://pub.dev/packages/share_plus/score
-[share_plus_badge_pub_points]: https://badges.bar/share_plus/pub%20points
+[share_plus_badge_pub_points]: https://img.shields.io/pub/points/share_plus?color=2E8B57&label=pub%20points
 [share_plus_badge_pub]: https://img.shields.io/pub/v/share_plus.svg

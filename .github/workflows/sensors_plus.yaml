@@ -1,6 +1,10 @@
 # Build Sensors Plus Example
 name: sensors_plus
 
+concurrency:
+  group: sensors_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:

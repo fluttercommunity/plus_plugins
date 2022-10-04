@@ -67,6 +67,15 @@ void main() {
     }
   });
 
+  testWidgets('Can get non-null iOS utsname fields',
+      (WidgetTester tester) async {
+    expect(iosInfo.utsname.machine, 'iPhone10,4');
+    expect(iosInfo.utsname.nodename, isNotNull);
+    expect(iosInfo.utsname.release, isNotNull);
+    expect(iosInfo.utsname.sysname, isNotNull);
+    expect(iosInfo.utsname.version, isNotNull);
+  }, skip: !Platform.isIOS);
+
   testWidgets('Check all android info values are set',
       (WidgetTester tester) async {
     expect(androidInfo.version.baseOS, isNotNull);
@@ -100,4 +109,32 @@ void main() {
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.systemFeatures, isNotNull);
   }, skip: !Platform.isAndroid);
+
+  testWidgets('Check all macos info values are set',
+      ((WidgetTester tester) async {
+    expect(macosInfo.computerName, isNotNull);
+    expect(macosInfo.hostName, isNotNull);
+    expect(macosInfo.arch, isNotNull);
+    expect(macosInfo.model, isNotNull);
+    expect(macosInfo.kernelVersion, isNotNull);
+    expect(macosInfo.osRelease, isNotNull);
+    expect(macosInfo.activeCPUs, isNotNull);
+    expect(macosInfo.memorySize, isNotNull);
+    expect(macosInfo.cpuFrequency, isNotNull);
+    expect(macosInfo.systemGUID, isNotNull);
+  }), skip: !Platform.isMacOS);
+
+  testWidgets('Check all Linux info values are available',
+      ((WidgetTester tester) async {
+    expect(linuxInfo.name, isNotNull);
+    expect(linuxInfo.version, isNotNull);
+    expect(linuxInfo.id, isNotNull);
+    expect(linuxInfo.idLike, isNotNull);
+    expect(linuxInfo.versionCodename, isNotNull);
+    expect(linuxInfo.versionId, isNotNull);
+    expect(linuxInfo.prettyName, isNotNull);
+    expect(linuxInfo.buildId, isNull);
+    expect(linuxInfo.variant, isNull);
+    expect(linuxInfo.variantId, isNull);
+  }), skip: !Platform.isLinux);
 }

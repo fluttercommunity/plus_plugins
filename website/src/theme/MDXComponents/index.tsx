@@ -4,6 +4,7 @@ import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import Heading from '@theme/Heading';
 import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
 
 import styles from './styles.module.scss';
 
@@ -78,6 +79,20 @@ export default {
       return <CodeBlock {...props}>{getVersion(children)}</CodeBlock>;
     }
     return children;
+  },
+
+  admonition: (props: HTMLProps<HTMLElement>): ReactNode => {
+    if (props.type === 'note') {
+      return <Admonition type={'note'}>{props.children}</Admonition>;
+    } else if (props.type === 'tip') {
+      return <Admonition type={'tip'}>{props.children}</Admonition>;
+    } else if (props.type === 'danger') {
+      return <Admonition type={'danger'}>{props.children}</Admonition>;
+    } else if (props.type === 'info') {
+      return <Admonition type={'info'}>{props.children}</Admonition>;
+    } else if (props.type === 'caution') {
+      return <Admonition type={'caution'}>{props.children}</Admonition>;
+    }
   },
 
   // h1: Heading({ as: 'h1' }),

@@ -37,6 +37,8 @@ class Battery {
   }
 
   /// check if device is on battery save mode
+  ///
+  /// Currently only impemented on Android, IOS and Windows.
   Future<bool> get isInBatterySaveMode {
     return _platform.isInBatterySaveMode;
   }

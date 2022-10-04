@@ -1,3 +1,8 @@
+## 3.1.2
+
+- Fix explicit intent fallback to implicit
+- Update Android Gradle plugin and Gradle verion
+
 ## 3.1.1+1
 
 - Add issue_tracker link.

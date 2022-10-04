@@ -1,6 +1,6 @@
 name: connectivity_plus_macos
 description: macOS implementation of the connectivity_plus plugin.
-version: 1.2.4
+version: 1.2.6
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 

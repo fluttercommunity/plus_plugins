@@ -1,6 +1,10 @@
 # Build Android Alarm Manager Plus Example
 name: android_alarm_manager_plus
 
+concurrency:
+  group: android_alarm_manager_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:

@@ -1,4 +1,9 @@
 name: Build and deploy website
+
+concurrency:
+  group: build_website_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:

@@ -5,8 +5,9 @@
 // @dart=2.9
 
 import 'dart:io';
-import 'package:integration_test/integration_test.dart';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 void main() {
