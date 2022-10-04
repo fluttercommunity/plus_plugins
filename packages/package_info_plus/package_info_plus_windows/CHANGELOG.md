@@ -2,6 +2,10 @@
 
 - Add information about the store, through which the application was installed
 
+## 2.1.0
+
+- Allow win32 3.x to be used.
+
 ## 2.0.0
 
 - **Breaking change**. Bump minimum dart version to 2.17.0.
