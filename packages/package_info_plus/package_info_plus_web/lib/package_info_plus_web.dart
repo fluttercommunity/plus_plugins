@@ -20,30 +20,10 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     PackageInfoPlatform.instance = PackageInfoPlugin();
   }
 
-  /// Get origin from [uri].
-  ///
-  /// This is different from [Uri.origin] because that does not support
-  /// non- http / https use cases. This function is a workaround,
-  /// specifically for chrome extensions.
-  String origin(Uri uri) {
-    try {
-      return uri.origin;
-    } on StateError catch (e) {
-      String getErrorMessage([bool to = false]) =>
-          'Origin is only applicable ${to ? 'to ' : ''}schemes http and https: chrome-extension://';
-
-      if (e.message.startsWith(getErrorMessage()) ||
-          e.message.startsWith(getErrorMessage(true))) {
-        return '${uri.scheme}://${uri.authority}';
-      }
-      rethrow;
-    }
-  }
-
   /// Get version.json full url.
   Uri versionJsonUrl(String baseUrl, int cacheBuster) {
     final baseUri = Uri.parse(baseUrl);
-    final originPath = '${origin(baseUri)}${baseUri.path}';
+    final originPath = '${baseUri._origin}${baseUri.path}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
     return Uri.parse(originPath.endsWith('/')
         ? '$originPath$versionJson'
@@ -62,6 +42,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
       version: versionMap['version'] ?? '',
       buildNumber: versionMap['build_number'] ?? '',
       packageName: versionMap['package_name'] ?? '',
+      // will remain empty on web
       buildSignature: '',
     );
   }
@@ -76,5 +57,18 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     } else {
       return <String, dynamic>{};
     }
+  }
+}
+
+extension _UriOrigin on Uri {
+  /// Get origin.
+  ///
+  /// This is different from [Uri.origin] because that has checks to prevent
+  /// non- http/https use cases.
+  String get _origin {
+    if (isScheme('chrome-extension')) {
+      return '$scheme://$host';
+    }
+    return origin;
   }
 }

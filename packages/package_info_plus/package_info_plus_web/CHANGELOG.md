@@ -1,6 +1,6 @@
 ## 1.0.6
 
-- Add support for chrome extensions.
+- Add support for chrome extensions
 
 ## 1.0.5
 

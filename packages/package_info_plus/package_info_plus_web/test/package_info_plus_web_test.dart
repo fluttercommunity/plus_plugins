@@ -16,6 +16,7 @@ void main() {
     'build_number': '1',
     'package_name': 'io.flutter.plugins.packageinfoexample',
     'version': '1.0',
+    'build_signature': '',
   };
 
   late PackageInfoPlugin plugin;
@@ -41,9 +42,10 @@ void main() {
           final versionMap = await plugin.getAll();
 
           expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.version, VERSION_JSON['version']);
           expect(versionMap.buildNumber, VERSION_JSON['build_number']);
           expect(versionMap.packageName, VERSION_JSON['package_name']);
-          expect(versionMap.version, VERSION_JSON['version']);
+          expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
         },
       );
 
@@ -62,6 +64,7 @@ void main() {
           expect(versionMap.buildNumber, isEmpty);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, isEmpty);
+          expect(versionMap.buildSignature, isEmpty);
         },
       );
 
@@ -98,7 +101,7 @@ void main() {
         },
       );
 
-      test('Get correct versionJsonUrl for chrome-extensions', () {
+      test('Get correct versionJsonUrl for chrome-extension', () {
         expect(
           plugin.versionJsonUrl('chrome-extension://abcdefgh', 1),
           Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
@@ -117,56 +120,6 @@ void main() {
               'chrome-extension://abcdefgh/a/b/c/#my-page', 1),
           Uri.parse(
               'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
-        );
-      });
-
-      test('Get correct origin for http and https', () {
-        expect(
-          plugin.origin(Uri.parse('https://example.com/#/my-page')),
-          'https://example.com',
-        );
-        expect(
-          plugin.origin(Uri.parse('https://example.com/a/b/c/#/my-page')),
-          'https://example.com',
-        );
-        expect(
-          plugin.origin(Uri.parse('https://example.com/a/b/c/#/my-page')),
-          'https://example.com',
-        );
-        expect(
-          plugin.origin(
-              Uri.parse('https://example.com/?hello_world=true#/my-page')),
-          'https://example.com',
-        );
-        expect(
-          plugin.origin(Uri.parse(
-              'https://example.com/a/b/c/?hello_world=true#/my-page')),
-          'https://example.com',
-        );
-        expect(
-          plugin.origin(
-              Uri.parse('https://example.com/a/b/c?hello_world=true#/my-page')),
-          'https://example.com',
-        );
-      });
-
-      test('Get correct origin for chrome-extensions', () {
-        expect(
-          plugin.origin(Uri.parse('chrome-extension://abcdefgh')),
-          'chrome-extension://abcdefgh',
-        );
-        expect(
-          plugin.origin(Uri.parse('chrome-extension://abcdefgh/a/b/c')),
-          'chrome-extension://abcdefgh',
-        );
-        expect(
-          plugin.origin(Uri.parse('chrome-extension://abcdefgh/#my-page')),
-          'chrome-extension://abcdefgh',
-        );
-        expect(
-          plugin
-              .origin(Uri.parse('chrome-extension://abcdefgh/a/b/c/#my-page')),
-          'chrome-extension://abcdefgh',
         );
       });
     },
