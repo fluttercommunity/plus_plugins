@@ -62,7 +62,7 @@ class SharePlusPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-  }) async {
+  }) {
     final files = <XFile>[];
     for (var i = 0; i < paths.length; i++) {
       files.add(XFile(paths[i], mimeType: mimeTypes?[i]));
@@ -79,12 +79,12 @@ class SharePlusPlugin extends SharePlatform {
   ///
   /// Remarks for the web implementation:
   /// This uses the [Web Share API](https://web.dev/web-share/) if it's
-  /// available. Otherwise it falls back to downloading the shared files.
+  /// available. Otherwise, uncaught Errors will be thrown.
   /// See [Can I Use - Web Share API](https://caniuse.com/web-share) to
   /// understand which browsers are supported. This builds on the
   /// [`cross_file`](https://pub.dev/packages/cross_file) package.
   @override
-  Future<void> shareXFiles(
+  Future<ShareResult> shareXFiles(
     List<XFile> files, {
     String? subject,
     String? text,
@@ -96,58 +96,13 @@ class SharePlusPlugin extends SharePlatform {
     for (final xFile in files) {
       webFiles.add(await _fromXFile(xFile));
     }
-    try {
-      await _navigator.share({
-        if (subject?.isNotEmpty ?? false) 'title': subject,
-        if (text?.isNotEmpty ?? false) 'text': text,
-        if (webFiles.isNotEmpty) 'files': webFiles,
-      });
-    } on NoSuchMethodError catch (exception, stackTrace) {
-      FlutterError.onError?.call(FlutterErrorDetails(
-        exception: exception,
-        stack: stackTrace,
-        context: DiagnosticsNode.message('while trying to share file(s)'),
-        library: 'share_plus_web',
-        informationCollector: () => [
-          DiagnosticsNode.message(
-            'The web share API is not available on the current browser. '
-            'Falling back to downloading the files. '
-            'Subject and text are discarded if given.',
-          ),
-        ],
-      ));
-      // fall back to save the file, if file sharing is not available
-      for (final xFile in files) {
-        // on web the path is ignored
-        await xFile.saveTo('path');
-      }
-    } catch (exception, stackTrace) {
-      // Ideally we would be able to catch JSs NotAllowedError and TypeError,
-      // but we can't, so here we are.
-      // Reasons for failures are listed here:
-      // https://w3c.github.io/web-share/
-      FlutterError.onError?.call(FlutterErrorDetails(
-        exception: exception,
-        stack: stackTrace,
-        context: DiagnosticsNode.message('while trying to share a file(s)'),
-        library: 'share_plus_web',
-        informationCollector: () => [
-          DiagnosticsNode.message(
-            'This failure can be caused by various problems: '
-            'A file type is being blocked due to security considerations. '
-            'Files is empty or the browser does not support it. '
-            'See https://w3c.github.io/web-share/ for further information. '
-            'Falling back to downloading the files. '
-            'Subject and text are discarded if given.',
-          ),
-        ],
-      ));
-      // fall back to save the file, if file sharing is not available
-      for (final xFile in files) {
-        // on web the path is ignored
-        await xFile.saveTo('path');
-      }
-    }
+    await _navigator.share({
+      if (subject?.isNotEmpty ?? false) 'title': subject,
+      if (text?.isNotEmpty ?? false) 'text': text,
+      if (webFiles.isNotEmpty) 'files': webFiles,
+    });
+
+    return _resultUnavailable;
   }
 
   static Future<html.File> _fromXFile(XFile file) async {
@@ -166,3 +121,8 @@ class SharePlusPlugin extends SharePlatform {
         'application/octet-stream';
   }
 }
+
+const _resultUnavailable = ShareResult(
+  'dev.fluttercommunity.plus/share/unavailable',
+  ShareResultStatus.unavailable,
+);

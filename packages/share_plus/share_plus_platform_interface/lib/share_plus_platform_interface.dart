@@ -45,6 +45,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files.
+  @Deprecated("Use shareXFiles instead.")
   Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -55,21 +56,6 @@ class SharePlatform extends PlatformInterface {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  /// Share [XFile] objects.
-  Future<void> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
-    return _instance.shareXFiles(
-      files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
@@ -92,6 +78,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files with Result.
+  @Deprecated("Use shareXFiles instead.")
   Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -111,20 +98,18 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share [XFile] objects with Result.
-  Future<ShareResult> shareXFilesWithResult(
+  Future<ShareResult> shareXFiles(
     List<XFile> files, {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
   }) async {
-    await _instance.shareXFiles(
+    return _instance.shareXFiles(
       files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
     );
-
-    return _resultUnavailable;
   }
 }
 
