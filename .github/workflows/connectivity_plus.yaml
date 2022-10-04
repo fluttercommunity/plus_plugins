@@ -1,6 +1,14 @@
 # Build Connectivity Info Plus Example
 name: connectivity_plus
 
+concurrency:
+  group: connectivity_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -15,7 +23,7 @@ env:
 
 jobs:
   android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -24,8 +32,41 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+
+      # Required for Android builds
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
+
+  android_integration_test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      # Required for Android builds
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+      - name: "Android Integration Test"
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          profile: Nexus 5X
+          script: ./.github/workflows/scripts/integration-test.sh android connectivity_plus_example
 
   ios:
     runs-on: macos-latest
@@ -40,6 +81,23 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
+  ios_integration_test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Start Simulator"
+        uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh ios connectivity_plus_example
+
   macos:
     runs-on: macos-latest
     timeout-minutes: 30
@@ -52,6 +110,19 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
+
+  macos_integration_test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh macos connectivity_plus_example
 
   linux:
     runs-on: ubuntu-latest
@@ -66,8 +137,23 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
-  windows:
+  linux_integration_test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Install NetworkManager"
+        run: sudo apt-get install -y network-manager
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh linux connectivity_plus_example
+
+  windows:
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -78,6 +164,19 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
+
+  windows_integration_test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh windows connectivity_plus_example
 
   web:
     runs-on: ubuntu-latest

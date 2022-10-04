@@ -64,6 +64,10 @@ class BatteryPlusChargingHandler: NSObject, FlutterStreamHandler {
         let powerSourceSnapshot = IOPSCopyPowerSourcesInfo().takeRetainedValue()
         let sources = IOPSCopyPowerSourcesList(powerSourceSnapshot).takeRetainedValue() as [CFTypeRef]
         
+        // Desktops do not have battery sources and are always charging.
+        if sources.isEmpty {
+            return "charging"
+        }
         let description = IOPSGetPowerSourceDescription(powerSourceSnapshot, sources[0]).takeUnretainedValue() as! [String: AnyObject]
         
         if let currentCapacity = description[kIOPSCurrentCapacityKey] as? Int {

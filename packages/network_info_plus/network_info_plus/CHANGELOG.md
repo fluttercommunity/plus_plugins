@@ -1,3 +1,25 @@
+## 2.3.0
+
+- Android: Use new APIs to get network info on devices with with Android 12 (SDK 31) and newer. Due
+  to this change on such devices be sure to add `ACCESS_NETWORK_STATE` permission into your
+  `AndroidManifest.xml` file.
+
+## 2.2.0
+
+- Android: Migrate to Kotlin
+- Android: Bump targetSDK to 33 (Android 13)
+- Android: Update dependencies, build config updates
+- Android: Fixed getWifiBroadcast to not add redundant `/` symbol
+- Update Flutter dependencies
+
+## 2.1.4+1
+
+- Add issue_tracker link.
+
+## 2.1.4
+
+- Android: Plugin no longer removes `"` from SSID name.
+
 ## 2.1.3
 
 - Update nm dependency to be compatible with fresh versions of other Plus plugins
@@ -41,7 +63,6 @@
 
 - migrate integration_test to flutter sdk
 
-
 ## 1.1.0
 
 - Android, IOS: Adding IPv6 information
@@ -71,8 +92,8 @@
 
 ## 0.1.1
 
-- Added a stub plugin for Web that throws unsupported exceptions, because
-  the functionality is not supported on Web.
+- Added a stub plugin for Web that throws unsupported exceptions, because the functionality is not
+  supported on Web.
 
 ## 0.1.0
 

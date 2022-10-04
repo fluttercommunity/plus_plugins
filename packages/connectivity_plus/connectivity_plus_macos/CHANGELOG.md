@@ -1,3 +1,23 @@
+## 1.2.6
+
+- Discard unused warnings for `switch reachability.connection ?? .unavailable` in macOS by removing `?? .unavailable` as left side of nil coalescing operator '??' has non-optional type 'Reachability.Connection', so the right side is never used.
+
+## 1.2.5
+
+- Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in macOS.
+
+## 1.2.4
+
+- Stop sending events once flutter engine detached
+
+## 1.2.3
+
+- Send events on main thread
+
+## 1.2.2
+
+- Fix connectivity stream can not be reused (after hot-restart) on MacOS 10.14+.
+
 ## 1.2.1
 
 - Update license headers.

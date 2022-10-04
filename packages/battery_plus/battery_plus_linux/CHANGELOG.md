@@ -1,3 +1,12 @@
+## 1.2.0
+
+- Port to upower.dart
+
+## 1.1.2
+
+- Update dbus to 0.7.5
+- Update flutter_lints to 2.0.1
+
 ## 1.1.1
 
 - Update dbus to 0.7.1

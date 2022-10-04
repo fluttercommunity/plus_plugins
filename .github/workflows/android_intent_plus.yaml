@@ -1,6 +1,10 @@
 # Build Android Intent Plus Example
 name: android_intent_plus
 
+concurrency:
+  group: android_intent_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
@@ -14,8 +18,8 @@ env:
   PLUGIN_EXAMPLE_SCOPE: "*android_intent_example*"
 
 jobs:
-  android:
-    runs-on: ubuntu-latest
+  android_build:
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -24,5 +28,39 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+
+      # Required for Android builds
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "11"
+
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
+
+  android_integration_test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      # Required for Android builds
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "11"
+
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+
+      - name: "Android Integration Test"
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          profile: Nexus 5X
+          script: ./.github/workflows/scripts/integration-test.sh android android_intent_example

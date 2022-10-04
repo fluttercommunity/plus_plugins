@@ -3,16 +3,14 @@
 // found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
 import 'package:mockito/mockito.dart';
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:test/test.dart';
-
-import 'package:flutter/services.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +27,7 @@ void main() {
             (MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
       await mockChannel.invokeMethod<void>(call.method, call.arguments);
+      return null;
     });
   });
 

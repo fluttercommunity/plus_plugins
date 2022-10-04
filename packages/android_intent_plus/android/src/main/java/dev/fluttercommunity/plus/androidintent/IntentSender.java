@@ -172,9 +172,6 @@ public final class IntentSender {
         intent.setComponent(componentName);
       }
     }
-    if (intent.resolveActivity(applicationContext.getPackageManager()) == null) {
-      Log.i(TAG, "Cannot resolve explicit intent");
-    }
 
     return intent;
   }

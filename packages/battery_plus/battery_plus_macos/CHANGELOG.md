@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Fix crash on Apple Mac mini
+
 ## 1.1.0
 
 - Add batteryState getter

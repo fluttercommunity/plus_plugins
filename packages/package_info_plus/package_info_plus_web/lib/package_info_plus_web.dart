@@ -41,7 +41,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
       appName: versionMap['app_name'] ?? '',
       version: versionMap['version'] ?? '',
       buildNumber: versionMap['build_number'] ?? '',
-      packageName: '',
+      packageName: versionMap['package_name'] ?? '',
       buildSignature: '',
     );
   }

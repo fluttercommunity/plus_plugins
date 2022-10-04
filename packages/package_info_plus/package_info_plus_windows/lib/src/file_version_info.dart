@@ -59,8 +59,8 @@ class _FileVersionInfo {
     ];
 
     String? value;
-    final Pointer<IntPtr>? lplpBuffer = calloc<IntPtr>();
-    final Pointer<Uint32>? puLen = calloc<Uint32>();
+    final Pointer<IntPtr> lplpBuffer = calloc<IntPtr>();
+    final Pointer<Uint32> puLen = calloc<Uint32>();
 
     String toHex4(int val) => val.toRadixString(16).padLeft(4, '0');
 
@@ -69,7 +69,7 @@ class _FileVersionInfo {
       final codepage = toHex4(langCodepage[1]!);
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
       final res =
-          VerQueryValue(_data.lpBlock!, lpSubBlock, lplpBuffer!.cast(), puLen!);
+          VerQueryValue(_data.lpBlock!, lpSubBlock, lplpBuffer.cast(), puLen);
       calloc.free(lpSubBlock);
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
@@ -79,8 +79,8 @@ class _FileVersionInfo {
       }
     }
 
-    calloc.free(lplpBuffer!);
-    calloc.free(puLen!);
+    calloc.free(lplpBuffer);
+    calloc.free(puLen);
     return value;
   }
 
