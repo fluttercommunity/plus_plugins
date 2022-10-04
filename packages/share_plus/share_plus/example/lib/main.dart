@@ -149,7 +149,7 @@ class DemoAppState extends State<DemoApp> {
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      result = await Share.shareXFilesWithResult(files,
+      result = await Share.shareXFiles(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
