@@ -139,7 +139,7 @@ void main() {
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
       );
       verify(mockChannel.invokeMethod<void>(
-        'shareFiles',
+        'shareFilesWithResult',
         <String, dynamic>{
           'paths': [fd.path],
           'mimeTypes': ['image/png'],
