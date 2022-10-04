@@ -23,15 +23,15 @@ flutter:
         default_package: share_plus_windows
 
 dependencies:
-  meta: ^1.7.0
+  meta: ^1.8.0
   mime: ^1.0.2
   flutter:
     sdk: flutter
-  share_plus_platform_interface: ^3.0.2
+  share_plus_platform_interface: ^3.0.3
   share_plus_linux: ^3.0.0
-  share_plus_macos: ^3.0.0
-  share_plus_windows: ^3.0.0
-  share_plus_web: ^3.0.0
+  share_plus_macos: ^3.0.1
+  share_plus_windows: ^3.0.1
+  share_plus_web: ^3.0.1
 
 dev_dependencies:
   flutter_test:
