@@ -30,7 +30,7 @@ import 'package:network_info_plus/network_info_plus.dart';
 
 final info = NetworkInfo();
 
-var wifiName = await info.getWifiName(); // FooNetwork
+var wifiName = await info.getWifiName(); // "FooNetwork"
 var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
 var wifiIP = await info.getWifiIP(); // 192.168.1.43
 var wifiIPv6 = await info.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
@@ -48,6 +48,8 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 - If your app is targeting SDK lower than Android 10 (API level 29), your app needs to have the ACCESS_COARSE_LOCATION or ACCESS_FINE_LOCATION permission.
 
 - Location services are enabled on the device (under Settings > Location).
+
+- If you use device with Android 12 (API level 31) and newer be sure that your app has ACCESS_NETWORK_STATE permission.
 
 **This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
 
