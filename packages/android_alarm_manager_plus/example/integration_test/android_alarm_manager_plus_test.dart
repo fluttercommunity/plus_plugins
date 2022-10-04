@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:android_alarm_manager_example/main.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +17,6 @@ class AlarmHelpers {
   }
 }
 
-/// NOTE: The AndroidAlarmManager callbacks must be either a top-level function
-/// or a static method from a class. Therefore, the callbacks are not currently
-/// verifiable.
 Future<void> main() async {
   String invalidCallback(String foo) => foo;
   void validCallback(int id) {
@@ -116,6 +116,37 @@ Future<void> main() async {
         );
 
         expect(result, isTrue);
+      });
+
+      testWidgets('callback is called', (WidgetTester tester) async {
+        await tester.runAsync(() async {
+          WidgetsFlutterBinding.ensureInitialized();
+
+          // Register the UI isolate's SendPort to allow for communication from the
+          // background isolate.
+          port = ReceivePort();
+          IsolateNameServer.registerPortWithName(
+            port.sendPort,
+            isolateName,
+          );
+
+          await tester.pumpWidget(const AlarmManagerExampleApp());
+          tester.tap(find.byKey(const ValueKey('RegisterOneShotAlarm')));
+
+          // 6 seconds is the smallest amount of time we need to wait for
+          // the callback to happen
+          await Future.delayed(const Duration(seconds: 6));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (Widget widget) =>
+                  widget is Text &&
+                  widget.data!.startsWith('Alarm fired 1 times'),
+            ),
+            findsOneWidget,
+          );
+        });
       });
     });
 
