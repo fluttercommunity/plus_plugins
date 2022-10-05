@@ -133,9 +133,9 @@ Future<void> main() async {
           await tester.pumpWidget(const AlarmManagerExampleApp());
           tester.tap(find.byKey(const ValueKey('RegisterOneShotAlarm')));
 
-          // 6 seconds is the smallest amount of time we need to wait for
+          // 10 seconds is the smallest amount of time we need to wait for
           // the callback to happen
-          await Future.delayed(const Duration(seconds: 6));
+          await Future.delayed(const Duration(seconds: 10));
           await tester.pumpAndSettle();
 
           expect(
