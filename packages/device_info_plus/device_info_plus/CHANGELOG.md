@@ -1,3 +1,7 @@
+## 5.0.1
+
+- Fixing federated plugin architecture versions.
+
 ## 5.0.0
 
 - Re-introduce: Added more information to `WindowsDeviceInfo`.
