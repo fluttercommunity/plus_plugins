@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Add support for chrome extensions
+
 ## 1.0.5
 
 - Resolve package_name
