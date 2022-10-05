@@ -1,3 +1,8 @@
+## 5.0.0
+
+- Re-introduce: Added more information to `WindowsDeviceInfo`.
+- device_info_plus_platform_interface to 4.0.0
+
 ## 4.1.3
 
 - Detects iOS simulator device id instead of simulator's underlying architecture.

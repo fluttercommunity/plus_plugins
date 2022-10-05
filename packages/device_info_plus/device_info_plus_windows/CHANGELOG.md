@@ -1,3 +1,8 @@
+## 5.0.0
+
+- Re-introduce: Add more information to WindowsDeviceInfo
+- Update platform channel interface to 4.0.0
+
 ## 4.1.0
 
 - Allow win32 3.x to be used.
