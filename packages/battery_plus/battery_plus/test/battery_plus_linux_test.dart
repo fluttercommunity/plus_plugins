@@ -1,4 +1,4 @@
-import 'package:battery_plus_linux/src/battery_plus_linux.dart';
+import 'package:battery_plus/src/battery_plus_linux.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

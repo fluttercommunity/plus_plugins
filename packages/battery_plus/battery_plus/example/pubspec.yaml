@@ -11,8 +11,6 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  battery_plus_linux:
-    path: ../../battery_plus_linux
   battery_plus_macos:
     path: ../../battery_plus_macos
   battery_plus_platform_interface:
