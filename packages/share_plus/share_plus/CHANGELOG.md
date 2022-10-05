@@ -1,3 +1,7 @@
+## 4.5.1
+
+- Update internal dependencies
+
 ## 4.5.0
 
 - iOS: Remove usage of deprecated UIApplication.keyWindow in iOS 13+
