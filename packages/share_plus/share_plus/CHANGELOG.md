@@ -1,3 +1,7 @@
+## 4.5.2
+
+- Update internal dependencies
+
 ## 4.5.1
 
 - Update internal dependencies
