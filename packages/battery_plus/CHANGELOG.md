@@ -1,3 +1,7 @@
+## 3.0.0
+
+- New plugin architecture
+
 ## 2.2.1
 
 - Fix: batteryState always return unknown on API < 26
