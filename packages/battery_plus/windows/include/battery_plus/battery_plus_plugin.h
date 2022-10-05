@@ -1,5 +1,5 @@
-#ifndef FLUTTER_PLUGIN_BATTERY_PLUS_WINDOWS_PLUGIN_H_
-#define FLUTTER_PLUGIN_BATTERY_PLUS_WINDOWS_PLUGIN_H_
+#ifndef FLUTTER_PLUGIN_BATTERY_PLUS_PLUGIN_H_
+#define FLUTTER_PLUGIN_BATTERY_PLUS_PLUGIN_H_
 
 #include <flutter_plugin_registrar.h>
 
@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-FLUTTER_PLUGIN_EXPORT void BatteryPlusWindowsPluginRegisterWithRegistrar(
+FLUTTER_PLUGIN_EXPORT void BatteryPlusPluginRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)

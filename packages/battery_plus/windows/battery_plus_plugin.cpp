@@ -11,7 +11,7 @@
 #include <functional>
 #include <memory>
 
-#include "include/battery_plus_windows/system_battery.h"
+#include "include/battery_plus/system_battery.h"
 
 namespace {
 
