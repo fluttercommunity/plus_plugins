@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 /// Widget for displaying a preview of images
@@ -55,7 +56,7 @@ class _ImagePreview extends StatelessWidget {
               maxWidth: 200,
               maxHeight: 200,
             ),
-            child: Image.file(imageFile),
+            child: kIsWeb ? Image.network(imagePath) : Image.file(imageFile),
           ),
           Positioned(
             right: 0,
