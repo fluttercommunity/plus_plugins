@@ -10,6 +10,8 @@ import 'package:battery_plus_platform_interface/battery_plus_platform_interface.
 export 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart'
     show BatteryState;
 
+export 'src/battery_plus_linux.dart';
+
 /// API for accessing information about the battery of the device the Flutter app is running on.
 class Battery {
   /// Constructs a singleton instance of [Battery].
