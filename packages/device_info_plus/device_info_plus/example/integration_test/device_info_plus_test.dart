@@ -222,10 +222,6 @@ void main() {
       startsWith('Windows'),
     );
     expect(
-      windowsInfo.registeredOwner,
-      isNotEmpty,
-    );
-    expect(
       windowsInfo.releaseId,
       isNotEmpty,
     );
