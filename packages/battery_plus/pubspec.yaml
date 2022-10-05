@@ -27,6 +27,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   meta: ^1.8.0
   upower: ^0.7.0
   plugin_platform_interface: ^2.1.3
