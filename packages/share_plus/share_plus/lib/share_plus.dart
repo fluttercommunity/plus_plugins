@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
@@ -65,6 +66,7 @@ class Share {
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
+  @Deprecated("Use shareXFiles instead.")
   static Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -130,6 +132,7 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
+  @Deprecated("Use shareXFiles instead.")
   static Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -142,6 +145,42 @@ class Share {
     return _platform.shareFilesWithResult(
       paths,
       mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
+  }
+
+  /// Summons the platform's share sheet to share multiple files.
+  ///
+  /// Wraps the platform's native share dialog. Can share a file.
+  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
+  /// on iOS.
+  ///
+  /// Android supports all natively available MIME types (wildcards like image/*
+  /// are also supported) and it's considered best practice to avoid mixing
+  /// unrelated file types (eg. image/jpg & application/pdf). If MIME types are
+  /// mixed the plugin attempts to find the lowest common denominator. Even
+  /// if MIME types are supplied the receiving app decides if those are used
+  /// or handled.
+  /// On iOS image/jpg, image/jpeg and image/png are handled as images, while
+  /// every other MIME type is considered a normal file.
+  ///
+  /// The optional `sharePositionOrigin` parameter can be used to specify a global
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
+  ///
+  /// May throw [PlatformException] or [FormatException]
+  /// from [MethodChannel].
+  static Future<ShareResult> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    assert(files.isNotEmpty);
+    return _platform.shareXFiles(
+      files,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
