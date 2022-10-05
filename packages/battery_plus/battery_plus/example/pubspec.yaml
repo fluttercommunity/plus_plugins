@@ -10,10 +10,6 @@ dependencies:
   battery_plus:
     path: ../
 
-dependency_overrides:
-  battery_plus_platform_interface:
-    path: ../../battery_plus_platform_interface
-
 dev_dependencies:
   flutter_driver:
     sdk: flutter
