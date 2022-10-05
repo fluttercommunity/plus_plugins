@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
