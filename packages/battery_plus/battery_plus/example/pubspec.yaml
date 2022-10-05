@@ -13,10 +13,6 @@ dependencies:
 dependency_overrides:
   battery_plus_platform_interface:
     path: ../../battery_plus_platform_interface
-  battery_plus_web:
-    path: ../../battery_plus_web
-  battery_plus_windows:
-    path: ../../battery_plus_windows
 
 dev_dependencies:
   flutter_driver:

@@ -22,7 +22,7 @@ flutter:
         pluginClass: BatteryPlusPlugin
         fileName: battery_plus_web.dart
       windows:
-        default_package: battery_plus_windows
+        pluginClass: BatteryPlusWindowsPlugin
 
 dependencies:
   flutter:
