@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+// Keep dart:ui for retrocompatiblity with Flutter <3.3.0
+// ignore: unnecessary_import
 import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
