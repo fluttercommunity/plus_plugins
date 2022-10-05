@@ -1,6 +1,9 @@
 ## 4.5.0
 
 - iOS: Remove usage of deprecated UIApplication.keyWindow in iOS 13+
+- Add `shareXFiles` implementations
+- Deprecate `shareFiles*` implementations
+- Enable `shareXFiles` implementations on Web
 
 ## 4.4.0
 
