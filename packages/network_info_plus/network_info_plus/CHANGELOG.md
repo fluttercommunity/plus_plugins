@@ -1,7 +1,6 @@
 ## 2.3.1
 
- - **FIX**: fixed a bug! (#1004).
- - **FIX**: Upgrade gradle, android compile version & implement code improvements (#512).
+ - **CHORE**: Version tagging using melos.
 
 ## 2.3.0
 
