@@ -28,7 +28,7 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  battery_plus_platform_interface: 1.2.1
+  battery_plus_platform_interface: ^1.2.1
   meta: ^1.8.0
   upower: ^0.7.0
 
