@@ -1,7 +1,6 @@
 ## 1.4.1
 
- - **FIX**: iOS calibrated magnetometer (#812).
- - **FIX**: Upgrade gradle, android compile version & implement code improvements (#513).
+ - **CHORE**: Version tagging using melos.
 
 ## 1.4.0
 
