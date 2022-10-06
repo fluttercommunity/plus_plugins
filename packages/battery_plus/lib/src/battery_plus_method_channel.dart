@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 import 'battery_plus_platform_interface.dart';
-import 'src/utils.dart';
+import 'utils.dart';
 
 /// An implementation of [BatteryPlatform] that uses method channels.
 class MethodChannelBattery extends BatteryPlatform {

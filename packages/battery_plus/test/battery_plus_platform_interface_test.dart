@@ -1,5 +1,5 @@
+import 'package:battery_plus/src/battery_plus_method_channel.dart';
 import 'package:battery_plus/src/enums.dart';
-import 'package:battery_plus/method_channel_battery_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
