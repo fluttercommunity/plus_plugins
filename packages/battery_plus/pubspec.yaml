@@ -20,7 +20,7 @@ flutter:
         pluginClass: BatteryPlusMacosPlugin
       web:
         pluginClass: BatteryPlusPlugin
-        fileName: battery_plus_web.dart
+        fileName: src/battery_plus_web.dart
       windows:
         pluginClass: BatteryPlusWindowsPlugin
 
