@@ -1,10 +1,9 @@
 import 'package:battery_plus/src/battery_plus_linux.dart';
+import 'package:battery_plus/src/battery_plus_platform_interface.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:upower/upower.dart';
-
-import 'package:battery_plus/src/battery_plus_platform_interface.dart';
 
 import 'battery_plus_linux_test.mocks.dart';
 
