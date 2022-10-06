@@ -1,6 +1,6 @@
-## 5.1.0
+## 5.0.1
 
- - **FEAT**: more info for Windows (re-land #814) (#1156).
+ - **CHORE**: Version tagging using melos.
 
 ## 5.0.0
 
