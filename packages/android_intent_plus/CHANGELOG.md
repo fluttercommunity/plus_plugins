@@ -1,7 +1,6 @@
 ## 3.1.3
 
- - **FIX**: fixed a bug! (#585).
- - **FIX**: Remove embedding v1 reference & update dependencies (#507).
+ - **CHORE**: Version tagging using melos.
 
 ## 3.1.2
 
