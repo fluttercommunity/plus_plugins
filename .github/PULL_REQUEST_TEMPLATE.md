@@ -4,7 +4,7 @@
 
 ## Related Issues
 
-*Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/flutter/flutter/issues). Indicate, which of these issues are resolved or fixed by this PR. Note that you'll have to prefix the issue numbers with flutter/flutter#.*
+*Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/fluttercommunity/plus_plugins/issues). Indicate, which of these issues are resolved or fixed by this PR.*
 
 ## Checklist
 
@@ -14,7 +14,6 @@ This will ensure a smooth and quick review process.
 - [ ] I read the [Contributor Guide] and followed the process outlined there for submitting PRs.
 - [ ] My PR includes unit or integration tests for *all* changed/updated/fixed behaviors (See [Contributor Guide]).
 - [ ] All existing and new tests are passing.
-- [ ] I updated the version in `pubspec.yaml` and `CHANGELOG.md`.
 - [ ] I updated/added relevant documentation (doc comments with `///`).
 - [ ] The analyzer (`flutter analyze`) does not report any problems on my PR.
 - [ ] I read and followed the [Flutter Style Guide].
