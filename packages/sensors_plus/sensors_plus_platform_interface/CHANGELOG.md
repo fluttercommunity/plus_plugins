@@ -1,6 +1,6 @@
 ## 1.1.2
 
- - **FIX**: iOS calibrated magnetometer (#812).
+ - **CHORE**: Version tagging using melos.
 
 ## 1.1.1
 
