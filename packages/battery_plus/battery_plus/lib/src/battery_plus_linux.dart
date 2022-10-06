@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:meta/meta.dart';
 import 'package:upower/upower.dart';
-
-import '../battery_plus_platform_interface.dart';
 
 extension _ToBatteryState on UPowerDeviceState {
   BatteryState toBatteryState() {
