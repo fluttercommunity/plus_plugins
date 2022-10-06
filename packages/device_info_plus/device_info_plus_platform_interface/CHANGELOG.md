@@ -1,7 +1,6 @@
-## 4.1.0
+## 4.0.1
 
- - **FEAT**: more info for Windows (re-land #814) (#1156).
- - **FEAT**: add toMap method to WebBrowserInfo (#593).
+ - **CHORE**: Version tagging using melos.
 
 ## 4.0.0
 
