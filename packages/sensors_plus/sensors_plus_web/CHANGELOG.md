@@ -1,6 +1,6 @@
 ## 1.1.2
 
- - Update a dependency to the latest release.
+ - **CHORE**: Version tagging using melos.
 
 ## 1.1.1
 
