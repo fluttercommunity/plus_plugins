@@ -4,10 +4,10 @@
 
 import 'dart:async';
 
-import 'src/battery_plus_platform_interface.dart';
+import 'battery_plus_platform_interface.dart';
 
 export 'src/battery_plus_linux.dart';
-export 'src/battery_plus_platform_interface.dart';
+export 'battery_plus_platform_interface.dart' show BatteryState;
 
 /// API for accessing information about the battery of the device the Flutter app is running on.
 class Battery {

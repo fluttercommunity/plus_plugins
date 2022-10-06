@@ -4,7 +4,7 @@ import 'dart:js';
 import 'dart:js_util';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
-import 'battery_plus_platform_interface.dart';
+import '../battery_plus_platform_interface.dart';
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
 class BatteryPlusPlugin extends BatteryPlatform {
