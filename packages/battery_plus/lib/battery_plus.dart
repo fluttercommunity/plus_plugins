@@ -6,10 +6,6 @@ import 'dart:async';
 
 import 'src/battery_plus_platform_interface.dart';
 
-// Export enums from the platform_interface so plugin users can use them directly.
-export 'src/battery_plus_platform_interface.dart'
-    show BatteryState;
-
 export 'src/battery_plus_linux.dart';
 export 'src/battery_plus_platform_interface.dart';
 
