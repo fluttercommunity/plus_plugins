@@ -14,7 +14,7 @@ flutter:
       ios:
         pluginClass: FLTBatteryPlusPlugin
       linux:
-        dartPluginClass: BatteryPlusLinux
+        dartPluginClass: BatteryPlusLinuxPlugin
       macos:
         pluginClass: BatteryPlusMacosPlugin
       web:
