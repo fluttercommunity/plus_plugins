@@ -1,3 +1,7 @@
+## 1.1.2
+
+ - **FIX**: iOS calibrated magnetometer (#812).
+
 ## 1.1.1
 
 - Update flutter_lints to 2.0.1

@@ -1,3 +1,8 @@
+## 1.4.1
+
+ - **FIX**: iOS calibrated magnetometer (#812).
+ - **FIX**: Upgrade gradle, android compile version & implement code improvements (#513).
+
 ## 1.4.0
 
 - iOS: Corrects magnetometer implementation, returning calibrated values from

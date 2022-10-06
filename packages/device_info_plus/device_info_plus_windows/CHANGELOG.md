@@ -1,3 +1,7 @@
+## 5.1.0
+
+ - **FEAT**: more info for Windows (re-land #814) (#1156).
+
 ## 5.0.0
 
 - Re-introduce: Add more information to WindowsDeviceInfo

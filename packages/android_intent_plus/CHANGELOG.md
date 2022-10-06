@@ -1,3 +1,8 @@
+## 3.1.3
+
+ - **FIX**: fixed a bug! (#585).
+ - **FIX**: Remove embedding v1 reference & update dependencies (#507).
+
 ## 3.1.2
 
 - Fix explicit intent fallback to implicit

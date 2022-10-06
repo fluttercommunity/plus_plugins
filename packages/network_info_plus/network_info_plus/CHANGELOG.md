@@ -1,3 +1,8 @@
+## 2.3.1
+
+ - **FIX**: fixed a bug! (#1004).
+ - **FIX**: Upgrade gradle, android compile version & implement code improvements (#512).
+
 ## 2.3.0
 
 - Android: Use new APIs to get network info on devices with with Android 12 (SDK 31) and newer. Due

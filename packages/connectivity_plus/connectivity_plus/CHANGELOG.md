@@ -1,3 +1,8 @@
+## 2.3.9
+
+ - **FIX**: Reduce compiler warnings (#1068).
+ - **FIX**: Reachability.swift ".unavailable" is deprecated (#823).
+
 ## 2.3.8
 
 - Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.

@@ -1,3 +1,7 @@
+## 1.2.5
+
+ - **FIX**: stream fallback for unsupported browsers (#746).
+
 ## 1.2.4
 
 - Fix stream fallback for unsupported browsers

@@ -1,3 +1,7 @@
+## 4.0.1
+
+ - Update a dependency to the latest release.
+
 ## 4.0.0
 
 - platform interface to 4.0.0

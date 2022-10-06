@@ -1,3 +1,8 @@
+## 4.1.0
+
+ - **FEAT**: more info for Windows (re-land #814) (#1156).
+ - **FEAT**: add toMap method to WebBrowserInfo (#593).
+
 ## 4.0.0
 
 - Re-introduce Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.

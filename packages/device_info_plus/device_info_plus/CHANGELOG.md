@@ -1,3 +1,10 @@
+## 5.1.0
+
+ - **FIX**: Updated the description of getAndroidId method  (#807).
+ - **FIX**: Upgrade gradle, android compile version & implement code improvements (#511).
+ - **FEAT**: more info for Windows (re-land #814) (#1156).
+ - **FEAT**: add toMap method to WebBrowserInfo (#593).
+
 ## 5.0.1
 
 - Fixing federated plugin architecture versions.
