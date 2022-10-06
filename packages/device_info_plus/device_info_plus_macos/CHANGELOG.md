@@ -1,6 +1,6 @@
 ## 4.0.1
 
- - Update a dependency to the latest release.
+ - **CHORE**: Version tagging using melos.
 
 ## 4.0.0
 
