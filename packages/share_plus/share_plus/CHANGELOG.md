@@ -1,9 +1,6 @@
 ## 4.5.3
 
- - **FIX**: Throw error if sharePositionOrigin not in sourceView (#1038).
- - **FIX**: Fix 'share text' not showing when share files (#907).
- - **FIX**: activityViewControllerPlaceholderItem impl (#906).
- - **FIX**: Upgrade gradle & implement code improvements (#522).
+ - **CHORE**: Version tagging using melos.
 
 ## 4.5.2
 
