@@ -143,6 +143,7 @@ Future<void> main() async {
               (Widget widget) =>
                   widget is Text &&
                   widget.data!.startsWith('Alarm fired 1 times'),
+              skipOffstage: false,
             ),
             findsOneWidget,
           );
