@@ -1,7 +1,6 @@
 ## 2.3.9
 
- - **FIX**: Reduce compiler warnings (#1068).
- - **FIX**: Reachability.swift ".unavailable" is deprecated (#823).
+ - **CHORE**: Version tagging using melos.
 
 ## 2.3.8
 
