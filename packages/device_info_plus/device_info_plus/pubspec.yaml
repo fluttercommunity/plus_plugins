@@ -30,7 +30,7 @@ dependencies:
   device_info_plus_macos: ^4.0.1
   device_info_plus_linux: ^4.0.1
   device_info_plus_web: ^4.0.1
-  device_info_plus_windows: ^5.1.0
+  device_info_plus_windows: ^5.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
