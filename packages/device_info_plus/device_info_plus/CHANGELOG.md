@@ -1,3 +1,7 @@
+## 5.0.3
+
+ - **FIX**: fix version dependency.
+
 ## 5.0.2
 
  - **CHORE**: Version tagging using melos.
