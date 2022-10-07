@@ -70,4 +70,25 @@ of integers or strings.
 | :-----: |
 |   ✔️    |
 
+## Android 11 package visibility
+
+Android 11 introduced new permissions for package visibility.
+If you plan to use `canResolveActivity()` method, you need to specify queries in `AndroidManifest.xml` with specific package names:
+
+https://developer.android.com/training/package-visibility/declaring
+
+you can read more about package visibility on Android on Android Developers blog:
+
+https://medium.com/androiddevelopers/package-visibility-in-android-11-cc857f221cd9
+
+or Official Documentation
+
+https://developer.android.com/training/package-visibility
+
+please note that some packages are visible automatically and you don't have to specify queries:
+
+https://developer.android.com/training/package-visibility/automatic
+
+## Learn more
+
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
