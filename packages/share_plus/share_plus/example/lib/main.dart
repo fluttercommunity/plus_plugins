@@ -4,11 +4,14 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'image_previews.dart';
+import 'utils/file_picker_win.dart'
+    if (dart.library.html) 'utils/file_picker_web.dart';
 
 void main() {
   runApp(const DemoApp());
@@ -67,15 +70,27 @@ class DemoAppState extends State<DemoApp> {
                     leading: const Icon(Icons.add),
                     title: const Text('Add image'),
                     onTap: () async {
-                      final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.pickImage(
-                        source: ImageSource.gallery,
-                      );
-                      if (pickedFile != null) {
-                        setState(() {
-                          imagePaths.add(pickedFile.path);
-                          imageNames.add(pickedFile.name);
-                        });
+                      // Using `package:image_picker` to get image from gallery.
+                      if (Platform.isWindows) {
+                        // Using `package:filepicker_windows` on Windows, since `package:image_picker` is not supported.
+                        final path = await pickFile();
+                        if (path != null) {
+                          setState(() {
+                            imagePaths.add(path);
+                            imageNames.add(path.split('\\').last);
+                          });
+                        }
+                      } else {
+                        final imagePicker = ImagePicker();
+                        final pickedFile = await imagePicker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedFile != null) {
+                          setState(() {
+                            imagePaths.add(pickedFile.path);
+                            imageNames.add(pickedFile.name);
+                          });
+                        }
                       }
                     },
                   ),
