@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
@@ -13,7 +14,9 @@ void main() {
   // ignore: avoid_returning_null_for_void
   void validCallback(int id) => null;
   // ignore: avoid_returning_null_for_void
-  void invalidCallbackWithParams(int id,List<String> params) => null;
+  void invalidCallbackWithParams(int id, List<String> params) => null;
+  // ignore: avoid_returning_null_for_void
+  void validCallbackWithParams(int id, Map<String, dynamic> params) {}
 
   const testChannel = MethodChannel(
       'dev.fluttercommunity.plus/android_alarm_manager', JSONMethodCodec());
@@ -46,7 +49,7 @@ void main() {
           throwsAssertionError);
       //Callback should take int as first param and Map as second param
       await expectLater(
-              () => AndroidAlarmManager.oneShotAt(
+          () => AndroidAlarmManager.oneShotAt(
               validTime, validId, invalidCallbackWithParams),
           throwsAssertionError);
 
@@ -203,6 +206,58 @@ void main() {
 
       expect(result, isTrue);
     });
+
+    test('The params parameter test', () async {
+      final now = DateTime(1993);
+      const rawHandle = 4;
+      AndroidAlarmManager.setTestOverrides(
+          now: () => now,
+          getCallbackHandle: (Function _) =>
+              CallbackHandle.fromRawHandle(rawHandle));
+
+      const id = 1;
+      const period = Duration(seconds: 1);
+      var params = <String, dynamic>{
+        "title": "myAlarm",
+        "obj": const NotJsonParsableClass()
+      };
+
+      expectLater(
+          () => AndroidAlarmManager.periodic(
+                period,
+                id,
+                validCallbackWithParams,
+                params: params,
+              ),
+          throwsUnsupportedError);
+      params = <String, dynamic>{
+        "title": "myAlarm",
+        "obj": const JsonParsableClass("MyName")
+      };
+
+      testChannel.setMockMethodCallHandler((MethodCall call) async {
+        expect(call.method, 'Alarm.periodic');
+        expect(call.arguments[0], id);
+        expect(call.arguments[4],
+            (now.millisecondsSinceEpoch + period.inMilliseconds));
+        expect(call.arguments[5], period.inMilliseconds);
+        expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], isA<Map>());
+        expect(JsonParsableClass.fromJson(call.arguments[8]['obj']),
+            isA<JsonParsableClass>());
+        expect(JsonParsableClass.fromJson(call.arguments[8]['obj']),
+            const JsonParsableClass("MyName"));
+        return true;
+      });
+
+      final result = await AndroidAlarmManager.periodic(
+        period,
+        id,
+        validCallbackWithParams,
+        params: params,
+      );
+      expect(result, isTrue);
+    });
   });
 
   test('${AndroidAlarmManager.cancel}', () async {
@@ -215,42 +270,6 @@ void main() {
     final canceled = await AndroidAlarmManager.cancel(id);
 
     expect(canceled, isTrue);
-  });
-  test('The params parameter test', () async {
-    final now = DateTime(1993);
-    const rawHandle = 4;
-    AndroidAlarmManager.setTestOverrides(
-        now: () => now,
-        getCallbackHandle: (Function _) =>
-            CallbackHandle.fromRawHandle(rawHandle));
-
-    const id = 1;
-    const period = Duration(seconds: 1);
-    var params = <String, dynamic>{
-      "title": "myAlarm",
-      "obj": const NotJsonParsableClass()
-    };
-
-    expectLater(
-        () => AndroidAlarmManager.periodic(
-              period,
-              id,
-              (int id, params) => null,
-              params: params,
-            ),
-        throwsUnsupportedError);
-
-    params = <String, dynamic>{
-      "title": "myAlarm",
-      "obj": const JsonParsableClass("")
-    };
-    final result = await AndroidAlarmManager.periodic(
-      period,
-      id,
-      (int id, params) => null,
-      params: params,
-    );
-    expect(result, isFalse);
   });
 }
 
@@ -268,4 +287,14 @@ class JsonParsableClass {
   JsonParsableClass.fromJson(Map<String, dynamic> json) : name = json['name'];
 
   Map<String, dynamic> toJson() => {'name': name};
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is JsonParsableClass &&
+          runtimeType == other.runtimeType &&
+          name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }
