@@ -1,3 +1,7 @@
+## 4.0.2
+
+ - **FIX**: fixed wrong dependency version #1175.
+
 ## 4.0.1
 
  - **CHORE**: Version tagging using melos.
