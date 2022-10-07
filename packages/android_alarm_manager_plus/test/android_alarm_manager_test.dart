@@ -12,6 +12,8 @@ void main() {
   String invalidCallback(String foo) => foo;
   // ignore: avoid_returning_null_for_void
   void validCallback(int id) => null;
+  // ignore: avoid_returning_null_for_void
+  void invalidCallbackWithParams(int id,List<String> params) => null;
 
   const testChannel = MethodChannel(
       'dev.fluttercommunity.plus/android_alarm_manager', JSONMethodCodec());
@@ -41,6 +43,11 @@ void main() {
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
               validTime, validId, invalidCallback),
+          throwsAssertionError);
+      //Callback should take int as first param and Map as second param
+      await expectLater(
+              () => AndroidAlarmManager.oneShotAt(
+              validTime, validId, invalidCallbackWithParams),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
@@ -209,4 +216,56 @@ void main() {
 
     expect(canceled, isTrue);
   });
+  test('The params parameter test', () async {
+    final now = DateTime(1993);
+    const rawHandle = 4;
+    AndroidAlarmManager.setTestOverrides(
+        now: () => now,
+        getCallbackHandle: (Function _) =>
+            CallbackHandle.fromRawHandle(rawHandle));
+
+    const id = 1;
+    const period = Duration(seconds: 1);
+    var params = <String, dynamic>{
+      "title": "myAlarm",
+      "obj": const NotJsonParsableClass()
+    };
+
+    expectLater(
+        () => AndroidAlarmManager.periodic(
+              period,
+              id,
+              (int id, params) => null,
+              params: params,
+            ),
+        throwsUnsupportedError);
+
+    params = <String, dynamic>{
+      "title": "myAlarm",
+      "obj": const JsonParsableClass("")
+    };
+    final result = await AndroidAlarmManager.periodic(
+      period,
+      id,
+      (int id, params) => null,
+      params: params,
+    );
+    expect(result, isFalse);
+  });
+}
+
+class NotJsonParsableClass {
+  const NotJsonParsableClass();
+
+  final String name = "";
+}
+
+class JsonParsableClass {
+  const JsonParsableClass(this.name);
+
+  final String name;
+
+  JsonParsableClass.fromJson(Map<String, dynamic> json) : name = json['name'];
+
+  Map<String, dynamic> toJson() => {'name': name};
 }

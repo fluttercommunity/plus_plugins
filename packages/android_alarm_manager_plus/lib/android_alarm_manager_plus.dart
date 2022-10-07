@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:ui';
@@ -232,6 +233,7 @@ class AndroidAlarmManager {
         callback is Function(int) ||
         callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
+    chekCanEncodeToJson(params);
     final startMillis = time.millisecondsSinceEpoch;
     final handle = _getCallbackHandle(callback);
     if (handle == null) {
@@ -311,6 +313,7 @@ class AndroidAlarmManager {
         callback is Function(int) ||
         callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
+    chekCanEncodeToJson(params);
     final now = _now().millisecondsSinceEpoch;
     final period = duration.inMilliseconds;
     final first =
@@ -343,5 +346,14 @@ class AndroidAlarmManager {
   static Future<bool> cancel(int id) async {
     final r = await _channel.invokeMethod<bool>('Alarm.cancel', <dynamic>[id]);
     return (r == null) ? false : r;
+  }
+
+  static void chekCanEncodeToJson(Map<String, dynamic> params) {
+    try {
+      jsonEncode(params);
+    } on JsonUnsupportedObjectError catch (e) {
+      throw UnsupportedError(
+          "Can not convert '${e.unsupportedObject.runtimeType}' class to json. Please put objects that can be converted to json into the 'params' parameter");
+    }
   }
 }

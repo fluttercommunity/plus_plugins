@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.MalformedJsonException;
+
 import io.flutter.FlutterInjector;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -201,7 +203,7 @@ public class FlutterBackgroundExecutor implements MethodCallHandler {
       try {
         params = new JSONObject(paramsJsonString);
       } catch (JSONException e) {
-        e.printStackTrace();
+        throw new IllegalArgumentException("Can not convert 'params' to JsonObject", e);
       }
     }
     // If another thread is waiting, then wake that thread when the callback returns a result.

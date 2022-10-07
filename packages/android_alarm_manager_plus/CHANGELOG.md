@@ -1,7 +1,3 @@
-## 2.0.8
-
-- Now we can send extra data as Map to alarm manager and receive it in our callback
-
 ## 2.0.7+1
 
 - Add FAQ to README.md
