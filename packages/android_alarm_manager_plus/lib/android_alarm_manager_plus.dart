@@ -150,8 +150,9 @@ class AndroidAlarmManager {
   /// will not be rescheduled after a reboot and will not be executed.
   ///
   /// You can send extra data in `params`, If you want receive extra data You must
-  /// implement `callback` as Function(int,Map<String,dynamic>)
-  ///
+  /// implement `callback` as Function(int,Map<String,dynamic>), Values in params map
+  /// must be Json parsable. If one of values can not be convert to json, an
+  /// UnsupportedError will be thrown
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShot(
@@ -213,8 +214,9 @@ class AndroidAlarmManager {
   /// will not be rescheduled after a reboot and will not be executed.
   ///
   /// You can send extra data in `params`, If you want receive extra data You must
-  /// implement `callback` as Function(int,Map<String,dynamic>)
-  ///
+  /// implement `callback` as Function(int,Map<String,dynamic>), Values in params map
+  /// must be Json parsable. If one of values can not be convert to json, an
+  /// UnsupportedError will be thrown
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShotAt(
@@ -293,8 +295,9 @@ class AndroidAlarmManager {
   /// will not be rescheduled after a reboot and will not be executed.
   ///
   /// You can send extra data in `params`, If you want receive extra data You must
-  /// implement `callback` as Function(int,Map<String,dynamic>)
-  ///
+  /// implement `callback` as Function(int,Map<String,dynamic>), Values in params map
+  /// must be Json parsable. If one of values can not be convert to json, an
+  /// UnsupportedError will be thrown
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> periodic(
