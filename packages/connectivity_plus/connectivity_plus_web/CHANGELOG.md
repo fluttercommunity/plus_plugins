@@ -1,3 +1,7 @@
+## 1.2.5
+
+ - **CHORE**: Version tagging using melos.
+
 ## 1.2.4
 
 - Fix stream fallback for unsupported browsers
@@ -14,7 +18,6 @@
 
 - Update flutter_lints to 2.0.1
 - Update dev dependencies
->>>>>>> main
 
 ## 1.2.0
 

@@ -1,3 +1,7 @@
+## 4.5.3
+
+ - **CHORE**: Version tagging using melos.
+
 ## 4.5.2
 
 - Update internal dependencies

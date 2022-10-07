@@ -1,3 +1,7 @@
+## 5.0.2
+
+ - **CHORE**: Version tagging using melos.
+
 ## 5.0.1
 
 - Fixing federated plugin architecture versions.

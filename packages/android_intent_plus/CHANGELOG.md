@@ -1,3 +1,7 @@
+## 3.1.3
+
+ - **CHORE**: Version tagging using melos.
+
 ## 3.1.2
 
 - Fix explicit intent fallback to implicit

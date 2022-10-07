@@ -1,3 +1,7 @@
+## 5.0.1
+
+ - **CHORE**: Version tagging using melos.
+
 ## 5.0.0
 
 - Re-introduce: Add more information to WindowsDeviceInfo

@@ -1,3 +1,7 @@
+## 1.1.2
+
+ - **CHORE**: Version tagging using melos.
+
 ## 1.1.1
 
 - Update flutter_lints to 2.0.1
