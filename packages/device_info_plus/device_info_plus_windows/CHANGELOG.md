@@ -1,6 +1,11 @@
-## 4.1.1
+## 5.0.1
 
-- platform interface to 3.0.1
+ - **CHORE**: Version tagging using melos.
+
+## 5.0.0
+
+- Re-introduce: Add more information to WindowsDeviceInfo
+- Update platform channel interface to 4.0.0
 
 ## 4.1.0
 

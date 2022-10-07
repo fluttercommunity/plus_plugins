@@ -1,6 +1,23 @@
+## 5.0.3
+
+ - **FIX**: fix version dependency.
+
+## 5.0.2
+
+ - **CHORE**: Version tagging using melos.
+
+## 5.0.1
+
+- Fixing federated plugin architecture versions.
+
+## 5.0.0
+
+- Re-introduce: Added more information to `WindowsDeviceInfo`.
+- device_info_plus_platform_interface to 4.0.0
+
 ## 4.1.3
 
-- Update dependencies
+- Detects iOS simulator device id instead of simulator's underlying architecture.
 
 ## 4.1.2
 

@@ -1,6 +1,10 @@
 # Build Network Info Plus Example
 name: network_info_plus
 
+concurrency:
+  group: network_info_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
@@ -108,7 +112,7 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
-  macos-integration-test:
+  macos_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
     steps:
@@ -133,6 +137,19 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
+
+  linux_integration_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh linux network_info_plus_example
 
   windows:
     runs-on: windows-latest
