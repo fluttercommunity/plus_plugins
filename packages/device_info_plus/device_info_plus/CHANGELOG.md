@@ -1,3 +1,7 @@
+## 5.0.4
+
+ - **FIX**: fixed wrong dependency version #1175.
+
 ## 5.0.3
 
  - **FIX**: fix version dependency.
