@@ -58,7 +58,6 @@ void main() {
       version: '1.1',
       buildNumber: '2',
       buildSignature: 'deadbeef',
-      installerStore: null,
     );
     final info = await PackageInfo.fromPlatform();
     expect(info.appName, 'mock_package_info_example');
