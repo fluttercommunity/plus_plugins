@@ -6,28 +6,22 @@
 
 *Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/fluttercommunity/plus_plugins/issues). Indicate, which of these issues are resolved or fixed by this PR.*
 
+*e.g.*
+- *Fix #123*
+- *Related #456*
+
 ## Checklist
 
-Before you create this PR confirm that it meets all requirements listed below by checking the relevant checkboxes (`[x]`).
-This will ensure a smooth and quick review process.
-
-- [ ] I read the [Contributor Guide] and followed the process outlined there for submitting PRs.
-- [ ] My PR includes unit or integration tests for *all* changed/updated/fixed behaviors (See [Contributor Guide]).
+- [ ] I read the Contributor Guide and followed the process outlined there for submitting PRs.
+- [ ] I titled the PR using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0).
+- [ ] I did not modify the `CHANGELOG.md` nor the `pubspec.yaml` files.
 - [ ] All existing and new tests are passing.
-- [ ] I updated/added relevant documentation (doc comments with `///`).
 - [ ] The analyzer (`flutter analyze`) does not report any problems on my PR.
-- [ ] I read and followed the [Flutter Style Guide].
-- [ ] I am willing to follow-up on review comments in a timely manner.
 
 ## Breaking Change
 
 Does your PR require plugin users to manually update their apps to accommodate your change?
 
-- [ ] Yes, this is a breaking change (please indicate a breaking change in CHANGELOG.md and increment major revision).
+- [ ] Yes, this is a breaking change (please indicate that with a `!` in the title as explained in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0)).
 - [ ] No, this is *not* a breaking change.
 
-<!-- Links -->
-[issue database]: https://github.com/flutter/flutter/issues
-[Contributor Guide]: https://github.com/fluttercommunity/plus_plugins/blob/main/CONTRIBUTING.md
-[Flutter Style Guide]: https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo
-[pub versioning philosophy]: https://dart.dev/tools/pub/versioning
