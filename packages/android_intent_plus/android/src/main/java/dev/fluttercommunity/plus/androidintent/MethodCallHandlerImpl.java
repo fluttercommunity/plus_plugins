@@ -92,11 +92,17 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
             action, flags, category, data, arguments, packageName, componentName, type);
 
     if ("launch".equalsIgnoreCase(call.method)) {
-      sender.send(intent);
 
+      if (intent != null && !sender.canResolveActivity(intent)) {
+        Log.i(TAG, "Cannot resolve explicit intent, falling back to implicit");
+        intent.setPackage(null);
+      }
+
+      sender.send(intent);
       result.success(null);
     } else if ("launchChooser".equalsIgnoreCase(call.method)) {
       String title = call.argument("chooserTitle");
+
       sender.launchChooser(intent, title);
       result.success(null);
     } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {

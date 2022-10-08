@@ -59,6 +59,21 @@ void main() {
     );
   });
 
+  test('vpn', () async {
+    final linux = ConnectivityLinux();
+    linux.createClient = () {
+      final client = MockNetworkManagerClient();
+      when(client.connectivity)
+          .thenReturn(NetworkManagerConnectivityState.full);
+      when(client.primaryConnectionType).thenReturn('vpn');
+      return client;
+    };
+    expect(
+      linux.checkConnectivity(),
+      completion(equals(ConnectivityResult.vpn)),
+    );
+  });
+
   test('no connectivity', () async {
     final linux = ConnectivityLinux();
     linux.createClient = () {

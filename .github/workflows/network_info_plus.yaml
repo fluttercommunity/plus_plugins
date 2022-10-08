@@ -1,6 +1,14 @@
 # Build Network Info Plus Example
 name: network_info_plus
 
+concurrency:
+  group: network_info_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -104,6 +112,19 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
+  macos_integration_test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh macos network_info_plus_example
+
   linux:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -117,9 +138,21 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
-  windows:
-    if: false # Disabled until Windows CI scripts are done
+  linux_integration_test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh linux network_info_plus_example
+
+  windows:
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -130,6 +163,20 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
+
+  windows_integration_test:
+    if: false  # TODO: reinstate this when the windows implementation is fixed
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh windows network_info_plus_example
 
   web:
     runs-on: ubuntu-latest

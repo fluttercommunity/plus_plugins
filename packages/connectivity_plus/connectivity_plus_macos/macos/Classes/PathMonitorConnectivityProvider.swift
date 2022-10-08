@@ -26,11 +26,11 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   override init() {
     super.init()
-    ensurePathMonitor()
+    _ = ensurePathMonitor()
   }
 
   public func start() {
-    ensurePathMonitor()
+    _ = ensurePathMonitor()
   }
 
   public func stop() {

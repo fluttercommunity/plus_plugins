@@ -3,6 +3,7 @@
 [![Flutter Community: android_alarm_manager_plus](https://fluttercommunity.dev/_github/header/android_alarm_manager_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/android_alarm_manager_plus.svg)](https://pub.dev/packages/android_alarm_manager_plus)
+[![pub points](https://img.shields.io/pub/points/android_alarm_manager_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/android_alarm_manager_plus/score)
 [![android_alarm_manager_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml)
 
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
@@ -104,6 +105,7 @@ StackOverflow response: https://stackoverflow.com/questions/11241794/alarm-set-i
 ### My alarm is not firing on a specific device
 
 Likely the device is running some battery optimization software that is preventing the alarm from firing.
+Check out https://dontkillmyapp.com/ to find out about more about optimizations done by different vendors.
 
 ## Plugin Development
 
@@ -136,5 +138,3 @@ To run the Flutter Driver tests, cd into `example` and run:
 ```
 flutter driver test_driver/android_alarm_manager_plus_e2e.dart
 ```
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)

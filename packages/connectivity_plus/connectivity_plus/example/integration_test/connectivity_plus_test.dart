@@ -5,16 +5,16 @@
 // found in the LICENSE file.
 
 import 'dart:io';
-import 'package:integration_test/integration_test.dart';
-import 'package:flutter_test/flutter_test.dart';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Connectivity test driver', () {
     Connectivity _connectivity;
-    ConnectivityResult _connectionStatusExpected = ConnectivityResult.wifi;
 
     setUpAll(() async {
       _connectivity = Connectivity();
@@ -31,5 +31,19 @@ void main() {
 
       expect(result, ConnectivityResult.wifi);
     }, skip: !Platform.isAndroid);
+
+    testWidgets('connectivity on MacOS should be ethernet',
+        (WidgetTester tester) async {
+      final result = await _connectivity.checkConnectivity();
+
+      expect(result, ConnectivityResult.ethernet);
+    }, skip: !Platform.isMacOS);
+
+    testWidgets('connectivity on Linux should be none',
+        (WidgetTester tester) async {
+      final result = await _connectivity.checkConnectivity();
+
+      expect(result, ConnectivityResult.none);
+    }, skip: !Platform.isLinux);
   });
 }

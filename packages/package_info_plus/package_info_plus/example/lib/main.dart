@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
   final String? title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     version: 'Unknown',
     buildNumber: 'Unknown',
     buildSignature: 'Unknown',
+    installerStore: 'Unknown',
   );
 
   @override
@@ -78,6 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
           _infoTile('App version', _packageInfo.version),
           _infoTile('Build number', _packageInfo.buildNumber),
           _infoTile('Build signature', _packageInfo.buildSignature),
+          _infoTile(
+            'Installer store',
+            _packageInfo.installerStore ?? 'not available',
+          ),
         ],
       ),
     );

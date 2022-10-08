@@ -1,38 +1,49 @@
 package dev.fluttercommunity.plus.network_info
 
+import android.net.ConnectivityManager
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import android.os.Build
 import java.net.*
 
 /** Reports network info such as wifi name and address. */
-internal class NetworkInfo(private val wifiManager: WifiManager?) {
+internal class NetworkInfo(private val wifiManager: WifiManager?,
+                           private val connectivityManager: ConnectivityManager? = null
+) {
 
     private val wifiInfo: WifiInfo?
-        get() = wifiManager?.connectionInfo
+        get() =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val currentNetwork = connectivityManager?.activeNetwork
+                connectivityManager?.getNetworkCapabilities(currentNetwork)?.transportInfo as WifiInfo?
+            } else {
+                @Suppress("DEPRECATION")
+                wifiManager?.connectionInfo
+            }
 
     // Android returns "SSID"
-    fun getWifiName(): String? {
-        var ssid: String? = null
-        if (wifiInfo != null) ssid = wifiInfo!!.ssid
-        return ssid
-    }
+    fun getWifiName(): String? = wifiInfo?.ssid
 
-    fun getWifiBSSID(): String? {
-        return if (wifiInfo != null) {
-            wifiInfo!!.bssid
-        } else {
-            null
-        }
-    }
+    fun getWifiBSSID(): String? = wifiInfo?.bssid
 
     fun getWifiIPAddress(): String? {
-        var wifiInfo: WifiInfo? = null
-        if (wifiManager != null) wifiInfo = wifiManager.connectionInfo
-        var ip: String? = null
-        var interfaceIp = 0
-        if (wifiInfo != null) interfaceIp = wifiInfo.ipAddress
-        if (interfaceIp != 0) ip = formatIPAddress(interfaceIp)
-        return ip
+        var ipAddress: String? = null
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val linkAddresses = connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)?.linkAddresses
+
+            val ipV4Address = linkAddresses?.firstOrNull { linkAddress ->
+                linkAddress.address.hostAddress?.contains('.')
+                    ?: false
+            }?.address?.hostAddress
+
+            ipAddress = ipV4Address
+        } else {
+            @Suppress("DEPRECATION")
+            val interfaceIp = wifiInfo!!.ipAddress
+            if (interfaceIp != 0) ipAddress = formatIPAddress(interfaceIp)
+        }
+        return ipAddress
     }
 
     fun getWifiSubnetMask(): String {
@@ -84,10 +95,19 @@ internal class NetworkInfo(private val wifiManager: WifiManager?) {
         return null
     }
 
-    fun getGatewayIPAddress(): String {
-        val dhcpInfo = wifiManager!!.dhcpInfo
-        val gatewayIPInt = dhcpInfo.gateway
-        return formatIPAddress(gatewayIPInt)
+    fun getGatewayIPAddress(): String? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val linkAddresses = connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)
+            val dhcpServer = linkAddresses?.dhcpServerAddress?.hostAddress
+
+            dhcpServer
+        } else {
+            @Suppress("DEPRECATION")
+            val dhcpInfo = wifiManager?.dhcpInfo
+            val gatewayIPInt = dhcpInfo?.gateway
+
+            gatewayIPInt?.let { formatIPAddress(it) }
+        }
     }
 
     private fun formatIPAddress(intIP: Int): String =

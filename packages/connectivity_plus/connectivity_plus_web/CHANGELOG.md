@@ -1,3 +1,11 @@
+## 1.2.5
+
+ - **CHORE**: Version tagging using melos.
+
+## 1.2.4
+
+- Fix stream fallback for unsupported browsers
+
 ## 1.2.3
 
 - fix Bad state: Stream has already been listened to (#943)

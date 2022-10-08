@@ -1,3 +1,13 @@
+## 3.1.1
+
+- Add missing dart:ui import
+
+## 3.1.0
+
+- Add `shareXFiles` implementations
+- Deprecate `shareFiles*` implementations
+- Enable `shareXFiles` implementations on Web
+
 ## 3.0.3
 
 - Update dependencies

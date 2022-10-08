@@ -1,6 +1,14 @@
 # Build Battery Plus Example
 name: battery_plus
 
+concurrency:
+  group: battery_plus_${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
 on:
   pull_request:
     paths:
@@ -28,7 +36,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
@@ -47,7 +55,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: "11"
 
       - name: "Bootstrap Workspace"
         run: melos bootstrap
@@ -86,7 +94,7 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v1
         with:
-          model: 'iPhone 8'
+          model: "iPhone 8"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios battery_plus_example
 
@@ -103,6 +111,20 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
+  macos_integration_test:
+    if: false # Disabled as battery_plus APIs don't complete in github actions macos VMs.
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh macos battery_plus_example
+
   linux:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -113,12 +135,28 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Install UPower"
+        run: sudo apt install upower
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh linux ./lib/main.dart
 
-  windows:
-    if: false # Disabled until Windows CI scripts are done
+  linux_integration_test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Install UPower"
+        run: sudo apt install upower
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh linux battery_plus_example
+
+  windows:
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -129,6 +167,19 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh windows ./lib/main.dart
+
+  windows_integration_test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh windows battery_plus_example
 
   web:
     runs-on: ubuntu-latest

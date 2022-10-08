@@ -1,3 +1,7 @@
+## 1.4.1
+
+ - **CHORE**: Version tagging using melos.
+
 ## 1.4.0
 
 - iOS: Corrects magnetometer implementation, returning calibrated values from

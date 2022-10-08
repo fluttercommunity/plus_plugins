@@ -1,6 +1,10 @@
-## 3.0.1
+## 4.0.1
 
-- Add Android DisplayMetrics to AndroidDeviceInfo
+ - **CHORE**: Version tagging using melos.
+
+## 4.0.0
+
+- Re-introduce Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
 
 ## 3.0.0
 

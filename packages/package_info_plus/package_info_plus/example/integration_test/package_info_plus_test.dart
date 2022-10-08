@@ -22,6 +22,7 @@ void main() {
       expect(info.buildSignature, isEmpty);
       expect(info.packageName, 'package_info_example');
       expect(info.version, '1.2.3');
+      expect(info.installerStore, null);
     } else {
       if (Platform.isAndroid) {
         expect(info.appName, 'package_info_example');
@@ -29,24 +30,34 @@ void main() {
         expect(info.buildSignature, isNotEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
         expect(info.version, '1.2.3');
+        expect(info.installerStore, null);
       } else if (Platform.isIOS) {
         expect(info.appName, 'Package Info Example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageInfoExample');
         expect(info.version, '1.2.3');
+        expect(info.installerStore, 'com.apple.simulator');
       } else if (Platform.isMacOS) {
         expect(info.appName, 'Package Info Example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageInfoExample');
         expect(info.version, '1.2.3');
+        expect(info.installerStore, null);
       } else if (Platform.isLinux) {
-        expect(info.appName, 'package_info_example');
+        expect(info.appName, 'package_info_plus_example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
-        expect(info.packageName, 'package_info_example');
+        expect(info.packageName, 'package_info_plus_example');
         expect(info.version, '1.2.3');
+      } else if (Platform.isWindows) {
+        expect(info.appName, 'example');
+        expect(info.buildNumber, '4');
+        expect(info.buildSignature, isEmpty);
+        expect(info.packageName, 'example');
+        expect(info.version, '1.2.3');
+        expect(info.installerStore, null);
       } else {
         throw (UnsupportedError('platform not supported'));
       }
@@ -61,6 +72,7 @@ void main() {
       expect(find.text('1.2.3'), findsOneWidget);
       expect(find.text('4'), findsOneWidget);
       expect(find.text('Not set'), findsOneWidget);
+      expect(find.text('not available'), findsOneWidget);
     } else {
       if (Platform.isAndroid) {
         expect(find.text('package_info_example'), findsOneWidget);
@@ -69,6 +81,7 @@ void main() {
             find.text('io.flutter.plugins.packageinfoexample'), findsOneWidget);
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsNothing);
+        expect(find.text('not available'), findsOneWidget);
       } else if (Platform.isIOS) {
         expect(find.text('Package Info Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
@@ -76,6 +89,7 @@ void main() {
             find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
+        expect(find.text('com.apple.simulator'), findsOneWidget);
       } else if (Platform.isMacOS) {
         expect(find.text('Package Info Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
@@ -83,11 +97,18 @@ void main() {
             find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
+        expect(find.text('not available'), findsOneWidget);
       } else if (Platform.isLinux) {
-        expect(find.text('package_info_example'), findsNWidgets(2));
+        expect(find.text('package_info_plus_example'), findsNWidgets(2));
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
+      } else if (Platform.isWindows) {
+        expect(find.text('example'), findsNWidgets(2));
+        expect(find.text('1.2.3'), findsOneWidget);
+        expect(find.text('4'), findsOneWidget);
+        expect(find.text('Not set'), findsOneWidget);
+        expect(find.text('not available'), findsOneWidget);
       } else {
         throw (UnsupportedError('platform not supported'));
       }
