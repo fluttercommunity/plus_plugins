@@ -1,4 +1,4 @@
-#include "include/battery_plus_windows/battery_plus_windows_plugin.h"
+#include "include/battery_plus/battery_plus_windows_plugin.h"
 
 #include <flutter/event_channel.h>
 #include <flutter/event_sink.h>
@@ -11,7 +11,7 @@
 #include <functional>
 #include <memory>
 
-#include "include/battery_plus_windows/system_battery.h"
+#include "include/battery_plus/system_battery.h"
 
 namespace {
 

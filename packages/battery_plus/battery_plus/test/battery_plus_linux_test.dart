@@ -1,8 +1,8 @@
-import 'package:battery_plus_linux/src/battery_plus_linux.dart';
+import 'package:battery_plus/src/battery_plus_linux.dart';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:upower/upower.dart';
 
 import 'battery_plus_linux_test.mocks.dart';
@@ -10,11 +10,11 @@ import 'battery_plus_linux_test.mocks.dart';
 @GenerateMocks([UPowerClient, UPowerDevice])
 void main() {
   test('registered instance', () {
-    BatteryPlusLinux.registerWith();
-    expect(BatteryPlatform.instance, isA<BatteryPlusLinux>());
+    BatteryPlusLinuxPlugin.registerWith();
+    expect(BatteryPlatform.instance, isA<BatteryPlusLinuxPlugin>());
   });
   test('battery level', () async {
-    final battery = BatteryPlusLinux();
+    final battery = BatteryPlusLinuxPlugin();
     battery.createClient = () {
       return createMockClient(percentage: 56.78);
     };
@@ -22,7 +22,7 @@ void main() {
   });
 
   test('battery state', () async {
-    final battery = BatteryPlusLinux();
+    final battery = BatteryPlusLinuxPlugin();
     battery.createClient = () {
       return createMockClient(state: UPowerDeviceState.charging);
     };
@@ -30,7 +30,7 @@ void main() {
   });
 
   test('battery state changes', () {
-    final battery = BatteryPlusLinux();
+    final battery = BatteryPlusLinuxPlugin();
     battery.createClient = () {
       final client = createMockClient(state: UPowerDeviceState.charging);
       final device = client.displayDevice;

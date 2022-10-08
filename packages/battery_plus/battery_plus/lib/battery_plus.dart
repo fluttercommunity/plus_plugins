@@ -6,9 +6,10 @@ import 'dart:async';
 
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 
-// Export enums from the platform_interface so plugin users can use them directly.
 export 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart'
     show BatteryState;
+
+export 'src/battery_plus_linux.dart';
 
 /// API for accessing information about the battery of the device the Flutter app is running on.
 class Battery {
@@ -38,7 +39,7 @@ class Battery {
 
   /// check if device is on battery save mode
   ///
-  /// Currently only impemented on Android, IOS and Windows.
+  /// Currently only implemented on Android, iOS and Windows.
   Future<bool> get isInBatterySaveMode {
     return _platform.isInBatterySaveMode;
   }
