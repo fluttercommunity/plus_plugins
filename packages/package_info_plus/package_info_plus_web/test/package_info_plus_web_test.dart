@@ -17,6 +17,7 @@ void main() {
     'package_name': 'io.flutter.plugins.packageinfoexample',
     'version': '1.0',
     'installerStore': null,
+    'build_signature': '',
   };
 
   late PackageInfoPlugin plugin;
@@ -42,11 +43,13 @@ void main() {
           final versionMap = await plugin.getAll();
 
           expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.version, VERSION_JSON['version']);
           expect(versionMap.buildNumber, VERSION_JSON['build_number']);
           expect(versionMap.packageName, VERSION_JSON['package_name']);
-          expect(versionMap.version, VERSION_JSON['version']);
+          expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
         },
       );
+
       test(
         'Get empty values when response status is not 200',
         () async {
@@ -62,10 +65,12 @@ void main() {
           expect(versionMap.buildNumber, isEmpty);
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, isEmpty);
+          expect(versionMap.buildSignature, isEmpty);
         },
       );
+
       test(
-        'Get correct versionJsonUrl',
+        'Get correct versionJsonUrl for http and https',
         () {
           expect(
             plugin.versionJsonUrl('https://example.com/#/my-page', 1),
@@ -96,6 +101,28 @@ void main() {
           );
         },
       );
+
+      test('Get correct versionJsonUrl for chrome-extension', () {
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh', 1),
+          Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh/a/b/c', 1),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('chrome-extension://abcdefgh/#my-page', 1),
+          Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl(
+              'chrome-extension://abcdefgh/a/b/c/#my-page', 1),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+        );
+      });
     },
   );
 }

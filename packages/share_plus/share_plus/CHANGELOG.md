@@ -1,3 +1,22 @@
+## 4.5.3
+
+ - **CHORE**: Version tagging using melos.
+
+## 4.5.2
+
+- Update internal dependencies
+
+## 4.5.1
+
+- Update internal dependencies
+
+## 4.5.0
+
+- iOS: Remove usage of deprecated UIApplication.keyWindow in iOS 13+
+- Add `shareXFiles` implementations
+- Deprecate `shareFiles*` implementations
+- Enable `shareXFiles` implementations on Web
+
 ## 4.4.0
 
 - Reverted changes in 4.2.0 due to crash issues. See #1081

@@ -1,3 +1,7 @@
+## 2.2.2
+
+ - **FIX**: batteryState always return unknown on API < 26 (#1120).
+
 ## 2.2.1
 
 - Fix: batteryState always return unknown on API < 26

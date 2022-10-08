@@ -3,14 +3,19 @@ library share_plus_windows;
 
 import 'dart:ui';
 
+import 'package:share_plus_windows/src/version_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
-/// The Windows implementation of SharePlatform.
+/// The fallback Windows implementation of [SharePlatform], for older Windows versions.
+///
 class ShareWindows extends SharePlatform {
-  /// Register this dart class as the platform implementation for linux
+  /// If the modern Share UI i.e. `DataTransferManager` is not available, then use this Dart class instead of platform specific implementation.
+  ///
   static void registerWith() {
-    SharePlatform.instance = ShareWindows();
+    if (!VersionHelper.instance.isWindows10RS5OrGreater) {
+      SharePlatform.instance = ShareWindows();
+    }
   }
 
   /// Share text.

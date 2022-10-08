@@ -7,6 +7,7 @@ dependencies:
   share_plus:
     path: ../
   image_picker: ^0.8.4
+  filepicker_windows: ^2.0.2
 
 dependency_overrides:
   share_plus_linux:

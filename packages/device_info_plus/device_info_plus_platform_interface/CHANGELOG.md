@@ -1,3 +1,11 @@
+## 4.0.1
+
+ - **CHORE**: Version tagging using melos.
+
+## 4.0.0
+
+- Re-introduce Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
+
 ## 3.0.0
 
 - Redo 2.6.0 into 3.0.0
