@@ -1,7 +1,3 @@
-## 2.0.0
-
-- Add information about the store, through which the application was installed
-
 ## 1.0.5
 
 - Resolve package_name

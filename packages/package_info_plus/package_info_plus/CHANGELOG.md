@@ -1,7 +1,3 @@
-## 2.0.0
-
-- Add information about the store, through which the application was installed
-
 ## 1.4.3+1
 
 - Add issue_tracker link.
