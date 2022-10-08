@@ -38,6 +38,8 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
                 val buildSignature = getBuildSignature(packageManager)
 
+                val installerPackage = packageManager.getInstallerPackageName(applicationContext!!.packageName);
+
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
                     put("appName", info.applicationInfo.loadLabel(packageManager).toString())
@@ -45,6 +47,7 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                     put("version", info.versionName)
                     put("buildNumber", getLongVersionCode(info).toString())
                     if (buildSignature != null) put("buildSignature", buildSignature)
+                    if (installerPackage != null) put("installerStore", installerPackage)
                 }.also { resultingMap ->
                     result.success(resultingMap)
                 }

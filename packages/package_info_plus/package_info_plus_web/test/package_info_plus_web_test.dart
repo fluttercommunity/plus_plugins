@@ -16,6 +16,7 @@ void main() {
     'build_number': '1',
     'package_name': 'io.flutter.plugins.packageinfoexample',
     'version': '1.0',
+    'installerStore': null,
     'build_signature': '',
   };
 

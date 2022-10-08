@@ -29,6 +29,7 @@
       @"buildNumber" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
+      @"installerStore" : [NSNull null]
     });
   } else {
     result(FlutterMethodNotImplemented);
