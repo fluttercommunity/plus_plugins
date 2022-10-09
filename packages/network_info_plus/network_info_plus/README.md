@@ -39,7 +39,13 @@ var wifiBroadcast = await info.getWifiBroadcast(); // 192.168.1.255
 var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 ```
 
-### Android
+### Device permissions
+
+To access protected WiFi methods related to location, you must request additional permissions on Android and iOS. Users of this plugin should use the [permission_handler](https://pub.dev/packages/permission_handler) Flutter plugin to handle these cases.
+
+See below for platform-specific information on which permissions need to be requested for protected methods.
+
+#### Android
 
 To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure all of the following conditions are met:
 
@@ -53,11 +59,11 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 **This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
 
-### iOS 12
+#### iOS 12
 
 To use `.getWifiBSSID()` and `.getWifiName()` on iOS >= 12, the `Access WiFi information capability` in XCode must be enabled. Otherwise, both methods will return null.
 
-### iOS 13
+#### iOS 13
 
 The methods `.getWifiBSSID()` and `.getWifiName()` utilize the [`CNCopyCurrentNetworkInfo`](https://developer.apple.com/documentation/systemconfiguration/1614126-cncopycurrentnetworkinfo) function on iOS.
 
@@ -81,8 +87,7 @@ The `CNCopyCurrentNetworkInfo` will work for Apps that:
 If your app falls into the last two categories, it will work as it is. If your app doesn't fall into the last two categories,
 and you still need to access the wifi information, you should request user's authorization to use location information.
 
-There is a helper method provided in this plugin to request the location authorization: `requestLocationServiceAuthorization`.
-To request location authorization, make sure to add the following keys to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
+Make sure to add the following keys to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
 
 - `NSLocationAlwaysAndWhenInUseUsageDescription` - describe why the app needs access to the user’s location information all the time (foreground and background). This is called _Privacy - Location Always and When In Use Usage Description_ in the visual editor.
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.

@@ -128,6 +128,9 @@ class NetworkInfo {
   /// Ideally, a location service authorization should only be requested if the current authorization status is not determined.
   ///
   /// See also [getLocationServiceAuthorization] to obtain current location service status.
+  @Deprecated(
+      'Plugin users should use the permission_handler plugin to request permissions. '
+      'See README.md for more details.')
   Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
     bool requestAlwaysLocationUsage = false,
   }) {
@@ -172,6 +175,9 @@ class NetworkInfo {
   /// ```
   ///
   /// See also [requestLocationServiceAuthorization] for requesting a location service authorization.
+  @Deprecated(
+      'Plugin users should use the permission_handler plugin to request permissions. '
+      'See README.md for more details.')
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
     return _platform.getLocationServiceAuthorization();
   }
