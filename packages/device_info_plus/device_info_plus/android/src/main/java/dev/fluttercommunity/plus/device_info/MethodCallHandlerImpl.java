@@ -4,12 +4,13 @@
 
 package dev.fluttercommunity.plus.device_info;
 
-import android.content.ContentResolver;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -23,9 +24,8 @@ import java.util.Map;
  */
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
-  private final ContentResolver contentResolver;
   private final PackageManager packageManager;
-  private final IGetActivity getActivity;
+  private final WindowManager windowManager;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
@@ -34,11 +34,9 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
    * Constructs DeviceInfo. {@code contentResolver}, {@code packageManager} and {@code getActivity}
    * must not be null.
    */
-  MethodCallHandlerImpl(
-      ContentResolver contentResolver, PackageManager packageManager, IGetActivity getActivity) {
-    this.contentResolver = contentResolver;
+  MethodCallHandlerImpl(PackageManager packageManager, WindowManager windowManager) {
     this.packageManager = packageManager;
-    this.getActivity = getActivity;
+    this.windowManager = windowManager;
   }
 
   @Override
@@ -84,8 +82,7 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       version.put("sdkInt", Build.VERSION.SDK_INT);
       build.put("version", version);
 
-      final Display display =
-          getActivity.getActivity().getWindow().getWindowManager().getDefaultDisplay();
+      final Display display = windowManager.getDefaultDisplay();
       final DisplayMetrics metrics = new DisplayMetrics();
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         display.getRealMetrics(metrics);
