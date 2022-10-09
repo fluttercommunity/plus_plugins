@@ -1,40 +1,72 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:share_plus_windows/share_plus_windows.dart';
+import 'package:share_plus_windows/src/version_helper.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
+
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_platform_interface/link.dart';
 
 void main() {
-  test('registered instance', () {
-    ShareWindows.registerWith();
-    expect(SharePlatform.instance, isA<ShareWindows>());
-  });
-  test('url encoding is correct for &', () async {
-    final mock = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mock;
+  test(
+    'registered instance',
+    () {
+      ShareWindows.registerWith();
+      expect(SharePlatform.instance, isA<ShareWindows>());
+    },
+    skip: VersionHelper.instance.isWindows10RS5OrGreater,
+  );
 
-    await ShareWindows().share('foo&bar', subject: 'bar&foo');
+  test(
+    'registered instance',
+    () {
+      ShareWindows.registerWith();
+      expect(SharePlatform.instance, isA<MethodChannelShare>());
+    },
+    skip: !VersionHelper.instance.isWindows10RS5OrGreater,
+  );
 
-    expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
-  });
+  // These tests are only valid on Windows versions lower than 10.0.17763.0.
+
+  test(
+    'url encoding is correct for &',
+    () async {
+      final mock = MockUrlLauncherPlatform();
+      UrlLauncherPlatform.instance = mock;
+
+      await ShareWindows().share('foo&bar', subject: 'bar&foo');
+
+      expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
+    },
+    skip: VersionHelper.instance.isWindows10RS5OrGreater,
+  );
 
   // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
-  test('url encoding is correct for spaces', () async {
-    final mock = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mock;
+  test(
+    'url encoding is correct for spaces',
+    () async {
+      final mock = MockUrlLauncherPlatform();
+      UrlLauncherPlatform.instance = mock;
 
-    await ShareWindows().share('foo bar', subject: 'bar foo');
+      await ShareWindows().share('foo bar', subject: 'bar foo');
 
-    expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
-  });
+      expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
+    },
+    skip: VersionHelper.instance.isWindows10RS5OrGreater,
+  );
 
-  test('throws when url_launcher can\'t launch uri', () async {
-    final mock = MockUrlLauncherPlatform();
-    mock.canLaunchMockValue = false;
-    UrlLauncherPlatform.instance = mock;
+  test(
+    'throws when url_launcher can\'t launch uri',
+    () async {
+      final mock = MockUrlLauncherPlatform();
+      mock.canLaunchMockValue = false;
+      UrlLauncherPlatform.instance = mock;
 
-    expect(() async => await ShareWindows().share('foo bar'), throwsException);
-  });
+      expect(
+          () async => await ShareWindows().share('foo bar'), throwsException);
+    },
+    skip: VersionHelper.instance.isWindows10RS5OrGreater,
+  );
 }
 
 class MockUrlLauncherPlatform extends UrlLauncherPlatform {

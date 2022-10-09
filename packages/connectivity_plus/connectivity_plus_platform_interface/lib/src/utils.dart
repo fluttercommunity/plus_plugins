@@ -11,6 +11,8 @@ ConnectivityResult parseConnectivityResult(String state) {
       return ConnectivityResult.ethernet;
     case 'mobile':
       return ConnectivityResult.mobile;
+    case 'vpn':
+      return ConnectivityResult.vpn;
     case 'none':
     default:
       return ConnectivityResult.none;

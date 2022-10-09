@@ -65,9 +65,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('NetworkInfo example app'),
+        title: const Text('NetworkInfoPlus example'),
       ),
-      body: Center(child: Text('Connection Status: $_connectionStatus')),
+      body: Center(
+          child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Network info',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(_connectionStatus),
+        ],
+      )),
     );
   }
 

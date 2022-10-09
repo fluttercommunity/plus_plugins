@@ -4,11 +4,14 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'image_previews.dart';
+import 'utils/file_picker_win.dart'
+    if (dart.library.html) 'utils/file_picker_web.dart';
 
 void main() {
   runApp(const DemoApp());
@@ -24,6 +27,7 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  List<String> imageNames = [];
   List<String> imagePaths = [];
 
   @override
@@ -66,14 +70,27 @@ class DemoAppState extends State<DemoApp> {
                     leading: const Icon(Icons.add),
                     title: const Text('Add image'),
                     onTap: () async {
-                      final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.pickImage(
-                        source: ImageSource.gallery,
-                      );
-                      if (pickedFile != null) {
-                        setState(() {
-                          imagePaths.add(pickedFile.path);
-                        });
+                      // Using `package:image_picker` to get image from gallery.
+                      if (Platform.isWindows) {
+                        // Using `package:filepicker_windows` on Windows, since `package:image_picker` is not supported.
+                        final path = await pickFile();
+                        if (path != null) {
+                          setState(() {
+                            imagePaths.add(path);
+                            imageNames.add(path.split('\\').last);
+                          });
+                        }
+                      } else {
+                        final imagePicker = ImagePicker();
+                        final pickedFile = await imagePicker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedFile != null) {
+                          setState(() {
+                            imagePaths.add(pickedFile.path);
+                            imageNames.add(pickedFile.name);
+                          });
+                        }
                       }
                     },
                   ),
@@ -109,6 +126,7 @@ class DemoAppState extends State<DemoApp> {
   void _onDeleteImage(int position) {
     setState(() {
       imagePaths.removeAt(position);
+      imageNames.removeAt(position);
     });
   }
 
@@ -123,7 +141,11 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (imagePaths.isNotEmpty) {
-      await Share.shareFiles(imagePaths,
+      final files = <XFile>[];
+      for (var i = 0; i < imagePaths.length; i++) {
+        files.add(XFile(imagePaths[i], name: imageNames[i]));
+      }
+      await Share.shareXFiles(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
@@ -138,7 +160,11 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
     ShareResult result;
     if (imagePaths.isNotEmpty) {
-      result = await Share.shareFilesWithResult(imagePaths,
+      final files = <XFile>[];
+      for (var i = 0; i < imagePaths.length; i++) {
+        files.add(XFile(imagePaths[i], name: imageNames[i]));
+      }
+      result = await Share.shareXFiles(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);

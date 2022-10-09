@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_share.dart';
@@ -44,6 +45,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files.
+  @Deprecated("Use shareXFiles instead.")
   Future<void> shareFiles(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -76,6 +78,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share files with Result.
+  @Deprecated("Use shareXFiles instead.")
   Future<ShareResult> shareFilesWithResult(
     List<String> paths, {
     List<String>? mimeTypes,
@@ -92,6 +95,21 @@ class SharePlatform extends PlatformInterface {
     );
 
     return _resultUnavailable;
+  }
+
+  /// Share [XFile] objects with Result.
+  Future<ShareResult> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    return _instance.shareXFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 }
 

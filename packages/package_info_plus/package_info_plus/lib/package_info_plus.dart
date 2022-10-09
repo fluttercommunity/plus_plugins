@@ -22,6 +22,7 @@ class PackageInfo {
     required this.version,
     required this.buildNumber,
     this.buildSignature = '',
+    this.installerStore,
   });
 
   static PackageInfo? _fromPlatform;
@@ -40,6 +41,7 @@ class PackageInfo {
       version: platformData.version,
       buildNumber: platformData.buildNumber,
       buildSignature: platformData.buildSignature,
+      installerStore: platformData.installerStore,
     );
     return _fromPlatform!;
   }
@@ -59,6 +61,9 @@ class PackageInfo {
   /// The build signature. Empty string on iOS, signing key signature (hex) on Android.
   final String buildSignature;
 
+  /// The installer store. Indicates through which store this application was installed.
+  final String? installerStore;
+
   /// Initializes the application metadata with mock values for testing.
   ///
   /// If the singleton instance has been initialized already, it is overwritten.
@@ -69,6 +74,7 @@ class PackageInfo {
     required String version,
     required String buildNumber,
     required String buildSignature,
+    required String? installerStore,
   }) {
     _fromPlatform = PackageInfo(
       appName: appName,
@@ -76,6 +82,7 @@ class PackageInfo {
       version: version,
       buildNumber: buildNumber,
       buildSignature: buildSignature,
+      installerStore: installerStore,
     );
   }
 }

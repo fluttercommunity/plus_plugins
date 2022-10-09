@@ -1,3 +1,7 @@
+## 2.3.9
+
+ - **CHORE**: Version tagging using melos.
+
 ## 2.3.8
 
 - Discard unused warnings for `ensurePathMonitor` & `ensureReachability` call in iOS.

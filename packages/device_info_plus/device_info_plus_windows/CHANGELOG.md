@@ -1,3 +1,16 @@
+## 5.0.2
+
+ - **FIX**: fixed wrong dependency version #1175.
+
+## 5.0.1
+
+ - **CHORE**: Version tagging using melos.
+
+## 5.0.0
+
+- Re-introduce: Add more information to WindowsDeviceInfo
+- Update platform channel interface to 4.0.0
+
 ## 4.1.0
 
 - Allow win32 3.x to be used.

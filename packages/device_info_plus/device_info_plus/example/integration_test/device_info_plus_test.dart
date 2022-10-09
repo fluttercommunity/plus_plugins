@@ -67,7 +67,16 @@ void main() {
     }
   });
 
-  testWidgets('Check all android info values are set',
+  testWidgets('Can get non-null iOS utsname fields',
+      (WidgetTester tester) async {
+    expect(iosInfo.utsname.machine, 'iPhone10,4');
+    expect(iosInfo.utsname.nodename, isNotNull);
+    expect(iosInfo.utsname.release, isNotNull);
+    expect(iosInfo.utsname.sysname, isNotNull);
+    expect(iosInfo.utsname.version, isNotNull);
+  }, skip: !Platform.isIOS);
+
+  testWidgets('Check all android info values are available',
       (WidgetTester tester) async {
     expect(androidInfo.version.baseOS, isNotNull);
     expect(androidInfo.version.codename, isNotNull);
@@ -101,7 +110,7 @@ void main() {
     expect(androidInfo.systemFeatures, isNotNull);
   }, skip: !Platform.isAndroid);
 
-  testWidgets('Check all macos info values are set',
+  testWidgets('Check all macos info values are available',
       ((WidgetTester tester) async {
     expect(macosInfo.computerName, isNotNull);
     expect(macosInfo.hostName, isNotNull);
@@ -128,4 +137,97 @@ void main() {
     expect(linuxInfo.variant, isNull);
     expect(linuxInfo.variantId, isNull);
   }), skip: !Platform.isLinux);
+
+  testWidgets('Check all Windows info values are available',
+      ((WidgetTester tester) async {
+    expect(
+      windowsInfo.numberOfCores,
+      isPositive,
+    );
+    expect(
+      windowsInfo.computerName,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.systemMemoryInMegabytes,
+      isPositive,
+    );
+    expect(
+      windowsInfo.userName,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.majorVersion,
+      equals(10),
+    );
+    expect(
+      windowsInfo.minorVersion,
+      equals(0),
+    );
+    expect(
+      windowsInfo.buildNumber,
+      greaterThan(10240),
+    );
+    expect(
+      windowsInfo.platformId,
+      equals(2),
+    );
+    expect(
+      windowsInfo.reserved,
+      isZero,
+    );
+    expect(
+      windowsInfo.buildLab,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.buildLab,
+      startsWith(
+        windowsInfo.buildNumber.toString(),
+      ),
+    );
+    expect(
+      windowsInfo.buildLabEx,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.buildLab,
+      startsWith(windowsInfo.buildNumber.toString()),
+    );
+    expect(
+      windowsInfo.digitalProductId,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.editionId,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.productId,
+      isNotEmpty,
+    );
+    expect(
+      RegExp(r'^([A-Z0-9]{5}-){4}[A-Z0-9]{5}$')
+              .hasMatch(windowsInfo.productId) ||
+          RegExp(r'^([A-Z0-9]{5}-){3}[A-Z0-9]{5}$')
+              .hasMatch(windowsInfo.productId),
+      isTrue,
+    );
+    expect(
+      windowsInfo.productName,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.productName,
+      startsWith('Windows'),
+    );
+    expect(
+      windowsInfo.releaseId,
+      isNotEmpty,
+    );
+    expect(
+      windowsInfo.deviceId,
+      isNotEmpty,
+    );
+  }), skip: !Platform.isWindows);
 }

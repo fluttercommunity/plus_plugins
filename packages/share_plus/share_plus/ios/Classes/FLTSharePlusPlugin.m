@@ -9,7 +9,22 @@
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
 static UIViewController *RootViewController() {
-  return [UIApplication sharedApplication].keyWindow.rootViewController;
+  if (@available(iOS 13, *)) { // UIApplication.keyWindow is deprecated
+    NSSet *scenes = [[UIApplication sharedApplication] connectedScenes];
+    for (UIScene *scene in scenes) {
+      if ([scene isKindOfClass:[UIWindowScene class]]) {
+        NSArray *windows = ((UIWindowScene *)scene).windows;
+        for (UIWindow *window in windows) {
+          if (window.isKeyWindow) {
+            return window.rootViewController;
+          }
+        }
+      }
+    }
+    return nil;
+  } else {
+    return [UIApplication sharedApplication].keyWindow.rootViewController;
+  }
 }
 
 static UIViewController *
@@ -259,8 +274,15 @@ TopViewControllerForViewController(UIViewController *viewController) {
             return;
           }
 
+          UIViewController *rootViewController = RootViewController();
+          if (!rootViewController) {
+            result([FlutterError errorWithCode:@"error"
+                                       message:@"No root view controller found"
+                                       details:nil]);
+            return;
+          }
           UIViewController *topViewController =
-              TopViewControllerForViewController(RootViewController());
+              TopViewControllerForViewController(rootViewController);
 
           [self shareText:shareText
                      subject:shareSubject
@@ -293,8 +315,15 @@ TopViewControllerForViewController(UIViewController *viewController) {
             }
           }
 
+          UIViewController *rootViewController = RootViewController();
+          if (!rootViewController) {
+            result([FlutterError errorWithCode:@"error"
+                                       message:@"No root view controller found"
+                                       details:nil]);
+            return;
+          }
           UIViewController *topViewController =
-              TopViewControllerForViewController(RootViewController());
+              TopViewControllerForViewController(rootViewController);
           [self shareFiles:paths
                 withMimeType:mimeTypes
                  withSubject:subject
