@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
@@ -79,11 +80,13 @@ class NetworkInfo {
     return _platform.getWifiBroadcast();
   }
 
-  /// Request to authorize the location service (Only on iOS and Android).
+  /// Request to authorize the location service (Only on iOS).
+  ///
+  /// This method will throw a [PlatformException] on Android.
   ///
   /// Returns a [LocationAuthorizationStatus] after user authorized or denied the location on this request.
   ///
-  /// On iOS, If the location information needs to be accessible all the time, set `requestAlwaysLocationUsage` to true. If user has
+  /// If the location information needs to be accessible all the time, set `requestAlwaysLocationUsage` to true. If user has
   /// already granted a [LocationAuthorizationStatus.authorizedWhenInUse] prior to requesting an "always" access, it will return [LocationAuthorizationStatus.denied].
   ///
   /// If the location service authorization is not determined prior to making this call, a platform standard UI of requesting a location service will pop up.
@@ -122,14 +125,6 @@ class NetworkInfo {
   /// }
   /// ```
   ///
-  /// On Android, requesting permissions requires the permission to be added to AndroidManifest.xml.
-  /// * If your app is targeting Android 13 (API level 33) or higher, you must add `NEARBY_WIFI_DEVICES` to the manifest.
-  /// * If your app is targeting between Android 10 and 13 (API level 29 to 32) or higher, you must add `ACCESS_FINE_LOCATION` to the manifest.
-  /// * If your app is targeting lower than Android 10 (API level 29), you must add `ACCESS_COARSE_LOCATION` to the manifest.
-  ///
-  /// On Android, if the user has denied permission and selected "Never ask again", the authorization
-  /// status will be undetermined.
-  ///
   /// Ideally, a location service authorization should only be requested if the current authorization status is not determined.
   ///
   /// See also [getLocationServiceAuthorization] to obtain current location service status.
@@ -141,7 +136,9 @@ class NetworkInfo {
     );
   }
 
-  /// Get the current location service authorization (Only on iOS and Android).
+  /// Get the current location service authorization (Only on iOS).
+  ///
+  /// This method will throw a [PlatformException] on Android.
   ///
   /// Returns a [LocationAuthorizationStatus].
   /// If the returned value is [LocationAuthorizationStatus.notDetermined], a subsequent [requestLocationServiceAuthorization] call
@@ -173,14 +170,6 @@ class NetworkInfo {
   ///   wifiBSSID = await _networkInfo.getWifiName();
   /// }
   /// ```
-  ///
-  /// On Android, requesting permissions requires the permission to be added to AndroidManifest.xml.
-  /// * If your app is targeting Android 13 (API level 33) or higher, you must add `NEARBY_WIFI_DEVICES` to the manifest.
-  /// * If your app is targeting between Android 10 and 13 (API level 29 to 32) or higher, you must add `ACCESS_FINE_LOCATION` to the manifest.
-  /// * If your app is targeting lower than Android 10 (API level 29), you must add `ACCESS_COARSE_LOCATION` to the manifest.
-  ///
-  /// On Android, if the user has denied permission and selected "Never ask again", the authorization
-  /// status will be undetermined.
   ///
   /// See also [requestLocationServiceAuthorization] for requesting a location service authorization.
   Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {

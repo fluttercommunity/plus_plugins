@@ -1,41 +1,14 @@
 package dev.fluttercommunity.plus.network_info
 
-import android.Manifest
-import android.app.Activity
-import android.content.pm.PackageManager
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-import android.os.Build
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.PluginRegistry
 import java.net.*
 
-private const val permissionRequestCode = 100
-
 /** Reports network info such as wifi name and address. */
-internal class NetworkInfo(private val wifiManager: WifiManager?) :
-    PluginRegistry.RequestPermissionsResultListener {
+internal class NetworkInfo(private val wifiManager: WifiManager?) {
 
     private val wifiInfo: WifiInfo?
         get() = wifiManager?.connectionInfo
-
-    private var ongoingResult: MethodChannel.Result? = null
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ): Boolean {
-        if (requestCode == permissionRequestCode) {
-            val cachedResult = ongoingResult ?: return true
-            cachedResult.success(parseAuthStatus(grantResults).platformName)
-            ongoingResult = null
-        }
-        return true
-    }
 
     // Android returns "SSID"
     fun getWifiName(): String? {
@@ -105,7 +78,7 @@ internal class NetworkInfo(private val wifiManager: WifiManager?) :
                     }
                 }
             }
-        } catch (_: SocketException) {
+        } catch (socketException: SocketException) {
 
         }
         return null
@@ -115,59 +88,6 @@ internal class NetworkInfo(private val wifiManager: WifiManager?) :
         val dhcpInfo = wifiManager!!.dhcpInfo
         val gatewayIPInt = dhcpInfo.gateway
         return formatIPAddress(gatewayIPInt)
-    }
-
-    fun getLocationServiceAuthorizationWithResult(
-        activity: Activity?,
-        result: MethodChannel.Result
-    ) {
-        try {
-            result.success(getLocationServiceAuthorization(activity).platformName)
-        } catch (e: IllegalStateException) {
-            result.error("NetworkInfo", e.message, null)
-        }
-    }
-
-    fun requestLocationServiceAuthorization(
-        activity: Activity?,
-        result: MethodChannel.Result
-    ) {
-        if (activity == null) {
-            result.error(
-                "NetworkInfo",
-                "Non-null activity is required to request permissions",
-                null
-            )
-            return
-        } else if (ongoingResult != null) {
-            result.error(
-                "NetworkInfo",
-                "Permission request is already in progress",
-                null
-            )
-            return
-        }
-
-        lateinit var status: LocationAuthorizationStatus
-        try {
-            status = getLocationServiceAuthorization(activity)
-        } catch (e: IllegalStateException) {
-            result.error("NetworkInfo", e.message, null)
-            return
-        }
-
-        if (status != LocationAuthorizationStatus.AUTHORIZED_ALWAYS) {
-            ongoingResult = result
-            ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(getPermissionName()),
-                permissionRequestCode
-            )
-        } else {
-            ongoingResult = null
-            result.success(LocationAuthorizationStatus.AUTHORIZED_ALWAYS.platformName)
-        }
-
     }
 
     private fun formatIPAddress(intIP: Int): String =
@@ -215,50 +135,4 @@ internal class NetworkInfo(private val wifiManager: WifiManager?) :
         }
         return null
     }
-
-    private fun getLocationServiceAuthorization(activity: Activity?): LocationAuthorizationStatus {
-        if (activity == null) {
-            throw IllegalStateException("Non-null activity is required to request permissions")
-        }
-
-        val permissionName = getPermissionName()
-
-        // This call returns true when the user has denied the permission, but will return false
-        // if the user has selected "Never ask again" after denying the permission.
-        val isPermissionDeniedByUser =
-            ActivityCompat.shouldShowRequestPermissionRationale(activity, permissionName)
-        val permissionValue = ContextCompat.checkSelfPermission(activity, permissionName)
-
-        return if (permissionValue == PackageManager.PERMISSION_GRANTED) {
-            LocationAuthorizationStatus.AUTHORIZED_ALWAYS
-        } else if (permissionValue == PackageManager.PERMISSION_DENIED && isPermissionDeniedByUser) {
-            LocationAuthorizationStatus.DENIED
-        } else {
-            LocationAuthorizationStatus.NOT_DETERMINED
-        }
-    }
-
-    private fun getPermissionName(): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.NEARBY_WIFI_DEVICES
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Manifest.permission.ACCESS_FINE_LOCATION
-        } else {
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        }
-    }
-
-    private fun parseAuthStatus(grantResults: IntArray): LocationAuthorizationStatus {
-        return when (grantResults.firstOrNull()) {
-            PackageManager.PERMISSION_GRANTED -> LocationAuthorizationStatus.AUTHORIZED_ALWAYS
-            PackageManager.PERMISSION_DENIED -> LocationAuthorizationStatus.DENIED
-            else -> LocationAuthorizationStatus.NOT_DETERMINED
-        }
-    }
-}
-
-internal enum class LocationAuthorizationStatus(val platformName: String) {
-    NOT_DETERMINED("notDetermined"),
-    DENIED("denied"),
-    AUTHORIZED_ALWAYS("authorizedAlways"),
 }
