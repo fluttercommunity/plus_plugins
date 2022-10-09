@@ -23,15 +23,16 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
-          # Required for Android builds
-      - uses: actions/setup-java@v1
+        # Required for Android builds
+      - uses: actions/setup-java@v2
         with:
+          distribution: "temurin"
           java-version: "11"
 
       - name: "Build Example"
@@ -52,9 +53,10 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
-          # Required for Android builds
-      - uses: actions/setup-java@v1
+        # Required for Android builds
+      - uses: actions/setup-java@v2
         with:
+          distribution: "temurin"
           java-version: "11"
 
       - name: "Bootstrap Workspace"
