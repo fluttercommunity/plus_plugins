@@ -29,7 +29,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
-      # Required for Android builds
+          # Required for Android builds
       - uses: actions/setup-java@v1
         with:
           java-version: "11"
@@ -40,15 +40,19 @@ jobs:
   android_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
+    strategy:
+      matrix:
+        android-api-level: [21, 26, 32]
+
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "Install Flutter"
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
-      # Required for Android builds
+          # Required for Android builds
       - uses: actions/setup-java@v1
         with:
           java-version: "11"
@@ -58,8 +62,10 @@ jobs:
       - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          arch: x86_64
+          api-level: ${{ matrix.android-api-level }}
+          cores: 3
           target: google_apis
+          arch: x86_64
+          force-avd-creation: false
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android android_alarm_manager_example
