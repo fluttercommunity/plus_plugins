@@ -37,7 +37,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: "temurin"
-          java-version: '11'
+          java-version: "11"
 
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
@@ -57,16 +57,18 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: "temurin"
-          java-version: '11'
+          java-version: "11"
 
       - name: "Bootstrap Workspace"
         run: melos bootstrap
       - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          arch: x86_64
+          api-level: ${{ matrix.android-api-level }}
+          cores: 3
           target: google_apis
+          arch: x86_64
+          force-avd-creation: false
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android device_info_plus_example
 
@@ -113,7 +115,7 @@ jobs:
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
-    
+
   macos_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
