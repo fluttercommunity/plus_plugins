@@ -1,3 +1,7 @@
+## 3.1.4
+
+ - **DOCS**: Add documentation for canResolveActivity.
+
 ## 3.1.3
 
  - **CHORE**: Version tagging using melos.
