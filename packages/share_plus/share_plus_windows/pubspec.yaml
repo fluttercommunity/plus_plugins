@@ -9,6 +9,7 @@ environment:
   flutter: ">=1.20.0"
 
 dependencies:
+  cross_file: ^0.3.3+2
   share_plus_platform_interface: ^3.0.2
   flutter:
     sdk: flutter
@@ -25,6 +26,8 @@ dev_dependencies:
 
 flutter:
   plugin:
+    implements: share_plus
     platforms:
       windows:
+        dartPluginClass: ShareWindows
         pluginClass: SharePlusWindowsPluginCApi
