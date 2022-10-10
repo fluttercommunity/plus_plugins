@@ -19,6 +19,11 @@ on:
       - "**.md"
 
 jobs:
+  # Verifies that commits follow the Conventional Commits spec
+  # which is required to use melos version
+  semantic-pull-request:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
+
   analyze:
     name: "Flutter Analyze"
     timeout-minutes: 15
