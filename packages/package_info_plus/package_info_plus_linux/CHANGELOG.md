@@ -1,3 +1,7 @@
+## 2.0.0
+
+ - Update a dependency to the latest release.
+
 ## 1.0.5
 
 - Resolve package_name

@@ -1,3 +1,7 @@
+## 5.0.0
+
+ - Update a dependency to the latest release.
+
 ## 4.0.2
 
  - **FIX**: fixed wrong dependency version #1175.

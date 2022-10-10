@@ -2,14 +2,14 @@ name: device_info_plus_macos
 description: Macos implementation of the device_info_plus plugin
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
-version: 4.0.2
+version: 5.0.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.20.0"
 
 dependencies:
-  device_info_plus_platform_interface: ^4.0.1
+  device_info_plus_platform_interface: ^5.0.0
   flutter:
     sdk: flutter
 
