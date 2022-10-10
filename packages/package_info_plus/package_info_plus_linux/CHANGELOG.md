@@ -1,4 +1,4 @@
-## 1.0.6
+## 2.0.0
 
  - Update a dependency to the latest release.
 
