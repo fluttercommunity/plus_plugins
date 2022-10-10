@@ -2,9 +2,10 @@
 library share_plus_windows;
 
 import 'dart:ui';
+import 'package:cross_file/cross_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share_plus_windows/src/version_helper.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
@@ -56,6 +57,20 @@ class ShareWindows extends SharePlatform {
     Rect? sharePositionOrigin,
   }) {
     throw UnimplementedError(
-        'shareFiles() has not been implemented on Windows.');
+      'shareFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
+    );
+  }
+
+  /// Share [XFile] objects with Result.
+  @override
+  Future<ShareResult> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    throw UnimplementedError(
+      'shareXFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
+    );
   }
 }

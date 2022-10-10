@@ -14,7 +14,7 @@ class VersionHelper {
   ///
   bool isWindows10RS5OrGreater = false;
 
-  static const int _kWindows10RS5BuildNumber = 17763;
+  static const int kWindows10RS5BuildNumber = 17763;
 
   VersionHelper._() {
     if (Platform.isWindows) {
@@ -36,7 +36,7 @@ class VersionHelper {
           void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
       rtlGetVersion(pointer);
       isWindows10RS5OrGreater =
-          pointer.ref.dwBuildNumber >= _kWindows10RS5BuildNumber;
+          pointer.ref.dwBuildNumber >= kWindows10RS5BuildNumber;
       calloc.free(pointer);
     }
   }
