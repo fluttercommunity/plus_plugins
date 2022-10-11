@@ -56,7 +56,9 @@ public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePick
       picker.delegate = self
       self.subject = subject
     }
-    picker.show(relativeTo: origin, of: view, preferredEdge: NSRectEdge.maxY)
+    DispatchQueue.main.async {
+      picker.show(relativeTo: origin, of: view, preferredEdge: NSRectEdge.maxY)
+    }
   }
 
   private func originRect(_ args: [String: Any]) -> NSRect {
