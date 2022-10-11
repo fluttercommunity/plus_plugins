@@ -32,6 +32,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v3
         with:
+          distribution: "temurin"
           java-version: '11'
 
       - name: "Build Example"
@@ -51,6 +52,7 @@ jobs:
       # Required for Android builds
       - uses: actions/setup-java@v3
         with:
+          distribution: "temurin"
           java-version: '11'
 
       - name: "Bootstrap Workspace"
