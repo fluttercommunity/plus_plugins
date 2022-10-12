@@ -14,7 +14,7 @@ dependencies:
   path_provider: ^2.0.9
 
 dev_dependencies:
-  espresso: ^0.1.0+4
+  espresso: ^0.2.0+4
   flutter_driver:
     sdk: flutter
   flutter_test:
