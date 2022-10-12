@@ -30,7 +30,7 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
 
         # Required for Android builds
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "11"
@@ -54,7 +54,7 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
 
         # Required for Android builds
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "11"
