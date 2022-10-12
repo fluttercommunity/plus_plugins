@@ -5,13 +5,12 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'image_previews.dart';
-import 'utils/file_picker_win.dart'
-    if (dart.library.html) 'utils/file_picker_web.dart';
 
 void main() {
   runApp(const DemoApp());
@@ -71,13 +70,20 @@ class DemoAppState extends State<DemoApp> {
                     title: const Text('Add image'),
                     onTap: () async {
                       // Using `package:image_picker` to get image from gallery.
-                      if (Platform.isWindows) {
-                        // Using `package:filepicker_windows` on Windows, since `package:image_picker` is not supported.
-                        final path = await pickFile();
-                        if (path != null) {
+                      if (Platform.isMacOS ||
+                          Platform.isLinux ||
+                          Platform.isWindows) {
+                        // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
+                        const XTypeGroup typeGroup = XTypeGroup(
+                          label: 'images',
+                          extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
+                        );
+                        final file = await openFile(
+                            acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                        if (file != null) {
                           setState(() {
-                            imagePaths.add(path);
-                            imageNames.add(path.split('\\').last);
+                            imagePaths.add(file.path);
+                            imageNames.add(file.name);
                           });
                         }
                       } else {
