@@ -10,8 +10,6 @@ dependencies:
 dependency_overrides:
   sensors_plus_platform_interface:
     path: ../../sensors_plus_platform_interface
-  sensors_plus_web:
-    path: ../../sensors_plus_web
 
 dev_dependencies:
   flutter_driver:
@@ -19,6 +17,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  flutter_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
