@@ -9,14 +9,14 @@
 namespace share_plus_windows {
 
 void SharePlusWindowsPlugin::RegisterWithRegistrar(
-    flutter::PluginRegistrarWindows* registrar) {
+    flutter::PluginRegistrarWindows *registrar) {
   auto channel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
           registrar->messenger(), kSharePlusChannelName,
           &flutter::StandardMethodCodec::GetInstance());
   auto plugin = std::make_unique<SharePlusWindowsPlugin>(registrar);
   channel->SetMethodCallHandler(
-      [plugin_pointer = plugin.get()](const auto& call, auto result) {
+      [plugin_pointer = plugin.get()](const auto &call, auto result) {
         plugin_pointer->HandleMethodCall(call, std::move(result));
       });
 
@@ -24,7 +24,7 @@ void SharePlusWindowsPlugin::RegisterWithRegistrar(
 }
 
 SharePlusWindowsPlugin::SharePlusWindowsPlugin(
-    flutter::PluginRegistrarWindows* registrar)
+    flutter::PluginRegistrarWindows *registrar)
     : registrar_(registrar) {}
 
 SharePlusWindowsPlugin::~SharePlusWindowsPlugin() {
@@ -55,8 +55,7 @@ SharePlusWindowsPlugin::GetDataTransferManager() {
 }
 
 HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
-    wchar_t* path,
-    WindowsStorage::IStorageFile** file) {
+    wchar_t *path, WindowsStorage::IStorageFile **file) {
   using Microsoft::WRL::Wrappers::HStringReference;
   WRL::ComPtr<WindowsStorage::IStorageFileStatics> factory = nullptr;
   HRESULT hr = S_OK;
@@ -68,7 +67,7 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
   }
   if (SUCCEEDED(hr)) {
     WRL::ComPtr<
-        WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile*>>
+        WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile *>>
         async_operation;
     hr = factory->GetFileFromPathAsync(HStringReference(path).Get(),
                                        &async_operation);
@@ -92,7 +91,7 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
 }
 
 void SharePlusWindowsPlugin::HandleMethodCall(
-    const flutter::MethodCall<flutter::EncodableValue>& method_call,
+    const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare(kShare) == 0 ||
       method_call.method_name().compare(kShareWithResult) == 0) {
@@ -109,9 +108,9 @@ void SharePlusWindowsPlugin::HandleMethodCall(
       share_subject_ = *subject_value;
     }
     auto callback = WRL::Callback<WindowsFoundation::ITypedEventHandler<
-        DataTransfer::DataTransferManager*,
-        DataTransfer::DataRequestedEventArgs*>>(
-        [&](auto&&, DataTransfer::IDataRequestedEventArgs* e) {
+        DataTransfer::DataTransferManager *,
+        DataTransfer::DataRequestedEventArgs *>>(
+        [&](auto &&, DataTransfer::IDataRequestedEventArgs *e) {
           using Microsoft::WRL::Wrappers::HStringReference;
           WRL::ComPtr<DataTransfer::IDataRequest> request;
           e->get_Request(&request);
@@ -165,21 +164,21 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     if (auto paths = std::get_if<flutter::EncodableList>(
             &args[flutter::EncodableValue("paths")])) {
       paths_.clear();
-      for (auto& path : *paths) {
+      for (auto &path : *paths) {
         paths_.emplace_back(std::get<std::string>(path));
       }
     }
     if (auto mime_types = std::get_if<flutter::EncodableList>(
             &args[flutter::EncodableValue("mimeTypes")])) {
       mime_types_.clear();
-      for (auto& mime_type : *mime_types) {
+      for (auto &mime_type : *mime_types) {
         mime_types_.emplace_back(std::get<std::string>(mime_type));
       }
     }
     auto callback = WRL::Callback<WindowsFoundation::ITypedEventHandler<
-        DataTransfer::DataTransferManager*,
-        DataTransfer::DataRequestedEventArgs*>>(
-        [&](auto&&, DataTransfer::IDataRequestedEventArgs* e) {
+        DataTransfer::DataTransferManager *,
+        DataTransfer::DataRequestedEventArgs *>>(
+        [&](auto &&, DataTransfer::IDataRequestedEventArgs *e) {
           using Microsoft::WRL::Wrappers::HStringReference;
           WRL::ComPtr<DataTransfer::IDataRequest> request;
           e->get_Request(&request);
@@ -220,15 +219,15 @@ void SharePlusWindowsPlugin::HandleMethodCall(
             data->SetText(HStringReference(text.c_str()).Get());
           }
           // Add files to the data.
-          Vector<WindowsStorage::IStorageItem*> storage_items;
-          for (const std::string& path : paths_) {
+          Vector<WindowsStorage::IStorageItem *> storage_items;
+          for (const std::string &path : paths_) {
             auto str = Utf16FromUtf8(path);
-            wchar_t* ptr = const_cast<wchar_t*>(str.c_str());
-            WindowsStorage::IStorageFile* file = nullptr;
+            wchar_t *ptr = const_cast<wchar_t *>(str.c_str());
+            WindowsStorage::IStorageFile *file = nullptr;
             if (SUCCEEDED(GetStorageFileFromPath(ptr, &file)) &&
                 file != nullptr) {
               storage_items.Append(
-                  reinterpret_cast<WindowsStorage::IStorageItem*>(file));
+                  reinterpret_cast<WindowsStorage::IStorageItem *>(file));
             }
           }
           data->SetStorageItemsReadOnly(&storage_items);
@@ -267,4 +266,4 @@ std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string) {
   return result;
 }
 
-}  // namespace share_plus_windows
+} // namespace share_plus_windows

@@ -33,7 +33,8 @@ void main() {
     mock.canLaunchMockValue = false;
     UrlLauncherPlatform.instance = mock;
 
-    expect(() async => await SharePlusLinuxPlugin().share('foo bar'), throwsException);
+    expect(() async => await SharePlusLinuxPlugin().share('foo bar'),
+        throwsException);
   });
 }
 

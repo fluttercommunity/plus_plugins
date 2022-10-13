@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include <assert.h>
+#include "winstring.h"
 #include <algorithm>
+#include <assert.h>
 #include <iterator>
 #include <mutex>
 #include <typeindex>
 #include <unordered_map>
-#include "winstring.h"
 
 #include <wrl.h>
 #include <wrl/client.h>
@@ -35,10 +35,10 @@ using namespace Microsoft::WRL::Wrappers;
 class HResultException {
   HRESULT m_Hr;
 
- protected:
+protected:
   explicit HResultException(HRESULT hr) : m_Hr(hr) {}
 
- public:
+public:
   HRESULT GetHr() const { return m_Hr; }
 
   __declspec(noreturn) friend void ThrowHR(HRESULT);
@@ -65,8 +65,8 @@ __declspec(noreturn) __declspec(noinline) inline void ThrowHR(HRESULT hr,
   ThrowHR(hr);
 }
 
-__declspec(noreturn) __declspec(
-    noinline) inline void ThrowHR(HRESULT hr, wchar_t const* message) {
+__declspec(noreturn) __declspec(noinline) inline void ThrowHR(
+    HRESULT hr, wchar_t const *message) {
   using ::Microsoft::WRL::Wrappers::HStringReference;
 
   ThrowHR(hr, HStringReference(message).Get());
@@ -87,13 +87,12 @@ inline void ThrowIfFailed(HRESULT hr) {
 // Throws if the given pointer is null.
 //
 template <typename T>
-inline void ThrowIfNullPointer(T* ptr, HRESULT hrToThrow) {
+inline void ThrowIfNullPointer(T *ptr, HRESULT hrToThrow) {
   if (ptr == nullptr)
     ThrowHR(hrToThrow);
 }
 
-template <typename T>
-inline void ThrowIfNegative(T value) {
+template <typename T> inline void ThrowIfNegative(T value) {
   if (value < 0)
     ThrowHR(E_INVALIDARG);
 }
@@ -109,8 +108,7 @@ inline void ThrowIfZeroOrNegative(uint32_t n) {
 // expected to be used at the beginning of methods to validate pointer
 // parameters that are marked as [in].
 //
-template <typename T>
-inline void CheckInPointer(T* ptr) {
+template <typename T> inline void CheckInPointer(T *ptr) {
   ThrowIfNullPointer(ptr, E_INVALIDARG);
 }
 
@@ -119,8 +117,7 @@ inline void CheckInPointer(T* ptr) {
 // it to null.  This is expected to be used at the beginning of methods to
 // validate out pointer parameters that are marked as [out].
 //
-template <typename T>
-inline void CheckAndClearOutPointer(T** ptr) {
+template <typename T> inline void CheckAndClearOutPointer(T **ptr) {
   CheckInPointer(ptr);
   *ptr = nullptr;
 }
@@ -148,17 +145,16 @@ inline void CheckMakeResult(bool result) {
 __declspec(noinline) inline HRESULT ThrownExceptionToHResult() {
   try {
     throw;
-  } catch (HResultException const& e) {
+  } catch (HResultException const &e) {
     return e.GetHr();
-  } catch (std::bad_alloc const&) {
+  } catch (std::bad_alloc const &) {
     return E_OUTOFMEMORY;
   } catch (...) {
     return E_UNEXPECTED;
   }
 }
 
-template <typename CALLABLE>
-HRESULT ExceptionBoundary(CALLABLE&& fn) {
+template <typename CALLABLE> HRESULT ExceptionBoundary(CALLABLE &&fn) {
   try {
     fn();
     return S_OK;
@@ -171,83 +167,78 @@ HRESULT ExceptionBoundary(CALLABLE&& fn) {
 // collection. This default implementation is for value types. The same template
 // is specialized with more interesting versions for reference counted pointer
 // types and strings.
-template <typename T>
-struct ElementTraits {
+template <typename T> struct ElementTraits {
   typedef T ElementType;
 
-  static ElementType Wrap(T const& value) { return value; }
+  static ElementType Wrap(T const &value) { return value; }
 
-  static void Unwrap(ElementType const& value, _Out_ T* result) {
+  static void Unwrap(ElementType const &value, _Out_ T *result) {
     *result = value;
   }
 
-  static bool Equals(T const& value1, T const& value2) {
+  static bool Equals(T const &value1, T const &value2) {
     return value1 == value2;
   }
 
-  static void CopyTo(T const& in, ElementType* out) { *out = in; }
+  static void CopyTo(T const &in, ElementType *out) { *out = in; }
 };
 
 // Specialized element traits for reference counted pointer types.
-template <typename T>
-struct ElementTraits<T*> {
+template <typename T> struct ElementTraits<T *> {
   typedef Microsoft::WRL::ComPtr<T> ElementType;
 
-  static ElementType Wrap(T* value) { return Microsoft::WRL::ComPtr<T>(value); }
+  static ElementType Wrap(T *value) { return Microsoft::WRL::ComPtr<T>(value); }
 
-  static void Unwrap(ElementType const& value, _Out_ T** result) {
+  static void Unwrap(ElementType const &value, _Out_ T **result) {
     ThrowIfFailed(value.CopyTo(result));
   }
 
-  static bool Equals(Microsoft::WRL::ComPtr<T> const& value1, T* value2) {
+  static bool Equals(Microsoft::WRL::ComPtr<T> const &value1, T *value2) {
     return value1.Get() == value2;
   }
 
-  static void CopyTo(Microsoft::WRL::ComPtr<T> const& in, ElementType* out) {
+  static void CopyTo(Microsoft::WRL::ComPtr<T> const &in, ElementType *out) {
     in.CopyTo(out->GetAddressOf());
   }
 };
 
 // Specialized element traits for strings.
-template <>
-struct ElementTraits<HSTRING> {
+template <> struct ElementTraits<HSTRING> {
   typedef HString ElementType;
 
-  static ElementType Wrap(HSTRING const& value) {
+  static ElementType Wrap(HSTRING const &value) {
     HString hstringValue;
     hstringValue.Set(value);
     return hstringValue;
   }
 
-  static void Unwrap(ElementType const& value, _Out_ HSTRING* result) {
+  static void Unwrap(ElementType const &value, _Out_ HSTRING *result) {
     value.CopyTo(result);
   }
 
-  static bool Equals(HString const& value1, HSTRING const& value2) {
+  static bool Equals(HString const &value1, HSTRING const &value2) {
     int compareResult;
     ThrowIfFailed(
         WindowsCompareStringOrdinal(value1.Get(), value2, &compareResult));
     return compareResult == 0;
   }
 
-  static void CopyTo(HString const& in, ElementType* out) {
+  static void CopyTo(HString const &in, ElementType *out) {
     in.CopyTo(out->GetAddressOf());
   }
 };
 
 // Vector traits describe how the collection itself is implemented.
 // This default version just uses an STL vector.
-template <typename T>
-struct DefaultVectorTraits : public ElementTraits<T> {
+template <typename T> struct DefaultVectorTraits : public ElementTraits<T> {
   typedef std::vector<ElementType> InternalVectorType;
 
-  static unsigned GetSize(InternalVectorType const& vector) {
+  static unsigned GetSize(InternalVectorType const &vector) {
     return (unsigned)vector.size();
   };
 
-  static void GetAt(InternalVectorType const& vector,
-                    unsigned index,
-                    ElementType* element) {
+  static void GetAt(InternalVectorType const &vector, unsigned index,
+                    ElementType *element) {
     if (index >= vector.size())
       ThrowHR(E_BOUNDS);
 
@@ -255,34 +246,33 @@ struct DefaultVectorTraits : public ElementTraits<T> {
     return;
   }
 
-  static void SetAt(InternalVectorType& vector, unsigned index, T const& item) {
+  static void SetAt(InternalVectorType &vector, unsigned index, T const &item) {
     if (index >= vector.size())
       ThrowHR(E_BOUNDS);
 
     vector[index] = Wrap(item);
   }
 
-  static void InsertAt(InternalVectorType& vector,
-                       unsigned index,
-                       T const& item) {
+  static void InsertAt(InternalVectorType &vector, unsigned index,
+                       T const &item) {
     if (index > vector.size())
       ThrowHR(E_BOUNDS);
 
     vector.insert(vector.begin() + index, Wrap(item));
   }
 
-  static void RemoveAt(InternalVectorType& vector, unsigned index) {
+  static void RemoveAt(InternalVectorType &vector, unsigned index) {
     if (index >= vector.size())
       ThrowHR(E_BOUNDS);
 
     vector.erase(vector.begin() + index);
   }
 
-  static void Append(InternalVectorType& vector, T const& item) {
+  static void Append(InternalVectorType &vector, T const &item) {
     vector.push_back(Wrap(item));
   }
 
-  static void Clear(InternalVectorType& vector) { vector.clear(); }
+  static void Clear(InternalVectorType &vector) { vector.clear(); }
 };
 
 // Implements the WinRT IVector interface.
@@ -293,7 +283,7 @@ class Vector : public Microsoft::WRL::RuntimeClass<
                    ABI::Windows::Foundation::Collections::IIterable<T>> {
   InspectableClass(IVector<T>::z_get_rc_name_impl(), BaseTrust);
 
- public:
+public:
   // T_abi is often the same as T, but if T is a runtime class, T_abi will be
   // the corresponding interface.
   typedef typename ABI::Windows::Foundation::Internal::GetAbiType<
@@ -302,22 +292,21 @@ class Vector : public Microsoft::WRL::RuntimeClass<
   // Specialize our traits class to use the ABI version of the type.
   typedef Traits<T_abi> Traits;
 
- private:
+private:
   // Fields.
   typename Traits::InternalVectorType mVector;
 
   bool isFixedSize;
   bool isChanged;
 
- public:
+public:
   // Constructs an empty vector.
   Vector() : isFixedSize(false), isChanged(false) {}
 
   // Constructs a vector of the specified size.
   template <typename... Args>
-  Vector(bool isFixedSize, Args&&... args)
-      : mVector(std::forward<Args>(args)...),
-        isFixedSize(isFixedSize),
+  Vector(bool isFixedSize, Args &&...args)
+      : mVector(std::forward<Args>(args)...), isFixedSize(isFixedSize),
         isChanged(false) {}
 
   // Checks whether this vector is fixed or resizable.
@@ -332,9 +321,9 @@ class Vector : public Microsoft::WRL::RuntimeClass<
 
   // Expose direct access to the internal STL collection. This lets C++ owners
   // bypass the ExceptionBoundary overhead of the public WinRT API surface.
-  typename Traits::InternalVectorType& InternalVector() { return mVector; }
+  typename Traits::InternalVectorType &InternalVector() { return mVector; }
 
-  virtual HRESULT STDMETHODCALLTYPE get_Size(_Out_ unsigned* size) {
+  virtual HRESULT STDMETHODCALLTYPE get_Size(_Out_ unsigned *size) {
     return ExceptionBoundary([&] {
       CheckInPointer(size);
 
@@ -343,7 +332,7 @@ class Vector : public Microsoft::WRL::RuntimeClass<
   };
 
   virtual HRESULT STDMETHODCALLTYPE GetAt(_In_opt_ unsigned index,
-                                          _Out_ T_abi* item) {
+                                          _Out_ T_abi *item) {
     return ExceptionBoundary([&] {
       CheckInPointer(item);
       ZeroMemory(item, sizeof(*item));
@@ -355,8 +344,8 @@ class Vector : public Microsoft::WRL::RuntimeClass<
   }
 
   virtual HRESULT STDMETHODCALLTYPE IndexOf(_In_opt_ T_abi value,
-                                            _Out_ unsigned* index,
-                                            _Out_ boolean* found) {
+                                            _Out_ unsigned *index,
+                                            _Out_ boolean *found) {
     return ExceptionBoundary([&] {
       CheckInPointer(index);
       CheckInPointer(found);
@@ -439,7 +428,7 @@ class Vector : public Microsoft::WRL::RuntimeClass<
   }
 
   virtual HRESULT STDMETHODCALLTYPE ReplaceAll(_In_ unsigned count,
-                                               _In_reads_(count) T_abi* value) {
+                                               _In_reads_(count) T_abi *value) {
     return ExceptionBoundary([&] {
       CheckInPointer(value);
 
@@ -464,7 +453,7 @@ class Vector : public Microsoft::WRL::RuntimeClass<
 
   virtual HRESULT STDMETHODCALLTYPE GetView(
       _Outptr_result_maybenull_
-          ABI::Windows::Foundation::Collections::IVectorView<T>** view) {
+          ABI::Windows::Foundation::Collections::IVectorView<T> **view) {
     return ExceptionBoundary([&] {
       CheckAndClearOutPointer(view);
 
@@ -477,7 +466,7 @@ class Vector : public Microsoft::WRL::RuntimeClass<
 
   virtual HRESULT STDMETHODCALLTYPE First(
       _Outptr_result_maybenull_
-          ABI::Windows::Foundation::Collections::IIterator<T>** first) {
+          ABI::Windows::Foundation::Collections::IIterator<T> **first) {
     return ExceptionBoundary([&] {
       CheckAndClearOutPointer(first);
 
@@ -499,29 +488,29 @@ class VectorView : public Microsoft::WRL::RuntimeClass<
   // Fields.
   Microsoft::WRL::ComPtr<TVector> mVector;
 
- public:
+public:
   // Constructor wraps around an existing Vector<T>.
-  VectorView(TVector* vector) : mVector(vector) {}
+  VectorView(TVector *vector) : mVector(vector) {}
 
-  virtual HRESULT STDMETHODCALLTYPE get_Size(_Out_ unsigned* size) {
+  virtual HRESULT STDMETHODCALLTYPE get_Size(_Out_ unsigned *size) {
     return mVector->get_Size(size);
   };
 
   virtual HRESULT STDMETHODCALLTYPE GetAt(_In_opt_ unsigned index,
-                                          _Out_ typename TVector::T_abi* item) {
+                                          _Out_ typename TVector::T_abi *item) {
     return mVector->GetAt(index, item);
   }
 
   virtual HRESULT STDMETHODCALLTYPE IndexOf(_In_opt_
                                             typename TVector::T_abi value,
-                                            _Out_ unsigned* index,
-                                            _Out_ boolean* found) {
+                                            _Out_ unsigned *index,
+                                            _Out_ boolean *found) {
     return mVector->IndexOf(value, index, found);
   }
 
   virtual HRESULT STDMETHODCALLTYPE First(
       _Outptr_result_maybenull_
-          ABI::Windows::Foundation::Collections::IIterator<T>** first) {
+          ABI::Windows::Foundation::Collections::IIterator<T> **first) {
     return mVector->First(first);
   }
 };
@@ -537,16 +526,16 @@ class VectorIterator
   Microsoft::WRL::ComPtr<TVector> mVector;
   unsigned mPosition;
 
- public:
+public:
   // Constructor wraps around an existing Vector<T>.
-  VectorIterator(TVector* vector) : mVector(vector), mPosition(0) {}
+  VectorIterator(TVector *vector) : mVector(vector), mPosition(0) {}
 
   virtual HRESULT STDMETHODCALLTYPE
-  get_Current(_Out_ typename TVector::T_abi* current) {
+  get_Current(_Out_ typename TVector::T_abi *current) {
     return mVector->GetAt(mPosition, current);
   }
 
-  virtual HRESULT STDMETHODCALLTYPE get_HasCurrent(_Out_ boolean* hasCurrent) {
+  virtual HRESULT STDMETHODCALLTYPE get_HasCurrent(_Out_ boolean *hasCurrent) {
     return ExceptionBoundary([&] {
       CheckInPointer(hasCurrent);
 
@@ -555,7 +544,7 @@ class VectorIterator
     });
   }
 
-  virtual HRESULT STDMETHODCALLTYPE MoveNext(_Out_ boolean* hasCurrent) {
+  virtual HRESULT STDMETHODCALLTYPE MoveNext(_Out_ boolean *hasCurrent) {
     return ExceptionBoundary([&] {
       CheckInPointer(hasCurrent);
 

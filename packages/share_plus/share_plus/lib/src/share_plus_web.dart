@@ -41,7 +41,8 @@ class SharePlusWebPlugin extends SharePlatform {
       final uri = Uri(
         scheme: 'mailto',
         query: queryParameters.entries
-            .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .map((e) =>
+                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
             .join('&'),
       );
 
@@ -116,7 +117,8 @@ class SharePlusWebPlugin extends SharePlatform {
   }
 
   static String _mimeTypeForPath(XFile file, Uint8List bytes) {
-    return lookupMimeType(file.name, headerBytes: bytes) ?? 'application/octet-stream';
+    return lookupMimeType(file.name, headerBytes: bytes) ??
+        'application/octet-stream';
   }
 }
 
