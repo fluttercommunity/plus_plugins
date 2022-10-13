@@ -13,6 +13,14 @@ void main() {
         'incremental': 'incremental',
         'securityPatch': 'securityPatch',
       };
+
+      const displayMetrics = <String, dynamic>{
+        'widthPx': 1080.0,
+        'heightPx': 2220.0,
+        'xDpi': 530.0859,
+        'yDpi': 529.4639,
+      };
+
       const supportedAbis = <String>['arm64-v8a', 'x86', 'x86_64'];
       const supported32BitAbis = <String?>['x86 (IA-32)', 'MMX'];
       const supported64BitAbis = <String?>['x86-64', 'MMX', 'SSSE3'];
@@ -29,7 +37,6 @@ void main() {
         'product': 'product',
         'display': 'display',
         'hardware': 'hardware',
-        'androidId': 'androidId',
         'isPhysicalDevice': true,
         'bootloader': 'bootloader',
         'fingerprint': 'fingerprint',
@@ -39,6 +46,7 @@ void main() {
         'version': androidBuildVersionMap,
         'supported64BitAbis': supported64BitAbis,
         'supported32BitAbis': supported32BitAbis,
+        'displayMetrics': displayMetrics,
       };
 
       test('fromMap should return $AndroidDeviceInfo with correct values', () {
@@ -56,7 +64,6 @@ void main() {
         expect(androidDeviceInfo.product, 'product');
         expect(androidDeviceInfo.display, 'display');
         expect(androidDeviceInfo.hardware, 'hardware');
-        expect(androidDeviceInfo.androidId, 'androidId');
         expect(androidDeviceInfo.bootloader, 'bootloader');
         expect(androidDeviceInfo.isPhysicalDevice, isTrue);
         expect(androidDeviceInfo.fingerprint, 'fingerprint');
@@ -72,6 +79,10 @@ void main() {
         expect(androidDeviceInfo.version.codename, 'codename');
         expect(androidDeviceInfo.version.incremental, 'incremental');
         expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
+        expect(androidDeviceInfo.displayMetrics.widthPx, 1080);
+        expect(androidDeviceInfo.displayMetrics.heightPx, 2220);
+        expect(androidDeviceInfo.displayMetrics.xDpi, 530.0859);
+        expect(androidDeviceInfo.displayMetrics.yDpi, 529.4639);
       });
 
       test('toMap should return map with correct key and map', () {

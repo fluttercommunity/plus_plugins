@@ -23,9 +23,11 @@ class PackageInfoPlugin extends PackageInfoPlatform {
   /// Get version.json full url.
   Uri versionJsonUrl(String baseUrl, int cacheBuster) {
     final baseUri = Uri.parse(baseUrl);
-    final originPath = '${baseUri.origin}${baseUri.path.replaceAll(RegExp(r'\w+\.html'), '')}';
+    final originPath = '${baseUri._origin}${baseUri.path.replaceAll(RegExp(r'\w+\.html'), '')}';
     final versionJson = 'version.json?cachebuster=$cacheBuster';
-    return Uri.parse(originPath.endsWith('/') ? '$originPath$versionJson' : '$originPath/$versionJson');
+    return Uri.parse(originPath.endsWith('/')
+        ? '$originPath$versionJson'
+        : '$originPath/$versionJson');
   }
 
   @override
@@ -40,6 +42,7 @@ class PackageInfoPlugin extends PackageInfoPlatform {
       version: versionMap['version'] ?? '',
       buildNumber: versionMap['build_number'] ?? '',
       packageName: versionMap['package_name'] ?? '',
+      // will remain empty on web
       buildSignature: '',
     );
   }
@@ -54,5 +57,18 @@ class PackageInfoPlugin extends PackageInfoPlatform {
     } else {
       return <String, dynamic>{};
     }
+  }
+}
+
+extension _UriOrigin on Uri {
+  /// Get origin.
+  ///
+  /// This is different from [Uri.origin] because that has checks to prevent
+  /// non-http/https use-cases.
+  String get _origin {
+    if (isScheme('chrome-extension')) {
+      return '$scheme://$host';
+    }
+    return origin;
   }
 }

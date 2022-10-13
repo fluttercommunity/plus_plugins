@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:html' as html show window, NetworkInformation;
-import 'dart:js';
 import 'dart:js_util';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:connectivity_plus_web/connectivity_plus_web.dart';
 import 'package:flutter/foundation.dart';
+import 'package:js/js.dart';
 
 import 'utils/connectivity_result.dart';
 
@@ -38,6 +38,10 @@ class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
   /// Returns a Stream of ConnectivityResults changes.
   @override
   Stream<ConnectivityResult> get onConnectivityChanged {
+    // use fallback implementation if [_connectionSupported] is not availible
+    if (_connectionSupported == null) {
+      return _webPseudoStream();
+    }
     if (_connectivityResultStreamController == null) {
       _connectivityResultStreamController =
           StreamController<ConnectivityResult>();
@@ -59,4 +63,29 @@ class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
     }
     return _connectivityResultStream;
   }
+
+  /// stores the last fallback network state
+  ConnectivityResult? _lastFallbackState;
+
+  /// periodically checks the current network state
+  Stream<ConnectivityResult> _webPseudoStream() {
+    final StreamController<ConnectivityResult> webStream =
+        StreamController.broadcast();
+    Timer.periodic(
+      const Duration(milliseconds: 250),
+      (timer) async {
+        final result = await checkConnectivity();
+        if (result != _lastFallbackState) {
+          webStream.add(result);
+        }
+      },
+    );
+    return webStream.stream;
+  }
 }
+
+/// accesses the JS-native `navigator.connection`
+///
+/// ensures `navigator.connection.onchange` is availible
+@JS("navigator.connection")
+external get _connectionSupported;

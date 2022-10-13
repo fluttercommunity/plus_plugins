@@ -17,6 +17,7 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
       version: map['version'] ?? '',
       buildNumber: map['buildNumber'] ?? '',
       buildSignature: map['buildSignature'] ?? '',
+      installerStore: map['installerStore'] as String?,
     );
   }
 }

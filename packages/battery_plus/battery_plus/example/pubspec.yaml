@@ -10,24 +10,12 @@ dependencies:
   battery_plus:
     path: ../
 
-dependency_overrides:
-  battery_plus_linux:
-    path: ../../battery_plus_linux
-  battery_plus_macos:
-    path: ../../battery_plus_macos
-  battery_plus_platform_interface:
-    path: ../../battery_plus_platform_interface
-  battery_plus_web:
-    path: ../../battery_plus_web
-  battery_plus_windows:
-    path: ../../battery_plus_windows
-
 dev_dependencies:
   flutter_driver:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true

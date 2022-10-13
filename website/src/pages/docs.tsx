@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Redirect } from 'react-router-dom';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { Redirect } from '@docusaurus/router';
 
 const docsRedirect = (): ReactElement => {
   const context = useDocusaurusContext();

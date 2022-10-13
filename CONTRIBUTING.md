@@ -72,7 +72,7 @@ PlusPlugins uses [Melos](https://github.com/invertase/melos) to manage the proje
 To install Melos, run the following command from your SSH client:
 
 ```bash
-pub global activate melos
+flutter pub global activate melos
 ```
 
 Next, at the root of your locally cloned repository bootstrap the projects dependencies:
@@ -145,7 +145,8 @@ tests against plugins. For example, to run all e2e tests across all plugins at o
 run the following command from the root of your cloned repository:
 
 ```bash
-melos run test:e2e
+# for mobile testing (Android or iOS)
+melos run test:mobile_e2e
 ```
 
 A full list of all commands can be found within the [`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/main/melos.yaml)
@@ -182,15 +183,9 @@ melos run analyze
 melos run format
 ```
 
-### 5.3 Update version and changelog
+### 5.3 (Do not) Update version and changelog
 
-Before opening a Pull-Request, **please increase the version number in the `pubspec.yaml`
-and create a new entry in the `CHANGELOG.md` describing the change**.
-This will help us speed-up the release process for the provided fix or feature.
-
-If updating a platform package (e.g. `device_info_plus_macos`), please remember to update version and changelog of the main package (e.g. `device_info_plus`).
-
-More info about versioning can be found on [semver.org](https://semver.org/).
+**NEW: Do not modify the CHANGELOG.md or the version in the pubspec.yaml, this is handled by the maintainers from now on**
 
 ### 5.4 Commit and push your changes
 
@@ -233,7 +228,7 @@ Please understand, that this repository is run by volunteers, and the response m
 Newly opened PRs first go through initial triage which results in one of:
 
 - **Merging the PR** - if the PR can be quickly reviewed and looks good.
-- **Closing the PR** - if the PR maintainer decides that the PR should not be merged.
+- **Closing the PR** - if the maintainer decides that the PR should not be merged.
 - **Moving the PR to the backlog** - if the review requires non trivial effort and the issue isn't a priority; in this case the maintainer will:
   - Make sure that the PR has an associated issue labeled with "plugin".
   - Add the "backlog" label to the issue.
@@ -265,4 +260,17 @@ Some things to keep in mind before publishing the release:
   from people that immediately adopt it, and uncovering and resolving those
   support issues will take more time if you're unavailable.
 
-TODO(mhadaily): detail melos release process
+#### Run a release...
+
+1. Switch to `main` branch locally.
+2. Run `git pull origin main`.
+3. Run `git pull --tags` to make sure all tags are fetched.
+4. Create new branch with the signature `release/[year]-[month]-[day]`.
+5. Run `melos version --no-git-tag-version` to automatically version packages and update Changelogs.
+6. Run `melos publish` to dry run and confirm all packages are publishable.
+7. After successful dry run, commit all changes with the signature "chore(release): prepare for release".
+8. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
+9. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
+10. Run `melos publish --no-dry-run --git-tag-version` to now publish to Pub.dev.
+11. Run `git push --tags` to push tags to repository.
+

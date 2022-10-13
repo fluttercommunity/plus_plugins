@@ -99,8 +99,15 @@ class _MyAppState extends State<MyApp> {
       'tags': build.tags,
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
-      'androidId': build.androidId,
       'systemFeatures': build.systemFeatures,
+      'displaySizeInches':
+          ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
+      'displayWidthPixels': build.displayMetrics.widthPx,
+      'displayWidthInches': build.displayMetrics.widthInches,
+      'displayHeightPixels': build.displayMetrics.heightPx,
+      'displayHeightInches': build.displayMetrics.heightInches,
+      'displayXDpi': build.displayMetrics.xDpi,
+      'displayYDpi': build.displayMetrics.yDpi,
     };
   }
 
@@ -177,6 +184,28 @@ class _MyAppState extends State<MyApp> {
       'numberOfCores': data.numberOfCores,
       'computerName': data.computerName,
       'systemMemoryInMegabytes': data.systemMemoryInMegabytes,
+      'userName': data.userName,
+      'majorVersion': data.majorVersion,
+      'minorVersion': data.minorVersion,
+      'buildNumber': data.buildNumber,
+      'platformId': data.platformId,
+      'csdVersion': data.csdVersion,
+      'servicePackMajor': data.servicePackMajor,
+      'servicePackMinor': data.servicePackMinor,
+      'suitMask': data.suitMask,
+      'productType': data.productType,
+      'reserved': data.reserved,
+      'buildLab': data.buildLab,
+      'buildLabEx': data.buildLabEx,
+      'digitalProductId': data.digitalProductId,
+      'displayVersion': data.displayVersion,
+      'editionId': data.editionId,
+      'installDate': data.installDate,
+      'productId': data.productId,
+      'productName': data.productName,
+      'registeredOwner': data.registeredOwner,
+      'releaseId': data.releaseId,
+      'deviceId': data.deviceId,
     };
   }
 

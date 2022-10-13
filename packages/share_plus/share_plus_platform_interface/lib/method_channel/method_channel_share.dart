@@ -3,12 +3,14 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+// Keep dart:ui for retrocompatiblity with Flutter <3.3.0
+// ignore: unnecessary_import
 import 'dart:ui';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show lookupMimeType;
-
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 /// Plugin for summoning a platform share sheet.
@@ -130,6 +132,26 @@ class MethodChannelShare extends SharePlatform {
             'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
+  }
+
+  /// Summons the platform's share sheet to share multiple files.
+  @override
+  Future<ShareResult> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    final mimeTypes =
+        files.map((e) => e.mimeType ?? _mimeTypeForPath(e.path)).toList();
+
+    return shareFilesWithResult(
+      files.map((e) => e.path).toList(),
+      mimeTypes: mimeTypes,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   static String _mimeTypeForPath(String path) {

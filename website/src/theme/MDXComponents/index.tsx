@@ -4,6 +4,7 @@ import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import Heading from '@theme/Heading';
 import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
 
 import styles from './styles.module.scss';
 
@@ -80,12 +81,26 @@ export default {
     return children;
   },
 
-  h1: Heading('h1'),
-  h2: Heading('h2'),
-  h3: Heading('h3'),
-  h4: Heading('h4'),
-  h5: Heading('h5'),
-  h6: Heading('h6'),
+  admonition: (props: HTMLProps<HTMLElement>): ReactNode => {
+    if (props.type === 'note') {
+      return <Admonition type={'note'}>{props.children}</Admonition>;
+    } else if (props.type === 'tip') {
+      return <Admonition type={'tip'}>{props.children}</Admonition>;
+    } else if (props.type === 'danger') {
+      return <Admonition type={'danger'}>{props.children}</Admonition>;
+    } else if (props.type === 'info') {
+      return <Admonition type={'info'}>{props.children}</Admonition>;
+    } else if (props.type === 'caution') {
+      return <Admonition type={'caution'}>{props.children}</Admonition>;
+    }
+  },
+
+  // h1: Heading({ as: 'h1' }),
+  // h2: Heading({ as: 'h2' }),
+  // h3: Heading({ as: 'h3' }),
+  // h4: Heading({ as: 'h4' }),
+  // h5: Heading({ as: 'h5' }),
+  // h6: Heading({ as: 'h6' }),
 
   table: (props: HTMLProps<HTMLTableElement>): ReactElement => (
     <div style={{ overflowX: 'auto' }}>

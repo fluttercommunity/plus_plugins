@@ -1,3 +1,16 @@
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: Share.shareXFiles resulting in stack-overflow on Windows & Linux (#1186).
+ - **BREAKING** **FEAT**: Native share UI for Windows (#1158).
+
+## 3.0.1
+
+- Update dependencies
+- Fix analyzer warnings
+- Update `urlLauncher` and replace deprecated `launch` calls
+
 ## 3.0.0
 
 - Bump dependencies

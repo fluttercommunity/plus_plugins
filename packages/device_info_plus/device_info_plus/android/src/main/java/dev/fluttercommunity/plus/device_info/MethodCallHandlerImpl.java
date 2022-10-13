@@ -4,12 +4,12 @@
 
 package dev.fluttercommunity.plus.device_info;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -23,16 +23,19 @@ import java.util.Map;
  */
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
-  private final ContentResolver contentResolver;
   private final PackageManager packageManager;
+  private final WindowManager windowManager;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
-  /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
-    this.contentResolver = contentResolver;
+  /**
+   * Constructs DeviceInfo. {@code contentResolver}, {@code packageManager} and {@code getActivity}
+   * must not be null.
+   */
+  MethodCallHandlerImpl(PackageManager packageManager, WindowManager windowManager) {
     this.packageManager = packageManager;
+    this.windowManager = windowManager;
   }
 
   @Override
@@ -63,7 +66,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       build.put("tags", Build.TAGS);
       build.put("type", Build.TYPE);
       build.put("isPhysicalDevice", !isEmulator());
-      build.put("androidId", getAndroidId());
 
       build.put("systemFeatures", Arrays.asList(getSystemFeatures()));
 
@@ -78,6 +80,20 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       version.put("release", Build.VERSION.RELEASE);
       version.put("sdkInt", Build.VERSION.SDK_INT);
       build.put("version", version);
+
+      final Display display = windowManager.getDefaultDisplay();
+      final DisplayMetrics metrics = new DisplayMetrics();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealMetrics(metrics);
+      } else {
+        display.getMetrics(metrics);
+      }
+      Map<String, Object> displayResult = new HashMap<>();
+      displayResult.put("widthPx", (double) metrics.widthPixels);
+      displayResult.put("heightPx", (double) metrics.heightPixels);
+      displayResult.put("xDpi", metrics.xdpi);
+      displayResult.put("yDpi", metrics.ydpi);
+      build.put("displayMetrics", displayResult);
 
       result.success(build);
     } else {
@@ -95,18 +111,6 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       features[i] = featureInfos[i].name;
     }
     return features;
-  }
-
-  /**
-   * Returns the Android hardware device ID that is unique between the device + user and app
-   * signing. This key will change if the app is uninstalled or its data is cleared. Device factory
-   * reset will also result in a value change.
-   *
-   * @return The android ID
-   */
-  @SuppressLint("HardwareIds")
-  private String getAndroidId() {
-    return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
   }
 
   /**

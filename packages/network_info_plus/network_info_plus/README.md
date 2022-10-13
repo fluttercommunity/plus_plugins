@@ -3,6 +3,7 @@
 [![Flutter Community: network_info_plus](https://fluttercommunity.dev/_github/header/network_info_plus)](https://github.com/fluttercommunity/community)
 
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
+[![pub points](https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/network_info_plus/score)
 [![network_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml)
 
 <p class="center">
@@ -29,7 +30,7 @@ import 'package:network_info_plus/network_info_plus.dart';
 
 final info = NetworkInfo();
 
-var wifiName = await info.getWifiName(); // FooNetwork
+var wifiName = await info.getWifiName(); // "FooNetwork"
 var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
 var wifiIP = await info.getWifiIP(); // 192.168.1.43
 var wifiIPv6 = await info.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
@@ -38,7 +39,13 @@ var wifiBroadcast = await info.getWifiBroadcast(); // 192.168.1.255
 var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 ```
 
-### Android
+### Device permissions
+
+To access protected WiFi methods related to location, you must request additional permissions on Android and iOS. Users of this plugin should use the [permission_handler](https://pub.dev/packages/permission_handler) Flutter plugin to handle these cases.
+
+See below for platform-specific information on which permissions need to be requested for protected methods.
+
+#### Android
 
 To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure all of the following conditions are met:
 
@@ -48,13 +55,15 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 - Location services are enabled on the device (under Settings > Location).
 
+- If you use device with Android 12 (API level 31) and newer be sure that your app has ACCESS_NETWORK_STATE permission.
+
 **This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
 
-### iOS 12
+#### iOS 12
 
 To use `.getWifiBSSID()` and `.getWifiName()` on iOS >= 12, the `Access WiFi information capability` in XCode must be enabled. Otherwise, both methods will return null.
 
-### iOS 13
+#### iOS 13
 
 The methods `.getWifiBSSID()` and `.getWifiName()` utilize the [`CNCopyCurrentNetworkInfo`](https://developer.apple.com/documentation/systemconfiguration/1614126-cncopycurrentnetworkinfo) function on iOS.
 
@@ -78,12 +87,9 @@ The `CNCopyCurrentNetworkInfo` will work for Apps that:
 If your app falls into the last two categories, it will work as it is. If your app doesn't fall into the last two categories,
 and you still need to access the wifi information, you should request user's authorization to use location information.
 
-There is a helper method provided in this plugin to request the location authorization: `requestLocationServiceAuthorization`.
-To request location authorization, make sure to add the following keys to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
+Make sure to add the following keys to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
 
 - `NSLocationAlwaysAndWhenInUseUsageDescription` - describe why the app needs access to the user’s location information all the time (foreground and background). This is called _Privacy - Location Always and When In Use Usage Description_ in the visual editor.
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
-
-**Important:** As of January 2021, the Flutter team is no longer accepting non-critical PRs for the original set of plugins in `flutter/plugins`, and instead they should be submitted in this project. [You can read more about this announcement here.](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md#important-note) as well as [in the Flutter 2 announcement blog post.](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)

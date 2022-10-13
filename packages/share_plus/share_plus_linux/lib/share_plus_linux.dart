@@ -2,9 +2,10 @@
 library share_plus_linux;
 
 import 'dart:ui';
+import 'package:cross_file/cross_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// The Linux implementation of SharePlatform.
 class ShareLinux extends SharePlatform {
@@ -35,7 +36,7 @@ class ShareLinux extends SharePlatform {
           .join('&'),
     );
 
-    await launch(uri.toString());
+    await launchUrl(uri);
   }
 
   /// Share files.
@@ -48,5 +49,18 @@ class ShareLinux extends SharePlatform {
     Rect? sharePositionOrigin,
   }) {
     throw UnimplementedError('shareFiles() has not been implemented on Linux.');
+  }
+
+  /// Share [XFile] objects with Result.
+  @override
+  Future<ShareResult> shareXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) {
+    throw UnimplementedError(
+      'shareXFiles() has not been implemented on Linux.',
+    );
   }
 }

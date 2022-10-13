@@ -53,10 +53,6 @@ module.exports = {
       style: 'dark',
       copyright: `<div style="margin-top: 3rem"><small>Developed and maintained by Flutter Community</small></div>`,
     },
-    gtag: {
-      trackingID: 'G-0G7Q1JL01Z',
-      anonymizeIP: true,
-    },
   },
   plugins: [
     require.resolve('docusaurus-plugin-sass'),
@@ -71,10 +67,14 @@ module.exports = {
         docs: {
           path: '../docs',
           sidebarPath: require.resolve('../docs/sidebars.js'),
-          editUrl: 'https://github.com/fluttercommunity/plus/edit/master/docs/',
+          editUrl: 'https://github.com/fluttercommunity/plus_plugins/edit/main/docs/',
         },
         theme: {
           customCss: require.resolve('./src/styles.scss'),
+        },
+        gtag: {
+          trackingID: 'G-0G7Q1JL01Z',
+          anonymizeIP: true,
         },
       },
     ],

@@ -20,7 +20,7 @@ const String countKey = 'count';
 const String isolateName = 'isolate';
 
 /// A port used to communicate from a background isolate to the UI isolate.
-final ReceivePort port = ReceivePort();
+ReceivePort port = ReceivePort();
 
 /// Global [SharedPreferences] object.
 SharedPreferences? prefs;

@@ -21,6 +21,14 @@
     struct utsname un;
     uname(&un);
 
+    NSString *machine;
+    if ([[self isDevicePhysical] isEqualToString:@"true"]) {
+      machine = @(un.machine);
+    } else {
+      machine = [[NSProcessInfo processInfo]
+          environment][@"SIMULATOR_MODEL_IDENTIFIER"];
+    }
+
     result(@{
       @"name" : [device name],
       @"systemName" : [device systemName],
@@ -35,7 +43,7 @@
         @"nodename" : @(un.nodename),
         @"release" : @(un.release),
         @"version" : @(un.version),
-        @"machine" : @(un.machine),
+        @"machine" : machine,
       }
     });
   } else {

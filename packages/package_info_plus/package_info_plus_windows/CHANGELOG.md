@@ -1,3 +1,18 @@
+## 3.0.0
+
+ - Update a dependency to the latest release.
+
+## 2.1.0
+
+- Allow win32 3.x to be used.
+
+## 2.0.0
+
+- **Breaking change**. Bump minimum dart version to 2.17.0.
+- Updated ffi to 2.0.1.
+- Updated win32 to 2.7.0.
+- Updated flutter_lints to 2.0.1.
+
 ## 1.0.5
 
 - Fix MissingPluginException

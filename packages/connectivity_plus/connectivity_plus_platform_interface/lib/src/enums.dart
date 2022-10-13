@@ -13,5 +13,8 @@ enum ConnectivityResult {
   mobile,
 
   /// None: Device not connected to any network
-  none
+  none,
+
+  /// VPN: Device connected to a VPN
+  vpn
 }

@@ -6,7 +6,7 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
 
   public var currentConnectivityType: ConnectivityType {
     let reachability = ensureReachability()
-    switch reachability.connection ?? .unavailable {
+    switch reachability.connection {
     case .wifi:
       return .wifi
     case .cellular:
@@ -20,7 +20,7 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
 
   override init() {
     super.init()
-    ensureReachability()
+    _ = ensureReachability()
   }
 
   public func start() {

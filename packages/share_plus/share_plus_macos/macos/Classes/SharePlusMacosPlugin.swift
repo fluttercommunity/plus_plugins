@@ -49,14 +49,16 @@ public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePick
   }
 
   private func shareItems(_ items: [Any], subject: String? = nil, origin: NSRect, view: NSView, callback: FlutterResult? = nil) {
-    let picker = NSSharingServicePicker(items: items)
-    if callback != nil {
-      picker.delegate = SharePlusMacosSuccessDelegate(subject: subject, callback: callback!).keep()
-    } else {
-      picker.delegate = self
-      self.subject = subject
+    DispatchQueue.main.async {
+      let picker = NSSharingServicePicker(items: items)
+      if callback != nil {
+        picker.delegate = SharePlusMacosSuccessDelegate(subject: subject, callback: callback!).keep()
+      } else {
+        picker.delegate = self
+        self.subject = subject
+      }
+      picker.show(relativeTo: origin, of: view, preferredEdge: NSRectEdge.maxY)
     }
-    picker.show(relativeTo: origin, of: view, preferredEdge: NSRectEdge.maxY)
   }
 
   private func originRect(_ args: [String: Any]) -> NSRect {

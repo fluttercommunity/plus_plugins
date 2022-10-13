@@ -11,7 +11,7 @@ internal class StreamHandlerImpl(
         private val sensorManager: SensorManager,
         sensorType: Int
 ) : EventChannel.StreamHandler {
-    private lateinit var sensorEventListener: SensorEventListener
+    private var sensorEventListener: SensorEventListener? = null
 
     private val sensor: Sensor by lazy {
         sensorManager.getDefaultSensor(sensorType)

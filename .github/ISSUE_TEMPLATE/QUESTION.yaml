@@ -1,0 +1,44 @@
+name: I need help
+description: You have a question for how to achieve a particular effect, or you need help with using a particular API.
+title: "[Question]: "
+labels: ["question"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for using PlusPlugins!
+
+        Please check out our documentation first:
+        * https://plus.fluttercommunity.dev/docs/overview
+
+        If you can't find the answer there, please consider asking a question on
+        the Stack Overflow Web site:
+        * https://stackoverflow.com/questions/tagged/flutter?sort=frequent
+  - type: textarea
+    id: question
+    attributes:
+      label: What is your question?
+    validations:
+      required: true
+  - type: checkboxes
+    id: self-checks
+    attributes:
+      label: Checklist before submitting a question
+      description: Please verify all the following items before submitting a question. All options must be selected.
+      options:
+        - label: I Google'd a solution and I couldn't find it
+          required: true
+        - label: I searched on StackOverflow for a solution and I couldn't find it
+          required: true
+        - label: I read the README.md file of the plugin
+          required: true
+        - label: I am using the latest version of the plugin
+          required: true
+        - label: All dependencies are up to date with `flutter pub upgrade`
+          required: true
+        - label: I did a `flutter clean`
+          required: true
+        - label: I tried running the example project
+          required: true
