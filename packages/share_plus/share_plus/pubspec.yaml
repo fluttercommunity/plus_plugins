@@ -19,7 +19,7 @@ flutter:
         pluginClass: SharePlusMacosPlugin
       web:
         pluginClass: SharePlusWebPlugin
-        fileName: share_plus_web.dart
+        fileName: src/share_plus_web.dart
       windows:
         dartPluginClass: SharePlusWindowsPlugin
         pluginClass: SharePlusWindowsPluginCApi
