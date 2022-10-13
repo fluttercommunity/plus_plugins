@@ -91,6 +91,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   static SendPort? uiSendPort;
 
   // The callback for our alarm
+  @pragma('vm:entry-point')
   static Future<void> callback() async {
     developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
