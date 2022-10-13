@@ -16,8 +16,7 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
   final FileSystem _fileSystem;
 
   ///
-  DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem})
-      : _fileSystem = fileSystem ?? const LocalFileSystem();
+  DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem}) : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
   Future<LinuxDeviceInfo> linuxInfo() async {
@@ -45,8 +44,8 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
   }
 
   Future<Map<String, String?>?> _getOsRelease() {
-    return _tryReadKeyValues('/etc/os-release').then((value) async =>
-        value ?? await _tryReadKeyValues('/usr/lib/os-release'));
+    return _tryReadKeyValues('/etc/os-release')
+        .then((value) async => value ?? await _tryReadKeyValues('/usr/lib/os-release'));
   }
 
   Future<Map<String, String?>?> _getLsbRelease() {
@@ -58,17 +57,11 @@ class DeviceInfoLinux extends DeviceInfoPlatform {
   }
 
   Future<String?> _tryReadValue(String path) {
-    return _fileSystem
-        .file(path)
-        .readAsString()
-        .then((str) => str.trim(), onError: (_) => null);
+    return _fileSystem.file(path).readAsString().then((str) => str.trim(), onError: (_) => null);
   }
 
   Future<Map<String, String?>?> _tryReadKeyValues(String path) {
-    return _fileSystem
-        .file(path)
-        .readAsLines()
-        .then((lines) => lines.toKeyValues(), onError: (_) => null);
+    return _fileSystem.file(path).readAsLines().then((lines) => lines.toKeyValues(), onError: (_) => null);
   }
 }
 

@@ -1,11 +1,11 @@
-import 'dart:io';
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
-import 'package:win32/win32.dart';
 
+import 'package:device_info_plus/src/device_info_plus_windows.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_windows/src/device_info_plus_windows.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:win32/win32.dart';
 
 void main() {
   test('registered instance', () {
@@ -14,8 +14,7 @@ void main() {
   });
   test('system-memory-in-megabytes', () async {
     if (Platform.isWindows) {
-      final systemMemoryInMegabytes =
-          DeviceInfoWindows().getSystemMemoryInMegabytes();
+      final systemMemoryInMegabytes = DeviceInfoWindows().getSystemMemoryInMegabytes();
       // Must be a non-negative integer value.
       expect(systemMemoryInMegabytes, isPositive);
     } else {

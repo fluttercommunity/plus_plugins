@@ -3,11 +3,11 @@ library device_info_plus_windows;
 
 import 'dart:ffi';
 import 'dart:typed_data';
+
+import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:ffi/ffi.dart';
 import 'package:meta/meta.dart';
 import 'package:win32/win32.dart';
-
-import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 
 /// The Windows implementation of [DeviceInfoPlatform].
 class DeviceInfoWindows extends DeviceInfoPlatform {
@@ -29,11 +29,10 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
 
   @visibleForTesting
   WindowsDeviceInfo getInfo() {
-    if (_rtlGetVersion == null) {
-      _rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
-          Void Function(Pointer<OSVERSIONINFOEX>),
-          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
-    }
+    _rtlGetVersion ??= DynamicLibrary.open('ntdll.dll')
+        .lookupFunction<Void Function(Pointer<OSVERSIONINFOEX>), void Function(Pointer<OSVERSIONINFOEX>)>(
+            'RtlGetVersion');
+
     final systemInfo = getSYSTEMINFOPointer();
     final osVersionInfo = getOSVERSIONINFOEXPointer();
     final buildLab = getRegistryValue(
@@ -60,11 +59,9 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
       'DisplayVersion',
       '',
     ) as String;
-    final editionId = getRegistryValue(
-        HKEY_LOCAL_MACHINE,
-        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
-        'EditionID',
-        '') as String;
+    final editionId =
+        getRegistryValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\', 'EditionID', '')
+            as String;
     final installDate = DateTime.fromMillisecondsSinceEpoch(1000 *
         getRegistryValue(
           HKEY_LOCAL_MACHINE,
@@ -170,10 +167,7 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     );
     final namePtr = calloc<Uint16>(nameLength.value).cast<Utf16>();
     try {
-      final result = GetComputerNameEx(
-          COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified,
-          namePtr,
-          nameLength);
+      final result = GetComputerNameEx(COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified, namePtr, nameLength);
 
       if (result != 0) {
         name = namePtr.toDartString();
@@ -189,9 +183,9 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
 
   @visibleForTesting
   String getUserName() {
-    const UNLEN = 256;
-    final pcbBuffer = calloc<DWORD>()..value = UNLEN + 1;
-    final lpBuffer = wsalloc(UNLEN + 1);
+    const unLen = 256;
+    final pcbBuffer = calloc<DWORD>()..value = unLen + 1;
+    final lpBuffer = wsalloc(unLen + 1);
     try {
       final result = GetUserName(lpBuffer, pcbBuffer);
       if (result != 0) {
@@ -267,8 +261,7 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
     }
 
     if (result == ERROR_SUCCESS) {
-      result = RegQueryValueEx(
-          openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
+      result = RegQueryValueEx(openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
       if (result == ERROR_SUCCESS) {
         if (dataType.value == REG_DWORD) {
           dataValue = data.cast<DWORD>().value;
