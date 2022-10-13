@@ -10,10 +10,10 @@ import 'package:meta/meta.dart';
 import 'package:win32/win32.dart';
 
 /// The Windows implementation of [DeviceInfoPlatform].
-class DeviceInfoWindows extends DeviceInfoPlatform {
+class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
   /// Register this dart class as the platform implementation for windows
   static void registerWith() {
-    DeviceInfoPlatform.instance = DeviceInfoWindows();
+    DeviceInfoPlatform.instance = DeviceInfoPlusWindowsPlugin();
   }
 
   WindowsDeviceInfo? _cache;

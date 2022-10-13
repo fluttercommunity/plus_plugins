@@ -6,17 +6,18 @@ import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 
 /// See [DeviceInfoPlatform]
-class DeviceInfoLinux extends DeviceInfoPlatform {
+class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    DeviceInfoPlatform.instance = DeviceInfoLinux();
+    DeviceInfoPlatform.instance = DeviceInfoPlusLinuxPlugin();
   }
 
   LinuxDeviceInfo? _cache;
   final FileSystem _fileSystem;
 
   ///
-  DeviceInfoLinux({@visibleForTesting FileSystem? fileSystem}) : _fileSystem = fileSystem ?? const LocalFileSystem();
+  DeviceInfoPlusLinuxPlugin({@visibleForTesting FileSystem? fileSystem})
+      : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
   Future<LinuxDeviceInfo> linuxInfo() async {

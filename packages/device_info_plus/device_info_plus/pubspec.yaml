@@ -15,13 +15,13 @@ flutter:
       ios:
         pluginClass: FLTDeviceInfoPlusPlugin
       linux:
-        dartPluginClass: DeviceInfoLinux
+        dartPluginClass: DeviceInfoPlusLinuxPlugin
       web:
-        pluginClass: DeviceInfoPlusPlugin
+        pluginClass: DeviceInfoPlusWebPlugin
       macos:
         pluginClass: DeviceInfoPlusMacosPlugin
       windows:
-        dartPluginClass: DeviceInfoWindows
+        dartPluginClass: DeviceInfoPlusWindowsPlugin
 
 dependencies:
   device_info_plus_platform_interface: ^5.0.0
