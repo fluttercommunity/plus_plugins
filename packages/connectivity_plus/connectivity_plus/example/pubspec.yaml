@@ -11,8 +11,6 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  connectivity_plus_linux:
-    path: ../../connectivity_plus_linux
   connectivity_plus_macos:
     path: ../../connectivity_plus_macos
   connectivity_plus_platform_interface:
