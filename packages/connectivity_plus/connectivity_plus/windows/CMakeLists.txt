@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.15)
-set(PROJECT_NAME "connectivity_plus_windows")
+set(PROJECT_NAME "connectivity_plus")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 # This value is used when generating builds using this plugin, so it must
 # not be changed
-set(PLUGIN_NAME "connectivity_plus_windows_plugin")
+set(PLUGIN_NAME "connectivity_plus_plugin")
 
 add_library(${PLUGIN_NAME} SHARED
-  "connectivity_plus_windows_plugin.cpp"
+  "connectivity_plus_plugin.cpp"
   "network_manager.cpp"
 )
 apply_standard_settings(${PLUGIN_NAME})
@@ -27,4 +27,3 @@ set(connectivity_plus_windows_bundled_libraries
   ""
   PARENT_SCOPE
 )
- 
