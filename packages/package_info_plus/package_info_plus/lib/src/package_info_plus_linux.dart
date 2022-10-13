@@ -6,10 +6,10 @@ import 'package:package_info_plus_platform_interface/package_info_platform_inter
 import 'package:path/path.dart' as path;
 
 /// The Linux implementation of [PackageInfoPlatform].
-class PackageInfoLinux extends PackageInfoPlatform {
+class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    PackageInfoPlatform.instance = PackageInfoLinux();
+    PackageInfoPlatform.instance = PackageInfoPlusLinuxPlugin();
   }
 
   /// Returns a map with the following keys:

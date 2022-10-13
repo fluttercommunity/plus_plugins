@@ -1,8 +1,8 @@
 /// The Windows implementation of `package_info_plus`.
 library package_info_plus_windows;
 
-import 'dart:io';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
@@ -12,10 +12,10 @@ import 'package:win32/win32.dart';
 part 'file_version_info.dart';
 
 /// The Windows implementation of [PackageInfoPlatform].
-class PackageInfoWindows extends PackageInfoPlatform {
+class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    PackageInfoPlatform.instance = PackageInfoWindows();
+    PackageInfoPlatform.instance = PackageInfoPlusWindowsPlugin();
   }
 
   /// Returns a map with the following keys:
