@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 
 export 'src/package_info_plus_linux.dart';
-export 'src/package_info_plus_windows.dart' if (dart.library.html) 'src/package_info_plus_web.dart';
+export 'src/package_info_plus_windows.dart'
+    if (dart.library.html) 'src/package_info_plus_web.dart';
 
 /// Application metadata. Provides application bundle information on iOS and
 /// application package information on Android.

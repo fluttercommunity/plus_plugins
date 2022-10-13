@@ -85,15 +85,18 @@ void main() {
             Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
           );
           expect(
-            plugin.versionJsonUrl('https://example.com/?hello_world=true#/my-page', 1),
+            plugin.versionJsonUrl(
+                'https://example.com/?hello_world=true#/my-page', 1),
             Uri.parse('https://example.com/version.json?cachebuster=1'),
           );
           expect(
-            plugin.versionJsonUrl('https://example.com/a/b/c/?hello_world=true#/my-page', 1),
+            plugin.versionJsonUrl(
+                'https://example.com/a/b/c/?hello_world=true#/my-page', 1),
             Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
           );
           expect(
-            plugin.versionJsonUrl('https://example.com/a/b/c?hello_world=true#/my-page', 1),
+            plugin.versionJsonUrl(
+                'https://example.com/a/b/c?hello_world=true#/my-page', 1),
             Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
           );
         },
@@ -106,15 +109,18 @@ void main() {
         );
         expect(
           plugin.versionJsonUrl('chrome-extension://abcdefgh/a/b/c', 1),
-          Uri.parse('chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
         );
         expect(
           plugin.versionJsonUrl('chrome-extension://abcdefgh/#my-page', 1),
           Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
         );
         expect(
-          plugin.versionJsonUrl('chrome-extension://abcdefgh/a/b/c/#my-page', 1),
-          Uri.parse('chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
+          plugin.versionJsonUrl(
+              'chrome-extension://abcdefgh/a/b/c/#my-page', 1),
+          Uri.parse(
+              'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
         );
       });
     },
