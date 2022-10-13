@@ -29,9 +29,9 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   @visibleForTesting
   WindowsDeviceInfo getInfo() {
-    _rtlGetVersion ??= DynamicLibrary.open('ntdll.dll')
-        .lookupFunction<Void Function(Pointer<OSVERSIONINFOEX>), void Function(Pointer<OSVERSIONINFOEX>)>(
-            'RtlGetVersion');
+    _rtlGetVersion ??= DynamicLibrary.open('ntdll.dll').lookupFunction<
+        Void Function(Pointer<OSVERSIONINFOEX>),
+        void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
 
     final systemInfo = getSYSTEMINFOPointer();
     final osVersionInfo = getOSVERSIONINFOEXPointer();
@@ -59,9 +59,11 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       'DisplayVersion',
       '',
     ) as String;
-    final editionId =
-        getRegistryValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\', 'EditionID', '')
-            as String;
+    final editionId = getRegistryValue(
+        HKEY_LOCAL_MACHINE,
+        'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\',
+        'EditionID',
+        '') as String;
     final installDate = DateTime.fromMillisecondsSinceEpoch(1000 *
         getRegistryValue(
           HKEY_LOCAL_MACHINE,
@@ -167,7 +169,10 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
     );
     final namePtr = calloc<Uint16>(nameLength.value).cast<Utf16>();
     try {
-      final result = GetComputerNameEx(COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified, namePtr, nameLength);
+      final result = GetComputerNameEx(
+          COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified,
+          namePtr,
+          nameLength);
 
       if (result != 0) {
         name = namePtr.toDartString();
@@ -261,7 +266,8 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
     }
 
     if (result == ERROR_SUCCESS) {
-      result = RegQueryValueEx(openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
+      result = RegQueryValueEx(
+          openKeyPtr.value, valueNamePtr, nullptr, dataType, data, dataSize);
       if (result == ERROR_SUCCESS) {
         if (dataType.value == REG_DWORD) {
           dataValue = data.cast<DWORD>().value;

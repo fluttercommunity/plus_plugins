@@ -46,7 +46,8 @@ class _MyAppState extends State<MyApp> {
         deviceData = _readWebBrowserInfo(await deviceInfoPlugin.webBrowserInfo);
       } else {
         if (Platform.isAndroid) {
-          deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+          deviceData =
+              _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
         } else if (Platform.isIOS) {
           deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
         } else if (Platform.isLinux) {
@@ -54,11 +55,14 @@ class _MyAppState extends State<MyApp> {
         } else if (Platform.isMacOS) {
           deviceData = _readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo);
         } else if (Platform.isWindows) {
-          deviceData = _readWindowsDeviceInfo(await deviceInfoPlugin.windowsInfo);
+          deviceData =
+              _readWindowsDeviceInfo(await deviceInfoPlugin.windowsInfo);
         }
       }
     } on PlatformException {
-      deviceData = <String, dynamic>{'Error:': 'Failed to get platform version.'};
+      deviceData = <String, dynamic>{
+        'Error:': 'Failed to get platform version.'
+      };
     }
 
     if (!mounted) return;
@@ -96,7 +100,8 @@ class _MyAppState extends State<MyApp> {
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
       'systemFeatures': build.systemFeatures,
-      'displaySizeInches': ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
+      'displaySizeInches':
+          ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
       'displayWidthPixels': build.displayMetrics.widthPx,
       'displayWidthInches': build.displayMetrics.widthInches,
       'displayHeightPixels': build.displayMetrics.heightPx,

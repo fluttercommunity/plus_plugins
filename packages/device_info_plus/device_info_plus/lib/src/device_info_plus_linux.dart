@@ -45,8 +45,8 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   }
 
   Future<Map<String, String?>?> _getOsRelease() {
-    return _tryReadKeyValues('/etc/os-release')
-        .then((value) async => value ?? await _tryReadKeyValues('/usr/lib/os-release'));
+    return _tryReadKeyValues('/etc/os-release').then((value) async =>
+        value ?? await _tryReadKeyValues('/usr/lib/os-release'));
   }
 
   Future<Map<String, String?>?> _getLsbRelease() {
@@ -58,11 +58,17 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   }
 
   Future<String?> _tryReadValue(String path) {
-    return _fileSystem.file(path).readAsString().then((str) => str.trim(), onError: (_) => null);
+    return _fileSystem
+        .file(path)
+        .readAsString()
+        .then((str) => str.trim(), onError: (_) => null);
   }
 
   Future<Map<String, String?>?> _tryReadKeyValues(String path) {
-    return _fileSystem.file(path).readAsLines().then((lines) => lines.toKeyValues(), onError: (_) => null);
+    return _fileSystem
+        .file(path)
+        .readAsLines()
+        .then((lines) => lines.toKeyValues(), onError: (_) => null);
   }
 }
 

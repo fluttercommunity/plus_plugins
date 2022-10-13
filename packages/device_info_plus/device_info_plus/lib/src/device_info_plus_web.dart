@@ -14,7 +14,8 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
   /// Factory method that initializes the DeviceInfoPlus plugin platform
   /// with an instance of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    DeviceInfoPlatform.instance = DeviceInfoPlusWebPlugin(html.window.navigator);
+    DeviceInfoPlatform.instance =
+        DeviceInfoPlusWebPlugin(html.window.navigator);
   }
 
   @override

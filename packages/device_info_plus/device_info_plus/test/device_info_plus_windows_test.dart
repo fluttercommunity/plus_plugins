@@ -14,7 +14,8 @@ void main() {
   });
   test('system-memory-in-megabytes', () async {
     if (Platform.isWindows) {
-      final systemMemoryInMegabytes = DeviceInfoPlusWindowsPlugin().getSystemMemoryInMegabytes();
+      final systemMemoryInMegabytes =
+          DeviceInfoPlusWindowsPlugin().getSystemMemoryInMegabytes();
       // Must be a non-negative integer value.
       expect(systemMemoryInMegabytes, isPositive);
     } else {
@@ -52,7 +53,8 @@ void main() {
     }
   });
   test('SYSTEM_INFO-pointer', () async {
-    final infoStructPointer = DeviceInfoPlusWindowsPlugin().getSYSTEMINFOPointer();
+    final infoStructPointer =
+        DeviceInfoPlusWindowsPlugin().getSYSTEMINFOPointer();
     // Must be an empty struct with all values nullptr or 0.
     expect(infoStructPointer.ref.wProcessorArchitecture, 0);
     expect(infoStructPointer.ref.wReserved, 0);
@@ -67,7 +69,8 @@ void main() {
     expect(infoStructPointer.ref.wProcessorRevision, 0);
   });
   test('OSVERSIONINFOEX-pointer', () async {
-    final infoStructPointer = DeviceInfoPlusWindowsPlugin().getOSVERSIONINFOEXPointer();
+    final infoStructPointer =
+        DeviceInfoPlusWindowsPlugin().getOSVERSIONINFOEXPointer();
     // Must be an empty struct with all values nullptr or 0.
     expect(
       infoStructPointer.ref.dwOSVersionInfoSize,
