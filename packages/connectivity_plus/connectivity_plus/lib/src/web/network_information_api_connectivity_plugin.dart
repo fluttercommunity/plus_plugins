@@ -2,15 +2,16 @@ import 'dart:async';
 import 'dart:html' as html show window, NetworkInformation;
 import 'dart:js_util';
 
+import 'package:connectivity_plus/src/web/utils/connectivity_result.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-import 'package:connectivity_plus_web/connectivity_plus_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:js/js.dart';
 
-import 'utils/connectivity_result.dart';
+import '../connectivity_plus_web.dart';
+
 
 /// The web implementation of the ConnectivityPlatform of the Connectivity plugin.
-class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusPlugin {
+class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusWebPlugin {
   final html.NetworkInformation _networkInformation;
 
   /// A check to determine if this version of the plugin can be used.

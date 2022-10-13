@@ -21,7 +21,9 @@ flutter:
         dartPluginClass: ConnectivityLinux
       macos:
         pluginClass: ConnectivityPlugin
-#      web:
+      web:
+        pluginClass: ConnectivityPlusWebPlugin
+        fileName: src/connectivity_plus_web.dart
 #        default_package: connectivity_plus_web
 #      windows:
 #        default_package: connectivity_plus_windows
@@ -29,10 +31,10 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   connectivity_plus_platform_interface: ^1.2.1
-#  connectivity_plus_macos: ^1.2.4
-#  connectivity_plus_web: ^1.2.5
-#  connectivity_plus_windows: ^1.2.2
+  js: ^0.6.3
   nm: ^0.5.0
 
 dev_dependencies:
