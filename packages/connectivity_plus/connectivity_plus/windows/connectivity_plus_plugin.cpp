@@ -1,7 +1,7 @@
 // clang-format off
 #include "include/connectivity_plus/network_manager.h"
 // clang-format on
-#include "include/connectivity_plus/connectivity_plus_plugin.h"
+#include "include/connectivity_plus/connectivity_plus_windows_plugin.h"
 
 #include <flutter/event_channel.h>
 #include <flutter/event_sink.h>
