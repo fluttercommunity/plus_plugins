@@ -18,7 +18,7 @@ flutter:
       ios:
         pluginClass: ConnectivityPlusPlugin
       linux:
-        dartPluginClass: ConnectivityLinux
+        dartPluginClass: ConnectivityPlusLinuxPlugin
       macos:
         pluginClass: ConnectivityPlugin
       web:

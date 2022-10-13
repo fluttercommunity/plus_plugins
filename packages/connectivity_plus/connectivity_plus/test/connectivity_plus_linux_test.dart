@@ -10,12 +10,12 @@ import 'connectivity_plus_linux_test.mocks.dart';
 @GenerateMocks([NetworkManagerClient])
 void main() {
   test('registered instance', () {
-    ConnectivityLinux.registerWith();
-    expect(ConnectivityPlatform.instance, isA<ConnectivityLinux>());
+    ConnectivityPlusLinuxPlugin.registerWith();
+    expect(ConnectivityPlatform.instance, isA<ConnectivityPlusLinuxPlugin>());
   });
 
   test('bluetooth', () async {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
@@ -30,7 +30,7 @@ void main() {
   });
 
   test('ethernet', () async {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
@@ -45,7 +45,7 @@ void main() {
   });
 
   test('wireless', () async {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
@@ -60,7 +60,7 @@ void main() {
   });
 
   test('vpn', () async {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
@@ -75,7 +75,7 @@ void main() {
   });
 
   test('no connectivity', () async {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
@@ -87,7 +87,7 @@ void main() {
   });
 
   test('connectivity changes', () {
-    final linux = ConnectivityLinux();
+    final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
       when(client.connectivity)
