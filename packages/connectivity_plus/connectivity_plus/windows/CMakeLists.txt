@@ -23,7 +23,7 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE
 )
 
 # List of absolute paths to libraries that should be bundled with the plugin
-set(connectivity_plus_windows_bundled_libraries
+set(connectivity_plus_bundled_libraries
   ""
   PARENT_SCOPE
 )
