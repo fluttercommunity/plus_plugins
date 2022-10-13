@@ -1,22 +1,21 @@
 #
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint device_info_plus_macos.podspec' to validate before publishing.
+# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
   s.name             = 'device_info_plus'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'No-op implementation of the macos device_info_plus to avoid build issues on macos'
   s.description      = <<-DESC
-A new flutter plugin project.
-                       DESC
-  s.homepage         = 'http://example.com'
+ No-op implementation of the device_info_plus plugin to avoid build issues on macos.
+https://github.com/flutter/flutter/issues/46618
+                          DESC
+  s.homepage         = 'https://github.com/fluttercommunity/plus_plugins/tree/master/packages/device_info_plus'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
-  s.dependency 'FlutterMacOS'
+  s.source_files = 'Classes/**/*'
+  s.public_header_files = 'Classes/**/*.h'
 
-  s.platform = :osx, '10.11'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.swift_version = '5.0'
+  s.platform = :osx
+  s.osx.deployment_target = '10.11'
 end
