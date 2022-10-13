@@ -19,8 +19,8 @@ flutter:
         pluginClass: ConnectivityPlusPlugin
       linux:
         dartPluginClass: ConnectivityLinux
-#      macos:
-#        default_package: connectivity_plus_macos
+      macos:
+        pluginClass: ConnectivityPlugin
 #      web:
 #        default_package: connectivity_plus_web
 #      windows:
