@@ -11,13 +11,15 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
                            private val connectivityManager: ConnectivityManager? = null
 ) {
 
-    private val wifiInfo: WifiInfo?
+    // Using deprecated `connectionInfo` call here to be able to get info on demand
+    @Suppress("DEPRECATION")
+    private val wifiInfo: WifiInfo
         get() = wifiManager.connectionInfo
 
     // Android returns "SSID"
-    fun getWifiName(): String? = wifiInfo?.ssid
+    fun getWifiName(): String? = wifiInfo.ssid
 
-    fun getWifiBSSID(): String? = wifiInfo?.bssid
+    fun getWifiBSSID(): String? = wifiInfo.bssid
 
     fun getWifiIPAddress(): String? {
         var ipAddress: String? = null
@@ -82,7 +84,7 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
                     }
                 }
             }
-        } catch (socketException: SocketException) {
+        } catch (ignored: SocketException) {
 
         }
         return null
