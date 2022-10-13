@@ -24,9 +24,8 @@ flutter:
       web:
         pluginClass: ConnectivityPlusWebPlugin
         fileName: src/connectivity_plus_web.dart
-#        default_package: connectivity_plus_web
-#      windows:
-#        default_package: connectivity_plus_windows
+      windows:
+        pluginClass: ConnectivityPlusWindowsPlugin
 
 dependencies:
   flutter:
