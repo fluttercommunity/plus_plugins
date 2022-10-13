@@ -22,7 +22,8 @@ void main() {
 
     testWidgets('test location methods, iOS only', (WidgetTester tester) async {
       if (Platform.isIOS) {
-        expect((await networkInfo.getLocationServiceAuthorization()), LocationAuthorizationStatus.notDetermined);
+        expect((await networkInfo.getLocationServiceAuthorization()),
+            LocationAuthorizationStatus.notDetermined);
       }
     }, skip: !Platform.isIOS);
 

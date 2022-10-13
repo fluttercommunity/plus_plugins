@@ -9,7 +9,8 @@ import 'package:nm/nm.dart';
 // ignore_for_file: public_member_api_docs
 
 typedef _DeviceGetter = Future<String?> Function(NetworkManagerDevice? device);
-typedef _ConnectionGetter = Future<String?> Function(NetworkManagerActiveConnection? connection);
+typedef _ConnectionGetter = Future<String?> Function(
+    NetworkManagerActiveConnection? connection);
 
 @visibleForTesting
 typedef NetworkManagerClientFactory = NetworkManagerClient Function();
@@ -75,7 +76,8 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
 
   Future<String?> _getDeviceValue(_DeviceGetter getter) {
     return _getConnectionValue((connection) {
-      final device = connection?.devices.firstWhereOrNull((device) => device.wireless != null);
+      final device = connection?.devices
+          .firstWhereOrNull((device) => device.wireless != null);
       return getter(device);
     });
   }
@@ -117,7 +119,10 @@ extension _IpInt on int {
 extension _IpString on String {
   int toIpInt() {
     final parts = split('.');
-    return parts.intAtOrZero(3) << 24 | parts.intAtOrZero(2) << 16 | parts.intAtOrZero(1) << 8 | parts.intAtOrZero(0);
+    return parts.intAtOrZero(3) << 24 |
+        parts.intAtOrZero(2) << 16 |
+        parts.intAtOrZero(1) << 8 |
+        parts.intAtOrZero(0);
   }
 }
 
