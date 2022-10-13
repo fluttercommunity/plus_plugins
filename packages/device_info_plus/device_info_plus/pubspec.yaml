@@ -23,7 +23,6 @@ flutter:
         pluginClass: DeviceInfoPlusMacosPlugin
       windows:
         dartPluginClass: DeviceInfoPlusWindowsPlugin
-        fileName: src/device_info_plus_windows.dart
 
 dependencies:
   device_info_plus_platform_interface: ^5.0.0
