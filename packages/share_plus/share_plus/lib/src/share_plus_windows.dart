@@ -2,20 +2,20 @@
 library share_plus_windows;
 
 import 'dart:ui';
-import 'package:cross_file/cross_file.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import 'package:share_plus_windows/src/version_helper.dart';
+import 'package:cross_file/cross_file.dart';
+import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
 ///
-class ShareWindows extends SharePlatform {
+class SharePlusWindowsPlugin extends SharePlatform {
   /// If the modern Share UI i.e. `DataTransferManager` is not available, then use this Dart class instead of platform specific implementation.
   ///
   static void registerWith() {
     if (!VersionHelper.instance.isWindows10RS5OrGreater) {
-      SharePlatform.instance = ShareWindows();
+      SharePlatform.instance = SharePlusWindowsPlugin();
     }
   }
 
@@ -34,10 +34,8 @@ class ShareWindows extends SharePlatform {
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
-      query: queryParameters.entries
-          .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-          .join('&'),
+      query:
+          queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&'),
     );
 
     if (await canLaunchUrl(uri)) {

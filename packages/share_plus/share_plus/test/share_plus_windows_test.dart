@@ -1,18 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:share_plus_windows/share_plus_windows.dart';
-import 'package:share_plus_windows/src/version_helper.dart';
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:share_plus/src/share_plus_windows.dart';
+import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
-
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/link.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 void main() {
   test(
     'registered instance',
     () {
-      ShareWindows.registerWith();
-      expect(SharePlatform.instance, isA<ShareWindows>());
+      SharePlusWindowsPlugin.registerWith();
+      expect(SharePlatform.instance, isA<SharePlusWindowsPlugin>());
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
   );
@@ -20,7 +19,7 @@ void main() {
   test(
     'registered instance',
     () {
-      ShareWindows.registerWith();
+      SharePlusWindowsPlugin.registerWith();
       expect(SharePlatform.instance, isA<MethodChannelShare>());
     },
     skip: !VersionHelper.instance.isWindows10RS5OrGreater,
@@ -34,7 +33,7 @@ void main() {
       final mock = MockUrlLauncherPlatform();
       UrlLauncherPlatform.instance = mock;
 
-      await ShareWindows().share('foo&bar', subject: 'bar&foo');
+      await SharePlusWindowsPlugin().share('foo&bar', subject: 'bar&foo');
 
       expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
     },
@@ -48,7 +47,7 @@ void main() {
       final mock = MockUrlLauncherPlatform();
       UrlLauncherPlatform.instance = mock;
 
-      await ShareWindows().share('foo bar', subject: 'bar foo');
+      await SharePlusWindowsPlugin().share('foo bar', subject: 'bar foo');
 
       expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
     },
@@ -62,8 +61,7 @@ void main() {
       mock.canLaunchMockValue = false;
       UrlLauncherPlatform.instance = mock;
 
-      expect(
-          () async => await ShareWindows().share('foo bar'), throwsException);
+      expect(() async => await SharePlusWindowsPlugin().share('foo bar'), throwsException);
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
   );

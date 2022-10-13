@@ -9,16 +9,16 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher/url_launcher.dart';
 
 /// The web implementation of [SharePlatform].
-class SharePlusPlugin extends SharePlatform {
+class SharePlusWebPlugin extends SharePlatform {
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
-    SharePlatform.instance = SharePlusPlugin();
+    SharePlatform.instance = SharePlusWebPlugin();
   }
 
   final html.Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlusPlugin({@visibleForTesting html.Navigator? debugNavigator})
+  SharePlusWebPlugin({@visibleForTesting html.Navigator? debugNavigator})
       : _navigator = debugNavigator ?? html.window.navigator;
 
   /// Share text
@@ -41,8 +41,7 @@ class SharePlusPlugin extends SharePlatform {
       final uri = Uri(
         scheme: 'mailto',
         query: queryParameters.entries
-            .map((e) =>
-                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
             .join('&'),
       );
 
@@ -117,8 +116,7 @@ class SharePlusPlugin extends SharePlatform {
   }
 
   static String _mimeTypeForPath(XFile file, Uint8List bytes) {
-    return lookupMimeType(file.name, headerBytes: bytes) ??
-        'application/octet-stream';
+    return lookupMimeType(file.name, headerBytes: bytes) ?? 'application/octet-stream';
   }
 }
 

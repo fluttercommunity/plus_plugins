@@ -1,19 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:share_plus_linux/share_plus_linux.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_platform_interface/link.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 void main() {
   test('registered instance', () {
-    ShareLinux.registerWith();
-    expect(SharePlatform.instance, isA<ShareLinux>());
+    SharePlusLinuxPlugin.registerWith();
+    expect(SharePlatform.instance, isA<SharePlusLinuxPlugin>());
   });
   test('url encoding is correct for &', () async {
     final mock = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mock;
 
-    await ShareLinux().share('foo&bar', subject: 'bar&foo');
+    await SharePlusLinuxPlugin().share('foo&bar', subject: 'bar&foo');
 
     expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
   });
@@ -23,7 +23,7 @@ void main() {
     final mock = MockUrlLauncherPlatform();
     UrlLauncherPlatform.instance = mock;
 
-    await ShareLinux().share('foo bar', subject: 'bar foo');
+    await SharePlusLinuxPlugin().share('foo bar', subject: 'bar foo');
 
     expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
   });
@@ -33,7 +33,7 @@ void main() {
     mock.canLaunchMockValue = false;
     UrlLauncherPlatform.instance = mock;
 
-    expect(() async => await ShareLinux().share('foo bar'), throwsException);
+    expect(() async => await SharePlusLinuxPlugin().share('foo bar'), throwsException);
   });
 }
 
