@@ -8,10 +8,10 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 // Sets a platform override for desktop to avoid exceptions. See
 // https://flutter.dev/desktop#target-platform-override for more info.
@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
   final String? title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -86,13 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initNetworkInfo() async {
-    String? wifiName,
-        wifiBSSID,
-        wifiIPv4,
-        wifiIPv6,
-        wifiGatewayIP,
-        wifiBroadcast,
-        wifiSubmask;
+    String? wifiName, wifiBSSID, wifiIPv4, wifiIPv6, wifiGatewayIP, wifiBroadcast, wifiSubmask;
 
     try {
       if (!kIsWeb && Platform.isIOS) {
