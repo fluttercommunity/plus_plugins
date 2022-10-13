@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
+  s.dependency 'FlutterMacOS'
 
   s.platform = :osx
   s.osx.deployment_target = '10.11'

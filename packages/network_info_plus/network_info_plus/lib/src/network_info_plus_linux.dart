@@ -1,25 +1,24 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:meta/meta.dart';
+import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:nm/nm.dart';
 
 // Used internally
 // ignore_for_file: public_member_api_docs
 
 typedef _DeviceGetter = Future<String?> Function(NetworkManagerDevice? device);
-typedef _ConnectionGetter = Future<String?> Function(
-    NetworkManagerActiveConnection? connection);
+typedef _ConnectionGetter = Future<String?> Function(NetworkManagerActiveConnection? connection);
 
 @visibleForTesting
 typedef NetworkManagerClientFactory = NetworkManagerClient Function();
 
 /// The Linux implementation of NetworkInfoPlatform.
-class NetworkInfoLinux extends NetworkInfoPlatform {
+class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    NetworkInfoPlatform.instance = NetworkInfoLinux();
+    NetworkInfoPlatform.instance = NetworkInfoPlusLinuxPlugin();
   }
 
   /// Obtains the wifi name (SSID) of the connected network
@@ -76,8 +75,7 @@ class NetworkInfoLinux extends NetworkInfoPlatform {
 
   Future<String?> _getDeviceValue(_DeviceGetter getter) {
     return _getConnectionValue((connection) {
-      final device = connection?.devices
-          .firstWhereOrNull((device) => device.wireless != null);
+      final device = connection?.devices.firstWhereOrNull((device) => device.wireless != null);
       return getter(device);
     });
   }
@@ -119,10 +117,7 @@ extension _IpInt on int {
 extension _IpString on String {
   int toIpInt() {
     final parts = split('.');
-    return parts.intAtOrZero(3) << 24 |
-        parts.intAtOrZero(2) << 16 |
-        parts.intAtOrZero(1) << 8 |
-        parts.intAtOrZero(0);
+    return parts.intAtOrZero(3) << 24 | parts.intAtOrZero(2) << 16 | parts.intAtOrZero(1) << 8 | parts.intAtOrZero(0);
   }
 }
 

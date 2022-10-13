@@ -1,12 +1,12 @@
-import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 
 /// A stub implementation of the NetworkInfoPlatform interface for Web.
-class NetworkInfoPlusPlugin extends NetworkInfoPlatform {
+class NetworkInfoPlusWebPlugin extends NetworkInfoPlatform {
   /// Factory method that initializes the network info plugin platform with
   /// an instance of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    NetworkInfoPlatform.instance = NetworkInfoPlusPlugin();
+    NetworkInfoPlatform.instance = NetworkInfoPlusWebPlugin();
   }
 
   /// Obtains the wifi name (SSID) of the connected network
