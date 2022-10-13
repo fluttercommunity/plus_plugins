@@ -7,7 +7,6 @@ import 'package:nm/nm.dart';
 
 import 'connectivity_plus_linux_test.mocks.dart';
 
-
 @GenerateMocks([NetworkManagerClient])
 void main() {
   test('registered instance', () {

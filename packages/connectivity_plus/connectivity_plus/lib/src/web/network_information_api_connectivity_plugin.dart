@@ -9,9 +9,9 @@ import 'package:js/js.dart';
 
 import '../connectivity_plus_web.dart';
 
-
 /// The web implementation of the ConnectivityPlatform of the Connectivity plugin.
-class NetworkInformationApiConnectivityPlugin extends ConnectivityPlusWebPlugin {
+class NetworkInformationApiConnectivityPlugin
+    extends ConnectivityPlusWebPlugin {
   final html.NetworkInformation _networkInformation;
 
   /// A check to determine if this version of the plugin can be used.
