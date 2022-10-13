@@ -7,24 +7,19 @@ import android.os.Build
 import java.net.*
 
 /** Reports network info such as wifi name and address. */
-internal class NetworkInfo(private val wifiManager: WifiManager?,
+internal class NetworkInfo(private val wifiManager: WifiManager,
                            private val connectivityManager: ConnectivityManager? = null
 ) {
 
-    private val wifiInfo: WifiInfo?
-        get() =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val currentNetwork = connectivityManager?.activeNetwork
-                connectivityManager?.getNetworkCapabilities(currentNetwork)?.transportInfo as WifiInfo?
-            } else {
-                @Suppress("DEPRECATION")
-                wifiManager?.connectionInfo
-            }
+    // Using deprecated `connectionInfo` call here to be able to get info on demand
+    @Suppress("DEPRECATION")
+    private val wifiInfo: WifiInfo
+        get() = wifiManager.connectionInfo
 
     // Android returns "SSID"
-    fun getWifiName(): String? = wifiInfo?.ssid
+    fun getWifiName(): String? = wifiInfo.ssid
 
-    fun getWifiBSSID(): String? = wifiInfo?.bssid
+    fun getWifiBSSID(): String? = wifiInfo.bssid
 
     fun getWifiIPAddress(): String? {
         var ipAddress: String? = null
@@ -89,7 +84,7 @@ internal class NetworkInfo(private val wifiManager: WifiManager?,
                     }
                 }
             }
-        } catch (socketException: SocketException) {
+        } catch (ignored: SocketException) {
 
         }
         return null
@@ -103,7 +98,7 @@ internal class NetworkInfo(private val wifiManager: WifiManager?,
             dhcpServer
         } else {
             @Suppress("DEPRECATION")
-            val dhcpInfo = wifiManager?.dhcpInfo
+            val dhcpInfo = wifiManager.dhcpInfo
             val gatewayIPInt = dhcpInfo?.gateway
 
             gatewayIPInt?.let { formatIPAddress(it) }

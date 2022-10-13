@@ -9,7 +9,7 @@
  * See full license text in LICENSE file at top of project tree
  */
 
-#include "include/connectivity_plus_windows/network_manager.h"
+#include "include/connectivity_plus/network_manager.h"
 
 #include <iphlpapi.h>
 #include <netlistmgr.h>

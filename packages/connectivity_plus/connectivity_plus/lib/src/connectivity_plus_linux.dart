@@ -11,10 +11,10 @@ import 'package:nm/nm.dart';
 typedef NetworkManagerClientFactory = NetworkManagerClient Function();
 
 /// The Linux implementation of ConnectivityPlatform.
-class ConnectivityLinux extends ConnectivityPlatform {
+class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    ConnectivityPlatform.instance = ConnectivityLinux();
+    ConnectivityPlatform.instance = ConnectivityPlusLinuxPlugin();
   }
 
   /// Checks the connection status of the device.
