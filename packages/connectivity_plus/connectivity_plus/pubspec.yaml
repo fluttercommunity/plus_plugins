@@ -19,21 +19,21 @@ flutter:
         pluginClass: ConnectivityPlusPlugin
       linux:
         dartPluginClass: ConnectivityLinux
-        pluginClass: none
-      macos:
-        default_package: connectivity_plus_macos
-      web:
-        default_package: connectivity_plus_web
-      windows:
-        default_package: connectivity_plus_windows
+#      macos:
+#        default_package: connectivity_plus_macos
+#      web:
+#        default_package: connectivity_plus_web
+#      windows:
+#        default_package: connectivity_plus_windows
 
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus_platform_interface: ^1.2.0
-  connectivity_plus_macos: ^1.2.4
-  connectivity_plus_web: ^1.2.5
-  connectivity_plus_windows: ^1.2.2
+  connectivity_plus_platform_interface: ^1.2.1
+#  connectivity_plus_macos: ^1.2.4
+#  connectivity_plus_web: ^1.2.5
+#  connectivity_plus_windows: ^1.2.2
+  nm: ^0.5.0
 
 dev_dependencies:
   flutter_test:

@@ -11,14 +11,14 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  connectivity_plus_macos:
-    path: ../../connectivity_plus_macos
+#  connectivity_plus_macos:
+#    path: ../../connectivity_plus_macos
   connectivity_plus_platform_interface:
     path: ../../connectivity_plus_platform_interface
-  connectivity_plus_web:
-    path: ../../connectivity_plus_web
-  connectivity_plus_windows:
-    path: ../../connectivity_plus_windows
+#  connectivity_plus_web:
+#    path: ../../connectivity_plus_web
+#  connectivity_plus_windows:
+#    path: ../../connectivity_plus_windows
 
 dev_dependencies:
   flutter_driver:
