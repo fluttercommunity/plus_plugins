@@ -22,7 +22,6 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         BrowserName;
 
 export 'src/device_info_plus_linux.dart';
-export 'src/device_info_plus_windows.dart';
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {

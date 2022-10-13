@@ -18,6 +18,7 @@ flutter:
         dartPluginClass: DeviceInfoPlusLinuxPlugin
       web:
         pluginClass: DeviceInfoPlusWebPlugin
+        fileName: src/device_info_plus_web.dart
       macos:
         pluginClass: DeviceInfoPlusMacosPlugin
       windows:
