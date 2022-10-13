@@ -3,7 +3,7 @@
 # Run `pod lib lint device_info_plus_macos.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'device_info_plus_macos'
+  s.name             = 'device_info_plus'
   s.version          = '0.0.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
