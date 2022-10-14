@@ -3,17 +3,17 @@ library device_info_plus_windows;
 
 import 'dart:ffi';
 import 'dart:typed_data';
+
+import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:ffi/ffi.dart';
 import 'package:meta/meta.dart';
 import 'package:win32/win32.dart';
 
-import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-
 /// The Windows implementation of [DeviceInfoPlatform].
-class DeviceInfoWindows extends DeviceInfoPlatform {
+class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
   /// Register this dart class as the platform implementation for windows
   static void registerWith() {
-    DeviceInfoPlatform.instance = DeviceInfoWindows();
+    DeviceInfoPlatform.instance = DeviceInfoPlusWindowsPlugin();
   }
 
   WindowsDeviceInfo? _cache;
@@ -29,11 +29,10 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
 
   @visibleForTesting
   WindowsDeviceInfo getInfo() {
-    if (_rtlGetVersion == null) {
-      _rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
-          Void Function(Pointer<OSVERSIONINFOEX>),
-          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
-    }
+    _rtlGetVersion ??= DynamicLibrary.open('ntdll.dll').lookupFunction<
+        Void Function(Pointer<OSVERSIONINFOEX>),
+        void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
+
     final systemInfo = getSYSTEMINFOPointer();
     final osVersionInfo = getOSVERSIONINFOEXPointer();
     final buildLab = getRegistryValue(
@@ -189,9 +188,9 @@ class DeviceInfoWindows extends DeviceInfoPlatform {
 
   @visibleForTesting
   String getUserName() {
-    const UNLEN = 256;
-    final pcbBuffer = calloc<DWORD>()..value = UNLEN + 1;
-    final lpBuffer = wsalloc(UNLEN + 1);
+    const unLen = 256;
+    final pcbBuffer = calloc<DWORD>()..value = unLen + 1;
+    final lpBuffer = wsalloc(unLen + 1);
     try {
       final result = GetUserName(lpBuffer, pcbBuffer);
       if (result != 0) {

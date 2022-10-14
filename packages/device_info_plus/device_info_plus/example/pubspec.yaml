@@ -8,19 +8,13 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  device_info_plus_linux:
-    path: ../../device_info_plus_linux
-  device_info_plus_macos:
-    path: ../../device_info_plus_macos
   device_info_plus_platform_interface:
     path: ../../device_info_plus_platform_interface
-  device_info_plus_web:
-    path: ../../device_info_plus_web
-  device_info_plus_windows:
-    path: ../../device_info_plus_windows
 
 dev_dependencies:
   flutter_driver:
+    sdk: flutter
+  flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter

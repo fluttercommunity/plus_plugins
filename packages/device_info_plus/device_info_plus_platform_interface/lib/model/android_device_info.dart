@@ -114,6 +114,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   final AndroidDisplayMetrics displayMetrics;
 
   /// Serializes [AndroidDeviceInfo] to map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {
@@ -216,6 +217,7 @@ class AndroidBuildVersion {
   final String? securityPatch;
 
   /// Serializes [ AndroidBuildVersion ] to map.
+  @Deprecated('[toMap] method will be discontinued')
   Map<String, dynamic> toMap() {
     return {
       'baseOS': baseOS,

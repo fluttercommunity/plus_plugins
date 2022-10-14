@@ -1,59 +1,60 @@
-import 'dart:io';
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
-import 'package:win32/win32.dart';
 
+import 'package:device_info_plus/src/device_info_plus_windows.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_windows/src/device_info_plus_windows.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:win32/win32.dart';
 
 void main() {
   test('registered instance', () {
-    DeviceInfoWindows.registerWith();
-    expect(DeviceInfoPlatform.instance, isA<DeviceInfoWindows>());
+    DeviceInfoPlusWindowsPlugin.registerWith();
+    expect(DeviceInfoPlatform.instance, isA<DeviceInfoPlusWindowsPlugin>());
   });
   test('system-memory-in-megabytes', () async {
     if (Platform.isWindows) {
       final systemMemoryInMegabytes =
-          DeviceInfoWindows().getSystemMemoryInMegabytes();
+          DeviceInfoPlusWindowsPlugin().getSystemMemoryInMegabytes();
       // Must be a non-negative integer value.
       expect(systemMemoryInMegabytes, isPositive);
     } else {
       // Expect an exception on non-Windows platforms.
       expect(
-        DeviceInfoWindows().getSystemMemoryInMegabytes,
+        DeviceInfoPlusWindowsPlugin().getSystemMemoryInMegabytes,
         throwsArgumentError,
       );
     }
   });
   test('computer-name', () async {
     if (Platform.isWindows) {
-      final computerName = DeviceInfoWindows().getComputerName();
+      final computerName = DeviceInfoPlusWindowsPlugin().getComputerName();
       // Must be a non-empty string value.
       expect(computerName, isNotEmpty);
     } else {
       // Expect an exception on non-Windows platforms.
       expect(
-        DeviceInfoWindows().getComputerName,
+        DeviceInfoPlusWindowsPlugin().getComputerName,
         throwsArgumentError,
       );
     }
   });
   test('user-name', () async {
     if (Platform.isWindows) {
-      final userName = DeviceInfoWindows().getUserName();
+      final userName = DeviceInfoPlusWindowsPlugin().getUserName();
       // Must be a non-empty string value.
       expect(userName, isNotEmpty);
     } else {
       // Expect an exception on non-Windows platforms.
       expect(
-        DeviceInfoWindows().getUserName,
+        DeviceInfoPlusWindowsPlugin().getUserName,
         throwsArgumentError,
       );
     }
   });
   test('SYSTEM_INFO-pointer', () async {
-    final infoStructPointer = DeviceInfoWindows().getSYSTEMINFOPointer();
+    final infoStructPointer =
+        DeviceInfoPlusWindowsPlugin().getSYSTEMINFOPointer();
     // Must be an empty struct with all values nullptr or 0.
     expect(infoStructPointer.ref.wProcessorArchitecture, 0);
     expect(infoStructPointer.ref.wReserved, 0);
@@ -68,7 +69,8 @@ void main() {
     expect(infoStructPointer.ref.wProcessorRevision, 0);
   });
   test('OSVERSIONINFOEX-pointer', () async {
-    final infoStructPointer = DeviceInfoWindows().getOSVERSIONINFOEXPointer();
+    final infoStructPointer =
+        DeviceInfoPlusWindowsPlugin().getOSVERSIONINFOEXPointer();
     // Must be an empty struct with all values nullptr or 0.
     expect(
       infoStructPointer.ref.dwOSVersionInfoSize,
@@ -87,7 +89,7 @@ void main() {
   });
   test('get-registry-value', () async {
     if (Platform.isWindows) {
-      final registryValue = DeviceInfoWindows().getRegistryValue(
+      final registryValue = DeviceInfoPlusWindowsPlugin().getRegistryValue(
         HKEY_LOCAL_MACHINE,
         'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
         'ProductName',
@@ -98,7 +100,7 @@ void main() {
     } else {
       // Expect an exception on non-Windows platforms.
       expect(
-        () => DeviceInfoWindows().getRegistryValue(
+        () => DeviceInfoPlusWindowsPlugin().getRegistryValue(
           HKEY_LOCAL_MACHINE,
           'SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion',
           'ProductName',
@@ -110,7 +112,7 @@ void main() {
   });
   test('windows information', () async {
     if (Platform.isWindows) {
-      final deviceInfo = DeviceInfoWindows();
+      final deviceInfo = DeviceInfoPlusWindowsPlugin();
       final windowsInfo = await deviceInfo.windowsInfo();
       // Check whether windowsInfo.numberOfProcessors is an integer.
       expect(windowsInfo.numberOfCores, isA<int>());
@@ -184,7 +186,7 @@ void main() {
       expect(windowsInfo.deviceId, isNotEmpty);
     } else {
       // Expect an exception on non-Windows platforms.
-      final deviceInfo = DeviceInfoWindows();
+      final deviceInfo = DeviceInfoPlusWindowsPlugin();
       expect(deviceInfo.windowsInfo, throwsArgumentError);
     }
   });

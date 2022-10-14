@@ -1,9 +1,10 @@
-export 'src/sensors.dart';
-
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
 import 'src/sensors.dart';
+
 export 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
+
+export 'src/sensors.dart' if (dart.library.html) 'src/sensors_plus_web.dart';
 
 final _sensors = Sensors();
 
