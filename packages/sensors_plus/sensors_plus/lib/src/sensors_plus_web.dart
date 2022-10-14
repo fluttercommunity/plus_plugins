@@ -1,11 +1,12 @@
-export 'src/sensors.dart';
-
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
-import 'src/sensors.dart';
+import 'web_sensors.dart';
+
 export 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
-final _sensors = SensorsPlugin();
+export 'web_sensors.dart';
+
+final _sensors = WebSensorsPlugin();
 
 /// A broadcast stream of events from the device accelerometer.
 Stream<AccelerometerEvent> get accelerometerEvents {

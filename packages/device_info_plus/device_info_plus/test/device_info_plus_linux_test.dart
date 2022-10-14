@@ -1,12 +1,12 @@
-import 'package:device_info_plus_linux/device_info_plus_linux.dart';
+import 'package:device_info_plus/src/device_info_plus_linux.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:file/memory.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('registered instance', () {
-    DeviceInfoLinux.registerWith();
-    expect(DeviceInfoPlatform.instance, isA<DeviceInfoLinux>());
+    DeviceInfoPlusLinuxPlugin.registerWith();
+    expect(DeviceInfoPlatform.instance, isA<DeviceInfoPlusLinuxPlugin>());
   });
   test('os-release', () async {
     final fs = MemoryFileSystem.test();
@@ -25,7 +25,7 @@ VARIANT_ID=community
 HOME_URL="https://www.fluttercommunity.dev/"
     ''');
 
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
     final linuxInfo = await deviceInfo.linuxInfo();
     expect(linuxInfo.name, equals('A Linux'));
     expect(linuxInfo.version, equals('1.2.3 LTS (A Linux)'));
@@ -50,7 +50,7 @@ DISTRIB_CODENAME=distrib-codename
 DISTRIB_DESCRIPTION="Distrib Description"
     ''');
 
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
     final linuxInfo = await deviceInfo.linuxInfo();
     expect(linuxInfo.name, equals('Linux'));
     expect(linuxInfo.version, equals('LSB version'));
@@ -80,7 +80,7 @@ DISTRIB_CODENAME=distrib-codename
 DISTRIB_DESCRIPTION="Distrib Description"
     ''');
 
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
     final linuxInfo = await deviceInfo.linuxInfo();
     expect(linuxInfo.name, equals('Linux'));
     expect(linuxInfo.version, equals('OS version'));
@@ -99,14 +99,14 @@ DISTRIB_DESCRIPTION="Distrib Description"
     final file = fs.file('/etc/machine-id')..createSync(recursive: true);
     file.writeAsStringSync('machine-id');
 
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
     final linuxInfo = await deviceInfo.linuxInfo();
     expect(linuxInfo.machineId, equals('machine-id'));
   });
 
   test('missing files', () async {
     final fs = MemoryFileSystem.test();
-    final deviceInfo = DeviceInfoLinux(fileSystem: fs);
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
     final linuxInfo = await deviceInfo.linuxInfo();
     expect(linuxInfo.name, equals('Linux'));
     expect(linuxInfo.version, isNull);

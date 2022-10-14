@@ -137,6 +137,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   final String deviceId;
 
   /// Serializes [WindowsDeviceInfo] to a map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {

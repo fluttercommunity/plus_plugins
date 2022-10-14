@@ -46,8 +46,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 final deviceInfoPlugin = DeviceInfoPlugin();
 final deviceInfo = await deviceInfoPlugin.deviceInfo;
-final map = deviceInfo.toMap();
-// Push [map] to your service.
 ```
 
 You will find links to the API docs on the [pub page](https://pub.dev/packages/device_info_plus).
