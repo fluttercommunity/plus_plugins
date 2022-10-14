@@ -60,6 +60,7 @@ class IosDeviceInfo implements BaseDeviceInfo {
   }
 
   /// Serializes [IosDeviceInfo] to a map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {

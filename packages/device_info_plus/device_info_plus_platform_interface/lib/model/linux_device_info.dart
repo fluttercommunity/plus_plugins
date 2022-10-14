@@ -140,6 +140,7 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
   final String? machineId;
 
   /// Serializes [LinuxDeviceInfo] to a map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {

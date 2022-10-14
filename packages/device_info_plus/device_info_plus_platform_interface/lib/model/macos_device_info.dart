@@ -55,6 +55,7 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   final String? systemGUID;
 
   /// Serializes [MacOsDeviceInfo] to map.
+  @Deprecated('[toMap] method will be discontinued')
   @override
   Map<String, dynamic> toMap() {
     return {

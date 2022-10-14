@@ -5,6 +5,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
@@ -35,7 +36,7 @@ class MyHomePage extends StatefulWidget {
   final String? title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
