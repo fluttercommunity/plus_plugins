@@ -5,10 +5,11 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:io';
+
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'image_previews.dart';
 
@@ -164,6 +165,7 @@ class DemoAppState extends State<DemoApp> {
 
   void _onShareWithResult(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     ShareResult result;
     if (imagePaths.isNotEmpty) {
       final files = <XFile>[];
@@ -179,7 +181,7 @@ class DemoAppState extends State<DemoApp> {
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    scaffoldMessenger.showSnackBar(SnackBar(
       content: Text("Share result: ${result.status}"),
     ));
   }

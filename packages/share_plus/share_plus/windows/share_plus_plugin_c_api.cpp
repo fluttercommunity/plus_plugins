@@ -1,4 +1,4 @@
-#include "include/share_plus_windows/share_plus_windows_plugin_c_api.h"
+#include "include/share_plus/share_plus_windows_plugin_c_api.h"
 
 #include <flutter/plugin_registrar_windows.h>
 

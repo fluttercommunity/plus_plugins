@@ -27,17 +27,17 @@ namespace DataTransfer = ABI::Windows::ApplicationModel::DataTransfer;
 namespace share_plus_windows {
 
 class SharePlusWindowsPlugin : public flutter::Plugin {
- public:
-  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows* registrar);
+public:
+  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
-  SharePlusWindowsPlugin(flutter::PluginRegistrarWindows* registrar);
+  SharePlusWindowsPlugin(flutter::PluginRegistrarWindows *registrar);
 
   virtual ~SharePlusWindowsPlugin();
 
-  SharePlusWindowsPlugin(const SharePlusWindowsPlugin&) = delete;
-  SharePlusWindowsPlugin& operator=(const SharePlusWindowsPlugin&) = delete;
+  SharePlusWindowsPlugin(const SharePlusWindowsPlugin &) = delete;
+  SharePlusWindowsPlugin &operator=(const SharePlusWindowsPlugin &) = delete;
 
- private:
+private:
   static constexpr auto kSharePlusChannelName =
       "dev.fluttercommunity.plus/share";
 
@@ -54,15 +54,15 @@ class SharePlusWindowsPlugin : public flutter::Plugin {
   WRL::ComPtr<DataTransfer::IDataTransferManager> GetDataTransferManager();
 
   void HandleMethodCall(
-      const flutter::MethodCall<flutter::EncodableValue>& method_call,
+      const flutter::MethodCall<flutter::EncodableValue> &method_call,
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
 
-  static HRESULT GetStorageFileFromPath(wchar_t* path,
-                                        WindowsStorage::IStorageFile** file);
+  static HRESULT GetStorageFileFromPath(wchar_t *path,
+                                        WindowsStorage::IStorageFile **file);
 
   static std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string);
 
-  flutter::PluginRegistrarWindows* registrar_ = nullptr;
+  flutter::PluginRegistrarWindows *registrar_ = nullptr;
   WRL::ComPtr<IDataTransferManagerInterop> data_transfer_manager_interop_ =
       nullptr;
   WRL::ComPtr<DataTransfer::IDataTransferManager> data_transfer_manager_ =
@@ -78,6 +78,6 @@ class SharePlusWindowsPlugin : public flutter::Plugin {
   std::vector<std::string> mime_types_ = {};
 };
 
-}  // namespace share_plus_windows
+} // namespace share_plus_windows
 
-#endif  // FLUTTER_PLUGIN_SHARE_PLUS_WINDOWS_PLUGIN_H_
+#endif // FLUTTER_PLUGIN_SHARE_PLUS_WINDOWS_PLUGIN_H_
