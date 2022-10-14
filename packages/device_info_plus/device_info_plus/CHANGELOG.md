@@ -1,3 +1,17 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: Add support of Android display metrics (#829).
+
+## 5.0.5
+
+ - Update a dependency to the latest release.
+
+## 5.0.4
+
+ - **FIX**: fixed wrong dependency version #1175.
+
 ## 5.0.3
 
  - **FIX**: fix version dependency.

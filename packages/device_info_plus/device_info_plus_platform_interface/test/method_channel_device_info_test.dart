@@ -22,6 +22,12 @@ void main() {
           case 'getAndroidDeviceInfo':
             return ({
               'brand': 'Google',
+              'displayMetrics': {
+                'widthPx': 1080.0,
+                'heightPx': 2220.0,
+                'xDpi': 530.0859,
+                'yDpi': 529.4639,
+              }
             });
           case 'getIosDeviceInfo':
             return ({

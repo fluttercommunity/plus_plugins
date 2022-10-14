@@ -4,10 +4,12 @@
 
 package dev.fluttercommunity.plus.device_info;
 
-import android.content.ContentResolver;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -22,13 +24,18 @@ import java.util.Map;
 class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
   private final PackageManager packageManager;
+  private final WindowManager windowManager;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
-  /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
+  /**
+   * Constructs DeviceInfo. {@code contentResolver}, {@code packageManager} and {@code getActivity}
+   * must not be null.
+   */
+  MethodCallHandlerImpl(PackageManager packageManager, WindowManager windowManager) {
     this.packageManager = packageManager;
+    this.windowManager = windowManager;
   }
 
   @Override
@@ -73,6 +80,20 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       version.put("release", Build.VERSION.RELEASE);
       version.put("sdkInt", Build.VERSION.SDK_INT);
       build.put("version", version);
+
+      final Display display = windowManager.getDefaultDisplay();
+      final DisplayMetrics metrics = new DisplayMetrics();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealMetrics(metrics);
+      } else {
+        display.getMetrics(metrics);
+      }
+      Map<String, Object> displayResult = new HashMap<>();
+      displayResult.put("widthPx", (double) metrics.widthPixels);
+      displayResult.put("heightPx", (double) metrics.heightPixels);
+      displayResult.put("xDpi", metrics.xdpi);
+      displayResult.put("yDpi", metrics.ydpi);
+      build.put("displayMetrics", displayResult);
 
       result.success(build);
     } else {

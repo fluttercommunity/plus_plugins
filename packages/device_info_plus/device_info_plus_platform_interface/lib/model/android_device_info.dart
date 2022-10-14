@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:math' as math show sqrt;
 import 'base_device_info.dart';
 
 /// Information derived from `android.os.Build`.
@@ -30,6 +31,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     this.type,
     this.isPhysicalDevice,
     required List<String?> systemFeatures,
+    required this.displayMetrics,
   })  : supported32BitAbis = List<String?>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String?>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String?>.unmodifiable(supportedAbis),
@@ -108,6 +110,9 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String?> systemFeatures;
 
+  /// Information about the current android display.
+  final AndroidDisplayMetrics displayMetrics;
+
   /// Serializes [AndroidDeviceInfo] to map.
   @Deprecated('[toMap] method will be discontinued')
   @override
@@ -133,6 +138,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       'isPhysicalDevice': isPhysicalDevice,
       'supported32BitAbis': supported32BitAbis,
       'supported64BitAbis': supported64BitAbis,
+      'displayMetrics': displayMetrics.toMap(),
     };
   }
 
@@ -160,6 +166,8 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       type: map['type'],
       isPhysicalDevice: map['isPhysicalDevice'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
+      displayMetrics: AndroidDisplayMetrics._fromMap(
+          map['displayMetrics']?.cast<String, dynamic>() ?? {}),
     );
   }
 
@@ -232,6 +240,65 @@ class AndroidBuildVersion {
       release: map['release'],
       sdkInt: map['sdkInt'],
       securityPatch: map['securityPatch'],
+    );
+  }
+}
+
+/// Details for the current display
+///
+/// See: https://developer.android.com/reference/android/util/DisplayMetrics
+class AndroidDisplayMetrics {
+  const AndroidDisplayMetrics._({
+    required this.widthPx,
+    required this.heightPx,
+    required this.xDpi,
+    required this.yDpi,
+  });
+
+  /// Gets the absolute width in pixels of the largest region of the display accessible to an app
+  /// in the current system state, without subtracting any window decor or applying scaling factors.
+  final double widthPx;
+
+  /// Gets the absolute height in pixels of the largest region of the display accessible to an app
+  /// in the current system state, without subtracting any window decor or applying scaling factors.
+  final double heightPx;
+
+  /// The exact physical pixels per inch of the screen in the X dimension.
+  final double xDpi;
+
+  /// The exact physical pixels per inch of the screen in the Y dimension.
+  final double yDpi;
+
+  /// The exact physical display width in inches.
+  double get widthInches => widthPx / xDpi;
+
+  /// The exact physical display height in inches.
+  double get heightInches => heightPx / yDpi;
+
+  /// The exact physical size in inches measured diagonally across the display.
+  double get sizeInches {
+    final width = widthInches;
+    final height = heightInches;
+    return math.sqrt((width * width) + (height * height));
+  }
+
+  /// Serializes [AndroidDisplayMetrics] to map.
+  Map<String, dynamic> toMap() {
+    return {
+      'widthPx': widthPx,
+      'heightPx': heightPx,
+      'xDpi': xDpi,
+      'yDpi': yDpi,
+    };
+  }
+
+  /// Deserializes from the map message received from the [MethodChannel].
+  static AndroidDisplayMetrics _fromMap(Map<String, dynamic> map) {
+    return AndroidDisplayMetrics._(
+      widthPx: map['widthPx'],
+      heightPx: map['heightPx'],
+      xDpi: map['xDpi'],
+      yDpi: map['yDpi'],
     );
   }
 }

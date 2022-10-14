@@ -15,13 +15,16 @@ flutter:
       ios:
         pluginClass: FLTSensorsPlusPlugin
       web:
-        default_package: sensors_plus_web
+        pluginClass: WebSensorsPlugin
+        fileName: src/sensors_plus_web.dart
 
 dependencies:
   flutter:
     sdk: flutter
-  sensors_plus_web: ^1.1.2
+  flutter_web_plugins:
+    sdk: flutter
   sensors_plus_platform_interface: ^1.1.2
+
 dev_dependencies:
   test: ^1.16.4
   flutter_test:

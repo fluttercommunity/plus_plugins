@@ -1,6 +1,6 @@
 name: share_plus_windows
 description: Windows implementation of the share_plus plugin
-version: 3.0.1
+version: 4.0.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -9,11 +9,14 @@ environment:
   flutter: ">=1.20.0"
 
 dependencies:
+  cross_file: ^0.3.3+2
   share_plus_platform_interface: ^3.0.2
   flutter:
     sdk: flutter
   meta: ^1.7.0
   url_launcher: ^6.1.2
+  ffi: ^2.0.1
+  win32: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -27,4 +30,4 @@ flutter:
     platforms:
       windows:
         dartPluginClass: ShareWindows
-        pluginClass: none
+        pluginClass: SharePlusWindowsPluginCApi

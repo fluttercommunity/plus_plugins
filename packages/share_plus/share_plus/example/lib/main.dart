@@ -4,9 +4,11 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:io';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'image_previews.dart';
 
@@ -67,15 +69,34 @@ class DemoAppState extends State<DemoApp> {
                     leading: const Icon(Icons.add),
                     title: const Text('Add image'),
                     onTap: () async {
-                      final imagePicker = ImagePicker();
-                      final pickedFile = await imagePicker.pickImage(
-                        source: ImageSource.gallery,
-                      );
-                      if (pickedFile != null) {
-                        setState(() {
-                          imagePaths.add(pickedFile.path);
-                          imageNames.add(pickedFile.name);
-                        });
+                      // Using `package:image_picker` to get image from gallery.
+                      if (Platform.isMacOS ||
+                          Platform.isLinux ||
+                          Platform.isWindows) {
+                        // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
+                        const XTypeGroup typeGroup = XTypeGroup(
+                          label: 'images',
+                          extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
+                        );
+                        final file = await openFile(
+                            acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                        if (file != null) {
+                          setState(() {
+                            imagePaths.add(file.path);
+                            imageNames.add(file.name);
+                          });
+                        }
+                      } else {
+                        final imagePicker = ImagePicker();
+                        final pickedFile = await imagePicker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+                        if (pickedFile != null) {
+                          setState(() {
+                            imagePaths.add(pickedFile.path);
+                            imageNames.add(pickedFile.name);
+                          });
+                        }
                       }
                     },
                   ),

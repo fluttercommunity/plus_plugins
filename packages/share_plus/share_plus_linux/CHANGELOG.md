@@ -1,3 +1,7 @@
+## 3.0.1
+
+ - **FIX**: Share.shareXFiles resulting in stack-overflow on Windows & Linux (#1186).
+
 ## 3.0.0
 
 - Version bump

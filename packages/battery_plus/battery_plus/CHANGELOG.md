@@ -1,3 +1,9 @@
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: platform implementation refactor into a single package (#1169).
+
 ## 2.2.2
 
  - **FIX**: batteryState always return unknown on API < 26 (#1120).

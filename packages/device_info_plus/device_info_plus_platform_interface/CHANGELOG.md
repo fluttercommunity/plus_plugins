@@ -1,3 +1,9 @@
+## 5.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: Add support of Android display metrics (#829).
+
 ## 4.0.1
 
  - **CHORE**: Version tagging using melos.

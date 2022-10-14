@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter/foundation.dart';
+
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
     show
         AndroidBuildVersion,
@@ -19,6 +20,10 @@ export 'package:device_info_plus_platform_interface/device_info_plus_platform_in
         WindowsDeviceInfo,
         WebBrowserInfo,
         BrowserName;
+
+export 'src/device_info_plus_linux.dart';
+export 'src/device_info_plus_windows.dart'
+    if (dart.library.html) 'src/device_info_plus_web.dart';
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {

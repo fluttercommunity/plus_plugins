@@ -16,6 +16,16 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"getAll"]) {
+    NSString *appStoreReceipt =
+        [[[NSBundle mainBundle] appStoreReceiptURL] path];
+
+    NSString *installerStore =
+        [appStoreReceipt containsString:@"CoreSimulator"]
+            ? @"com.apple.simulator"
+        : [appStoreReceipt containsString:@"sandboxReceipt"]
+            ? @"com.apple.testflight"
+            : @"com.apple";
+
     result(@{
       @"appName" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleDisplayName"]
@@ -29,6 +39,7 @@
       @"buildNumber" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
+      @"installerStore" : installerStore
     });
   } else {
     result(FlutterMethodNotImplemented);

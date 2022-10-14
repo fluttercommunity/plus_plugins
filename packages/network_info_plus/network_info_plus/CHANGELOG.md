@@ -1,3 +1,7 @@
+## 2.3.2
+
+ - **FIX**: Mark iOS-specific permission methods as deprecated and update docs (#1155).
+
 ## 2.3.1
 
  - **CHORE**: Version tagging using melos.

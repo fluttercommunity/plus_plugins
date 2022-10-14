@@ -11,24 +11,18 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  connectivity_plus_linux:
-    path: ../../connectivity_plus_linux
-  connectivity_plus_macos:
-    path: ../../connectivity_plus_macos
   connectivity_plus_platform_interface:
     path: ../../connectivity_plus_platform_interface
-  connectivity_plus_web:
-    path: ../../connectivity_plus_web
-  connectivity_plus_windows:
-    path: ../../connectivity_plus_windows
 
 dev_dependencies:
   flutter_driver:
     sdk: flutter
+  flutter_test:
+    sdk: flutter
   integration_test:
     sdk: flutter
   test: ^1.16.4
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true

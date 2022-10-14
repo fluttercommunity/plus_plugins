@@ -1,3 +1,9 @@
+## 2.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: Add information about the installer store (#1135).
+
 ## 1.4.3+1
 
 - Add issue_tracker link.

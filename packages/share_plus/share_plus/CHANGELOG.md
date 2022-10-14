@@ -1,3 +1,9 @@
+## 5.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: Native share UI for Windows (#1158).
+
 ## 4.5.3
 
  - **CHORE**: Version tagging using melos.

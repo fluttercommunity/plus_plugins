@@ -20,7 +20,7 @@ const String countKey = 'count';
 const String isolateName = 'isolate';
 
 /// A port used to communicate from a background isolate to the UI isolate.
-final ReceivePort port = ReceivePort();
+ReceivePort port = ReceivePort();
 
 /// Global [SharedPreferences] object.
 SharedPreferences? prefs;
@@ -91,6 +91,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
   static SendPort? uiSendPort;
 
   // The callback for our alarm
+  @pragma('vm:entry-point')
   static Future<void> callback() async {
     developer.log('Alarm fired!');
     // Get the previous cached count and increment it.
