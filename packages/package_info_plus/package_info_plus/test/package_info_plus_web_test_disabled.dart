@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:package_info_plus_web/package_info_plus_web.dart';
-import 'package:http/http.dart' as http;
+import 'package:package_info_plus/src/package_info_plus_web.dart';
 
 import 'package_info_plus_web_test.mocks.dart';
 
@@ -20,12 +20,12 @@ void main() {
     'build_signature': '',
   };
 
-  late PackageInfoPlugin plugin;
+  late PackageInfoPlusWebPlugin plugin;
   late MockClient client;
 
   setUp(() {
     client = MockClient();
-    plugin = PackageInfoPlugin(client);
+    plugin = PackageInfoPlusWebPlugin(client);
   });
 
   group(

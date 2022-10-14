@@ -13,16 +13,8 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  package_info_plus_linux:
-    path: ../../package_info_plus_linux
-  package_info_plus_macos:
-    path: ../../package_info_plus_macos
   package_info_plus_platform_interface:
     path: ../../package_info_plus_platform_interface
-  package_info_plus_web:
-    path: ../../package_info_plus_web
-  package_info_plus_windows:
-    path: ../../package_info_plus_windows
 
 dev_dependencies:
   integration_test:

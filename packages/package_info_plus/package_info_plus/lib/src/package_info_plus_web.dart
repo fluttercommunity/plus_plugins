@@ -9,15 +9,15 @@ import 'package:package_info_plus_platform_interface/package_info_platform_inter
 /// The web implementation of [PackageInfoPlatform].
 ///
 /// This class implements the `package:package_info_plus` functionality for the web.
-class PackageInfoPlugin extends PackageInfoPlatform {
+class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   final Client? _client;
 
   /// Create plugin with http client.
-  PackageInfoPlugin([this._client]);
+  PackageInfoPlusWebPlugin([this._client]);
 
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
-    PackageInfoPlatform.instance = PackageInfoPlugin();
+    PackageInfoPlatform.instance = PackageInfoPlusWebPlugin();
   }
 
   /// Get version.json full url.
