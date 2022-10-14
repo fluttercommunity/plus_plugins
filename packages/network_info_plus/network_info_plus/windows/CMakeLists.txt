@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
-set(PROJECT_NAME "network_info_plus_windows")
+set(PROJECT_NAME "network_info_plus")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-set(PLUGIN_NAME "network_info_plus_windows_plugin")
+set(PLUGIN_NAME "network_info_plus_plugin")
 
 add_library(${PLUGIN_NAME} SHARED
 "network_info.cpp"
-"network_info_plus_windows_plugin.cpp"
+"network_info_plus_plugin.cpp"
 )
 apply_standard_settings(${PLUGIN_NAME})
 set_target_properties(${PLUGIN_NAME} PROPERTIES

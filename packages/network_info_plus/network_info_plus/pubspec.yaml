@@ -18,23 +18,24 @@ flutter:
       ios:
         pluginClass: FLTNetworkInfoPlusPlugin
       linux:
-        default_package: network_info_plus_linux
+        dartPluginClass: NetworkInfoPlusLinuxPlugin
       macos:
-        default_package: network_info_plus_macos
+        pluginClass: NetworkInfoPlusPlugin
       windows:
-        default_package: network_info_plus_windows
+        pluginClass: NetworkInfoPlusWindowsPlugin
       web:
-        default_package: network_info_plus_web
+        pluginClass: NetworkInfoPlusWebPlugin
+        fileName: src/network_info_plus_web.dart
 
 dependencies:
+  collection: ^1.15.0
+  nm: ^0.5.0
   flutter:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
   meta: ^1.8.0
   network_info_plus_platform_interface: ^1.1.2
-  network_info_plus_linux: ^1.1.2
-  network_info_plus_macos: ^1.3.0
-  network_info_plus_windows: ^1.0.2
-  network_info_plus_web: ^1.0.1
 
 dev_dependencies:
   flutter_test:

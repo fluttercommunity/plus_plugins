@@ -1,4 +1,4 @@
-#include "include/network_info_plus_windows/network_info.h"
+#include "include/network_info_plus/network_info.h"
 
 #include <iphlpapi.h>
 #include <iptypes.h>
