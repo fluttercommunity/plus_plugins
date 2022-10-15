@@ -48,6 +48,6 @@ final deviceInfoPlugin = DeviceInfoPlugin();
 final deviceInfo = await deviceInfoPlugin.deviceInfo;
 ```
 
-You will find links to the API docs on the [pub page](https://pub.dev/packages/device_info_plus).
+You will find links to the API docs on the [pub page](https://pub.dev/documentation/device_info_plus/latest/).
 
 Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)

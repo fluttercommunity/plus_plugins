@@ -77,12 +77,15 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   final String? product;
 
   /// An ordered list of 32 bit ABIs supported by this device.
+  /// Available only on Android L (API 21) and newer
   final List<String?> supported32BitAbis;
 
   /// An ordered list of 64 bit ABIs supported by this device.
+  /// Available only on Android L (API 21) and newer
   final List<String?> supported64BitAbis;
 
   /// An ordered list of ABIs supported by this device.
+  /// Available only on Android L (API 21) and newer
   final List<String?> supportedAbis;
 
   /// Comma-separated tags describing the build, like "unsigned,debug".
@@ -194,12 +197,14 @@ class AndroidBuildVersion {
   });
 
   /// The base OS build the product is based on.
+  /// Available only on Android M (API 23) and newer
   final String? baseOS;
 
   /// The current development codename, or the string "REL" if this is a release build.
   final String? codename;
 
   /// The internal value used by the underlying source control to represent this build.
+  /// Available only on Android M (API 23) and newer
   final String? incremental;
 
   /// The developer preview revision of a prerelease SDK.
@@ -214,6 +219,7 @@ class AndroidBuildVersion {
   final int? sdkInt;
 
   /// The user-visible security patch level.
+  /// Available only on Android M (API 23) and newer
   final String? securityPatch;
 
   /// Serializes [ AndroidBuildVersion ] to map.
