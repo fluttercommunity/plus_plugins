@@ -78,14 +78,16 @@ void main() {
 
   testWidgets('Check all android info values are available',
       (WidgetTester tester) async {
-    expect(androidInfo.version.baseOS, isNotNull);
+    if (androidInfo.version.sdkInt >= 23) {
+      expect(androidInfo.version.baseOS, isNotNull);
+      expect(androidInfo.version.previewSdkInt, isNotNull);
+      expect(androidInfo.version.securityPatch, isNotNull);
+    }
+
     expect(androidInfo.version.codename, isNotNull);
     expect(androidInfo.version.incremental, isNotNull);
-    expect(androidInfo.version.previewSdkInt, isNotNull);
     expect(androidInfo.version.release, isNotNull);
     expect(androidInfo.version.sdkInt, isNotNull);
-    expect(androidInfo.version.securityPatch, isNotNull);
-
     expect(androidInfo.board, isNotNull);
     expect(androidInfo.bootloader, isNotNull);
     expect(androidInfo.brand, isNotNull);
