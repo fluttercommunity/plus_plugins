@@ -167,13 +167,17 @@ class AndroidAlarmManager {
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
   }) =>
-      oneShotAt(_now().add(delay), id, callback,
-          alarmClock: alarmClock,
-          allowWhileIdle: allowWhileIdle,
-          exact: exact,
-          wakeup: wakeup,
-          rescheduleOnReboot: rescheduleOnReboot,
-          params: params);
+      oneShotAt(
+        _now().add(delay),
+        id,
+        callback,
+        alarmClock: alarmClock,
+        allowWhileIdle: allowWhileIdle,
+        exact: exact,
+        wakeup: wakeup,
+        rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
+      );
 
   /// Schedules a one-shot timer to run `callback` at `time`.
   ///
@@ -361,7 +365,9 @@ class AndroidAlarmManager {
       jsonEncode(params);
     } on JsonUnsupportedObjectError catch (e) {
       throw UnsupportedError(
-          "Cannot convert '${e.unsupportedObject.runtimeType}' class to json. Please put objects that can be converted to json into the 'params' parameter");
+          "Cannot convert '${e.unsupportedObject.runtimeType}' class to json."
+          " Please put objects that can be converted to json into the "
+          "'params' parameter");
     }
   }
 }

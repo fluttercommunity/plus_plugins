@@ -14,7 +14,7 @@ void main() {
   // ignore: avoid_returning_null_for_void
   void invalidCallbackWithParams(int id, List<String> params) => null;
   // ignore: avoid_returning_null_for_void
-  void validCallbackWithParams(int id, Map<String, dynamic> params) {}
+  void validCallbackWithParams(int id, Map<String, dynamic> params) => null;
 
   const testChannel = MethodChannel(
       'dev.fluttercommunity.plus/android_alarm_manager', JSONMethodCodec());
@@ -43,18 +43,27 @@ void main() {
       // Callback should take a single int param.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
-              validTime, validId, invalidCallback),
+                validTime,
+                validId,
+                invalidCallback,
+              ),
           throwsAssertionError);
       // Callback should take int as first and Map as second param.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
-              validTime, validId, invalidCallbackWithParams),
+                validTime,
+                validId,
+                invalidCallbackWithParams,
+              ),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
-              validTime, 2147483648, validCallback),
+                validTime,
+                2147483648,
+                validCallback,
+              ),
           throwsAssertionError);
     });
 
@@ -62,8 +71,7 @@ void main() {
       final alarm = DateTime(1993);
       const rawHandle = 4;
       AndroidAlarmManager.setTestOverrides(
-          getCallbackHandle: (Function _) =>
-              CallbackHandle.fromRawHandle(rawHandle));
+          getCallbackHandle: (_) => CallbackHandle.fromRawHandle(rawHandle));
 
       const id = 1;
       const alarmClock = true;
@@ -88,13 +96,16 @@ void main() {
       });
 
       final result = await AndroidAlarmManager.oneShotAt(
-          alarm, id, validCallback,
-          alarmClock: alarmClock,
-          allowWhileIdle: allowWhileIdle,
-          exact: exact,
-          wakeup: wakeup,
-          rescheduleOnReboot: rescheduleOnReboot,
-          params: params);
+        alarm,
+        id,
+        validCallback,
+        alarmClock: alarmClock,
+        allowWhileIdle: allowWhileIdle,
+        exact: exact,
+        wakeup: wakeup,
+        rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
+      );
 
       expect(result, isTrue);
     });
@@ -131,13 +142,17 @@ void main() {
       return true;
     });
 
-    final result = await AndroidAlarmManager.oneShot(alarm, id, validCallback,
-        alarmClock: alarmClock,
-        allowWhileIdle: allowWhileIdle,
-        exact: exact,
-        wakeup: wakeup,
-        rescheduleOnReboot: rescheduleOnReboot,
-        params: params);
+    final result = await AndroidAlarmManager.oneShot(
+      alarm,
+      id,
+      validCallback,
+      alarmClock: alarmClock,
+      allowWhileIdle: allowWhileIdle,
+      exact: exact,
+      wakeup: wakeup,
+      rescheduleOnReboot: rescheduleOnReboot,
+      params: params,
+    );
 
     expect(result, isTrue);
   });
@@ -150,13 +165,19 @@ void main() {
       // Callback should take a single int param.
       await expectLater(
           () => AndroidAlarmManager.periodic(
-              validDuration, validId, invalidCallback),
+                validDuration,
+                validId,
+                invalidCallback,
+              ),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
           () => AndroidAlarmManager.periodic(
-              validDuration, 2147483648, validCallback),
+                validDuration,
+                2147483648,
+                validCallback,
+              ),
           throwsAssertionError);
     });
 
