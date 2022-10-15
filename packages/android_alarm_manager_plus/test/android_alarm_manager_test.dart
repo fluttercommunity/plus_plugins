@@ -135,7 +135,9 @@ void main() {
       expect(call.arguments[3], exact);
       expect(call.arguments[4], wakeup);
       expect(
-          call.arguments[5], now.millisecondsSinceEpoch + alarm.inMilliseconds);
+        call.arguments[5],
+        now.millisecondsSinceEpoch + alarm.inMilliseconds,
+      );
       expect(call.arguments[6], rescheduleOnReboot);
       expect(call.arguments[7], rawHandle);
       expect(call.arguments[8], params);
@@ -203,8 +205,10 @@ void main() {
         expect(call.arguments[1], allowWhileIdle);
         expect(call.arguments[2], exact);
         expect(call.arguments[3], wakeup);
-        expect(call.arguments[4],
-            (now.millisecondsSinceEpoch + period.inMilliseconds));
+        expect(
+          call.arguments[4],
+          (now.millisecondsSinceEpoch + period.inMilliseconds),
+        );
         expect(call.arguments[5], period.inMilliseconds);
         expect(call.arguments[6], rescheduleOnReboot);
         expect(call.arguments[7], rawHandle);
@@ -230,15 +234,16 @@ void main() {
       final now = DateTime(1993);
       const rawHandle = 4;
       AndroidAlarmManager.setTestOverrides(
-          now: () => now,
-          getCallbackHandle: (Function _) =>
-              CallbackHandle.fromRawHandle(rawHandle));
+        now: () => now,
+        getCallbackHandle: (Function _) =>
+            CallbackHandle.fromRawHandle(rawHandle),
+      );
 
       const id = 1;
       const period = Duration(seconds: 1);
       var params = <String, dynamic>{
         "title": "myAlarm",
-        "obj": const NotJsonParsableClass()
+        "obj": const NotJsonParsableClass(),
       };
 
       expectLater(
@@ -257,8 +262,10 @@ void main() {
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');
         expect(call.arguments[0], id);
-        expect(call.arguments[4],
-            (now.millisecondsSinceEpoch + period.inMilliseconds));
+        expect(
+          call.arguments[4],
+          (now.millisecondsSinceEpoch + period.inMilliseconds),
+        );
         expect(call.arguments[5], period.inMilliseconds);
         expect(call.arguments[7], rawHandle);
         expect(call.arguments[8], isA<Map>());
