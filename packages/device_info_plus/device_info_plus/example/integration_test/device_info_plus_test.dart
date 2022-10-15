@@ -83,7 +83,7 @@ void main() {
     expect(androidInfo.version.incremental, isNotNull);
     expect(androidInfo.version.previewSdkInt, isNotNull);
     expect(androidInfo.version.release, isNotNull);
-    expect(androidInfo.version.sdkInt, equals(30));
+    expect(androidInfo.version.sdkInt, isNotNull);
     expect(androidInfo.version.securityPatch, isNotNull);
 
     expect(androidInfo.board, isNotNull);
