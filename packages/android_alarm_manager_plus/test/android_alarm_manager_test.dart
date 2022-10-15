@@ -45,7 +45,7 @@ void main() {
           () => AndroidAlarmManager.oneShotAt(
               validTime, validId, invalidCallback),
           throwsAssertionError);
-      //Callback should take int as first param and Map as second param
+      // Callback should take int as first and Map as second param.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
               validTime, validId, invalidCallbackWithParams),
