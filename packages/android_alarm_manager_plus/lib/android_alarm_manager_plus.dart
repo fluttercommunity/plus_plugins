@@ -361,7 +361,7 @@ class AndroidAlarmManager {
       jsonEncode(params);
     } on JsonUnsupportedObjectError catch (e) {
       throw UnsupportedError(
-          "Can not convert '${e.unsupportedObject.runtimeType}' class to json. Please put objects that can be converted to json into the 'params' parameter");
+          "Cannot convert '${e.unsupportedObject.runtimeType}' class to json. Please put objects that can be converted to json into the 'params' parameter");
     }
   }
 }
