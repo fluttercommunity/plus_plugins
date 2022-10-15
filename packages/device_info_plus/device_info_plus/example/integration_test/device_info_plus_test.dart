@@ -94,6 +94,11 @@ void main() {
     expect(androidInfo.fingerprint, isNotNull);
     expect(androidInfo.hardware, isNotNull);
 
+    expect(androidInfo.displayMetrics.heightPx, isNotNull);
+    expect(androidInfo.displayMetrics.widthPx, isNotNull);
+    expect(androidInfo.displayMetrics.yDpi, isNotNull);
+    expect(androidInfo.displayMetrics.xDpi, isNotNull);
+
     expect(androidInfo.host, isNotNull);
     expect(androidInfo.id, isNotNull);
     expect(androidInfo.manufacturer, isNotNull);
