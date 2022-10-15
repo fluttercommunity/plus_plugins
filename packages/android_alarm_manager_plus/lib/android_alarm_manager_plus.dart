@@ -148,10 +148,12 @@ class AndroidAlarmManager {
   /// across reboots. If `rescheduleOnReboot` is false (the default), the alarm
   /// will not be rescheduled after a reboot and will not be executed.
   ///
-  /// You can send extra data in `params`, If you want receive extra data You must
-  /// implement `callback` as Function(int,Map<String,dynamic>), Values in params map
-  /// must be Json parsable. If one of values can not be convert to json, an
-  /// UnsupportedError will be thrown
+  /// You can send extra data via `params`.
+  /// For receiving extra data, a `callback` needs to be implemented:
+  /// Function(int, Map<String,dynamic>)
+  /// The params map must be parsable to Json.
+  /// If one of the values can not be converted to Json,
+  /// an UnsupportedError will be thrown.
   /// Returns a [Future] that resolves to `true` on success and `false` on
   /// failure.
   static Future<bool> oneShot(
