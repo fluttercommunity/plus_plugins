@@ -268,7 +268,7 @@ class AndroidAlarmManager {
   /// class.
   ///
   /// `callback` can be `Function()` or `Function(int)`
-  /// or `Function(int,Map<String,dynamic>)`
+  /// or `Function(int, Map<String,dynamic>)`
   ///
   /// The repeating timer is uniquely identified by `id`. Calling this function
   /// again with the same `id` will cancel and replace the existing timer.
