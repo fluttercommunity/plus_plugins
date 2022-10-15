@@ -269,10 +269,14 @@ void main() {
         expect(call.arguments[5], period.inMilliseconds);
         expect(call.arguments[7], rawHandle);
         expect(call.arguments[8], isA<Map>());
-        expect(JsonParsableClass.fromJson(call.arguments[8]['obj']),
-            isA<JsonParsableClass>());
-        expect(JsonParsableClass.fromJson(call.arguments[8]['obj']),
-            const JsonParsableClass("MyName"));
+        expect(
+          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          isA<JsonParsableClass>(),
+        );
+        expect(
+          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          const JsonParsableClass("MyName"),
+        );
         return true;
       });
 
