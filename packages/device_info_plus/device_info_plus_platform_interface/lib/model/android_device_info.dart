@@ -24,18 +24,19 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     required this.manufacturer,
     required this.model,
     required this.product,
-    required List<String?> supported32BitAbis,
-    required List<String?> supported64BitAbis,
-    required List<String?> supportedAbis,
+    required List<String> supported32BitAbis,
+    required List<String> supported64BitAbis,
+    required List<String> supportedAbis,
     required this.tags,
     required this.type,
     required this.isPhysicalDevice,
-    required List<String?> systemFeatures,
+    required List<String> systemFeatures,
     required this.displayMetrics,
-  })  : supported32BitAbis = List<String?>.unmodifiable(supported32BitAbis),
-        supported64BitAbis = List<String?>.unmodifiable(supported64BitAbis),
-        supportedAbis = List<String?>.unmodifiable(supportedAbis),
-        systemFeatures = List<String?>.unmodifiable(systemFeatures);
+  })
+      : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
+        supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
+        supportedAbis = List<String>.unmodifiable(supportedAbis),
+        systemFeatures = List<String>.unmodifiable(systemFeatures);
 
   /// Android operating system version values derived from `android.os.Build.VERSION`.
   final AndroidBuildVersion version;
@@ -78,15 +79,15 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
 
   /// An ordered list of 32 bit ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
-  final List<String?> supported32BitAbis;
+  final List<String> supported32BitAbis;
 
   /// An ordered list of 64 bit ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
-  final List<String?> supported64BitAbis;
+  final List<String> supported64BitAbis;
 
   /// An ordered list of ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
-  final List<String?> supportedAbis;
+  final List<String> supportedAbis;
 
   /// Comma-separated tags describing the build, like "unsigned,debug".
   final String tags;
@@ -111,7 +112,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// and many of the common feature strings to look for are available in
   /// PackageManager's public documentation:
   /// https://developer.android.com/reference/android/content/pm/PackageManager
-  final List<String?> systemFeatures;
+  final List<String> systemFeatures;
 
   /// Information about the current android display.
   final AndroidDisplayMetrics displayMetrics;
@@ -162,8 +163,8 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
       manufacturer: map['manufacturer'],
       model: map['model'],
       product: map['product'],
-      supported32BitAbis: _fromList(map['supported32BitAbis'] ?? []),
-      supported64BitAbis: _fromList(map['supported64BitAbis'] ?? []),
+      supported32BitAbis: _fromList(map['supported32BitAbis'] ?? <String>[]),
+      supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
       supportedAbis: _fromList(map['supportedAbis'] ?? []),
       tags: map['tags'],
       type: map['type'],
@@ -175,9 +176,10 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   }
 
   /// Deserializes message as List<String>
-  static List<String?> _fromList(dynamic message) {
-    final List<dynamic> list = message;
-    return List<String?>.from(list);
+  static List<String> _fromList(List<dynamic> message) {
+    final list = message.takeWhile((item) => item != null)
+        .toList();
+    return List<String>.from(list);
   }
 }
 
