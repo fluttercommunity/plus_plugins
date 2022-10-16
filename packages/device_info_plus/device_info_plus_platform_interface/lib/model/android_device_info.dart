@@ -32,8 +32,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
     required this.isPhysicalDevice,
     required List<String> systemFeatures,
     required this.displayMetrics,
-  })
-      : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
+  })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
         systemFeatures = List<String>.unmodifiable(systemFeatures);
@@ -177,8 +176,7 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
 
   /// Deserializes message as List<String>
   static List<String> _fromList(List<dynamic> message) {
-    final list = message.takeWhile((item) => item != null)
-        .toList();
+    final list = message.takeWhile((item) => item != null).toList();
     return List<String>.from(list);
   }
 }
