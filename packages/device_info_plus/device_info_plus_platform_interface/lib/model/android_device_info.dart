@@ -209,8 +209,8 @@ class AndroidBuildVersion {
   /// Available only on Android M (API 23) and newer
   final String incremental;
 
-  /// The developer preview revision of a prerelease SDK.
-  final int previewSdkInt;
+  /// The developer preview revision of a pre-release SDK.
+  final int? previewSdkInt;
 
   /// The user-visible version string.
   final String release;
