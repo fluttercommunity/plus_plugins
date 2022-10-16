@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:device_info_plus_platform_interface/method_channel/method_channel_device_info.dart';
 
-import 'model/android_device_info_fake.dart' show fakeAndroidDeviceInfo;
+import 'model/android_device_info_fake.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
