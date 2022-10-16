@@ -87,7 +87,9 @@ internal class MethodCallHandlerImpl(
 
     private fun getSystemFeatures(): List<String> {
         val featureInfos: Array<FeatureInfo> = packageManager.systemAvailableFeatures
-        return featureInfos.map { featureInfo -> featureInfo.name }.toList()
+        return featureInfos
+            .filterNot { featureInfo -> featureInfo.name == null }
+            .map { featureInfo -> featureInfo.name }
     }
 
     /**
