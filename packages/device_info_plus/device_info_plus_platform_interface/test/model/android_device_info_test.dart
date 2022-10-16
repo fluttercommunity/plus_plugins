@@ -3,7 +3,13 @@
 import 'package:device_info_plus_platform_interface/model/android_device_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'android_device_info_fake.dart';
+import 'android_device_info_fake.dart'
+    show
+        fakeAndroidDeviceInfo,
+        fakeSupported32BitAbis,
+        fakeSupported64BitAbis,
+        fakeSupportedAbis,
+        fakeSystemFeatures;
 
 void main() {
   group('$AndroidDeviceInfo', () {
