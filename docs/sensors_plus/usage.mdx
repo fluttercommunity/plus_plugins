@@ -9,19 +9,21 @@ hide_title: true
 To use this plugin, add `sensors_plus` as a [dependency in your pubspec.yaml
 file](https://plus.fluttercommunity.dev/docs/overview).
 
-This will expose three classes of sensor events, through three different
-streams.
+This will expose such classes of sensor events through a set of streams:
 
-- `AccelerometerEvent`s describe the velocity of the device, including the
+- `AccelerometerEvent` describes the velocity of the device, including the
   effects of gravity. Put simply, you can use accelerometer readings to tell if
   the device is moving in a particular direction.
-- `UserAccelerometerEvent`s also describe the velocity of the device, but don't
+- `UserAccelerometerEvent` also describes the velocity of the device, but don't
   include gravity. They can also be thought of as just the user's affect on the
   device.
-- `GyroscopeEvent`s describe the rotation of the device.
+- `GyroscopeEvent` describes the rotation of the device.
+- `MagnetometerEvent` describes the ambient magnetic field surrounding the
+  device. A compass is an example usage of this data.
 
-Each of these is exposed through a `BroadcastStream`: `accelerometerEvents`,
-`userAccelerometerEvents`, and `gyroscopeEvents`, respectively.
+These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
+`userAccelerometerEvents`, `gyroscopeEvents`, and `magnetometerEvents`,
+respectively.
 
 ### Example
 
@@ -42,6 +44,11 @@ gyroscopeEvents.listen((GyroscopeEvent event) {
   print(event);
 });
 // [GyroscopeEvent (x: 0.0, y: 0.0, z: 0.0)]
+
+magnetometerEvents.listen((MagnetometerEvent event) {
+  print(event);
+});
+// [MagnetometerEvent (x: -23.6, y: 6.2, z: -34.9)]
 
 ```
 
