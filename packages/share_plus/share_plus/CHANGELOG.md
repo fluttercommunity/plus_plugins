@@ -1,3 +1,11 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+ - **FIX**: Show NSSharingServicePicker asynchronously on main thread (#1223).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1238).
+
 ## 5.0.0
 
 > Note: This release has breaking changes.

@@ -1,3 +1,7 @@
+## 3.0.1
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+
 ## 3.0.0
 
 > Note: This release has breaking changes.

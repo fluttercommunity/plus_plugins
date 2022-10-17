@@ -1,3 +1,10 @@
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1227).
+
 ## 2.3.9
 
  - **CHORE**: Version tagging using melos.

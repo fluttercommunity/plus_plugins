@@ -1,3 +1,12 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**: Migrate Android part to Kotlin, update Android dependencies (#1245).
+ - **FIX**: add `@Deprecated` annotation to `toMap` method (#1142).
+ - **DOCS**: Add info about Android properties availability, update API docs links (#1243).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1228).
+
 ## 6.0.0
 
 > Note: This release has breaking changes.
