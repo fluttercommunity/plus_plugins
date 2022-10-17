@@ -7,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:device_info_plus_platform_interface/method_channel/method_channel_device_info.dart';
 
+import 'model/android_device_info_fake.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -20,15 +22,7 @@ void main() {
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
           case 'getAndroidDeviceInfo':
-            return ({
-              'brand': 'Google',
-              'displayMetrics': {
-                'widthPx': 1080.0,
-                'heightPx': 2220.0,
-                'xDpi': 530.0859,
-                'yDpi': 529.4639,
-              }
-            });
+            return fakeAndroidDeviceInfo;
           case 'getIosDeviceInfo':
             return ({
               'name': 'iPhone 10',
