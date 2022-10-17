@@ -35,7 +35,7 @@
     "lodash.get": "^4.4.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-medium-image-zoom": "^5.0.3",
+    "react-medium-image-zoom": "^5.1.1",
     "react-router-dom": "^6.4.1",
     "sass": "^1.55.0"
   },
