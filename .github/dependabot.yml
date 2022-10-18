@@ -15,7 +15,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Website dependencies updates config
+  # Website dependencies updates config
 
   - package-ecosystem: "npm"
     directory: "/website"
@@ -25,7 +25,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Android Alarm Manager dependencies updates config
+  # Android Alarm Manager dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/android_alarm_manager_plus"
@@ -43,7 +43,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
- # Android Intent Plus dependencies updates config
+  # Android Intent Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/android_intent_plus"
@@ -249,7 +249,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Share Plus dependencies updates config
+  # Share Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/share_plus/share_plus"
