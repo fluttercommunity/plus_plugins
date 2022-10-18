@@ -96,7 +96,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v1
+        uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone 8'
       - name: "Run Integration Test"
