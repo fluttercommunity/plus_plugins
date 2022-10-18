@@ -87,6 +87,22 @@ updates:
       prefix: "chore"
       include: "scope"
 
+  - package-ecosystem: "gradle"
+    directory: "/packages/battery_plus/battery_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "packages/battery_plus/battery_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
 # Connectivity Plus dependencies updates config
 
   - package-ecosystem: "pub"
