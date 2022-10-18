@@ -1,3 +1,12 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: add `@Deprecated` annotation to `toMap` method (#1142).
+ - **DOCS**: Add info about Android properties availability, update API docs links (#1243).
+ - **BREAKING** **REFACTOR**: Change nullability for AndroidDeviceInfo properties (#1246).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1228).
+
 ## 5.0.0
 
 > Note: This release has breaking changes.

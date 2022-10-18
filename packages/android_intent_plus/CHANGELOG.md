@@ -1,3 +1,7 @@
+## 3.1.5
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+
 ## 3.1.4
 
  - **DOCS**: Add documentation for canResolveActivity.

@@ -1,3 +1,10 @@
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1236).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1228).
+
 ## 2.0.0
 
 > Note: This release has breaking changes.
