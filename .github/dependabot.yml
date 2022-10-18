@@ -16,7 +16,7 @@ updates:
       include: "scope"
 
 # Website dependencies updates config
-     
+
   - package-ecosystem: "npm"
     directory: "/website"
     schedule:
@@ -24,9 +24,9 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
-      
+
 # Android Alarm Manager dependencies updates config
-      
+
   - package-ecosystem: "pub"
     directory: "/packages/android_alarm_manager_plus"
     schedule:
@@ -44,7 +44,7 @@ updates:
       include: "scope"
 
  # Android Intent Plus dependencies updates config
-      
+
   - package-ecosystem: "pub"
     directory: "/packages/android_intent_plus"
     schedule:
@@ -239,6 +239,22 @@ updates:
     directory: "/packages/share_plus/share_plus_platform_interface"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/share_plus/share_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/share_plus/share_plus/example/android"
+    schedule:
+      interval: "monthly"
     commit-message:
       prefix: "chore"
       include: "scope"
