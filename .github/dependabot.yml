@@ -139,6 +139,22 @@ updates:
       prefix: "chore"
       include: "scope"
 
+  - package-ecosystem: "gradle"
+    directory: "/packages/device_info_plus/device_info_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/device_info_plus/device_info_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
 # Network Info Plus dependencies updates config
 
   - package-ecosystem: "pub"
