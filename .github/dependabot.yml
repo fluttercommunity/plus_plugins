@@ -223,6 +223,22 @@ updates:
       prefix: "chore"
       include: "scope"
 
+  - package-ecosystem: "gradle"
+    directory: "/packages/package_info_plus/package_info_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/package_info_plus/package_info_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
 # Sensors Plus dependencies updates config
 
   - package-ecosystem: "pub"
