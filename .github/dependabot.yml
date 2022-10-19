@@ -6,7 +6,7 @@
 version: 2
 updates:
 
-# Github Actions dependencies updates config
+  # Github Actions dependencies updates config
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -15,7 +15,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Website dependencies updates config
+  # Website dependencies updates config
 
   - package-ecosystem: "npm"
     directory: "/website"
@@ -25,7 +25,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Android Alarm Manager dependencies updates config
+  # Android Alarm Manager dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/android_alarm_manager_plus"
@@ -43,7 +43,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
- # Android Intent Plus dependencies updates config
+  # Android Intent Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/android_intent_plus"
@@ -61,7 +61,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Battery Plus dependencies updates config
+  # Battery Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/battery_plus/battery_plus"
@@ -103,7 +103,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Connectivity Plus dependencies updates config
+  # Connectivity Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/connectivity_plus/connectivity_plus"
@@ -129,7 +129,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Device Info Plus dependencies updates config
+  # Device Info Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/device_info_plus/device_info_plus"
@@ -171,7 +171,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Network Info Plus dependencies updates config
+  # Network Info Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/network_info_plus/network_info_plus"
@@ -197,7 +197,23 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Package Info Plus dependencies updates config
+  - package-ecosystem: "gradle"
+    directory: "/packages/network_info_plus/network_info_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/network_info_plus/network_info_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  # Package Info Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/package_info_plus/package_info_plus"
@@ -239,7 +255,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Sensors Plus dependencies updates config
+  # Sensors Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/sensors_plus/sensors_plus"
@@ -281,7 +297,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-# Share Plus dependencies updates config
+  # Share Plus dependencies updates config
 
   - package-ecosystem: "pub"
     directory: "/packages/share_plus/share_plus"
