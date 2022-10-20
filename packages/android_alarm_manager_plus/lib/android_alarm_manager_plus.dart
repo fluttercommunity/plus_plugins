@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -242,7 +243,7 @@ class AndroidAlarmManager {
         callback is Function(int) ||
         callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
-    chekCanEncodeToJson(params);
+    checkIfSerializable(params);
     final startMillis = time.millisecondsSinceEpoch;
     final handle = _getCallbackHandle(callback);
     if (handle == null) {
@@ -325,7 +326,7 @@ class AndroidAlarmManager {
         callback is Function(int) ||
         callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
-    chekCanEncodeToJson(params);
+    checkIfSerializable(params);
     final now = _now().millisecondsSinceEpoch;
     final period = duration.inMilliseconds;
     final first =
@@ -360,7 +361,7 @@ class AndroidAlarmManager {
     return (r == null) ? false : r;
   }
 
-  static void chekCanEncodeToJson(Map<String, dynamic> params) {
+  static void checkIfSerializable(Map<String, dynamic> params) {
     try {
       jsonEncode(params);
     } on JsonUnsupportedObjectError catch (e) {
