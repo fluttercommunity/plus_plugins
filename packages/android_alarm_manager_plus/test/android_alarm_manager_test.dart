@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:ui';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,6 +49,7 @@ void main() {
                 invalidCallback,
               ),
           throwsAssertionError);
+
       // Callback should take int as first and Map as second param.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
