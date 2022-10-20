@@ -81,7 +81,7 @@ void main() {
       const exact = true;
       const wakeup = true;
       const rescheduleOnReboot = true;
-      const params = <String, dynamic>{"title": "myAlarm"};
+      const params = <String, dynamic>{'title': 'myAlarm'};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.oneShotAt');
@@ -128,7 +128,7 @@ void main() {
     const exact = true;
     const wakeup = true;
     const rescheduleOnReboot = true;
-    const params = <String, dynamic>{"title": "myAlarm"};
+    const params = <String, dynamic>{'title': 'myAlarm'};
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       expect(call.method, 'Alarm.oneShotAt');
       expect(call.arguments[0], id);
@@ -199,7 +199,7 @@ void main() {
       const wakeup = true;
       const rescheduleOnReboot = true;
       const period = Duration(seconds: 1);
-      const params = <String, dynamic>{"title": "myAlarm"};
+      const params = <String, dynamic>{'title': 'myAlarm'};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');
@@ -244,21 +244,23 @@ void main() {
       const id = 1;
       const period = Duration(seconds: 1);
       var params = <String, dynamic>{
-        "title": "myAlarm",
-        "obj": const NotJsonParsableClass(),
+        'title': 'myAlarm',
+        'obj': const NotJsonParsableClass(),
       };
 
       expectLater(
-          () => AndroidAlarmManager.periodic(
-                period,
-                id,
-                validCallbackWithParams,
-                params: params,
-              ),
-          throwsUnsupportedError);
+        () => AndroidAlarmManager.periodic(
+          period,
+          id,
+          validCallbackWithParams,
+          params: params,
+        ),
+        throwsUnsupportedError,
+      );
+
       params = <String, dynamic>{
-        "title": "myAlarm",
-        "obj": const JsonParsableClass("MyName")
+        'title': 'myAlarm',
+        'obj': const JsonParsableClass('MyName')
       };
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
@@ -277,7 +279,7 @@ void main() {
         );
         expect(
           JsonParsableClass.fromJson(call.arguments[8]['obj']),
-          const JsonParsableClass("MyName"),
+          const JsonParsableClass('MyName'),
         );
         return true;
       });
@@ -308,7 +310,7 @@ void main() {
 class NotJsonParsableClass {
   const NotJsonParsableClass();
 
-  final String name = "";
+  final String name = '';
 }
 
 class JsonParsableClass {
