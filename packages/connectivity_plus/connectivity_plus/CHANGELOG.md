@@ -1,3 +1,7 @@
+## 3.0.2
+
+ - **FIX**: Add connectivity_plus_web export (#1278).
+
 ## 3.0.1
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
