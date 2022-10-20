@@ -1,5 +1,9 @@
 ## 1.2.2
 
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
+## 1.2.2
+
 - Update flutter_lints to 2.0.1
 - Fix analyzer warning
 

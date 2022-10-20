@@ -1,3 +1,7 @@
+## 6.0.1
+
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
 ## 6.0.0
 
 > Note: This release has breaking changes.
