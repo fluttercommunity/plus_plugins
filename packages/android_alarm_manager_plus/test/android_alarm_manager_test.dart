@@ -232,7 +232,7 @@ void main() {
       expect(result, isTrue);
     });
 
-    test('The params parameter test', () async {
+    test('throws if params not parsable, works if params parsable', () async {
       final now = DateTime(1993);
       const rawHandle = 4;
       AndroidAlarmManager.setTestOverrides(
@@ -243,7 +243,7 @@ void main() {
 
       const id = 1;
       const period = Duration(seconds: 1);
-      var params = <String, dynamic>{
+      final notParsableParams = <String, dynamic>{
         'title': 'myAlarm',
         'obj': const NotJsonParsableClass(),
       };
@@ -253,12 +253,12 @@ void main() {
           period,
           id,
           validCallbackWithParams,
-          params: params,
+          params: notParsableParams,
         ),
         throwsUnsupportedError,
       );
 
-      params = <String, dynamic>{
+      final parsableParams = <String, dynamic>{
         'title': 'myAlarm',
         'obj': const JsonParsableClass('MyName')
       };
@@ -288,8 +288,9 @@ void main() {
         period,
         id,
         validCallbackWithParams,
-        params: params,
+        params: parsableParams,
       );
+
       expect(result, isTrue);
     });
   });
