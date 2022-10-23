@@ -6,9 +6,11 @@
 
 import 'dart:io';
 
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -23,5 +25,17 @@ void main() {
 
   testWidgets('Can launch shareWithResult', (WidgetTester tester) async {
     expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
+  });
+
+  testWidgets('Can shareXFile created using File.fromData()',
+      (WidgetTester tester) async {
+    const url =
+        'https://upload.wikimedia.org/wikipedia/commons/a/a9/Example.jpg';
+    final response = await http.get(Uri.parse(url));
+
+    final XFile file = XFile.fromData(response.bodyBytes,
+        name: 'image.jpg', mimeType: 'image/jpeg');
+
+    expect(Share.shareXFiles([file], text: "example"), isNotNull);
   });
 }
