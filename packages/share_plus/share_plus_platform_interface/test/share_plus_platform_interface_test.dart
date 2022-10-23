@@ -163,10 +163,7 @@ void main() {
       () => SharePlatform.instance.shareFilesWithResult(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
-    expect(
-      () => sharePlatform.shareXFiles([XFile('')]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
+
     verifyZeroInteractions(mockChannel);
   });
 
