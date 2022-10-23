@@ -169,25 +169,26 @@ class MethodChannelShare extends SharePlatform {
     int count = 1;
 
     if (!files.every((element) => element.path.isNotEmpty)) {
-      final fileWithPath = files.where((element) => element.path.isNotEmpty);
-      final fileWithOutPath = files.where((element) => element.path.isEmpty);
-
       final newFiles = <XFile>[];
 
       final String tempPath = (await getTemporaryDirectory()).path;
 
-      for (final XFile element in fileWithOutPath) {
-        final path = '$tempPath/${element.name}$count';
-        final file = File(path);
+      for (final XFile element in files) {
+        if (element.path.isEmpty) {
+          final path = '$tempPath/${element.name}$count';
+          final file = File(path);
 
-        await file.writeAsBytes(await element.readAsBytes());
+          await file.writeAsBytes(await element.readAsBytes());
 
-        newFiles.add(XFile(path));
+          newFiles.add(XFile(path));
 
-        count++;
+          count++;
+        } else {
+          newFiles.add(element);
+        }
       }
 
-      return [...fileWithPath, ...newFiles];
+      return newFiles;
     } else {
       return files;
     }
