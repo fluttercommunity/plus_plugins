@@ -232,6 +232,11 @@ TopViewControllerForViewController(UIViewController *viewController) {
       metadata.imageProvider = [[NSItemProvider alloc]
           initWithObject:[UIImage imageWithContentsOfFile:_path]];
     }
+  } else {
+      if ([_subject length] > 0) {
+          metadata.originalURL= [NSURL fileURLWithPath:_text];
+          metadata.iconProvider = [[NSItemProvider alloc]initWithObject:[UIImage systemImageNamed:@"text.bubble"]];
+      }
   }
 
   return metadata;
