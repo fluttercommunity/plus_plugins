@@ -168,7 +168,7 @@ class MethodChannelShare extends SharePlatform {
   Future<List<XFile>> _getFiles(List<XFile> files) async {
     int count = 1;
 
-    if (!files.every((element) => element.path.isNotEmpty)) {
+    if (files.any((element) => element.path.isEmpty)) {
       final newFiles = <XFile>[];
 
       final String tempPath = (await getTemporaryDirectory()).path;
