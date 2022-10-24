@@ -3,7 +3,6 @@ library share_plus_windows;
 
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher/url_launcher.dart';

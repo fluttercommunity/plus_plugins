@@ -1,7 +1,6 @@
 import 'dart:html' as html;
 import 'dart:typed_data';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
