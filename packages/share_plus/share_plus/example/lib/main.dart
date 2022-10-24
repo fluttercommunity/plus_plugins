@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -123,6 +124,17 @@ class DemoAppState extends State<DemoApp> {
                       );
                     },
                   ),
+                  const Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Builder(
+                    builder: (BuildContext context) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _onShareXFileFromAssets(context);
+                        },
+                        child: const Text('Share XFile from Assets'),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -181,6 +193,26 @@ class DemoAppState extends State<DemoApp> {
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
+    scaffoldMessenger.showSnackBar(SnackBar(
+      content: Text("Share result: ${result.status}"),
+    ));
+  }
+
+  void _onShareXFileFromAssets(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final data = await rootBundle.load('assets/flutter_logo.png');
+    final buffer = data.buffer;
+    final result = await Share.shareXFiles(
+      [
+        XFile.fromData(
+          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+          name: 'flutter_logo.png',
+        ),
+      ],
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+
     scaffoldMessenger.showSnackBar(SnackBar(
       content: Text("Share result: ${result.status}"),
     ));
