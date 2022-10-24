@@ -12,9 +12,10 @@ import 'dart:ui';
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
-import 'package:mime/mime.dart' show lookupMimeType;
+import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 /// Plugin for summoning a platform share sheet.
 class MethodChannelShare extends SharePlatform {
@@ -166,23 +167,25 @@ class MethodChannelShare extends SharePlatform {
   /// the system will automatically delete files in this
   /// TemporaryDirectory as disk space is needed elsewhere on the device
   Future<List<XFile>> _getFiles(List<XFile> files) async {
-    int count = 1;
-
     if (files.any((element) => element.path.isEmpty)) {
       final newFiles = <XFile>[];
 
       final String tempPath = (await getTemporaryDirectory()).path;
 
+      const uuid = Uuid();
       for (final XFile element in files) {
         if (element.path.isEmpty) {
-          final path = '$tempPath/${element.name}$count';
+          final name = uuid.v4();
+
+          final extension =
+              extensionFromMime(element.mimeType ?? 'octet-stream');
+
+          final path = '$tempPath/$name.$extension';
           final file = File(path);
 
           await file.writeAsBytes(await element.readAsBytes());
 
           newFiles.add(XFile(path));
-
-          count++;
         } else {
           newFiles.add(element);
         }
