@@ -206,9 +206,9 @@ class DemoAppState extends State<DemoApp> {
     final result = await Share.shareXFiles(
       [
         XFile.fromData(
-          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-          name: 'flutter_logo.png',
-        ),
+            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+            name: 'flutter_logo.png',
+            mimeType: 'image/png'),
       ],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
