@@ -24,6 +24,11 @@ module.exports = {
       "battery_plus/usage",
       toReferenceAPI("battery"),
     ],
+    ["Device Location Info"]: [
+      "device_location_info_plus/overview",
+      "device_location_info_plus/usage",
+      toReferenceAPI("device_location_info"),
+    ],
     Connectivity: [
       "connectivity_plus/overview",
       "connectivity_plus/usage",
