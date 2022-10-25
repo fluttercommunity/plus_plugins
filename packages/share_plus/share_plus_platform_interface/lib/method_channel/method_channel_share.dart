@@ -9,7 +9,6 @@ import 'dart:io';
 // ignore: unnecessary_import
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;

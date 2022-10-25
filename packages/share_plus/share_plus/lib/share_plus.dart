@@ -5,11 +5,10 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus;
+    show ShareResult, ShareResultStatus, XFile;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
