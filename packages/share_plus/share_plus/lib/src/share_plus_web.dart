@@ -5,10 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+import 'package:url_launcher_web/url_launcher_web.dart';
 
 /// The web implementation of [SharePlatform].
 class SharePlusWebPlugin extends SharePlatform {
+  final urlLauncher = UrlLauncherPlugin();
+
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
     SharePlatform.instance = SharePlusWebPlugin();
@@ -45,8 +48,8 @@ class SharePlusWebPlugin extends SharePlatform {
             .join('&'),
       );
 
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
+      if (await urlLauncher.canLaunch(uri.toString())) {
+        await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
       } else {
         throw Exception('Unable to share on web');
       }

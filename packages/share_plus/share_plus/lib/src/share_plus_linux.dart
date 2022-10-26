@@ -4,10 +4,13 @@ library share_plus_linux;
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_linux/url_launcher_linux.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 /// The Linux implementation of SharePlatform.
 class SharePlusLinuxPlugin extends SharePlatform {
+  final urlLauncher = UrlLauncherLinux();
+
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
     SharePlatform.instance = SharePlusLinuxPlugin();
@@ -35,7 +38,11 @@ class SharePlusLinuxPlugin extends SharePlatform {
           .join('&'),
     );
 
-    await launchUrl(uri);
+    if (await urlLauncher.canLaunch(uri.toString())) {
+      await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
+    } else {
+      throw Exception('Unable to share on web');
+    }
   }
 
   /// Share files.
