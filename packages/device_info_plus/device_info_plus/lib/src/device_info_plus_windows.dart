@@ -25,7 +25,7 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
-  Future<WindowsDeviceInfo> windowsInfo() {
+  Future<BaseDeviceInfo> deviceInfo() {
     return Future.value(_cache ??= getInfo());
   }
 

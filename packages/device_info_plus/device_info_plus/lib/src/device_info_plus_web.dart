@@ -21,7 +21,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
   }
 
   @override
-  Future<WebBrowserInfo> webBrowserInfo() {
+  Future<BaseDeviceInfo> deviceInfo() {
     return Future<WebBrowserInfo>.value(
       WebBrowserInfo.fromMap(
         {
