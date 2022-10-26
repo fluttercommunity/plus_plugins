@@ -29,7 +29,7 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   }
 
   Future<LinuxDeviceInfo> linuxInfo() async {
-    return deviceInfo as LinuxDeviceInfo;
+    return (await deviceInfo()) as LinuxDeviceInfo;
   }
 
   Future<LinuxDeviceInfo> _getInfo() async {
