@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 

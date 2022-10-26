@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 
-import 'model/linux_device_info.dart';
 
 /// See [DeviceInfoPlatform]
 class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {

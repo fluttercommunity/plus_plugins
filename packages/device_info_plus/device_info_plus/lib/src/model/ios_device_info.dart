@@ -98,15 +98,4 @@ class IosUtsname {
       machine: map['machine'],
     );
   }
-
-  /// Serializes [ IosUtsname ] to map.
-  Map<String, dynamic> _toMap() {
-    return {
-      'release': release,
-      'version': version,
-      'machine': machine,
-      'sysname': sysname,
-      'nodename': nodename,
-    };
-  }
 }
