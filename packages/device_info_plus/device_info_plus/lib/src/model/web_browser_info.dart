@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'base_device_info.dart';
+
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// List of supported browsers
 enum BrowserName {
@@ -128,8 +129,7 @@ class WebBrowserInfo implements BaseDeviceInfo {
     );
   }
 
-  /// Serializes [WebBrowserInfo] to a map.
-  @Deprecated('[toMap] method will be discontinued')
+  @Deprecated('use [data] instead')
   @override
   Map<String, dynamic> toMap() {
     return {
@@ -182,4 +182,8 @@ class WebBrowserInfo implements BaseDeviceInfo {
       return BrowserName.unknown;
     }
   }
+
+  @override
+  // ignore: deprecated_member_use_from_same_package
+  Map<String, dynamic> get data => toMap();
 }

@@ -4,23 +4,12 @@
 
 import 'dart:async';
 
-import 'package:device_info_plus_platform_interface/model/macos_device_info.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel/method_channel_device_info.dart';
-import 'model/android_device_info.dart';
-import 'model/ios_device_info.dart';
-import 'model/linux_device_info.dart';
-import 'model/web_browser_info.dart';
-import 'model/windows_device_info.dart';
+import 'model/base_device_info.dart';
 
-export 'model/android_device_info.dart';
 export 'model/base_device_info.dart';
-export 'model/ios_device_info.dart';
-export 'model/linux_device_info.dart';
-export 'model/macos_device_info.dart';
-export 'model/web_browser_info.dart';
-export 'model/windows_device_info.dart';
 
 /// The interface that implementations of device_info must implement.
 ///
@@ -49,39 +38,8 @@ abstract class DeviceInfoPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  // Gets the Android device information.
   // ignore: public_member_api_docs
-  Future<AndroidDeviceInfo> androidInfo() {
-    throw UnimplementedError('androidInfo() has not been implemented.');
-  }
-
-  // Gets the iOS device information.
-  // ignore: public_member_api_docs
-  Future<IosDeviceInfo> iosInfo() {
-    throw UnimplementedError('iosInfo() has not been implemented.');
-  }
-
-  // Gets the Linux device information.
-  // ignore: public_member_api_docs
-  Future<LinuxDeviceInfo> linuxInfo() {
-    throw UnimplementedError('linuxInfo() has not been implemented.');
-  }
-
-  // Gets the web browser information.
-  // ignore: public_member_api_docs
-  Future<WebBrowserInfo> webBrowserInfo() {
-    throw UnimplementedError('webBrowserInfo() has not been implemented.');
-  }
-
-  // Gets the Macos device information.
-  // ignore: public_member_api_docs
-  Future<MacOsDeviceInfo> macosInfo() {
-    throw UnimplementedError('macosInfo() has not been implemented.');
-  }
-
-  // Gets the Windows device information
-  // ignore: public_member_api_docs
-  Future<WindowsDeviceInfo>? windowsInfo() {
-    throw UnimplementedError('windowsInfo() has not been implemented.');
+  Future<BaseDeviceInfo> deviceInfo() {
+    throw UnimplementedError('deviceInfo() has not been implemented.');
   }
 }

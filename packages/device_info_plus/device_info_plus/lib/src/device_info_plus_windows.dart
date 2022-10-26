@@ -9,6 +9,8 @@ import 'package:ffi/ffi.dart';
 import 'package:meta/meta.dart';
 import 'package:win32/win32.dart';
 
+import 'model/windows_device_info.dart';
+
 /// The Windows implementation of [DeviceInfoPlatform].
 class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
   /// Register this dart class as the platform implementation for windows

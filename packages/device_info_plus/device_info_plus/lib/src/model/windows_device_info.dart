@@ -4,7 +4,8 @@
 
 import 'dart:typed_data';
 
-import 'base_device_info.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
+
 
 /// Object encapsulating WINDOWS device information.
 class WindowsDeviceInfo implements BaseDeviceInfo {
@@ -136,8 +137,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// Value of `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SQMClient\MachineId` registry key.
   final String deviceId;
 
-  /// Serializes [WindowsDeviceInfo] to a map.
-  @Deprecated('[toMap] method will be discontinued')
+  @Deprecated('use [data] instead')
   @override
   Map<String, dynamic> toMap() {
     return {
@@ -168,4 +168,8 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
       'deviceId': deviceId,
     };
   }
+
+  @override
+  // ignore: deprecated_member_use_from_same_package
+  Map<String, dynamic> get data => toMap();
 }

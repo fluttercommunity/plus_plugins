@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
+
+import 'model/linux_device_info.dart';
 
 /// See [DeviceInfoPlatform]
 class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
@@ -20,8 +24,12 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
       : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
-  Future<LinuxDeviceInfo> linuxInfo() async {
+  Future<BaseDeviceInfo> deviceInfo() async {
     return _cache ??= await _getInfo();
+  }
+
+  Future<LinuxDeviceInfo> linuxInfo() async {
+    return deviceInfo as LinuxDeviceInfo;
   }
 
   Future<LinuxDeviceInfo> _getInfo() async {

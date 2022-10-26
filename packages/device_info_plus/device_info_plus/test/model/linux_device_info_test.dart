@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
-import 'package:device_info_plus_platform_interface/model/linux_device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -20,7 +20,7 @@ void main() {
         machineId: 'machineId',
       );
 
-      expect(linuxDeviceInfo.toMap(), {
+      expect(linuxDeviceInfo.data, {
         'name': 'name',
         'version': 'version',
         'id': 'id',

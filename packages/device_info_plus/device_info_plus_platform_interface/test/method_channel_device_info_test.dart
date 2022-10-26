@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:device_info_plus_platform_interface/method_channel/method_channel_device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:device_info_plus_platform_interface/method_channel/method_channel_device_info.dart';
-
-import 'model/android_device_info_fake.dart';
+import '../../device_info_plus/test/model/android_device_info_fake.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -21,44 +20,17 @@ void main() {
       methodChannelDeviceInfo.channel
           .setMockMethodCallHandler((MethodCall methodCall) async {
         switch (methodCall.method) {
-          case 'getAndroidDeviceInfo':
-            return fakeAndroidDeviceInfo;
-          case 'getIosDeviceInfo':
-            return ({
-              'name': 'iPhone 10',
-            });
-          case 'getMacosDeviceInfo':
-            return ({
-              'arch': '',
-              'model': 'MacBookPro',
-              'activeCPUs': 0,
-              'memorySize': 0,
-              'cpuFrequency': 0,
-              'hostName': '',
-              'osRelease': '',
-              'computerName': '',
-              'kernelVersion': '',
-              'systemGUID': null,
-            });
+          case 'getDeviceInfo':
+            return {'device_info': 'is_fake'};
           default:
             return null;
         }
       });
     });
 
-    test('androidInfo', () async {
-      final result = await methodChannelDeviceInfo.androidInfo();
-      expect(result.brand, 'Google');
-    });
-
-    test('iosInfo', () async {
-      final result = await methodChannelDeviceInfo.iosInfo();
-      expect(result.name, 'iPhone 10');
-    });
-
-    test('macosInfo', () async {
-      final result = await methodChannelDeviceInfo.macosInfo();
-      expect(result.model, 'MacBookPro');
+    test('deviceInfo', () async {
+      final result = await methodChannelDeviceInfo.deviceInfo();
+      expect(result.data['device_info'], 'is_fake');
     });
   });
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
@@ -12,29 +13,10 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   MethodChannel channel =
       const MethodChannel('dev.fluttercommunity.plus/device_info');
 
-  // Method channel for Android devices
+  // Generic method channel for all devices
   @override
-  Future<AndroidDeviceInfo> androidInfo() async {
-    return AndroidDeviceInfo.fromMap(
-      (await channel.invokeMethod('getAndroidDeviceInfo'))
-          .cast<String, dynamic>(),
-    );
-  }
-
-  // Method channel for iOS devices
-  @override
-  Future<IosDeviceInfo> iosInfo() async {
-    return IosDeviceInfo.fromMap(
-      (await channel.invokeMethod('getIosDeviceInfo')).cast<String, dynamic>(),
-    );
-  }
-
-  // Method channel for macOS devices
-  @override
-  Future<MacOsDeviceInfo> macosInfo() async {
-    return MacOsDeviceInfo.fromMap(
-      (await channel.invokeMethod('getMacosDeviceInfo'))
-          .cast<String, dynamic>(),
-    );
+  Future<BaseDeviceInfo> deviceInfo() async {
+    return BaseDeviceInfo((await channel.invokeMethod('getDeviceInfo'))
+        .cast<String, dynamic>());
   }
 }
