@@ -94,6 +94,22 @@ class DeviceInfoPlugin {
 
   /// Returns device information for the current platform.
   Future<BaseDeviceInfo> get deviceInfo async {
+    if (kIsWeb) {
+      return webBrowserInfo;
+    } else {
+      if (Platform.isAndroid) {
+        return androidInfo;
+      } else if (Platform.isIOS) {
+        return iosInfo;
+      } else if (Platform.isLinux) {
+        return linuxInfo;
+      } else if (Platform.isMacOS) {
+        return macOsInfo;
+      } else if (Platform.isWindows) {
+        return windowsInfo;
+      }
+    }
+    // allow for extension of the plugin
     return _platform.deviceInfo();
   }
 }
