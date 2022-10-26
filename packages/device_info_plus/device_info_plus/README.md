@@ -39,22 +39,18 @@ WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
 print('Running on ${webBrowserInfo.userAgent}');  // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
 ```
 
-The plugin provides a `toMap` method that returns platform-specific device
+The plugin provides a `data` method that returns platform-specific device
 information in a generic way, which can be used for crash-reporting purposes.
 
-However, the data provided by this `toMap` method is currently not serializable
+However, the data provided by this `data` method is currently not serializable
 (i.e. it is not 100% JSON compatible) and shouldn't be treated as such.
-
-That's why the method is currently marked as deprecated and will be eventually
-replaced, improved, or removed. We recommend you instead to read the actual
-values from each device info platform, or to keep using `toMap` at your own risk.
 
 ```dart
 import 'package:device_info_plus/device_info_plus.dart';
 
 final deviceInfoPlugin = DeviceInfoPlugin();
 final deviceInfo = await deviceInfoPlugin.deviceInfo;
-final allInfo = deviceInfo.toMap();
+final allInfo = deviceInfo.data;
 ```
 
 You will find links to the API docs on the [pub page](https://pub.dev/documentation/device_info_plus/latest/).
