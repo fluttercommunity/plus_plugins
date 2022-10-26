@@ -6,7 +6,6 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 
-
 /// See [DeviceInfoPlatform]
 class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   /// Register this dart class as the platform implementation for linux
