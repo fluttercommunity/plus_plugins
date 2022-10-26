@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Device information for a Linux system.
@@ -162,5 +161,3 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
     };
   }
 }
-
-

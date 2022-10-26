@@ -6,7 +6,6 @@ import 'dart:typed_data';
 
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
-
 /// Object encapsulating WINDOWS device information.
 class WindowsDeviceInfo implements BaseDeviceInfo {
   /// Constructs a [WindowsDeviceInfo].

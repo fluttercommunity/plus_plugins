@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Information derived from `UIDevice`.
@@ -20,7 +19,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
     this.identifierForVendor,
     required this.isPhysicalDevice,
     required this.utsname,
-  }): super(data);
+  }) : super(data);
 
   /// Device name.
   final String? name;

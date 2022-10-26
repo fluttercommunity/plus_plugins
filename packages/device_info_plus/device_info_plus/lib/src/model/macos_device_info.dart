@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Object encapsulating MACOS device information.
@@ -20,7 +19,7 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
     required this.memorySize,
     required this.cpuFrequency,
     required this.systemGUID,
-  }): super(data);
+  }) : super(data);
 
   /// Name given to the local machine.
   final String computerName;

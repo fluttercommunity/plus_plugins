@@ -16,7 +16,7 @@ class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   // Generic method channel for all devices
   @override
   Future<BaseDeviceInfo> deviceInfo() async {
-    return BaseDeviceInfo((await channel.invokeMethod('getDeviceInfo'))
-        .cast<String, dynamic>());
+    return BaseDeviceInfo(
+        (await channel.invokeMethod('getDeviceInfo')).cast<String, dynamic>());
   }
 }
