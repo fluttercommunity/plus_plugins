@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
-import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 import 'package:flutter/foundation.dart';
 
 import 'src/model/android_device_info.dart';
