@@ -44,9 +44,3 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
     );
   }
 }
-
-extension WebDeviceInfoPlugin on DeviceInfoPlatform {
-  Future<WebBrowserInfo> webInfo() async {
-    return deviceInfo as WebBrowserInfo;
-  }
-}
