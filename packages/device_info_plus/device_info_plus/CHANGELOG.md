@@ -1,3 +1,10 @@
+## 8.0.0
+
+> Note: This release has breaking changes.
+
+ - **DOCS**: Document toMap deprecation (#1292).
+ - **BREAKING** **FEAT**: refactor of device_info_plus platform implementation (#1293).
+
 ## 7.0.1
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

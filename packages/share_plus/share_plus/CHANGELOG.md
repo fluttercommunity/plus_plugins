@@ -1,3 +1,8 @@
+## 6.1.0
+
+ - **FIX**: export XFile (#1286).
+ - **FEAT**: share XFile created using File.fromData() (#1284).
+
 ## 6.0.1
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
