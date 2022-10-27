@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'dart:typed_data';
-import 'package:device_info_plus_platform_interface/model/windows_device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -35,7 +35,7 @@ void main() {
         deviceId: 'deviceId',
       );
 
-      expect(windowsDeviceInfo.toMap(), {
+      expect(windowsDeviceInfo.data, {
         'computerName': 'computerName',
         'numberOfCores': 4,
         'systemMemoryInMegabytes': 16,

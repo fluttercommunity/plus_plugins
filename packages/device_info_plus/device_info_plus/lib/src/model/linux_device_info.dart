@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'base_device_info.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Device information for a Linux system.
 ///
@@ -139,8 +139,11 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
   /// decoded from hexadecimal, this corresponds to a 16-byte/128-bit value.
   final String? machineId;
 
-  /// Serializes [LinuxDeviceInfo] to a map.
-  @Deprecated('[toMap] method will be discontinued')
+  @override
+  // ignore: deprecated_member_use_from_same_package
+  Map<String, dynamic> get data => toMap();
+
+  @Deprecated('Use [data] getter instead')
   @override
   Map<String, dynamic> toMap() {
     return {

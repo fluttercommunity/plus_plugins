@@ -2,14 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'base_device_info.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Information derived from `UIDevice`.
 ///
 /// See: https://developer.apple.com/documentation/uikit/uidevice
-class IosDeviceInfo implements BaseDeviceInfo {
+class IosDeviceInfo extends BaseDeviceInfo {
   /// IOS device info class.
-  const IosDeviceInfo({
+  IosDeviceInfo._({
+    required Map<String, dynamic> data,
     this.name,
     this.systemName,
     this.systemVersion,
@@ -18,7 +19,7 @@ class IosDeviceInfo implements BaseDeviceInfo {
     this.identifierForVendor,
     required this.isPhysicalDevice,
     required this.utsname,
-  });
+  }) : super(data);
 
   /// Device name.
   final String? name;
@@ -46,7 +47,8 @@ class IosDeviceInfo implements BaseDeviceInfo {
 
   /// Deserializes from the map message received from [_kChannel].
   static IosDeviceInfo fromMap(Map<String, dynamic> map) {
-    return IosDeviceInfo(
+    return IosDeviceInfo._(
+      data: map,
       name: map['name'],
       systemName: map['systemName'],
       systemVersion: map['systemVersion'],
@@ -57,22 +59,6 @@ class IosDeviceInfo implements BaseDeviceInfo {
       utsname:
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
-  }
-
-  /// Serializes [IosDeviceInfo] to a map.
-  @Deprecated('[toMap] method will be discontinued')
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'model': model,
-      'systemName': systemName,
-      'utsname': utsname._toMap(),
-      'systemVersion': systemVersion,
-      'localizedModel': localizedModel,
-      'identifierForVendor': identifierForVendor,
-      'isPhysicalDevice': isPhysicalDevice.toString(),
-    };
   }
 }
 
@@ -111,16 +97,5 @@ class IosUtsname {
       version: map['version'],
       machine: map['machine'],
     );
-  }
-
-  /// Serializes [ IosUtsname ] to map.
-  Map<String, dynamic> _toMap() {
-    return {
-      'release': release,
-      'version': version,
-      'machine': machine,
-      'sysname': sysname,
-      'nodename': nodename,
-    };
   }
 }

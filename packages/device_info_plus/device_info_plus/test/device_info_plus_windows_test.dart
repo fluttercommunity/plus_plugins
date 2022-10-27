@@ -2,7 +2,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:device_info_plus/src/device_info_plus_windows.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:win32/win32.dart';
@@ -113,7 +113,7 @@ void main() {
   test('windows information', () async {
     if (Platform.isWindows) {
       final deviceInfo = DeviceInfoPlusWindowsPlugin();
-      final windowsInfo = await deviceInfo.windowsInfo();
+      final windowsInfo = (await deviceInfo.deviceInfo()) as WindowsDeviceInfo;
       // Check whether windowsInfo.numberOfProcessors is an integer.
       expect(windowsInfo.numberOfCores, isA<int>());
       // Check whether windowsInfo.computerName is a valid non-empty string.
@@ -187,7 +187,7 @@ void main() {
     } else {
       // Expect an exception on non-Windows platforms.
       final deviceInfo = DeviceInfoPlusWindowsPlugin();
-      expect(deviceInfo.windowsInfo, throwsArgumentError);
+      expect(deviceInfo.deviceInfo, throwsArgumentError);
     }
   });
 }

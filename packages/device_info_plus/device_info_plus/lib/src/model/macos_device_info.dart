@@ -2,12 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'base_device_info.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Object encapsulating MACOS device information.
-class MacOsDeviceInfo implements BaseDeviceInfo {
+class MacOsDeviceInfo extends BaseDeviceInfo {
   /// Constructs a MacOsDeviceInfo.
-  const MacOsDeviceInfo({
+  MacOsDeviceInfo._({
+    required Map<String, dynamic> data,
     required this.computerName,
     required this.hostName,
     required this.arch,
@@ -18,7 +19,7 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
     required this.memorySize,
     required this.cpuFrequency,
     required this.systemGUID,
-  });
+  }) : super(data);
 
   /// Name given to the local machine.
   final String computerName;
@@ -54,27 +55,10 @@ class MacOsDeviceInfo implements BaseDeviceInfo {
   /// Device GUID
   final String? systemGUID;
 
-  /// Serializes [MacOsDeviceInfo] to map.
-  @Deprecated('[toMap] method will be discontinued')
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'arch': arch,
-      'model': model,
-      'hostName': hostName,
-      'osRelease': osRelease,
-      'activeCPUs': activeCPUs,
-      'memorySize': memorySize,
-      'cpuFrequency': cpuFrequency,
-      'computerName': computerName,
-      'kernelVersion': kernelVersion,
-      'systemGUID': systemGUID,
-    };
-  }
-
   /// Constructs a [MacOsDeviceInfo] from a Map of dynamic.
-  static MacOsDeviceInfo fromMap(Map<dynamic, dynamic> map) {
-    return MacOsDeviceInfo(
+  static MacOsDeviceInfo fromMap(Map<String, dynamic> map) {
+    return MacOsDeviceInfo._(
+      data: map,
       computerName: map['computerName'],
       hostName: map['hostName'],
       arch: map['arch'],

@@ -21,7 +21,7 @@ internal class MethodCallHandlerImpl(
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        if (call.method.equals("getAndroidDeviceInfo")) {
+        if (call.method.equals("getDeviceInfo")) {
             val build: MutableMap<String, Any> = HashMap()
 
             build["board"] = Build.BOARD

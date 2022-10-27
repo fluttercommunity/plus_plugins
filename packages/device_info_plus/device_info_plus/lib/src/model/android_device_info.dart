@@ -3,14 +3,14 @@
 // found in the LICENSE file.
 
 import 'dart:math' as math show sqrt;
-import 'base_device_info.dart';
+import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
 /// Information derived from `android.os.Build`.
 ///
 /// See: https://developer.android.com/reference/android/os/Build.html
-class AndroidDeviceInfo implements BaseDeviceInfo {
-  /// Android device Info class.
-  AndroidDeviceInfo({
+class AndroidDeviceInfo extends BaseDeviceInfo {
+  AndroidDeviceInfo._({
+    required Map<String, dynamic> data,
     required this.version,
     required this.board,
     required this.bootloader,
@@ -35,7 +35,8 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
-        systemFeatures = List<String>.unmodifiable(systemFeatures);
+        systemFeatures = List<String>.unmodifiable(systemFeatures),
+        super(data);
 
   /// Android operating system version values derived from `android.os.Build.VERSION`.
   final AndroidBuildVersion version;
@@ -116,38 +117,10 @@ class AndroidDeviceInfo implements BaseDeviceInfo {
   /// Information about the current android display.
   final AndroidDisplayMetrics displayMetrics;
 
-  /// Serializes [AndroidDeviceInfo] to map.
-  @Deprecated('[toMap] method will be discontinued')
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'host': host,
-      'tags': tags,
-      'type': type,
-      'model': model,
-      'board': board,
-      'brand': brand,
-      'device': device,
-      'product': product,
-      'display': display,
-      'hardware': hardware,
-      'bootloader': bootloader,
-      'version': version.toMap(),
-      'fingerprint': fingerprint,
-      'manufacturer': manufacturer,
-      'supportedAbis': supportedAbis,
-      'systemFeatures': systemFeatures,
-      'isPhysicalDevice': isPhysicalDevice,
-      'supported32BitAbis': supported32BitAbis,
-      'supported64BitAbis': supported64BitAbis,
-      'displayMetrics': displayMetrics.toMap(),
-    };
-  }
-
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
-    return AndroidDeviceInfo(
+    return AndroidDeviceInfo._(
+      data: map,
       version: AndroidBuildVersion._fromMap(
           map['version']?.cast<String, dynamic>() ?? {}),
       board: map['board'],
