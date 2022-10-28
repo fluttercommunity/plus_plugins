@@ -33,7 +33,7 @@ internal class Share(
      */
     private val immutabilityIntentFlags: Int by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_MUTABLE
         } else {
             0
         }
@@ -71,9 +71,9 @@ internal class Share(
                 PendingIntent.getBroadcast(
                     context,
                     0,
-                    Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+                    Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
+                ).getIntentSender()
             )
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)
@@ -129,9 +129,9 @@ internal class Share(
                 PendingIntent.getBroadcast(
                     context,
                     0,
-                    Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+                    Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
+                ).getIntentSender()
             )
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)

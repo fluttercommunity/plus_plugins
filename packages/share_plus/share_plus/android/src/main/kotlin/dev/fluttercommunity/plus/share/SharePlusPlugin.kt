@@ -15,14 +15,12 @@ class SharePlusPlugin : FlutterPlugin, ActivityAware {
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
         methodChannel = MethodChannel(binding.binaryMessenger, CHANNEL)
         manager = ShareSuccessManager(binding.applicationContext)
-        manager.register()
         share = Share(context = binding.applicationContext, activity = null, manager = manager)
         val handler = MethodCallHandler(share, manager)
         methodChannel.setMethodCallHandler(handler)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
-        manager.discard()
         methodChannel.setMethodCallHandler(null)
     }
 
