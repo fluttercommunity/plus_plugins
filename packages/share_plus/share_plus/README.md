@@ -71,6 +71,16 @@ Check out our documentation website to learn more. [Plus plugins documentation](
 
 ## Known Issues
 
+### Sharing data created with XFile.fromData
+
+When sharing data created with `XFile.fromData`, the plugin will write a temporal file inside the cache directory of the app, so it can be shared.
+
+Althouth the OS should take care of deleting those files, it is adviced, that you clean up this data once in a while (e.g. on app start).
+
+You can access this directory using `path_provider` 9getTemporaryDirectory](https://pub.dev/documentation/path_provider/latest/path_provider/getTemporaryDirectory.html)
+
+Alternatively, don't use `XFile.fromData` and instead write the data down to a `File` with a path before sharing it.
+
 ### Mobile platforms (Android and iOS)
 
 #### Facebook limitations (WhatsApp, Instagram, Facebook Messenger)
