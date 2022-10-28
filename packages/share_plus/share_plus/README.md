@@ -77,7 +77,7 @@ When sharing data created with `XFile.fromData`, the plugin will write a tempora
 
 Althouth the OS should take care of deleting those files, it is advised, that you clean up this data once in a while (e.g. on app start).
 
-You can access this directory using [path_provider](https://pub.dev/packages/path_provider) [getTemporaryDirectory](https://pub.dev/documentation/path_provider/latest/path_provider/getTemporaryDirectory.html)
+You can access this directory using [path_provider](https://pub.dev/packages/path_provider) [getTemporaryDirectory](https://pub.dev/documentation/path_provider/latest/path_provider/getTemporaryDirectory.html).
 
 Alternatively, don't use `XFile.fromData` and instead write the data down to a `File` with a path before sharing it, so you control when to delete it.
 
