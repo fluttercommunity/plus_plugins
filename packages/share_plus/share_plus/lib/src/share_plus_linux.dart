@@ -9,11 +9,13 @@ import 'package:url_launcher_platform_interface/url_launcher_platform_interface.
 
 /// The Linux implementation of SharePlatform.
 class SharePlusLinuxPlugin extends SharePlatform {
-  final urlLauncher = UrlLauncherLinux();
+  SharePlusLinuxPlugin(this.urlLauncher);
+
+  final UrlLauncherPlatform urlLauncher;
 
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    SharePlatform.instance = SharePlusLinuxPlugin();
+    SharePlatform.instance = SharePlusLinuxPlugin(UrlLauncherLinux());
   }
 
   /// Share text.

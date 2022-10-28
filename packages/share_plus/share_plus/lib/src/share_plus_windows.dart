@@ -11,13 +11,15 @@ import 'package:url_launcher_windows/url_launcher_windows.dart';
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
 ///
 class SharePlusWindowsPlugin extends SharePlatform {
-  final urlLauncher = UrlLauncherWindows();
+  SharePlusWindowsPlugin(this.urlLauncher);
+
+  final UrlLauncherPlatform urlLauncher;
 
   /// If the modern Share UI i.e. `DataTransferManager` is not available, then use this Dart class instead of platform specific implementation.
   ///
   static void registerWith() {
     if (!VersionHelper.instance.isWindows10RS5OrGreater) {
-      SharePlatform.instance = SharePlusWindowsPlugin();
+      SharePlatform.instance = SharePlusWindowsPlugin(UrlLauncherWindows());
     }
   }
 

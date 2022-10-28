@@ -10,18 +10,20 @@ import 'package:url_launcher_web/url_launcher_web.dart';
 
 /// The web implementation of [SharePlatform].
 class SharePlusWebPlugin extends SharePlatform {
-  final urlLauncher = UrlLauncherPlugin();
+  final UrlLauncherPlatform urlLauncher;
 
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
-    SharePlatform.instance = SharePlusWebPlugin();
+    SharePlatform.instance = SharePlusWebPlugin(UrlLauncherPlugin());
   }
 
   final html.Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlusWebPlugin({@visibleForTesting html.Navigator? debugNavigator})
-      : _navigator = debugNavigator ?? html.window.navigator;
+  SharePlusWebPlugin(
+    this.urlLauncher, {
+    @visibleForTesting html.Navigator? debugNavigator,
+  }) : _navigator = debugNavigator ?? html.window.navigator;
 
   /// Share text
   @override

@@ -31,9 +31,8 @@ void main() {
     'url encoding is correct for &',
     () async {
       final mock = MockUrlLauncherPlatform();
-      UrlLauncherPlatform.instance = mock;
 
-      await SharePlusWindowsPlugin().share('foo&bar', subject: 'bar&foo');
+      await SharePlusWindowsPlugin(mock).share('foo&bar', subject: 'bar&foo');
 
       expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
     },
@@ -45,9 +44,8 @@ void main() {
     'url encoding is correct for spaces',
     () async {
       final mock = MockUrlLauncherPlatform();
-      UrlLauncherPlatform.instance = mock;
 
-      await SharePlusWindowsPlugin().share('foo bar', subject: 'bar foo');
+      await SharePlusWindowsPlugin(mock).share('foo bar', subject: 'bar foo');
 
       expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
     },
@@ -59,9 +57,8 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
       mock.canLaunchMockValue = false;
-      UrlLauncherPlatform.instance = mock;
 
-      expect(() async => await SharePlusWindowsPlugin().share('foo bar'),
+      expect(() async => await SharePlusWindowsPlugin(mock).share('foo bar'),
           throwsException);
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
