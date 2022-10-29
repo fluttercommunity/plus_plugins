@@ -11,13 +11,9 @@ import android.os.Build
  * When the PendingIntent is sent, the system will instantiate this class and call `onReceive` on it.
  */
 internal class SharePlusPendingIntent: BroadcastReceiver() {
-    /**
-     * Companion object to achieve static behaviour.
-     */
     companion object {
-        @JvmField
         /**
-         * Static result to access the result of the system instantiated instance
+         * Static member to access the result of the system instantiated instance
          */
         var result: String = ""
     }

@@ -73,7 +73,7 @@ internal class Share(
                     0,
                     Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).getIntentSender()
+                ).intentSender
             )
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)
@@ -131,7 +131,7 @@ internal class Share(
                     0,
                     Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).getIntentSender()
+                ).intentSender
             )
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)
