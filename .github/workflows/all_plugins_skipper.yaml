@@ -1,0 +1,30 @@
+name: all_plugins
+
+# Workflow to skip required checks if no plugin code changed
+# Name of the workflow itself and its jobs should correspond to required checks that needs to be skipped
+# More info can be found here: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/troubleshooting-required-status-checks#handling-skipped-but-required-checks
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "website/**"
+      - "**.md"
+
+jobs:
+  analyze:
+    name: "Flutter Analyze"
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No analyze required as only docs or non-plugin files changed"'
+
+  check_formatting:
+    name: "Check code formatting"
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No format check required as only docs or non-plugin files changed"'
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No tests required as only docs or non-plugin files changed"'
