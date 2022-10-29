@@ -51,10 +51,9 @@ class MethodChannelBattery extends BatteryPlatform {
     return _onBatteryStateChanged!;
   }
 
-   /// Returns if battery is Plugged or not
+  /// Returns if battery is Plugged or not
   @override
   Future<bool> get isPlugged => methodChannel
       .invokeMethod<bool>('isPlugged')
       .then<bool>((dynamic result) => result);
-
 }
