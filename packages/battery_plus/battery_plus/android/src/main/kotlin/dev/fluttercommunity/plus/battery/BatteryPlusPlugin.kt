@@ -71,6 +71,14 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
                     result.error("UNAVAILABLE", "Battery save mode not available.", null)
                 }
             }
+            "isPlugged" -> {
+                val isPlugged = isPlugged()
+                if (isPlugged != null) {
+                    result.success(isPlugged)
+                } else {
+                    result.error("UNAVAILABLE", "IsPlugged not available.", null)
+                }
+            }
             else -> result.notImplemented()
         }
     }
@@ -106,6 +114,12 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
             val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
             (level * 100 / scale)
         }
+    }
+
+    private fun isPlugged(): Boolean?{
+        val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val plugged = intent!!.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+        return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS
     }
 
     private fun isInPowerSaveMode(): Boolean? {

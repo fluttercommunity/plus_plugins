@@ -57,4 +57,9 @@ abstract class BatteryPlatform extends PlatformInterface {
     throw UnimplementedError(
         'get onBatteryStateChanged has not been implemented.');
   }
+
+    /// Returns the current battery state in percent.
+  Future<bool> get isPlugged {
+    throw UnimplementedError('isPlugged() has not been implemented.');
+  }
 }

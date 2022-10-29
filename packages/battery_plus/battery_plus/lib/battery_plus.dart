@@ -53,4 +53,9 @@ class Battery {
   Stream<BatteryState> get onBatteryStateChanged {
     return _platform.onBatteryStateChanged;
   }
+
+  /// Get if battery is plugged or not
+  Future<bool> get isPlugged {
+    return _platform.isPlugged;
+  }
 }
