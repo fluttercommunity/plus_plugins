@@ -156,7 +156,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Install NetworkManager"
-        run: sudo apt-get install -y network-manager
+        run: sudo apt-get update && sudo apt-get install -y network-manager
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh linux connectivity_plus_example
 
