@@ -9,24 +9,9 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Handles the callback based status information about a successful or dismissed
  * share. Used to link multiple different callbacks together for easier use.
  */
-internal class ShareSuccessManager(private val context: Context) : BroadcastReceiver(),
-    ActivityResultListener {
+internal class ShareSuccessManager(private val context: Context) : ActivityResultListener {
     private var callback: MethodChannel.Result? = null
     private var isCalledBack: AtomicBoolean = AtomicBoolean(true)
-
-    /**
-     * Register listener. Must be called before any share sheet is opened.
-     */
-    fun register() {
-        context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL))
-    }
-
-    /**
-     * Deregister listener. Must be called before the base activity is invalidated.
-     */
-    fun discard() {
-        context.unregisterReceiver(this)
-    }
 
     /**
      * Set result callback that will wait for the share-sheet to close and get either
@@ -34,6 +19,8 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      */
     fun setCallback(callback: MethodChannel.Result): Boolean {
         return if (isCalledBack.compareAndSet(true, false)) {
+            // Prepare all state for new share
+            SharePlusPendingIntent.result = ""
             isCalledBack.set(false)
             this.callback = callback
             true
@@ -51,7 +38,7 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      * Must be called if `.startActivityForResult` is not available to avoid deadlocking.
      */
     fun unavailable() {
-        returnResult("dev.fluttercommunity.plus/share/unavailable")
+        returnResult(RESULT_UNAVAILABLE)
     }
 
     /**
@@ -70,7 +57,7 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
         return if (requestCode == ACTIVITY_CODE) {
-            returnResult("")
+            returnResult(SharePlusPendingIntent.result)
             true
         } else {
             false
@@ -78,16 +65,11 @@ internal class ShareSuccessManager(private val context: Context) : BroadcastRece
     }
 
     /**
-     * Handler called after a sharesheet was closed. Called only on success.
+     * Companion object holds constants used throughout the plugin when attempting to return
+     * the share result.
      */
-    override fun onReceive(context: Context, intent: Intent) {
-        returnResult(
-            intent.getParcelableExtra<ComponentName>(Intent.EXTRA_CHOSEN_COMPONENT).toString()
-        )
-    }
-
     companion object {
-        const val BROADCAST_CHANNEL = "dev.fluttercommunity.plus/share/success"
         const val ACTIVITY_CODE = 17062003
+        const val RESULT_UNAVAILABLE = "dev.fluttercommunity.plus/share/unavailable"
     }
 }
