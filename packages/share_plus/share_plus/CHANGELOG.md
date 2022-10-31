@@ -1,3 +1,9 @@
+## 6.2.0
+
+ - **FIX**: return correct share result on android (#1301).
+ - **FEAT**: remove direct dependence of url_launcher (#1295).
+ - **DOCS**: #1299 document XFile.fromData (#1300).
+
 ## 6.1.0
 
  - **FIX**: export XFile (#1286).
