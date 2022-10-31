@@ -39,7 +39,7 @@ class DemoAppState extends State<DemoApp> {
       title: 'Share Plus Plugin Demo',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo),
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -77,7 +77,6 @@ class DemoAppState extends State<DemoApp> {
               const SizedBox(height: 16),
               ImagePreviews(imagePaths, onDelete: _onDeleteImage),
               ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(foregroundColor: Colors.red),
                 label: const Text('Add image'),
                 onPressed: () async {
                   // Using `package:image_picker` to get image from gallery.
@@ -116,6 +115,10 @@ class DemoAppState extends State<DemoApp> {
               Builder(
                 builder: (BuildContext context) {
                   return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                     onPressed: text.isEmpty && imagePaths.isEmpty
                         ? null
                         : () => _onShare(context),
@@ -127,6 +130,10 @@ class DemoAppState extends State<DemoApp> {
               Builder(
                 builder: (BuildContext context) {
                   return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                     onPressed: text.isEmpty && imagePaths.isEmpty
                         ? null
                         : () => _onShareWithResult(context),
@@ -138,6 +145,10 @@ class DemoAppState extends State<DemoApp> {
               Builder(
                 builder: (BuildContext context) {
                   return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                     onPressed: () {
                       _onShareXFileFromAssets(context);
                     },
