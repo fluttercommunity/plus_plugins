@@ -37,110 +37,118 @@ class DemoAppState extends State<DemoApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Share Plus Plugin Demo',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo),
+      ),
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Share Plus Plugin Demo'),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Share text:',
-                      hintText: 'Enter some text and/or link to share',
-                    ),
-                    maxLines: 2,
-                    onChanged: (String value) => setState(() {
-                      text = value;
-                    }),
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Share subject:',
-                      hintText: 'Enter subject to share (optional)',
-                    ),
-                    maxLines: 2,
-                    onChanged: (String value) => setState(() {
-                      subject = value;
-                    }),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  ImagePreviews(imagePaths, onDelete: _onDeleteImage),
-                  ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('Add image'),
-                    onTap: () async {
-                      // Using `package:image_picker` to get image from gallery.
-                      if (Platform.isMacOS ||
-                          Platform.isLinux ||
-                          Platform.isWindows) {
-                        // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
-                        const XTypeGroup typeGroup = XTypeGroup(
-                          label: 'images',
-                          extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
-                        );
-                        final file = await openFile(
-                            acceptedTypeGroups: <XTypeGroup>[typeGroup]);
-                        if (file != null) {
-                          setState(() {
-                            imagePaths.add(file.path);
-                            imageNames.add(file.name);
-                          });
-                        }
-                      } else {
-                        final imagePicker = ImagePicker();
-                        final pickedFile = await imagePicker.pickImage(
-                          source: ImageSource.gallery,
-                        );
-                        if (pickedFile != null) {
-                          setState(() {
-                            imagePaths.add(pickedFile.path);
-                            imageNames.add(pickedFile.name);
-                          });
-                        }
-                      }
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty
-                            ? null
-                            : () => _onShare(context),
-                        child: const Text('Share'),
-                      );
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return ElevatedButton(
-                        onPressed: text.isEmpty && imagePaths.isEmpty
-                            ? null
-                            : () => _onShareWithResult(context),
-                        child: const Text('Share With Result'),
-                      );
-                    },
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          _onShareXFileFromAssets(context);
-                        },
-                        child: const Text('Share XFile from Assets'),
-                      );
-                    },
-                  ),
-                ],
+        appBar: AppBar(
+          title: const Text('Share Plus Plugin Demo'),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share text',
+                  hintText: 'Enter some text and/or link to share',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  text = value;
+                }),
               ),
-            ),
-          )),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share subject',
+                  hintText: 'Enter subject to share (optional)',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  subject = value;
+                }),
+              ),
+              const SizedBox(height: 16),
+              ImagePreviews(imagePaths, onDelete: _onDeleteImage),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(foregroundColor: Colors.red),
+                label: const Text('Add image'),
+                onPressed: () async {
+                  // Using `package:image_picker` to get image from gallery.
+                  if (Platform.isMacOS ||
+                      Platform.isLinux ||
+                      Platform.isWindows) {
+                    // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
+                    const XTypeGroup typeGroup = XTypeGroup(
+                      label: 'images',
+                      extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
+                    );
+                    final file = await openFile(
+                        acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                    if (file != null) {
+                      setState(() {
+                        imagePaths.add(file.path);
+                        imageNames.add(file.name);
+                      });
+                    }
+                  } else {
+                    final imagePicker = ImagePicker();
+                    final pickedFile = await imagePicker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+                    if (pickedFile != null) {
+                      setState(() {
+                        imagePaths.add(pickedFile.path);
+                        imageNames.add(pickedFile.name);
+                      });
+                    }
+                  }
+                },
+                icon: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 32),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    onPressed: text.isEmpty && imagePaths.isEmpty
+                        ? null
+                        : () => _onShare(context),
+                    child: const Text('Share'),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    onPressed: text.isEmpty && imagePaths.isEmpty
+                        ? null
+                        : () => _onShareWithResult(context),
+                    child: const Text('Share With Result'),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      _onShareXFileFromAssets(context);
+                    },
+                    child: const Text('Share XFile from Assets'),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -195,9 +203,19 @@ class DemoAppState extends State<DemoApp> {
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
-    scaffoldMessenger.showSnackBar(SnackBar(
-      content: Text("Share result: ${result.status}"),
-    ));
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Share result: ${result.status}"),
+            if (result.status == ShareResultStatus.success)
+              Text("Shared to: ${result.raw}")
+          ],
+        ),
+      ),
+    );
   }
 
   void _onShareXFileFromAssets(BuildContext context) async {
@@ -208,15 +226,18 @@ class DemoAppState extends State<DemoApp> {
     final result = await Share.shareXFiles(
       [
         XFile.fromData(
-            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-            name: 'flutter_logo.png',
-            mimeType: 'image/png'),
+          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+          name: 'flutter_logo.png',
+          mimeType: 'image/png',
+        ),
       ],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
 
-    scaffoldMessenger.showSnackBar(SnackBar(
-      content: Text("Share result: ${result.status}"),
-    ));
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        content: Text("Share result: ${result.status}"),
+      ),
+    );
   }
 }
