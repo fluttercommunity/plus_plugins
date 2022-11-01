@@ -44,11 +44,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
           .join('&'),
     );
 
-    if (await urlLauncher.canLaunch(uri.toString())) {
-      await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
-    } else {
-      throw Exception('Unable to share on windows');
-    }
+    await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
   }
 
   /// Share files.

@@ -50,11 +50,7 @@ class SharePlusWebPlugin extends SharePlatform {
             .join('&'),
       );
 
-      if (await urlLauncher.canLaunch(uri.toString())) {
-        await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
-      } else {
-        throw Exception('Unable to share on web');
-      }
+      await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
     }
   }
 
