@@ -199,34 +199,22 @@ class DemoAppState extends State<DemoApp> {
   void _onShareWithResult(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    ShareResult result;
+    ShareResult shareResult;
     if (imagePaths.isNotEmpty) {
       final files = <XFile>[];
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      result = await Share.shareXFiles(files,
+      shareResult = await Share.shareXFiles(files,
           text: text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else {
-      result = await Share.shareWithResult(text,
+      shareResult = await Share.shareWithResult(text,
           subject: subject,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     }
-    scaffoldMessenger.showSnackBar(
-      SnackBar(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Share result: ${result.status}"),
-            if (result.status == ShareResultStatus.success)
-              Text("Shared to: ${result.raw}")
-          ],
-        ),
-      ),
-    );
+    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }
 
   void _onShareXFileFromAssets(BuildContext context) async {
@@ -234,7 +222,7 @@ class DemoAppState extends State<DemoApp> {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final data = await rootBundle.load('assets/flutter_logo.png');
     final buffer = data.buffer;
-    final result = await Share.shareXFiles(
+    final shareResult = await Share.shareXFiles(
       [
         XFile.fromData(
           buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
@@ -245,9 +233,19 @@ class DemoAppState extends State<DemoApp> {
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
 
-    scaffoldMessenger.showSnackBar(
-      SnackBar(
-        content: Text("Share result: ${result.status}"),
+    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+  }
+
+  SnackBar getResultSnackBar(ShareResult result) {
+    return SnackBar(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Share result: ${result.status}"),
+          if (result.status == ShareResultStatus.success)
+            Text("Shared to: ${result.raw}")
+        ],
       ),
     );
   }
