@@ -19,7 +19,7 @@ class ImagePreviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imagePaths.isEmpty) {
-      return Container();
+      return const SizedBox.shrink();
     }
 
     final imageWidgets = <Widget>[];
