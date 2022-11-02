@@ -3,6 +3,7 @@ library share_plus_windows;
 
 import 'dart:ui';
 
+import 'package:flutter/services.dart';
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
@@ -44,7 +45,13 @@ class SharePlusWindowsPlugin extends SharePlatform {
           .join('&'),
     );
 
-    await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
+    final launchResult = await urlLauncher.launchUrl(
+      uri.toString(),
+      const LaunchOptions(),
+    );
+    if (!launchResult) {
+      throw Exception('Failed to launch mailto: URI');
+    }
   }
 
   /// Share files.

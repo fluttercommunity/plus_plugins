@@ -19,7 +19,6 @@ class SharePlusLinuxPlugin extends SharePlatform {
   }
 
   /// Share text.
-  /// Throws a [PlatformException] if `mailto:` scheme cannot be handled.
   @override
   Future<void> share(
     String text, {
@@ -40,7 +39,13 @@ class SharePlusLinuxPlugin extends SharePlatform {
           .join('&'),
     );
 
-    await urlLauncher.launchUrl(uri.toString(), const LaunchOptions());
+    final launchResult = await urlLauncher.launchUrl(
+      uri.toString(),
+      const LaunchOptions(),
+    );
+    if (!launchResult) {
+      throw Exception('Failed to launch mailto: URI');
+    }
   }
 
   /// Share files.
