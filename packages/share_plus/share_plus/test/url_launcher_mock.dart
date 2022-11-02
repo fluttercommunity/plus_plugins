@@ -15,15 +15,15 @@ class MockUrlLauncherPlatform extends UrlLauncherPlatform {
 
   @override
   Future<bool> launch(
-      String url, {
-        required bool useSafariVC,
-        required bool useWebView,
-        required bool enableJavaScript,
-        required bool enableDomStorage,
-        required bool universalLinksOnly,
-        required Map<String, String> headers,
-        String? webOnlyWindowName,
-      }) async {
+    String url, {
+    required bool useSafariVC,
+    required bool useWebView,
+    required bool enableJavaScript,
+    required bool enableDomStorage,
+    required bool universalLinksOnly,
+    required Map<String, String> headers,
+    String? webOnlyWindowName,
+  }) async {
     this.url = url;
     return canLaunchMockValue;
   }
