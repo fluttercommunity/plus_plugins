@@ -4,6 +4,8 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher_platform_interface/link.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+import 'url_launcher_mock.dart';
+
 void main() {
   test('registered instance', () {
     SharePlusLinuxPlugin.registerWith();
@@ -33,35 +35,4 @@ void main() {
     expect(() async => await SharePlusLinuxPlugin(mock).share('foo bar'),
         throwsException);
   });
-}
-
-class MockUrlLauncherPlatform extends UrlLauncherPlatform {
-  String? url;
-  bool canLaunchMockValue = true;
-
-  @override
-  LinkDelegate? get linkDelegate => throw UnimplementedError();
-
-  @override
-  Future<bool> canLaunch(String url) async {
-    return canLaunchMockValue;
-  }
-
-  @override
-  Future<bool> launch(
-    String url, {
-    required bool useSafariVC,
-    required bool useWebView,
-    required bool enableJavaScript,
-    required bool enableDomStorage,
-    required bool universalLinksOnly,
-    required Map<String, String> headers,
-    String? webOnlyWindowName,
-  }) async {
-    this.url = url;
-    if (!canLaunchMockValue) {
-      throw Exception();
-    }
-    return true;
-  }
 }
