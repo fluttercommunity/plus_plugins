@@ -49,7 +49,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
       const LaunchOptions(),
     );
     if (!launchResult) {
-      throw Exception('Failed to launch mailto: URI');
+      throw Exception('Failed to launch $uri');
     }
   }
 
