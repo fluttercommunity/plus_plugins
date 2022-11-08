@@ -1,6 +1,6 @@
 name: device_info_plus_platform_interface
 description: A common platform interface for the device_info_plus plugin.
-version: 5.0.0
+version: 7.0.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -11,11 +11,11 @@ dependencies:
   plugin_platform_interface: ^2.0.0
 
 dev_dependencies:
+  flutter_lints: ">=1.0.4 <3.0.0"
   flutter_test:
     sdk: flutter
   mockito: ^5.0.0
-  flutter_lints: ">=1.0.4 <3.0.0"
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.9.1+hotfix.4"
+  flutter: ">=2.11.0"

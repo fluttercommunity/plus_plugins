@@ -1,3 +1,11 @@
+## 1.2.3
+
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
+## 1.2.2
+
+- Add missing VPN enum
+
 ## 1.2.1
 
 - Update flutter_lints to 2.0.1

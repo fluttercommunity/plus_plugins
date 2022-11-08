@@ -1,3 +1,12 @@
+## 2.1.0
+
+ - **FEAT**: we can now send extra data to alarm manager and receive it in our callback (#1014).
+
+## 2.0.8
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+ - **DOCS**: Fix example and docs to explain required annotation (#1229).
+
 ## 2.0.7+1
 
 - Add FAQ to README.md

@@ -12,6 +12,10 @@ void main() {
   String invalidCallback(String foo) => foo;
   // ignore: avoid_returning_null_for_void
   void validCallback(int id) => null;
+  // ignore: avoid_returning_null_for_void
+  void invalidCallbackWithParams(int id, List<String> params) => null;
+  // ignore: avoid_returning_null_for_void
+  void validCallbackWithParams(int id, Map<String, dynamic> params) => null;
 
   const testChannel = MethodChannel(
       'dev.fluttercommunity.plus/android_alarm_manager', JSONMethodCodec());
@@ -40,13 +44,28 @@ void main() {
       // Callback should take a single int param.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
-              validTime, validId, invalidCallback),
+                validTime,
+                validId,
+                invalidCallback,
+              ),
+          throwsAssertionError);
+
+      // Callback should take int as first and Map as second param.
+      await expectLater(
+          () => AndroidAlarmManager.oneShotAt(
+                validTime,
+                validId,
+                invalidCallbackWithParams,
+              ),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
           () => AndroidAlarmManager.oneShotAt(
-              validTime, 2147483648, validCallback),
+                validTime,
+                2147483648,
+                validCallback,
+              ),
           throwsAssertionError);
     });
 
@@ -54,8 +73,7 @@ void main() {
       final alarm = DateTime(1993);
       const rawHandle = 4;
       AndroidAlarmManager.setTestOverrides(
-          getCallbackHandle: (Function _) =>
-              CallbackHandle.fromRawHandle(rawHandle));
+          getCallbackHandle: (_) => CallbackHandle.fromRawHandle(rawHandle));
 
       const id = 1;
       const alarmClock = true;
@@ -63,6 +81,7 @@ void main() {
       const exact = true;
       const wakeup = true;
       const rescheduleOnReboot = true;
+      const params = <String, dynamic>{'title': 'myAlarm'};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.oneShotAt');
@@ -74,16 +93,21 @@ void main() {
         expect(call.arguments[5], alarm.millisecondsSinceEpoch);
         expect(call.arguments[6], rescheduleOnReboot);
         expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], params);
         return true;
       });
 
       final result = await AndroidAlarmManager.oneShotAt(
-          alarm, id, validCallback,
-          alarmClock: alarmClock,
-          allowWhileIdle: allowWhileIdle,
-          exact: exact,
-          wakeup: wakeup,
-          rescheduleOnReboot: rescheduleOnReboot);
+        alarm,
+        id,
+        validCallback,
+        alarmClock: alarmClock,
+        allowWhileIdle: allowWhileIdle,
+        exact: exact,
+        wakeup: wakeup,
+        rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
+      );
 
       expect(result, isTrue);
     });
@@ -104,7 +128,7 @@ void main() {
     const exact = true;
     const wakeup = true;
     const rescheduleOnReboot = true;
-
+    const params = <String, dynamic>{'title': 'myAlarm'};
     testChannel.setMockMethodCallHandler((MethodCall call) async {
       expect(call.method, 'Alarm.oneShotAt');
       expect(call.arguments[0], id);
@@ -113,18 +137,26 @@ void main() {
       expect(call.arguments[3], exact);
       expect(call.arguments[4], wakeup);
       expect(
-          call.arguments[5], now.millisecondsSinceEpoch + alarm.inMilliseconds);
+        call.arguments[5],
+        now.millisecondsSinceEpoch + alarm.inMilliseconds,
+      );
       expect(call.arguments[6], rescheduleOnReboot);
       expect(call.arguments[7], rawHandle);
+      expect(call.arguments[8], params);
       return true;
     });
 
-    final result = await AndroidAlarmManager.oneShot(alarm, id, validCallback,
-        alarmClock: alarmClock,
-        allowWhileIdle: allowWhileIdle,
-        exact: exact,
-        wakeup: wakeup,
-        rescheduleOnReboot: rescheduleOnReboot);
+    final result = await AndroidAlarmManager.oneShot(
+      alarm,
+      id,
+      validCallback,
+      alarmClock: alarmClock,
+      allowWhileIdle: allowWhileIdle,
+      exact: exact,
+      wakeup: wakeup,
+      rescheduleOnReboot: rescheduleOnReboot,
+      params: params,
+    );
 
     expect(result, isTrue);
   });
@@ -137,13 +169,19 @@ void main() {
       // Callback should take a single int param.
       await expectLater(
           () => AndroidAlarmManager.periodic(
-              validDuration, validId, invalidCallback),
+                validDuration,
+                validId,
+                invalidCallback,
+              ),
           throwsAssertionError);
 
       // ID should be less than 32 bits.
       await expectLater(
           () => AndroidAlarmManager.periodic(
-              validDuration, 2147483648, validCallback),
+                validDuration,
+                2147483648,
+                validCallback,
+              ),
           throwsAssertionError);
     });
 
@@ -161,6 +199,7 @@ void main() {
       const wakeup = true;
       const rescheduleOnReboot = true;
       const period = Duration(seconds: 1);
+      const params = <String, dynamic>{'title': 'myAlarm'};
 
       testChannel.setMockMethodCallHandler((MethodCall call) async {
         expect(call.method, 'Alarm.periodic');
@@ -168,11 +207,14 @@ void main() {
         expect(call.arguments[1], allowWhileIdle);
         expect(call.arguments[2], exact);
         expect(call.arguments[3], wakeup);
-        expect(call.arguments[4],
-            (now.millisecondsSinceEpoch + period.inMilliseconds));
+        expect(
+          call.arguments[4],
+          (now.millisecondsSinceEpoch + period.inMilliseconds),
+        );
         expect(call.arguments[5], period.inMilliseconds);
         expect(call.arguments[6], rescheduleOnReboot);
         expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], params);
         return true;
       });
 
@@ -184,6 +226,69 @@ void main() {
         exact: exact,
         wakeup: wakeup,
         rescheduleOnReboot: rescheduleOnReboot,
+        params: params,
+      );
+
+      expect(result, isTrue);
+    });
+
+    test('throws if params not parsable, works if params parsable', () async {
+      final now = DateTime(1993);
+      const rawHandle = 4;
+      AndroidAlarmManager.setTestOverrides(
+        now: () => now,
+        getCallbackHandle: (Function _) =>
+            CallbackHandle.fromRawHandle(rawHandle),
+      );
+
+      const id = 1;
+      const period = Duration(seconds: 1);
+      final notParsableParams = <String, dynamic>{
+        'title': 'myAlarm',
+        'obj': const NotJsonParsableClass(),
+      };
+
+      expectLater(
+        () => AndroidAlarmManager.periodic(
+          period,
+          id,
+          validCallbackWithParams,
+          params: notParsableParams,
+        ),
+        throwsUnsupportedError,
+      );
+
+      final parsableParams = <String, dynamic>{
+        'title': 'myAlarm',
+        'obj': const JsonParsableClass('MyName')
+      };
+
+      testChannel.setMockMethodCallHandler((MethodCall call) async {
+        expect(call.method, 'Alarm.periodic');
+        expect(call.arguments[0], id);
+        expect(
+          call.arguments[4],
+          (now.millisecondsSinceEpoch + period.inMilliseconds),
+        );
+        expect(call.arguments[5], period.inMilliseconds);
+        expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], isA<Map>());
+        expect(
+          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          isA<JsonParsableClass>(),
+        );
+        expect(
+          JsonParsableClass.fromJson(call.arguments[8]['obj']),
+          const JsonParsableClass('MyName'),
+        );
+        return true;
+      });
+
+      final result = await AndroidAlarmManager.periodic(
+        period,
+        id,
+        validCallbackWithParams,
+        params: parsableParams,
       );
 
       expect(result, isTrue);
@@ -201,4 +306,30 @@ void main() {
 
     expect(canceled, isTrue);
   });
+}
+
+class NotJsonParsableClass {
+  const NotJsonParsableClass();
+
+  final String name = '';
+}
+
+class JsonParsableClass {
+  const JsonParsableClass(this.name);
+
+  final String name;
+
+  JsonParsableClass.fromJson(Map<String, dynamic> json) : name = json['name'];
+
+  Map<String, dynamic> toJson() => {'name': name};
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is JsonParsableClass &&
+          runtimeType == other.runtimeType &&
+          name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }

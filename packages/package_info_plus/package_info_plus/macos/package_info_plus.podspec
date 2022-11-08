@@ -3,10 +3,10 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'package_info_plus'
-  s.version          = '0.4.5'
+  s.version          = '0.0.1'
   s.summary          = 'Flutter Package Info'
   s.description      = <<-DESC
-A new flutter plugin project.
+  A macOS implementation of the package_info_plus plugin.
                        DESC
   s.homepage         = 'https://github.com/fluttercommunity/package_info_plus'
   s.license          = { :file => '../LICENSE' }

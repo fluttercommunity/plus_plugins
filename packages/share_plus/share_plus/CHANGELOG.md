@@ -1,3 +1,26 @@
+## 6.2.0
+
+ - **FIX**: return correct share result on android (#1301).
+ - **FEAT**: remove direct dependence of url_launcher (#1295).
+ - **DOCS**: #1299 document XFile.fromData (#1300).
+
+## 6.1.0
+
+ - **FIX**: export XFile (#1286).
+ - **FEAT**: share XFile created using File.fromData() (#1284).
+
+## 6.0.1
+
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: lint warnings - add missing dependency for tests (#1233).
+ - **FIX**: Show NSSharingServicePicker asynchronously on main thread (#1223).
+ - **BREAKING** **REFACTOR**: two-package federated architecture (#1238).
+
 ## 5.0.0
 
 > Note: This release has breaking changes.

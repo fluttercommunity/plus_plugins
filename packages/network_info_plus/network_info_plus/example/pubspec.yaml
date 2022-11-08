@@ -11,19 +11,13 @@ dependencies:
     path: ../
 
 dependency_overrides:
-  network_info_plus_linux:
-    path: ../../network_info_plus_linux
-  network_info_plus_macos:
-    path: ../../network_info_plus_macos
   network_info_plus_platform_interface:
     path: ../../network_info_plus_platform_interface
-  network_info_plus_web:
-    path: ../../network_info_plus_web
-  network_info_plus_windows:
-    path: ../../network_info_plus_windows
 
 dev_dependencies:
   flutter_driver:
+    sdk: flutter
+  flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter

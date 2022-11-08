@@ -1,3 +1,12 @@
+## 3.2.0
+
+ - **FIX**: export XFile (#1286).
+ - **FEAT**: share XFile created using File.fromData() (#1284).
+
+## 3.1.2
+
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
 ## 3.1.1
 
 - Add missing dart:ui import

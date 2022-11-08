@@ -45,6 +45,10 @@ jobs:
   android_integration_test:
     runs-on: macos-latest
     timeout-minutes: 30
+    strategy:
+      matrix:
+        android-api-level: [ 21, 26, 32 ]
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v3
@@ -64,9 +68,11 @@ jobs:
       - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          arch: x86_64
+          api-level: ${{ matrix.android-api-level }}
+          cores: 3
           target: google_apis
+          arch: x86_64
+          force-avd-creation: false
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android battery_plus_example
 
@@ -94,7 +100,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v1
+        uses: futureware-tech/simulator-action@v2
         with:
           model: "iPhone 8"
       - name: "Run Integration Test"

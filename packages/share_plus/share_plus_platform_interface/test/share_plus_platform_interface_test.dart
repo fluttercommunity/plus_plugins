@@ -4,7 +4,6 @@
 
 import 'dart:io';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
@@ -163,10 +162,7 @@ void main() {
       () => SharePlatform.instance.shareFilesWithResult(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
-    expect(
-      () => sharePlatform.shareXFiles([XFile('')]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
+
     verifyZeroInteractions(mockChannel);
   });
 

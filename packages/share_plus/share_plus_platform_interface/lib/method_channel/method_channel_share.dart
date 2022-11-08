@@ -3,15 +3,18 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
+
 // Keep dart:ui for retrocompatiblity with Flutter <3.3.0
 // ignore: unnecessary_import
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
-import 'package:mime/mime.dart' show lookupMimeType;
+import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 /// Plugin for summoning a platform share sheet.
 class MethodChannelShare extends SharePlatform {
@@ -141,17 +144,56 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-  }) {
-    final mimeTypes =
-        files.map((e) => e.mimeType ?? _mimeTypeForPath(e.path)).toList();
+  }) async {
+    final filesWithPath = await _getFiles(files);
+
+    final mimeTypes = filesWithPath
+        .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
+        .toList();
 
     return shareFilesWithResult(
-      files.map((e) => e.path).toList(),
+      filesWithPath.map((e) => e.path).toList(),
       mimeTypes: mimeTypes,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
     );
+  }
+
+  /// if file doesn't contain path
+  /// then make new file in TemporaryDirectory and return with path
+  ///
+  /// the system will automatically delete files in this
+  /// TemporaryDirectory as disk space is needed elsewhere on the device
+  Future<List<XFile>> _getFiles(List<XFile> files) async {
+    if (files.any((element) => element.path.isEmpty)) {
+      final newFiles = <XFile>[];
+
+      final String tempPath = (await getTemporaryDirectory()).path;
+
+      const uuid = Uuid();
+      for (final XFile element in files) {
+        if (element.path.isEmpty) {
+          final name = uuid.v4();
+
+          final extension =
+              extensionFromMime(element.mimeType ?? 'octet-stream');
+
+          final path = '$tempPath/$name.$extension';
+          final file = File(path);
+
+          await file.writeAsBytes(await element.readAsBytes());
+
+          newFiles.add(XFile(path));
+        } else {
+          newFiles.add(element);
+        }
+      }
+
+      return newFiles;
+    } else {
+      return files;
+    }
   }
 
   static String _mimeTypeForPath(String path) {

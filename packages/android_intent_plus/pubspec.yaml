@@ -1,6 +1,6 @@
 name: android_intent_plus
 description: Flutter plugin for launching Android Intents. Not supported on iOS.
-version: 3.1.4
+version: 3.1.5
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/android_intent_plus

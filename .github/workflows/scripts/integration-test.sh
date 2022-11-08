@@ -13,6 +13,7 @@ fi
 
 if [ "$ACTION" == "linux" ]
 then
+  sudo apt-get update
   sudo apt-get install ninja-build libgtk-3-dev
   # Testrunner is headless. Required create virtual display for the linux tests to run.
   export DISPLAY=:99

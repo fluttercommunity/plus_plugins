@@ -37,6 +37,7 @@ fi
 if [ "$ACTION" == "linux" ]
 then
   melos bootstrap --scope="$PLUGIN_SCOPE"
+  sudo apt-get update
   sudo apt-get install ninja-build libgtk-3-dev
   flutter doctor -v
   melos exec -c 1 --scope="$PLUGIN_EXAMPLE_SCOPE" \

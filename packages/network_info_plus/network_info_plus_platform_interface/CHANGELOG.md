@@ -1,3 +1,7 @@
+## 1.1.3
+
+ - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+
 ## 1.1.2
 
 - Bump platform plugin_platform_interface to 2.1.2

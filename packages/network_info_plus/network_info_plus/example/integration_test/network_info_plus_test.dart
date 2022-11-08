@@ -14,27 +14,27 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('NetworkInfo test driver', () {
-    NetworkInfo _networkInfo;
+    NetworkInfo networkInfo;
 
     setUpAll(() async {
-      _networkInfo = NetworkInfo();
+      networkInfo = NetworkInfo();
     });
 
     testWidgets('test location methods, iOS only', (WidgetTester tester) async {
       if (Platform.isIOS) {
-        expect((await _networkInfo.getLocationServiceAuthorization()),
+        expect((await networkInfo.getLocationServiceAuthorization()),
             LocationAuthorizationStatus.notDetermined);
       }
     }, skip: !Platform.isIOS);
 
     testWidgets('test non-null network value', (WidgetTester tester) async {
-      expect(_networkInfo.getWifiName(), isNotNull);
-      expect(_networkInfo.getWifiBSSID(), isNotNull);
-      expect(_networkInfo.getWifiIP(), isNotNull);
-      expect(_networkInfo.getWifiIPv6(), isNotNull);
-      expect(_networkInfo.getWifiSubmask(), isNotNull);
-      expect(_networkInfo.getWifiGatewayIP(), isNotNull);
-      expect(_networkInfo.getWifiBroadcast(), isNotNull);
+      expect(networkInfo.getWifiName(), isNotNull);
+      expect(networkInfo.getWifiBSSID(), isNotNull);
+      expect(networkInfo.getWifiIP(), isNotNull);
+      expect(networkInfo.getWifiIPv6(), isNotNull);
+      expect(networkInfo.getWifiSubmask(), isNotNull);
+      expect(networkInfo.getWifiGatewayIP(), isNotNull);
+      expect(networkInfo.getWifiBroadcast(), isNotNull);
     });
   });
 }

@@ -56,6 +56,8 @@ Then in Dart code add:
 ```dart
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
+// Be sure to annotate your callback function to avoid issues in release mode on Flutter >= 3.3.0
+@pragma('vm:entry-point')
 static void printHello() {
   final DateTime now = DateTime.now();
   final int isolateId = Isolate.current.hashCode;
