@@ -68,4 +68,54 @@ void main() {
     expect(info.buildSignature, 'deadbeef');
     expect(info.installerStore, null);
   });
+
+  test('equals checks for value equality', () async {
+    final info1 = PackageInfo(
+        appName: 'package_info_example',
+        buildNumber: '1',
+        packageName: 'io.flutter.plugins.packageinfoexample',
+        version: '1.0',
+        buildSignature: '',
+        installerStore: null);
+    final info2 = PackageInfo(
+        appName: 'package_info_example',
+        buildNumber: '1',
+        packageName: 'io.flutter.plugins.packageinfoexample',
+        version: '1.0',
+        buildSignature: '',
+        installerStore: null);
+    expect(info1, info2);
+  });
+
+  test('hashCode checks for value equality', () async {
+    final info1 = PackageInfo(
+        appName: 'package_info_example',
+        buildNumber: '1',
+        packageName: 'io.flutter.plugins.packageinfoexample',
+        version: '1.0',
+        buildSignature: '',
+        installerStore: null);
+    final info2 = PackageInfo(
+        appName: 'package_info_example',
+        buildNumber: '1',
+        packageName: 'io.flutter.plugins.packageinfoexample',
+        version: '1.0',
+        buildSignature: '',
+        installerStore: null);
+    expect(info1.hashCode, info2.hashCode);
+  });
+
+  test('toString returns a string representation', () async {
+    final info = PackageInfo(
+        appName: 'package_info_example',
+        buildNumber: '1',
+        packageName: 'io.flutter.plugins.packageinfoexample',
+        version: '1.0',
+        buildSignature: '',
+        installerStore: null);
+    expect(
+      info.toString(),
+      'PackageInfo(appName: package_info_example, buildNumber: 1, packageName: io.flutter.plugins.packageinfoexample, version: 1.0, buildSignature: , installerStore: null)',
+    );
+  });
 }
