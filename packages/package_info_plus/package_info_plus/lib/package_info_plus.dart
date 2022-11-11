@@ -89,4 +89,32 @@ class PackageInfo {
       installerStore: installerStore,
     );
   }
+
+  /// Overwrite equals for value equality
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PackageInfo &&
+          runtimeType == other.runtimeType &&
+          appName == other.appName &&
+          packageName == other.packageName &&
+          version == other.version &&
+          buildNumber == other.buildNumber &&
+          buildSignature == other.buildSignature &&
+          installerStore == other.installerStore;
+
+  /// Overwrite hashCode for value equality
+  @override
+  int get hashCode =>
+      appName.hashCode ^
+      packageName.hashCode ^
+      version.hashCode ^
+      buildNumber.hashCode ^
+      buildSignature.hashCode ^
+      installerStore.hashCode;
+
+  @override
+  String toString() {
+    return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore)';
+  }
 }
