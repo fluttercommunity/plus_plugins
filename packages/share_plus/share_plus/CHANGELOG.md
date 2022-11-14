@@ -1,3 +1,8 @@
+## 6.3.0
+
+ - **FIX**: remove `canLaunch` check (#1315).
+ - **FEAT**: Show destination for share with result in example, update example UI (#1314).
+
 ## 6.2.0
 
  - **FIX**: return correct share result on android (#1301).
