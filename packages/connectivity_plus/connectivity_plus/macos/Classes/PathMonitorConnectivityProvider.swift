@@ -17,6 +17,8 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
         return .cellular
       } else if path.usesInterfaceType(.wiredEthernet) {
         return .wiredEthernet
+      } else if path.usesInterfaceType(.other) {
+        return .vpn
       }
     }
     return .none
