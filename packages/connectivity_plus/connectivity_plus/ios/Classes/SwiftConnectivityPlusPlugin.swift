@@ -58,6 +58,8 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
       return "mobile"
     case .wiredEthernet:
       return "ethernet"
+    case .vpn:
+        return "vpn"
     case .none:
       return "none"
     }
