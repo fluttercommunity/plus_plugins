@@ -19,6 +19,11 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
         // .wiredEthernet is available in simulator
         // but for consistency it is probably correct to report .wifi
         return .wifi
+      } else if path.usesInterfaceType(.other) {
+        // path.status == .satisfied means that the network is available
+        // and .other is available in simulator
+        // for consistency, it would probably be correct to report .vpn
+        return .vpn
       }
     }
     return .none
