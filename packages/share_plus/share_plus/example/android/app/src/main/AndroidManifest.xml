@@ -8,7 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="share_example">
         <activity
-            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:name="io.flutter.embedding.android.FlutterFragmentActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection"
             android:exported="true"
             android:hardwareAccelerated="true"
