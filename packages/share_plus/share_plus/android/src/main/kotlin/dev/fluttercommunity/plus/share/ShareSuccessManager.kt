@@ -69,7 +69,11 @@ internal class ShareSuccessManager(private val context: Context) : ActivityResul
      * the share result.
      */
     companion object {
-        const val ACTIVITY_CODE = 17062003
+        /**
+         * When the application's activity is [androidx.fragment.app.FragmentActivity], requestCode can only use the lower 16 bits.
+         * @see androidx.fragment.app.FragmentActivity.validateRequestPermissionsRequestCode
+         */
+        const val ACTIVITY_CODE = 0x5873
         const val RESULT_UNAVAILABLE = "dev.fluttercommunity.plus/share/unavailable"
     }
 }
