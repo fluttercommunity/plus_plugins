@@ -11,7 +11,7 @@
 @implementation ConnectivityPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   if (registrar) {
-      [SwiftConnectivityPlusPlugin registerWithRegistrar:registrar];
+    [SwiftConnectivityPlusPlugin registerWithRegistrar:registrar];
   }
 }
 @end
