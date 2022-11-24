@@ -16,5 +16,10 @@ enum ConnectivityResult {
   none,
 
   /// VPN: Device connected to a VPN
-  vpn
+  ///
+  /// Note that on iOS and macOS comes [other], not [vpn]
+  vpn,
+
+  /// OTHER: Device connected to any unknown network
+  other
 }
