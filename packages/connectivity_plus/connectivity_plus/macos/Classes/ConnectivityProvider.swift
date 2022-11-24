@@ -5,7 +5,7 @@ public enum ConnectivityType {
   case wiredEthernet
   case wifi
   case cellular
-  case vpn
+  case other
 }
 
 public protocol ConnectivityProvider: NSObjectProtocol {

@@ -10,6 +10,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   public var currentConnectivityType: ConnectivityType {
     let path = ensurePathMonitor().currentPath
+    // .satisfied means that the network is available
     if path.status == .satisfied {
       if path.usesInterfaceType(.wifi) {
         return .wifi
@@ -18,7 +19,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
       } else if path.usesInterfaceType(.wiredEthernet) {
         return .wiredEthernet
       } else if path.usesInterfaceType(.other) {
-        return .vpn
+        return .other
       }
     }
     return .none

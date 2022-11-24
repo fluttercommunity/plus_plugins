@@ -59,8 +59,8 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
       return "mobile"
     case .wiredEthernet:
       return "ethernet"
-    case .vpn:
-      return "vpn"
+    case .other:
+      return "other"
     case .none:
       return "none"
     }
