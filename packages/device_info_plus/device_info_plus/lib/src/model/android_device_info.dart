@@ -32,6 +32,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.isPhysicalDevice,
     required List<String> systemFeatures,
     required this.displayMetrics,
+    required this.serialNumber,
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -117,6 +118,12 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// Information about the current android display.
   final AndroidDisplayMetrics displayMetrics;
 
+  /// Hardware serial number of the device, if available
+  ///
+  /// There are special restrictions on this identifier, more info here:
+  /// https://developer.android.com/reference/android/os/Build#getSerial()
+  final String serialNumber;
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
@@ -144,6 +151,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
       displayMetrics: AndroidDisplayMetrics._fromMap(
           map['displayMetrics']?.cast<String, dynamic>() ?? {}),
+      serialNumber: map['serialNumber'],
     );
   }
 

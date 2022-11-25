@@ -42,4 +42,5 @@ const fakeAndroidDeviceInfo = <String, dynamic>{
   'supported64BitAbis': fakeSupported64BitAbis,
   'supported32BitAbis': fakeSupported32BitAbis,
   'displayMetrics': fakeDisplayMetrics,
+  'serialNumber': 'SERIAL',
 };
