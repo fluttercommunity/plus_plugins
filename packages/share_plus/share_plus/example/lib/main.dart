@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:file_selector/file_selector.dart'
     hide XFile; // hides to test if share_plus exports XFile
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart'
@@ -80,9 +81,10 @@ class DemoAppState extends State<DemoApp> {
                 label: const Text('Add image'),
                 onPressed: () async {
                   // Using `package:image_picker` to get image from gallery.
-                  if (Platform.isMacOS ||
-                      Platform.isLinux ||
-                      Platform.isWindows) {
+                  if (!kIsWeb &&
+                      (Platform.isMacOS ||
+                          Platform.isLinux ||
+                          Platform.isWindows)) {
                     // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
                     const XTypeGroup typeGroup = XTypeGroup(
                       label: 'images',
