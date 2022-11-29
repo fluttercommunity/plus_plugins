@@ -22,6 +22,11 @@ class IosDeviceInfo extends BaseDeviceInfo {
   }) : super(data);
 
   /// Device name.
+  ///
+  /// On iOS < 16 returns user-assigned device name
+  /// On iOS >= 16 returns a generic device name if project has
+  /// no entitlement to get user-assigned device name.
+  /// See: https://developer.apple.com/documentation/uikit/uidevice/1620015-name
   final String? name;
 
   /// The name of the current operating system.
