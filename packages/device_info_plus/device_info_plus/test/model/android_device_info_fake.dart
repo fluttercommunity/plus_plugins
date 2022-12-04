@@ -32,7 +32,7 @@ const fakeAndroidDeviceInfo = <String, dynamic>{
   'product': 'product',
   'display': 'display',
   'hardware': 'hardware',
-  'isPhysicalDevice': true,
+  'isPhysicalDevice': 'true',
   'bootloader': 'bootloader',
   'fingerprint': 'fingerprint',
   'manufacturer': 'manufacturer',
