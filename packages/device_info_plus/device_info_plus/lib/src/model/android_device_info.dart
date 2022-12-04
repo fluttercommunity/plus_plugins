@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:developer';
 import 'dart:math' as math show sqrt;
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
 
@@ -140,7 +141,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       supportedAbis: _fromList(map['supportedAbis'] ?? []),
       tags: map['tags'],
       type: map['type'],
-      isPhysicalDevice: map['isPhysicalDevice'],
+      isPhysicalDevice: map['isPhysicalDevice'] == 'true',
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
       displayMetrics: AndroidDisplayMetrics._fromMap(
           map['displayMetrics']?.cast<String, dynamic>() ?? {}),
