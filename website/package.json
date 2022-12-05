@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "prettier": "^2.7.1",
-    "spellchecker-cli": "^6.0.2",
+    "spellchecker-cli": "^6.1.0",
     "typescript": "^4.8.4"
   }
 }
