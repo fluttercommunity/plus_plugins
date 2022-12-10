@@ -42,5 +42,5 @@ battery.onBatteryStateChanged.listen((BatteryState state) {
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/battery_plus/latest/battery_plus/battery_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/battery_plus/latest/battery_plus/battery_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/battery_plus/overview)

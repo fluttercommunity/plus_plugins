@@ -89,5 +89,5 @@ Other than the approximate "downlink" speed, where available, and due to securit
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/connectivity_plus/latest/connectivity_plus/connectivity_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/connectivity_plus/latest/connectivity_plus/connectivity_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/connectivity_plus/overview)

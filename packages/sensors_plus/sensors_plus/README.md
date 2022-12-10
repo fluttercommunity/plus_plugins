@@ -69,5 +69,5 @@ sensor data.
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/sensors_plus/latest/sensors_plus/sensors_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/sensors_plus/latest/sensors_plus/sensors_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/sensors_plus/overview)

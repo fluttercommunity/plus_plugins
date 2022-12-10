@@ -142,5 +142,5 @@ flutter driver test_driver/android_alarm_manager_plus_e2e.dart
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/android_alarm_manager_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/android_alarm_manager_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/android_alarm_manager_plus/overview/)

@@ -65,6 +65,6 @@ See https://github.com/fluttercommunity/plus_plugins/issues/309
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
 

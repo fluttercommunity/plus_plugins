@@ -121,6 +121,6 @@ See the `main.dart` in the `example` for a complete example.
 
 ## Learn more
 
-- [API Documentation](https://pub.dev/documentation/share_plus/latest/share_plus/share_plus-library.html).
+- [API Documentation](https://pub.dev/documentation/share_plus/latest/share_plus/share_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/share_plus/overview)
 
