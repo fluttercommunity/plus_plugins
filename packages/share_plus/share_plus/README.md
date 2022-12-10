@@ -67,15 +67,13 @@ package.
 Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
 ```
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
-
 ## Known Issues
 
 ### Sharing data created with XFile.fromData
 
 When sharing data created with `XFile.fromData`, the plugin will write a temporal file inside the cache directory of the app, so it can be shared.
 
-Althouth the OS should take care of deleting those files, it is advised, that you clean up this data once in a while (e.g. on app start).
+Although the OS should take care of deleting those files, it is advised, that you clean up this data once in a while (e.g. on app start).
 
 You can access this directory using [path_provider](https://pub.dev/packages/path_provider) [getTemporaryDirectory](https://pub.dev/documentation/path_provider/latest/path_provider/getTemporaryDirectory.html).
 
@@ -120,4 +118,9 @@ await Share.share(
 ```
 
 See the `main.dart` in the `example` for a complete example.
+
+## Learn more
+
+[API Documentation](https://pub.dev/documentation/share_plus/latest/share_plus/share_plus-library.html).
+[Plugin documentation website](https://plus.fluttercommunity.dev/docs/share_plus/overview)
 

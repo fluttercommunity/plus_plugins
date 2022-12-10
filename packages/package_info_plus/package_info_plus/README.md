@@ -49,8 +49,7 @@ String buildNumber = packageInfo.buildNumber;
 Flutter build tools allow only digits and `.` (dot) symbols to be used in `version`
 of `pubspec.yaml` on iOS/MacOS to comply with official version format from Apple.
 
-More info available
-in [this comment](https://github.com/fluttercommunity/plus_plugins/issues/389#issuecomment-1106764429)
+More info available in [this comment](https://github.com/fluttercommunity/plus_plugins/issues/389#issuecomment-1106764429)
 
 #### I have changed version in pubspec.yaml and plugin returns wrong info
 
@@ -64,6 +63,8 @@ string in `pubspec.yaml`. Clean the Xcode build folder with:
 Calling to `PackageInfo.fromPlatform()` before the `runApp()` call will cause an exception.
 See https://github.com/fluttercommunity/plus_plugins/issues/309
 
-Check out our documentation website to learn
-more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
+## Learn more
+
+[API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html).
+[Plugin documentation website](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
 

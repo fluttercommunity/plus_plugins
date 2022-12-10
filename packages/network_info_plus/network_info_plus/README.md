@@ -23,20 +23,20 @@ The functionality is not supported on Web.
 
 ## Usage
 
-You can get wi-fi related information using:
+You can get Wi-Fi related information using:
 
 ```dart
 import 'package:network_info_plus/network_info_plus.dart';
 
 final info = NetworkInfo();
 
-var wifiName = await info.getWifiName(); // "FooNetwork"
-var wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
-var wifiIP = await info.getWifiIP(); // 192.168.1.43
-var wifiIPv6 = await info.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
-var wifiSubmask = await info.getWifiSubmask(); // 255.255.255.0
-var wifiBroadcast = await info.getWifiBroadcast(); // 192.168.1.255
-var wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
+final wifiName = await info.getWifiName(); // "FooNetwork"
+final wifiBSSID = await info.getWifiBSSID(); // 11:22:33:44:55:66
+final wifiIP = await info.getWifiIP(); // 192.168.1.43
+final wifiIPv6 = await info.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+final wifiSubmask = await info.getWifiSubmask(); // 255.255.255.0
+final wifiBroadcast = await info.getWifiBroadcast(); // 192.168.1.255
+final wifiGateway = await info.getWifiGatewayIP(); // 192.168.1.1
 ```
 
 ### Device permissions
@@ -57,7 +57,9 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 - If you use device with Android 12 (API level 31) and newer be sure that your app has ACCESS_NETWORK_STATE permission.
 
-**This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default**
+> **Note**
+>
+> This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default
 
 #### iOS 12
 
@@ -92,4 +94,7 @@ Make sure to add the following keys to your _Info.plist_ file, located in `<proj
 - `NSLocationAlwaysAndWhenInUseUsageDescription` - describe why the app needs access to the user’s location information all the time (foreground and background). This is called _Privacy - Location Always and When In Use Usage Description_ in the visual editor.
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+## Learn more
+
+[API Documentation](https://pub.dev/documentation/network_info_plus/latest/network_info_plus/network_info_plus-library.html).
+[Plugin documentation website](https://plus.fluttercommunity.dev/docs/network_info_plus/overview)
