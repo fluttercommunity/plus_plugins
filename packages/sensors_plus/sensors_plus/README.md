@@ -19,8 +19,7 @@ sensors.
 
 ## Usage
 
-To use this plugin, add `sensors_plus` as a [dependency in your pubspec.yaml
-file](https://plus.fluttercommunity.dev/docs/overview).
+Add `sensors_plus` as a dependency in your pubspec.yaml file.
 
 This will expose such classes of sensor events through a set of streams:
 
@@ -68,4 +67,7 @@ magnetometerEvents.listen((MagnetometerEvent event) {
 Also see the `example` subdirectory for an example application that uses the
 sensor data.
 
-Check out our website to learn more: [Plus Plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/sensors_plus/latest/sensors_plus/sensors_plus-library.html).
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/sensors_plus/overview)

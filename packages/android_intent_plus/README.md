@@ -95,5 +95,5 @@ https://developer.android.com/training/package-visibility/automatic
 
 ## Learn more
 
-[API Documentation](https://pub.dev/documentation/android_intent_plus/latest/).
-[Plugin documentation website](https://plus.fluttercommunity.dev/docs/android_intent_plus/overview)
+- [API Documentation](https://pub.dev/documentation/android_intent_plus/latest/).
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/android_intent_plus/overview)
