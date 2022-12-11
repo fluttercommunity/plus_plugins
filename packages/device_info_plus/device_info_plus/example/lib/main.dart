@@ -108,6 +108,7 @@ class _MyAppState extends State<MyApp> {
       'displayHeightInches': build.displayMetrics.heightInches,
       'displayXDpi': build.displayMetrics.xDpi,
       'displayYDpi': build.displayMetrics.yDpi,
+      'serialNumber': build.serialNumber,
     };
   }
 
