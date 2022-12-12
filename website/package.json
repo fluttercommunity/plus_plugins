@@ -21,13 +21,13 @@
     "defaults"
   ],
   "dependencies": {
-    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/core": "^2.2.0",
     "@docusaurus/plugin-google-gtag": "^2.2.0",
     "@docusaurus/preset-classic": "^2.1.0",
     "@types/lodash.get": "^4.4.7",
     "@types/react": "^17.0.50",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.1.3",
+    "axios": "^1.2.1",
     "classnames": "^2.3.2",
     "compare-versions": "^5.0.1",
     "docusaurus-plugin-sass": "^0.2.2",
@@ -36,7 +36,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.4.3",
-    "sass": "^1.56.0"
+    "sass": "^1.56.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.2.0",
@@ -46,9 +46,9 @@
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react": "^7.31.11",
     "prettier": "^2.7.1",
-    "spellchecker-cli": "^6.0.2",
+    "spellchecker-cli": "^6.1.0",
     "typescript": "^4.8.4"
   }
 }

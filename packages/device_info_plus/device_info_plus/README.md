@@ -53,6 +53,11 @@ final deviceInfo = await deviceInfoPlugin.deviceInfo;
 final allInfo = deviceInfo.data;
 ```
 
+> **Note**
+>
+> To get serial number on Android your app needs to meet one of official [requirements](https://developer.android.com/reference/android/os/Build#getSerial())
+> In case the app doesn't meet any of requirements plugin will return `unknown`.
+
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/device_info_plus/latest/device_info_plus/device_info_plus-library.html)
