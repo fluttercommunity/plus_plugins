@@ -23,7 +23,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
         with:
-          ref: refs/pull/${{ github.event.number }}/merge
+          ref: ${{ github.ref }}
       - name: Install Dependencies
         run: npm ci
       - name: Build website
@@ -43,7 +43,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
         with:
-          ref: refs/pull/${{ github.event.number }}/merge
+          ref: ${{ github.ref }}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
