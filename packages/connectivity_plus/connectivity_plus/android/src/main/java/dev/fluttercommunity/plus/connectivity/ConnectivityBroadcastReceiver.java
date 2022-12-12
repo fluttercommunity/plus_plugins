@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -45,6 +46,12 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
           new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network) {
+              sendEvent();
+            }
+
+            @Override
+            public void onCapabilitiesChanged(
+                Network network, NetworkCapabilities networkCapabilities) {
               sendEvent();
             }
 
