@@ -18,7 +18,7 @@ internal class StreamHandlerImpl(
     }
 
     override fun onListen(arguments: Any?, events: EventSink) {
-        // todo check if sensor of type {sensorType} exists before setting the event stream
+        // todo check if there exists a sensor of type {sensorType} before setting the event stream
         sensorEventListener = createSensorEventListener(events)
         sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
