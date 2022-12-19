@@ -56,7 +56,6 @@ module.exports = {
   },
   plugins: [
     require.resolve('docusaurus-plugin-sass'),
-    // require.resolve('@docusaurus/plugin-ideal-image'),
     path.resolve(__dirname, './docusaurus-plugins/favicon-tags'),
     path.resolve(__dirname, './docusaurus-plugins/source-versions'),
   ],
