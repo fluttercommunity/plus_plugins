@@ -18,9 +18,8 @@ enum ConnectivityResult {
   /// VPN: Device connected to a VPN
   ///
   /// Note for iOS and macOS:
-  /// There is no separate network interface type for [vpn],
-  /// it returns [other] type.
-  /// Both in the simulator and on any device.
+  /// There is no separate network interface type for [vpn].
+  /// It returns [other] on any device (also simulator).
   vpn,
 
   /// Other: Device is connected to an unknown network
