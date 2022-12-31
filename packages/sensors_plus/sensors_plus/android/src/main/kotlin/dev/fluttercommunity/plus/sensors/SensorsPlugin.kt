@@ -3,6 +3,7 @@ package dev.fluttercommunity.plus.sensors
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.util.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -30,6 +31,8 @@ class SensorsPlugin : FlutterPlugin {
 
     private fun setupEventChannels(context: Context, messenger: BinaryMessenger) {
         val sensorsManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        Log.d("Test", sensorsManager.getSensorList(Sensor.TYPE_MAGNETIC_FIELD).toString())
 
         accelerometerChannel = EventChannel(messenger, ACCELEROMETER_CHANNEL_NAME)
         accelerationStreamHandler = StreamHandlerImpl(

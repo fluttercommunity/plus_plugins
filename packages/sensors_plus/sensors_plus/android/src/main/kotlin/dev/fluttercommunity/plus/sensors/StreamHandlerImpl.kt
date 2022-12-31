@@ -9,22 +9,32 @@ import io.flutter.plugin.common.EventChannel.EventSink
 
 internal class StreamHandlerImpl(
         private val sensorManager: SensorManager,
-        sensorType: Int
+        private val sensorType: Int
 ) : EventChannel.StreamHandler {
     private var sensorEventListener: SensorEventListener? = null
 
-    private val sensor: Sensor by lazy {
-        sensorManager.getDefaultSensor(sensorType)
-    }
+    private var sensor: Sensor? = null
 
     override fun onListen(arguments: Any?, events: EventSink) {
         // todo check if there exists a sensor of type {sensorType} before setting the event stream
-        sensorEventListener = createSensorEventListener(events)
-        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        if (sensor == null) {
+            sensor = if (sensorManager.getDefaultSensor(sensorType) != null) {
+                sensorManager.getDefaultSensor(sensorType)
+            } else {
+                null
+            }
+
+            if (sensor != null) {
+                sensorEventListener = createSensorEventListener(events)
+                sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+            }
+        }
     }
 
     override fun onCancel(arguments: Any?) {
-        sensorManager.unregisterListener(sensorEventListener)
+        if (sensor != null) {
+            sensorManager.unregisterListener(sensorEventListener)
+        }
     }
 
     private fun createSensorEventListener(events: EventSink): SensorEventListener {
