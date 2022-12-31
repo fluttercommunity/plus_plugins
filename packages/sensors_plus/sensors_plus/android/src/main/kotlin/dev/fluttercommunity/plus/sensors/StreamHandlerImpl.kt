@@ -17,23 +17,33 @@ internal class StreamHandlerImpl(
 
     override fun onListen(arguments: Any?, events: EventSink) {
         // todo check if there exists a sensor of type {sensorType} before setting the event stream
-        if (sensor == null) {
-            sensor = if (sensorManager.getDefaultSensor(sensorType) != null) {
-                sensorManager.getDefaultSensor(sensorType)
-            } else {
-                null
-            }
+        when (sensor) {
+            null -> {
+                sensor = when (sensorManager.getDefaultSensor(sensorType)) {
+                    null -> null
+                    else -> {
+                        sensorManager.getDefaultSensor(sensorType)
+                    }
+                }
 
-            if (sensor != null) {
-                sensorEventListener = createSensorEventListener(events)
-                sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+                when (sensor) {
+                    null -> {}
+                    else -> {
+                        sensorEventListener = createSensorEventListener(events)
+                        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+                    }
+                }
             }
+            else -> {}
         }
     }
 
     override fun onCancel(arguments: Any?) {
-        if (sensor != null) {
-            sensorManager.unregisterListener(sensorEventListener)
+        when (sensor) {
+            null -> {}
+            else -> {
+                sensorManager.unregisterListener(sensorEventListener)
+            }
         }
     }
 
