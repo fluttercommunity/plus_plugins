@@ -144,6 +144,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _accelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -153,6 +165,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _gyroscopeValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Gyroscope Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -162,6 +186,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _userAccelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support User Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -171,6 +207,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _magnetometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Magnetometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
   }

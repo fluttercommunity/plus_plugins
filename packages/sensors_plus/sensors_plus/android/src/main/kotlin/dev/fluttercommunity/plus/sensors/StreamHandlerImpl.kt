@@ -16,34 +16,42 @@ internal class StreamHandlerImpl(
     private var sensor: Sensor? = null
 
     override fun onListen(arguments: Any?, events: EventSink) {
-        // todo check if there exists a sensor of type {sensorType} before setting the event stream
         when (sensor) {
             null -> {
                 sensor = when (sensorManager.getDefaultSensor(sensorType)) {
                     null -> null
-                    else -> {
-                        sensorManager.getDefaultSensor(sensorType)
-                    }
+                    else -> sensorManager.getDefaultSensor(sensorType)
                 }
-
                 when (sensor) {
-                    null -> {}
+                    null -> events.error(
+                            "", // todo complete error code here
+                            "Sensor Not Found",
+                            "It seems that your device doesn't support ${getSensorName(sensorType)} Sensor"
+                        )
                     else -> {
                         sensorEventListener = createSensorEventListener(events)
                         sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
                     }
                 }
             }
-            else -> {}
+            else -> {} // todo not needed sensor var will always be null at first
         }
     }
 
     override fun onCancel(arguments: Any?) {
         when (sensor) {
             null -> {}
-            else -> {
-                sensorManager.unregisterListener(sensorEventListener)
-            }
+            else -> sensorManager.unregisterListener(sensorEventListener)
+        }
+    }
+
+    private fun getSensorName(sensorType: Int) : String {
+        return when (sensorType) {
+            Sensor.TYPE_ACCELEROMETER -> "Accelerometer"
+            Sensor.TYPE_LINEAR_ACCELERATION -> "User Accelerometer"
+            Sensor.TYPE_GYROSCOPE -> "Gyroscope"
+            Sensor.TYPE_MAGNETIC_FIELD -> "Magnetometer"
+            else -> "Undefined"
         }
     }
 
