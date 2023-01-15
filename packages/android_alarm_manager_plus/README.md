@@ -49,7 +49,6 @@ Next, within the `<application></application>` tags, add:
 </receiver>
 
 ```
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
 
 Then in Dart code add:
 
@@ -140,3 +139,8 @@ To run the Flutter Driver tests, cd into `example` and run:
 ```
 flutter driver test_driver/android_alarm_manager_plus_e2e.dart
 ```
+
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/android_alarm_manager_plus-library.html)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/android_alarm_manager_plus/overview/)

@@ -57,3 +57,22 @@ of integers or strings.
 > can be used for deep linking. Url launcher can also be used for creating
 > ACTION_VIEW intents for Android, however this intent plugin also allows
 > clients to set extra parameters for the intent.
+
+## Android 11 package visibility
+
+Android 11 introduced new permissions for package visibility.
+If you plan to use `canResolveActivity()` method, you need to specify queries in `AndroidManifest.xml` with specific package names:
+
+https://developer.android.com/training/package-visibility/declaring
+
+you can read more about package visibility on Android on Android Developers blog:
+
+https://medium.com/androiddevelopers/package-visibility-in-android-11-cc857f221cd9
+
+or Official Documentation
+
+https://developer.android.com/training/package-visibility
+
+please note that some packages are visible automatically and you don't have to specify queries:
+
+https://developer.android.com/training/package-visibility/automatic

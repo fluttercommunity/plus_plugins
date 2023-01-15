@@ -20,7 +20,7 @@ A Flutter plugin to access various information about the battery of the device t
 
 ## Usage
 
-To use this plugin, add `battery_plus` as a [dependency in your pubspec.yaml file](https://plus.fluttercommunity.dev/docs/overview).
+Add `battery_plus` as a dependency in your pubspec.yaml file.
 
 ### Example
 
@@ -39,3 +39,8 @@ battery.onBatteryStateChanged.listen((BatteryState state) {
   // Do something with new state
 });
 ```
+
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/battery_plus/latest/battery_plus/battery_plus-library.html)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/battery_plus/overview)
