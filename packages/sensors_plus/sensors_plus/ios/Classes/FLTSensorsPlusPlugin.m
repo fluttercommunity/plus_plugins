@@ -123,26 +123,34 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  [_motionManager
-      startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
-                           withHandler:^(CMAccelerometerData *accelerometerData,
-                                         NSError *error) {
-                             CMAcceleration acceleration =
-                                 accelerometerData.acceleration;
-                             // Multiply by gravity, and adjust sign values to
-                             // align with Android.
-                             if (_isCleanUp) {
-                               return;
-                             }
-                             sendTriplet(-acceleration.x * GRAVITY,
-                                         -acceleration.y * GRAVITY,
-                                         -acceleration.z * GRAVITY, eventSink);
-                           }];
+    switch (_accelerometerAvailable) {
+        case false: // todo error code here
+            eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Accelerometer Sensor"]);
+            break;
+        default: [_motionManager
+                  startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
+                                       withHandler:^(CMAccelerometerData *accelerometerData,
+                                                     NSError *error) {
+                                         CMAcceleration acceleration =
+                                             accelerometerData.acceleration;
+                                         // Multiply by gravity, and adjust sign values to
+                                         // align with Android.
+                                         if (_isCleanUp) {
+                                           return;
+                                         }
+                                         sendTriplet(-acceleration.x * GRAVITY,
+                                                     -acceleration.y * GRAVITY,
+                                                     -acceleration.z * GRAVITY, eventSink); }];
+            break;
+    }
   return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopAccelerometerUpdates];
+    switch (_accelerometerAvailable) {
+        case true: [_motionManager stopAccelerometerUpdates]; break;
+        default: break;
+    }
   return nil;
 }
 
@@ -157,24 +165,32 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  [_motionManager
-      startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
-                          withHandler:^(CMDeviceMotion *data, NSError *error) {
-                            CMAcceleration acceleration = data.userAcceleration;
-                            // Multiply by gravity, and adjust sign values to
-                            // align with Android.
-                            if (_isCleanUp) {
-                              return;
-                            }
-                            sendTriplet(-acceleration.x * GRAVITY,
-                                        -acceleration.y * GRAVITY,
-                                        -acceleration.z * GRAVITY, eventSink);
-                          }];
+    switch (_deviceMotionAvailable) {
+        case false: // todo error code here
+            eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support UserAccelerometer Sensor"]);
+            break;
+        default: [_motionManager
+                  startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
+                                      withHandler:^(CMDeviceMotion *data, NSError *error) {
+                                        CMAcceleration acceleration = data.userAcceleration;
+                                        // Multiply by gravity, and adjust sign values to
+                                        // align with Android.
+                                        if (_isCleanUp) {
+                                          return;
+                                        }
+                                        sendTriplet(-acceleration.x * GRAVITY,
+                                                    -acceleration.y * GRAVITY,
+                                                    -acceleration.z * GRAVITY, eventSink); }];
+            break;
+    }
   return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopDeviceMotionUpdates];
+    switch (_deviceMotionAvailable) {
+        case true: [_motionManager stopDeviceMotionUpdates]; break;
+        default: break;
+    }
   return nil;
 }
 
@@ -189,21 +205,29 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  [_motionManager
-      startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
-                  withHandler:^(CMGyroData *gyroData, NSError *error) {
-                    CMRotationRate rotationRate = gyroData.rotationRate;
-                    if (_isCleanUp) {
-                      return;
-                    }
-                    sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
-                                eventSink);
-                  }];
+    switch (_gyroAvailable) {
+        case false: // todo error code here
+            eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Gyroscope Sensor"]);
+            break;
+        default: [_motionManager
+                  startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
+                              withHandler:^(CMGyroData *gyroData, NSError *error) {
+                                CMRotationRate rotationRate = gyroData.rotationRate;
+                                if (_isCleanUp) {
+                                  return;
+                                }
+                                sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
+                                            eventSink); }];
+            break;
+    }
   return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopGyroUpdates];
+    switch (_gyroAvailable) {
+        case true: [_motionManager stopGyroUpdates]; break;
+        default: break;
+    }
   return nil;
 }
 
@@ -220,31 +244,39 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   _initMotionManager();
   // Allow iOS to present calibration interaction.
   _motionManager.showsDeviceMovementDisplay = YES;
-  [_motionManager
-      startDeviceMotionUpdatesUsingReferenceFrame:
-          // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
-          // "Using this reference frame may require device movement to
-          // calibrate the magnetometer," which is desired to ensure the
-          // DeviceMotion actually has updated, calibrated geomagnetic data.
-          CMAttitudeReferenceFrameXMagneticNorthZVertical
-                                          toQueue:[[NSOperationQueue alloc]
-                                                      init]
-                                      withHandler:^(CMDeviceMotion *motionData,
-                                                    NSError *error) {
-                                        // The `magneticField` is a
-                                        // CMCalibratedMagneticField.
-                                        CMMagneticField b =
-                                            motionData.magneticField.field;
-                                        if (_isCleanUp) {
-                                          return;
-                                        }
-                                        sendTriplet(b.x, b.y, b.z, eventSink);
-                                      }];
+    switch (_magnetometerAvailable) {
+        case false: // todo error code here
+            eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Magnetometer Sensor"]);
+            break;
+        default: [_motionManager
+                  startDeviceMotionUpdatesUsingReferenceFrame:
+                      // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
+                      // "Using this reference frame may require device movement to
+                      // calibrate the magnetometer," which is desired to ensure the
+                      // DeviceMotion actually has updated, calibrated geomagnetic data.
+                      CMAttitudeReferenceFrameXMagneticNorthZVertical
+                                                      toQueue:[[NSOperationQueue alloc]
+                                                                  init]
+                                                  withHandler:^(CMDeviceMotion *motionData,
+                                                                NSError *error) {
+                                                    // The `magneticField` is a
+                                                    // CMCalibratedMagneticField.
+                                                    CMMagneticField b =
+                                                        motionData.magneticField.field;
+                                                    if (_isCleanUp) {
+                                                      return;
+                                                    }
+                                                    sendTriplet(b.x, b.y, b.z, eventSink); }];
+            break;
+    }
   return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopDeviceMotionUpdates];
+    switch (_magnetometerAvailable) {
+        case true: [_motionManager stopDeviceMotionUpdates]; break;
+        default: break;
+    }
   return nil;
 }
 

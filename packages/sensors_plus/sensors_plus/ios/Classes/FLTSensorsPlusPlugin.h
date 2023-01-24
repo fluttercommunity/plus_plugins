@@ -7,14 +7,18 @@
 @interface FLTSensorsPlusPlugin : NSObject <FlutterPlugin>
 @end
 
-@interface FLTUserAccelStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@interface FLTAccelerometerStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable;
 @end
 
-@interface FLTAccelerometerStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@interface FLTUserAccelStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable;
 @end
 
 @interface FLTGyroscopeStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable;
 @end
 
 @interface FLTMagnetometerStreamHandlerPlus : NSObject <FlutterStreamHandler>
+@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable;
 @end
