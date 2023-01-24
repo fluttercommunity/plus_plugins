@@ -123,7 +123,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-    switch (_accelerometerAvailable) {
+    switch (_motionManager.isAccelerometerAvailable) {
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Accelerometer Sensor"]);
             break;
@@ -147,7 +147,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-    switch (_accelerometerAvailable) {
+    switch (_motionManager.isAccelerometerAvailable) {
         case true: [_motionManager stopAccelerometerUpdates]; break;
         default: break;
     }
@@ -165,7 +165,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-    switch (_deviceMotionAvailable) {
+    switch (_motionManager.isDeviceMotionAvailable) {
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support UserAccelerometer Sensor"]);
             break;
@@ -187,7 +187,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-    switch (_deviceMotionAvailable) {
+    switch (_motionManager.isDeviceMotionAvailable) {
         case true: [_motionManager stopDeviceMotionUpdates]; break;
         default: break;
     }
@@ -205,7 +205,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-    switch (_gyroAvailable) {
+    switch (_motionManager.isGyroAvailable) {
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Gyroscope Sensor"]);
             break;
@@ -224,7 +224,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-    switch (_gyroAvailable) {
+    switch (_motionManager.isGyroAvailable) {
         case true: [_motionManager stopGyroUpdates]; break;
         default: break;
     }
@@ -244,7 +244,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   _initMotionManager();
   // Allow iOS to present calibration interaction.
   _motionManager.showsDeviceMovementDisplay = YES;
-    switch (_magnetometerAvailable) {
+    switch (_motionManager.isMagnetometerAvailable) {
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Magnetometer Sensor"]);
             break;
@@ -273,7 +273,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-    switch (_magnetometerAvailable) {
+    switch (_motionManager.magnetometerAvailable) {
         case true: [_motionManager stopDeviceMotionUpdates]; break;
         default: break;
     }
