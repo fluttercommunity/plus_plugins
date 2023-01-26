@@ -127,7 +127,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Accelerometer Sensor"]);
             break;
-        default: [_motionManager
+        default:
+            [_motionManager
                   startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
                                        withHandler:^(CMAccelerometerData *accelerometerData,
                                                      NSError *error) {
@@ -140,7 +141,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                          }
                                          sendTriplet(-acceleration.x * GRAVITY,
                                                      -acceleration.y * GRAVITY,
-                                                     -acceleration.z * GRAVITY, eventSink); }];
+                                                     -acceleration.z * GRAVITY, eventSink);
+                                       }];
             break;
     }
   return nil;
@@ -148,8 +150,11 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
     switch (_motionManager.isAccelerometerAvailable) {
-        case true: [_motionManager stopAccelerometerUpdates]; break;
-        default: break;
+        case true:
+            [_motionManager stopAccelerometerUpdates];
+            break;
+        default:
+            break;
     }
   return nil;
 }
@@ -169,7 +174,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support UserAccelerometer Sensor"]);
             break;
-        default: [_motionManager
+        default:
+            [_motionManager
                   startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
                                       withHandler:^(CMDeviceMotion *data, NSError *error) {
                                         CMAcceleration acceleration = data.userAcceleration;
@@ -180,7 +186,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                         }
                                         sendTriplet(-acceleration.x * GRAVITY,
                                                     -acceleration.y * GRAVITY,
-                                                    -acceleration.z * GRAVITY, eventSink); }];
+                                                    -acceleration.z * GRAVITY, eventSink);
+                                      }];
             break;
     }
   return nil;
@@ -188,8 +195,11 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
     switch (_motionManager.isDeviceMotionAvailable) {
-        case true: [_motionManager stopDeviceMotionUpdates]; break;
-        default: break;
+        case true:
+            [_motionManager stopDeviceMotionUpdates];
+            break;
+        default:
+            break;
     }
   return nil;
 }
@@ -209,7 +219,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Gyroscope Sensor"]);
             break;
-        default: [_motionManager
+        default:
+            [_motionManager
                   startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
                               withHandler:^(CMGyroData *gyroData, NSError *error) {
                                 CMRotationRate rotationRate = gyroData.rotationRate;
@@ -217,7 +228,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                   return;
                                 }
                                 sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
-                                            eventSink); }];
+                                            eventSink);
+                              }];
             break;
     }
   return nil;
@@ -225,8 +237,11 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
     switch (_motionManager.isGyroAvailable) {
-        case true: [_motionManager stopGyroUpdates]; break;
-        default: break;
+        case true:
+            [_motionManager stopGyroUpdates];
+            break;
+        default:
+            break;
     }
   return nil;
 }
@@ -248,7 +263,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
         case false: // todo error code here
             eventSink([FlutterError errorWithCode:@"" message:@"Sensor Not Found" details:@"It seems that your device doesn't support Magnetometer Sensor"]);
             break;
-        default: [_motionManager
+        default:
+            [_motionManager
                   startDeviceMotionUpdatesUsingReferenceFrame:
                       // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
                       // "Using this reference frame may require device movement to
@@ -266,7 +282,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                                     if (_isCleanUp) {
                                                       return;
                                                     }
-                                                    sendTriplet(b.x, b.y, b.z, eventSink); }];
+                                                    sendTriplet(b.x, b.y, b.z, eventSink);
+                                                  }];
             break;
     }
   return nil;
@@ -274,8 +291,11 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
     switch (_motionManager.magnetometerAvailable) {
-        case true: [_motionManager stopDeviceMotionUpdates]; break;
-        default: break;
+        case true:
+            [_motionManager stopDeviceMotionUpdates];
+            break;
+        default:
+            break;
     }
   return nil;
 }
