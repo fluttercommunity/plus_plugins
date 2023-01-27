@@ -14,8 +14,9 @@ This Flutter plugin provides an API for querying information about an applicatio
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows | | :-----: | :-: | :---: | :-: | :---: | :-----: |
-| ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| Android |  iOS  | MacOS |  Web  | Linux | Windows |
+| :-----: | :---: | :---: | :---: | :---: | :-----: |
+|✔️|✔️|✔️|✔️|✔️|✔️|
 
 ## Usage
 
