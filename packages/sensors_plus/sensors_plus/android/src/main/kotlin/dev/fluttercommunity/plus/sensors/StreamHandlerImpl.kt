@@ -8,8 +8,8 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
 internal class StreamHandlerImpl(
-        private val sensorManager: SensorManager,
-        private val sensorType: Int
+    private val sensorManager: SensorManager,
+    private val sensorType: Int
 ) : EventChannel.StreamHandler {
     private var sensorEventListener: SensorEventListener? = null
 
@@ -24,13 +24,17 @@ internal class StreamHandlerImpl(
                 }
                 when (sensor) {
                     null -> events.error(
-                            "", // todo complete error code here
-                            "Sensor Not Found",
-                            "It seems that your device doesn't support ${getSensorName(sensorType)} Sensor"
-                        )
+                        "", // todo complete error code here
+                        "Sensor Not Found",
+                        "It seems that your device doesn't support ${getSensorName(sensorType)} Sensor"
+                    )
                     else -> {
                         sensorEventListener = createSensorEventListener(events)
-                        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+                        sensorManager.registerListener(
+                            sensorEventListener,
+                            sensor,
+                            SensorManager.SENSOR_DELAY_NORMAL
+                        )
                     }
                 }
             }
@@ -45,7 +49,7 @@ internal class StreamHandlerImpl(
         }
     }
 
-    private fun getSensorName(sensorType: Int) : String {
+    private fun getSensorName(sensorType: Int): String {
         return when (sensorType) {
             Sensor.TYPE_ACCELEROMETER -> "Accelerometer"
             Sensor.TYPE_LINEAR_ACCELERATION -> "User Accelerometer"
