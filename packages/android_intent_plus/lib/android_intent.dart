@@ -37,8 +37,6 @@ class AndroidIntent {
     this.data,
     this.arguments,
     this.arrayArguments,
-    this.nestedArguments,
-    this.nestedArgumentsArrayLists,
     this.package,
     this.componentName,
     Platform? platform,
@@ -60,8 +58,6 @@ class AndroidIntent {
     this.data,
     this.arguments,
     this.arrayArguments,
-    this.nestedArguments,
-    this.nestedArgumentsArrayLists,
     this.package,
     this.componentName,
     this.type,
@@ -105,18 +101,6 @@ class AndroidIntent {
   /// will be added to the intent as in an array extra instead of of an array
   /// list.
   final Map<String, List<dynamic>>? arrayArguments;
-
-  /// This works similar as [arguments], but adds support for nested values.
-  /// [nestedArguments] works together with [nestedArgumentsArrayLists].
-  final Map<String, dynamic>? nestedArguments;
-
-  /// [nestedArgumentsArrayLists] works together with [nestedArguments].
-  /// Specify in this list the keys that must be converted to ArrayLists. Lists
-  /// that are not specified, will be converted to plain Arrays.
-  /// putIntegerArrayList or putIntegerArray
-  /// putStringArrayList or putStringArray
-  /// putParcelableArrayList or putParcelableArray
-  final List<List<String>>? nestedArgumentsArrayLists;
 
   /// Sets the [data] to only resolve within this given package.
   ///
@@ -219,9 +203,6 @@ class AndroidIntent {
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
-      if (nestedArguments != null) 'nestedArguments': nestedArguments,
-      if (nestedArgumentsArrayLists != null)
-        'nestedArgumentsArrayLists': nestedArgumentsArrayLists,
       if (package != null) ...{
         'package': package,
         if (componentName != null) 'componentName': componentName,

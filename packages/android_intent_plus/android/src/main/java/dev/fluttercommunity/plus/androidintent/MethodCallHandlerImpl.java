@@ -79,8 +79,6 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
     Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
     arguments.putAll(arrayArguments);
-    Bundle nestedArguments = NestedArguments.convertArguments((ArrayList<ArrayList<String>>) call.argument("nestedArgumentsArrayLists"), (Map<String, ?>) call.argument("nestedArguments"));
-    arguments.putAll(nestedArguments);
     String packageName = call.argument("package");
     ComponentName componentName =
         (!TextUtils.isEmpty(packageName)
@@ -163,11 +161,11 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
         bundle.putLongArray(key, (long[]) value);
       } else if (value instanceof double[]) {
         bundle.putDoubleArray(key, (double[]) value);
-      } else if (Helpers.isTypedArrayList(value, Integer.class)) {
+      } else if (isTypedArrayList(value, Integer.class)) {
         bundle.putIntegerArrayList(key, (ArrayList<Integer>) value);
-      } else if (Helpers.isTypedArrayList(value, String.class)) {
+      } else if (isTypedArrayList(value, String.class)) {
         bundle.putStringArrayList(key, (ArrayList<String>) value);
-      } else if (Helpers.isStringKeyedMap(value)) {
+      } else if (isStringKeyedMap(value)) {
         bundle.putBundle(key, convertArguments((Map<String, ?>) value));
       } else {
         throw new UnsupportedOperationException("Unsupported type " + value);
@@ -183,35 +181,35 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     }
     for (String key : arrayArguments.keySet()) {
       Object value = arrayArguments.get(key);
-      if (Helpers.isTypedArrayList(value, Boolean.class)) {
+      if (isTypedArrayList(value, Boolean.class)) {
         ArrayList<Boolean> list = (ArrayList<Boolean>) value;
         boolean[] array = new boolean[list.size()];
         for (int i = 0; i < list.size(); i++) {
           array[i] = list.get(i);
         }
         bundle.putBooleanArray(key, array);
-      } else if (Helpers.isTypedArrayList(value, Integer.class)) {
+      } else if (isTypedArrayList(value, Integer.class)) {
         ArrayList<Integer> list = (ArrayList<Integer>) value;
         int[] array = new int[list.size()];
         for (int i = 0; i < list.size(); i++) {
           array[i] = list.get(i);
         }
         bundle.putIntArray(key, array);
-      } else if (Helpers.isTypedArrayList(value, Long.class)) {
+      } else if (isTypedArrayList(value, Long.class)) {
         ArrayList<Long> list = (ArrayList<Long>) value;
         long[] array = new long[list.size()];
         for (int i = 0; i < list.size(); i++) {
           array[i] = list.get(i);
         }
         bundle.putLongArray(key, array);
-      } else if (Helpers.isTypedArrayList(value, Double.class)) {
+      } else if (isTypedArrayList(value, Double.class)) {
         ArrayList<Double> list = (ArrayList<Double>) value;
         double[] array = new double[list.size()];
         for (int i = 0; i < list.size(); i++) {
           array[i] = list.get(i);
         }
         bundle.putDoubleArray(key, array);
-      } else if (Helpers.isTypedArrayList(value, String.class)) {
+      } else if (isTypedArrayList(value, String.class)) {
         ArrayList<String> list = (ArrayList<String>) value;
         bundle.putStringArray(key, list.toArray(new String[list.size()]));
       } else {
@@ -219,5 +217,31 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       }
     }
     return bundle;
+  }
+
+  private static boolean isTypedArrayList(Object value, Class<?> type) {
+    if (!(value instanceof ArrayList)) {
+      return false;
+    }
+    ArrayList list = (ArrayList) value;
+    for (Object o : list) {
+      if (!(o == null || type.isInstance(o))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private static boolean isStringKeyedMap(Object value) {
+    if (!(value instanceof Map)) {
+      return false;
+    }
+    Map map = (Map) value;
+    for (Object key : map.keySet()) {
+      if (!(key == null || key instanceof String)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
