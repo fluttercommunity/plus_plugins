@@ -2,11 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:mockito/mockito.dart';
 
 const String kWifiNameResult = '1337wifi';
 const String kWifiBSSIDResult = 'c0:ff:33:c0:d3:55';
@@ -15,10 +15,8 @@ const String kWifiIpV6 = '2002:7f00:0001:0:0:0:0:0';
 const String kWifiBroadcast = '127.0.0.255';
 const String kWifiGatewayIP = '127.0.0.0';
 const String kWifiSubmask = '255.255.255.0';
-const LocationAuthorizationStatus kRequestLocationResult =
-    LocationAuthorizationStatus.authorizedAlways;
-const LocationAuthorizationStatus kGetLocationResult =
-    LocationAuthorizationStatus.authorizedAlways;
+const LocationAuthorizationStatus kRequestLocationResult = LocationAuthorizationStatus.authorizedAlways;
+const LocationAuthorizationStatus kGetLocationResult = LocationAuthorizationStatus.authorizedAlways;
 
 void main() {
   group('NetworkInfo', () {
@@ -64,22 +62,10 @@ void main() {
       final result = await networkInfo.getWifiGatewayIP();
       expect(result, kWifiGatewayIP);
     });
-
-    test('requestLocationServiceAuthorization', () async {
-      final result = await networkInfo.requestLocationServiceAuthorization();
-      expect(result, kRequestLocationResult);
-    });
-
-    test('getLocationServiceAuthorization', () async {
-      final result = await networkInfo.getLocationServiceAuthorization();
-      expect(result, kRequestLocationResult);
-    });
   });
 }
 
-class MockNetworkInfoPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements NetworkInfoPlatform {
+class MockNetworkInfoPlatform extends Mock with MockPlatformInterfaceMixin implements NetworkInfoPlatform {
   @override
   Future<String> getWifiName() async {
     return kWifiNameResult;
