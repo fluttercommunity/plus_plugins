@@ -86,49 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initNetworkInfo() async {
-    String? wifiName,
-        wifiBSSID,
-        wifiIPv4,
-        wifiIPv6,
-        wifiGatewayIP,
-        wifiBroadcast,
-        wifiSubmask;
+    String? wifiName, wifiBSSID, wifiIPv4, wifiIPv6, wifiGatewayIP, wifiBroadcast, wifiSubmask;
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
-          wifiName = await _networkInfo.getWifiName();
-        } else {
-          wifiName = await _networkInfo.getWifiName();
-        }
-      } else {
-        wifiName = await _networkInfo.getWifiName();
-      }
+      wifiName = await _networkInfo.getWifiName();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi Name', error: e);
       wifiName = 'Failed to get Wifi Name';
     }
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
-          wifiBSSID = await _networkInfo.getWifiBSSID();
-        } else {
-          wifiBSSID = await _networkInfo.getWifiBSSID();
-        }
-      } else {
-        wifiBSSID = await _networkInfo.getWifiBSSID();
-      }
+      wifiBSSID = await _networkInfo.getWifiBSSID();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi BSSID', error: e);
       wifiBSSID = 'Failed to get Wifi BSSID';
