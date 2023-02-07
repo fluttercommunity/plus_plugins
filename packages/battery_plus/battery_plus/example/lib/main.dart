@@ -6,8 +6,8 @@
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () async {
                 final batteryLevel = await _battery.batteryLevel;
-                // ignore: unawaited_futures
+                if (!mounted) return;
                 showDialog<void>(
                   context: context,
                   builder: (_) => AlertDialog(
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () async {
                   final isInPowerSaveMode = await _battery.isInBatterySaveMode;
-                  // ignore: unawaited_futures
+                  if (!mounted) return;
                   showDialog<void>(
                     context: context,
                     builder: (_) => AlertDialog(
