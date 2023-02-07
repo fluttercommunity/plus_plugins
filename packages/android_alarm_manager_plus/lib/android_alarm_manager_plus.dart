@@ -11,7 +11,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const String _backgroundName = 'dev.fluttercommunity.plus/android_alarm_manager_background';
+const String _backgroundName =
+    'dev.fluttercommunity.plus/android_alarm_manager_background';
 
 // This is the entrypoint for the background isolate. Since we can only enter
 // an isolate once, we setup a MethodChannel to listen for method invocations
@@ -68,8 +69,10 @@ typedef GetCallbackHandle = CallbackHandle? Function(Function callback);
 ///
 /// See the example/ directory in this package for sample usage.
 class AndroidAlarmManager {
-  static const String _channelName = 'dev.fluttercommunity.plus/android_alarm_manager';
-  static const MethodChannel _channel = MethodChannel(_channelName, JSONMethodCodec());
+  static const String _channelName =
+      'dev.fluttercommunity.plus/android_alarm_manager';
+  static const MethodChannel _channel =
+      MethodChannel(_channelName, JSONMethodCodec());
 
   // Function used to get the current time. It's [DateTime.now] by default.
   // ignore: prefer_function_declarations_over_variables
@@ -78,7 +81,8 @@ class AndroidAlarmManager {
   // Callback used to get the handle for a callback. It's
   // [PluginUtilities.getCallbackHandle] by default.
   // ignore: prefer_function_declarations_over_variables
-  static GetCallbackHandle _getCallbackHandle = (Function callback) => PluginUtilities.getCallbackHandle(callback);
+  static GetCallbackHandle _getCallbackHandle =
+      (Function callback) => PluginUtilities.getCallbackHandle(callback);
 
   /// This is exposed for the unit tests. It should not be accessed by users of
   /// the plugin.
@@ -101,7 +105,8 @@ class AndroidAlarmManager {
     if (handle == null) {
       return false;
     }
-    final r = await _channel.invokeMethod<bool>('AlarmService.start', <dynamic>[handle.toRawHandle()]);
+    final r = await _channel.invokeMethod<bool>(
+        'AlarmService.start', <dynamic>[handle.toRawHandle()]);
     return r ?? false;
   }
 
@@ -234,7 +239,9 @@ class AndroidAlarmManager {
     Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() || callback is Function(int) || callback is Function(int, Map<String, dynamic>));
+    assert(callback is Function() ||
+        callback is Function(int) ||
+        callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
     checkIfSerializable(params);
     final startMillis = time.millisecondsSinceEpoch;
@@ -315,12 +322,15 @@ class AndroidAlarmManager {
     Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() || callback is Function(int) || callback is Function(int, Map<String, dynamic>));
+    assert(callback is Function() ||
+        callback is Function(int) ||
+        callback is Function(int, Map<String, dynamic>));
     assert(id.bitLength < 32);
     checkIfSerializable(params);
     final now = _now().millisecondsSinceEpoch;
     final period = duration.inMilliseconds;
-    final first = startAt != null ? startAt.millisecondsSinceEpoch : now + period;
+    final first =
+        startAt != null ? startAt.millisecondsSinceEpoch : now + period;
     final handle = _getCallbackHandle(callback);
     if (handle == null) {
       return false;
@@ -355,7 +365,8 @@ class AndroidAlarmManager {
     try {
       jsonEncode(params);
     } on JsonUnsupportedObjectError catch (e) {
-      throw UnsupportedError("Cannot convert '${e.unsupportedObject.runtimeType}' class to json."
+      throw UnsupportedError(
+          "Cannot convert '${e.unsupportedObject.runtimeType}' class to json."
           " Please put objects that can be converted to json into the "
           "'params' parameter");
     }

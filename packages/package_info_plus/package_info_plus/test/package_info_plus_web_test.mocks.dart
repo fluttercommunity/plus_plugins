@@ -37,41 +37,72 @@ class MockClient extends i1.Mock implements i4.Client {
   @override
   i5.Future<i2.Response> head(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(Invocation.method(#head, [url], {#headers: headers}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
   i5.Future<i2.Response> get(Uri? url, {Map<String, String>? headers}) =>
       (super.noSuchMethod(Invocation.method(#get, [url], {#headers: headers}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
-  i5.Future<i2.Response> post(Uri? url, {Map<String, String>? headers, Object? body, i6.Encoding? encoding}) =>
-      (super.noSuchMethod(Invocation.method(#post, [url], {#headers: headers, #body: body, #encoding: encoding}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+  i5.Future<i2.Response> post(Uri? url,
+          {Map<String, String>? headers,
+          Object? body,
+          i6.Encoding? encoding}) =>
+      (super.noSuchMethod(
+              Invocation.method(#post, [url],
+                  {#headers: headers, #body: body, #encoding: encoding}),
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
-  i5.Future<i2.Response> put(Uri? url, {Map<String, String>? headers, Object? body, i6.Encoding? encoding}) =>
-      (super.noSuchMethod(Invocation.method(#put, [url], {#headers: headers, #body: body, #encoding: encoding}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+  i5.Future<i2.Response> put(Uri? url,
+          {Map<String, String>? headers,
+          Object? body,
+          i6.Encoding? encoding}) =>
+      (super.noSuchMethod(
+              Invocation.method(#put, [url],
+                  {#headers: headers, #body: body, #encoding: encoding}),
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
-  i5.Future<i2.Response> patch(Uri? url, {Map<String, String>? headers, Object? body, i6.Encoding? encoding}) =>
-      (super.noSuchMethod(Invocation.method(#patch, [url], {#headers: headers, #body: body, #encoding: encoding}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+  i5.Future<i2.Response> patch(Uri? url,
+          {Map<String, String>? headers,
+          Object? body,
+          i6.Encoding? encoding}) =>
+      (super.noSuchMethod(
+              Invocation.method(#patch, [url],
+                  {#headers: headers, #body: body, #encoding: encoding}),
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
-  i5.Future<i2.Response> delete(Uri? url, {Map<String, String>? headers, Object? body, i6.Encoding? encoding}) =>
-      (super.noSuchMethod(Invocation.method(#delete, [url], {#headers: headers, #body: body, #encoding: encoding}),
-          returnValue: Future<i2.Response>.value(_FakeResponse_0())) as i5.Future<i2.Response>);
+  i5.Future<i2.Response> delete(Uri? url,
+          {Map<String, String>? headers,
+          Object? body,
+          i6.Encoding? encoding}) =>
+      (super.noSuchMethod(
+              Invocation.method(#delete, [url],
+                  {#headers: headers, #body: body, #encoding: encoding}),
+              returnValue: Future<i2.Response>.value(_FakeResponse_0()))
+          as i5.Future<i2.Response>);
   @override
   i5.Future<String> read(Uri? url, {Map<String, String>? headers}) =>
-      (super.noSuchMethod(Invocation.method(#read, [url], {#headers: headers}), returnValue: Future<String>.value(''))
-          as i5.Future<String>);
+      (super.noSuchMethod(Invocation.method(#read, [url], {#headers: headers}),
+          returnValue: Future<String>.value('')) as i5.Future<String>);
   @override
   i5.Future<i7.Uint8List> readBytes(Uri? url, {Map<String, String>? headers}) =>
-      (super.noSuchMethod(Invocation.method(#readBytes, [url], {#headers: headers}),
-          returnValue: Future<i7.Uint8List>.value(i7.Uint8List(0))) as i5.Future<i7.Uint8List>);
+      (super.noSuchMethod(
+              Invocation.method(#readBytes, [url], {#headers: headers}),
+              returnValue: Future<i7.Uint8List>.value(i7.Uint8List(0)))
+          as i5.Future<i7.Uint8List>);
   @override
   i5.Future<i3.StreamedResponse> send(i8.BaseRequest? request) =>
       (super.noSuchMethod(Invocation.method(#send, [request]),
-          returnValue: Future<i3.StreamedResponse>.value(_FakeStreamedResponse_1())) as i5.Future<i3.StreamedResponse>);
+              returnValue:
+                  Future<i3.StreamedResponse>.value(_FakeStreamedResponse_1()))
+          as i5.Future<i3.StreamedResponse>);
   @override
-  void close() => super.noSuchMethod(Invocation.method(#close, []), returnValueForMissingStub: null);
+  void close() => super.noSuchMethod(Invocation.method(#close, []),
+      returnValueForMissingStub: null);
   @override
   String toString() => super.toString();
 }

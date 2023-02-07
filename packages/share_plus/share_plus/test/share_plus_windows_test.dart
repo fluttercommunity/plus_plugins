@@ -58,7 +58,8 @@ void main() {
       final mock = MockUrlLauncherPlatform();
       mock.canLaunchMockValue = false;
 
-      expect(() async => await SharePlusWindowsPlugin(mock).share('foo bar'), throwsException);
+      expect(() async => await SharePlusWindowsPlugin(mock).share('foo bar'),
+          throwsException);
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
   );
