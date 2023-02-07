@@ -10,8 +10,8 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The [SharedPreferences] key to access the alarm fire count.
 const String countKey = 'count';
@@ -106,7 +106,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.headline4;
+    final textStyle = Theme.of(context).textTheme.headlineMedium;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
