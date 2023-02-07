@@ -24,10 +24,10 @@ void _alarmManagerCallbackDispatcher() {
   // Initialize state necessary for MethodChannels.
   WidgetsFlutterBinding.ensureInitialized();
 
-  const _channel = MethodChannel(_backgroundName, JSONMethodCodec());
+  const channel = MethodChannel(_backgroundName, JSONMethodCodec());
   // This is where the magic happens and we handle background events from the
   // native portion of the plugin.
-  _channel.setMethodCallHandler((MethodCall call) async {
+  channel.setMethodCallHandler((MethodCall call) async {
     final dynamic args = call.arguments;
     final handle = CallbackHandle.fromRawHandle(args[0]);
 
@@ -56,7 +56,7 @@ void _alarmManagerCallbackDispatcher() {
 
   // Once we've finished initializing, let the native portion of the plugin
   // know that it can start scheduling alarms.
-  _channel.invokeMethod<void>('AlarmService.initialized');
+  channel.invokeMethod<void>('AlarmService.initialized');
 }
 
 // A lambda that returns the current instant in the form of a [DateTime].
