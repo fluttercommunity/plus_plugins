@@ -132,6 +132,17 @@ class ShareResult {
   final ShareResultStatus status;
 
   const ShareResult(this.raw, this.status);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ShareResult &&
+          runtimeType == other.runtimeType &&
+          raw == other.raw &&
+          status == other.status;
+
+  @override
+  int get hashCode => raw.hashCode ^ status.hashCode;
 }
 
 /// How the user handled the share-sheet
