@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
@@ -90,15 +88,15 @@ void main() {
       'originHeight': 4.0,
     }));
 
-    await withFile('tempfile-83649a.png', (File fd) async {
-      await sharePlatform.shareFiles(
-        [fd.path],
+    await withFile('tempfile-83649a.png', (XFile fd) async {
+      await sharePlatform.shareXFiles(
+        [XFile(fd.path)],
         subject: 'some subject to share',
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
       );
       verify(mockChannel.invokeMethod<void>(
-        'shareFiles',
+        'shareFilesWithResult',
         <String, dynamic>{
           'paths': [fd.path],
           'mimeTypes': ['image/png'],
@@ -111,8 +109,8 @@ void main() {
         },
       ));
 
-      await SharePlatform.instance.shareFilesWithResult(
-        [fd.path],
+      await SharePlatform.instance.shareXFiles(
+        [XFile(fd.path)],
         subject: 'some subject to share',
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
@@ -153,13 +151,13 @@ void main() {
     });
   });
 
-  test('sharing empty file fails', () {
+  test('sharing empty list fails', () {
     expect(
-      () => sharePlatform.shareFiles(['']),
+      () => sharePlatform.shareXFiles([]),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
-      () => SharePlatform.instance.shareFilesWithResult(['']),
+      () => SharePlatform.instance.shareXFiles([]),
       throwsA(const TypeMatcher<AssertionError>()),
     );
 
@@ -167,14 +165,14 @@ void main() {
   });
 
   test('sharing file sets correct mimeType', () async {
-    await withFile('tempfile-83649b.png', (File fd) async {
-      await sharePlatform.shareFiles([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+    await withFile('tempfile-83649b.png', (XFile fd) async {
+      await sharePlatform.shareXFiles([fd]);
+      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
 
-      await SharePlatform.instance.shareFilesWithResult([fd.path]);
+      await SharePlatform.instance.shareXFiles([fd]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
@@ -189,15 +187,15 @@ void main() {
   });
 
   test('sharing file sets passed mimeType', () async {
-    await withFile('tempfile-83649c.png', (File fd) async {
-      await sharePlatform.shareFiles([fd.path], mimeTypes: ['*/*']);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+    await withFile('tempfile-83649c.png', (XFile fd) async {
+      await sharePlatform.shareXFiles([XFile(fd.path, mimeType: '*/*')]);
+      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
       }));
 
       await SharePlatform.instance
-          .shareFilesWithResult([fd.path], mimeTypes: ['*/*']);
+          .shareXFiles([XFile(fd.path, mimeType: '*/*')]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
@@ -222,9 +220,9 @@ void main() {
       completion(equals(resultUnavailable)),
     );
 
-    await withFile('tempfile-83649d.png', (File fd) async {
+    await withFile('tempfile-83649d.png', (XFile fd) async {
       expect(
-        sharePlatform.shareFilesWithResult([fd.path]),
+        sharePlatform.shareXFiles([fd]),
         completion(equals(resultUnavailable)),
       );
     });
@@ -245,15 +243,15 @@ void main() {
       'originHeight': 4.0,
     }));
 
-    await withFile('tempfile-83649e.png', (File fd) async {
-      await sharePlatform.shareFilesWithResult([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
+    await withFile('tempfile-83649e.png', (XFile fd) async {
+      await sharePlatform.shareXFiles([fd]);
+      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
     });
 
-    await withFile('tempfile-83649e.png', (File fd) async {
+    await withFile('tempfile-83649e.png', (XFile fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
@@ -264,14 +262,10 @@ void main() {
 }
 
 /// Execute a block within a context that handles creation and deletion of a helper file
-Future<T> withFile<T>(String filename, Future<T> Function(File fd) func) async {
-  final file = File(filename);
-  try {
-    file.createSync();
-    return await func(file);
-  } finally {
-    file.deleteSync();
-  }
+Future<T> withFile<T>(
+    String filename, Future<T> Function(XFile fd) func) async {
+  final file = XFile(filename);
+  return await func(file);
 }
 
 // https://github.com/dart-lang/mockito/issues/316
