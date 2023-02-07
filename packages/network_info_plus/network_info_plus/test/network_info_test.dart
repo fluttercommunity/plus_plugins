@@ -15,8 +15,10 @@ const String kWifiIpV6 = '2002:7f00:0001:0:0:0:0:0';
 const String kWifiBroadcast = '127.0.0.255';
 const String kWifiGatewayIP = '127.0.0.0';
 const String kWifiSubmask = '255.255.255.0';
-const LocationAuthorizationStatus kRequestLocationResult = LocationAuthorizationStatus.authorizedAlways;
-const LocationAuthorizationStatus kGetLocationResult = LocationAuthorizationStatus.authorizedAlways;
+const LocationAuthorizationStatus kRequestLocationResult =
+    LocationAuthorizationStatus.authorizedAlways;
+const LocationAuthorizationStatus kGetLocationResult =
+    LocationAuthorizationStatus.authorizedAlways;
 
 void main() {
   group('NetworkInfo', () {
@@ -65,7 +67,9 @@ void main() {
   });
 }
 
-class MockNetworkInfoPlatform extends Mock with MockPlatformInterfaceMixin implements NetworkInfoPlatform {
+class MockNetworkInfoPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements NetworkInfoPlatform {
   @override
   Future<String> getWifiName() async {
     return kWifiNameResult;

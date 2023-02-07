@@ -86,7 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initNetworkInfo() async {
-    String? wifiName, wifiBSSID, wifiIPv4, wifiIPv6, wifiGatewayIP, wifiBroadcast, wifiSubmask;
+    String? wifiName,
+        wifiBSSID,
+        wifiIPv4,
+        wifiIPv6,
+        wifiGatewayIP,
+        wifiBroadcast,
+        wifiSubmask;
 
     try {
       wifiName = await _networkInfo.getWifiName();
