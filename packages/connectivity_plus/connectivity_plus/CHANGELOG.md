@@ -1,3 +1,8 @@
+## 3.0.3
+
+ - **FIX**: Do not return ConnectivityResult.none on iOS and MacOS with VPN (#1335).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.2
 
  - **FIX**: Add connectivity_plus_web export (#1278).
