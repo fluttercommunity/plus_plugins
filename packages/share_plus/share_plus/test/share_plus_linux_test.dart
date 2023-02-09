@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher_platform_interface/link.dart';
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'url_launcher_mock.dart';
 

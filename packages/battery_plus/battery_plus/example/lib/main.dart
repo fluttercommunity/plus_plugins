@@ -70,43 +70,48 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text('$_batteryState'),
             ElevatedButton(
-              onPressed: () async {
-                final batteryLevel = await _battery.batteryLevel;
-                // ignore: unawaited_futures
-                showDialog<void>(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Text('Battery: $batteryLevel%'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('OK'),
-                      )
-                    ],
-                  ),
+              onPressed: () {
+                _battery.batteryLevel.then(
+                  (batteryLevel) {
+                    showDialog<void>(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        content: Text('Battery: $batteryLevel%'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('OK'),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
               child: const Text('Get battery level'),
             ),
             ElevatedButton(
-                onPressed: () async {
-                  final isInPowerSaveMode = await _battery.isInBatterySaveMode;
-                  // ignore: unawaited_futures
-                  showDialog<void>(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      content: Text('Is on low power mode: $isInPowerSaveMode'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'),
-                        )
-                      ],
-                    ),
+                onPressed: () {
+                  _battery.isInBatterySaveMode.then(
+                    (isInPowerSaveMode) {
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          content:
+                              Text('Is on low power mode: $isInPowerSaveMode'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
                 child: const Text('Is on low power mode'))

@@ -3,8 +3,6 @@ import 'package:share_plus/src/share_plus_windows.dart';
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/method_channel/method_channel_share.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher_platform_interface/link.dart';
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'url_launcher_mock.dart';
 
