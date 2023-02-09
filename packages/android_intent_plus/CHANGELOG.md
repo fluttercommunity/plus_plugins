@@ -1,3 +1,7 @@
+## 3.1.6
+
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.1.5
 
  - **FIX**: lint warnings - add missing dependency for tests (#1233).

@@ -1,3 +1,9 @@
+## 3.0.3
+
+ - **REFACTOR**: Remove nullable struct fields (#1526).
+ - **DOCS**: Fixed markdown table formatting in README (#1477).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.2
 
  - **FIX**: adds value equality for PackageInfo (#1328).
