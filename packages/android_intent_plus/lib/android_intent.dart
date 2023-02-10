@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:android_intent_plus/extras_root/extras_root.dart';
-import 'package:android_intent_plus/put_classes/base/put_base.dart';
+import 'package:android_intent_plus/bundles/bundles.dart';
+import 'package:android_intent_plus/parcelable_classes/bundle.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
@@ -103,7 +103,7 @@ class AndroidIntent {
   final Map<String, dynamic>? arguments;
 
   /// Todo: Add some explanation here
-  final List<PutBase>? extras;
+  final List<Bundle>? extras;
 
   /// Similar to [arguments], but in this case the arguments are an array and
   /// will be added to the intent as in an array extra instead of of an array
@@ -210,7 +210,7 @@ class AndroidIntent {
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
-      if (extras != null) 'extras':  jsonEncode(ExtrasRoot(extras: extras!)),
+      if (extras != null) 'extras':  jsonEncode(Bundles(values: extras!)),
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,

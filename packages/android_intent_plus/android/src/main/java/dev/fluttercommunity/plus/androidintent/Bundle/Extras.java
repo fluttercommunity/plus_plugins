@@ -3,16 +3,19 @@ package dev.fluttercommunity.plus.androidintent.Bundle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.BundleParcelable;
+import java.util.ArrayList;
+import java.util.List;
+
+import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBool;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBoolArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBundle;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArray;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArrayList;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutInt;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutIntArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutIntArrayList;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArray;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArrayList;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutString;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayList;
@@ -20,10 +23,10 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.TypeAdapters.RuntimeTypeAdapterFactory;
 
 public class Extras {
-  public static android.os.Bundle convert(String arguments) {
+  public static List<android.os.Bundle> convert(String arguments) {
     RuntimeTypeAdapterFactory<ParcelableBase> parcelableBaseRuntimeTypeAdapterFactory = RuntimeTypeAdapterFactory.
         of(ParcelableBase.class, "javaClass")
-        .registerSubtype(BundleParcelable.class, "BundleParcelable");
+        .registerSubtype(Bundle.class, "Bundle");
     RuntimeTypeAdapterFactory<PutBase> putBaseRuntimeTypeAdapterFactory = RuntimeTypeAdapterFactory
         .of(PutBase.class, "javaClass")
         .registerSubtype(PutBool.class, "PutBool")
@@ -43,15 +46,20 @@ public class Extras {
         .registerTypeAdapterFactory(putBaseRuntimeTypeAdapterFactory)
         .create();
 
-    final android.os.Bundle bundle = new android.os.Bundle();
+    List<android.os.Bundle> androidOsBundles = new ArrayList<>();
     if (arguments == null) {
-      return bundle;
+      return androidOsBundles;
     }
-    ExtrasRoot extrasRoot = gson.fromJson(arguments, ExtrasRoot.class);
-    for (PutBase putBase : extrasRoot.extras
+
+    Bundles bundles = gson.fromJson(arguments, Bundles.class);
+    for (Bundle bundle : bundles.values
     ) {
-      ConvertExtras.convert(bundle, putBase);
+      final android.os.Bundle androidOsBundle = new android.os.Bundle();
+      for (PutBase putBase : bundle.values) {
+        ConvertExtras.convert(androidOsBundle, putBase);
+      }
+      androidOsBundles.add(androidOsBundle);
     }
-    return bundle;
+    return androidOsBundles;
   }
 }

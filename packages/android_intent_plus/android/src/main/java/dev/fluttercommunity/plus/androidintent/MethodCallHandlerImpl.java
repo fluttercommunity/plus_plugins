@@ -15,6 +15,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import dev.fluttercommunity.plus.androidintent.Bundle.Extras;
 
@@ -80,8 +81,10 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
     Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
     arguments.putAll(arrayArguments);
-    Bundle extras = Extras.convert((String) call.argument("extras"));
-    arguments.putAll(extras);
+    List<Bundle> extras = Extras.convert((String) call.argument("extras"));
+    for (Bundle bundle: extras) {
+      arguments.putAll(bundle);
+    }
     String packageName = call.argument("package");
     ComponentName componentName =
         (!TextUtils.isEmpty(packageName)
