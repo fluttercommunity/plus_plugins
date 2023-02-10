@@ -3,7 +3,10 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:android_intent_plus/extras_root/extras_root.dart';
+import 'package:android_intent_plus/put_classes/base/put_base.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
@@ -36,6 +39,7 @@ class AndroidIntent {
     this.category,
     this.data,
     this.arguments,
+    this.extras,
     this.arrayArguments,
     this.package,
     this.componentName,
@@ -57,6 +61,7 @@ class AndroidIntent {
     this.category,
     this.data,
     this.arguments,
+    this.extras,
     this.arrayArguments,
     this.package,
     this.componentName,
@@ -96,6 +101,9 @@ class AndroidIntent {
   ///
   /// See https://developer.android.com/reference/android/content/Intent.html#intent-structure.
   final Map<String, dynamic>? arguments;
+
+  /// Todo: Add some explanation here
+  final List<PutBase>? extras;
 
   /// Similar to [arguments], but in this case the arguments are an array and
   /// will be added to the intent as in an array extra instead of of an array
@@ -202,6 +210,7 @@ class AndroidIntent {
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
+      if (extras != null) 'extras':  jsonEncode(ExtrasRoot(extras: extras!)),
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,
