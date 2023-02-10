@@ -1,25 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'put_bundle_parcelable_array.dart';
+part of 'put_parcelable_array_list.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PutBundleParcelableArray _$PutBundleParcelableArrayFromJson(
+PutParcelableArrayList _$PutParcelableArrayListFromJson(
         Map<String, dynamic> json) =>
-    PutBundleParcelableArray(
+    PutParcelableArrayList(
       key: json['key'] as String,
       javaClass: json['javaClass'] as String,
       values: (json['values'] as List<dynamic>)
-          .map((e) => (e as List<dynamic>)
-              .map((e) => PutBase.fromJson(e as Map<String, dynamic>))
-              .toList())
+          .map((e) => ParcelableBase.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$PutBundleParcelableArrayToJson(
-        PutBundleParcelableArray instance) =>
+Map<String, dynamic> _$PutParcelableArrayListToJson(
+        PutParcelableArrayList instance) =>
     <String, dynamic>{
       'key': instance.key,
       'javaClass': instance.javaClass,
