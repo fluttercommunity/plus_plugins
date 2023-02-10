@@ -3,8 +3,8 @@ package dev.fluttercommunity.plus.androidintent.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBool;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBoolArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBundle;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBundleParcelableArray;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBundleParcelableArrayList;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArray;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutParcelableArrayList;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutInt;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutIntArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutIntArrayList;
@@ -21,10 +21,10 @@ public class ConvertExtras {
       PutBoolArray.convert(bundle, (PutBoolArray) putBase);
     } else if (putBase instanceof PutBundle) {
       PutBundle.convert(bundle, (PutBundle) putBase);
-    } else if (putBase instanceof PutBundleParcelableArray) {
-      PutBundleParcelableArray.convert(bundle, (PutBundleParcelableArray) putBase);
-    } else if (putBase instanceof PutBundleParcelableArrayList) {
-      PutBundleParcelableArrayList.convert(bundle, (PutBundleParcelableArrayList) putBase);
+    } else if (putBase instanceof PutParcelableArray) {
+      PutParcelableArray.convert(bundle, (PutParcelableArray) putBase);
+    } else if (putBase instanceof PutParcelableArrayList) {
+      PutParcelableArrayList.convert(bundle, (PutParcelableArrayList) putBase);
     } else if (putBase instanceof PutInt) {
       PutInt.convert(bundle, (PutInt) putBase);
     } else if (putBase instanceof PutIntArray) {
