@@ -114,7 +114,52 @@ class AndroidIntent {
   /// See https://developer.android.com/reference/android/content/Intent.html#intent-structure.
   final Map<String, dynamic>? arguments;
 
-  /// Todo: Add some explanation here
+  /// Similar to [arguments] and [arrayArguments], but in this case the list
+  /// can contain nested values, bundles and arrays. The tree is constructed
+  /// with classes like PutString, PutStringArray and PutStringArrayList.
+  /// Not all types are implemented; PutChar, PutCharArray, PutByte etc are
+  /// still missing. Please add them when needed.
+  /// Sample:
+  /// AndroidIntent datawedgeProfile() => AndroidIntent(
+  //         action: constants.datawedgeAction,
+  //         extras: [
+  //           Bundle(
+  //             values: [
+  //               PutBundle(
+  //                 key: constants.extraSetConfig,
+  //                 values: [
+  //                   PutString(
+  //                     key: 'PROFILE_NAME',
+  //                     value: constants.extraProfileName,
+  //                   ),
+  //                   PutString(
+  //                     key: 'PROFILE_ENABLED',
+  //                     value: 'true',
+  //                   ),
+  //                   PutString(
+  //                     key: 'CONFIG_MODE',
+  //                     value: 'CREATE_IF_NOT_EXIST',
+  //                   ),
+  //                   PutParcelableArray(
+  //                     key: 'APP_LIST',
+  //                     values: [
+  //                       appList(),
+  //                     ],
+  //                   ),
+  //                   PutParcelableArrayList(
+  //                     key: 'PLUGIN_CONFIG',
+  //                     values: [
+  //                       barcodePluginConfig(),
+  //                       intentPluginConfig(),
+  //                       keystrokePluginConfig(),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       );
   final List<Bundle>? extras;
 
   /// Similar to [arguments], but in this case the arguments are an array and
