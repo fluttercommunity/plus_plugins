@@ -5,11 +5,23 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:android_intent_plus/bundles/bundles.dart';
-import 'package:android_intent_plus/parcelable_classes/bundle.dart';
+import 'package:android_intent_plus/src/bundles/bundles.dart';
+import 'package:android_intent_plus/src/parcelable_classes/bundle.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
+export 'src/parcelable_classes/bundle.dart';
+export 'src/put_classes/put_bool.dart';
+export 'src/put_classes/put_bool_array.dart';
+export 'src/put_classes/put_bundle.dart';
+export 'src/put_classes/put_int.dart';
+export 'src/put_classes/put_int_array.dart';
+export 'src/put_classes/put_int_array_list.dart';
+export 'src/put_classes/put_parcelable_array.dart';
+export 'src/put_classes/put_parcelable_array_list.dart';
+export 'src/put_classes/put_string.dart';
+export 'src/put_classes/put_string_array.dart';
+export 'src/put_classes/put_string_array_list.dart';
 
 const String _kChannelName = 'dev.fluttercommunity.plus/android_intent';
 
@@ -210,7 +222,7 @@ class AndroidIntent {
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
-      if (extras != null) 'extras':  jsonEncode(Bundles(values: extras!)),
+      if (extras != null) 'extras': jsonEncode(Bundles(values: extras!)),
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,
