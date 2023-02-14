@@ -35,7 +35,7 @@
     "lodash.get": "^4.4.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.6.2",
+    "react-router-dom": "^6.8.1",
     "sass": "^1.57.1"
   },
   "devDependencies": {
