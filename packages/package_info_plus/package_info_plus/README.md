@@ -10,19 +10,18 @@
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 </p>
 
-This Flutter plugin provides an API for querying information about an
-application package.
+This Flutter plugin provides an API for querying information about an application package.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
-| :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+| Android |  iOS  | MacOS |  Web  | Linux | Windows |
+| :-----: | :---: | :---: | :---: | :---: | :-----: |
+|✔️|✔️|✔️|✔️|✔️|✔️|
 
 ## Usage
 
-You can use the PackageInfo to query information about the
-application package. This works both on iOS and Android.
+You can use the PackageInfo to query information about the application package. This works both on
+iOS and Android.
 
 ```dart
 import 'package:package_info_plus/package_info_plus.dart';
@@ -46,14 +45,27 @@ String buildNumber = packageInfo.buildNumber;
 
 ### iOS
 
-As noted on [issue 20761](https://github.com/flutter/flutter/issues/20761#issuecomment-493434578), package_info on iOS
-requires the Xcode build folder to be rebuilt after changes to the version string in `pubspec.yaml`.
-Clean the Xcode build folder with:
-`XCode Menu -> Product -> (Holding Option Key) Clean build folder`.
+#### Plugin returns incorrect app version
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+Flutter build tools allow only digits and `.` (dot) symbols to be used in `version`
+of `pubspec.yaml` on iOS/MacOS to comply with official version format from Apple.
+
+More info available in [this comment](https://github.com/fluttercommunity/plus_plugins/issues/389#issuecomment-1106764429)
+
+#### I have changed version in pubspec.yaml and plugin returns wrong info
+
+As noted on [issue 20761](https://github.com/flutter/flutter/issues/20761#issuecomment-493434578),
+package_info_plus on iOS requires the Xcode build folder to be rebuilt after changes to the version
+string in `pubspec.yaml`. Clean the Xcode build folder with:
+`XCode Menu -> Product -> (Holding Option Key) Clean build folder`.
 
 ### Android (and potentially all platforms)
 
 Calling to `PackageInfo.fromPlatform()` before the `runApp()` call will cause an exception.
 See https://github.com/fluttercommunity/plus_plugins/issues/309
+
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
+
