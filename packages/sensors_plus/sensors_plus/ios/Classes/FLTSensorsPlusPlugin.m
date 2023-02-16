@@ -124,7 +124,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   switch (_motionManager.isAccelerometerAvailable) {
-  case true:
+  case true: {
     [_motionManager
         startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
                              withHandler:^(
@@ -143,6 +143,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                            eventSink);
                              }];
     break;
+  }
   default:
     eventSink([FlutterError errorWithCode:@"INVALID_SENSOR"
                                   message:@"Sensor Not Found"
@@ -176,7 +177,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   switch (_motionManager.isDeviceMotionAvailable) {
-  case true: // todo error code here
+  case true: {
     [_motionManager
         startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
                             withHandler:^(CMDeviceMotion *data,
@@ -193,6 +194,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                           -acceleration.z * GRAVITY, eventSink);
                             }];
     break;
+  }
   default:
 
     eventSink([FlutterError errorWithCode:@"INVALID_SENSOR"
@@ -227,7 +229,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
   switch (_motionManager.isGyroAvailable) {
-  case true: // todo error code here
+  case true: {
     [_motionManager
         startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
                     withHandler:^(CMGyroData *gyroData, NSError *error) {
@@ -239,8 +241,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                   rotationRate.z, eventSink);
                     }];
     break;
+  }
   default:
-
     eventSink([FlutterError errorWithCode:@"INVALID_SENSOR"
                                   message:@"Sensor Not Found"
                                   details:@"It seems that your device doesn't "
@@ -275,7 +277,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   // Allow iOS to present calibration interaction.
   _motionManager.showsDeviceMovementDisplay = YES;
   switch (_motionManager.isMagnetometerAvailable) {
-  case true: // todo error code here
+  case true: {
     [_motionManager
         startDeviceMotionUpdatesUsingReferenceFrame:
             // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
@@ -298,6 +300,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                           sendTriplet(b.x, b.y, b.z, eventSink);
                                         }];
     break;
+  }
   default:
     eventSink([FlutterError errorWithCode:@"INVALID_SENSOR"
                                   message:@"Sensor Not Found"
