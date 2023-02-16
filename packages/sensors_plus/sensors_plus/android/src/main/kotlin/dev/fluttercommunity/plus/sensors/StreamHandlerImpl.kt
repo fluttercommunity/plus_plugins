@@ -16,34 +16,27 @@ internal class StreamHandlerImpl(
     private var sensor: Sensor? = null
 
     override fun onListen(arguments: Any?, events: EventSink) {
+        sensor = sensorManager.getDefaultSensor(sensorType)
         when (sensor) {
-            null -> {
-                sensor = when (sensorManager.getDefaultSensor(sensorType)) {
-                    null -> null
-                    else -> sensorManager.getDefaultSensor(sensorType)
-                }
-                when (sensor) {
-                    null -> events.error(
-                        "", // todo complete error code here
-                        "Sensor Not Found",
-                        "It seems that your device doesn't support ${getSensorName(sensorType)} Sensor"
-                    )
-                    else -> {
-                        sensorEventListener = createSensorEventListener(events)
-                        sensorManager.registerListener(
-                            sensorEventListener,
-                            sensor,
-                            SensorManager.SENSOR_DELAY_NORMAL
-                        )
-                    }
-                }
+            null -> events.error(
+                "INVALID_SENSOR",
+                "Sensor Not Found",
+                "It seems that your device doesn't support ${getSensorName(sensorType)} Sensor"
+            )
+            else -> {
+                sensorEventListener = createSensorEventListener(events)
+                sensorManager.registerListener(
+                    sensorEventListener,
+                    sensor,
+                    SensorManager.SENSOR_DELAY_NORMAL
+                )
             }
-            else -> {} // todo not needed sensor var will always be null at first
         }
     }
 
     override fun onCancel(arguments: Any?) {
         when (sensor) {
+            // Do nothing if current sensor is null
             null -> {}
             else -> sensorManager.unregisterListener(sensorEventListener)
         }
