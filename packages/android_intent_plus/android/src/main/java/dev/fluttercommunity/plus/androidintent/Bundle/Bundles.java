@@ -16,14 +16,11 @@ public class Bundles {
     this.value = value;
   }
 
-  static List<Bundle> fromJson(JSONObject jsonObject) throws JSONException {
+  static List<Bundle> fromJson(JSONArray jsonArray) throws JSONException {
     ArrayList<Bundle> bundles = new ArrayList<>();
-    if (jsonObject.getString(Constants.JAVA_CLASS).equals("Bundles")) {
-      JSONArray values = (JSONArray) (jsonObject.get(Constants.VALUE));
-      for (int i = 0; i < values.length(); i++) {
-        JSONObject value = (JSONObject) values.get(i);
-        bundles.add(Bundle.fromJson(value));
-      }
+    for (int bundlesIndex = 0 ; bundlesIndex < jsonArray.length(); bundlesIndex++){
+      JSONObject jsonObject = jsonArray.getJSONObject(bundlesIndex);
+      bundles.add(Bundle.fromJson(jsonObject));
     }
     return bundles;
   }

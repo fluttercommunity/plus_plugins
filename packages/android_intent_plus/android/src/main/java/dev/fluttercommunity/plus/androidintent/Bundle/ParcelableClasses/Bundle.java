@@ -22,9 +22,9 @@ public class Bundle extends ParcelableBase {
     final Bundle bundle = new Bundle();
 
     if (bundleJSONObject.getString(Constants.JAVA_CLASS).equals(Bundle.javaClass)) {
-      JSONArray jsonArray = (JSONArray) (bundleJSONObject.get(Constants.VALUE));
+      JSONArray jsonArray = bundleJSONObject.getJSONArray(Constants.VALUE);
       for (int i = 0; i < jsonArray.length(); i++) {
-        JSONObject value = (JSONObject) jsonArray.get(i);
+        JSONObject value = jsonArray.getJSONObject(i);
         bundle.value.add(Json.putBaseFromJson(value));
       }
     }
