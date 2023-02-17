@@ -5,11 +5,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:android_intent_plus/src/bundles/bundles.dart';
 import 'package:android_intent_plus/src/parcelable_classes/bundle.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
+
 export 'src/parcelable_classes/bundle.dart';
 export 'src/put_classes/put_bool.dart';
 export 'src/put_classes/put_bool_array.dart';
@@ -261,13 +261,21 @@ class AndroidIntent {
 
   /// Constructs the map of arguments which is passed to the plugin.
   Map<String, dynamic> _buildArguments() {
+    String? extras;
+    if (this.extras != null) {
+      late JsonEncoder jsonEncoder;
+      kDebugMode
+          ? jsonEncoder = const JsonEncoder.withIndent('  ')
+          : jsonEncoder = const JsonEncoder();
+      extras = jsonEncoder.convert(this.extras);
+    }
     return {
       if (action != null) 'action': action,
       if (flags != null) 'flags': convertFlags(flags!),
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
-      if (extras != null) 'extras': jsonEncode(Bundles(value: extras!)),
+      if (extras != null) 'extras': extras,
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,
