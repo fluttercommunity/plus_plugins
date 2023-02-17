@@ -11,15 +11,15 @@ import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.Par
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutParcelableArray extends PutBase {
-  final List<ParcelableBase> values;
+  final List<ParcelableBase> value;
 
-  public PutParcelableArray(String key, List<ParcelableBase> values) {
+  public PutParcelableArray(String key, List<ParcelableBase> value) {
     super(key);
-    this.values = values;
+    this.value = value;
   }
 
   public static void convert(android.os.Bundle bundle, PutParcelableArray putParcelableArray) {
-    bundle.putParcelableArray(putParcelableArray.key, convertToParcelable(putParcelableArray.values).toArray(new Parcelable[0]));
+    bundle.putParcelableArray(putParcelableArray.key, convertToParcelable(putParcelableArray.value).toArray(new Parcelable[0]));
   }
 
   public static ArrayList<Parcelable> convertToParcelable(List<ParcelableBase> values) {
@@ -28,7 +28,7 @@ public class PutParcelableArray extends PutBase {
       if (parcelableBase instanceof Bundle) {
         Bundle bundleParcelable = (Bundle) parcelableBase;
         final android.os.Bundle bundle = new android.os.Bundle();
-        for (PutBase putBase : bundleParcelable.values) {
+        for (PutBase putBase : bundleParcelable.value) {
           ConvertExtras.convert(bundle, putBase);
         }
         parcelables.add(bundle);

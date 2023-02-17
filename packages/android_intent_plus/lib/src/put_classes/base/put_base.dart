@@ -1,14 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'put_base.g.dart';
-
-@JsonSerializable(createFactory: false)
-abstract class PutBase {
-  PutBase({required this.key});
+abstract class PutBase<T> {
+  PutBase({required this.key, required this.value});
 
   final String key;
 
   String get javaClass;
 
-  Map<String, dynamic> toJson() => _$PutBaseToJson(this);
+  final T value;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'key': key,
+        'javaClass': javaClass,
+        'value': value,
+      };
 }

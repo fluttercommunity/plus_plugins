@@ -7,6 +7,6 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class Bundle extends ParcelableBase {
 
-  public List<PutBase> values;
+  public List<PutBase> value;
 
 }

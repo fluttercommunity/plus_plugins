@@ -267,7 +267,7 @@ class AndroidIntent {
       if (category != null) 'category': category,
       if (data != null) 'data': data,
       if (arguments != null) 'arguments': arguments,
-      if (extras != null) 'extras': jsonEncode(Bundles(values: extras!)),
+      if (extras != null) 'extras': jsonEncode(Bundles(value: extras!)),
       if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,

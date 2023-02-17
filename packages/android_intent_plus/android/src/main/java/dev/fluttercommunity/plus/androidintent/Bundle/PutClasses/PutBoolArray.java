@@ -7,15 +7,15 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutBoolArray extends PutBase {
-  public PutBoolArray(String key, List<Boolean> values) {
+  public PutBoolArray(String key, List<Boolean> value) {
     super(key);
-    this.values = values;
+    this.value = value;
   }
 
-  final List<Boolean> values;
+  final List<Boolean> value;
 
   static public void convert(Bundle bundle, PutBoolArray putBoolArray) {
-    bundle.putBooleanArray(putBoolArray.key, toPrimitiveArray(putBoolArray.values));
+    bundle.putBooleanArray(putBoolArray.key, toPrimitiveArray(putBoolArray.value));
   }
 
   static private boolean[] toPrimitiveArray(final List<Boolean> booleanList) {

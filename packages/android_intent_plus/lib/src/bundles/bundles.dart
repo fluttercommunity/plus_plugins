@@ -1,15 +1,14 @@
 import 'package:android_intent_plus/src/parcelable_classes/bundle.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'bundles.g.dart';
-
-@JsonSerializable(createFactory: false)
 class Bundles {
-  Bundles({required this.values});
-
-  final List<Bundle> values;
+  Bundles({required this.value});
 
   String get javaClass => 'Bundles';
 
-  Map<String, dynamic> toJson() => _$BundlesToJson(this);
+  final List<Bundle> value;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'value': value,
+        'javaClass': javaClass,
+      };
 }

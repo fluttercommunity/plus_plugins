@@ -52,10 +52,10 @@ public class Extras {
     }
 
     Bundles bundles = gson.fromJson(arguments, Bundles.class);
-    for (Bundle bundle : bundles.values
+    for (Bundle bundle : bundles.value
     ) {
       final android.os.Bundle androidOsBundle = new android.os.Bundle();
-      for (PutBase putBase : bundle.values) {
+      for (PutBase putBase : bundle.value) {
         ConvertExtras.convert(androidOsBundle, putBase);
       }
       androidOsBundles.add(androidOsBundle);

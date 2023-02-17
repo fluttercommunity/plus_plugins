@@ -8,14 +8,14 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutStringArrayList extends PutBase {
-  public PutStringArrayList(String key, List<String> values) {
+  public PutStringArrayList(String key, List<String> value) {
     super(key);
-    this.values = values;
+    this.value = value;
   }
 
-  final List<String> values;
+  final List<String> value;
 
   public static void convert(Bundle bundle, PutStringArrayList putStringArray) {
-    bundle.putStringArrayList(putStringArray.key, new ArrayList<>(putStringArray.values));
+    bundle.putStringArrayList(putStringArray.key, new ArrayList<>(putStringArray.value));
   }
 }

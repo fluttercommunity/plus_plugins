@@ -7,15 +7,15 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutStringArray extends PutBase {
-  public PutStringArray(String key, List<String> values) {
+  public PutStringArray(String key, List<String> value) {
     super(key);
-    this.values = values;
+    this.value = value;
   }
 
-  final List<String> values;
+  final List<String> value;
 
   public static void convert(Bundle bundle, PutStringArray putStringArray) {
-    bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.values));
+    bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
   }
 
   static private String[] toPrimitiveArray(final List<String> stringList) {
