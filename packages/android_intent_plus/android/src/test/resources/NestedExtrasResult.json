@@ -1,0 +1,51 @@
+[
+  {
+    "com.symbol.datawedge.api.SET_CONFIG": {
+      "PLUGIN_CONFIG": [
+        {
+          "RESET_CONFIG": true,
+          "PLUGIN_NAME": "BARCODE",
+          "PARAM_LIST": {
+            "scanner_selection": "auto",
+            "int_array_list_test": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "int_array_test": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "picklist": 1,
+            "bool_array_test": [
+              true,
+              false,
+              false,
+              true
+            ]
+          }
+        }
+      ],
+      "PROFILE_NAME": "com.dalosy.count_app",
+      "APP_LIST": [
+        {
+          "ACTIVITY_LIST": [
+            "*"
+          ],
+          "ACTIVITY_ARRAY_LIST": [
+            "1",
+            "2"
+          ],
+          "PACKAGE_NAME": "com.dalosy.package"
+        }
+      ]
+    }
+  },
+  {}
+]
