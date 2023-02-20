@@ -19,6 +19,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayL
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class Json {
+
   public static PutBase putBaseFromJson(Object json) throws JSONException {
     if (json instanceof JSONObject) {
       JSONObject jsonObject = (JSONObject) json;
@@ -45,7 +46,6 @@ public class Json {
           return PutStringArray.fromJson(jsonObject);
         case PutStringArrayList.javaClass:
           return PutStringArrayList.fromJson(jsonObject);
-
       }
     }
     throw new RuntimeException("Type not found");
@@ -54,6 +54,7 @@ public class Json {
   public static ParcelableBase parcelableBaseFromJson(Object json) throws JSONException {
     if (json instanceof JSONObject) {
       JSONObject jsonObject = (JSONObject) json;
+      //Add other parcelable classes here
       //noinspection SwitchStatementWithTooFewBranches
       switch (jsonObject.getString(Constants.JAVA_CLASS)) {
         case Bundle.javaClass:

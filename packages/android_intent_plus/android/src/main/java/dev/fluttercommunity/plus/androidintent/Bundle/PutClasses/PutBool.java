@@ -9,6 +9,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutBool extends PutBase {
+
   public final static String javaClass = "PutBool";
   final Boolean value;
 

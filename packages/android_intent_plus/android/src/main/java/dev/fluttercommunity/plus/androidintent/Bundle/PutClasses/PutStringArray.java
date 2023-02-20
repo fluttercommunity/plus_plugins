@@ -13,6 +13,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutStringArray extends PutBase {
+
   public final static String javaClass = "PutStringArray";
   final List<String> value;
 

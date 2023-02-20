@@ -13,6 +13,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutBoolArray extends PutBase {
+
   public final static String javaClass = "PutBoolArray";
   final List<Boolean> value;
 

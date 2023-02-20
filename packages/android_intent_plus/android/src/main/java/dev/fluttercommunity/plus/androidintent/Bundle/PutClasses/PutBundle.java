@@ -15,6 +15,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Json;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutBundle extends PutBase {
+
   public final static String javaClass = "PutBundle";
   final List<PutBase> value;
 

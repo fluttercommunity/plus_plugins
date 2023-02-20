@@ -2,12 +2,10 @@ package dev.fluttercommunity.plus.androidintent.Bundle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class CreateExtras {
-
 
   static public Bundles create(String jsonString) {
     Bundles bundles = new Bundles(new ArrayList<>());

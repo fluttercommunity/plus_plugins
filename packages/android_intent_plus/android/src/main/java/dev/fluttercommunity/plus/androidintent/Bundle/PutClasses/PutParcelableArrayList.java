@@ -15,6 +15,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.Par
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class PutParcelableArrayList extends PutBase {
+
   public final static String javaClass = "PutParcelableArrayList";
   final List<ParcelableBase> value;
 
