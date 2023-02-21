@@ -1,4 +1,4 @@
-package io.flutter.plugins.androidintent.Bundle;
+package dev.fluttercommunity.plus.androidintent.Bundle;
 /*
  * Copyright (C) 2015 Gson Type Adapter Authors.
  *

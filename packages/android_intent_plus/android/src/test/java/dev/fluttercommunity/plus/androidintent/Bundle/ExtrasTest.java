@@ -20,8 +20,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
 
-import io.flutter.plugins.androidintent.Bundle.BundleTypeAdapterFactory;
-
 @RunWith(RobolectricTestRunner.class)
 public class ExtrasTest {
 
