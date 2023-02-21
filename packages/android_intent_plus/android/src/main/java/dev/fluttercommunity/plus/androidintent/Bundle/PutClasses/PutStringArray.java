@@ -1,20 +1,17 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
 public class PutStringArray extends PutBase {
 
-  public final static String javaClass = "PutStringArray";
+  public static final String javaClass = "PutStringArray";
   final List<String> value;
 
   public PutStringArray(String key, List<String> value) {
@@ -26,7 +23,7 @@ public class PutStringArray extends PutBase {
     bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
   }
 
-  static private String[] toPrimitiveArray(final List<String> stringList) {
+  private static String[] toPrimitiveArray(final List<String> stringList) {
     final String[] primitives = new String[stringList.size()];
     for (int i = 0; i < stringList.size(); i++) {
       primitives[i] = stringList.get(i);

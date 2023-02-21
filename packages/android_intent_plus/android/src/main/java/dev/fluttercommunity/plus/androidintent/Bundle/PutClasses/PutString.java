@@ -1,16 +1,14 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
 public class PutString extends PutBase {
 
-  public final static String javaClass = "PutString";
+  public static final String javaClass = "PutString";
   final String value;
 
   public PutString(String key, String value) {
@@ -23,6 +21,7 @@ public class PutString extends PutBase {
   }
 
   public static PutString fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutString(jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
+    return new PutString(
+        jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
   }
 }

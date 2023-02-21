@@ -1,20 +1,17 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
 public class PutIntArray extends PutBase {
 
-  public final static String javaClass = "PutIntArray";
+  public static final String javaClass = "PutIntArray";
   final List<Integer> value;
 
   public PutIntArray(String key, List<Integer> value) {
@@ -22,11 +19,11 @@ public class PutIntArray extends PutBase {
     this.value = value;
   }
 
-  static public void convert(Bundle bundle, PutIntArray putIntArray) {
+  public static void convert(Bundle bundle, PutIntArray putIntArray) {
     bundle.putIntArray(putIntArray.key, toPrimitiveArray(putIntArray.value));
   }
 
-  static private int[] toPrimitiveArray(final List<Integer> integerList) {
+  private static int[] toPrimitiveArray(final List<Integer> integerList) {
     final int[] primitives = new int[integerList.size()];
     for (int i = 0; i < integerList.size(); i++) {
       primitives[i] = integerList.get(i);

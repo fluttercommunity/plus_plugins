@@ -1,8 +1,5 @@
 package dev.fluttercommunity.plus.androidintent.Bundle;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBool;
@@ -17,6 +14,8 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutString;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayList;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Json {
 

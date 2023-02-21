@@ -1,20 +1,17 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
 public class PutStringArrayList extends PutBase {
 
-  public final static String javaClass = "PutStringArrayList";
+  public static final String javaClass = "PutStringArrayList";
   final List<String> value;
 
   public PutStringArrayList(String key, List<String> value) {

@@ -14,7 +14,7 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayL
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class ConvertExtras {
-  static public void convert(android.os.Bundle bundle, PutBase putBase) {
+  public static void convert(android.os.Bundle bundle, PutBase putBase) {
     if (putBase instanceof PutBool) {
       PutBool.convert(bundle, (PutBool) putBase);
     } else if (putBase instanceof PutBoolArray) {

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import dev.fluttercommunity.plus.androidintent.Bundle.Extras;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -17,7 +18,6 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import dev.fluttercommunity.plus.androidintent.Bundle.Extras;
 
 /** Forwards incoming {@link MethodCall}s to {@link IntentSender#send}. */
 public final class MethodCallHandlerImpl implements MethodCallHandler {
@@ -82,7 +82,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
     arguments.putAll(arrayArguments);
     List<Bundle> extras = Extras.convert((String) call.argument("extras"));
-    for (Bundle bundle: extras) {
+    for (Bundle bundle : extras) {
       arguments.putAll(bundle);
     }
     String packageName = call.argument("package");

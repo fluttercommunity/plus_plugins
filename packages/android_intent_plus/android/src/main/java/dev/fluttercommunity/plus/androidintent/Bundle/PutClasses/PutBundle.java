@@ -1,22 +1,19 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.ConvertExtras;
 import dev.fluttercommunity.plus.androidintent.Bundle.Json;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutBundle extends PutBase {
 
-  public final static String javaClass = "PutBundle";
+  public static final String javaClass = "PutBundle";
   final List<PutBase> value;
 
   public PutBundle(String key, List<PutBase> value) {
@@ -24,7 +21,7 @@ public class PutBundle extends PutBase {
     this.value = value;
   }
 
-  static public void convert(Bundle bundle, PutBundle putBundle) {
+  public static void convert(Bundle bundle, PutBundle putBundle) {
     Bundle subBundle = new Bundle();
     for (PutBase putBase : putBundle.value) {
       ConvertExtras.convert(subBundle, putBase);

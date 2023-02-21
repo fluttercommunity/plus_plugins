@@ -1,16 +1,14 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
 public class PutBool extends PutBase {
 
-  public final static String javaClass = "PutBool";
+  public static final String javaClass = "PutBool";
   final Boolean value;
 
   public PutBool(String key, boolean value) {
@@ -18,7 +16,7 @@ public class PutBool extends PutBase {
     this.value = value;
   }
 
-  static public void convert(Bundle bundle, PutBool putBool) {
+  public static void convert(Bundle bundle, PutBool putBool) {
     bundle.putBoolean(putBool.key, putBool.value);
   }
 

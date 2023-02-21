@@ -1,24 +1,21 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Parcelable;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.ConvertExtras;
 import dev.fluttercommunity.plus.androidintent.Bundle.Json;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutParcelableArray extends PutBase {
 
-  public final static String javaClass = "PutParcelableArray";
+  public static final String javaClass = "PutParcelableArray";
   final List<ParcelableBase> value;
 
   public PutParcelableArray(String key, List<ParcelableBase> value) {
@@ -27,7 +24,9 @@ public class PutParcelableArray extends PutBase {
   }
 
   public static void convert(android.os.Bundle bundle, PutParcelableArray putParcelableArray) {
-    bundle.putParcelableArray(putParcelableArray.key, convertToParcelable(putParcelableArray.value).toArray(new Parcelable[0]));
+    bundle.putParcelableArray(
+        putParcelableArray.key,
+        convertToParcelable(putParcelableArray.value).toArray(new Parcelable[0]));
   }
 
   public static ArrayList<Parcelable> convertToParcelable(List<ParcelableBase> values) {

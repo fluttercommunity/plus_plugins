@@ -1,13 +1,11 @@
 package dev.fluttercommunity.plus.androidintent.Bundle;
 
+import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 
 public class Bundles {
 

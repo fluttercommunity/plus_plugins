@@ -1,20 +1,18 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.Json;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Bundle extends ParcelableBase {
 
-  public final static String javaClass = "Bundle";
+  public static final String javaClass = "Bundle";
 
   public List<PutBase> value = new ArrayList<>();
 

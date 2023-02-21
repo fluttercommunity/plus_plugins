@@ -1,13 +1,12 @@
 package dev.fluttercommunity.plus.androidintent.Bundle;
 
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
-
 public class CreateExtras {
 
-  static public Bundles create(String jsonString) {
+  public static Bundles create(String jsonString) {
     Bundles bundles = new Bundles(new ArrayList<>());
     try {
       JSONArray jsonArray = new JSONArray(jsonString);
