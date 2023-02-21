@@ -54,11 +54,100 @@ if (platform.isAndroid) {
 
 Feel free to add support for additional Android intents.
 
-The Dart values supported for the arguments parameter, and their corresponding
-Android values, are listed [here](https://flutter.dev/platform-channels/#codec).
-On the Android side, the arguments are used to populate an Android `Bundle`
-instance. This process currently restricts the use of lists to homogeneous lists
-of integers or strings.
+The Dart values supported for the `arguments` and the `arrayArguments` parameter, and their corresponding Java values, are listed [here](https://flutter.dev/platform-channels/#codec).
+
+Lists in the `arguments` parameter are always translated to a Java `ArrayList`. Lists in the `arrayArguments` parameter are always translated to a Java `Array`.
+
+For nesting values and mixing of `Array` and `ArrayList` values, you can use the `extras` parameter. The `extra` parameter accepts a `List<Bundle>` as parameter.
+
+```dart
+if (platform.isAndroid) {
+  final AndroidIntent intent = AndroidIntent(
+    action: 'com.example.broadcast',
+    extras: <Bundle>[
+      Bundle(
+        value: [
+          PutBundle(
+            key: 'com.symbol.datawedge.api.SET_CONFIG',
+            value: [
+              PutString(
+                key: 'PROFILE_NAME',
+                value: 'com.dalosy.count_app',
+              ),
+              PutParcelableArray(
+                key: 'APP_LIST',
+                value: [
+                  Bundle(
+                    value: [
+                      PutString(
+                        key: 'PACKAGE_NAME',
+                        value: 'com.dalosy.package',
+                      ),
+                      PutStringArray(
+                        key: 'ACTIVITY_LIST',
+                        value: ['*'],
+                      ),
+                      PutStringArrayList(
+                        key: 'ACTIVITY_ARRAY_LIST',
+                        value: ['1', '2'],
+                      )
+                    ],
+                  )
+                ],
+              ),
+              PutParcelableArrayList(
+                key: 'PLUGIN_CONFIG',
+                value: [
+                  Bundle(
+                    value: [
+                      PutString(
+                        key: 'PLUGIN_NAME',
+                        value: 'BARCODE',
+                      ),
+                      PutBool(
+                        key: 'RESET_CONFIG',
+                        value: true,
+                      ),
+                      PutBundle(
+                        key: 'PARAM_LIST',
+                        value: [
+                          PutString(
+                            key: 'scanner_selection',
+                            value: 'auto',
+                          ),
+                          PutInt(
+                            key: 'picklist',
+                            value: 1,
+                          ),
+                          PutIntArray(
+                            key: 'int_array_test',
+                            value: [1, 2, 3, 4, 5],
+                          ),
+                          PutIntArrayList(
+                            key: 'int_array_list_test',
+                            value: [1, 2, 3, 4, 5, 6],
+                          ),
+                          PutBoolArray(
+                            key: 'bool_array_test',
+                            value: [true, false, false, true],
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    ],
+  );
+  await intent.launch();
+}
+```
+
+On the Android side, the `arguments`, `arrayArguments` and the `extras` parameters are used to populate an Android Bundle instance that is send with an Android Intent.
 
 > **Note**
 >
