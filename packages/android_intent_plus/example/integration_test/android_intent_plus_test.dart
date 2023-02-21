@@ -80,7 +80,8 @@ void main() {
     await intent.sendBroadcast();
   }, skip: !Platform.isAndroid);
 
-  testWidgets('SendBroadcast(extras) should not throw', (WidgetTester tester) async {
+  testWidgets('SendBroadcast(extras) should not throw',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
     await tester.tap(find.byKey(const Key('test_extras')));
     await tester.pumpAndSettle();
