@@ -77,6 +77,11 @@ class MyHomePage extends StatelessWidget {
               child: const Text('Tap here to send Intent as broadcast'),
             ),
             ElevatedButton(
+              onPressed: _sendBroadCastExtra,
+              child:
+                  const Text('Tap here to send Intent as broadcast (extras)'),
+            ),
+            ElevatedButton(
               onPressed: () => _openExplicitIntentsView(context),
               child: const Text('Tap here to test explicit intents.'),
             ),
@@ -109,6 +114,141 @@ class MyHomePage extends StatelessWidget {
     );
     intent.sendBroadcast();
   }
+
+  void _sendBroadCastExtra() {
+    final intent = AndroidIntent(
+      action: 'com.symbol.datawedge.api.ACTION',
+      extras: [
+        Bundle(
+          value: [
+            PutBundle(
+              key: 'com.symbol.datawedge.api.SET_CONFIG',
+              value: [
+                PutString(
+                  key: 'PROFILE_NAME',
+                  value: 'com.dalosy.scanner_by_intents',
+                ),
+                PutString(
+                  key: 'PROFILE_ENABLED',
+                  value: 'true',
+                ),
+                PutString(
+                  key: 'CONFIG_MODE',
+                  value: 'CREATE_IF_NOT_EXIST',
+                ),
+                PutParcelableArray(
+                  key: 'APP_LIST',
+                  value: [
+                    appList(),
+                  ],
+                ),
+                PutParcelableArrayList(
+                  key: 'PLUGIN_CONFIG',
+                  value: [
+                    barcodePluginConfig(),
+                    intentPluginConfig(),
+                    keystrokePluginConfig(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+    intent.sendBroadcast();
+  }
+
+  Bundle appList() => Bundle(
+        value: [
+          PutString(
+            key: 'PACKAGE_NAME',
+            value: 'com.dalosy.scanner_by_intents',
+          ),
+          PutStringArray(
+            key: 'ACTIVITY_LIST',
+            value: ['*'],
+          ),
+        ],
+      );
+
+  Bundle barcodePluginConfig() => Bundle(
+        value: [
+          PutString(
+            key: 'PLUGIN_NAME',
+            value: 'BARCODE',
+          ),
+          PutString(
+            key: 'RESET_CONFIG',
+            value: 'true',
+          ),
+          PutBundle(
+            key: 'PARAM_LIST',
+            value: [
+              PutString(
+                key: 'scanner_selection',
+                value: 'auto',
+              ),
+              PutString(
+                key: 'picklist',
+                value: "1",
+              ),
+            ],
+          ),
+        ],
+      );
+
+  intentPluginConfig() => Bundle(
+        value: [
+          PutString(
+            key: 'PLUGIN_NAME',
+            value: 'INTENT',
+          ),
+          PutString(
+            key: 'RESET_CONFIG',
+            value: 'true',
+          ),
+          PutBundle(
+            key: 'PARAM_LIST',
+            value: [
+              PutString(
+                key: 'intent_output_enabled',
+                value: 'true',
+              ),
+              PutString(
+                key: 'intent_action',
+                value: 'com.dalosy.scanner_by_intents.ACTION',
+              ),
+              PutString(
+                key: 'intent_delivery',
+                value: '2',
+              ),
+            ],
+          ),
+        ],
+      );
+
+  keystrokePluginConfig() => Bundle(
+        value: [
+          PutString(
+            key: 'PLUGIN_NAME',
+            value: 'KEYSTROKE',
+          ),
+          PutString(
+            key: 'RESET_CONFIG',
+            value: 'true',
+          ),
+          PutBundle(
+            key: 'PARAM_LIST',
+            value: [
+              PutString(
+                key: 'keystroke_output_enabled',
+                value: 'false',
+              ),
+            ],
+          ),
+        ],
+      );
 }
 
 /// Launches intents to specific Android activities.
