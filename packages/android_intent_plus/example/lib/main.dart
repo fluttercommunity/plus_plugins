@@ -77,6 +77,7 @@ class MyHomePage extends StatelessWidget {
               child: const Text('Tap here to send Intent as broadcast'),
             ),
             ElevatedButton(
+              key: const Key('test_extras'),
               onPressed: _sendBroadCastExtra,
               child:
                   const Text('Tap here to send Intent as broadcast (extras)'),
