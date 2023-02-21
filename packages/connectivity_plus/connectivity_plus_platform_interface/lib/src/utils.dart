@@ -13,6 +13,8 @@ ConnectivityResult parseConnectivityResult(String state) {
       return ConnectivityResult.mobile;
     case 'vpn':
       return ConnectivityResult.vpn;
+    case 'other':
+      return ConnectivityResult.other;
     case 'none':
     default:
       return ConnectivityResult.none;

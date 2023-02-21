@@ -1,3 +1,7 @@
+## 3.0.2
+
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.1
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

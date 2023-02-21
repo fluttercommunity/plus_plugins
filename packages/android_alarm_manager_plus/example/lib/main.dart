@@ -106,7 +106,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.headline4;
+    final textStyle = Theme.of(context).textTheme.headlineMedium;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

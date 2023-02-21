@@ -1,3 +1,7 @@
+## 1.2.4
+
+ - **FIX**: Do not return ConnectivityResult.none on iOS and MacOS with VPN (#1335).
+
 ## 1.2.3
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

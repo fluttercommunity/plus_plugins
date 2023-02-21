@@ -1,3 +1,8 @@
+## 3.0.3
+
+ - **FIX**: broadcast stream (#1479).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.2
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

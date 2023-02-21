@@ -22,6 +22,7 @@ void main() {
 
     testWidgets('test location methods, iOS only', (WidgetTester tester) async {
       if (Platform.isIOS) {
+        // ignore: deprecated_member_use
         expect((await networkInfo.getLocationServiceAuthorization()),
             LocationAuthorizationStatus.notDetermined);
       }
