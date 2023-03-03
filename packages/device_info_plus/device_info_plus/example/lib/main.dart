@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
       'name': data.name,
       'systemName': data.systemName,
       'systemVersion': data.systemVersion,
-      'model': data.model,
+      'model': data.utsname.machine,
       'localizedModel': data.localizedModel,
       'identifierForVendor': data.identifierForVendor,
       'isPhysicalDevice': data.isPhysicalDevice,
