@@ -96,16 +96,18 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef USE_SYSCTL_NET_ROUTE
 #include <stdlib.h>
+#include <string.h>
 #include <sys/sysctl.h>
 #include <sys/socket.h>
-#include <net/route.h>
+#include <net/if.h>
+#include "route.h"
 #endif
 #ifdef USE_SOCKET_ROUTE
 #include <unistd.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <net/if.h>
-#include <net/route.h>
+#include "route.h"
 #endif
 
 #ifdef USE_WIN32_CODE
@@ -221,8 +223,12 @@ int getdefaultgateway(in_addr_t * addr)
               && sa_tab[RTAX_DST]->sa_family == AF_INET
               && sa_tab[RTAX_GATEWAY]->sa_family == AF_INET) {
 				if(((struct sockaddr_in *)sa_tab[RTAX_DST])->sin_addr.s_addr == 0) {
-					*addr = ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
-					r = SUCCESS;
+					char if_name[IF_NAMESIZE];
+					if_indextoname(rt->rtm_index, if_name);
+					if(strcmp(if_name, "en0") == 0) {
+						*addr = ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
+						r = SUCCESS;
+					}
 				}
 			}
 		}
