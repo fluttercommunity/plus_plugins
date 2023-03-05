@@ -78,7 +78,7 @@ class PackageInfo {
     required String version,
     required String buildNumber,
     required String buildSignature,
-    required String? installerStore,
+    String? installerStore,
   }) {
     _fromPlatform = PackageInfo(
       appName: appName,
