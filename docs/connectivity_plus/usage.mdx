@@ -32,17 +32,17 @@ Using `checkConnectivity()` method, you may get one of 3 network statuses:
 3. **None:** not connected at all.
 
 :::caution
-Note that on **Android**, this does not guarantee connection to internet. 
-For instance, the app might have WiFi access but it might be a VPN or 
+Note that on **Android**, this does not guarantee connection to internet.
+For instance, the app might have WiFi access but it might be a VPN or
 a hotel WiFi with no access to internet.
 :::
 
 ### Get Notified of Network Changes
 
-In most use casses, you will probably use this package to know when your 
-user is connected to the internet or not, and for that you are provided 
-with a method that gives you the realtime status of the connection, 
-therefore enable and disable certain parts of your app that dependss on 
+In most use casses, you will probably use this package to know when your
+user is connected to the internet or not, and for that you are provided
+with a method that gives you the realtime status of the connection,
+therefore enable and disable certain parts of your app that dependss on
 user's connectivity.
 
 #### 1. Declare a StreamSubscription
@@ -53,13 +53,13 @@ StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
 #### 2. Listen to the Stream
 
-Use `onConnectivityChanged` method that has a return type `Stream<ConnectivityResult>`, 
+Use `onConnectivityChanged` method that has a return type `Stream<ConnectivityResult>`,
 to register a listener.
 
 :::note
-Note that connectivity changes are no longer communicated to Android apps 
-in the background starting with **Android 8.0**. 
-*You should always check for connectivity status when your app is resumed.* 
+Note that connectivity changes are no longer communicated to Android apps
+in the background starting with **Android 8.0**.
+*You should always check for connectivity status when your app is resumed.*
 The broadcast is only useful when your application is in the **foreground**.
 :::
 
@@ -71,7 +71,6 @@ ConnectivityResult connectivityResult = ConnectivityResult.none;
 @override
 void initState() {
   super.initState();
-
   _connectivitySubscription =
       _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 }
@@ -79,9 +78,8 @@ void initState() {
 // Make sure to cancel subscription after you are done
 @override
 dispose() {
-  super.dispose();
-
   subscription.cancel();
+  super.dispose();
 }
 ```
 
@@ -96,18 +94,18 @@ Future<void> _updateConnectionStatus(ConnectivityResult result) async {
 ```
 
 :::caution
-You should not be using the current network status for deciding 
-whether you can reliably make a network connection. 
-Always guard your app code against timeouts and errors that might come 
+You should not be using the current network status for deciding
+whether you can reliably make a network connection.
+Always guard your app code against timeouts and errors that might come
 from the network layer with `try/catch`.
 :::
 
 ### [Web Only] Limitations
 
-In order to retrieve information about the quality/speed of a browser's connection, 
-the web implementation of the `connectivity` plugin uses the browser's 
-[**NetworkInformation** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation), 
-which as of this writing (Feburary 2021) is still "experimental", and not available in 
+In order to retrieve information about the quality/speed of a browser's connection,
+the web implementation of the `connectivity` plugin uses the browser's
+[**NetworkInformation** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation),
+which as of this writing (Feburary 2021) is still "experimental", and not available in
 all browsers:
 
 ![Data on support for the netinfo feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/netinfo.png)
@@ -116,10 +114,10 @@ On desktop browsers, this API only returns a very broad set of connectivity stat
 
 **Fallback to `navigator.onLine`**
 
-For those browsers where the NetworkInformation Web API is not available, the plugin falls back to the [**NavigatorOnLine** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine), which is more broadly supported: 
+For those browsers where the NetworkInformation Web API is not available, the plugin falls back to the [**NavigatorOnLine** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine), which is more broadly supported:
 
 ![Data on support for the online-status feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/online-status.png)
 
-The NavigatorOnLine API is [provided by `dart:html`](https://api.dart.dev/stable/2.7.2/dart-html/Navigator/onLine.html), 
-and only supports a boolean connectivity status (either online or offline), with no network speed information. 
+The NavigatorOnLine API is [provided by `dart:html`](https://api.dart.dev/stable/2.7.2/dart-html/Navigator/onLine.html),
+and only supports a boolean connectivity status (either online or offline), with no network speed information.
 In those cases the plugin will return either `wifi` (when the browser is online) or `none` (when it's not).

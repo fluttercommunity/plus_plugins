@@ -1,3 +1,7 @@
+## 2.1.1
+
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 2.1.0
 
  - **FEAT**: we can now send extra data to alarm manager and receive it in our callback (#1014).

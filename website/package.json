@@ -21,34 +21,34 @@
     "defaults"
   ],
   "dependencies": {
-    "@docusaurus/core": "^2.2.0",
-    "@docusaurus/plugin-google-gtag": "^2.2.0",
-    "@docusaurus/preset-classic": "^2.2.0",
+    "@docusaurus/core": "^2.3.1",
+    "@docusaurus/plugin-google-gtag": "^2.3.0",
+    "@docusaurus/preset-classic": "^2.3.1",
     "@types/lodash.get": "^4.4.7",
     "@types/react": "^17.0.50",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.2.1",
+    "axios": "^1.3.4",
     "classnames": "^2.3.2",
     "compare-versions": "^5.0.3",
-    "docusaurus-plugin-sass": "^0.2.2",
+    "docusaurus-plugin-sass": "^0.2.3",
     "dotenv": "^16.0.3",
     "lodash.get": "^4.4.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.5.0",
-    "sass": "^1.57.1"
+    "react-router-dom": "^6.8.2",
+    "sass": "^1.58.3"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.2.0",
+    "@docusaurus/module-type-aliases": "^2.3.1",
     "@tsconfig/docusaurus": "^1.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.47.1",
-    "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.11",
-    "prettier": "^2.8.1",
-    "spellchecker-cli": "^6.1.0",
-    "typescript": "^4.9.4"
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4",
+    "spellchecker-cli": "^6.1.1",
+    "typescript": "^4.9.5"
   }
 }
