@@ -59,7 +59,7 @@
 
 - (NSString *)getGatewayIP {
   struct in_addr gatewayAddr;
-  int gatewayAdressResult = getDefaultGateway(&(gatewayAddr.s_addr));
+  int gatewayAdressResult = getdefaultgateway(&(gatewayAddr.s_addr));
   if (gatewayAdressResult >= 0) {
     return [NSString stringWithFormat:@"%s", inet_ntoa(gatewayAddr)];
   } else {
