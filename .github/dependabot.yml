@@ -22,6 +22,7 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    versioning-strategy: increase
 
   # Android Alarm Manager dependencies updates config
 
