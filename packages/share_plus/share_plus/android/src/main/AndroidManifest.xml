@@ -14,7 +14,7 @@
       </provider>
       <!-- This manifest declared broadcast receiver allows us to use an explicit
            Intent when creating a PendingItent to be informed of the user's choice -->
-      <receiver android:name=".SharePlusPendingIntent" android:exported="true">
+      <receiver android:name=".SharePlusPendingIntent" android:exported="false">
         <intent-filter>
           <action android:name="EXTRA_CHOSEN_COMPONENT" />
         </intent-filter>
