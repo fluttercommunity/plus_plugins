@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.MethodCall
-import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES
 import io.flutter.plugin.common.EventChannel.EventSink
 import android.content.IntentFilter
@@ -117,8 +116,7 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
                 "huawei" -> isHuaweiPowerSaveModeActive()
                 "samsung" -> isSamsungPowerSaveModeActive()
                 else -> {
-                    val powerManager = applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
-                    powerManager.isPowerSaveMode
+                    checkPowerServiceSaveMode()
                 }
             }
         } else {
@@ -141,7 +139,9 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         return if (mode != -1) {
             mode == POWER_SAVE_MODE_HUAWEI
         } else {
-            null
+            // On Devices like the P30 lite, we always get an -1 result code.
+            // Stackoverflow issue: https://stackoverflow.com/a/70500770
+            checkPowerServiceSaveMode()
         }
     }
 
@@ -149,6 +149,16 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         val mode = Settings.System.getInt(applicationContext!!.contentResolver, "POWER_SAVE_MODE_OPEN", -1)
         return if (mode != -1) {
             mode == POWER_SAVE_MODE_XIAOMI
+        } else {
+            null
+        }
+    }
+
+    private fun checkPowerServiceSaveMode(): Boolean? {
+        return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            val powerManager =
+                applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
+            powerManager.isPowerSaveMode
         } else {
             null
         }
