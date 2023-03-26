@@ -21,27 +21,21 @@ class Connectivity {
   // When a second instance is created, the first instance will not be able to listen to the
   // EventChannel because it is overridden. Forcing the class to be a singleton class can prevent
   // misuse of creating a second instance from a programmer.
-  factory Connectivity() {
-    _singleton ??= Connectivity._();
-    return _singleton!;
-  }
+  factory Connectivity() => _singleton ??= Connectivity._();
 
   Connectivity._();
 
   static Connectivity? _singleton;
 
-  static ConnectivityPlatform get _platform {
-    return ConnectivityPlatform.instance;
-  }
+  static ConnectivityPlatform get _platform => ConnectivityPlatform.instance;
 
   /// Fires whenever the connectivity state changes.
   ///
   /// On iOS, the connectivity status might not update when WiFi
   /// status changes, this is a known issue that only affects simulators.
   /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
-  Stream<ConnectivityResult> get onConnectivityChanged {
-    return _platform.onConnectivityChanged;
-  }
+  Stream<ConnectivityResult> get onConnectivityChanged =>
+      _platform.onConnectivityChanged;
 
   /// Checks the connection status of the device.
   ///
@@ -49,7 +43,6 @@ class Connectivity {
   /// make a network request. It only gives you the radio status.
   ///
   /// Instead listen for connectivity changes via [onConnectivityChanged] stream.
-  Future<ConnectivityResult> checkConnectivity() {
-    return _platform.checkConnectivity();
-  }
+  Future<ConnectivityResult> checkConnectivity() =>
+      _platform.checkConnectivity();
 }
