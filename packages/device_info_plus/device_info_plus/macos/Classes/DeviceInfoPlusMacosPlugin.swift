@@ -18,12 +18,17 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
     }
 
     private func handleDeviceInfo(result: @escaping FlutterResult)-> Void{
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersion;
+
         let computerName = Host.current().localizedName ?? Sysctl.hostName
         let hostName = Sysctl.osType
         let arch = Sysctl.machine
         let model = Sysctl.model
         let kernelVersion = Sysctl.version
         let osRelease = ProcessInfo.processInfo.operatingSystemVersionString
+        let majorVersion = osVersion.majorVersion,
+        let minorVersion = osVersion.minorVersion,
+        let patchVersion = osVersion.patchVersion,
         let activeCPUs = Sysctl.activeCPUs
         let memorySize = Sysctl.memSize
         let cpuFrequency = Sysctl.cpuFreq
@@ -36,6 +41,9 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
             "model": model,
             "kernelVersion": kernelVersion,
             "osRelease": osRelease,
+            "majorVersion": majorVersion,
+            "minorVersion": minorVersion,
+            "patchVersion": patchVersion,
             "activeCPUs": activeCPUs,
             "memorySize": memorySize,
             "cpuFrequency": cpuFrequency,
