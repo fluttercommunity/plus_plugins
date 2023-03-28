@@ -47,13 +47,13 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
   final String osRelease;
 
   /// The major release number, such as 10 in version 10.9.3.
-  final String majorVersion;
+  final int majorVersion;
 
   /// The minor release number, such as 9 in version 10.9.3.
-  final String minorVersion;
+  final int minorVersion;
 
   /// The update release number, such as 3 in version 10.9.3.
-  final String patchVersion;
+  final int patchVersion;
 
   /// Number of active CPUs
   final int activeCPUs;
