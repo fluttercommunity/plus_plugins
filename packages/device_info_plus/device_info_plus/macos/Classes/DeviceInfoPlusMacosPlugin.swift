@@ -26,9 +26,9 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
         let model = Sysctl.model
         let kernelVersion = Sysctl.version
         let osRelease = ProcessInfo.processInfo.operatingSystemVersionString
-        let majorVersion = osVersion.majorVersion,
-        let minorVersion = osVersion.minorVersion,
-        let patchVersion = osVersion.patchVersion,
+        let majorVersion = osVersion.majorVersion
+        let minorVersion = osVersion.minorVersion
+        let patchVersion = osVersion.patchVersion
         let activeCPUs = Sysctl.activeCPUs
         let memorySize = Sysctl.memSize
         let cpuFrequency = Sysctl.cpuFreq
