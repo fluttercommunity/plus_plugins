@@ -9,12 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  package_info_plus:
-    path: ../
-
-dependency_overrides:
-  package_info_plus_platform_interface:
-    path: ../../package_info_plus_platform_interface
+  package_info_plus: ^3.0.3
 
 dev_dependencies:
   integration_test:

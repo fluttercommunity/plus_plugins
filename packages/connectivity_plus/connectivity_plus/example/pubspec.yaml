@@ -7,12 +7,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus:
-    path: ../
-
-dependency_overrides:
-  connectivity_plus_platform_interface:
-    path: ../../connectivity_plus_platform_interface
+  connectivity_plus: ^3.0.3
 
 dev_dependencies:
   flutter_driver:
