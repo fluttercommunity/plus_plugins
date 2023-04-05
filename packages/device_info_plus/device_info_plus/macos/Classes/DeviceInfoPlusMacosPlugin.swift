@@ -18,14 +18,13 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
     }
 
     private func handleDeviceInfo(result: @escaping FlutterResult)-> Void{
-        let osVersion = ProcessInfo.processInfo.operatingSystemVersion;
-
         let computerName = Host.current().localizedName ?? Sysctl.hostName
         let hostName = Sysctl.osType
         let arch = Sysctl.machine
         let model = Sysctl.model
         let kernelVersion = Sysctl.version
         let osRelease = ProcessInfo.processInfo.operatingSystemVersionString
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersion;
         let majorVersion = osVersion.majorVersion
         let minorVersion = osVersion.minorVersion
         let patchVersion = osVersion.patchVersion
