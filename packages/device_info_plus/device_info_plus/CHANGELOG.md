@@ -1,3 +1,8 @@
+## 8.2.0
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FEAT**(device_info_plus): add major, minor and patch versions to macos (#1649).
+
 ## 8.1.0
 
  - **FEAT**: Add serialNumber property to AndroidDeviceInfo (#1349).

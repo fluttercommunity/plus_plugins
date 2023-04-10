@@ -1,3 +1,8 @@
+## 3.1.7
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
 ## 3.1.6
 
  - **DOCS**: Updates for READMEs and website pages (#1389).

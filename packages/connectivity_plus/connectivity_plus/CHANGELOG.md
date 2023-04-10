@@ -1,3 +1,8 @@
+## 3.0.4
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **DOCS**(connectivity_plus): Documentation added for the missing network interface enums (#1524).
+
 ## 3.0.3
 
  - **FIX**: Do not return ConnectivityResult.none on iOS and MacOS with VPN (#1335).
