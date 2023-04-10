@@ -1,3 +1,7 @@
+## 2.0.3
+
+ - **DOCS**(sensor_plus): improve description of accelerometer (#1425).
+
 ## 2.0.2
 
  - **DOCS**: Updates for READMEs and website pages (#1389).

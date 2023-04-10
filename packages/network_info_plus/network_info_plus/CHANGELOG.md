@@ -1,3 +1,9 @@
+## 3.0.3
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(network_info_plus): import original `getgateway.*` from libnatpmp (#1592).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
 ## 3.0.2
 
  - **DOCS**: Updates for READMEs and website pages (#1389).
