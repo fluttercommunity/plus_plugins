@@ -3,7 +3,7 @@
 name: plus_plugins
 
 # Array of globs to search for packages.
-# Instead of one recursive glog, we use multiple globs to avoid
+# Instead of one recursive glob, we use multiple globs to avoid
 # searching every single directory in the repo.
 packages:
   - packages/*
