@@ -9,9 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.5
   package_info_plus: ^3.1.0
 
 dev_dependencies:
+  build_runner: ^2.0.3
   integration_test:
     sdk: flutter
   flutter_driver:
@@ -19,6 +21,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.7
 
 flutter:
   uses-material-design: true
