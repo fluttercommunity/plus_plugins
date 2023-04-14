@@ -2,13 +2,13 @@
 # and on your IDEs.
 name: plus_plugins
 
-versioning:
-  # Versioning mode, currently only independent supported.
-  mode: independent
-
 # Array of globs to search for packages.
+# Instead of one recursive glog, we use multiple globs to avoid
+# searching every single directory in the repo.
 packages:
-  - packages/**
+  - packages/*
+  - packages/*/*
+  - packages/*/*/*
 
 scripts:
   lint:all:
@@ -241,10 +241,3 @@ scripts:
   # Additional cleanup lifecycle script, executed when `melos clean` is ran.
   postclean: >
     melos exec -c 6 -- "flutter clean"
-
-dev_dependencies:
-  flutter_lints: 2.0.1
-
-environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5"
