@@ -22,7 +22,11 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   /// appName, packageName, version, buildNumber
   @override
   Future<PackageInfoData> getAll() {
-    final info = _FileVersionInfo(Platform.resolvedExecutable);
+    String resolvedExecutable = Platform.resolvedExecutable;
+    if (resolvedExecutable.startsWith(r"UNC\")){
+      resolvedExecutable = resolvedExecutable.replaceFirst(r"UNC\", r"\\");
+    }
+    final info = _FileVersionInfo(resolvedExecutable);
     final versions = info.productVersion!.split('+');
     final data = PackageInfoData(
       appName: info.productName ?? '',
