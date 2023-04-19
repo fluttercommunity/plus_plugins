@@ -23,7 +23,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() {
     String resolvedExecutable = Platform.resolvedExecutable;
-    if (resolvedExecutable.startsWith(r"UNC\")){
+    if (resolvedExecutable.startsWith(r"UNC\")) {
       resolvedExecutable = resolvedExecutable.replaceFirst(r"UNC\", r"\\");
     }
     final info = _FileVersionInfo(resolvedExecutable);
