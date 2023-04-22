@@ -24,6 +24,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 33
+    namespace 'dev.fluttercommunity.plus.battery'
 
     defaultConfig {
         minSdkVersion 16
