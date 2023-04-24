@@ -2,14 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:integration_test/integration_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:package_info_plus/src/package_info_plus_web.dart';
 
+import 'package_info_plus_test.dart' as common_tests;
 import 'package_info_plus_web_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
+  common_tests.main();
+
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   // ignore: constant_identifier_names
   const VERSION_JSON = {
     'app_name': 'package_info_example',
@@ -31,9 +37,9 @@ void main() {
   group(
     'Package Info Web',
     () {
-      test(
+      testWidgets(
         'Get correct values when response status is 200',
-        () async {
+        (tester) async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
               http.Response(jsonEncode(VERSION_JSON), 200),
@@ -50,9 +56,9 @@ void main() {
         },
       );
 
-      test(
+      testWidgets(
         'Get empty values when response status is not 200',
-        () async {
+        (tester) async {
           when(client.get(any)).thenAnswer(
             (_) => Future.value(
               http.Response('', 404),
@@ -69,9 +75,9 @@ void main() {
         },
       );
 
-      test(
+      testWidgets(
         'Get correct versionJsonUrl for http and https',
-        () {
+        (tester) async {
           expect(
             plugin.versionJsonUrl('https://example.com/#/my-page', 1),
             Uri.parse('https://example.com/version.json?cachebuster=1'),
@@ -102,7 +108,8 @@ void main() {
         },
       );
 
-      test('Get correct versionJsonUrl for chrome-extension', () {
+      testWidgets('Get correct versionJsonUrl for chrome-extension',
+          (tester) async {
         expect(
           plugin.versionJsonUrl('chrome-extension://abcdefgh', 1),
           Uri.parse('chrome-extension://abcdefgh/version.json?cachebuster=1'),
