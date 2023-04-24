@@ -38,7 +38,7 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
                 val buildSignature = getBuildSignature(packageManager)
 
-                val installerPackage = packageManager.getInstallerPackageName(applicationContext!!.packageName);
+                val installerPackage = getInstallerPackageName()
 
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
@@ -56,6 +56,21 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
             }
         } catch (ex: PackageManager.NameNotFoundException) {
             result.error("Name not found", ex.message, null)
+        }
+    }
+
+    /**
+     * Using initiatingPackageName on Android 11 and newer because it can't be changed
+     * https://developer.android.com/reference/android/content/pm/InstallSourceInfo#getInitiatingPackageName()
+     */
+    private fun getInstallerPackageName(): String? {
+        val packageManager = applicationContext!!.packageManager
+        val packageName = applicationContext!!.packageName
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            packageManager.getInstallSourceInfo(packageName).initiatingPackageName
+        } else {
+            @Suppress("DEPRECATION")
+            packageManager.getInstallerPackageName(packageName)
         }
     }
 

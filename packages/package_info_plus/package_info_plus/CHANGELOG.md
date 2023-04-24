@@ -1,3 +1,17 @@
+## 3.1.0
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(package_info_plus): Make example app content scrollable (#1614).
+ - **FIX**(package_info_plus): Make installerStore an optional argument in mocks (#1547).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+ - **FEAT**(package_info_plus): Use new API to get install source on Android >= 11 (#1616).
+
+## 3.0.3
+
+ - **REFACTOR**: Remove nullable struct fields (#1526).
+ - **DOCS**: Fixed markdown table formatting in README (#1477).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.2
 
  - **FIX**: adds value equality for PackageInfo (#1328).

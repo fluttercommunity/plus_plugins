@@ -108,6 +108,7 @@ class _MyAppState extends State<MyApp> {
       'displayHeightInches': build.displayMetrics.heightInches,
       'displayXDpi': build.displayMetrics.xDpi,
       'displayYDpi': build.displayMetrics.yDpi,
+      'serialNumber': build.serialNumber,
     };
   }
 
@@ -171,6 +172,9 @@ class _MyAppState extends State<MyApp> {
       'arch': data.arch,
       'model': data.model,
       'kernelVersion': data.kernelVersion,
+      'majorVersion': data.majorVersion,
+      'minorVersion': data.minorVersion,
+      'patchVersion': data.patchVersion,
       'osRelease': data.osRelease,
       'activeCPUs': data.activeCPUs,
       'memorySize': data.memorySize,

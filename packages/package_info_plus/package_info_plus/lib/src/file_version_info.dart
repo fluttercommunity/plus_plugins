@@ -10,10 +10,10 @@ part of package_info_plus_windows;
 
 class _LANGANDCODEPAGE extends Struct {
   @Uint16()
-  external int? wLanguage;
+  external int wLanguage;
 
   @Uint16()
-  external int? wCodePage;
+  external int wCodePage;
 }
 
 final _kernel32 = DynamicLibrary.open('kernel32.dll');
@@ -65,8 +65,8 @@ class _FileVersionInfo {
     String toHex4(int val) => val.toRadixString(16).padLeft(4, '0');
 
     for (final langCodepage in langCodepages) {
-      final lang = toHex4(langCodepage[0]!);
-      final codepage = toHex4(langCodepage[1]!);
+      final lang = toHex4(langCodepage[0]);
+      final codepage = toHex4(langCodepage[1]);
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
       final res =
           VerQueryValue(_data.lpBlock!, lpSubBlock, lplpBuffer.cast(), puLen);

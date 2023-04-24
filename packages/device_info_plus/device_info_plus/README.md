@@ -53,6 +53,12 @@ final deviceInfo = await deviceInfoPlugin.deviceInfo;
 final allInfo = deviceInfo.data;
 ```
 
-You will find links to the API docs on the [pub page](https://pub.dev/documentation/device_info_plus/latest/).
+> **Note**
+>
+> To get serial number on Android your app needs to meet one of official [requirements](https://developer.android.com/reference/android/os/Build#getSerial())
+> In case the app doesn't meet any of requirements plugin will return `unknown`.
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/device_info_plus/latest/device_info_plus/device_info_plus-library.html)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/device_info_plus/overview)

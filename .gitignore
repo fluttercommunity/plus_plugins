@@ -53,3 +53,5 @@ build/
 **/*.env
 
 lcov.info
+pubspec_overrides.yaml
+!/pubspec.lock
