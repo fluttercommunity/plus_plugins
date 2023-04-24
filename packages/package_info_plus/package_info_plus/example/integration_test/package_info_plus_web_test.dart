@@ -108,6 +108,36 @@ void main() {
         },
       );
 
+      testWidgets(
+        'Get correct versionJsonUrl for urls to html files',
+        (tester) async {
+          expect(
+            plugin.versionJsonUrl('https://example.com', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/index.html', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/index.html#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/index.html?hello_world=true/#/my-page', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl('https://example.com/a/b/c/wrapper.html', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
+        },
+      );
+
       testWidgets('Get correct versionJsonUrl for chrome-extension',
           (tester) async {
         expect(
