@@ -128,7 +128,8 @@ void main() {
             Uri.parse('https://example.com/version.json?cachebuster=1'),
           );
           expect(
-            plugin.versionJsonUrl('https://example.com/index.html?hello_world=true/#/my-page', 1),
+            plugin.versionJsonUrl(
+                'https://example.com/index.html?hello_world=true/#/my-page', 1),
             Uri.parse('https://example.com/version.json?cachebuster=1'),
           );
           expect(
