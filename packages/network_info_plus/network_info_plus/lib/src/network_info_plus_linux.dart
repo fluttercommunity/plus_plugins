@@ -91,7 +91,7 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
   }
 
   String? _getIpAddress(List<Map<String, dynamic>>? data) {
-    return data?.firstOrNull?['address'] as String;
+    return data?.firstOrNull?['address'] as String?;
   }
 
   String? _getSubnetMask(List<Map<String, dynamic>>? data) {
