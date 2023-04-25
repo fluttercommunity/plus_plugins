@@ -42,6 +42,8 @@ fi
 
 if [ "$ACTION" == "web" ]
 then
+  melos bootstrap --scope="$SCOPE"
+
   # Start x virtual framebuffer for chrome to run.
   export DISPLAY=:99
   Xvfb $DISPLAY -screen 0 1024x768x16 &
