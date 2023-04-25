@@ -1,3 +1,7 @@
+## 3.1.8
+
+ - **FIX**(android_intent_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1699).
+
 ## 3.1.7
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

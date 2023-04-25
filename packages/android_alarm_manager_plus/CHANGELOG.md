@@ -1,3 +1,7 @@
+## 2.1.3
+
+ - **FIX**(android_alarm_manager_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1698).
+
 ## 2.1.2
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

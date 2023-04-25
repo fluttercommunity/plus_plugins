@@ -1,3 +1,7 @@
+## 2.0.4
+
+ - **FIX**(sensors_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1705).
+
 ## 2.0.3
 
  - **DOCS**(sensor_plus): improve description of accelerometer (#1425).
