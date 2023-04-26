@@ -1,3 +1,7 @@
+## 8.2.1
+
+ - **FIX**(device_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1702).
+
 ## 8.2.0
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

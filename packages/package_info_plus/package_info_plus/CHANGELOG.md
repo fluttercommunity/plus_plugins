@@ -1,3 +1,8 @@
+## 3.1.1
+
+ - **FIX**(package_info_plus): remove html file parts from version url (#1330).
+ - **FIX**(package_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1704).
+
 ## 3.1.0
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

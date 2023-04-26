@@ -1,3 +1,8 @@
+## 6.3.3
+
+ - **FIX**(share_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1706).
+ - **FIX**(share_plus_android): Fix strict compilation errors in MIME reduction function (#1650).
+
 ## 6.3.2
 
  - **FIX**(share_plus): Set exported=false for BroadcastReceiver on Android (#1613).

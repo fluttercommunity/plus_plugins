@@ -1,3 +1,7 @@
+## 3.0.5
+
+ - **FIX**(connectivity_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1701).
+
 ## 3.0.4
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

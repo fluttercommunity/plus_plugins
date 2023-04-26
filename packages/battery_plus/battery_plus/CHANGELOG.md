@@ -1,3 +1,8 @@
+## 3.0.5
+
+ - **FIX**(battery_plus): Huawei power save mode check (#1708).
+ - **FIX**(battery_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1700).
+
 ## 3.0.4
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

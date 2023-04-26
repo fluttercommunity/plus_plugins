@@ -1,3 +1,8 @@
+## 3.0.4
+
+ - **FIX**(network_info_plus): Type cast for Linux when calling getWifiIP() (#1717).
+ - **FIX**(network_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1703).
+
 ## 3.0.3
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
