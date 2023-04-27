@@ -144,6 +144,10 @@ class WebSensorsPlugin extends SensorsPlatform {
       );
       _gyroscopeEventResultStream =
           _gyroscopeEventStreamController!.stream.asBroadcastStream();
+
+      _gyroscopeEventStreamController!.onCancel = () {
+        _gyroscopeEventStreamController!.close();
+      };
     }
 
     return _gyroscopeEventResultStream;
