@@ -24,9 +24,16 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 31
 
+    namespace 'dev.fluttercommunity.plus.androidintent'
+
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
