@@ -23,15 +23,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 31
-    namespace 'dev.fluttercommunity.plus.androidalarmmanager'
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }

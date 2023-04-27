@@ -26,7 +26,6 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 31
-    namespace 'io.flutter.plugins.androidintentexample'
 
     lintOptions {
         disable 'InvalidPackage'
