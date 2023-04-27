@@ -27,7 +27,6 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 33
-    namespace 'io.flutter.plugins.batteryexample.example'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

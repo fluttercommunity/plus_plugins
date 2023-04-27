@@ -23,15 +23,16 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 31
-    namespace 'dev.fluttercommunity.plus.androidintent'
 
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+
     testOptions {
         unitTests.includeAndroidResources = true
     }
