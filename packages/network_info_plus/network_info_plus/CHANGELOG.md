@@ -1,3 +1,7 @@
+## 3.0.5
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 3.0.4
 
  - **FIX**(network_info_plus): Type cast for Linux when calling getWifiIP() (#1717).

@@ -1,3 +1,7 @@
+## 3.0.6
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 3.0.5
 
  - **FIX**(battery_plus): Huawei power save mode check (#1708).

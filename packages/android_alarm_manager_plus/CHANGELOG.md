@@ -1,3 +1,7 @@
+## 2.1.4
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 2.1.3
 
  - **FIX**(android_alarm_manager_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1698).

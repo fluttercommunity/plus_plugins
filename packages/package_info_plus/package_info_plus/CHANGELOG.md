@@ -1,3 +1,7 @@
+## 3.1.2
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 3.1.1
 
  - **FIX**(package_info_plus): remove html file parts from version url (#1330).
