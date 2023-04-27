@@ -1,3 +1,7 @@
+## 3.1.9
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 3.1.8
 
  - **FIX**(android_intent_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1699).

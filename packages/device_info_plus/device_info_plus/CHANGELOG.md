@@ -1,3 +1,7 @@
+## 8.2.2
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
 ## 8.2.1
 
  - **FIX**(device_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1702).
