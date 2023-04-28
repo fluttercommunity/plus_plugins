@@ -60,6 +60,8 @@ class PackageInfo {
   final String version;
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
+  /// Note, on iOS if an app has no buildNumber specified this property will return version
+  /// Docs about CFBundleVersion: https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
   final String buildNumber;
 
   /// The build signature. Empty string on iOS, signing key signature (hex) on Android.
