@@ -10,13 +10,11 @@ dependencies:
   network_info_plus: ^3.0.5
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  test: ^1.22.0
+  test: ^1.21.0
   flutter_lints: ^2.0.1
 
 flutter:
