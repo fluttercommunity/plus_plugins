@@ -39,7 +39,7 @@ dependencies:
   url_launcher_linux: ^3.0.1
   url_launcher_platform_interface: ^2.1.1
   ffi: ^2.0.1
-  win32: ^3.0.0
+  win32: ">=3.0.0 <5.0.0"
 
 dev_dependencies:
   flutter_test:
