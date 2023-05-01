@@ -1,9 +1,6 @@
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
 import 'dart:developer' as developer;
 import 'dart:isolate';
 import 'dart:math';
@@ -49,16 +46,19 @@ class AlarmManagerExampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: _AlarmHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
+      ),
+      home: const _AlarmHomePage(),
     );
   }
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  const _AlarmHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const _AlarmHomePage({Key? key}) : super(key: key);
 
   @override
   _AlarmHomePageState createState() => _AlarmHomePageState();
@@ -109,7 +109,8 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
     final textStyle = Theme.of(context).textTheme.headlineMedium;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Android alarm manager plus example'),
+        elevation: 4,
       ),
       body: Center(
         child: Column(
@@ -133,6 +134,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
                 ),
               ],
             ),
+            const SizedBox(height: 24),
             ElevatedButton(
               key: const ValueKey('RegisterOneShotAlarm'),
               onPressed: () async {
