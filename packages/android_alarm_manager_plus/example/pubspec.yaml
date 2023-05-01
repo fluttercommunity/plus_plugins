@@ -2,20 +2,18 @@ name: android_alarm_manager_example
 description: Demonstrates how to use the android_alarm_manager_plus plugin.
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5"
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
     sdk: flutter
   android_alarm_manager_plus: ^2.1.4
-  shared_preferences: ^2.0.13
-  path_provider: ^2.0.9
+  shared_preferences: ^2.1.0
+  path_provider: ^2.0.14
 
 dev_dependencies:
-  espresso: ^0.3.0
-  flutter_driver:
-    sdk: flutter
+  espresso: ^0.3.0+4
   flutter_test:
     sdk: flutter
   integration_test:
