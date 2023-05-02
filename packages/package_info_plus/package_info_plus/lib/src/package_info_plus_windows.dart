@@ -13,7 +13,7 @@ part 'file_version_info.dart';
 
 /// The Windows implementation of [PackageInfoPlatform].
 class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
-  /// Register this dart class as the platform implementation for linux
+  /// Register this dart class as the platform implementation for Windows
   static void registerWith() {
     PackageInfoPlatform.instance = PackageInfoPlusWindowsPlugin();
   }

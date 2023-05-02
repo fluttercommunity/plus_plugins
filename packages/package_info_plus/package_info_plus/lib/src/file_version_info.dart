@@ -9,22 +9,17 @@
 part of package_info_plus_windows;
 
 class _LANGANDCODEPAGE extends Struct {
-  @Uint16()
+  @WORD()
   external int wLanguage;
 
-  @Uint16()
+  @WORD()
   external int wCodePage;
 }
 
-final _kernel32 = DynamicLibrary.open('kernel32.dll');
-// ignore: non_constant_identifier_names
-final _GetUserDefaultLangID = _kernel32
-    .lookupFunction<Uint16 Function(), int Function()>('GetUserDefaultLangID');
-
 class _FileVersionInfoData {
-  _FileVersionInfoData({this.lpBlock, this.lpLang});
-  final Pointer<Uint8>? lpBlock;
-  final Pointer<_LANGANDCODEPAGE>? lpLang;
+  const _FileVersionInfoData({required this.lpBlock, required this.lpLang});
+  final Pointer<Uint8> lpBlock;
+  final Pointer<_LANGANDCODEPAGE> lpLang;
 }
 
 class _FileVersionInfo {
@@ -33,7 +28,7 @@ class _FileVersionInfo {
 
   _FileVersionInfo(this.filePath) : _data = _getData(filePath);
 
-  void dispose() => calloc.free(_data.lpBlock!);
+  void dispose() => calloc.free(_data.lpBlock);
 
   String? get companyName => getValue('CompanyName');
   String? get companyShortName => getValue('CompanyShortName');
@@ -49,13 +44,13 @@ class _FileVersionInfo {
   String? getValue(String name) {
     final langCodepages = [
       // try the language and codepage from the EXE
-      [_data.lpLang!.ref.wLanguage, _data.lpLang!.ref.wCodePage],
+      [_data.lpLang.ref.wLanguage, _data.lpLang.ref.wCodePage],
       // try the default language and codepage from the EXE
-      [_GetUserDefaultLangID(), _data.lpLang!.ref.wCodePage],
+      [GetUserDefaultLangID(), _data.lpLang.ref.wCodePage],
       // try the language from the EXE and Latin codepage (most common)
-      [_data.lpLang!.ref.wLanguage, 1252],
+      [_data.lpLang.ref.wLanguage, 1252],
       // try the default language and Latin codepage (most common)
-      [_GetUserDefaultLangID(), 1252],
+      [GetUserDefaultLangID(), 1252],
     ];
 
     String? value;
@@ -69,7 +64,7 @@ class _FileVersionInfo {
       final codepage = toHex4(langCodepage[1]);
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
       final res =
-          VerQueryValue(_data.lpBlock!, lpSubBlock, lplpBuffer.cast(), puLen);
+          VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
       calloc.free(lpSubBlock);
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
@@ -86,26 +81,26 @@ class _FileVersionInfo {
 
   static _FileVersionInfoData _getData(String filePath) {
     final lptstrFilename = TEXT(filePath);
-    final lpdwDummy = calloc<Uint32>();
-    final dwBlockSize = GetFileVersionInfoSize(lptstrFilename, lpdwDummy);
-    final lpBlock = calloc<Uint8>(dwBlockSize);
-    if (GetFileVersionInfo(lptstrFilename, 0, dwBlockSize, lpBlock) == 0) {
-      throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
-    }
+    final dwLen = GetFileVersionInfoSize(lptstrFilename, nullptr);
+
+    final lpData = calloc<BYTE>(dwLen); // freed by the dispose() method
     final lpSubBlock = TEXT(r'\VarFileInfo\Translation');
-    final lpTranslate = calloc<IntPtr>();
-    if (VerQueryValue(lpBlock, lpSubBlock, lpTranslate.cast(), lpdwDummy) ==
-        0) {
-      throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+    final lpTranslate = calloc<Pointer<_LANGANDCODEPAGE>>();
+    final puLen = calloc<UINT>();
+    try {
+      if (GetFileVersionInfo(lptstrFilename, NULL, dwLen, lpData) == 0) {
+        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+      }
+
+      if (VerQueryValue(lpData, lpSubBlock, lpTranslate.cast(), puLen) == 0) {
+        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+      }
+      return _FileVersionInfoData(lpBlock: lpData, lpLang: lpTranslate.value);
+    } finally {
+      free(lptstrFilename);
+      free(lpTranslate);
+      free(lpSubBlock);
+      free(puLen);
     }
-    final data = _FileVersionInfoData(
-      lpBlock: lpBlock,
-      lpLang: Pointer<_LANGANDCODEPAGE>.fromAddress(lpTranslate.value),
-    );
-    calloc.free(lptstrFilename);
-    calloc.free(lpTranslate);
-    calloc.free(lpSubBlock);
-    calloc.free(lpdwDummy);
-    return data;
   }
 }
