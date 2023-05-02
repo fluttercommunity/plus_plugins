@@ -57,8 +57,8 @@ class FileVersionInfo {
       [GetUserDefaultLangID(), 1252],
     ];
 
-    final Pointer<IntPtr> lplpBuffer = calloc<IntPtr>();
-    final Pointer<Uint32> puLen = calloc<Uint32>();
+    final lplpBuffer = calloc<LPWSTR>();
+    final puLen = calloc<UINT>();
     String toHex4(int val) => val.toRadixString(16).padLeft(4, '0');
 
     try {
@@ -70,9 +70,8 @@ class FileVersionInfo {
             VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
         free(lpSubBlock);
 
-        if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
-          final ptr = Pointer<Utf16>.fromAddress(lplpBuffer.value);
-          return ptr.toDartString();
+        if (res != 0 && lplpBuffer.address != 0 && puLen.value > 0) {
+          return lplpBuffer.value.toDartString();
         }
       }
 
