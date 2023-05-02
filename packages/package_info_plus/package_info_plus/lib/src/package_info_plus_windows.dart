@@ -1,15 +1,12 @@
 /// The Windows implementation of `package_info_plus`.
 library package_info_plus_windows;
 
-import 'dart:ffi';
 import 'dart:io';
 
-import 'package:ffi/ffi.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
-import 'package:win32/win32.dart';
 
-part 'file_version_info.dart';
+import 'file_version_info.dart';
 
 /// The Windows implementation of [PackageInfoPlatform].
 class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
@@ -22,7 +19,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   /// appName, packageName, version, buildNumber
   @override
   Future<PackageInfoData> getAll() {
-    final info = _FileVersionInfo(Platform.resolvedExecutable);
+    final info = FileVersionInfo(Platform.resolvedExecutable);
     final versions = info.productVersion!.split('+');
     final data = PackageInfoData(
       appName: info.productName ?? '',

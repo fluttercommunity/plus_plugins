@@ -6,9 +6,12 @@
 // - github.com/chromium/chromium/src/base/file_version_info_win.cc
 // - github.com/timsneath/win32/example/filever.dart
 
-part of package_info_plus_windows;
+import 'dart:ffi';
 
-class _LANGANDCODEPAGE extends Struct {
+import 'package:ffi/ffi.dart';
+import 'package:win32/win32.dart';
+
+class LANGANDCODEPAGE extends Struct {
   @WORD()
   external int wLanguage;
 
@@ -16,19 +19,19 @@ class _LANGANDCODEPAGE extends Struct {
   external int wCodePage;
 }
 
-class _FileVersionInfoData {
-  const _FileVersionInfoData({required this.lpBlock, required this.lpLang});
+class FileVersionInfoData {
+  const FileVersionInfoData({required this.lpBlock, required this.lpLang});
   final Pointer<Uint8> lpBlock;
-  final Pointer<_LANGANDCODEPAGE> lpLang;
+  final Pointer<LANGANDCODEPAGE> lpLang;
 }
 
-class _FileVersionInfo {
+class FileVersionInfo {
   final String filePath;
-  final _FileVersionInfoData _data;
+  final FileVersionInfoData _data;
 
-  _FileVersionInfo(this.filePath) : _data = _getData(filePath);
+  FileVersionInfo(this.filePath) : _data = getData(filePath);
 
-  void dispose() => calloc.free(_data.lpBlock);
+  void dispose() => free(_data.lpBlock);
 
   String? get companyName => getValue('CompanyName');
   String? get companyShortName => getValue('CompanyShortName');
@@ -65,7 +68,7 @@ class _FileVersionInfo {
       final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
       final res =
           VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
-      calloc.free(lpSubBlock);
+      free(lpSubBlock);
 
       if (res != 0 && lplpBuffer.value != 0 && puLen.value > 0) {
         final ptr = Pointer<Utf16>.fromAddress(lplpBuffer.value);
@@ -79,13 +82,13 @@ class _FileVersionInfo {
     return value;
   }
 
-  static _FileVersionInfoData _getData(String filePath) {
+  static FileVersionInfoData getData(String filePath) {
     final lptstrFilename = TEXT(filePath);
     final dwLen = GetFileVersionInfoSize(lptstrFilename, nullptr);
 
     final lpData = calloc<BYTE>(dwLen); // freed by the dispose() method
     final lpSubBlock = TEXT(r'\VarFileInfo\Translation');
-    final lpTranslate = calloc<Pointer<_LANGANDCODEPAGE>>();
+    final lpTranslate = calloc<Pointer<LANGANDCODEPAGE>>();
     final puLen = calloc<UINT>();
     try {
       if (GetFileVersionInfo(lptstrFilename, NULL, dwLen, lpData) == 0) {
@@ -95,7 +98,7 @@ class _FileVersionInfo {
       if (VerQueryValue(lpData, lpSubBlock, lpTranslate.cast(), puLen) == 0) {
         throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
       }
-      return _FileVersionInfoData(lpBlock: lpData, lpLang: lpTranslate.value);
+      return FileVersionInfoData(lpBlock: lpData, lpLang: lpTranslate.value);
     } finally {
       free(lptstrFilename);
       free(lpTranslate);
