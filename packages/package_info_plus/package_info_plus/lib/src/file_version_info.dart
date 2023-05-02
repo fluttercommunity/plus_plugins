@@ -7,6 +7,7 @@
 // - github.com/timsneath/win32/example/filever.dart
 
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart';
@@ -83,6 +84,10 @@ class FileVersionInfo {
   }
 
   static FileVersionInfoData getData(String filePath) {
+    if (!File(filePath).existsSync()) {
+      throw ArgumentError.value(filePath, 'filePath', 'File not present');
+    }
+
     final lptstrFilename = TEXT(filePath);
     final dwLen = GetFileVersionInfoSize(lptstrFilename, nullptr);
 

@@ -14,7 +14,7 @@ void main() {
     expect(PackageInfoPlatform.instance, isA<PackageInfoPlusWindowsPlugin>());
   });
 
-  test('File version info works for standard Windows DLL', () {
+  test('File version info for standard Windows DLL', () {
     final windir = Platform.environment['WINDIR']!; // normally C:\Windows
 
     // Every valid Windows release should have this file
@@ -29,5 +29,17 @@ void main() {
     // For example, "Windows NT BASE API Client DLL" (in Windows 10)
     expect(kernelVersion.fileDescription, contains('Windows'));
     kernelVersion.dispose();
+  });
+
+  test('File version info for missing file', () {
+    const missingFile = 'C:\\macos\\system128\\colonel.dll';
+
+    expect(
+        () => FileVersionInfo(missingFile),
+        throwsA(isArgumentError.having(
+          (e) => e.message,
+          'message',
+          startsWith('File not present'),
+        )));
   });
 }
