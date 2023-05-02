@@ -20,10 +20,10 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() {
     final info = FileVersionInfo(Platform.resolvedExecutable);
-    final versions = info.productVersion!.split('+');
+    final versions = info.productVersion.split('+');
     final data = PackageInfoData(
-      appName: info.productName ?? '',
-      packageName: info.internalName ?? '',
+      appName: info.productName,
+      packageName: info.internalName,
       version: versions.getOrNull(0) ?? '',
       buildNumber: versions.getOrNull(1) ?? '',
       buildSignature: '',
