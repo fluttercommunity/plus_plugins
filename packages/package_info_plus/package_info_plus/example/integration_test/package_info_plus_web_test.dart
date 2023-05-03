@@ -1,3 +1,6 @@
+@TestOn('browser')
+library package_info_plus_web_test;
+
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
