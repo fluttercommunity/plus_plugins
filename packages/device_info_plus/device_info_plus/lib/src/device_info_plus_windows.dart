@@ -108,54 +108,50 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   @visibleForTesting
   int getSystemMemoryInMegabytes() {
-    final memory = calloc<Uint64>();
+    final memoryInKilobytes = calloc<ULONGLONG>();
     try {
-      final result = GetPhysicallyInstalledSystemMemory(memory);
+      final result = GetPhysicallyInstalledSystemMemory(memoryInKilobytes);
       if (result != 0) {
-        return memory.value ~/ 1024;
+        return memoryInKilobytes.value ~/ 1024;
       } else {
         final error = GetLastError();
         throw WindowsException(HRESULT_FROM_WIN32(error));
       }
     } finally {
-      calloc.free(memory);
+      free(memoryInKilobytes);
     }
   }
 
   @visibleForTesting
   String getComputerName() {
-    final nameLength = calloc<Uint32>();
-    String name;
-
+    // We call this a first time to get the length of the string in characters,
+    // so we can allocate sufficient memory.
+    final nSize = calloc<DWORD>();
     GetComputerNameEx(
-      COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified,
-      nullptr,
-      nameLength,
-    );
-    final namePtr = calloc<Uint16>(nameLength.value).cast<Utf16>();
+        COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified, nullptr, nSize);
+
+    // Now allocate memory for a native string and call this a second time.
+    final lpBuffer = wsalloc(nSize.value);
     try {
       final result = GetComputerNameEx(
-          COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified,
-          namePtr,
-          nameLength);
+          COMPUTER_NAME_FORMAT.ComputerNameDnsFullyQualified, lpBuffer, nSize);
 
       if (result != 0) {
-        name = namePtr.toDartString();
+        return lpBuffer.toDartString();
       } else {
         throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
       }
     } finally {
-      calloc.free(namePtr);
-      calloc.free(nameLength);
+      free(lpBuffer);
+      free(nSize);
     }
-    return name;
   }
 
   @visibleForTesting
   String getUserName() {
-    const unLen = 256;
-    final pcbBuffer = calloc<DWORD>()..value = unLen + 1;
-    final lpBuffer = wsalloc(unLen + 1);
+    const maxLength = 256; // defined as UNLEN in Lmcons.h
+    final lpBuffer = wsalloc(maxLength + 1); // allow for terminating null
+    final pcbBuffer = calloc<DWORD>()..value = maxLength + 1;
     try {
       final result = GetUserName(lpBuffer, pcbBuffer);
       if (result != 0) {
