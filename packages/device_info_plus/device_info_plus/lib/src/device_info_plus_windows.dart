@@ -21,8 +21,18 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   WindowsDeviceInfo? _cache;
 
-  /// Returns Windows information like major version, minor version, build number & platform ID.
-  void Function(Pointer<OSVERSIONINFOEX>)? _rtlGetVersion;
+  // In a well-meaning but somewhat misguided attempt to reduce apps from using
+  // version numbers for feature detection, most version number APIs don't give
+  // expected results on Windows 8 and above. RtlGetVersion is reliable and
+  // stable, but as a kernel API is documented in the Windows DDK (Driver
+  // Development Kit), rather than the SDK. As such, it's not included in
+  // package:win32, so we have to manually define it here.
+  //
+  // ignore: non_constant_identifier_names
+  void Function(Pointer<OSVERSIONINFOEX>) RtlGetVersion =
+      DynamicLibrary.open('ntdll.dll').lookupFunction<
+          Void Function(Pointer<OSVERSIONINFOEX>),
+          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
 
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
@@ -32,12 +42,9 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   @visibleForTesting
   WindowsDeviceInfo getInfo() {
-    _rtlGetVersion ??= DynamicLibrary.open('ntdll.dll').lookupFunction<
-        Void Function(Pointer<OSVERSIONINFOEX>),
-        void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
-
     final systemInfo = calloc<SYSTEM_INFO>();
-    final osVersionInfo = calloc<OSVERSIONINFOEX>();
+    final osVersionInfo = calloc<OSVERSIONINFOEX>()
+      ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFOEX>();
 
     try {
       final currentVersionKey = Registry.openPath(RegistryHive.localMachine,
@@ -65,8 +72,10 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       final machineId = sqmClientKey.getValueAsString('MachineId') ?? '';
 
       GetSystemInfo(systemInfo);
+
       // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
-      _rtlGetVersion!(osVersionInfo);
+      RtlGetVersion(osVersionInfo);
+
       // Handle [productName] for Windows 11 separately (as per Raymond Chen's comment).
       // https://stackoverflow.com/questions/69460588/how-can-i-find-the-windows-product-name-in-windows-11
       if (osVersionInfo.ref.dwBuildNumber >= 22000) {
