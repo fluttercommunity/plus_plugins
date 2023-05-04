@@ -6,14 +6,15 @@ Pod::Spec.new do |s|
 This Flutter plugin provides an API for querying information about an application package.
 Downloaded by pub (not CocoaPods).
                        DESC
-  s.homepage         = 'https://github.com/fluttercommunity/package_info_plus'
-  s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
-  s.source           = { :path => '.' }
+  s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
+  s.license          = { :type => 'BSD', :file => '../LICENSE' }
+  s.author           = { 'Flutter Community' => 'community@flutter.zone' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus' }
+  s.documentation_url = 'https://pub.dev/packages/sensors_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 
 end
