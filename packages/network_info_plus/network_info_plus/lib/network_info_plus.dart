@@ -12,6 +12,7 @@ export 'package:network_info_plus_platform_interface/network_info_plus_platform_
     show LocationAuthorizationStatus;
 
 export 'src/network_info_plus_linux.dart';
+export 'src/network_info_plus_windows.dart';
 
 /// Discover network info: check WI-FI details and more.
 class NetworkInfo {
