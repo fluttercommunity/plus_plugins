@@ -8,15 +8,15 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Flutter plugin to access the accelerometer, gyroscope, and magnetometer sensors.
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins'
+  s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
-  s.source           = { :http => 'https://github.com/flutter/plugins/tree/main/packages/sensors' }
-  s.documentation_url = 'https://pub.dev/packages/sensors'
+  s.author           = { 'Flutter Community' => 'community@flutter.zone' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus' }
+  s.documentation_url = 'https://pub.dev/packages/sensors_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
 
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end
