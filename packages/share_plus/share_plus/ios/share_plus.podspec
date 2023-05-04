@@ -11,7 +11,7 @@ Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Community' => 'us@fluttercommunity.dev' }
+  s.author           = { 'Flutter Community' => 'community@flutter.zone' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus' }
   s.documentation_url = 'https://pub.dev/packages/share_plus'
   s.source_files = 'Classes/**/*'
