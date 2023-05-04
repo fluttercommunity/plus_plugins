@@ -8,7 +8,7 @@ import 'package:network_info_plus_platform_interface/network_info_plus_platform_
 void main() {
   test('registered instance', () {
     NetworkInfoPlusWindowsPlugin.registerWith();
-    expect(NetworkInfoPlatform.instance, isA<NetworkInfoPlusLinuxPlugin>());
+    expect(NetworkInfoPlatform.instance, isA<NetworkInfoPlusWindowsPlugin>());
   });
 
   test('Test BSSID', () async {
