@@ -30,7 +30,7 @@ android {
     namespace 'dev.fluttercommunity.plus.share'
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

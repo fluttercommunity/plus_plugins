@@ -19,7 +19,7 @@ Downloaded by pub (not CocoaPods).
   s.dependency 'Flutter'
   s.ios.weak_framework = 'LinkPresentation'
 
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end
 
