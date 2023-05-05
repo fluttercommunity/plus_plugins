@@ -26,13 +26,10 @@ class Share {
   /// (if available), and the website icon will be extracted and displayed on
   /// the iOS share sheet.
   static Future<void> shareUri(
-      Uri uri,
+    Uri uri,
   ) async {
-    return _platform.shareUri(
-      uri
-    );
+    return _platform.shareUri(uri);
   }
-
 
   /// Summons the platform's share sheet to share text.
   ///
