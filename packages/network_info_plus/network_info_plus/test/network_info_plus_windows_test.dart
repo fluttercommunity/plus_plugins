@@ -15,7 +15,7 @@ void main() {
     final plugin = NetworkInfoPlusWindowsPlugin();
     plugin.init();
     final bssID = await plugin.getWifiBSSID();
-    expect(bssID, equals('00:00'));
+    expect(bssID, equals('00:00:00:00:00:00'));
     plugin.closeHandle();
   });
 
@@ -23,7 +23,18 @@ void main() {
     final plugin = NetworkInfoPlusWindowsPlugin();
     plugin.init();
     final wifiName = await plugin.getWifiName();
-    expect(wifiName, equals('Sneath'));
+    expect(wifiName, isNotEmpty);
+    plugin.closeHandle();
+  });
+
+  test('IP Address', () async {
+    final plugin = NetworkInfoPlusWindowsPlugin();
+    plugin.init();
+    final ipAddress = await plugin.getWifiIP();
+    expect(
+        ipAddress,
+        matches(
+            r'^(?=\d+\.\d+\.\d+\.\d+$)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.?){4}$'));
     plugin.closeHandle();
   });
 }
