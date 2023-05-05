@@ -8,8 +8,7 @@ import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
-
-const ERROR_SERVICE_NOT_ACTIVE = 1026;
+import 'package:win32/winsock2.dart';
 
 typedef WlanQuery = String Function(
     Pointer<GUID> pGuid, Pointer<WLAN_CONNECTION_ATTRIBUTES> pAttributes);
@@ -53,8 +52,6 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     if (hr != ERROR_SUCCESS) return 'Error: $hr';
 
     for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
-      // TODO: This is a hack. We should get the address of the actual GUID
-      // here.
       final pInterfaceGuid = calloc<GUID>()
         ..ref.setGUID(ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid
             .toString());
@@ -78,33 +75,44 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       bssid.map((e) => e.toRadixString(16).padLeft(2, '0')).join(':');
 
   String formatIPAddress(Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress) {
-    return '';
-    // PIP_ADAPTER_UNICAST_ADDRESS_LH pAddr = pIpAdapterAddress->FirstUnicastAddress;
-    //       while (pAddr->Next != NULL) {
-    //   pAddr = pAddr->Next;
-    // }
+    var pAddr = pIpAdapterAddress.ref.FirstUnicastAddress;
 
-    // CHAR buffer[64];
-    // sockaddr_in *sa_in = (sockaddr_in *)pAddr->Address.lpSockaddr;
-    // return std::string(inet_ntop(AF_INET, &(sa_in->sin_addr), buffer, 64));
+    while (pAddr.ref.Next != nullptr) {
+      pAddr = pAddr.ref.Next;
+    }
+
+    final buffer = calloc<BYTE>(64).cast<Utf8>();
+    try {
+      // Rather messy way to find the right pointer for the IP Address
+      final sinAddr = pAddr.ref.Address.lpSockaddr.cast<BYTE>().elementAt(4);
+
+      inet_ntop(AF_INET, sinAddr, buffer, 64);
+      return buffer.cast<Utf8>().toDartString();
+    } finally {
+      free(buffer);
+    }
   }
 
-//   static std::string
-// GetAdapterAddress(LPGUID pGuid, PIP_ADAPTER_ADDRESSES pIpAdapterAddresses) {
-//   IF_LUID ifLuid;
-//   if (ConvertInterfaceGuidToLuid(pGuid, &ifLuid) != NO_ERROR) {
-//     return "";
-//   }
+  String getAdapterAddress(Pointer<GUID> pGuid,
+      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddresses) {
+    final ifLuid = calloc<NET_LUID_LH>();
+    try {
+      if (ConvertInterfaceGuidToLuid(pGuid, ifLuid) != NO_ERROR) {
+        return '';
+      }
 
-//   PIP_ADAPTER_ADDRESSES pCurrent = pIpAdapterAddresses;
-//   while (pCurrent) {
-//     if (pCurrent->Luid.Value == ifLuid.Value) {
-//       return FormatIpAddress(pCurrent);
-//     }
-//     pCurrent = pCurrent->Next;
-//   }
-//   return "";
-// }
+      var pCurrent = pIpAdapterAddresses;
+      while (pCurrent.address != 0) {
+        if (pCurrent.ref.Luid.Value == ifLuid.ref.Value) {
+          return formatIPAddress(pCurrent);
+        }
+        pCurrent = pCurrent.ref.Next;
+      }
+      return '';
+    } finally {
+      free(ifLuid);
+    }
+  }
 
   @override
   Future<String> getWifiName() {
@@ -135,51 +143,20 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     }));
   }
 
-  // std::string NetworkInfo::GetWifiIpAddress() const {
-  // return const_cast<NetworkInfo *>(this)->Query(
-  //     [&](LPGUID pGuid, PWLAN_CONNECTION_ATTRIBUTES pAttributes) {
-  //       ULONG ulSize = 0;
-  //       GetAdaptersAddresses(AF_INET, 0, NULL, NULL, &ulSize);
-  //       PIP_ADAPTER_ADDRESSES pIpAdapterAddresses =
-  //           (PIP_ADAPTER_ADDRESSES)HeapAlloc(GetProcessHeap(), 0, ulSize);
-
-  //       std::string res;
-  //       if (GetAdaptersAddresses(AF_UNSPEC, 0, NULL, pIpAdapterAddresses,
-  //                                &ulSize) == 0) {
-  //         res = GetAdapterAddress(pGuid, pIpAdapterAddresses);
-  //       }
-
-  //       HeapFree(GetProcessHeap(), 0, pIpAdapterAddresses);
-  //       return res;
-  //     });
-
   /// Obtains the IP v4 address of the connected wifi network
   @override
   Future<String?> getWifiIP() {
-    throw UnimplementedError('getWifiIP() has not been implemented.');
-  }
-
-  /// Obtains the IP v6 address of the connected wifi network
-  @override
-  Future<String?> getWifiIPv6() {
-    throw UnimplementedError('getWifiIPv6() has not been implemented.');
-  }
-
-  /// Obtains the submask of the connected wifi network
-  @override
-  Future<String?> getWifiSubmask() {
-    throw UnimplementedError('getWifiSubmask() has not been implemented.');
-  }
-
-  /// Obtains the gateway IP address of the connected wifi network
-  @override
-  Future<String?> getWifiGatewayIP() {
-    throw UnimplementedError('getWifiGatewayIP() has not been implemented.');
-  }
-
-  /// Obtains the broadcast of the connected wifi network
-  @override
-  Future<String?> getWifiBroadcast() {
-    throw UnimplementedError('getWifiBroadcast() has not been implemented.');
+    return Future<String>.value(query((pGuid, pAttributes) {
+      final ulSize = calloc<ULONG>();
+      try {
+        GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, ulSize);
+        final pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value)
+            .cast<IP_ADAPTER_ADDRESSES_LH>();
+        GetAdaptersAddresses(AF_INET, 0, nullptr, pIpAdapterAddress, ulSize);
+        return getAdapterAddress(pGuid, pIpAdapterAddress);
+      } finally {
+        free(ulSize);
+      }
+    }));
   }
 }
