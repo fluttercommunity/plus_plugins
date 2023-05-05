@@ -18,6 +18,17 @@ internal class MethodCallHandler(
         val isWithResult = isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
         when (call.method) {
+            "shareUri" -> {
+                expectMapArguments(call)
+                share.share(
+                    call.argument<Any>("uri") as String,
+                    subject = null,
+                    withResult= false
+                )
+                if (!isWithResult) {
+                    result.success(null)
+                }
+            }
             "share", "shareWithResult" -> {
                 expectMapArguments(call)
                 if (isWithResult && !manager.setCallback(result)) return
