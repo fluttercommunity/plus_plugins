@@ -75,6 +75,10 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
 
       _batteryChange =
           _batteryChangeStreamController!.stream.asBroadcastStream();
+
+      _batteryChangeStreamController?.onCancel = () {
+        _batteryChangeStreamController?.close();
+      };
     }
     return _batteryChange;
   }
