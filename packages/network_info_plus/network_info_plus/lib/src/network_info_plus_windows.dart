@@ -9,6 +9,8 @@ import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 
+const ERROR_SERVICE_NOT_ACTIVE = 1026;
+
 typedef WlanQuery = String Function(
     Pointer<GUID> pGuid, Pointer<WLAN_CONNECTION_ATTRIBUTES> pAttributes);
 
@@ -27,8 +29,9 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     final pdwNegotiatedVersion = calloc<DWORD>();
 
     try {
-      WlanOpenHandle(
+      final hr = WlanOpenHandle(
           WLAN_API_VERSION_2_0, nullptr, pdwNegotiatedVersion, phClientHandle);
+      if (hr == ERROR_SERVICE_NOT_ACTIVE) return;
       clientHandle = phClientHandle.value;
     } finally {
       free(pdwNegotiatedVersion);
@@ -37,15 +40,17 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   }
 
   void closeHandle() {
-    WlanCloseHandle(clientHandle, nullptr);
+    if (clientHandle != NULL) {
+      WlanCloseHandle(clientHandle, nullptr);
 
-    clientHandle = NULL;
+      clientHandle = NULL;
+    }
   }
 
   String query(WlanQuery query) {
     final ppInterfaceList = calloc<Pointer<WLAN_INTERFACE_INFO_LIST>>();
     var hr = WlanEnumInterfaces(clientHandle, nullptr, ppInterfaceList);
-    if (hr != ERROR_SUCCESS) return '';
+    if (hr != ERROR_SUCCESS) return 'Error: $hr';
 
     for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
       // TODO: This is a hack. We should get the address of the actual GUID
