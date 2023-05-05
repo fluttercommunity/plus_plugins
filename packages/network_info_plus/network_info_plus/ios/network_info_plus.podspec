@@ -11,12 +11,12 @@ Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
+  s.author           = { 'Flutter Community' => 'community@flutter.zone' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus' }
   s.documentation_url = 'https://pub.dev/packages/network_info_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end
