@@ -334,11 +334,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
           if (!withResult)
             result(nil);
         } else if ([@"shareUri" isEqualToString:call.method]) {
-          // log share uri
-          NSLog(@"ShareUri  abcccc");
-
           NSString *uri = arguments[@"uri"];
-
 
           if (uri.length == 0) {
             result([FlutterError errorWithCode:@"error"
