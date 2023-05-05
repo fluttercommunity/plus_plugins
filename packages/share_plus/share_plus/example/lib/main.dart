@@ -31,6 +31,7 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  String uri = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
 
@@ -74,6 +75,18 @@ class DemoAppState extends State<DemoApp> {
                 maxLines: null,
                 onChanged: (String value) => setState(() {
                   subject = value;
+                }),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share uri',
+                  hintText: 'Enter the uri you want to share',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  uri = value;
                 }),
               ),
               const SizedBox(height: 16),
@@ -122,7 +135,7 @@ class DemoAppState extends State<DemoApp> {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    onPressed: text.isEmpty && imagePaths.isEmpty
+                    onPressed: text.isEmpty && imagePaths.isEmpty && uri.isEmpty
                         ? null
                         : () => _onShare(context),
                     child: const Text('Share'),
@@ -183,7 +196,9 @@ class DemoAppState extends State<DemoApp> {
     // has its position and size after it's built.
     final box = context.findRenderObject() as RenderBox?;
 
-    if (imagePaths.isNotEmpty) {
+    if (uri.isNotEmpty) {
+      await Share.shareUri(Uri.parse(uri));
+    } else if (imagePaths.isNotEmpty) {
       final files = <XFile>[];
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
