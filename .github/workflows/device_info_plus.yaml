@@ -188,7 +188,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
-        run: melos bootstrap --scope="$PLUGIN_SCOPE"
+        run: melos.bat bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh windows device_info_plus_example
 
