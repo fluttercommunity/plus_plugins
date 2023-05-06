@@ -20,7 +20,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     NetworkInfoPlatform.instance = NetworkInfoPlusWindowsPlugin();
   }
 
-  void init() {
+  void openHandle() {
     if (clientHandle != NULL) return;
 
     const WLAN_API_VERSION_2_0 = 0x00000002;
@@ -47,6 +47,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   }
 
   String query(WlanQuery query) {
+    openHandle();
     final ppInterfaceList = calloc<Pointer<WLAN_INTERFACE_INFO_LIST>>();
 
     try {
@@ -78,6 +79,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       return '';
     } finally {
       WlanFreeMemory(ppInterfaceList);
+      closeHandle();
     }
   }
 
