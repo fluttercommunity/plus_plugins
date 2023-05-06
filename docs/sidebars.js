@@ -8,48 +8,48 @@ function toReferenceAPI(plugin) {
 
 module.exports = {
   main: {
-    "Getting Started": ["overview", "null_safety"],
+    "Getting Started": ["overview"],
     ["Android Alarm Manager"]: [
       "android_alarm_manager_plus/overview",
       "android_alarm_manager_plus/usage",
       toReferenceAPI("android_alarm_manager"),
     ],
-    ["Android Intent"]: [
+    ["Android Intent Plus"]: [
       "android_intent_plus/overview",
       "android_intent_plus/usage",
       toReferenceAPI("android_intent"),
     ],
-    Battery: [
+    ["Battery Plus"]: [
       "battery_plus/overview",
       "battery_plus/usage",
       toReferenceAPI("battery"),
     ],
-    Connectivity: [
+    ["Connectivity Plus"]: [
       "connectivity_plus/overview",
       "connectivity_plus/usage",
       toReferenceAPI("connectivity"),
     ],
-    ["Device Info"]: [
+    ["Device Info Plus"]: [
       "device_info_plus/overview",
       "device_info_plus/usage",
       toReferenceAPI("device_info"),
     ],
-    ["Network Info"]: [
+    ["Network Info Plus"]: [
       "network_info_plus/overview",
       "network_info_plus/usage",
       toReferenceAPI("network_info"),
     ],
-    ["Package Info"]: [
+    ["Package Info Plus"]: [
       "package_info_plus/overview",
       "package_info_plus/usage",
       toReferenceAPI("package_info"),
     ],
-    ["Share"]: [
+    ["Share Plus"]: [
       "share_plus/overview",
       "share_plus/usage",
       toReferenceAPI("share"),
     ],
-    ["Sensors"]: [
+    ["Sensors Plus"]: [
       "sensors_plus/overview",
       "sensors_plus/usage",
       toReferenceAPI("sensors"),
