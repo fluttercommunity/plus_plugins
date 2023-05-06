@@ -48,27 +48,37 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
 
   String query(WlanQuery query) {
     final ppInterfaceList = calloc<Pointer<WLAN_INTERFACE_INFO_LIST>>();
-    var hr = WlanEnumInterfaces(clientHandle, nullptr, ppInterfaceList);
-    if (hr != ERROR_SUCCESS) return 'Error: $hr';
 
-    for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
-      final pInterfaceGuid = calloc<GUID>()
-        ..ref.setGUID(ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid
-            .toString());
+    try {
+      var hr = WlanEnumInterfaces(clientHandle, nullptr, ppInterfaceList);
+      if (hr != ERROR_SUCCESS) return ''; // no wifi interface available
 
-      const opCode = 7; // wlan_intf_opcode_current_connection
-      final pdwDataSize = calloc<DWORD>();
-      final pAttributes = calloc<WLAN_CONNECTION_ATTRIBUTES>();
+      for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
+        final pInterfaceGuid = calloc<GUID>()
+          ..ref.setGUID(ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid
+              .toString());
 
-      hr = WlanQueryInterface(clientHandle, pInterfaceGuid, opCode, nullptr,
-          pdwDataSize, pAttributes.cast(), nullptr);
-      if (hr != ERROR_SUCCESS) break;
-      if (pAttributes.ref.isState != 0) {
-        return query(pInterfaceGuid, pAttributes);
+        const opCode = 7; // wlan_intf_opcode_current_connection
+        final pdwDataSize = calloc<DWORD>();
+        final pAttributes = calloc<WLAN_CONNECTION_ATTRIBUTES>();
+
+        try {
+          hr = WlanQueryInterface(clientHandle, pInterfaceGuid, opCode, nullptr,
+              pdwDataSize, pAttributes.cast(), nullptr);
+          if (hr != ERROR_SUCCESS) break;
+          if (pAttributes.ref.isState != 0) {
+            return query(pInterfaceGuid, pAttributes);
+          }
+        } finally {
+          free(pInterfaceGuid);
+          free(pdwDataSize);
+          free(pAttributes);
+        }
       }
+      return '';
+    } finally {
+      WlanFreeMemory(ppInterfaceList);
     }
-    WlanFreeMemory(ppInterfaceList);
-    return '';
   }
 
   String formatBssid(List<int> bssid) =>
@@ -148,14 +158,15 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   Future<String?> getWifiIP() {
     return Future<String>.value(query((pGuid, pAttributes) {
       final ulSize = calloc<ULONG>();
+      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
       try {
         GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, ulSize);
-        final pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value)
-            .cast<IP_ADAPTER_ADDRESSES_LH>();
+        pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
         GetAdaptersAddresses(AF_INET, 0, nullptr, pIpAdapterAddress, ulSize);
         return getAdapterAddress(pGuid, pIpAdapterAddress);
       } finally {
         free(ulSize);
+        if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
       }
     }));
   }
