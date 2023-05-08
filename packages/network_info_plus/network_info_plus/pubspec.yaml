@@ -22,7 +22,7 @@ flutter:
       macos:
         pluginClass: NetworkInfoPlusPlugin
       windows:
-        pluginClass: NetworkInfoPlusWindowsPlugin
+        dartPluginClass: NetworkInfoPlusWindowsPlugin
       web:
         pluginClass: NetworkInfoPlusWebPlugin
         fileName: src/network_info_plus_web.dart
@@ -36,6 +36,8 @@ dependencies:
     sdk: flutter
   meta: ^1.8.0
   network_info_plus_platform_interface: ^1.1.3
+  win32: ^4.1.4
+  ffi: ^2.0.1
 
 dev_dependencies:
   flutter_test:
