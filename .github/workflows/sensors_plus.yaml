@@ -19,7 +19,7 @@ env:
 
 jobs:
   android_build:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -39,7 +39,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     strategy:
       matrix:
@@ -60,7 +60,8 @@ jobs:
           java-version: "11"
 
       - name: "Bootstrap Workspace"
-        run: melos bootstrap
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
+
       - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -73,7 +74,7 @@ jobs:
           script: ./.github/workflows/scripts/integration-test.sh android sensors_plus_example
 
   ios:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -86,7 +87,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -98,7 +99,9 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone 8'
+          model: 'iPhone 14'
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios sensors_plus_example
 
