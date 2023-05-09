@@ -1,3 +1,12 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(share_plus_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(share_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1773).
+ - **REFACTOR**(share_plus): Remove manual dependency override in example app.
+
 ## 6.3.4
 
  - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).

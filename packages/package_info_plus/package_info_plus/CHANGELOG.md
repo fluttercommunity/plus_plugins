@@ -1,3 +1,13 @@
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(package_info_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(package_info_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1776).
+ - **REFACTOR**(package_info_plus): Tidy up Windows implementation (#1768).
+ - **DOCS**(package_info_plus): Explain why buildNumber returns version when no build number defined (#1729).
+
 ## 3.1.2
 
  - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
