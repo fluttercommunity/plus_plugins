@@ -1,7 +1,3 @@
-## 9.0.1
-
-- **FIX**: Support building with Kotlin 1.8+
-
 ## 9.0.0
 
 > Note: This release has breaking changes.
