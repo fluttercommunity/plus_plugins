@@ -12,13 +12,13 @@ Downloaded by pub (not CocoaPods).
   s.homepage         = 'https://plus.fluttercommunity.dev/'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
-  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus' }
   s.documentation_url = 'https://pub.dev/packages/connectivity_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'ReachabilitySwift'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '11.0'
   s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end

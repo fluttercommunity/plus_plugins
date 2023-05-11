@@ -67,7 +67,7 @@ void main() {
 
   testWidgets('Can get non-null iOS utsname fields',
       (WidgetTester tester) async {
-    expect(iosInfo.utsname.machine, 'iPhone10,4');
+    expect(iosInfo.utsname.machine, 'iPhone14,7');
     expect(iosInfo.utsname.nodename, isNotNull);
     expect(iosInfo.utsname.release, isNotNull);
     expect(iosInfo.utsname.sysname, isNotNull);
