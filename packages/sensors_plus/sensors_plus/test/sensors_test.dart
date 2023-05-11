@@ -71,7 +71,7 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
     );
   }
 
-  TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMessageHandler(channelName, (ByteData? message) async {
     final methodCall = standardMethod.decodeMethodCall(message);
     if (methodCall.method == 'listen') {

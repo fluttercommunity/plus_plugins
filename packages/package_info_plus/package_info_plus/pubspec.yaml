@@ -33,7 +33,9 @@ dependencies:
   meta: ^1.3.0
   path: ^1.8.0
   package_info_plus_platform_interface: ^2.0.1
-  win32: ^4.0.0
+  
+  # win32 is compatible across v4 and v5 for Win32 only (not COM)
+  win32: ">=4.0.0 <6.0.0"
 
 dev_dependencies:
   flutter_lints: ^2.0.1

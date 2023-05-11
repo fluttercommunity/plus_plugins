@@ -39,7 +39,9 @@ dependencies:
   url_launcher_linux: ^3.0.5
   url_launcher_platform_interface: ^2.1.2
   ffi: ^2.0.1
-  win32: ^4.0.0
+
+  # win32 is compatible across v4 and v5 for Win32 only (not COM)
+  win32: ">=4.0.0 <6.0.0"
 
 dev_dependencies:
   flutter_test:
