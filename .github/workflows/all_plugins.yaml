@@ -99,7 +99,7 @@ jobs:
       - name: "Validate Dart formatting"
         run: |
           melos exec -c 1 -- \
-            "flutter format ."
+            "dart format ."
           ./.github/workflows/scripts/validate-formatting.sh
       - name: "Validate Objective-C formatting"
         if: ${{ success() || failure() }}
