@@ -17,34 +17,43 @@ void main() {
     setUp(() async {
       methodChannelConnectivity = MethodChannelConnectivity();
 
-      methodChannelConnectivity.methodChannel
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        log.add(methodCall);
-        switch (methodCall.method) {
-          case 'check':
-            return 'wifi';
-          default:
-            return null;
-        }
-      });
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        methodChannelConnectivity.methodChannel,
+        (MethodCall methodCall) async {
+          log.add(methodCall);
+          switch (methodCall.method) {
+            case 'check':
+              return 'wifi';
+            default:
+              return null;
+          }
+        },
+      );
       log.clear();
-      MethodChannel(methodChannelConnectivity.eventChannel.name)
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        switch (methodCall.method) {
-          case 'listen':
-            await ServicesBinding.instance.defaultBinaryMessenger
-                .handlePlatformMessage(
-              methodChannelConnectivity.eventChannel.name,
-              methodChannelConnectivity.eventChannel.codec
-                  .encodeSuccessEnvelope('wifi'),
-              (_) {},
-            );
-            break;
-          case 'cancel':
-          default:
-            return null;
-        }
-      });
+
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        MethodChannel(methodChannelConnectivity.eventChannel.name),
+        (MethodCall methodCall) async {
+          switch (methodCall.method) {
+            case 'listen':
+              await TestDefaultBinaryMessengerBinding
+                  .instance.defaultBinaryMessenger
+                  .handlePlatformMessage(
+                methodChannelConnectivity.eventChannel.name,
+                methodChannelConnectivity.eventChannel.codec
+                    .encodeSuccessEnvelope('wifi'),
+                (_) {},
+              );
+              break;
+            case 'cancel':
+            default:
+              return null;
+          }
+          return null;
+        },
+      );
     });
 
     test('onConnectivityChanged', () async {
