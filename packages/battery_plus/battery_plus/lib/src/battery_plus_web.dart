@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html' as html show window, BatteryManager, Navigator;
-import 'dart:js';
 import 'dart:js_util';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
