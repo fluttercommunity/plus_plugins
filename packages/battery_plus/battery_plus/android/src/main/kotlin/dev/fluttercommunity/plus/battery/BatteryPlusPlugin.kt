@@ -20,6 +20,8 @@ import java.util.Locale
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+
 
 /** BatteryPlusPlugin  */
 class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, FlutterPlugin {
@@ -79,7 +81,11 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
 
     override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        applicationContext?.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        ContextCompat.registerReceiver(
+            applicationContext?,
+            chargingStateChangeReceiver,
+            IntentFilter(Intent.ACTION_BATTERY_CHANGED),
+            ContextCompat.RECEIVER_EXPORTED);
         val status = getBatteryStatus()
         publishBatteryStatus(events, status)
     }
