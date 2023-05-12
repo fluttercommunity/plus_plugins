@@ -21,6 +21,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.RECEIVER_EXPORTED
 
 
 /** BatteryPlusPlugin  */
@@ -81,11 +82,13 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
 
     override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        ContextCompat.registerReceiver(
-            applicationContext!,
-            chargingStateChangeReceiver,
-            IntentFilter(Intent.ACTION_BATTERY_CHANGED),
-            ContextCompat.RECEIVER_EXPORTED)
+        // DO NOT MERGE, this alternates states. reidbaker debug before review.
+        applicationContext?.let {
+            ContextCompat.registerReceiver(
+                it, chargingStateChangeReceiver,
+                IntentFilter(Intent.ACTION_BATTERY_CHANGED), RECEIVER_EXPORTED
+            )
+        }
         val status = getBatteryStatus()
         publishBatteryStatus(events, status)
     }
