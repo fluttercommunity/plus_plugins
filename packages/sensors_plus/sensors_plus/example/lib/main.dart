@@ -13,7 +13,6 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'snake.dart';
 
 void main() {
-  // Disable landscape mode
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [
@@ -33,7 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sensors Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sensor Example'),
+        title: const Text('Sensors Plus Example'),
+        elevation: 4,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
