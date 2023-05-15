@@ -1,3 +1,6 @@
+@TestOn('browser')
+library device_info_plus_web_test;
+
 import 'package:device_info_plus/src/model/web_browser_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,3 +1,22 @@
+## 9.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(device_info_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(device_info_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1781).
+ - **REFACTOR**(device_info_plus): Refactor Windows implementation (#1772).
+ - **REFACTOR**(device_info_plus): Remove redundant checks for PRODUCT strings with sdk (#1745).
+ - **REFACTOR**(device_info_plus): Declare proper nullability for iOS properties (#1728).
+
+## 8.2.2
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 8.2.1
+
+ - **FIX**(device_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1702).
+
 ## 8.2.0
 
  - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).

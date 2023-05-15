@@ -1,3 +1,20 @@
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(sensors_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(sensors_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1774).
+ - **REFACTOR**(sensors_plus): Remove manual dependency_override in example app.
+
+## 2.0.5
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 2.0.4
+
+ - **FIX**(sensors_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1705).
+
 ## 2.0.3
 
  - **DOCS**(sensor_plus): improve description of accelerometer (#1425).
@@ -26,7 +43,7 @@
 
 - iOS: Corrects magnetometer implementation, returning calibrated values from
   `DeviceMotion` sensor rather than raw sensor samples
-  
+
 ## 1.3.4+1
 
 - Add issue_tracker link.
