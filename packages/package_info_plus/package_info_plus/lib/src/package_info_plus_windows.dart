@@ -19,6 +19,13 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   /// appName, packageName, version, buildNumber
   @override
   Future<PackageInfoData> getAll() {
+    String resolvedExecutable = Platform.resolvedExecutable;
+
+    /// Workaround for https://github.com/dart-lang/sdk/issues/52309
+    if (resolvedExecutable.startsWith(r"UNC\")) {
+      resolvedExecutable = resolvedExecutable.replaceFirst(r"UNC\", r"\\");
+    }
+
     final info = FileVersionInfo(Platform.resolvedExecutable);
     final versions = info.productVersion.split('+');
     final data = PackageInfoData(
@@ -35,5 +42,6 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
 
 extension _GetOrNull<T> on List<T> {
   T? getOrNull(int index) => _checkIndex(index) ? this[index] : null;
+
   bool _checkIndex(int index) => index >= 0 && index < length;
 }
