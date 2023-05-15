@@ -172,6 +172,9 @@ class _MyAppState extends State<MyApp> {
       'arch': data.arch,
       'model': data.model,
       'kernelVersion': data.kernelVersion,
+      'majorVersion': data.majorVersion,
+      'minorVersion': data.minorVersion,
+      'patchVersion': data.patchVersion,
       'osRelease': data.osRelease,
       'activeCPUs': data.activeCPUs,
       'memorySize': data.memorySize,
@@ -213,6 +216,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -230,6 +237,7 @@ class _MyAppState extends State<MyApp> {
                                     ? 'Windows Device Info'
                                     : '',
           ),
+          elevation: 4,
         ),
         body: ListView(
           children: _deviceData.keys.map(

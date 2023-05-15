@@ -2,17 +2,12 @@ name: connectivity_plus_example
 description: Demonstrates how to use the connectivity_plus plugin.
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus:
-    path: ../
-
-dependency_overrides:
-  connectivity_plus_platform_interface:
-    path: ../../connectivity_plus_platform_interface
+  connectivity_plus: ^4.0.0
 
 dev_dependencies:
   flutter_driver:

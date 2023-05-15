@@ -46,6 +46,11 @@ requires the Xcode build folder to be rebuilt after changes to the version strin
 Clean the Xcode build folder with:
 `XCode Menu -> Product -> (Holding Option Key) Clean build folder`.
 
+#### Plugin returns package version in `buildNumber` when no build number specified in pubspec.yaml
+
+Plugin doesn't modify the output of iOS. In this case `buildNumber` in the plugin is CFBundleVersion in iOS. This property returns version when build number is not specified.buildNumber
+See [CFBundleVersion docs](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion) for more inf.
+
 ### Android (and potentially all platforms)
 
 Calling to `PackageInfo.fromPlatform()` before the `runApp()` call will cause an exception.

@@ -17,32 +17,35 @@ void main() {
     setUp(() async {
       methodChannelNetworkInfo = MethodChannelNetworkInfo();
 
-      methodChannelNetworkInfo.methodChannel
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        log.add(methodCall);
-        switch (methodCall.method) {
-          case 'wifiName':
-            return '1337wifi';
-          case 'wifiBSSID':
-            return 'c0:ff:33:c0:d3:55';
-          case 'wifiIPAddress':
-            return '127.0.0.1';
-          case 'wifiIPv6Address':
-            return '2002:7f00:0001:0:0:0:0:0';
-          case 'wifiBroadcast':
-            return '127.0.0.255';
-          case 'wifiGatewayAddress':
-            return '127.0.0.0';
-          case 'wifiSubmask':
-            return '255.255.255.0';
-          case 'requestLocationServiceAuthorization':
-            return 'authorizedAlways';
-          case 'getLocationServiceAuthorization':
-            return 'authorizedAlways';
-          default:
-            return null;
-        }
-      });
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        methodChannelNetworkInfo.methodChannel,
+        (MethodCall methodCall) async {
+          log.add(methodCall);
+          switch (methodCall.method) {
+            case 'wifiName':
+              return '1337wifi';
+            case 'wifiBSSID':
+              return 'c0:ff:33:c0:d3:55';
+            case 'wifiIPAddress':
+              return '127.0.0.1';
+            case 'wifiIPv6Address':
+              return '2002:7f00:0001:0:0:0:0:0';
+            case 'wifiBroadcast':
+              return '127.0.0.255';
+            case 'wifiGatewayAddress':
+              return '127.0.0.0';
+            case 'wifiSubmask':
+              return '255.255.255.0';
+            case 'requestLocationServiceAuthorization':
+              return 'authorizedAlways';
+            case 'getLocationServiceAuthorization':
+              return 'authorizedAlways';
+            default:
+              return null;
+          }
+        },
+      );
       log.clear();
     });
 

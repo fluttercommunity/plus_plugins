@@ -4,12 +4,7 @@ description: Demonstrates how to use the sensors plugin.
 dependencies:
   flutter:
     sdk: flutter
-  sensors_plus:
-    path: ../
-
-dependency_overrides:
-  sensors_plus_platform_interface:
-    path: ../../sensors_plus_platform_interface
+  sensors_plus: ^3.0.0
 
 dev_dependencies:
   flutter_driver:
@@ -24,4 +19,4 @@ flutter:
   uses-material-design: true
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'

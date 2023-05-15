@@ -13,38 +13,47 @@ void main() {
     setUp(() async {
       methodChannelBattery = MethodChannelBattery();
 
-      methodChannelBattery.methodChannel
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        log.add(methodCall);
-        switch (methodCall.method) {
-          case 'getBatteryLevel':
-            return 100;
-          case 'isInBatterySaveMode':
-            return true;
-          case 'getBatteryState':
-            return 'charging';
-          default:
-            return null;
-        }
-      });
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        methodChannelBattery.methodChannel,
+        (MethodCall methodCall) async {
+          log.add(methodCall);
+          switch (methodCall.method) {
+            case 'getBatteryLevel':
+              return 100;
+            case 'isInBatterySaveMode':
+              return true;
+            case 'getBatteryState':
+              return 'charging';
+            default:
+              return null;
+          }
+        },
+      );
       log.clear();
-      MethodChannel(methodChannelBattery.eventChannel.name)
-          .setMockMethodCallHandler((MethodCall methodCall) async {
-        switch (methodCall.method) {
-          case 'listen':
-            await ServicesBinding.instance.defaultBinaryMessenger
-                .handlePlatformMessage(
-              methodChannelBattery.eventChannel.name,
-              methodChannelBattery.eventChannel.codec
-                  .encodeSuccessEnvelope('full'),
-              (_) {},
-            );
-            break;
-          case 'cancel':
-          default:
-            return null;
-        }
-      });
+
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        MethodChannel(methodChannelBattery.eventChannel.name),
+        (MethodCall methodCall) async {
+          switch (methodCall.method) {
+            case 'listen':
+              await TestDefaultBinaryMessengerBinding
+                  .instance.defaultBinaryMessenger
+                  .handlePlatformMessage(
+                methodChannelBattery.eventChannel.name,
+                methodChannelBattery.eventChannel.codec
+                    .encodeSuccessEnvelope('full'),
+                (_) {},
+              );
+              break;
+            case 'cancel':
+            default:
+              return null;
+          }
+          return null;
+        },
+      );
     });
 
     test('onBatteryChanged', () async {

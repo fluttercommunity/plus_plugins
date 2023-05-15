@@ -39,3 +39,19 @@ then
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
+
+if [ "$ACTION" == "web" ]
+then
+  melos bootstrap --scope="$SCOPE"
+
+  # Start x virtual framebuffer for chrome to run.
+  export DISPLAY=:99
+  Xvfb $DISPLAY -screen 0 1024x768x16 &
+  sleep 5 # Give xvfb some time to start.
+
+  # Start chrome driver.
+  chromedriver --port=4444 &
+
+  melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
+    "flutter drive -d chrome --driver ./integration_test/driver.dart --target ./integration_test/MELOS_PARENT_PACKAGE_NAME_web_test.dart --dart-define=CI=true"
+fi

@@ -45,6 +45,7 @@ class DemoAppState extends State<DemoApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Share Plus Plugin Demo'),
+          elevation: 4,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(24),

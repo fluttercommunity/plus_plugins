@@ -22,7 +22,7 @@ void main() {
     sharePlatform = SharePlatform();
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
-    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(MethodChannelShare.channel,
             (MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.

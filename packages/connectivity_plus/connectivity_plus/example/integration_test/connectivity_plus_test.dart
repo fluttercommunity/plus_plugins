@@ -1,9 +1,6 @@
-//@dart=2.9
-
 // Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -13,9 +10,9 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Connectivity test driver', () {
-    Connectivity connectivity;
+  late Connectivity connectivity;
 
+  group('Connectivity test driver', () {
     setUpAll(() async {
       connectivity = Connectivity();
     });

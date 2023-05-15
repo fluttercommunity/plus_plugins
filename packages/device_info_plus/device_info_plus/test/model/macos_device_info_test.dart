@@ -14,6 +14,9 @@ void main() {
         'cpuFrequency': 2,
         'hostName': 'hostName',
         'osRelease': 'osRelease',
+        'majorVersion': 10,
+        'minorVersion': 9,
+        'patchVersion': 3,
         'computerName': 'computerName',
         'kernelVersion': 'kernelVersion',
         'systemGUID': null,
@@ -29,6 +32,9 @@ void main() {
         expect(macosDeviceInfo.cpuFrequency, 2);
         expect(macosDeviceInfo.hostName, 'hostName');
         expect(macosDeviceInfo.osRelease, 'osRelease');
+        expect(macosDeviceInfo.majorVersion, 10);
+        expect(macosDeviceInfo.minorVersion, 9);
+        expect(macosDeviceInfo.patchVersion, 3);
         expect(macosDeviceInfo.systemGUID, isNull);
       });
 

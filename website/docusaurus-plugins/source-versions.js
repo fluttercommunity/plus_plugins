@@ -16,7 +16,6 @@ module.exports = function sourceVersions() {
 
         const [nns, ns] = await fetchPluginVersion(pub);
         versions += `PUB_${pub.toUpperCase()}=${nns}\n`;
-        versions += `PUB_NS_${pub.toUpperCase()}=${ns || 'N/A'}`;
 
         if (i < plugins.length - 1) {
           versions += '\n';
@@ -43,11 +42,9 @@ module.exports = function sourceVersions() {
           new webpack.DefinePlugin(
             plugins.reduce((current, plugin) => {
               const envVar = `PUB_${plugin.pub.toUpperCase()}`;
-              const nsEnvVar = `PUB_NS_${plugin.pub.toUpperCase()}`;
               return {
                 ...current,
                 [envVar]: JSON.stringify(process.env[envVar] || ''),
-                [nsEnvVar]: JSON.stringify(process.env[nsEnvVar] || ''),
               };
             }, {}),
           ),

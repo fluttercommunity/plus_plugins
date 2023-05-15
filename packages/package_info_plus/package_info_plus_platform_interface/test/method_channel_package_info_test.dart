@@ -37,22 +37,26 @@ void main() {
   group('$MethodChannelPackageInfo()', () {
     const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
     final log = <MethodCall>[];
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      log.add(methodCall);
-      switch (methodCall.method) {
-        case 'getAll':
-          return <String, dynamic>{
-            'appName': 'package_info_example',
-            'buildNumber': '1',
-            'packageName': 'io.flutter.plugins.packageinfoexample',
-            'version': '1.0',
-            'installerStore': 'testflight',
-          };
-        default:
-          assert(false);
-          return null;
-      }
-    });
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      channel,
+      (MethodCall methodCall) async {
+        log.add(methodCall);
+        switch (methodCall.method) {
+          case 'getAll':
+            return <String, dynamic>{
+              'appName': 'package_info_example',
+              'buildNumber': '1',
+              'packageName': 'io.flutter.plugins.packageinfoexample',
+              'version': '1.0',
+              'installerStore': 'testflight',
+            };
+          default:
+            assert(false);
+            return null;
+        }
+      },
+    );
 
     final packageInfo = MethodChannelPackageInfo();
 
