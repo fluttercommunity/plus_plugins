@@ -84,7 +84,6 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     @SuppressLint("WrongConstant") // Error in ContextCompat for RECEIVER_NOT_EXPORTED
     override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        // DO NOT MERGE, this alternates states. reidbaker debug before review.
         applicationContext?.let {
             ContextCompat.registerReceiver(
                 it, chargingStateChangeReceiver,
