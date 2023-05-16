@@ -12,7 +12,7 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
   Future<PackageInfoData> getAll() async {
     final map = await _channel.invokeMapMethod<String, dynamic>('getAll');
     return PackageInfoData(
-      appName: map!['appName'] ?? '',
+      appName: map!['appName']?.toString() ?? '',
       packageName: map['packageName'] ?? '',
       version: map['version'] ?? '',
       buildNumber: map['buildNumber'] ?? '',
