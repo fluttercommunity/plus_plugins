@@ -23,7 +23,7 @@
   "dependencies": {
     "@docusaurus/core": "^2.4.0",
     "@docusaurus/plugin-google-gtag": "^2.4.1",
-    "@docusaurus/preset-classic": "^2.4.0",
+    "@docusaurus/preset-classic": "^2.4.1",
     "@types/lodash.get": "^4.4.7",
     "@types/react": "^17.0.50",
     "@types/react-router-dom": "^5.3.3",
