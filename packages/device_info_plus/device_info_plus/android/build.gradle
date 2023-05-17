@@ -30,8 +30,8 @@ android {
     namespace 'dev.fluttercommunity.plus.device_info'
 
     compileOptions {
-        sourceCompatibility project.sourceCompatibility != JavaVersion.VERSION_1_8 ? project.sourceCompatibility : JavaVersion.VERSION_1_8
-        targetCompatibility project.targetCompatibility != JavaVersion.VERSION_1_8 ? project.targetCompatibility : JavaVersion.VERSION_1_8
+        sourceCompatibility project.sourceCompatibility
+        targetCompatibility project.targetCompatibility
     }
 
     kotlinOptions {
