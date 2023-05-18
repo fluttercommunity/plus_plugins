@@ -1,6 +1,7 @@
 # Name of this workspace, this is used for display purpose on the CLI
 # and on your IDEs.
 name: plus_plugins
+repository: https://github.com/fluttercommunity/plus_plugins
 
 # Array of globs to search for packages.
 # Instead of one recursive glob, we use multiple globs to avoid
@@ -9,6 +10,13 @@ packages:
   - packages/*
   - packages/*/*
   - packages/*/*/*
+
+command:
+  version:
+    # Generate commit links in package changelogs.
+    linkToCommits: true
+    # Skip generation of shared changelogs file in the repo root
+    workspaceChangelog: false
 
 scripts:
   lint:all:
