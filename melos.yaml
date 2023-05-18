@@ -10,13 +10,14 @@ packages:
   - packages/*/*
   - packages/*/*/*
 
-scripts:
+command:
   version:
     # Generate commit links in package changelogs.
     linkToCommits: true
     # Skip generation of shared changelogs file in the repo root
     workspaceChangelog: false
 
+scripts:
   lint:all:
     run: melos run analyze && melos run format
     description: |
