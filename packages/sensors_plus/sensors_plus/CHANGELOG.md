@@ -1,3 +1,11 @@
+## 3.0.1
+
+ - **FIX**(sensors_plus): Fix crash on Android if device has no requested sensor ([#1405](https://github.com/fluttercommunity/plus_plugins/issues/1405)). ([a078b4e8](https://github.com/fluttercommunity/plus_plugins/commit/a078b4e8464a3b8dce24ee5112394097d981a173))
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(sensor_plus): Add info about possible error cases ([#1830](https://github.com/fluttercommunity/plus_plugins/issues/1830)). ([58d512de](https://github.com/fluttercommunity/plus_plugins/commit/58d512de24f9f4eeb154375958378868fd4bb1a7))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+ - **CHORE**(sensors_plus): Win32 dependency upgrade ([#1805](https://github.com/fluttercommunity/plus_plugins/pull/1805)). ([3f68800](https://github.com/fluttercommunity/plus_plugins/commit/c8f7b6342a7c51eafafae95792775505d2b52ce9))
+
 ## 3.0.0
 
 > Note: This release has breaking changes.
