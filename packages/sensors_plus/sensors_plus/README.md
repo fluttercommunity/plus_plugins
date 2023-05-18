@@ -37,29 +37,62 @@ These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
 `userAccelerometerEvents`, `gyroscopeEvents`, and `magnetometerEvents`,
 respectively.
 
+> **Note**
+>
+> Some low end or old Android devices don't have all sensors available. Plugin won't crash the app,
+> but it is highly recommended to add onError() to handle such cases gracefully.
+
 ### Example
 
 ```dart
 import 'package:sensors_plus/sensors_plus.dart';
 
-accelerometerEvents.listen((AccelerometerEvent event) {
-  print(event);
-});
+accelerometerEvents.listen(
+  (AccelerometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
 // [AccelerometerEvent (x: 0.0, y: 9.8, z: 0.0)]
 
-userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-  print(event);
-});
+userAccelerometerEvents.listen(
+  (UserAccelerometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
 // [UserAccelerometerEvent (x: 0.0, y: 0.0, z: 0.0)]
 
-gyroscopeEvents.listen((GyroscopeEvent event) {
-  print(event);
-});
+gyroscopeEvents.listen(
+  (GyroscopeEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
 // [GyroscopeEvent (x: 0.0, y: 0.0, z: 0.0)]
 
-magnetometerEvents.listen((MagnetometerEvent event) {
-  print(event);
-});
+magnetometerEvents.listen(
+  (MagnetometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
 // [MagnetometerEvent (x: -23.6, y: 6.2, z: -34.9)]
 
 ```
