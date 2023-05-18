@@ -1,4 +1,4 @@
-# Share plugin
+# share_plus
 
 [![Flutter Community: share_plus](https://fluttercommunity.dev/_github/header/share_plus)](https://github.com/fluttercommunity/community)
 
@@ -18,7 +18,7 @@ on iOS.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 

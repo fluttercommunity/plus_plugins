@@ -21,7 +21,7 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 ## Usage
 

@@ -1,4 +1,4 @@
-# Sensors Plus
+# sensors_plus
 
 [![Flutter Community: sensors_plus](https://fluttercommunity.dev/_github/header/sensors_plus)](https://github.com/fluttercommunity/community)
 
@@ -15,7 +15,7 @@ sensors.
 
 | Android |  iOS  | MacOS |  Web  | Linux | Windows |
 | :-----: | :---: | :---: | :---: | :---: | :-----: |
-|   ✔️   |   ✔️   |      |   ✔️  |       |         |
+|   ✅   |   ✅   |   ❌   |   ✅  |   ❌    |    ❌   |
 
 ## Usage
 

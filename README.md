@@ -50,7 +50,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅   | ✅  |  ✅   | ✅  |  ✅   |  ✅  |
 
 ---
 
@@ -67,7 +67,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 ---
 
@@ -84,7 +84,7 @@ Flutter plugin providing detailed information about the device
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 ---
 
@@ -100,7 +100,7 @@ Flutter plugin for discovering network info.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ➖  |  ✔️   |   ✔️    |
+|   ✅    | ✅   |  ✅   | ❌  |  ✅   |   ✅    |
 
 ---
 
@@ -117,7 +117,7 @@ package, such as CFBundleVersion on iOS or versionCode on Android.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 ---
 
@@ -133,7 +133,7 @@ Flutter plugin for accessing accelerometer, gyroscope, and magnetometer sensors.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |       | ✔️  |       |         |
+|   ✅    | ✅  |   ❌    | ✅  |   ❌    |    ❌     |
 
 ---
 
@@ -149,7 +149,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅   | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 ---
 
@@ -165,7 +165,7 @@ Flutter plugin for accessing the Android AlarmManager service, and running Dart 
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ---
 
@@ -181,7 +181,7 @@ Flutter plugin for launching Android Intents. Not supported on iOS.
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ---
 
