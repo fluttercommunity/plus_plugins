@@ -72,7 +72,7 @@ of integers or strings.
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ## Android 11 package visibility
 
