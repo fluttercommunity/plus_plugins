@@ -1,6 +1,7 @@
 # Name of this workspace, this is used for display purpose on the CLI
 # and on your IDEs.
 name: plus_plugins
+repository: https://github.com/fluttercommunity/plus_plugins
 
 # Array of globs to search for packages.
 # Instead of one recursive glob, we use multiple globs to avoid
