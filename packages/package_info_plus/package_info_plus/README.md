@@ -1,4 +1,4 @@
-# PackageInfoPlus
+# package_info_plus
 
 [![Flutter Community: package_info_plus](https://fluttercommunity.dev/_github/header/package_info_plus)](https://github.com/fluttercommunity/community)
 
@@ -16,7 +16,7 @@ This Flutter plugin provides an API for querying information about an applicatio
 
 | Android |  iOS  | MacOS |  Web  | Linux | Windows |
 | :-----: | :---: | :---: | :---: | :---: | :-----: |
-|✔️|✔️|✔️|✔️|✔️|✔️|
+|✅|✅|✅|✅|✅|✅|
 
 ## Usage
 
