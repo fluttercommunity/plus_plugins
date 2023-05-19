@@ -1,3 +1,7 @@
+## 4.0.1
+
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+
 ## 4.0.0
 
 > Note: This release has breaking changes.
