@@ -27,7 +27,7 @@ flutter:
 dependencies:
   device_info_plus_platform_interface: ^7.0.0
   ffi: ^2.0.1
-  file: ^6.1.4
+  file: ">=6.1.4 <8.0.0"
   flutter:
     sdk: flutter
   flutter_web_plugins:
