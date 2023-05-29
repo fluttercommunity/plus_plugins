@@ -40,7 +40,7 @@ BOOL _isCleanUp = NO;
   [_eventChannels setObject:userAccelerometerChannel
                      forKey:userAccelerometerStreamHandlerName];
   [_streamHandlers setObject:userAccelerometerStreamHandler
-                      forKey:accelerometerStreamHandlerName];
+                      forKey:userAccelerometerStreamHandlerName];
 
   FLTGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
       [[FLTGyroscopeStreamHandlerPlus alloc] init];
@@ -52,7 +52,7 @@ BOOL _isCleanUp = NO;
   [gyroscopeChannel setStreamHandler:gyroscopeStreamHandler];
   [_eventChannels setObject:gyroscopeChannel forKey:gyroscopeStreamHandlerName];
   [_streamHandlers setObject:gyroscopeStreamHandler
-                      forKey:accelerometerStreamHandlerName];
+                      forKey:gyroscopeStreamHandlerName];
 
   FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
       [[FLTMagnetometerStreamHandlerPlus alloc] init];
@@ -65,7 +65,7 @@ BOOL _isCleanUp = NO;
   [_eventChannels setObject:magnetometerChannel
                      forKey:magnetometerStreamHandlerName];
   [_streamHandlers setObject:magnetometerStreamHandler
-                      forKey:accelerometerStreamHandlerName];
+                      forKey:magnetometerStreamHandlerName];
 
   _isCleanUp = NO;
 }
@@ -89,7 +89,7 @@ static void _cleanUp() {
 
 @end
 
-const double GRAVITY = 9.8;
+const double GRAVITY = 9.81;
 CMMotionManager *_motionManager;
 
 void _initMotionManager(void) {
