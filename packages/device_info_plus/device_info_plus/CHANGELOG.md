@@ -1,3 +1,11 @@
+## 9.0.3
+
+ - **DOCS**(device_info_plus): Add links to Android and iOS docs to every field ([#1857](https://github.com/fluttercommunity/plus_plugins/issues/1857)). ([89eb5217](https://github.com/fluttercommunity/plus_plugins/commit/89eb52177c90d5453ba512e73472536fc8a03c9a))
+
+## 9.0.2
+
+ - **DOCS**(device_info_plus): Add links to Android and iOS docs to every field ([#1857](https://github.com/fluttercommunity/plus_plugins/issues/1857)). ([89eb5217](https://github.com/fluttercommunity/plus_plugins/commit/89eb52177c90d5453ba512e73472536fc8a03c9a))
+
 ## 9.0.1
 
  - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))

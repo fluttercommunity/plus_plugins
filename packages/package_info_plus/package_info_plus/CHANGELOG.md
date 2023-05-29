@@ -1,3 +1,5 @@
+## 4.0.2
+
 ## 4.0.1
 
  - **FIX**(package_info_plus): Get Windows package info when app is on a network drive ([#1697](https://github.com/fluttercommunity/plus_plugins/issues/1697)). ([d7f9c28b](https://github.com/fluttercommunity/plus_plugins/commit/d7f9c28b20842b882b5e196bc3d1ce7963067db6))

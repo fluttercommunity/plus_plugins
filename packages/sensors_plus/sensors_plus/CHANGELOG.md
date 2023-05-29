@@ -1,3 +1,11 @@
+## 3.0.3
+
+ - **FIX**(sensors_plus): Fix issues with emitting multiple sensors events on iOS ([#1859](https://github.com/fluttercommunity/plus_plugins/issues/1859)). ([d33b20fa](https://github.com/fluttercommunity/plus_plugins/commit/d33b20fa7c76368dbcc12064df8469c301658b53))
+
+## 3.0.2
+
+ - **FIX**(sensors_plus): Fix issues with emitting multiple sensors events on iOS ([#1859](https://github.com/fluttercommunity/plus_plugins/issues/1859)). ([d33b20fa](https://github.com/fluttercommunity/plus_plugins/commit/d33b20fa7c76368dbcc12064df8469c301658b53))
+
 ## 3.0.1
 
  - **FIX**(sensors_plus): Fix crash on Android if device has no requested sensor ([#1405](https://github.com/fluttercommunity/plus_plugins/issues/1405)). ([a078b4e8](https://github.com/fluttercommunity/plus_plugins/commit/a078b4e8464a3b8dce24ee5112394097d981a173))
