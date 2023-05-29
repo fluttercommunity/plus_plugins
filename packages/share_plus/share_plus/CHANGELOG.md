@@ -1,3 +1,7 @@
+## 7.0.2
+
+- **CHORE**(share_plus): Update file dependency constraints ([#1853](https://github.com/fluttercommunity/plus_plugins/pull/1853)). ([d8ff0cdb](https://github.com/fluttercommunity/plus_plugins/commit/d8ff0cdb665048c59c8acc5fecd1a9c099ee012f))
+
 ## 7.0.1
 
  - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))

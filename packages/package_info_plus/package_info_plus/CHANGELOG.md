@@ -1,3 +1,7 @@
+## 4.0.2
+
+- **CHORE**(package_info_plus): Update http dependency constraints (#1851)([#1851](https://github.com/fluttercommunity/plus_plugins/pull/1851)). ([1463bea](https://github.com/fluttercommunity/plus_plugins/commit/1463bea77b79ee1460798b9f65d2a467023b2e38))
+
 ## 4.0.1
 
  - **FIX**(package_info_plus): Get Windows package info when app is on a network drive ([#1697](https://github.com/fluttercommunity/plus_plugins/issues/1697)). ([d7f9c28b](https://github.com/fluttercommunity/plus_plugins/commit/d7f9c28b20842b882b5e196bc3d1ce7963067db6))
