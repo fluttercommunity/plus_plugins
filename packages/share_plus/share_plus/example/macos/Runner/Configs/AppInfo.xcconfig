@@ -8,7 +8,7 @@
 PRODUCT_NAME = share_plus_example
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = io.flutter.plugins.share_plus.example
+PRODUCT_BUNDLE_IDENTIFIER = io.flutter.plugins.sharePlus.example
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 io.flutter.plugins. All rights reserved.
