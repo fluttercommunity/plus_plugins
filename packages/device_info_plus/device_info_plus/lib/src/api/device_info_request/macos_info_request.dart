@@ -10,7 +10,9 @@ class MacOsInfo {
   Map<String, dynamic>? _cachedMacOsDeviceInfoMap;
 
   Future<MacOsDeviceInfo> info() async {
-    _cachedMacOsDeviceInfo ??= await platform.deviceInfo() as MacOsDeviceInfo;
+    _cachedMacOsDeviceInfo ??=
+        MacOsDeviceInfo.fromMap((await platform.deviceInfo()).data);
+
     return _cachedMacOsDeviceInfo!;
   }
 
