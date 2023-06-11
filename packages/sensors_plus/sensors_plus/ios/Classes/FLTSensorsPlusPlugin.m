@@ -75,7 +75,7 @@ BOOL _isCleanUp = NO;
   _cleanUp();
 }
 
-static void _cleanUp() {
+static void _cleanUp(void) {
   _isCleanUp = YES;
   for (FlutterEventChannel *channel in _eventChannels.allValues) {
     [channel setStreamHandler:nil];
