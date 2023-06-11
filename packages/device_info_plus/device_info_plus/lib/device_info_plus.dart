@@ -85,6 +85,7 @@ class DeviceInfoPlugin {
   DeviceInfoPlugin() {
     device = DeviceProvider.getDevice();
   }
+  BaseDeviceInfo? _cachedDeviceInfo;
 
   // This is to manually endorse the Linux plugin until automatic registration
   // of dart plugins is implemented.
@@ -97,18 +98,24 @@ class DeviceInfoPlugin {
   Future<BaseDeviceInfo?> getInfo() async {
     switch (device!) {
       case Android():
-        var x = await Android().getInfo(_platform);
-        return x;
+        _cachedDeviceInfo ??= await Android().getInfo(_platform);
+        break;
       case IOS():
-        return IOS().getInfo(_platform);
+        _cachedDeviceInfo ??= await IOS().getInfo(_platform);
+        break;
       case Linux():
-        return Linux().getInfo(_platform);
+        _cachedDeviceInfo ??= await Linux().getInfo(_platform);
+        break;
       case Web():
-        return Web().getInfo(_platform);
+        _cachedDeviceInfo ??= await Web().getInfo(_platform);
+        break;
       case MacOS():
-        return MacOS().getInfo(_platform);
+        _cachedDeviceInfo ??= await MacOS().getInfo(_platform);
+        break;
       case Windows():
-        return Windows().getInfo(_platform);
+        _cachedDeviceInfo ??= await Windows().getInfo(_platform);
+        break;
     }
+    return _cachedDeviceInfo;
   }
 }
