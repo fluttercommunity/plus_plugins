@@ -21,24 +21,24 @@ void main() {
   late BaseDeviceInfo deviceInfo;
 
   setUpAll(() async {
-    final deviceInfoPlugin = DeviceInfoPlugin();
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     if (kIsWeb) {
-      webBrowserInfo = await deviceInfoPlugin.webBrowserInfo;
+      webBrowserInfo = await deviceInfoPlugin.getInfo() as WebBrowserInfo;
     } else {
       if (Platform.isIOS) {
-        iosInfo = await deviceInfoPlugin.iosInfo;
+        iosInfo = await deviceInfoPlugin.getInfo() as IosDeviceInfo;
       } else if (Platform.isAndroid) {
-        androidInfo = await deviceInfoPlugin.androidInfo;
+        androidInfo = await deviceInfoPlugin.getInfo() as AndroidDeviceInfo;
       } else if (Platform.isWindows) {
-        windowsInfo = await deviceInfoPlugin.windowsInfo;
+        windowsInfo = await deviceInfoPlugin.getInfo() as WindowsDeviceInfo;
       } else if (Platform.isLinux) {
-        linuxInfo = await deviceInfoPlugin.linuxInfo;
+        linuxInfo = await deviceInfoPlugin.getInfo() as LinuxDeviceInfo;
       } else if (Platform.isMacOS) {
-        macosInfo = await deviceInfoPlugin.macOsInfo;
+        macosInfo = await deviceInfoPlugin.getInfo() as MacOsDeviceInfo;
       }
     }
 
-    deviceInfo = await deviceInfoPlugin.deviceInfo;
+    deviceInfo = (await deviceInfoPlugin.getInfo())!;
   });
 
   testWidgets('Can get non-null device model', (WidgetTester tester) async {

@@ -46,5 +46,5 @@ dev_dependencies:
   test: ^1.22.0
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: '>=3.0.0-397.0.dev <4.0.0'
   flutter: ">=3.3.0"
