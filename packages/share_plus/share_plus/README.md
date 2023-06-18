@@ -52,8 +52,8 @@ Share.share('check out my website https://example.com', subject: 'Look what I ma
 To share one or multiple files invoke the static `shareFiles` method anywhere in your Dart code. Optionally you can also pass in `text` and `subject`.
 
 ```dart
-Share.shareFiles(['${directory.path}/image.jpg'], text: 'Great picture');
-Share.shareFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
+Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
 
 On web you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
@@ -123,4 +123,3 @@ See the `main.dart` in the `example` for a complete example.
 
 - [API Documentation](https://pub.dev/documentation/share_plus/latest/share_plus/share_plus-library.html)
 - [Plugin documentation website](https://plus.fluttercommunity.dev/docs/share_plus/overview)
-
