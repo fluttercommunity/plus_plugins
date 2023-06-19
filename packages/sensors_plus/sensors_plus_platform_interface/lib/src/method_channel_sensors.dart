@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
+import 'package:sensors_plus_platform_interface/src/game_rotation_vector_event.dart';
 
 /// A method channel -based implementation of the SensorsPlatform interface.
 class MethodChannelSensors extends SensorsPlatform {
@@ -21,10 +22,14 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _magnetometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
 
+  static const EventChannel _gameRotationVectorEventChannel =
+  EventChannel('dev.fluttercommunity.plus/sensors/gameRotationVector');
+
   Stream<AccelerometerEvent>? _accelerometerEvents;
   Stream<GyroscopeEvent>? _gyroscopeEvents;
   Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
   Stream<MagnetometerEvent>? _magnetometerEvents;
+  Stream<GameRotationVectorEvent>? _gameRotationVectorEvents;
 
   /// A broadcast stream of events from the device accelerometer.
   @override
@@ -70,5 +75,16 @@ class MethodChannelSensors extends SensorsPlatform {
       return MagnetometerEvent(list[0]!, list[1]!, list[2]!);
     });
     return _magnetometerEvents!;
+  }
+
+  /// A broadcast stream of events from the device magnetometer.
+  @override
+  Stream<GameRotationVectorEvent> get gameRotationVectorEvent {
+    _gameRotationVectorEvents ??=
+        _gameRotationVectorEventChannel.receiveBroadcastStream().map((dynamic event) {
+          final list = event.cast<double>();
+          return GameRotationVectorEvent(list[0]!, list[1]!, list[2]!,list[3]!);
+        });
+    return _gameRotationVectorEvents!;
   }
 }
