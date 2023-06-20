@@ -36,7 +36,7 @@ Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 ```
 
-If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` and `shareFilesWithResult` methods.
+If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` and `shareXFiles` methods.
 
 ```dart
 final result = await Share.shareWithResult('check out my website https://example.com');
@@ -47,7 +47,7 @@ if (result.status == ShareResultStatus.success) {
 ```
 
 ```dart
-final result = await Share.shareFilesWithResult(['${directory.path}/image.jpg'], text: 'Great picture');
+final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 
 if (result.status == ShareResultStatus.dismissed) {
     print('did you not like the picture?');
