@@ -49,11 +49,22 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
-To share one or multiple files invoke the static `shareFiles` method anywhere in your Dart code. Optionally you can also pass in `text` and `subject`.
+To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code and it'll return the `ShareResult`. Optionally you can also pass in `text` and `subject`.
 
 ```dart
-Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
-Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
+
+if (result.status == ShareResultStatus.dismissed) {
+    print('did you not like the picture with text?');
+}
+```
+
+```dart
+final result = await  Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+
+if (result.status == ShareResultStatus.dismissed) {
+    print('did you not like the pictures?');
+}
 ```
 
 On web you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
