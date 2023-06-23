@@ -121,18 +121,22 @@ class PackageInfo {
   }
 
   /// Gets a map representation of the [PackageInfo] instance.
-  ///
-  /// This getter makes use of the [_toMap] method to obtain a map
-  /// representation of this instance.
-
   Map<String, dynamic> toMap() {
-    return {
+    Map<String, dynamic> values = {
       'appName': appName,
       'buildNumber': buildNumber,
       'packageName': packageName,
       'version': version,
-      'buildSignature': buildSignature,
-      'installerStore': installerStore,
-    };
+    }
+
+    if (buildSignature != null && buildSignature.isNotEmpty) {
+      values['buildSignature'] = buildSignature;
+    }
+
+    if (installerStore != null && installerStore.isNotEmpty) {
+      values['installerStore'] = installerStore;
+    }
+
+    return values;
   }
 }
