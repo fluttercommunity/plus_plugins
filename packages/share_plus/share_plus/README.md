@@ -59,7 +59,7 @@ if (result.status == ShareResultStatus.success) {
 }
 ```
 
-To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code, which returns a `ShareResult`. Optionally you can pass `subject`, `text` and `sharePositionOrigin`.
+To share one or multiple files, invoke the static `shareXFiles` method anywhere in your Dart code. The method returns a `ShareResult`. Optionally, you can pass `subject`, `text` and `sharePositionOrigin`.
 
 ```dart
 final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
