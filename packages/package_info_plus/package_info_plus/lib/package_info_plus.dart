@@ -127,7 +127,7 @@ class PackageInfo {
       'buildNumber': buildNumber,
       'packageName': packageName,
       'version': version,
-    }
+    };
 
     if (buildSignature.isNotEmpty) {
       values['buildSignature'] = buildSignature;
