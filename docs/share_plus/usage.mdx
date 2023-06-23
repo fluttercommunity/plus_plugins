@@ -29,7 +29,7 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
-To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code and it'll return the `ShareResult`. Optionally you can also pass in `text` and `subject`.
+To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code, which returns a `ShareResult`. Optionally you can pass `subject`, `text` and `sharePositionOrigin`.
 
 ```dart
 final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
