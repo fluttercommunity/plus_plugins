@@ -122,7 +122,7 @@ class PackageInfo {
 
   /// Gets a map representation of the [PackageInfo] instance.
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> values = {
+    final values = <String, dynamic>{
       'appName': appName,
       'buildNumber': buildNumber,
       'packageName': packageName,
