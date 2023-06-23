@@ -129,11 +129,11 @@ class PackageInfo {
       'version': version,
     }
 
-    if (buildSignature != null && buildSignature.isNotEmpty) {
+    if (buildSignature.isNotEmpty) {
       values['buildSignature'] = buildSignature;
     }
 
-    if (installerStore != null && installerStore.isNotEmpty) {
+    if (installerStore != null && installerStore!.isNotEmpty) {
       values['installerStore'] = installerStore;
     }
 
