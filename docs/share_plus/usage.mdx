@@ -29,13 +29,23 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
+If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` method.
+
+```dart
+final result = await Share.shareWithResult('check out my website https://example.com');
+
+if (result.status == ShareResultStatus.success) {
+    print('Thank you for sharing my website!');
+}
+```
+
 To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code, which returns a `ShareResult`. Optionally you can pass `subject`, `text` and `sharePositionOrigin`.
 
 ```dart
 final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 
-if (result.status == ShareResultStatus.dismissed) {
-    print('did you not like the picture with text?');
+if (result.status == ShareResultStatus.success) {
+    print('Thank you for sharing the picture!');
 }
 ```
 
@@ -43,16 +53,6 @@ if (result.status == ShareResultStatus.dismissed) {
 final result = await Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 
 if (result.status == ShareResultStatus.dismissed) {
-    print('did you not like the pictures?');
-}
-```
-
-If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` method.
-
-```dart
-final result = await Share.shareWithResult('check out my website https://example.com');
-
-if (result.status == ShareResultStatus.success) {
-    print('thank you for sharing my website!');
+    print('Did you not like the pictures?');
 }
 ```

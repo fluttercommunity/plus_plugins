@@ -49,25 +49,36 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
-To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code and it'll return the `ShareResult`. Optionally you can also pass in `text` and `subject`.
+If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` method.
+
+```dart
+final result = await Share.shareWithResult('check out my website https://example.com');
+
+if (result.status == ShareResultStatus.success) {
+    print('Thank you for sharing my website!');
+}
+```
+
+To share one or multiple files invoke the static `shareXFiles` method anywhere in your Dart code, which returns a `ShareResult`. Optionally you can pass `subject`, `text` and `sharePositionOrigin`.
 
 ```dart
 final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
 
-if (result.status == ShareResultStatus.dismissed) {
-    print('did you not like the picture with text?');
+if (result.status == ShareResultStatus.success) {
+    print('Thank you for sharing the picture!');
 }
 ```
 
 ```dart
-final result = await  Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+final result = await Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
 
 if (result.status == ShareResultStatus.dismissed) {
-    print('did you not like the pictures?');
+    print('Did you not like the pictures?');
 }
 ```
 
-On web you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
+
+On web, you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
 if it's available. Otherwise it falls back to downloading the shared files.
 See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
 which browsers are supported. This builds on the [`cross_file`](https://pub.dev/packages/cross_file)
