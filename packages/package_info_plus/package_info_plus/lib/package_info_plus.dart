@@ -120,8 +120,7 @@ class PackageInfo {
     return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore)';
   }
 
-  /// Gets a map representation of the [PackageInfo] instance.
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> _toMap() {
     final values = <String, dynamic>{
       'appName': appName,
       'buildNumber': buildNumber,
@@ -139,4 +138,7 @@ class PackageInfo {
 
     return values;
   }
+
+  /// Gets a map representation of the [PackageInfo] instance.
+  Map<String, dynamic> get data => _toMap();
 }
