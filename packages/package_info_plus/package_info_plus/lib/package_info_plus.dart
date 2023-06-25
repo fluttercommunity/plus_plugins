@@ -121,22 +121,14 @@ class PackageInfo {
   }
 
   Map<String, dynamic> _toMap() {
-    final values = <String, dynamic>{
+    return {
       'appName': appName,
       'buildNumber': buildNumber,
       'packageName': packageName,
       'version': version,
+      if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
+      if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
     };
-
-    if (buildSignature.isNotEmpty) {
-      values['buildSignature'] = buildSignature;
-    }
-
-    if (installerStore != null && installerStore!.isNotEmpty) {
-      values['installerStore'] = installerStore;
-    }
-
-    return values;
   }
 
   /// Gets a map representation of the [PackageInfo] instance.
