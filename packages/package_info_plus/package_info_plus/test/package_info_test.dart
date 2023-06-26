@@ -12,7 +12,8 @@ void main() {
   const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
   final log = <MethodCall>[];
 
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(
     channel,
     (MethodCall methodCall) async {
       log.add(methodCall);
@@ -50,7 +51,8 @@ void main() {
       ],
     );
   }, onPlatform: {
-    'linux': const Skip('PackageInfoPlus on Linux does not use platform channels'),
+    'linux':
+        const Skip('PackageInfoPlus on Linux does not use platform channels'),
   });
 
   test('Mock initial values', () async {
