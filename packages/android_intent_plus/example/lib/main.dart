@@ -339,14 +339,26 @@ class ExplicitIntentsWidget extends StatelessWidget {
   }
 
   void _openGmail() {
-    const intent = AndroidIntent(
+    final intent = AndroidIntent(
       action: 'android.intent.action.SEND',
-      arguments: {'android.intent.extra.SUBJECT': 'I am the subject'},
-      arrayArguments: {
-        'android.intent.extra.EMAIL': ['eidac@me.com', 'overbom@mac.com'],
-        'android.intent.extra.CC': ['john@app.com', 'user@app.com'],
-        'android.intent.extra.BCC': ['liam@me.abc', 'abel@me.com'],
-      },
+      extras: Bundles(bundles: [
+        Bundle(value: [
+          PutString(
+              key: 'android.intent.extra.SUBJECT', value: 'I am the subject'),
+          PutStringArray(
+            key: 'android.intent.extra.EMAIL',
+            value: ['eidac@me.com', 'overbom@mac.com'],
+          ),
+          PutStringArray(
+            key: 'android.intent.extra.CC',
+            value: ['john@app.com', 'user@app.com'],
+          ),
+          PutStringArray(
+            key: 'android.intent.extra.BCC',
+            value: ['liam@me.abc', 'abel@me.com'],
+          ),
+        ])
+      ]),
       package: 'com.google.android.gm',
       type: 'message/rfc822',
     );
