@@ -8,22 +8,45 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
 internal class StreamHandlerImpl(
-        private val sensorManager: SensorManager,
-        sensorType: Int
+    private val sensorManager: SensorManager,
+    private val sensorType: Int
 ) : EventChannel.StreamHandler {
     private var sensorEventListener: SensorEventListener? = null
 
-    private val sensor: Sensor by lazy {
-        sensorManager.getDefaultSensor(sensorType)
-    }
+    private var sensor: Sensor? = null
 
     override fun onListen(arguments: Any?, events: EventSink) {
-        sensorEventListener = createSensorEventListener(events)
-        sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        sensor = sensorManager.getDefaultSensor(sensorType)
+        if (sensor != null) {
+            sensorEventListener = createSensorEventListener(events)
+            sensorManager.registerListener(
+                sensorEventListener,
+                sensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        } else {
+            events.error(
+                "NO_SENSOR",
+                "Sensor not found",
+                "It seems that your device has no ${getSensorName(sensorType)} sensor"
+            )
+        }
     }
 
     override fun onCancel(arguments: Any?) {
-        sensorManager.unregisterListener(sensorEventListener)
+        if (sensor != null) {
+            sensorManager.unregisterListener(sensorEventListener)
+        }
+    }
+
+    private fun getSensorName(sensorType: Int): String {
+        return when (sensorType) {
+            Sensor.TYPE_ACCELEROMETER -> "Accelerometer"
+            Sensor.TYPE_LINEAR_ACCELERATION -> "User Accelerometer"
+            Sensor.TYPE_GYROSCOPE -> "Gyroscope"
+            Sensor.TYPE_MAGNETIC_FIELD -> "Magnetometer"
+            else -> "Undefined"
+        }
     }
 
     private fun createSensorEventListener(events: EventSink): SensorEventListener {

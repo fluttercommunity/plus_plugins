@@ -32,14 +32,14 @@ void main() {
         expect(info.version, '1.2.3');
         expect(info.installerStore, null);
       } else if (Platform.isIOS) {
-        expect(info.appName, 'Package Info Example');
+        expect(info.appName, 'Package Info Plus Example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageInfoExample');
         expect(info.version, '1.2.3');
         expect(info.installerStore, 'com.apple.simulator');
       } else if (Platform.isMacOS) {
-        expect(info.appName, 'Package Info Example');
+        expect(info.appName, 'Package Info Plus Example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageInfoExample');
@@ -83,7 +83,7 @@ void main() {
         expect(find.text('Not set'), findsNothing);
         expect(find.text('not available'), findsOneWidget);
       } else if (Platform.isIOS) {
-        expect(find.text('Package Info Example'), findsOneWidget);
+        expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
             find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
@@ -91,7 +91,7 @@ void main() {
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('com.apple.simulator'), findsOneWidget);
       } else if (Platform.isMacOS) {
-        expect(find.text('Package Info Example'), findsOneWidget);
+        expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
             find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
