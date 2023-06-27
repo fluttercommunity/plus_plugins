@@ -33,29 +33,29 @@ class SensorsPlugin : FlutterPlugin {
 
         accelerometerChannel = EventChannel(messenger, ACCELEROMETER_CHANNEL_NAME)
         accelerationStreamHandler = StreamHandlerImpl(
-                sensorsManager,
-                Sensor.TYPE_ACCELEROMETER
+            sensorsManager,
+            Sensor.TYPE_ACCELEROMETER
         )
         accelerometerChannel.setStreamHandler(accelerationStreamHandler)
 
         userAccelChannel = EventChannel(messenger, USER_ACCELEROMETER_CHANNEL_NAME)
         linearAccelerationStreamHandler = StreamHandlerImpl(
-                sensorsManager,
-                Sensor.TYPE_LINEAR_ACCELERATION
+            sensorsManager,
+            Sensor.TYPE_LINEAR_ACCELERATION
         )
         userAccelChannel.setStreamHandler(linearAccelerationStreamHandler)
 
         gyroscopeChannel = EventChannel(messenger, GYROSCOPE_CHANNEL_NAME)
         gyroScopeStreamHandler = StreamHandlerImpl(
-                sensorsManager,
-                Sensor.TYPE_GYROSCOPE
+            sensorsManager,
+            Sensor.TYPE_GYROSCOPE
         )
         gyroscopeChannel.setStreamHandler(gyroScopeStreamHandler)
 
         magnetometerChannel = EventChannel(messenger, MAGNETOMETER_CHANNEL_NAME)
         magnetometerStreamHandler = StreamHandlerImpl(
-                sensorsManager,
-                Sensor.TYPE_MAGNETIC_FIELD
+            sensorsManager,
+            Sensor.TYPE_MAGNETIC_FIELD
         )
         magnetometerChannel.setStreamHandler(magnetometerStreamHandler)
     }
@@ -73,9 +73,12 @@ class SensorsPlugin : FlutterPlugin {
     }
 
     companion object {
-        private const val ACCELEROMETER_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/accelerometer"
+        private const val ACCELEROMETER_CHANNEL_NAME =
+            "dev.fluttercommunity.plus/sensors/accelerometer"
         private const val GYROSCOPE_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/gyroscope"
-        private const val USER_ACCELEROMETER_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/user_accel"
-        private const val MAGNETOMETER_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/magnetometer"
+        private const val USER_ACCELEROMETER_CHANNEL_NAME =
+            "dev.fluttercommunity.plus/sensors/user_accel"
+        private const val MAGNETOMETER_CHANNEL_NAME =
+            "dev.fluttercommunity.plus/sensors/magnetometer"
     }
 }

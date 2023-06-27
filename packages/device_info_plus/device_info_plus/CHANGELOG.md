@@ -1,3 +1,13 @@
+## 9.0.2
+
+ - **DOCS**(device_info_plus): Add links to Android and iOS docs to every field ([#1857](https://github.com/fluttercommunity/plus_plugins/issues/1857)). ([89eb5217](https://github.com/fluttercommunity/plus_plugins/commit/89eb52177c90d5453ba512e73472536fc8a03c9a))
+
+## 9.0.1
+
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+ - **CHORE**(device_info_plus): Win32 dependency upgrade ([#1805](https://github.com/fluttercommunity/plus_plugins/pull/1805)). ([3f68800](https://github.com/fluttercommunity/plus_plugins/commit/c8f7b6342a7c51eafafae95792775505d2b52ce9))
+
 ## 9.0.0
 
 > Note: This release has breaking changes.

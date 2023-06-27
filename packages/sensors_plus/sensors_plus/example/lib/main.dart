@@ -7,11 +7,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import 'snake.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
+
   runApp(const MyApp());
 }
 
@@ -23,7 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sensors Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -64,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sensor Example'),
+        title: const Text('Sensors Plus Example'),
+        elevation: 4,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,6 +155,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _userAccelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -153,6 +176,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _accelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Gyroscope Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -162,6 +197,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _gyroscopeValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support User Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -171,6 +218,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _magnetometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Magnetometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
   }

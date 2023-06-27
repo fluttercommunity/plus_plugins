@@ -1,5 +1,6 @@
 package dev.fluttercommunity.plus.battery
 
+import android.annotation.SuppressLint
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.EventChannel
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -20,6 +21,9 @@ import java.util.Locale
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
+
 
 /** BatteryPlusPlugin  */
 class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, FlutterPlugin {
@@ -77,9 +81,15 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         }
     }
 
+    @SuppressLint("WrongConstant") // Error in ContextCompat for RECEIVER_NOT_EXPORTED
     override fun onListen(arguments: Any?, events: EventSink) {
         chargingStateChangeReceiver = createChargingStateChangeReceiver(events)
-        applicationContext?.registerReceiver(chargingStateChangeReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        applicationContext?.let {
+            ContextCompat.registerReceiver(
+                it, chargingStateChangeReceiver,
+                IntentFilter(Intent.ACTION_BATTERY_CHANGED), RECEIVER_NOT_EXPORTED
+            )
+        }
         val status = getBatteryStatus()
         publishBatteryStatus(events, status)
     }

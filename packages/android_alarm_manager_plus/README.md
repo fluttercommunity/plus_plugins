@@ -15,7 +15,7 @@ Dart code in the background when alarms fire.
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ## Getting Started
 

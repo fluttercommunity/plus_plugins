@@ -1,4 +1,4 @@
-# Android Intent Plugin for Flutter
+# android_intent_plus
 
 [![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
 
@@ -72,7 +72,7 @@ of integers or strings.
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ## Android 11 package visibility
 

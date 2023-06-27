@@ -1,4 +1,4 @@
-# Battery Plus
+# battery_plus
 
 [![Flutter Community: battery_plus](https://fluttercommunity.dev/_github/header/battery_plus)](https://github.com/fluttercommunity/community)
 
@@ -16,7 +16,7 @@ A Flutter plugin to access various information about the battery of the device t
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️   |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
 
 ## Usage
 

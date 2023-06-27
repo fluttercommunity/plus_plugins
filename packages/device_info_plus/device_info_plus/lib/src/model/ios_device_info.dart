@@ -26,22 +26,27 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// On iOS < 16 returns user-assigned device name
   /// On iOS >= 16 returns a generic device name if project has
   /// no entitlement to get user-assigned device name.
-  /// See: https://developer.apple.com/documentation/uikit/uidevice/1620015-name
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620015-name
   final String name;
 
   /// The name of the current operating system.
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620054-systemname
   final String systemName;
 
   /// The current operating system version.
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
   final String systemVersion;
 
   /// Device model.
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620044-model
   final String model;
 
   /// Localized name of the device model.
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620029-localizedmodel
   final String localizedModel;
 
   /// Unique UUID value identifying the current device.
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
   final String? identifierForVendor;
 
   /// `false` if the application is running in a simulator, `true` otherwise.
