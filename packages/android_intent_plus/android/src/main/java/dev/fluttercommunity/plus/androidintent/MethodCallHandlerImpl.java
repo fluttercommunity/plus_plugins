@@ -20,9 +20,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /** Forwards incoming {@link MethodCall}s to {@link IntentSender#send}. */
 public final class MethodCallHandlerImpl implements MethodCallHandler {
@@ -83,9 +81,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     Integer flags = call.argument("flags");
     String category = call.argument("category");
     Uri data = call.argument("data") != null ? Uri.parse((String) call.argument("data")) : null;
-    Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
-    Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
-    arguments.putAll(arrayArguments);
+    Bundle arguments = new Bundle();
     Bundles bundles;
     try {
       bundles = Bundles.bundlesFromJsonString((String) call.argument("extras"));
@@ -151,114 +147,5 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       default:
         return action;
     }
-  }
-
-  private static Bundle convertArguments(Map<String, ?> arguments) {
-    Bundle bundle = new Bundle();
-    if (arguments == null) {
-      return bundle;
-    }
-    for (String key : arguments.keySet()) {
-      Object value = arguments.get(key);
-      if (value instanceof Integer) {
-        bundle.putInt(key, (Integer) value);
-      } else if (value instanceof String) {
-        bundle.putString(key, (String) value);
-      } else if (value instanceof Boolean) {
-        bundle.putBoolean(key, (Boolean) value);
-      } else if (value instanceof Double) {
-        bundle.putDouble(key, (Double) value);
-      } else if (value instanceof Long) {
-        bundle.putLong(key, (Long) value);
-      } else if (value instanceof byte[]) {
-        bundle.putByteArray(key, (byte[]) value);
-      } else if (value instanceof int[]) {
-        bundle.putIntArray(key, (int[]) value);
-      } else if (value instanceof long[]) {
-        bundle.putLongArray(key, (long[]) value);
-      } else if (value instanceof double[]) {
-        bundle.putDoubleArray(key, (double[]) value);
-      } else if (isTypedArrayList(value, Integer.class)) {
-        bundle.putIntegerArrayList(key, (ArrayList<Integer>) value);
-      } else if (isTypedArrayList(value, String.class)) {
-        bundle.putStringArrayList(key, (ArrayList<String>) value);
-      } else if (isStringKeyedMap(value)) {
-        bundle.putBundle(key, convertArguments((Map<String, ?>) value));
-      } else {
-        throw new UnsupportedOperationException("Unsupported type " + value);
-      }
-    }
-    return bundle;
-  }
-
-  private static Bundle convertArrayArguments(Map<String, ?> arrayArguments) {
-    Bundle bundle = new Bundle();
-    if (arrayArguments == null) {
-      return bundle;
-    }
-    for (String key : arrayArguments.keySet()) {
-      Object value = arrayArguments.get(key);
-      if (isTypedArrayList(value, Boolean.class)) {
-        ArrayList<Boolean> list = (ArrayList<Boolean>) value;
-        boolean[] array = new boolean[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-          array[i] = list.get(i);
-        }
-        bundle.putBooleanArray(key, array);
-      } else if (isTypedArrayList(value, Integer.class)) {
-        ArrayList<Integer> list = (ArrayList<Integer>) value;
-        int[] array = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-          array[i] = list.get(i);
-        }
-        bundle.putIntArray(key, array);
-      } else if (isTypedArrayList(value, Long.class)) {
-        ArrayList<Long> list = (ArrayList<Long>) value;
-        long[] array = new long[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-          array[i] = list.get(i);
-        }
-        bundle.putLongArray(key, array);
-      } else if (isTypedArrayList(value, Double.class)) {
-        ArrayList<Double> list = (ArrayList<Double>) value;
-        double[] array = new double[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-          array[i] = list.get(i);
-        }
-        bundle.putDoubleArray(key, array);
-      } else if (isTypedArrayList(value, String.class)) {
-        ArrayList<String> list = (ArrayList<String>) value;
-        bundle.putStringArray(key, list.toArray(new String[list.size()]));
-      } else {
-        throw new UnsupportedOperationException("Unsupported type " + value);
-      }
-    }
-    return bundle;
-  }
-
-  private static boolean isTypedArrayList(Object value, Class<?> type) {
-    if (!(value instanceof ArrayList)) {
-      return false;
-    }
-    ArrayList list = (ArrayList) value;
-    for (Object o : list) {
-      if (!(o == null || type.isInstance(o))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private static boolean isStringKeyedMap(Object value) {
-    if (!(value instanceof Map)) {
-      return false;
-    }
-    Map map = (Map) value;
-    for (Object key : map.keySet()) {
-      if (!(key == null || key instanceof String)) {
-        return false;
-      }
-    }
-    return true;
   }
 }
