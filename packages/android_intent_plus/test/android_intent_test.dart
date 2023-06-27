@@ -173,7 +173,7 @@ void main() {
       test('send a broadcast with empty extras', () async {
         androidIntent = AndroidIntent.private(
           action: 'com.example.broadcast',
-          extras: <Bundle>[],
+          extras: Bundles(bundles: <Bundle>[]),
           channel: mockChannel,
           platform: FakePlatform(operatingSystem: 'android'),
         );
@@ -187,7 +187,7 @@ void main() {
       test('send a broadcast with extras', () async {
         androidIntent = AndroidIntent.private(
           action: 'com.example.broadcast',
-          extras: <Bundle>[
+          extras: Bundles(bundles: [
             Bundle(
               value: [
                 PutBundle(
@@ -267,7 +267,7 @@ void main() {
             Bundle(
               value: [],
             ),
-          ],
+          ]),
           channel: mockChannel,
           platform: FakePlatform(operatingSystem: 'android'),
         );
