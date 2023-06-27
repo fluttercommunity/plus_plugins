@@ -120,43 +120,45 @@ class MyHomePage extends StatelessWidget {
   void _sendBroadCastExtra() {
     final intent = AndroidIntent(
       action: 'com.symbol.datawedge.api.ACTION',
-      extras: [
-        Bundle(
-          value: [
-            PutBundle(
-              key: 'com.symbol.datawedge.api.SET_CONFIG',
-              value: [
-                PutString(
-                  key: 'PROFILE_NAME',
-                  value: 'com.dalosy.scanner_by_intents',
-                ),
-                PutString(
-                  key: 'PROFILE_ENABLED',
-                  value: 'true',
-                ),
-                PutString(
-                  key: 'CONFIG_MODE',
-                  value: 'CREATE_IF_NOT_EXIST',
-                ),
-                PutParcelableArray(
-                  key: 'APP_LIST',
-                  value: [
-                    appList(),
-                  ],
-                ),
-                PutParcelableArrayList(
-                  key: 'PLUGIN_CONFIG',
-                  value: [
-                    barcodePluginConfig(),
-                    intentPluginConfig(),
-                    keystrokePluginConfig(),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+      extras: Bundles(
+        bundles: [
+          Bundle(
+            value: [
+              PutBundle(
+                key: 'com.symbol.datawedge.api.SET_CONFIG',
+                value: [
+                  PutString(
+                    key: 'PROFILE_NAME',
+                    value: 'com.dalosy.scanner_by_intents',
+                  ),
+                  PutString(
+                    key: 'PROFILE_ENABLED',
+                    value: 'true',
+                  ),
+                  PutString(
+                    key: 'CONFIG_MODE',
+                    value: 'CREATE_IF_NOT_EXIST',
+                  ),
+                  PutParcelableArray(
+                    key: 'APP_LIST',
+                    value: [
+                      appList(),
+                    ],
+                  ),
+                  PutParcelableArrayList(
+                    key: 'PLUGIN_CONFIG',
+                    value: [
+                      barcodePluginConfig(),
+                      intentPluginConfig(),
+                      keystrokePluginConfig(),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
     intent.sendBroadcast();
   }

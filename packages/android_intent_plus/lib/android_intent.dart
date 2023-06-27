@@ -147,7 +147,7 @@ class AndroidIntent {
   //           ),
   //         ],
   //       );
-  final List<Bundle>? extras;
+  final Bundles? extras;
 
   /// Similar to [arguments], but in this case the arguments are an array and
   /// will be added to the intent as in an array extra instead of of an array
