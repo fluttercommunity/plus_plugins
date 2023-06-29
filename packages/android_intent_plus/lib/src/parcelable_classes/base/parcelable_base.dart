@@ -5,8 +5,5 @@ abstract class ParcelableBase<T> {
 
   final T value;
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'javaClass': javaClass,
-        'value': value,
-      };
+  Map<String, dynamic> toJson();
 }

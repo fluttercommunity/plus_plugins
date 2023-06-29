@@ -16,7 +16,7 @@ export 'src/put_classes/put_bool_array.dart';
 export 'src/put_classes/put_bundle.dart';
 export 'src/put_classes/put_int.dart';
 export 'src/put_classes/put_int_array.dart';
-export 'src/put_classes/put_int_array_list.dart';
+export 'src/put_classes/put_integer_array_list.dart';
 export 'src/put_classes/put_parcelable_array.dart';
 export 'src/put_classes/put_parcelable_array_list.dart';
 export 'src/put_classes/put_string.dart';

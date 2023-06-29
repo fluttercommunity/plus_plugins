@@ -6,4 +6,17 @@ class PutBoolArray extends PutBase<List<bool>> {
 
   @override
   String get javaClass => 'PutBoolArray';
+
+  factory PutBoolArray.fromJson({required String key, required dynamic value}) {
+    return PutBoolArray(key: key, value: List<bool>.from(value));
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'key': key,
+      'javaClass': javaClass,
+      'value': value,
+    };
+  }
 }

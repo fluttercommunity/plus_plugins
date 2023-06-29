@@ -6,4 +6,17 @@ class PutBool extends PutBase<bool> {
 
   @override
   String get javaClass => 'PutBool';
+
+  factory PutBool.fromJson({required String key, required dynamic value}) {
+    return PutBool(key: key, value: value as bool);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'key': key,
+      'javaClass': javaClass,
+      'value': value,
+    };
+  }
 }

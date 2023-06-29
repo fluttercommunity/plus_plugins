@@ -7,9 +7,5 @@ abstract class PutBase<T> {
 
   final T value;
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'key': key,
-        'javaClass': javaClass,
-        'value': value,
-      };
+  Map<String, dynamic> toJson();
 }

@@ -6,4 +6,20 @@ class PutStringArrayList extends PutBase<List<String>> {
 
   @override
   String get javaClass => 'PutStringArrayList';
+
+  factory PutStringArrayList.fromJson({
+    required String key,
+    required dynamic value,
+  }) {
+    return PutStringArrayList(key: key, value: List<String>.from(value));
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'key': key,
+      'javaClass': javaClass,
+      'value': value,
+    };
+  }
 }

@@ -1,14 +1,14 @@
 import 'package:android_intent_plus/src/put_classes/base/put_base.dart';
 
-class PutString extends PutBase<String> {
-  PutString({required String key, required String value})
+class PutFloat extends PutBase<double> {
+  PutFloat({required String key, required double value})
       : super(key: key, value: value);
 
   @override
-  String get javaClass => 'PutString';
+  String get javaClass => 'PutFloat';
 
-  factory PutString.fromJson({required String key, required dynamic value}) {
-    return PutString(key: key, value: value as String);
+  factory PutFloat.fromJson({required String key, required dynamic value}) {
+    return PutFloat(key: key, value: value as double);
   }
 
   @override
