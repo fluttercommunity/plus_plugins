@@ -26,7 +26,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
       resolvedExecutable = resolvedExecutable.replaceFirst(r"UNC\", r"\\");
     }
 
-    final info = FileVersionInfo(Platform.resolvedExecutable);
+    final info = FileVersionInfo(resolvedExecutable);
     final versions = info.productVersion.split('+');
     final data = PackageInfoData(
       appName: info.productName,
