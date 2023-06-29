@@ -85,9 +85,9 @@ class DemoAppState extends State<DemoApp> {
                   hintText: 'Enter the uri you want to share',
                 ),
                 maxLines: null,
-                onChanged: (String value) => setState(() {
-                  uri = value;
-                }),
+                onChanged: (String value) {
+                  setState(() => uri = value);
+                },
               ),
               const SizedBox(height: 16),
               ImagePreviews(imagePaths, onDelete: _onDeleteImage),
