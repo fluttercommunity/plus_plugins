@@ -245,7 +245,7 @@ void main() {
                                   key: 'int_array_test',
                                   value: [1, 2, 3, 4, 5],
                                 ),
-                                PutIntArrayList(
+                                PutIntegerArrayList(
                                   key: 'int_array_list_test',
                                   value: [1, 2, 3, 4, 5, 6],
                                 ),
