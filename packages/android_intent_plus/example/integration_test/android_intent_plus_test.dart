@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:android_bundle/android_bundle.dart';
 import 'package:android_intent_example/main.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
@@ -53,26 +52,15 @@ void main() {
 
   testWidgets('Set an alarm on weekdays at 9:30pm should not throw',
       (WidgetTester tester) async {
-    final intent = AndroidIntent(
-      action: 'android.intent.action.SET_ALARM',
-      extras: Bundles(bundles: [
-        Bundle(value: [
-          PutIntegerArrayList(key: 'android.intent.extra.alarm.DAYS', value: [
-            2,
-            3,
-            4,
-            5,
-            6,
-          ]),
-          PutInt(key: 'android.intent.extra.alarm.HOUR', value: 21),
-          PutInt(key: 'android.intent.extra.alarm.MINUTES', value: 30),
-          PutBool(key: 'android.intent.extra.alarm.SKIP_UI', value: true),
-          PutString(
-              key: 'android.intent.extra.alarm.MESSAGE',
-              value: 'Just for Integration test'),
-        ]),
-      ]),
-    );
+    const intent = AndroidIntent(
+        action: 'android.intent.action.SET_ALARM',
+        arguments: <String, dynamic>{
+          'android.intent.extra.alarm.DAYS': <int>[2, 3, 4, 5, 6],
+          'android.intent.extra.alarm.HOUR': 21,
+          'android.intent.extra.alarm.MINUTES': 30,
+          'android.intent.extra.alarm.SKIP_UI': true,
+          'android.intent.extra.alarm.MESSAGE': 'Just for Integration test',
+        });
     await intent.launch();
   }, skip: !Platform.isAndroid);
 

@@ -24,8 +24,10 @@ class AndroidIntent {
   /// [category] refers to the category of the intent, can be null.
   /// [data] refers to the string format of the URI that will be passed to
   /// intent.
-  /// [extras] is object that will be converted into an extras bundle and
+  /// [arguments] is the map that will be converted into an extras bundle and
   /// passed to the intent.
+  /// [arrayArguments] is a map that will be converted into an extra bundle
+  /// as in an array and passed to the intent.
   /// [package] refers to the package parameter of the intent, can be null.
   /// [componentName] refers to the component name of the intent, can be null.
   /// If not null, then [package] but also be provided.
@@ -35,7 +37,9 @@ class AndroidIntent {
     this.flags,
     this.category,
     this.data,
+    this.arguments,
     this.extras,
+    this.arrayArguments,
     this.package,
     this.componentName,
     Platform? platform,
@@ -55,7 +59,9 @@ class AndroidIntent {
     this.flags,
     this.category,
     this.data,
+    this.arguments,
     this.extras,
+    this.arrayArguments,
     this.package,
     this.componentName,
     this.type,
@@ -89,8 +95,17 @@ class AndroidIntent {
   /// The equivalent of `extras`, a generic `Bundle` of data that the Intent can
   /// carry. This is a slot for extraneous data that the listener may use.
   ///
-  /// The tree is constructed with classes like PutString, PutStringArray and
-  /// PutStringArrayList.
+  /// If the argument contains a list value, then the value will be put in as an
+  /// array list.
+  ///
+  /// See https://developer.android.com/reference/android/content/Intent.html#intent-structure.
+  final Map<String, dynamic>? arguments;
+
+  /// Similar to [arguments] and [arrayArguments], but in this case the list
+  /// can contain nested values, bundles and arrays. The tree is constructed
+  /// with classes like PutString, PutStringArray and PutStringArrayList.
+  /// Not all types are implemented; PutChar, PutCharArray, PutByte etc are
+  /// still missing. Please add them when needed.
   /// Sample:
   /// AndroidIntent datawedgeProfile() => AndroidIntent(
   //         action: constants.datawedgeAction,
@@ -134,6 +149,10 @@ class AndroidIntent {
   //       );
   final Bundles? extras;
 
+  /// Similar to [arguments], but in this case the arguments are an array and
+  /// will be added to the intent as in an array extra instead of of an array
+  /// list.
+  final Map<String, List<dynamic>>? arrayArguments;
 
   /// Sets the [data] to only resolve within this given package.
   ///
@@ -242,7 +261,9 @@ class AndroidIntent {
       if (flags != null) 'flags': convertFlags(flags!),
       if (category != null) 'category': category,
       if (data != null) 'data': data,
+      if (arguments != null) 'arguments': arguments,
       if (extras != null) 'extras': extras,
+      if (arrayArguments != null) 'arrayArguments': arrayArguments,
       if (package != null) ...{
         'package': package,
         if (componentName != null) 'componentName': componentName,
