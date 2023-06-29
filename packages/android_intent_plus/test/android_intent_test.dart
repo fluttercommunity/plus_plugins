@@ -362,7 +362,7 @@ void main() {
                       },
                       {
                         "key": "int_array_list_test",
-                        "javaClass": "PutIntArrayList",
+                        "javaClass": "PutIntegerArrayList",
                         "value": [
                           1,
                           2,
