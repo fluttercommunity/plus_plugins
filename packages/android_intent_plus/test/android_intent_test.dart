@@ -2,12 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:platform/platform.dart';
+
+import 'test_values.dart';
 
 void main() {
   AndroidIntent androidIntent;
@@ -400,6 +406,626 @@ void main() {
         }));
       });
     });
+  });
+
+  group('toAndFromJson', () {
+    final Function deepEq = const DeepCollectionEquality.unordered().equals;
+
+    Future<void> performTest({
+      required Bundles source,
+      required String testName,
+    }) async {
+      final sourceAsMap = source.toJson();
+      final prettyJson =
+          const JsonEncoder.withIndent(('  ')).convert(sourceAsMap);
+      debugPrint('source:\r\n$prettyJson');
+      final String jsonString = jsonEncode(sourceAsMap);
+      final Bundles resultBundles = Bundles.fromJson(jsonDecode(jsonString));
+      final resultAsMap = resultBundles.toJson();
+      expect(deepEq(sourceAsMap, resultAsMap), true);
+    }
+
+    test(
+      'emptyBundle',
+      () async => await performTest(
+        source: TestValues.emptyBundle,
+        testName: 'emptyBundle',
+      ),
+    );
+
+    test(
+      'bundleWithBoolean',
+      () async => await performTest(
+        source: TestValues.bundleWithBoolean,
+        testName: 'bundleWithBoolean',
+      ),
+    );
+
+    test(
+      'bundleWithBooleanArray',
+      () async => await performTest(
+        source: TestValues.bundleWithBooleanArray,
+        testName: 'bundleWithBooleanArray',
+      ),
+    );
+
+    test(
+      'bundleWithBundle',
+      () async => await performTest(
+        source: TestValues.bundleWithBundle,
+        testName: 'bundleWithBundle',
+      ),
+    );
+
+    test(
+      'bundleWithByte',
+      () async => await performTest(
+        source: TestValues.bundleWithByte,
+        testName: 'bundleWithByte',
+      ),
+    );
+
+    test(
+      'bundleWithByteInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithByteInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value must be between -128 and 127, inclusive.' &&
+                  x.invalidValue == -129,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithByteInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithByteInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value must be between -128 and 127, inclusive.' &&
+                  x.invalidValue == 128,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithByteArray',
+      () async => await performTest(
+        source: TestValues.bundleWithByteArray,
+        testName: 'bundleWithByteArray',
+      ),
+    );
+
+    test(
+      'bundleWithByteArrayInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithByteArrayInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value must be between -128 and 127, inclusive.' &&
+                  x.invalidValue == -129,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithByteArrayInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithByteArrayInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value must be between -128 and 127, inclusive.' &&
+                  x.invalidValue == 128,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithChar',
+      () async => await performTest(
+        source: TestValues.bundleWithChar,
+        testName: 'bundleWithChar',
+      ),
+    );
+
+    test(
+      'bundleWithCharInvalidChar',
+      () {
+        expect(
+          () => TestValues.bundleWithCharInvalidChar,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value.length must be 1.' &&
+                  x.invalidValue == 6,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithCharArray',
+      () async => await performTest(
+        source: TestValues.bundleWithCharArray,
+        testName: 'bundleWithCharArray',
+      ),
+    );
+
+    test(
+      'bundleWithCharArrayInvalidChar',
+      () {
+        expect(
+          () => TestValues.bundleWithCharArrayInvalidChar,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name == 'value.length must be 1.' &&
+                  x.invalidValue == 3,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithCharSequence',
+      () async => await performTest(
+        source: TestValues.bundleWithCharSequence,
+        testName: 'bundleWithCharSequence',
+      ),
+    );
+
+    test(
+      'bundleWithCharSequenceArray',
+      () async => await performTest(
+        source: TestValues.bundleWithCharSequenceArray,
+        testName: 'bundleWithCharSequenceArray',
+      ),
+    );
+
+    test(
+      'bundleWithCharSequenceArrayList',
+      () async => await performTest(
+        source: TestValues.bundleWithCharSequenceArrayList,
+        testName: 'bundleWithCharSequenceArrayList',
+      ),
+    );
+
+    test(
+      'bundleWithDouble',
+      () async => await performTest(
+        source: TestValues.bundleWithDouble,
+        testName: 'bundleWithDouble',
+      ),
+    );
+
+    test(
+      'bundleWithDoubleArray',
+      () async => await performTest(
+        source: TestValues.bundleWithDoubleArray,
+        testName: 'bundleWithDoubleArray',
+      ),
+    );
+
+    test(
+      'bundleWithFloat',
+      () async => await performTest(
+        source: TestValues.bundleWithFloat,
+        testName: 'bundleWithFloat',
+      ),
+    );
+
+    test(
+      'bundleWithFloatArray',
+      () async => await performTest(
+        source: TestValues.bundleWithFloatArray,
+        testName: 'bundleWithFloatArray',
+      ),
+    );
+
+    test(
+      'bundleWithInt',
+      () async => await performTest(
+        source: TestValues.bundleWithInt,
+        testName: 'bundleWithInt',
+      ),
+    );
+
+    test(
+      'bundleWithIntInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == -2147483649,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithIntInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == 2147483648,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithIntArray',
+      () async => await performTest(
+        source: TestValues.bundleWithIntArray,
+        testName: 'bundleWithIntArray',
+      ),
+    );
+
+    test(
+      'bundleWithIntArrayInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntArrayInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == -2147483649,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithIntArrayInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntArrayInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == 2147483648,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithIntegerArrayList',
+      () async => await performTest(
+        source: TestValues.bundleWithIntegerArrayList,
+        testName: 'bundleWithIntegerArrayList',
+      ),
+    );
+
+    test(
+      'bundleWithIntegerArrayListInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntegerArrayListInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == -2147483649,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithIntegerArrayListInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithIntegerArrayListInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -2147483648 and 2147483647, inclusive.' &&
+                  x.invalidValue == 2147483648,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithLong',
+      () async => await performTest(
+        source: TestValues.bundleWithLong,
+        testName: 'bundleWithLong',
+      ),
+    );
+
+    test(
+      'bundleWithLongArray',
+      () async => await performTest(
+        source: TestValues.bundleWithLongArray,
+        testName: 'bundleWithLongArray',
+      ),
+    );
+
+    test(
+      'bundleWithParcelable',
+      () async => await performTest(
+        source: TestValues.bundleWithParcelable,
+        testName: 'bundleWithParcelable',
+      ),
+    );
+
+    test(
+      'bundleWithParcelableArray',
+      () async => await performTest(
+        source: TestValues.bundleWithParcelableArray,
+        testName: 'bundleWithParcelableArray',
+      ),
+    );
+
+    test(
+      'bundleWithParcelableArrayList',
+      () async => await performTest(
+        source: TestValues.bundleWithParcelableArrayList,
+        testName: 'bundleWithParcelableArrayList',
+      ),
+    );
+
+    test(
+      'bundleWithShort',
+      () async => await performTest(
+        source: TestValues.bundleWithShort,
+        testName: 'bundleWithShort',
+      ),
+    );
+
+    test(
+      'bundleWithShortInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithShortInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -32768 and 32768, inclusive.' &&
+                  x.invalidValue == -32769,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithShortInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithShortInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -32768 and 32768, inclusive.' &&
+                  x.invalidValue == 32768,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithShortArray',
+      () async => await performTest(
+        source: TestValues.bundleWithShortArray,
+        testName: 'bundleWithShortArray',
+      ),
+    );
+
+    test(
+      'bundleWithShortArrayInvalidLowerBound',
+      () {
+        expect(
+          () => TestValues.bundleWithShortArrayInvalidLowerBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -32768 and 32767, inclusive.' &&
+                  x.invalidValue == -32769,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithShortArrayInvalidUpperBound',
+      () {
+        expect(
+          () => TestValues.bundleWithShortArrayInvalidUpperBound,
+          throwsA(
+            predicate(
+              (x) =>
+                  x is RangeError &&
+                  x.message == 'Value not in range' &&
+                  x.name ==
+                      'value must be between -32768 and 32767, inclusive.' &&
+                  x.invalidValue == 32768,
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithString',
+      () async => await performTest(
+        source: TestValues.bundleWithString,
+        testName: 'bundleWithString',
+      ),
+    );
+
+    test(
+      'bundleWithStringArray',
+      () async => await performTest(
+        source: TestValues.bundleWithStringArray,
+        testName: 'bundleWithStringArray',
+      ),
+    );
+
+    test(
+      'bundleWithStringArrayList',
+      () async => await performTest(
+        source: TestValues.bundleWithStringArrayList,
+        testName: 'bundleWithStringArrayList',
+      ),
+    );
+
+    test(
+      'bundleWithUnknownPutBaseInBundle',
+      () {
+        expect(
+          () {
+            final data = TestValues.bundleWithUnknownPutBaseInBundle;
+            Bundles.fromJson(jsonDecode(data));
+          },
+          throwsA(
+            predicate(
+              (x) =>
+                  x is UnimplementedError &&
+                  x.message == 'Unknown PutBase, javaClass: PutStringUNKNOWN',
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithUnknownBundleInParcelable',
+      () {
+        expect(
+          () {
+            final data = TestValues.bundleWithUnknownBundleInParcelable;
+            Bundles.fromJson(jsonDecode(data));
+          },
+          throwsA(
+            predicate(
+              (x) =>
+                  x is UnimplementedError &&
+                  x.message ==
+                      'Unknown PutParcelable, javaClass: BundleUNKNOWN',
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithUnknownBundleInParcelableArray',
+      () {
+        expect(
+          () {
+            final data = TestValues.bundleWithUnknownBundleInParcelableArray;
+            Bundles.fromJson(jsonDecode(data));
+          },
+          throwsA(
+            predicate(
+              (x) =>
+                  x is UnimplementedError &&
+                  x.message ==
+                      'Unknown PutParcelableArray, javaClass: BundleUNKNOWN',
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'bundleWithUnknownBundleInParcelableArrayList',
+      () {
+        expect(
+          () {
+            final data =
+                TestValues.bundleWithUnknownBundleInParcelableArrayList;
+            Bundles.fromJson(jsonDecode(data));
+          },
+          throwsA(
+            predicate(
+              (x) =>
+                  x is UnimplementedError &&
+                  x.message ==
+                      'Unknown PutParcelableArrayList, javaClass: BundleUNKNOWN',
+            ),
+          ),
+        );
+      },
+    );
   });
 
   group('convertFlags ', () {

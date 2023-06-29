@@ -28,3 +28,4 @@ dev_dependencies:
   test: ^1.16.4
   mockito: ^5.0.0
   flutter_lints: ">=1.0.4 <3.0.0"
+  collection: ^1.17.0
