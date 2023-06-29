@@ -119,4 +119,18 @@ class PackageInfo {
   String toString() {
     return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore)';
   }
+
+  Map<String, dynamic> _toMap() {
+    return {
+      'appName': appName,
+      'buildNumber': buildNumber,
+      'packageName': packageName,
+      'version': version,
+      if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
+      if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
+    };
+  }
+
+  /// Gets a map representation of the [PackageInfo] instance.
+  Map<String, dynamic> get data => _toMap();
 }
