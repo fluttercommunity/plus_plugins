@@ -10,8 +10,6 @@ dependencies:
   platform: ^3.1.0
   android_intent_plus:
     path: ../
-  android_bundle:
-    path: ../../../../android_bundle
 
 dev_dependencies:
   flutter_driver:

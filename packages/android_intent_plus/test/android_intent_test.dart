@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:android_bundle/android_bundle.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/services.dart';
@@ -246,7 +245,7 @@ void main() {
                                   key: 'int_array_test',
                                   value: [1, 2, 3, 4, 5],
                                 ),
-                                PutIntegerArrayList(
+                                PutIntArrayList(
                                   key: 'int_array_list_test',
                                   value: [1, 2, 3, 4, 5, 6],
                                 ),

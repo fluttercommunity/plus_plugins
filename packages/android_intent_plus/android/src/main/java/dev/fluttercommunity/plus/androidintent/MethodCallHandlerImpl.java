@@ -9,12 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.rubigo.android_bundle.Bundle.Bundles;
-
-import org.json.JSONException;
-
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Extras;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -86,14 +81,8 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
     Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
     arguments.putAll(arrayArguments);
-    Bundles bundles;
-    try {
-      bundles = Bundles.bundlesFromJsonString((String) call.argument("extras"));
-    } catch (JSONException e) {
-      throw new RuntimeException(e);
-    }
-    List<Bundle> androidOsBundles = bundles.toListOfAndroidOsBundle();
-    for (Bundle bundle : androidOsBundles) {
+    List<Bundle> extras = Extras.convert((String) call.argument("extras"));
+    for (Bundle bundle : extras) {
       arguments.putAll(bundle);
     }
     String packageName = call.argument("package");
