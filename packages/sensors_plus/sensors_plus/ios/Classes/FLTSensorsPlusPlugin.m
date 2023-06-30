@@ -104,10 +104,14 @@ static void _cleanUp(void) {
 
 const double GRAVITY = 9.81;
 CMMotionManager *_motionManager;
+CMMotionManager *_motionManagerOrientation;
 
 void _initMotionManager(void) {
   if (!_motionManager) {
     _motionManager = [[CMMotionManager alloc] init];
+  }
+  if (!_motionManagerOrientation) {
+    _motionManagerOrientation = [[CMMotionManager alloc] init];
   }
 }
 
@@ -231,8 +235,8 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
   _initMotionManager();
-  _motionManager.showsDeviceMovementDisplay = YES;
-  [_motionManager startDeviceMotionUpdatesUsingReferenceFrame: CMAttitudeReferenceFrameXMagneticNorthZVertical
+  _motionManagerOrientation.showsDeviceMovementDisplay = YES;
+  [_motionManagerOrientation startDeviceMotionUpdatesUsingReferenceFrame: CMAttitudeReferenceFrameXMagneticNorthZVertical
                                                 toQueue:[[NSOperationQueue alloc]
                                                             init]
                                             withHandler:^(CMDeviceMotion *motionData,
@@ -248,7 +252,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
-  [_motionManager stopDeviceMotionUpdates];
+  [_motionManagerOrientation stopDeviceMotionUpdates];
   return nil;
 }
 
