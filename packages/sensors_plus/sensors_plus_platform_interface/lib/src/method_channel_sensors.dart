@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
@@ -21,10 +20,14 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _magnetometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
 
+  static const EventChannel _attitudeEventChannel =
+      EventChannel('dev.fluttercommunity.plus/sensors/attitude');
+
   Stream<AccelerometerEvent>? _accelerometerEvents;
   Stream<GyroscopeEvent>? _gyroscopeEvents;
   Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
   Stream<MagnetometerEvent>? _magnetometerEvents;
+  Stream<AttitudeEvent>? _attitudeEvents;
 
   /// A broadcast stream of events from the device accelerometer.
   @override
@@ -70,5 +73,15 @@ class MethodChannelSensors extends SensorsPlatform {
       return MagnetometerEvent(list[0]!, list[1]!, list[2]!);
     });
     return _magnetometerEvents!;
+  }
+
+  @override
+  Stream<AttitudeEvent> get attitudeEvents {
+    _attitudeEvents ??=
+        _attitudeEventChannel.receiveBroadcastStream().map((dynamic event) {
+      final list = event.cast<double>();
+      return AttitudeEvent(list[0]!, list[1]!, list[2]!);
+    });
+    return _attitudeEvents!;
   }
 }

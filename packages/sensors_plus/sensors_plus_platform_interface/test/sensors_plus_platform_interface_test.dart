@@ -12,6 +12,11 @@ import 'package:test/test.dart';
 final MethodChannelSensors methodChannel = MethodChannelSensors();
 
 /// A broadcast stream of events from the device accelerometer.
+Stream<AttitudeEvent> get attitudeEvents {
+  return methodChannel.attitudeEvents;
+}
+
+/// A broadcast stream of events from the device accelerometer.
 Stream<AccelerometerEvent> get accelerometerEvents {
   return methodChannel.accelerometerEvents;
 }
@@ -33,6 +38,18 @@ Stream<MagnetometerEvent> get magnetometerEvents {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('$attitudeEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/attitude';
+    const sensorData = <double>[1.0, 2.0, 3.0];
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await attitudeEvents.first;
+
+    expect(event.x, sensorData[0]);
+    expect(event.y, sensorData[1]);
+    expect(event.z, sensorData[2]);
+  });
 
   test('$accelerometerEvents are streamed', () async {
     const channelName = 'dev.fluttercommunity.plus/sensors/accelerometer';

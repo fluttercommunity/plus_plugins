@@ -7,9 +7,22 @@ import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:test/test.dart';
+import 'dart:developer';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('$attitudeEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/attitude';
+    const sensorData = <double>[1.0, 2.0, 3.0];
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await attitudeEvents.first;
+
+    expect(event.x, sensorData[0]);
+    expect(event.y, sensorData[1]);
+    expect(event.z, sensorData[2]);
+  });
 
   test('$accelerometerEvents are streamed', () async {
     const channelName = 'dev.fluttercommunity.plus/sensors/accelerometer';

@@ -9,6 +9,11 @@ export 'web_sensors.dart';
 final _sensors = WebSensorsPlugin();
 
 /// A broadcast stream of events from the device accelerometer.
+Stream<AttitudeEvent> get attitudeEvents {
+  return _sensors.attitudeEvents;
+}
+
+/// A broadcast stream of events from the device accelerometer.
 Stream<AccelerometerEvent> get accelerometerEvents {
   return _sensors.accelerometerEvents;
 }

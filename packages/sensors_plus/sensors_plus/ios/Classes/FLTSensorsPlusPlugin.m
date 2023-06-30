@@ -54,6 +54,19 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:gyroscopeStreamHandler
                       forKey:gyroscopeStreamHandlerName];
 
+  FLTAttitudeStreamHandlerPlus *attitudeStreamHandler =
+        [[FLTAttitudeStreamHandlerPlus alloc] init];
+    NSString *attitudeStreamHandlerName =
+        @"dev.fluttercommunity.plus/sensors/attitude";
+    FlutterEventChannel *attitudeChannel =
+        [FlutterEventChannel eventChannelWithName:attitudeStreamHandlerName
+                                  binaryMessenger:[registrar messenger]];
+    [attitudeChannel setStreamHandler:attitudeStreamHandler];
+    [_eventChannels setObject:attitudeChannel
+                       forKey:attitudeStreamHandlerName];
+    [_streamHandlers setObject:attitudeStreamHandler
+                        forKey:attitudeStreamHandlerName];
+
   FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
       [[FLTMagnetometerStreamHandlerPlus alloc] init];
   NSString *magnetometerStreamHandlerName =
@@ -204,6 +217,38 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
   [_motionManager stopGyroUpdates];
+  return nil;
+}
+
+- (void)dealloc {
+  _cleanUp();
+}
+
+@end
+
+@implementation FLTAttitudeStreamHandlerPlus
+
+- (FlutterError *)onListenWithArguments:(id)arguments
+                              eventSink:(FlutterEventSink)eventSink {
+  _initMotionManager();
+  _motionManager.showsDeviceMovementDisplay = YES;
+  [_motionManager startDeviceMotionUpdatesUsingReferenceFrame: CMAttitudeReferenceFrameXMagneticNorthZVertical
+                                                toQueue:[[NSOperationQueue alloc]
+                                                            init]
+                                            withHandler:^(CMDeviceMotion *motionData,
+                                                          NSError *error) {
+                    //CMAttitude attitudeData = motionData.attitude;
+                    if (_isCleanUp) {
+                      return;
+                    }
+                    sendTriplet(motionData.attitude.roll, motionData.attitude.pitch, motionData.attitude.yaw,
+                                eventSink);
+                  }];
+  return nil;
+}
+
+- (FlutterError *)onCancelWithArguments:(id)arguments {
+  [_motionManager stopDeviceMotionUpdates];
   return nil;
 }
 
