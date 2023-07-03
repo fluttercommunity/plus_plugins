@@ -58,7 +58,7 @@ class DemoAppState extends State<DemoApp> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Share text',
-                  hintText: 'Enter some text and/or link to share',
+                  hintText: 'Enter some text to share',
                 ),
                 maxLines: null,
                 onChanged: (String value) => setState(() {
