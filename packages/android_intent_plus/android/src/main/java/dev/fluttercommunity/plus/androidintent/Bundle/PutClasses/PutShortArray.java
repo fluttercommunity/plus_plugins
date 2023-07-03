@@ -12,34 +12,33 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
+public class PutShortArray extends PutBase<List<Short>> {
 
-public class PutStringArray extends PutBase<List<String>> {
+  public static final String JAVA_CLASS = "PutShortArray";
 
-  public static final String JAVA_CLASS = "PutStringArray";
-
-  public PutStringArray(String key, List<String> value) {
+  public PutShortArray(String key, List<Short> value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutStringArray putStringArray) {
-    bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
+  public static void convert(Bundle bundle, PutShortArray putShortArray) {
+    bundle.putShortArray(putShortArray.key, toPrimitiveArray(putShortArray.value));
   }
 
-  private static String[] toPrimitiveArray(final List<String> stringList) {
-    final String[] primitives = new String[stringList.size()];
-    for (int i = 0; i < stringList.size(); i++) {
-      primitives[i] = stringList.get(i);
+  private static short[] toPrimitiveArray(final List<Short> shortList) {
+    final short[] primitives = new short[shortList.size()];
+    for (int i = 0; i < shortList.size(); i++) {
+      primitives[i] = shortList.get(i);
     }
     return primitives;
   }
 
-  public static PutStringArray fromJson(JSONObject jsonObject) throws JSONException {
-    final ArrayList<String> arrayList = new ArrayList<>();
+  public static PutShortArray fromJson(JSONObject jsonObject) throws JSONException {
+    final ArrayList<Short> arrayList = new ArrayList<>();
     final JSONArray jsonArray = jsonObject.getJSONArray(Constants.VALUE);
     for (int i = 0; i < jsonArray.length(); i++) {
-      arrayList.add(jsonArray.getString(i));
+      arrayList.add((short) jsonArray.getInt(i));
     }
-    return new PutStringArray(jsonObject.getString(Constants.KEY), arrayList);
+    return new PutShortArray(jsonObject.getString(Constants.KEY), arrayList);
   }
 
   @Override

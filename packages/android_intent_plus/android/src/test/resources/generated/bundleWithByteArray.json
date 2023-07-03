@@ -1,0 +1,28 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutByteArray",
+          "value": [
+            -128,
+            0,
+            127
+          ]
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutByteArray",
+          "value": [
+            127,
+            0,
+            -128
+          ]
+        }
+      ]
+    }
+  ]
+}

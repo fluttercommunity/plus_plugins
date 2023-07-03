@@ -10,36 +10,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.Helpers;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 
-public class PutStringArray extends PutBase<List<String>> {
+public class PutCharSequenceArray extends PutBase<List<CharSequence>> {
 
-  public static final String JAVA_CLASS = "PutStringArray";
+  public static final String JAVA_CLASS = "PutCharSequenceArray";
 
-  public PutStringArray(String key, List<String> value) {
+  public PutCharSequenceArray(String key, List<CharSequence> value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutStringArray putStringArray) {
-    bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
+  public static void convert(Bundle bundle, PutCharSequenceArray putStringArray) {
+    bundle.putCharSequenceArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
   }
 
-  private static String[] toPrimitiveArray(final List<String> stringList) {
-    final String[] primitives = new String[stringList.size()];
+  private static CharSequence[] toPrimitiveArray(final List<CharSequence> stringList) {
+    final CharSequence[] primitives = new String[stringList.size()];
     for (int i = 0; i < stringList.size(); i++) {
       primitives[i] = stringList.get(i);
     }
     return primitives;
   }
 
-  public static PutStringArray fromJson(JSONObject jsonObject) throws JSONException {
-    final ArrayList<String> arrayList = new ArrayList<>();
+  public static PutCharSequenceArray fromJson(JSONObject jsonObject) throws JSONException {
+    final ArrayList<CharSequence> arrayList = new ArrayList<>();
     final JSONArray jsonArray = jsonObject.getJSONArray(Constants.VALUE);
     for (int i = 0; i < jsonArray.length(); i++) {
       arrayList.add(jsonArray.getString(i));
     }
-    return new PutStringArray(jsonObject.getString(Constants.KEY), arrayList);
+    return new PutCharSequenceArray(jsonObject.getString(Constants.KEY), arrayList);
   }
 
   @Override
@@ -47,7 +48,7 @@ public class PutStringArray extends PutBase<List<String>> {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("key", key);
     jsonObject.put("javaClass", JAVA_CLASS);
-    jsonObject.put("value", new JSONArray(value));
+    jsonObject.put("value", new JSONArray(Helpers.convertToArrayList(value)));
     return jsonObject;
   }
 }

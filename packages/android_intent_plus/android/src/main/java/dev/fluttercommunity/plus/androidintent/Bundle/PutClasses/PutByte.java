@@ -9,21 +9,20 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 
-public class PutString extends PutBase<String> {
+public class PutByte extends PutBase<Byte> {
 
-  public static final String JAVA_CLASS = "PutString";
+  public static final String JAVA_CLASS = "PutByte";
 
-  public PutString(String key, String value) {
+  public PutByte(String key, Byte value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutString putString) {
-    bundle.putString(putString.key, putString.value);
+  public static void convert(Bundle bundle, PutByte putByte) {
+    bundle.putByte(putByte.key, putByte.value);
   }
 
-  public static PutString fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutString(
-        jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
+  public static PutByte fromJson(JSONObject jsonObject) throws JSONException {
+    return new PutByte(jsonObject.getString(Constants.KEY), (byte) jsonObject.getInt(Constants.VALUE));
   }
 
   @Override
@@ -31,7 +30,7 @@ public class PutString extends PutBase<String> {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("key", key);
     jsonObject.put("javaClass", JAVA_CLASS);
-    jsonObject.put("value", value);
+    jsonObject.put("value", (int) value);
     return jsonObject;
   }
 }

@@ -9,21 +9,20 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 
-public class PutString extends PutBase<String> {
+public class PutLong extends PutBase<Long> {
 
-  public static final String JAVA_CLASS = "PutString";
+  public static final String JAVA_CLASS = "PutLong";
 
-  public PutString(String key, String value) {
+  public PutLong(String key, Long value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutString putString) {
-    bundle.putString(putString.key, putString.value);
+  public static void convert(Bundle bundle, PutLong putLong) {
+    bundle.putLong(putLong.key, putLong.value);
   }
 
-  public static PutString fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutString(
-        jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
+  public static PutLong fromJson(JSONObject jsonObject) throws JSONException {
+    return new PutLong(jsonObject.getString(Constants.KEY), jsonObject.getLong(Constants.VALUE));
   }
 
   @Override

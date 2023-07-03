@@ -1,0 +1,82 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutParcelableArrayList",
+          "value": [
+            {
+              "javaClass": "Bundle",
+              "value": [
+                {
+                  "key": "subKey1",
+                  "javaClass": "PutString",
+                  "value": "value1"
+                },
+                {
+                  "key": "subKey2",
+                  "javaClass": "PutInt",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "javaClass": "Bundle",
+              "value": [
+                {
+                  "key": "subKey1",
+                  "javaClass": "PutString",
+                  "value": "value2"
+                },
+                {
+                  "key": "subKey2",
+                  "javaClass": "PutInt",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutParcelableArrayList",
+          "value": [
+            {
+              "javaClass": "Bundle",
+              "value": [
+                {
+                  "key": "subKey1",
+                  "javaClass": "PutString",
+                  "value": "value3"
+                },
+                {
+                  "key": "subKey2",
+                  "javaClass": "PutInt",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "javaClass": "Bundle",
+              "value": [
+                {
+                  "key": "subKey1",
+                  "javaClass": "PutString",
+                  "value": "value4"
+                },
+                {
+                  "key": "subKey2",
+                  "javaClass": "PutInt",
+                  "value": 4
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

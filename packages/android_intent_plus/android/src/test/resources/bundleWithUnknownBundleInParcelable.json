@@ -1,0 +1,18 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutParcelable",
+          "value": {
+            "javaClass": "BundleUNKNOWN",
+            "value": []
+          }
+        }
+      ]
+    }
+  ]
+}

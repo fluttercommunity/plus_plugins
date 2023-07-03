@@ -12,34 +12,33 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
+public class PutLongArray extends PutBase<List<Long>> {
 
-public class PutStringArray extends PutBase<List<String>> {
+  public static final String JAVA_CLASS = "PutLongArray";
 
-  public static final String JAVA_CLASS = "PutStringArray";
-
-  public PutStringArray(String key, List<String> value) {
+  public PutLongArray(String key, List<Long> value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutStringArray putStringArray) {
-    bundle.putStringArray(putStringArray.key, toPrimitiveArray(putStringArray.value));
+  public static void convert(Bundle bundle, PutLongArray putLongArray) {
+    bundle.putLongArray(putLongArray.key, toPrimitiveArray(putLongArray.value));
   }
 
-  private static String[] toPrimitiveArray(final List<String> stringList) {
-    final String[] primitives = new String[stringList.size()];
-    for (int i = 0; i < stringList.size(); i++) {
-      primitives[i] = stringList.get(i);
+  private static long[] toPrimitiveArray(final List<Long> longList) {
+    final long[] primitives = new long[longList.size()];
+    for (int i = 0; i < longList.size(); i++) {
+      primitives[i] = longList.get(i);
     }
     return primitives;
   }
 
-  public static PutStringArray fromJson(JSONObject jsonObject) throws JSONException {
-    final ArrayList<String> arrayList = new ArrayList<>();
+  public static PutLongArray fromJson(JSONObject jsonObject) throws JSONException {
+    final ArrayList<Long> arrayList = new ArrayList<>();
     final JSONArray jsonArray = jsonObject.getJSONArray(Constants.VALUE);
     for (int i = 0; i < jsonArray.length(); i++) {
-      arrayList.add(jsonArray.getString(i));
+      arrayList.add(jsonArray.getLong(i));
     }
-    return new PutStringArray(jsonObject.getString(Constants.KEY), arrayList);
+    return new PutLongArray(jsonObject.getString(Constants.KEY), arrayList);
   }
 
   @Override

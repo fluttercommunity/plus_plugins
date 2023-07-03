@@ -1,0 +1,48 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutParcelable",
+          "value": {
+            "javaClass": "Bundle",
+            "value": [
+              {
+                "key": "subKey1",
+                "javaClass": "PutString",
+                "value": "value1"
+              },
+              {
+                "key": "subKey2",
+                "javaClass": "PutInt",
+                "value": 1
+              }
+            ]
+          }
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutParcelable",
+          "value": {
+            "javaClass": "Bundle",
+            "value": [
+              {
+                "key": "subKey1",
+                "javaClass": "PutString",
+                "value": "value2"
+              },
+              {
+                "key": "subKey2",
+                "javaClass": "PutInt",
+                "value": 2
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

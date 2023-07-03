@@ -1,0 +1,25 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutFloat",
+          "value": -3.4028235e+38
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutFloat",
+          "value": 1.4e-45
+        },
+        {
+          "key": "key3",
+          "javaClass": "PutFloat",
+          "value": 3.4028235e+38
+        }
+      ]
+    }
+  ]
+}

@@ -1,22 +1,24 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PutBoolArray extends PutBase {
+import java.util.ArrayList;
+import java.util.List;
 
-  public static final String javaClass = "PutBoolArray";
-  final List<Boolean> value;
+import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+
+
+public class PutBoolArray extends PutBase<List<Boolean>> {
+
+  public static final String JAVA_CLASS = "PutBoolArray";
 
   public PutBoolArray(String key, List<Boolean> value) {
-    super(key);
-    this.value = value;
+    super(key, JAVA_CLASS, value);
   }
 
   public static void convert(Bundle bundle, PutBoolArray putBoolArray) {
@@ -38,5 +40,14 @@ public class PutBoolArray extends PutBase {
       arrayList.add(jsonArray.getBoolean(i));
     }
     return new PutBoolArray(jsonObject.getString(Constants.KEY), arrayList);
+  }
+
+  @Override
+  public JSONObject toJson() throws JSONException {
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("key", key);
+    jsonObject.put("javaClass", JAVA_CLASS);
+    jsonObject.put("value", new JSONArray(value));
+    return jsonObject;
   }
 }

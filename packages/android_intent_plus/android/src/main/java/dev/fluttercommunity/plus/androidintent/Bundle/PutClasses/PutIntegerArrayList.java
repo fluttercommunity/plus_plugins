@@ -12,25 +12,26 @@ import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
-public class PutStringArrayList extends PutBase<List<String>> {
 
-  public static final String JAVA_CLASS = "PutStringArrayList";
+public class PutIntegerArrayList extends PutBase<List<Integer>> {
 
-  public PutStringArrayList(String key, List<String> value) {
+  public static final String JAVA_CLASS = "PutIntegerArrayList";
+
+  public PutIntegerArrayList(String key, List<Integer> value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutStringArrayList putStringArrayList) {
-    bundle.putStringArrayList(putStringArrayList.key, new ArrayList<>(putStringArrayList.value));
+  public static void convert(Bundle bundle, PutIntegerArrayList putIntegerArrayList) {
+    bundle.putIntegerArrayList(putIntegerArrayList.key, new ArrayList<>(putIntegerArrayList.value));
   }
 
-  public static PutStringArrayList fromJson(JSONObject jsonObject) throws JSONException {
-    final ArrayList<String> arrayList = new ArrayList<>();
+  public static PutIntegerArrayList fromJson(JSONObject jsonObject) throws JSONException {
+    final ArrayList<Integer> arrayList = new ArrayList<>();
     final JSONArray jsonArray = jsonObject.getJSONArray(Constants.VALUE);
     for (int i = 0; i < jsonArray.length(); i++) {
-      arrayList.add(jsonArray.getString(i));
+      arrayList.add(jsonArray.getInt(i));
     }
-    return new PutStringArrayList(jsonObject.getString(Constants.KEY), arrayList);
+    return new PutIntegerArrayList(jsonObject.getString(Constants.KEY), arrayList);
   }
 
   @Override

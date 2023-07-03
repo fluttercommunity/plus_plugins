@@ -10,27 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
+import dev.fluttercommunity.plus.androidintent.Bundle.Helpers;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
-public class PutStringArrayList extends PutBase<List<String>> {
+public class PutCharSequenceArrayList extends PutBase<List<CharSequence>> {
 
-  public static final String JAVA_CLASS = "PutStringArrayList";
+  public static final String JAVA_CLASS = "PutCharSequenceArrayList";
 
-  public PutStringArrayList(String key, List<String> value) {
+  public PutCharSequenceArrayList(String key, List<CharSequence> value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutStringArrayList putStringArrayList) {
-    bundle.putStringArrayList(putStringArrayList.key, new ArrayList<>(putStringArrayList.value));
+  public static void convert(Bundle bundle, PutCharSequenceArrayList putStringArray) {
+    bundle.putCharSequenceArrayList(putStringArray.key, new ArrayList<>(putStringArray.value));
   }
 
-  public static PutStringArrayList fromJson(JSONObject jsonObject) throws JSONException {
-    final ArrayList<String> arrayList = new ArrayList<>();
+  public static PutCharSequenceArrayList fromJson(JSONObject jsonObject) throws JSONException {
+    final ArrayList<CharSequence> arrayList = new ArrayList<>();
     final JSONArray jsonArray = jsonObject.getJSONArray(Constants.VALUE);
     for (int i = 0; i < jsonArray.length(); i++) {
       arrayList.add(jsonArray.getString(i));
     }
-    return new PutStringArrayList(jsonObject.getString(Constants.KEY), arrayList);
+    return new PutCharSequenceArrayList(jsonObject.getString(Constants.KEY), arrayList);
   }
 
   @Override
@@ -38,7 +39,7 @@ public class PutStringArrayList extends PutBase<List<String>> {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("key", key);
     jsonObject.put("javaClass", JAVA_CLASS);
-    jsonObject.put("value", new JSONArray(value));
+    jsonObject.put("value", new JSONArray(Helpers.convertToArrayList(value)));
     return jsonObject;
   }
 }

@@ -1,0 +1,28 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutIntegerArrayList",
+          "value": [
+            -2147483648,
+            0,
+            2147483647
+          ]
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutIntegerArrayList",
+          "value": [
+            2147483647,
+            0,
+            -2147483648
+          ]
+        }
+      ]
+    }
+  ]
+}

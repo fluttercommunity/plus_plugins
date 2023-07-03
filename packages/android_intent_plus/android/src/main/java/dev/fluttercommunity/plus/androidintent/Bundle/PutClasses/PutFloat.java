@@ -9,21 +9,20 @@ import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 
-public class PutString extends PutBase<String> {
+public class PutFloat extends PutBase<Float> {
 
-  public static final String JAVA_CLASS = "PutString";
+  public static final String JAVA_CLASS = "PutFloat";
 
-  public PutString(String key, String value) {
+  public PutFloat(String key, Float value) {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(Bundle bundle, PutString putString) {
-    bundle.putString(putString.key, putString.value);
+  public static void convert(Bundle bundle, PutFloat putDouble) {
+    bundle.putFloat(putDouble.key, putDouble.value);
   }
 
-  public static PutString fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutString(
-        jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
+  public static PutFloat fromJson(JSONObject jsonObject) throws JSONException {
+    return new PutFloat(jsonObject.getString(Constants.KEY), (float) jsonObject.getDouble(Constants.VALUE));
   }
 
   @Override

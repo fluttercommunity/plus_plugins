@@ -1,0 +1,20 @@
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "key1",
+          "javaClass": "PutLong",
+          "value": -9223372036854775808
+        },
+        {
+          "key": "key2",
+          "javaClass": "PutLong",
+          "value": 9223372036854775807
+        }
+      ]
+    }
+  ]
+}
