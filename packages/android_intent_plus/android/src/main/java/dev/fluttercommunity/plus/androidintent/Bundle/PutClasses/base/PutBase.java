@@ -227,6 +227,12 @@ public abstract class PutBase<T> {
         @SuppressWarnings("unchecked")
         ArrayList<Integer> value2 = (ArrayList<Integer>) value;
         bundle.value.add(new PutIntegerArrayList(key, value2));
+      } else if (value.get(0) instanceof byte[]) {
+        @SuppressWarnings("unchecked")
+        ArrayList<byte[]> value2 = (ArrayList<byte[]>) value;
+        for (byte[] bytes : value2) {
+          bundle.value.add(new PutByteArray(key, Helpers.convertToArrayList(bytes)));
+        }
       } else if (value.get(0) instanceof Parcelable) {
         @SuppressWarnings("unchecked")
         ArrayList<Parcelable> value2 = (ArrayList<Parcelable>) value;
