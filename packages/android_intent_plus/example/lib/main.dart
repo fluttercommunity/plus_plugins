@@ -92,11 +92,12 @@ class MyHomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: _createAlarmUsingArguments,
               child: const Text(
-                  'Set alarm with arguments 21:30'),
+                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
             ),
             ElevatedButton(
               onPressed: _createAlarmUsingExtras,
-              child: const Text('Set alarm with extras 22:30'),
+              child: const Text(
+                  'Tap here to set an alarm\non weekdays at 10:30pm.'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
