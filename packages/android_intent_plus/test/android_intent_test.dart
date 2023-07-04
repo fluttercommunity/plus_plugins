@@ -6,7 +6,6 @@ import 'dart:convert';
 
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
-import 'package:android_intent_plus/src/test_values.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -177,21 +176,25 @@ void main() {
       test('send a broadcast with empty extras', () async {
         androidIntent = AndroidIntent.private(
           action: 'com.example.broadcast',
-          extras: <Bundle>[],
+          extras: Bundles(bundles: <Bundle>[]),
           channel: mockChannel,
           platform: FakePlatform(operatingSystem: 'android'),
         );
         await androidIntent.sendBroadcast();
         verify(mockChannel.invokeMethod<void>('sendBroadcast', <String, Object>{
           'action': 'com.example.broadcast',
-          'extras': '[]',
+          'extras': '''
+{
+  "javaClass": "Bundles",
+  "value": []
+}''',
         }));
       });
 
       test('send a broadcast with extras', () async {
         androidIntent = AndroidIntent.private(
           action: 'com.example.broadcast',
-          extras: <Bundle>[
+          extras: Bundles(bundles: <Bundle>[
             Bundle(
               value: [
                 PutBundle(
@@ -271,7 +274,7 @@ void main() {
             Bundle(
               value: [],
             ),
-          ],
+          ]),
           channel: mockChannel,
           platform: FakePlatform(operatingSystem: 'android'),
         );
@@ -279,129 +282,132 @@ void main() {
         verify(mockChannel.invokeMethod<void>('sendBroadcast', <String, Object>{
           'action': 'com.example.broadcast',
           'extras': '''
-[
-  {
-    "javaClass": "Bundle",
-    "value": [
-      {
-        "key": "com.symbol.datawedge.api.SET_CONFIG",
-        "javaClass": "PutBundle",
-        "value": [
-          {
-            "key": "PROFILE_NAME",
-            "javaClass": "PutString",
-            "value": "com.dalosy.count_app"
-          },
-          {
-            "key": "APP_LIST",
-            "javaClass": "PutParcelableArray",
-            "value": [
-              {
-                "javaClass": "Bundle",
-                "value": [
-                  {
-                    "key": "PACKAGE_NAME",
-                    "javaClass": "PutString",
-                    "value": "com.dalosy.package"
-                  },
-                  {
-                    "key": "ACTIVITY_LIST",
-                    "javaClass": "PutStringArray",
-                    "value": [
-                      "*"
-                    ]
-                  },
-                  {
-                    "key": "ACTIVITY_ARRAY_LIST",
-                    "javaClass": "PutStringArrayList",
-                    "value": [
-                      "1",
-                      "2"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "key": "PLUGIN_CONFIG",
-            "javaClass": "PutParcelableArrayList",
-            "value": [
-              {
-                "javaClass": "Bundle",
-                "value": [
-                  {
-                    "key": "PLUGIN_NAME",
-                    "javaClass": "PutString",
-                    "value": "BARCODE"
-                  },
-                  {
-                    "key": "RESET_CONFIG",
-                    "javaClass": "PutBool",
-                    "value": true
-                  },
-                  {
-                    "key": "PARAM_LIST",
-                    "javaClass": "PutBundle",
-                    "value": [
-                      {
-                        "key": "scanner_selection",
-                        "javaClass": "PutString",
-                        "value": "auto"
-                      },
-                      {
-                        "key": "picklist",
-                        "javaClass": "PutInt",
-                        "value": 1
-                      },
-                      {
-                        "key": "int_array_test",
-                        "javaClass": "PutIntArray",
-                        "value": [
-                          1,
-                          2,
-                          3,
-                          4,
-                          5
-                        ]
-                      },
-                      {
-                        "key": "int_array_list_test",
-                        "javaClass": "PutIntegerArrayList",
-                        "value": [
-                          1,
-                          2,
-                          3,
-                          4,
-                          5,
-                          6
-                        ]
-                      },
-                      {
-                        "key": "bool_array_test",
-                        "javaClass": "PutBoolArray",
-                        "value": [
-                          true,
-                          false,
-                          false,
-                          true
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "javaClass": "Bundle",
-    "value": []
-  }
-]''',
+{
+  "javaClass": "Bundles",
+  "value": [
+    {
+      "javaClass": "Bundle",
+      "value": [
+        {
+          "key": "com.symbol.datawedge.api.SET_CONFIG",
+          "javaClass": "PutBundle",
+          "value": [
+            {
+              "key": "PROFILE_NAME",
+              "javaClass": "PutString",
+              "value": "com.dalosy.count_app"
+            },
+            {
+              "key": "APP_LIST",
+              "javaClass": "PutParcelableArray",
+              "value": [
+                {
+                  "javaClass": "Bundle",
+                  "value": [
+                    {
+                      "key": "PACKAGE_NAME",
+                      "javaClass": "PutString",
+                      "value": "com.dalosy.package"
+                    },
+                    {
+                      "key": "ACTIVITY_LIST",
+                      "javaClass": "PutStringArray",
+                      "value": [
+                        "*"
+                      ]
+                    },
+                    {
+                      "key": "ACTIVITY_ARRAY_LIST",
+                      "javaClass": "PutStringArrayList",
+                      "value": [
+                        "1",
+                        "2"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "PLUGIN_CONFIG",
+              "javaClass": "PutParcelableArrayList",
+              "value": [
+                {
+                  "javaClass": "Bundle",
+                  "value": [
+                    {
+                      "key": "PLUGIN_NAME",
+                      "javaClass": "PutString",
+                      "value": "BARCODE"
+                    },
+                    {
+                      "key": "RESET_CONFIG",
+                      "javaClass": "PutBool",
+                      "value": true
+                    },
+                    {
+                      "key": "PARAM_LIST",
+                      "javaClass": "PutBundle",
+                      "value": [
+                        {
+                          "key": "scanner_selection",
+                          "javaClass": "PutString",
+                          "value": "auto"
+                        },
+                        {
+                          "key": "picklist",
+                          "javaClass": "PutInt",
+                          "value": 1
+                        },
+                        {
+                          "key": "int_array_test",
+                          "javaClass": "PutIntArray",
+                          "value": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                          ]
+                        },
+                        {
+                          "key": "int_array_list_test",
+                          "javaClass": "PutIntegerArrayList",
+                          "value": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6
+                          ]
+                        },
+                        {
+                          "key": "bool_array_test",
+                          "javaClass": "PutBoolArray",
+                          "value": [
+                            true,
+                            false,
+                            false,
+                            true
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "javaClass": "Bundle",
+      "value": []
+    }
+  ]
+}''',
         }));
       });
     });

@@ -5,14 +5,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:android_intent_plus/src/parcelable_classes/bundle.dart';
+import 'package:android_intent_plus/src/bundles/bundles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:platform/platform.dart';
 
 export 'src/bundles/bundles.dart';
-export 'src/parcelable_classes/bundle.dart';
 export 'src/parcelable_classes/base/parcelable_base.dart';
+export 'src/parcelable_classes/bundle.dart';
 export 'src/put_classes/put_bool.dart';
 export 'src/put_classes/put_bool_array.dart';
 export 'src/put_classes/put_bundle.dart';
@@ -179,7 +179,7 @@ class AndroidIntent {
   //           ),
   //         ],
   //       );
-  final List<Bundle>? extras;
+  final Bundles? extras;
 
   /// Similar to [arguments], but in this case the arguments are an array and
   /// will be added to the intent as in an array extra instead of of an array
