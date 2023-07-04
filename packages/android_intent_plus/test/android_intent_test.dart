@@ -6,14 +6,13 @@ import 'dart:convert';
 
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
+import 'package:android_intent_plus/src/test_values.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:platform/platform.dart';
-
-import 'test_values.dart';
 
 void main() {
   AndroidIntent androidIntent;
