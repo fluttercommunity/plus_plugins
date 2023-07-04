@@ -1,3 +1,28 @@
+## 4.0.1
+
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(connectivity_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(connectivity_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1782).
+
+## 3.0.6
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 3.0.5
+
+ - **FIX**(connectivity_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1701).
+
+## 3.0.4
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **DOCS**(connectivity_plus): Documentation added for the missing network interface enums (#1524).
+
 ## 3.0.3
 
  - **FIX**: Do not return ConnectivityResult.none on iOS and MacOS with VPN (#1335).

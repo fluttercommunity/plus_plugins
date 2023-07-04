@@ -7,11 +7,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import 'snake.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
+
   runApp(const MyApp());
 }
 
@@ -23,7 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sensors Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -44,27 +54,28 @@ class _MyHomePageState extends State<MyHomePage> {
   static const int _snakeColumns = 20;
   static const double _snakeCellSize = 10.0;
 
-  List<double>? _accelerometerValues;
   List<double>? _userAccelerometerValues;
+  List<double>? _accelerometerValues;
   List<double>? _gyroscopeValues;
   List<double>? _magnetometerValues;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   @override
   Widget build(BuildContext context) {
+    final userAccelerometer = _userAccelerometerValues
+        ?.map((double v) => v.toStringAsFixed(1))
+        .toList();
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
     final gyroscope =
         _gyroscopeValues?.map((double v) => v.toStringAsFixed(1)).toList();
-    final userAccelerometer = _userAccelerometerValues
-        ?.map((double v) => v.toStringAsFixed(1))
-        .toList();
     final magnetometer =
         _magnetometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sensor Example'),
+        title: const Text('Sensors Plus Example'),
+        elevation: 4,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Accelerometer: $accelerometer'),
+                Text('UserAccelerometer: $userAccelerometer'),
               ],
             ),
           ),
@@ -99,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('UserAccelerometer: $userAccelerometer'),
+                Text('Accelerometer: $accelerometer'),
               ],
             ),
           ),
@@ -138,12 +149,45 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _streamSubscriptions.add(
+      userAccelerometerEvents.listen(
+        (UserAccelerometerEvent event) {
+          setState(() {
+            _userAccelerometerValues = <double>[event.x, event.y, event.z];
+          });
+        },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Accelerometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
+      ),
+    );
+    _streamSubscriptions.add(
       accelerometerEvents.listen(
         (AccelerometerEvent event) {
           setState(() {
             _accelerometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Gyroscope Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -153,15 +197,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _gyroscopeValues = <double>[event.x, event.y, event.z];
           });
         },
-      ),
-    );
-    _streamSubscriptions.add(
-      userAccelerometerEvents.listen(
-        (UserAccelerometerEvent event) {
-          setState(() {
-            _userAccelerometerValues = <double>[event.x, event.y, event.z];
-          });
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support User Accelerometer Sensor"),
+                );
+              });
         },
+        cancelOnError: true,
       ),
     );
     _streamSubscriptions.add(
@@ -171,6 +218,18 @@ class _MyHomePageState extends State<MyHomePage> {
             _magnetometerValues = <double>[event.x, event.y, event.z];
           });
         },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Magnetometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
       ),
     );
   }

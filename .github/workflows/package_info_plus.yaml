@@ -22,8 +22,8 @@ env:
   PLUGIN_EXAMPLE_SCOPE: "*package_info_plus_example*"
 
 jobs:
-  android_build:
-    runs-on: macos-latest
+  android_example_build:
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -43,7 +43,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     strategy:
       matrix:
@@ -64,7 +64,7 @@ jobs:
           java-version: "11"
 
       - name: "Bootstrap Workspace"
-        run: melos bootstrap
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Android Integration Test"
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -76,8 +76,8 @@ jobs:
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android package_info_plus_example
 
-  ios:
-    runs-on: macos-latest
+  ios_example_build:
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -90,7 +90,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -99,15 +99,17 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v2
         with:
-          model: 'iPhone 8'
+          model: 'iPhone 14'
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios package_info_plus_example
 
-  macos:
-    runs-on: macos-latest
+  macos_example_build:
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -120,7 +122,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
   macos_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -129,10 +131,12 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh macos package_info_plus_example
 
-  linux:
+  linux_example_build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -155,10 +159,12 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh linux package_info_plus_example
 
-  windows:
+  windows_example_build:
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
@@ -181,10 +187,12 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos.bat bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh windows package_info_plus_example
 
-  web:
+  web_example_build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -196,3 +204,18 @@ jobs:
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh web ./lib/main.dart
+
+  web_integration_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --scope="$PLUGIN_SCOPE"
+      - name: "Run Integration Test"
+        run: ./.github/workflows/scripts/integration-test.sh web package_info_plus_example

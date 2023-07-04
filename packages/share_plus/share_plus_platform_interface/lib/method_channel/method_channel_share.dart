@@ -23,6 +23,12 @@ class MethodChannelShare extends SharePlatform {
   static const MethodChannel channel =
       MethodChannel('dev.fluttercommunity.plus/share');
 
+  @override
+  Future<void> shareUri(Uri uri) {
+    final params = <String, dynamic>{'uri': uri.toString()};
+    return channel.invokeMethod<void>('shareUri', params);
+  }
+
   /// Summons the platform's share sheet to share text.
   @override
   Future<void> share(

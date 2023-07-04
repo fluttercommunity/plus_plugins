@@ -1,4 +1,4 @@
-# Android Intent Plugin for Flutter
+# android_intent_plus
 
 [![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
 
@@ -161,7 +161,7 @@ On the Android side, the `arguments`, `arrayArguments` and the `extras` paramete
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ## Android 11 package visibility
 

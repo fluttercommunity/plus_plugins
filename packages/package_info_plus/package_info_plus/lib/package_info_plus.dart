@@ -60,6 +60,8 @@ class PackageInfo {
   final String version;
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
+  /// Note, on iOS if an app has no buildNumber specified this property will return version
+  /// Docs about CFBundleVersion: https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
   final String buildNumber;
 
   /// The build signature. Empty string on iOS, signing key signature (hex) on Android.
@@ -78,7 +80,7 @@ class PackageInfo {
     required String version,
     required String buildNumber,
     required String buildSignature,
-    required String? installerStore,
+    String? installerStore,
   }) {
     _fromPlatform = PackageInfo(
       appName: appName,
@@ -117,4 +119,18 @@ class PackageInfo {
   String toString() {
     return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore)';
   }
+
+  Map<String, dynamic> _toMap() {
+    return {
+      'appName': appName,
+      'buildNumber': buildNumber,
+      'packageName': packageName,
+      'version': version,
+      if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
+      if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
+    };
+  }
+
+  /// Gets a map representation of the [PackageInfo] instance.
+  Map<String, dynamic> get data => _toMap();
 }

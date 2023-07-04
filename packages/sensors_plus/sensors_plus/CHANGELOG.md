@@ -1,3 +1,36 @@
+## 3.0.2
+
+ - **FIX**(sensors_plus): Fix issues with emitting multiple sensors events on iOS ([#1859](https://github.com/fluttercommunity/plus_plugins/issues/1859)). ([d33b20fa](https://github.com/fluttercommunity/plus_plugins/commit/d33b20fa7c76368dbcc12064df8469c301658b53))
+
+## 3.0.1
+
+ - **FIX**(sensors_plus): Fix crash on Android if device has no requested sensor ([#1405](https://github.com/fluttercommunity/plus_plugins/issues/1405)). ([a078b4e8](https://github.com/fluttercommunity/plus_plugins/commit/a078b4e8464a3b8dce24ee5112394097d981a173))
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(sensor_plus): Add info about possible error cases ([#1830](https://github.com/fluttercommunity/plus_plugins/issues/1830)). ([58d512de](https://github.com/fluttercommunity/plus_plugins/commit/58d512de24f9f4eeb154375958378868fd4bb1a7))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+ - **CHORE**(sensors_plus): Win32 dependency upgrade ([#1805](https://github.com/fluttercommunity/plus_plugins/pull/1805)). ([3f68800](https://github.com/fluttercommunity/plus_plugins/commit/c8f7b6342a7c51eafafae95792775505d2b52ce9))
+
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(sensors_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(sensors_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1774).
+ - **REFACTOR**(sensors_plus): Remove manual dependency_override in example app.
+
+## 2.0.5
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 2.0.4
+
+ - **FIX**(sensors_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1705).
+
+## 2.0.3
+
+ - **DOCS**(sensor_plus): improve description of accelerometer (#1425).
+
 ## 2.0.2
 
  - **DOCS**: Updates for READMEs and website pages (#1389).
@@ -22,7 +55,7 @@
 
 - iOS: Corrects magnetometer implementation, returning calibrated values from
   `DeviceMotion` sensor rather than raw sensor samples
-  
+
 ## 1.3.4+1
 
 - Add issue_tracker link.

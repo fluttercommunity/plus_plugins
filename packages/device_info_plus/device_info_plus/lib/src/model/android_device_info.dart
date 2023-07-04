@@ -43,57 +43,74 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   final AndroidBuildVersion version;
 
   /// The name of the underlying board, like "goldfish".
+  /// https://developer.android.com/reference/android/os/Build#BOARD
   final String board;
 
   /// The system bootloader version number.
+  /// https://developer.android.com/reference/android/os/Build#BOOTLOADER
   final String bootloader;
 
   /// The consumer-visible brand with which the product/hardware will be associated, if any.
+  /// https://developer.android.com/reference/android/os/Build#BRAND
   final String brand;
 
   /// The name of the industrial design.
+  /// https://developer.android.com/reference/android/os/Build#DEVICE
   final String device;
 
   /// A build ID string meant for displaying to the user.
+  /// https://developer.android.com/reference/android/os/Build#DISPLAY
   final String display;
 
   /// A string that uniquely identifies this build.
+  /// https://developer.android.com/reference/android/os/Build#FINGERPRINT
   final String fingerprint;
 
   /// The name of the hardware (from the kernel command line or /proc).
+  /// https://developer.android.com/reference/android/os/Build#HARDWARE
   final String hardware;
 
   /// Hostname.
+  /// https://developer.android.com/reference/android/os/Build#HOST
   final String host;
 
   /// Either a changelist number, or a label like "M4-rc20".
+  /// https://developer.android.com/reference/android/os/Build#ID
   final String id;
 
   /// The manufacturer of the product/hardware.
+  /// https://developer.android.com/reference/android/os/Build#MANUFACTURER
   final String manufacturer;
 
   /// The end-user-visible name for the end product.
+  /// https://developer.android.com/reference/android/os/Build#MODEL
   final String model;
 
   /// The name of the overall product.
+  /// https://developer.android.com/reference/android/os/Build#PRODUCT
   final String product;
 
   /// An ordered list of 32 bit ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
+  /// https://developer.android.com/reference/android/os/Build#SUPPORTED_32_BIT_ABIS
   final List<String> supported32BitAbis;
 
   /// An ordered list of 64 bit ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
+  /// https://developer.android.com/reference/android/os/Build#SUPPORTED_64_BIT_ABIS
   final List<String> supported64BitAbis;
 
   /// An ordered list of ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
+  /// https://developer.android.com/reference/android/os/Build#SUPPORTED_ABIS
   final List<String> supportedAbis;
 
   /// Comma-separated tags describing the build, like "unsigned,debug".
+  /// https://developer.android.com/reference/android/os/Build#TAGS
   final String tags;
 
   /// The type of build, like "user" or "eng".
+  /// https://developer.android.com/reference/android/os/Build#TIME
   final String type;
 
   /// `false` if the application is running in an emulator, `true` otherwise.

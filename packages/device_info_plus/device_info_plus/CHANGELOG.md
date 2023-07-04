@@ -1,3 +1,37 @@
+## 9.0.2
+
+ - **DOCS**(device_info_plus): Add links to Android and iOS docs to every field ([#1857](https://github.com/fluttercommunity/plus_plugins/issues/1857)). ([89eb5217](https://github.com/fluttercommunity/plus_plugins/commit/89eb52177c90d5453ba512e73472536fc8a03c9a))
+
+## 9.0.1
+
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+ - **CHORE**(device_info_plus): Win32 dependency upgrade ([#1805](https://github.com/fluttercommunity/plus_plugins/pull/1805)). ([3f68800](https://github.com/fluttercommunity/plus_plugins/commit/c8f7b6342a7c51eafafae95792775505d2b52ce9))
+
+## 9.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(device_info_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(device_info_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1781).
+ - **REFACTOR**(device_info_plus): Refactor Windows implementation (#1772).
+ - **REFACTOR**(device_info_plus): Remove redundant checks for PRODUCT strings with sdk (#1745).
+ - **REFACTOR**(device_info_plus): Declare proper nullability for iOS properties (#1728).
+
+## 8.2.2
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 8.2.1
+
+ - **FIX**(device_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1702).
+
+## 8.2.0
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FEAT**(device_info_plus): add major, minor and patch versions to macos (#1649).
+
 ## 8.1.0
 
  - **FEAT**: Add serialNumber property to AndroidDeviceInfo (#1349).

@@ -9,15 +9,15 @@ Pod::Spec.new do |s|
 A Flutter plugin to access various information about the battery_plus of the device the app is running on.
 Downloaded by pub (not CocoaPods).
                        DESC
-  s.homepage         = 'https://github.com/flutter/plugins'
+  s.homepage         = 'https://plus.fluttercommunity.dev/'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
-  s.source           = { :http => 'https://github.com/fluttercommunity/battery_plus' }
+  s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus' }
   s.documentation_url = 'https://pub.dev/packages/battery_plus'
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
 
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
 end

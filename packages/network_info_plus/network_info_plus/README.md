@@ -17,7 +17,7 @@ themselves accordingly.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✔️    | ✔️  |  ✔️   | ➖  |  ✔️   |   ✔️   |
+|   ✅    | ✅  |  ✅   | ❌  |  ✅   |   ✅   |
 
 The functionality is not supported on Web.
 

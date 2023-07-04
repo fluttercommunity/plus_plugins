@@ -1,3 +1,7 @@
+## 3.2.1
+
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
 ## 3.2.0
 
  - **FIX**: export XFile (#1286).

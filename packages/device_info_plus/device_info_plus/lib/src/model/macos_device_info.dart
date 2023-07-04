@@ -15,6 +15,9 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
     required this.model,
     required this.kernelVersion,
     required this.osRelease,
+    required this.majorVersion,
+    required this.minorVersion,
+    required this.patchVersion,
     required this.activeCPUs,
     required this.memorySize,
     required this.cpuFrequency,
@@ -43,6 +46,15 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
   /// Operating system release number
   final String osRelease;
 
+  /// The major release number, such as 10 in version 10.9.3.
+  final int majorVersion;
+
+  /// The minor release number, such as 9 in version 10.9.3.
+  final int minorVersion;
+
+  /// The update release number, such as 3 in version 10.9.3.
+  final int patchVersion;
+
   /// Number of active CPUs
   final int activeCPUs;
 
@@ -65,6 +77,9 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
       model: map['model'],
       kernelVersion: map['kernelVersion'],
       osRelease: map['osRelease'],
+      majorVersion: map['majorVersion'],
+      minorVersion: map['minorVersion'],
+      patchVersion: map['patchVersion'],
       activeCPUs: map['activeCPUs'],
       memorySize: map['memorySize'],
       cpuFrequency: map['cpuFrequency'],

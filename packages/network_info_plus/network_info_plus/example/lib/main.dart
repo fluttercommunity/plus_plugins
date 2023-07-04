@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -66,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NetworkInfoPlus example'),
+        elevation: 4,
       ),
       body: Center(
           child: Column(

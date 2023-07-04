@@ -84,6 +84,7 @@ class BatteryPlusLinuxPlugin extends BatteryPlatform {
   }
 
   void _stopListenState() {
+    _stateController?.close();
     _stateClient?.close();
     _stateClient = null;
   }

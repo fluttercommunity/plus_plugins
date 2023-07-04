@@ -1,3 +1,29 @@
+## 3.0.1
+
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(android_alarm_manager_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(android_alarm_manager_plus): Bump min Android version to 4.4 (API 19) (#1785).
+ - **REFACTOR**(android_alarm_manager_plus): Update example app to use Material 3.
+
+## 2.1.4
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 2.1.3
+
+ - **FIX**(android_alarm_manager_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1698).
+
+## 2.1.2
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
 ## 2.1.1
 
  - **DOCS**: Updates for READMEs and website pages (#1389).
