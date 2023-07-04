@@ -1,5 +1,6 @@
 package io.flutter.plugins.androidintentexample;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
@@ -26,6 +27,11 @@ public class MainActivity extends FlutterActivity {
     IntentFilter filter = new IntentFilter("com.example.broadcast");
     MyBroadcastReceiver receiver = new MyBroadcastReceiver();
     registerReceiver(receiver, filter);
+
+    filter = new IntentFilter("io.flutter.plugins.androidintentexample.ACTION");
+    filter.addCategory(Intent.CATEGORY_DEFAULT);
+    BarcodeBroadcastReceiver barcodeBroadcastReceiver = new BarcodeBroadcastReceiver();
+    registerReceiver(barcodeBroadcastReceiver, filter);
   }
 
   @Override
