@@ -1,8 +1,5 @@
 package dev.fluttercommunity.plus.androidintent;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Bundles;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutBool;
@@ -32,29 +29,19 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutShortArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutString;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayList;
-
+import java.util.Arrays;
+import java.util.Collections;
 
 @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class TestValues {
   static Bundles emptyBundle() {
-    return new Bundles(
-        Collections.singletonList(
-            new Bundle()
-        )
-    );
+    return new Bundles(Collections.singletonList(new Bundle()));
   }
 
   public static Bundles bundleWithBoolean() {
     return new Bundles(
         Arrays.asList(
-            new Bundle(
-                Arrays.asList(
-                    new PutBool("key1", true),
-                    new PutBool("key2", false)
-                )
-            )
-        )
-    );
+            new Bundle(Arrays.asList(new PutBool("key1", true), new PutBool("key2", false)))));
   }
 
   public static Bundles bundleWithBooleanArray() {
@@ -63,12 +50,7 @@ public class TestValues {
             new Bundle(
                 Arrays.asList(
                     new PutBoolArray("key1", Arrays.asList(true, false, true)),
-                    new PutBoolArray("key2", Arrays.asList(false, true, false)
-                    )
-                )
-            )
-        )
-    );
+                    new PutBoolArray("key2", Arrays.asList(false, true, false))))));
   }
 
   public static Bundles bundleWithBundle() {
@@ -79,40 +61,18 @@ public class TestValues {
                     new PutBundle(
                         "key1",
                         Arrays.asList(
-                            new PutString("subKey1", "value1"),
-                            new PutInt("subKey2", 1)
-                        )
-                    ),
+                            new PutString("subKey1", "value1"), new PutInt("subKey2", 1))),
                     new PutBundle(
                         "key2",
                         Arrays.asList(
-                            new PutString("subKey1", "value2"),
-                            new PutInt("subKey2", 2)
-                        )
-                    )
-                )
-            )
-        )
-    );
+                            new PutString("subKey1", "value2"), new PutInt("subKey2", 2)))))));
   }
 
   public static Bundles bundleWithByte() {
     return new Bundles(
         Arrays.asList(
             new Bundle(
-                Arrays.asList(
-                    new PutByte(
-                        "key1",
-                        (byte) -128
-                    ),
-                    new PutByte(
-                        "key2",
-                        (byte) 127
-                    )
-                )
-            )
-        )
-    );
+                Arrays.asList(new PutByte("key1", (byte) -128), new PutByte("key2", (byte) 127)))));
   }
 
   public static Bundles bundleWithByteArray() {
@@ -120,37 +80,14 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutByteArray(
-                        "key1",
-                        Arrays.asList((byte) -128, (byte) 0, (byte) 127)
-                    ),
-                    new PutByteArray(
-                        "key2",
-                        Arrays.asList((byte) 127, (byte) 0, (byte) -128)
-                    )
-                )
-            )
-        )
-    );
+                    new PutByteArray("key1", Arrays.asList((byte) -128, (byte) 0, (byte) 127)),
+                    new PutByteArray("key2", Arrays.asList((byte) 127, (byte) 0, (byte) -128))))));
   }
 
   public static Bundles bundleWithChar() {
     return new Bundles(
         Arrays.asList(
-            new Bundle(
-                Arrays.asList(
-                    new PutChar(
-                        "key1",
-                        'a'
-                    ),
-                    new PutChar(
-                        "key2",
-                        'b'
-                    )
-                )
-            )
-        )
-    );
+            new Bundle(Arrays.asList(new PutChar("key1", 'a'), new PutChar("key2", 'b')))));
   }
 
   public static Bundles bundleWithCharArray() {
@@ -158,18 +95,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutCharArray(
-                        "key1",
-                        Arrays.asList('a', 'b', 'c')
-                    ),
-                    new PutCharArray(
-                        "key2",
-                        Arrays.asList('c', 'b', 'a')
-                    )
-                )
-            )
-        )
-    );
+                    new PutCharArray("key1", Arrays.asList('a', 'b', 'c')),
+                    new PutCharArray("key2", Arrays.asList('c', 'b', 'a'))))));
   }
 
   public static Bundles bundleWithCharSequence() {
@@ -177,18 +104,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutCharSequence(
-                        "key1",
-                        "value1"
-                    ),
-                    new PutCharSequence(
-                        "key2",
-                        "value2"
-                    )
-                )
-            )
-        )
-    );
+                    new PutCharSequence("key1", "value1"),
+                    new PutCharSequence("key2", "value2")))));
   }
 
   public static Bundles bundleWithCharSequenceArray() {
@@ -196,18 +113,9 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
+                    new PutCharSequenceArray("key1", Arrays.asList("value1", "value2", "value3")),
                     new PutCharSequenceArray(
-                        "key1",
-                        Arrays.asList("value1", "value2", "value3")
-                    ),
-                    new PutCharSequenceArray(
-                        "key2",
-                        Arrays.asList("value4", "value5", "value6")
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList("value4", "value5", "value6"))))));
   }
 
   public static Bundles bundleWithCharSequenceArrayList() {
@@ -216,17 +124,9 @@ public class TestValues {
             new Bundle(
                 Arrays.asList(
                     new PutCharSequenceArrayList(
-                        "key1",
-                        Arrays.asList("value1", "value2", "value3")
-                    ),
+                        "key1", Arrays.asList("value1", "value2", "value3")),
                     new PutCharSequenceArrayList(
-                        "key2",
-                        Arrays.asList("value4", "value5", "value6")
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList("value4", "value5", "value6"))))));
   }
 
   public static Bundles bundleWithDouble() {
@@ -234,22 +134,9 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutDouble(
-                        "key1",
-                        -9.999999e+96
-                    ),
-                    new PutDouble(
-                        "key2",
-                        1e-101
-                    ),
-                    new PutDouble(
-                        "key3",
-                        9.999999e+96
-                    )
-                )
-            )
-        )
-    );
+                    new PutDouble("key1", -9.999999e+96),
+                    new PutDouble("key2", 1e-101),
+                    new PutDouble("key3", 9.999999e+96)))));
   }
 
   public static Bundles bundleWithDoubleArray() {
@@ -257,26 +144,9 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
+                    new PutDoubleArray("key1", Arrays.asList(-9.999999e+96, 1e-101, 9.999999e+96)),
                     new PutDoubleArray(
-                        "key1",
-                        Arrays.asList(
-                            -9.999999e+96,
-                            1e-101,
-                            9.999999e+96
-                        )
-                    ),
-                    new PutDoubleArray(
-                        "key2",
-                        Arrays.asList(
-                            9.999999e+96,
-                            1e-101,
-                            -9.999999e+96
-                        )
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList(9.999999e+96, 1e-101, -9.999999e+96))))));
   }
 
   public static Bundles bundleWithFloat() {
@@ -284,68 +154,27 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutFloat(
-                        "key1",
-                        -3.4028235e+38f
-                    ),
-                    new PutFloat(
-                        "key2",
-                        1.4e-45f
-                    ),
-                    new PutFloat(
-                        "key3",
-                        3.4028235e+38f
-                    )
-                )
-            )
-        )
-    );
+                    new PutFloat("key1", -3.4028235e+38f),
+                    new PutFloat("key2", 1.4e-45f),
+                    new PutFloat("key3", 3.4028235e+38f)))));
   }
 
-    public static Bundles bundleWithFloatArray() {
+  public static Bundles bundleWithFloatArray() {
     return new Bundles(
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
                     new PutFloatArray(
-                        "key1",
-                        Arrays.asList(
-                            -3.4028235e+38f,
-                            1.4e-45f,
-                            3.4028235e+38f
-                        )
-                    ),
+                        "key1", Arrays.asList(-3.4028235e+38f, 1.4e-45f, 3.4028235e+38f)),
                     new PutFloatArray(
-                        "key2",
-                        Arrays.asList(
-                            3.4028235e+38f,
-                            1.4e-45f,
-                            -3.4028235e+38f
-                        )
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList(3.4028235e+38f, 1.4e-45f, -3.4028235e+38f))))));
   }
 
   public static Bundles bundleWithInt() {
     return new Bundles(
         Arrays.asList(
             new Bundle(
-                Arrays.asList(
-                    new PutInt(
-                        "key1",
-                        -2147483648
-                    ),
-                    new PutInt(
-                        "key2",
-                        2147483647
-                    )
-                )
-            )
-        )
-    );
+                Arrays.asList(new PutInt("key1", -2147483648), new PutInt("key2", 2147483647)))));
   }
 
   public static Bundles bundleWithIntArray() {
@@ -353,26 +182,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutIntArray(
-                        "key1",
-                        Arrays.asList(
-                            -2147483648,
-                            0,
-                            2147483647
-                        )
-                    ),
-                    new PutIntArray(
-                        "key2",
-                        Arrays.asList(
-                            2147483647,
-                            0,
-                            -2147483648
-                        )
-                    )
-                )
-            )
-        )
-    );
+                    new PutIntArray("key1", Arrays.asList(-2147483648, 0, 2147483647)),
+                    new PutIntArray("key2", Arrays.asList(2147483647, 0, -2147483648))))));
   }
 
   public static Bundles bundleWithIntegerArrayList() {
@@ -380,26 +191,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutIntegerArrayList(
-                        "key1",
-                        Arrays.asList(
-                            -2147483648,
-                            0,
-                            2147483647
-                        )
-                    ),
-                    new PutIntegerArrayList(
-                        "key2",
-                        Arrays.asList(
-                            2147483647,
-                            0,
-                            -2147483648
-                        )
-                    )
-                )
-            )
-        )
-    );
+                    new PutIntegerArrayList("key1", Arrays.asList(-2147483648, 0, 2147483647)),
+                    new PutIntegerArrayList("key2", Arrays.asList(2147483647, 0, -2147483648))))));
   }
 
   public static Bundles bundleWithLong() {
@@ -407,18 +200,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutLong(
-                        "key1",
-                        -9223372036854775808L
-                    ),
-                    new PutLong(
-                        "key2",
-                        9223372036854775807L
-                    )
-                )
-            )
-        )
-    );
+                    new PutLong("key1", -9223372036854775808L),
+                    new PutLong("key2", 9223372036854775807L)))));
   }
 
   public static Bundles bundleWithLongArray() {
@@ -427,25 +210,9 @@ public class TestValues {
             new Bundle(
                 Arrays.asList(
                     new PutLongArray(
-                        "key1",
-                        Arrays.asList(
-                            -9223372036854775808L,
-                            0L,
-                            9223372036854775807L
-                        )
-                    ),
+                        "key1", Arrays.asList(-9223372036854775808L, 0L, 9223372036854775807L)),
                     new PutLongArray(
-                        "key2",
-                        Arrays.asList(
-                            9223372036854775807L,
-                            0L,
-                            -9223372036854775808L
-                        )
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList(9223372036854775807L, 0L, -9223372036854775808L))))));
   }
 
   public static Bundles bundleWithShort() {
@@ -453,18 +220,7 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutShort(
-                        "key1",
-                        (short) -32768
-                    ),
-                    new PutShort(
-                        "key2",
-                        (short) 32767
-                    )
-                )
-            )
-        )
-    );
+                    new PutShort("key1", (short) -32768), new PutShort("key2", (short) 32767)))));
   }
 
   public static Bundles bundleWithShortArray() {
@@ -473,44 +229,16 @@ public class TestValues {
             new Bundle(
                 Arrays.asList(
                     new PutShortArray(
-                        "key1",
-                        Arrays.asList(
-                            (short) -32768,
-                            (short) 0,
-                            (short) 32767
-                        )
-                    ),
+                        "key1", Arrays.asList((short) -32768, (short) 0, (short) 32767)),
                     new PutShortArray(
-                        "key2",
-                        Arrays.asList(
-                            (short) 32767,
-                            (short) 0,
-                            (short) -32768
-                        )
-                    )
-                )
-            )
-        )
-    );
+                        "key2", Arrays.asList((short) 32767, (short) 0, (short) -32768))))));
   }
 
   public static Bundles bundleWithString() {
     return new Bundles(
         Arrays.asList(
             new Bundle(
-                Arrays.asList(
-                    new PutString(
-                        "key1",
-                        "value1"
-                    ),
-                    new PutString(
-                        "key2",
-                        "value2"
-                    )
-                )
-            )
-        )
-    );
+                Arrays.asList(new PutString("key1", "value1"), new PutString("key2", "value2")))));
   }
 
   public static Bundles bundleWithStringArray() {
@@ -518,18 +246,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutStringArray(
-                        "key1",
-                        Arrays.asList("value1", "value2", "value3")
-                    ),
-                    new PutStringArray(
-                        "key2",
-                        Arrays.asList("value4", "value5", "value6")
-                    )
-                )
-            )
-        )
-    );
+                    new PutStringArray("key1", Arrays.asList("value1", "value2", "value3")),
+                    new PutStringArray("key2", Arrays.asList("value4", "value5", "value6"))))));
   }
 
   public static Bundles bundleWithStringArrayList() {
@@ -537,18 +255,8 @@ public class TestValues {
         Arrays.asList(
             new Bundle(
                 Arrays.asList(
-                    new PutStringArrayList(
-                        "key1",
-                        Arrays.asList("value1", "value2", "value3")
-                    ),
-                    new PutStringArrayList(
-                        "key2",
-                        Arrays.asList("value4", "value5", "value6")
-                    )
-                )
-            )
-        )
-    );
+                    new PutStringArrayList("key1", Arrays.asList("value1", "value2", "value3")),
+                    new PutStringArrayList("key2", Arrays.asList("value4", "value5", "value6"))))));
   }
 
   public static Bundles bundleWithParcelable() {
@@ -560,24 +268,12 @@ public class TestValues {
                         "key1",
                         new Bundle(
                             Arrays.asList(
-                                new PutString("subKey1", "value1"),
-                                new PutInt("subKey2", 1)
-                            )
-                        )
-                    ),
+                                new PutString("subKey1", "value1"), new PutInt("subKey2", 1)))),
                     new PutParcelable(
                         "key2",
                         new Bundle(
                             Arrays.asList(
-                                new PutString("subKey1", "value2"),
-                                new PutInt("subKey2", 2)
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    );
+                                new PutString("subKey1", "value2"), new PutInt("subKey2", 2))))))));
   }
 
   public static Bundles bundleWithParcelableArray() {
@@ -590,39 +286,21 @@ public class TestValues {
                         Arrays.asList(
                             new Bundle(
                                 Arrays.asList(
-                                    new PutString("subKey1", "value1"),
-                                    new PutInt("subKey2", 1)
-                                )
-                            ),
+                                    new PutString("subKey1", "value1"), new PutInt("subKey2", 1))),
                             new Bundle(
                                 Arrays.asList(
                                     new PutString("subKey1", "value2"),
-                                    new PutInt("subKey2", 2)
-                                )
-                            )
-                        )
-                    ),
+                                    new PutInt("subKey2", 2))))),
                     new PutParcelableArray(
                         "key2",
                         Arrays.asList(
                             new Bundle(
                                 Arrays.asList(
-                                    new PutString("subKey1", "value3"),
-                                    new PutInt("subKey2", 3)
-                                )
-                            ),
+                                    new PutString("subKey1", "value3"), new PutInt("subKey2", 3))),
                             new Bundle(
                                 Arrays.asList(
                                     new PutString("subKey1", "value4"),
-                                    new PutInt("subKey2", 4)
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    );
+                                    new PutInt("subKey2", 4)))))))));
   }
 
   public static Bundles bundleWithParcelableArrayList() {
@@ -635,39 +313,20 @@ public class TestValues {
                         Arrays.asList(
                             new Bundle(
                                 Arrays.asList(
-                                    new PutString("subKey1", "value1"),
-                                    new PutInt("subKey2", 1)
-                                )
-                            ),
+                                    new PutString("subKey1", "value1"), new PutInt("subKey2", 1))),
                             new Bundle(
                                 Arrays.asList(
                                     new PutString("subKey1", "value2"),
-                                    new PutInt("subKey2", 2)
-                                )
-                            )
-                        )
-                    ),
+                                    new PutInt("subKey2", 2))))),
                     new PutParcelableArrayList(
                         "key2",
                         Arrays.asList(
                             new Bundle(
                                 Arrays.asList(
-                                    new PutString("subKey1", "value3"),
-                                    new PutInt("subKey2", 3)
-                                )
-                            ),
+                                    new PutString("subKey1", "value3"), new PutInt("subKey2", 3))),
                             new Bundle(
                                 Arrays.asList(
                                     new PutString("subKey1", "value4"),
-                                    new PutInt("subKey2", 4)
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    );
+                                    new PutInt("subKey2", 4)))))))));
   }
-
 }

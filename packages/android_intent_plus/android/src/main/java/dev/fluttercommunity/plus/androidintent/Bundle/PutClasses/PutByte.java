@@ -1,13 +1,10 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutByte extends PutBase<Byte> {
 
@@ -22,7 +19,8 @@ public class PutByte extends PutBase<Byte> {
   }
 
   public static PutByte fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutByte(jsonObject.getString(Constants.KEY), (byte) jsonObject.getInt(Constants.VALUE));
+    return new PutByte(
+        jsonObject.getString(Constants.KEY), (byte) jsonObject.getInt(Constants.VALUE));
   }
 
   @Override

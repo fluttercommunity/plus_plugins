@@ -1,14 +1,12 @@
 package dev.fluttercommunity.plus.androidintent.Bundle;
 
+import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 
 public class Bundles {
   public static final String JAVA_CLASS = "Bundles";
@@ -18,7 +16,7 @@ public class Bundles {
     this.value = value;
   }
 
-  static public Bundles bundlesFromJsonString(String jsonString) throws JSONException {
+  public static Bundles bundlesFromJsonString(String jsonString) throws JSONException {
     if (jsonString == null) {
       return new Bundles(new ArrayList<>());
     }
@@ -26,7 +24,7 @@ public class Bundles {
     return Bundles.fromJson(jsonObject);
   }
 
-  static public Bundles fromJson(JSONObject jsonObject) throws JSONException {
+  public static Bundles fromJson(JSONObject jsonObject) throws JSONException {
     ArrayList<Bundle> listOfBundles = new ArrayList<>();
     JSONArray jsonArray = jsonObject.getJSONArray("value");
     for (int bundlesIndex = 0; bundlesIndex < jsonArray.length(); bundlesIndex++) {

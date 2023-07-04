@@ -1,13 +1,10 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutString extends PutBase<String> {
 

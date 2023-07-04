@@ -1,13 +1,6 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base;
 
 import android.os.Parcelable;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.Helpers;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
@@ -40,6 +33,10 @@ import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutString;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArray;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.PutStringArrayList;
 import dev.fluttercommunity.plus.androidintent.GetType;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public abstract class PutBase<T> {
 
@@ -113,7 +110,8 @@ public abstract class PutBase<T> {
       case PutStringArrayList.JAVA_CLASS:
         return PutStringArrayList.fromJson(json);
     }
-    throw new RuntimeException(String.format("JavaClass (%s) not found (PutBase.fromJson)", javaClass));
+    throw new RuntimeException(
+        String.format("JavaClass (%s) not found (PutBase.fromJson)", javaClass));
   }
 
   public static void addToAndroidOsBundle(android.os.Bundle bundle, PutBase<?> putBase) {
@@ -242,7 +240,8 @@ public abstract class PutBase<T> {
         }
         bundle.value.add(new PutParcelableArrayList(key, parcelableBaseList));
       } else {
-        throw new RuntimeException(GetType.name(x.getClass()) + " in android_bundle Bundle.addToBundle (ArrayList)");
+        throw new RuntimeException(
+            GetType.name(x.getClass()) + " in android_bundle Bundle.addToBundle (ArrayList)");
       }
     } else if (x instanceof Double) {
       Double value = (Double) x;
@@ -282,7 +281,8 @@ public abstract class PutBase<T> {
       }
       bundle.value.add(new PutParcelableArray(key, parcelableBaseList));
     } else {
-      throw new RuntimeException(GetType.name(x.getClass()) + " in android_bundle Bundle.addToBundle");
+      throw new RuntimeException(
+          GetType.name(x.getClass()) + " in android_bundle Bundle.addToBundle");
     }
   }
 

@@ -1,15 +1,13 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Parcelable;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import dev.fluttercommunity.plus.androidintent.GetType;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutParcelable extends PutBase<ParcelableBase> {
 
@@ -24,7 +22,8 @@ public class PutParcelable extends PutBase<ParcelableBase> {
   }
 
   public static PutParcelable fromJson(JSONObject jsonObject) throws JSONException {
-    final ParcelableBase parcelableBase = parcelableBaseFromJson(jsonObject.getJSONObject(Constants.VALUE));
+    final ParcelableBase parcelableBase =
+        parcelableBaseFromJson(jsonObject.getJSONObject(Constants.VALUE));
     return new PutParcelable(jsonObject.getString(Constants.KEY), parcelableBase);
   }
 
@@ -36,7 +35,8 @@ public class PutParcelable extends PutBase<ParcelableBase> {
       case Bundle.JAVA_CLASS:
         return Bundle.fromJson(json);
     }
-    throw new RuntimeException(String.format("JavaClass (%s) not found (Json.parcelableBaseFromJson)", javaClass));
+    throw new RuntimeException(
+        String.format("JavaClass (%s) not found (Json.parcelableBaseFromJson)", javaClass));
   }
 
   public static Parcelable convertToParcelable(ParcelableBase value) {

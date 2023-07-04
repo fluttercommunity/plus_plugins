@@ -1,20 +1,15 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
-
 import android.os.Parcelable;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.base.ParcelableBase;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import dev.fluttercommunity.plus.androidintent.GetType;
-
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutParcelableArrayList extends PutBase<List<ParcelableBase>> {
 
@@ -24,7 +19,8 @@ public class PutParcelableArrayList extends PutBase<List<ParcelableBase>> {
     super(key, JAVA_CLASS, value);
   }
 
-  public static void convert(android.os.Bundle bundle, PutParcelableArrayList putParcelableArrayList) {
+  public static void convert(
+      android.os.Bundle bundle, PutParcelableArrayList putParcelableArrayList) {
     bundle.putParcelableArrayList(
         putParcelableArrayList.key, convertToListOfParcelable(putParcelableArrayList.value));
   }
@@ -41,7 +37,8 @@ public class PutParcelableArrayList extends PutBase<List<ParcelableBase>> {
   public static ArrayList<Parcelable> convertToListOfParcelable(List<ParcelableBase> values) {
     ArrayList<Parcelable> parcelables = new ArrayList<>();
     for (ParcelableBase parcelableBase : values) {
-      if (parcelableBase instanceof dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle) {
+      if (parcelableBase
+          instanceof dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle) {
         parcelables.add(PutParcelable.convertToParcelable(parcelableBase));
       } else {
         throw new RuntimeException(GetType.name(parcelableBase.getClass()));

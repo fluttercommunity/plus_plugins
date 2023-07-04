@@ -3,21 +3,19 @@ package dev.fluttercommunity.plus.androidintent;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.Bundles;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.Bundles;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 //These tests are "Java side only" tests.
 //These tests are for testing the deserializing, serializing and normalizing of the Java classes.
@@ -51,7 +49,8 @@ public class RubigoBroadcastAndroidPluginTest {
     classLoader = getClass().getClassLoader();
   }
 
-  private Bundles performToBundlesTest(String sourceAsJsonString, Bundles expected) throws JSONException {
+  private Bundles performToBundlesTest(String sourceAsJsonString, Bundles expected)
+      throws JSONException {
     //Create a Bundles object from the json string
     Bundles sourceBundles = Bundles.bundlesFromJsonString(sourceAsJsonString);
     //Compare the sourceBundles object with the expected object
@@ -59,7 +58,8 @@ public class RubigoBroadcastAndroidPluginTest {
     return sourceBundles;
   }
 
-  private void performToJsonTest(Bundles sourceBundles, Bundles expectedBundles) throws JSONException {
+  private void performToJsonTest(Bundles sourceBundles, Bundles expectedBundles)
+      throws JSONException {
     //Convert the sourceBundles object to a List<android.os.Bundle>
     List<android.os.Bundle> androidOsBundles = sourceBundles.toListOfAndroidOsBundle();
     Bundles resultBundles = Bundles.fromListOfAndroidOsBundle(androidOsBundles);
@@ -304,44 +304,57 @@ public class RubigoBroadcastAndroidPluginTest {
 
   @Test
   public void bundleWithUnknownPutBaseInBundle() {
-    assertThatThrownBy(() -> {
-      String sourceAsJsonString = loadFromFileManual("bundleWithUnknownPutBaseInBundle.json");
-      JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
-      @SuppressWarnings("unused")
-      Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
-    }).isInstanceOf(RuntimeException.class).hasMessage("JavaClass (PutStringUNKNOWN) not found (PutBase.fromJson)");
-
+    assertThatThrownBy(
+            () -> {
+              String sourceAsJsonString =
+                  loadFromFileManual("bundleWithUnknownPutBaseInBundle.json");
+              JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
+              @SuppressWarnings("unused")
+              Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
+            })
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("JavaClass (PutStringUNKNOWN) not found (PutBase.fromJson)");
   }
 
   @Test
   public void bundleWithUnknownBundleInParcelable() {
-    assertThatThrownBy(() -> {
-      String sourceAsJsonString = loadFromFileManual("bundleWithUnknownBundleInParcelable.json");
-      JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
-      @SuppressWarnings("unused")
-      Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
-    }).isInstanceOf(RuntimeException.class).hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
-
+    assertThatThrownBy(
+            () -> {
+              String sourceAsJsonString =
+                  loadFromFileManual("bundleWithUnknownBundleInParcelable.json");
+              JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
+              @SuppressWarnings("unused")
+              Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
+            })
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
   }
 
   @Test
   public void bundleWithUnknownBundleInParcelableArray() {
-    assertThatThrownBy(() -> {
-      String sourceAsJsonString = loadFromFileManual("bundleWithUnknownBundleInParcelableArray.json");
-      JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
-      @SuppressWarnings("unused")
-      Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
-    }).isInstanceOf(RuntimeException.class).hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
-
+    assertThatThrownBy(
+            () -> {
+              String sourceAsJsonString =
+                  loadFromFileManual("bundleWithUnknownBundleInParcelableArray.json");
+              JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
+              @SuppressWarnings("unused")
+              Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
+            })
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
   }
 
   @Test
   public void bundleWithUnknownBundleInParcelableArrayList() {
-    assertThatThrownBy(() -> {
-      String sourceAsJsonString = loadFromFileManual("bundleWithUnknownBundleInParcelableArrayList.json");
-      JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
-      @SuppressWarnings("unused")
-      Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
-    }).isInstanceOf(RuntimeException.class).hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
+    assertThatThrownBy(
+            () -> {
+              String sourceAsJsonString =
+                  loadFromFileManual("bundleWithUnknownBundleInParcelableArrayList.json");
+              JSONObject sourceAsJson = new JSONObject(sourceAsJsonString);
+              @SuppressWarnings("unused")
+              Bundles sourceBundles = Bundles.fromJson(sourceAsJson);
+            })
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("JavaClass (BundleUNKNOWN) not found (Json.parcelableBaseFromJson)");
   }
 }

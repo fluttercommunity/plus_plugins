@@ -1,11 +1,9 @@
 package dev.fluttercommunity.plus.androidintent.Bundle;
 
-import org.json.JSONException;
-
+import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
 import java.util.ArrayList;
 import java.util.List;
-
-import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
+import org.json.JSONException;
 
 public class AndroidOsBundle {
   public static List<android.os.Bundle> fromJsonString(String arguments) throws JSONException {
@@ -14,7 +12,8 @@ public class AndroidOsBundle {
       return androidOsBundles;
     }
     Bundles bundles = Bundles.bundlesFromJsonString(arguments);
-    for (dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle bundle : bundles.value) {
+    for (dev.fluttercommunity.plus.androidintent.Bundle.ParcelableClasses.Bundle bundle :
+        bundles.value) {
       final android.os.Bundle androidOsBundle = new android.os.Bundle();
       for (PutBase<?> putBase : bundle.value) {
         PutBase.addToAndroidOsBundle(androidOsBundle, putBase);

@@ -1,13 +1,10 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutDouble extends PutBase<Double> {
 
@@ -22,7 +19,8 @@ public class PutDouble extends PutBase<Double> {
   }
 
   public static PutDouble fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutDouble(jsonObject.getString(Constants.KEY), jsonObject.getDouble(Constants.VALUE));
+    return new PutDouble(
+        jsonObject.getString(Constants.KEY), jsonObject.getDouble(Constants.VALUE));
   }
 
   @Override

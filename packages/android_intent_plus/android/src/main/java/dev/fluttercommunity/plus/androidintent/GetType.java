@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class GetType {
 
-  static public String name(Class<?> type) {
+  public static String name(Class<?> type) {
     if (type.isArray() && Objects.requireNonNull(type.getComponentType()).isPrimitive()) {
       return type.getComponentType().getName() + "[]";
     } else if (type.isPrimitive()) {
@@ -18,7 +18,7 @@ public class GetType {
     }
   }
 
-  static private String getWrapperClass(Class<?> primitiveType) {
+  private static String getWrapperClass(Class<?> primitiveType) {
     if (primitiveType == boolean.class) {
       return "Boolean";
     } else if (primitiveType == byte.class) {

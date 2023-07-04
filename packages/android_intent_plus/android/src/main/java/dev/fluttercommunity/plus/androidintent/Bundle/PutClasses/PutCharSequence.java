@@ -1,13 +1,10 @@
 package dev.fluttercommunity.plus.androidintent.Bundle.PutClasses;
 
 import android.os.Bundle;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import dev.fluttercommunity.plus.androidintent.Bundle.Constants;
 import dev.fluttercommunity.plus.androidintent.Bundle.PutClasses.base.PutBase;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PutCharSequence extends PutBase<CharSequence> {
 
@@ -22,7 +19,8 @@ public class PutCharSequence extends PutBase<CharSequence> {
   }
 
   public static PutCharSequence fromJson(JSONObject jsonObject) throws JSONException {
-    return new PutCharSequence(jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
+    return new PutCharSequence(
+        jsonObject.getString(Constants.KEY), jsonObject.getString(Constants.VALUE));
   }
 
   @Override

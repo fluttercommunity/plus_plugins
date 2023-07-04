@@ -9,8 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import org.json.JSONException;
-import java.util.List;
 import dev.fluttercommunity.plus.androidintent.Bundle.Bundles;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -20,6 +18,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONException;
 
 /** Forwards incoming {@link MethodCall}s to {@link IntentSender#send}. */
 public final class MethodCallHandlerImpl implements MethodCallHandler {
