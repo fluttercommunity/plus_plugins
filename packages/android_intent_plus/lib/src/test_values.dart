@@ -1,6 +1,8 @@
 // coverage:ignore-file
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:flutter/foundation.dart';
 
+@visibleForTesting
 class TestValues {
   static Bundles get emptyBundle => Bundles(
         bundles: <Bundle>[

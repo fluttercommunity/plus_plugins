@@ -40,6 +40,7 @@ export 'src/put_classes/put_short_array.dart';
 export 'src/put_classes/put_string.dart';
 export 'src/put_classes/put_string_array.dart';
 export 'src/put_classes/put_string_array_list.dart';
+export 'src/test_values.dart';
 
 const String _kChannelName = 'dev.fluttercommunity.plus/android_intent';
 
