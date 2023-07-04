@@ -6,6 +6,13 @@ import java.util.List;
 
 public class Helpers {
 
+  public static <T> T notNullOrThrow(T value, String errorMessage) throws Exception {
+    if (value == null) {
+      throw new Exception(errorMessage);
+    }
+    return value;
+  }
+
   public static List<Boolean> convertToArrayList(boolean[] arr) {
     if (arr == null) return null;
     List<Boolean> result = new ArrayList<>();
