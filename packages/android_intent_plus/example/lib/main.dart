@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
       routes: <String, WidgetBuilder>{
         ExplicitIntentsWidget.routeName: (BuildContext context) =>
             const ExplicitIntentsWidget()
@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
 
 /// Holds the different intent widgets.
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
-  void _createAlarm() {
+  void _createAlarmUsingArguments() {
     const intent = AndroidIntent(
       action: 'android.intent.action.SET_ALARM',
       arguments: <String, dynamic>{
@@ -46,6 +46,31 @@ class MyHomePage extends StatelessWidget {
         'android.intent.extra.alarm.SKIP_UI': true,
         'android.intent.extra.alarm.MESSAGE': 'Create a Flutter app',
       },
+    );
+    intent.launch();
+  }
+
+  void _createAlarmUsingExtras() {
+    final intent = AndroidIntent(
+      action: 'android.intent.action.SET_ALARM',
+      extras: Bundles(
+        bundles: [
+          Bundle(
+            value: [
+              PutIntegerArrayList(
+                key: 'android.intent.extra.alarm.DAYS',
+                value: [2, 3, 4, 5, 6],
+              ),
+              PutInt(key: 'android.intent.extra.alarm.HOUR', value: 22),
+              PutInt(key: 'android.intent.extra.alarm.MINUTES', value: 30),
+              PutBool(key: 'android.intent.extra.alarm.SKIP_UI', value: true),
+              PutString(
+                  key: 'android.intent.extra.alarm.MESSAGE',
+                  value: 'Create another Flutter app'),
+            ],
+          ),
+        ],
+      ),
     );
     intent.launch();
   }
@@ -64,9 +89,13 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ElevatedButton(
-              onPressed: _createAlarm,
+              onPressed: _createAlarmUsingArguments,
               child: const Text(
-                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
+                  'Set alarm with arguments 21:30'),
+            ),
+            ElevatedButton(
+              onPressed: _createAlarmUsingExtras,
+              child: const Text('Set alarm with extras 22:30'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
@@ -77,10 +106,8 @@ class MyHomePage extends StatelessWidget {
               child: const Text('Tap here to send Intent as broadcast'),
             ),
             ElevatedButton(
-              key: const Key('test_extras'),
-              onPressed: _sendBroadCastExtra,
-              child:
-                  const Text('Tap here to send Intent as broadcast (extras)'),
+              onPressed: () => _sendBroadCastCreateProfile(context),
+              child: const Text('Create datawedge profile on Zebra devices'),
             ),
             ElevatedButton(
               onPressed: () => _openExplicitIntentsView(context),
@@ -116,140 +143,148 @@ class MyHomePage extends StatelessWidget {
     intent.sendBroadcast();
   }
 
-  void _sendBroadCastExtra() {
+  void _sendBroadCastCreateProfile(BuildContext context) {
     final intent = AndroidIntent(
       action: 'com.symbol.datawedge.api.ACTION',
-      extras: [
-        Bundle(
-          value: [
-            PutBundle(
-              key: 'com.symbol.datawedge.api.SET_CONFIG',
-              value: [
-                PutString(
-                  key: 'PROFILE_NAME',
-                  value: 'com.dalosy.scanner_by_intents',
-                ),
-                PutString(
-                  key: 'PROFILE_ENABLED',
-                  value: 'true',
-                ),
-                PutString(
-                  key: 'CONFIG_MODE',
-                  value: 'CREATE_IF_NOT_EXIST',
-                ),
-                PutParcelableArray(
-                  key: 'APP_LIST',
-                  value: [
-                    appList(),
-                  ],
-                ),
-                PutParcelableArrayList(
-                  key: 'PLUGIN_CONFIG',
-                  value: [
-                    barcodePluginConfig(),
-                    intentPluginConfig(),
-                    keystrokePluginConfig(),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+      extras: Bundles(
+        bundles: [
+          Bundle(
+            value: [
+              PutBundle(
+                key: 'com.symbol.datawedge.api.SET_CONFIG',
+                value: [
+                  PutString(
+                    key: 'PROFILE_NAME',
+                    value: 'io.flutter.plugins.androidintentexample',
+                  ),
+                  PutString(
+                    key: 'PROFILE_ENABLED',
+                    value: 'true',
+                  ),
+                  PutString(
+                    key: 'CONFIG_MODE',
+                    value: 'CREATE_IF_NOT_EXIST',
+                  ),
+                  PutParcelableArray(
+                    key: 'APP_LIST',
+                    value: [
+                      _appList,
+                    ],
+                  ),
+                  PutParcelableArrayList(
+                    key: 'PLUGIN_CONFIG',
+                    value: [
+                      _barcodePluginConfig,
+                      _intentPluginConfig,
+                      _keystrokePluginConfig,
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
     intent.sendBroadcast();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+            'Check datawedge on Zebra devices if the profile is created. (Zebra devices only)'),
+      ),
+    );
   }
 
-  Bundle appList() => Bundle(
+  final _appList = Bundle(
+    value: [
+      PutString(
+        key: 'PACKAGE_NAME',
+        value: 'io.flutter.plugins.androidintentexample',
+      ),
+      PutStringArray(
+        key: 'ACTIVITY_LIST',
+        value: ['*'],
+      ),
+    ],
+  );
+
+  final _barcodePluginConfig = Bundle(
+    value: [
+      PutString(
+        key: 'PLUGIN_NAME',
+        value: 'BARCODE',
+      ),
+      PutString(
+        key: 'RESET_CONFIG',
+        value: 'true',
+      ),
+      PutBundle(
+        key: 'PARAM_LIST',
         value: [
           PutString(
-            key: 'PACKAGE_NAME',
-            value: 'com.dalosy.scanner_by_intents',
+            key: 'scanner_selection',
+            value: 'auto',
           ),
-          PutStringArray(
-            key: 'ACTIVITY_LIST',
-            value: ['*'],
+          PutString(
+            key: 'picklist',
+            value: "1",
           ),
         ],
-      );
+      ),
+    ],
+  );
 
-  Bundle barcodePluginConfig() => Bundle(
+  final _intentPluginConfig = Bundle(
+    value: [
+      PutString(
+        key: 'PLUGIN_NAME',
+        value: 'INTENT',
+      ),
+      PutString(
+        key: 'RESET_CONFIG',
+        value: 'true',
+      ),
+      PutBundle(
+        key: 'PARAM_LIST',
         value: [
           PutString(
-            key: 'PLUGIN_NAME',
-            value: 'BARCODE',
-          ),
-          PutString(
-            key: 'RESET_CONFIG',
+            key: 'intent_output_enabled',
             value: 'true',
           ),
-          PutBundle(
-            key: 'PARAM_LIST',
-            value: [
-              PutString(
-                key: 'scanner_selection',
-                value: 'auto',
-              ),
-              PutString(
-                key: 'picklist',
-                value: "1",
-              ),
-            ],
+          PutString(
+            key: 'intent_action',
+            value: 'io.flutter.plugins.androidintentexample.ACTION',
+          ),
+          PutString(
+            key: 'intent_delivery',
+            value: '2',
           ),
         ],
-      );
+      ),
+    ],
+  );
 
-  intentPluginConfig() => Bundle(
+  final _keystrokePluginConfig = Bundle(
+    value: [
+      PutString(
+        key: 'PLUGIN_NAME',
+        value: 'KEYSTROKE',
+      ),
+      PutString(
+        key: 'RESET_CONFIG',
+        value: 'true',
+      ),
+      PutBundle(
+        key: 'PARAM_LIST',
         value: [
           PutString(
-            key: 'PLUGIN_NAME',
-            value: 'INTENT',
-          ),
-          PutString(
-            key: 'RESET_CONFIG',
-            value: 'true',
-          ),
-          PutBundle(
-            key: 'PARAM_LIST',
-            value: [
-              PutString(
-                key: 'intent_output_enabled',
-                value: 'true',
-              ),
-              PutString(
-                key: 'intent_action',
-                value: 'com.dalosy.scanner_by_intents.ACTION',
-              ),
-              PutString(
-                key: 'intent_delivery',
-                value: '2',
-              ),
-            ],
+            key: 'keystroke_output_enabled',
+            value: 'false',
           ),
         ],
-      );
-
-  keystrokePluginConfig() => Bundle(
-        value: [
-          PutString(
-            key: 'PLUGIN_NAME',
-            value: 'KEYSTROKE',
-          ),
-          PutString(
-            key: 'RESET_CONFIG',
-            value: 'true',
-          ),
-          PutBundle(
-            key: 'PARAM_LIST',
-            value: [
-              PutString(
-                key: 'keystroke_output_enabled',
-                value: 'false',
-              ),
-            ],
-          ),
-        ],
-      );
+      ),
+    ],
+  );
 }
 
 /// Launches intents to specific Android activities.
@@ -325,7 +360,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
     intent.launch();
   }
 
-  void _openGmail() {
+  void _openGmailUsingArgumentsAndArrayArguments() {
     const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
       arguments: {'android.intent.extra.SUBJECT': 'I am the subject'},
@@ -334,6 +369,33 @@ class ExplicitIntentsWidget extends StatelessWidget {
         'android.intent.extra.CC': ['john@app.com', 'user@app.com'],
         'android.intent.extra.BCC': ['liam@me.abc', 'abel@me.com'],
       },
+      package: 'com.google.android.gm',
+      type: 'message/rfc822',
+    );
+    intent.launch();
+  }
+
+  void _openGmailUsingExtras() {
+    final intent = AndroidIntent(
+      action: 'android.intent.action.SEND',
+      extras: Bundles(bundles: [
+        Bundle(value: [
+          PutString(
+              key: 'android.intent.extra.SUBJECT', value: 'I am the subject'),
+          PutStringArray(
+            key: 'android.intent.extra.EMAIL',
+            value: ['eidac@me.com', 'overbom@mac.com'],
+          ),
+          PutStringArray(
+            key: 'android.intent.extra.CC',
+            value: ['john@app.com', 'user@app.com'],
+          ),
+          PutStringArray(
+            key: 'android.intent.extra.BCC',
+            value: ['liam@me.abc', 'abel@me.com'],
+          ),
+        ])
+      ]),
       package: 'com.google.android.gm',
       type: 'message/rfc822',
     );
@@ -392,11 +454,17 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: _openGmail,
+                onPressed: _openGmailUsingArgumentsAndArrayArguments,
                 child: const Text(
-                  'Tap here to open gmail app with details',
+                  'Tap here to open gmail app with details using arguments and array arguments',
                 ),
               ),
+              ElevatedButton(
+                onPressed: _openGmailUsingExtras,
+                child: const Text(
+                  'Tap here to open gmail app with details using extras',
+                ),
+              )
             ],
           ),
         ),
