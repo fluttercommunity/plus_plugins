@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:android_intent_example/create_bundle_and_return.dart';
-import 'package:android_intent_example/main.dart';
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus_example/create_bundle_and_return.dart';
+import 'package:android_intent_plus_example/main.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
