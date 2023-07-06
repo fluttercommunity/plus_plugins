@@ -1,4 +1,4 @@
-name: android_intent_example
+name: android_intent_plus_example
 description: Demonstrates how to use the android_intent plugin.
 
 environment:

@@ -15,7 +15,7 @@ on:
 
 env:
   PLUGIN_SCOPE: "*android_intent_plus*"
-  PLUGIN_EXAMPLE_SCOPE: "*android_intent_example*"
+  PLUGIN_EXAMPLE_SCOPE: "*android_intent_plus_example*"
 
 jobs:
   android_example_build:
