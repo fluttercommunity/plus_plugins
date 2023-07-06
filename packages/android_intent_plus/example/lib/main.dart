@@ -92,12 +92,12 @@ class MyHomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: _createAlarmUsingArguments,
               child: const Text(
-                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
+                  'Tap here to set an alarm\non weekdays at 9:30pm, using arguments and array arguments'),
             ),
             ElevatedButton(
               onPressed: _createAlarmUsingExtras,
               child: const Text(
-                  'Tap here to set an alarm\non weekdays at 10:30pm.'),
+                  'Tap here to set an alarm\non weekdays at 10:30pm, using extras'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
@@ -471,6 +471,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
                   'Tap here to open gmail app with details using arguments and array arguments',
                 ),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openGmailUsingExtras,
                 child: const Text(
