@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// @dart=2.9
-
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -14,13 +12,13 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  IosDeviceInfo iosInfo;
-  AndroidDeviceInfo androidInfo;
-  WebBrowserInfo webBrowserInfo;
-  WindowsDeviceInfo windowsInfo;
-  LinuxDeviceInfo linuxInfo;
-  MacOsDeviceInfo macosInfo;
-  BaseDeviceInfo deviceInfo;
+  late IosDeviceInfo iosInfo;
+  late AndroidDeviceInfo androidInfo;
+  late WebBrowserInfo webBrowserInfo;
+  late WindowsDeviceInfo windowsInfo;
+  late LinuxDeviceInfo linuxInfo;
+  late MacOsDeviceInfo macosInfo;
+  late BaseDeviceInfo deviceInfo;
 
   setUpAll(() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
@@ -69,7 +67,7 @@ void main() {
 
   testWidgets('Can get non-null iOS utsname fields',
       (WidgetTester tester) async {
-    expect(iosInfo.utsname.machine, 'iPhone10,4');
+    expect(iosInfo.utsname.machine, 'iPhone14,7');
     expect(iosInfo.utsname.nodename, isNotNull);
     expect(iosInfo.utsname.release, isNotNull);
     expect(iosInfo.utsname.sysname, isNotNull);
@@ -115,6 +113,7 @@ void main() {
     expect(androidInfo.type, isNotNull);
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.systemFeatures, isNotNull);
+    expect(androidInfo.serialNumber, isNotNull);
   }, skip: !Platform.isAndroid);
 
   testWidgets('Check all macos info values are available',

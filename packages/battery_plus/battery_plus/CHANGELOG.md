@@ -1,3 +1,38 @@
+## 4.0.1
+
+ - **FIX**(battery_plus): Use ContextCompat on Android to register broadcast receiver ([#1811](https://github.com/fluttercommunity/plus_plugins/issues/1811)). ([b901615c](https://github.com/fluttercommunity/plus_plugins/commit/b901615cdc12d4bc5140ba9713d16f5a85fa6198))
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(battery_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(battery_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1783).
+ - **REFACTOR**(battery_plus): Update example app to use Material 3.
+ - **FIX**(battery_plus): Close StreamController on Web and Linux when done (#1744).
+
+## 3.0.6
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 3.0.5
+
+ - **FIX**(battery_plus): Huawei power save mode check (#1708).
+ - **FIX**(battery_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1700).
+
+## 3.0.4
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
+## 3.0.3
+
+ - **FIX**: broadcast stream (#1479).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
 ## 3.0.2
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

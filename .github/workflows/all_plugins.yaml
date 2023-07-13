@@ -34,7 +34,7 @@ jobs:
       - name: "Bootstrap Workspace"
         run: melos bootstrap
       - name: "Run Dart Analyze"
-        uses: invertase/github-action-dart-analyzer@v1
+        uses: invertase/github-action-dart-analyzer@v2.0.0
         with:
           fatal-infos: false
           fatal-warnings: true
@@ -99,7 +99,7 @@ jobs:
       - name: "Validate Dart formatting"
         run: |
           melos exec -c 1 -- \
-            "flutter format ."
+            "dart format ."
           ./.github/workflows/scripts/validate-formatting.sh
       - name: "Validate Objective-C formatting"
         if: ${{ success() || failure() }}

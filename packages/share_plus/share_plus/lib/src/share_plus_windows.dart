@@ -3,19 +3,23 @@ library share_plus_windows;
 
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+import 'package:url_launcher_windows/url_launcher_windows.dart';
 
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
 ///
 class SharePlusWindowsPlugin extends SharePlatform {
+  SharePlusWindowsPlugin(this.urlLauncher);
+
+  final UrlLauncherPlatform urlLauncher;
+
   /// If the modern Share UI i.e. `DataTransferManager` is not available, then use this Dart class instead of platform specific implementation.
   ///
   static void registerWith() {
     if (!VersionHelper.instance.isWindows10RS5OrGreater) {
-      SharePlatform.instance = SharePlusWindowsPlugin();
+      SharePlatform.instance = SharePlusWindowsPlugin(UrlLauncherWindows());
     }
   }
 
@@ -40,10 +44,12 @@ class SharePlusWindowsPlugin extends SharePlatform {
           .join('&'),
     );
 
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw Exception('Unable to share on windows');
+    final launchResult = await urlLauncher.launchUrl(
+      uri.toString(),
+      const LaunchOptions(),
+    );
+    if (!launchResult) {
+      throw Exception('Failed to launch $uri');
     }
   }
 

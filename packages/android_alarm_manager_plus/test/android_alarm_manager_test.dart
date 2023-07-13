@@ -22,14 +22,22 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() {
-    testChannel.setMockMethodCallHandler((MethodCall call) => null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      testChannel,
+      (message) => null,
+    );
   });
 
   test('${AndroidAlarmManager.initialize}', () async {
-    testChannel.setMockMethodCallHandler((MethodCall call) async {
-      assert(call.method == 'AlarmService.start');
-      return true;
-    });
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      testChannel,
+      (MethodCall call) async {
+        assert(call.method == 'AlarmService.start');
+        return true;
+      },
+    );
 
     final initialized = await AndroidAlarmManager.initialize();
 
@@ -83,19 +91,23 @@ void main() {
       const rescheduleOnReboot = true;
       const params = <String, dynamic>{'title': 'myAlarm'};
 
-      testChannel.setMockMethodCallHandler((MethodCall call) async {
-        expect(call.method, 'Alarm.oneShotAt');
-        expect(call.arguments[0], id);
-        expect(call.arguments[1], alarmClock);
-        expect(call.arguments[2], allowWhileIdle);
-        expect(call.arguments[3], exact);
-        expect(call.arguments[4], wakeup);
-        expect(call.arguments[5], alarm.millisecondsSinceEpoch);
-        expect(call.arguments[6], rescheduleOnReboot);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], params);
-        return true;
-      });
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        testChannel,
+        (MethodCall call) async {
+          expect(call.method, 'Alarm.oneShotAt');
+          expect(call.arguments[0], id);
+          expect(call.arguments[1], alarmClock);
+          expect(call.arguments[2], allowWhileIdle);
+          expect(call.arguments[3], exact);
+          expect(call.arguments[4], wakeup);
+          expect(call.arguments[5], alarm.millisecondsSinceEpoch);
+          expect(call.arguments[6], rescheduleOnReboot);
+          expect(call.arguments[7], rawHandle);
+          expect(call.arguments[8], params);
+          return true;
+        },
+      );
 
       final result = await AndroidAlarmManager.oneShotAt(
         alarm,
@@ -129,22 +141,26 @@ void main() {
     const wakeup = true;
     const rescheduleOnReboot = true;
     const params = <String, dynamic>{'title': 'myAlarm'};
-    testChannel.setMockMethodCallHandler((MethodCall call) async {
-      expect(call.method, 'Alarm.oneShotAt');
-      expect(call.arguments[0], id);
-      expect(call.arguments[1], alarmClock);
-      expect(call.arguments[2], allowWhileIdle);
-      expect(call.arguments[3], exact);
-      expect(call.arguments[4], wakeup);
-      expect(
-        call.arguments[5],
-        now.millisecondsSinceEpoch + alarm.inMilliseconds,
-      );
-      expect(call.arguments[6], rescheduleOnReboot);
-      expect(call.arguments[7], rawHandle);
-      expect(call.arguments[8], params);
-      return true;
-    });
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      testChannel,
+      (MethodCall call) async {
+        expect(call.method, 'Alarm.oneShotAt');
+        expect(call.arguments[0], id);
+        expect(call.arguments[1], alarmClock);
+        expect(call.arguments[2], allowWhileIdle);
+        expect(call.arguments[3], exact);
+        expect(call.arguments[4], wakeup);
+        expect(
+          call.arguments[5],
+          now.millisecondsSinceEpoch + alarm.inMilliseconds,
+        );
+        expect(call.arguments[6], rescheduleOnReboot);
+        expect(call.arguments[7], rawHandle);
+        expect(call.arguments[8], params);
+        return true;
+      },
+    );
 
     final result = await AndroidAlarmManager.oneShot(
       alarm,
@@ -201,22 +217,26 @@ void main() {
       const period = Duration(seconds: 1);
       const params = <String, dynamic>{'title': 'myAlarm'};
 
-      testChannel.setMockMethodCallHandler((MethodCall call) async {
-        expect(call.method, 'Alarm.periodic');
-        expect(call.arguments[0], id);
-        expect(call.arguments[1], allowWhileIdle);
-        expect(call.arguments[2], exact);
-        expect(call.arguments[3], wakeup);
-        expect(
-          call.arguments[4],
-          (now.millisecondsSinceEpoch + period.inMilliseconds),
-        );
-        expect(call.arguments[5], period.inMilliseconds);
-        expect(call.arguments[6], rescheduleOnReboot);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], params);
-        return true;
-      });
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        testChannel,
+        (MethodCall call) async {
+          expect(call.method, 'Alarm.periodic');
+          expect(call.arguments[0], id);
+          expect(call.arguments[1], allowWhileIdle);
+          expect(call.arguments[2], exact);
+          expect(call.arguments[3], wakeup);
+          expect(
+            call.arguments[4],
+            (now.millisecondsSinceEpoch + period.inMilliseconds),
+          );
+          expect(call.arguments[5], period.inMilliseconds);
+          expect(call.arguments[6], rescheduleOnReboot);
+          expect(call.arguments[7], rawHandle);
+          expect(call.arguments[8], params);
+          return true;
+        },
+      );
 
       final result = await AndroidAlarmManager.periodic(
         period,
@@ -232,75 +252,83 @@ void main() {
       expect(result, isTrue);
     });
 
-    test('throws if params not parsable, works if params parsable', () async {
-      final now = DateTime(1993);
-      const rawHandle = 4;
-      AndroidAlarmManager.setTestOverrides(
-        now: () => now,
-        getCallbackHandle: (Function _) =>
-            CallbackHandle.fromRawHandle(rawHandle),
-      );
+    test(
+      'throws if params not parsable, works if params parsable',
+      () async {
+        final now = DateTime(1993);
+        const rawHandle = 4;
+        AndroidAlarmManager.setTestOverrides(
+          now: () => now,
+          getCallbackHandle: (Function _) =>
+              CallbackHandle.fromRawHandle(rawHandle),
+        );
 
-      const id = 1;
-      const period = Duration(seconds: 1);
-      final notParsableParams = <String, dynamic>{
-        'title': 'myAlarm',
-        'obj': const NotJsonParsableClass(),
-      };
+        const id = 1;
+        const period = Duration(seconds: 1);
+        final notParsableParams = <String, dynamic>{
+          'title': 'myAlarm',
+          'obj': const NotJsonParsableClass(),
+        };
 
-      expectLater(
-        () => AndroidAlarmManager.periodic(
+        expectLater(
+          () => AndroidAlarmManager.periodic(
+            period,
+            id,
+            validCallbackWithParams,
+            params: notParsableParams,
+          ),
+          throwsUnsupportedError,
+        );
+
+        final parsableParams = <String, dynamic>{
+          'title': 'myAlarm',
+          'obj': const JsonParsableClass('MyName')
+        };
+
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMethodCallHandler(testChannel, (MethodCall call) async {
+          expect(call.method, 'Alarm.periodic');
+          expect(call.arguments[0], id);
+          expect(
+            call.arguments[4],
+            (now.millisecondsSinceEpoch + period.inMilliseconds),
+          );
+          expect(call.arguments[5], period.inMilliseconds);
+          expect(call.arguments[7], rawHandle);
+          expect(call.arguments[8], isA<Map>());
+          expect(
+            JsonParsableClass.fromJson(call.arguments[8]['obj']),
+            isA<JsonParsableClass>(),
+          );
+          expect(
+            JsonParsableClass.fromJson(call.arguments[8]['obj']),
+            const JsonParsableClass('MyName'),
+          );
+          return true;
+        });
+
+        final result = await AndroidAlarmManager.periodic(
           period,
           id,
           validCallbackWithParams,
-          params: notParsableParams,
-        ),
-        throwsUnsupportedError,
-      );
-
-      final parsableParams = <String, dynamic>{
-        'title': 'myAlarm',
-        'obj': const JsonParsableClass('MyName')
-      };
-
-      testChannel.setMockMethodCallHandler((MethodCall call) async {
-        expect(call.method, 'Alarm.periodic');
-        expect(call.arguments[0], id);
-        expect(
-          call.arguments[4],
-          (now.millisecondsSinceEpoch + period.inMilliseconds),
+          params: parsableParams,
         );
-        expect(call.arguments[5], period.inMilliseconds);
-        expect(call.arguments[7], rawHandle);
-        expect(call.arguments[8], isA<Map>());
-        expect(
-          JsonParsableClass.fromJson(call.arguments[8]['obj']),
-          isA<JsonParsableClass>(),
-        );
-        expect(
-          JsonParsableClass.fromJson(call.arguments[8]['obj']),
-          const JsonParsableClass('MyName'),
-        );
-        return true;
-      });
 
-      final result = await AndroidAlarmManager.periodic(
-        period,
-        id,
-        validCallbackWithParams,
-        params: parsableParams,
-      );
-
-      expect(result, isTrue);
-    });
+        expect(result, isTrue);
+      },
+    );
   });
 
   test('${AndroidAlarmManager.cancel}', () async {
     const id = 1;
-    testChannel.setMockMethodCallHandler((MethodCall call) async {
-      assert(call.method == 'Alarm.cancel' && call.arguments[0] == id);
-      return true;
-    });
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      testChannel,
+      (MethodCall call) async {
+        assert(call.method == 'Alarm.cancel' && call.arguments[0] == id);
+        return true;
+      },
+    );
 
     final canceled = await AndroidAlarmManager.cancel(id);
 

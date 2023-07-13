@@ -53,7 +53,7 @@ class BatteryPlusLinuxPlugin extends BatteryPlatform {
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {
-    _stateController ??= StreamController<BatteryState>(
+    _stateController ??= StreamController<BatteryState>.broadcast(
       onListen: _startListenState,
       onCancel: _stopListenState,
     );
@@ -84,6 +84,7 @@ class BatteryPlusLinuxPlugin extends BatteryPlatform {
   }
 
   void _stopListenState() {
+    _stateController?.close();
     _stateClient?.close();
     _stateClient = null;
   }

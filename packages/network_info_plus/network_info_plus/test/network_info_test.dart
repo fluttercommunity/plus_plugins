@@ -66,11 +66,13 @@ void main() {
     });
 
     test('requestLocationServiceAuthorization', () async {
+      // ignore: deprecated_member_use_from_same_package
       final result = await networkInfo.requestLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });
 
     test('getLocationServiceAuthorization', () async {
+      // ignore: deprecated_member_use_from_same_package
       final result = await networkInfo.getLocationServiceAuthorization();
       expect(result, kRequestLocationResult);
     });

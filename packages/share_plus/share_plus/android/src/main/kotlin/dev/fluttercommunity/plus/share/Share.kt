@@ -33,7 +33,7 @@ internal class Share(
      */
     private val immutabilityIntentFlags: Int by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_MUTABLE
         } else {
             0
         }
@@ -71,7 +71,7 @@ internal class Share(
                 PendingIntent.getBroadcast(
                     context,
                     0,
-                    Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+                    Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
                 ).intentSender
             )
@@ -129,7 +129,7 @@ internal class Share(
                 PendingIntent.getBroadcast(
                     context,
                     0,
-                    Intent(ShareSuccessManager.BROADCAST_CHANNEL),
+                    Intent(context, SharePlusPendingIntent::class.java),
                     PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
                 ).intentSender
             )
@@ -184,35 +184,27 @@ internal class Share(
         return uris
     }
 
-    /**
-     * Reduces provided MIME types to a common one to provide [Intent] with a correct type
-     * to share multiple files
-     */
-    private fun reduceMimeTypes(mimeTypes: List<String>?): String {
-        var reducedMimeType = "*/*"
+  /**
+   * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
+   * multiple files
+   */
+  private fun reduceMimeTypes(mimeTypes: List<String>?): String {
+    if (mimeTypes?.isEmpty() ?: true) return "*/*"
+    if (mimeTypes!!.size == 1) return mimeTypes.first()
 
-        mimeTypes?.let { types ->
-            {
-                if (types.size == 1) {
-                    reducedMimeType = types.first()
-                } else if (types.size > 1) {
-                    var commonMimeType = types.first()
-                    for (i in 1..types.lastIndex) {
-                        if (commonMimeType != types[i]) {
-                            if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(types[i])) {
-                                commonMimeType = getMimeTypeBase(types[i]) + "/*"
-                            } else {
-                                commonMimeType = "*/*"
-                                break
-                            }
-                        }
-                    }
-                    reducedMimeType = commonMimeType
-                }
-            }
+    var commonMimeType = mimeTypes.first()
+    for (i in 1..mimeTypes.lastIndex) {
+      if (commonMimeType != mimeTypes[i]) {
+        if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
+          commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
+        } else {
+          commonMimeType = "*/*"
+          break
         }
-        return reducedMimeType
+      }
     }
+    return commonMimeType
+  }
 
     /**
      * Returns the first part of provided MIME type, which comes before '/' symbol

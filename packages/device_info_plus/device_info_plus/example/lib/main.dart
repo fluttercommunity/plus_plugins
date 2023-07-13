@@ -6,7 +6,6 @@
 
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -45,19 +44,21 @@ class _MyAppState extends State<MyApp> {
       if (kIsWeb) {
         deviceData = _readWebBrowserInfo(await deviceInfoPlugin.webBrowserInfo);
       } else {
-        if (Platform.isAndroid) {
-          deviceData =
-              _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
-        } else if (Platform.isIOS) {
-          deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
-        } else if (Platform.isLinux) {
-          deviceData = _readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo);
-        } else if (Platform.isMacOS) {
-          deviceData = _readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo);
-        } else if (Platform.isWindows) {
-          deviceData =
-              _readWindowsDeviceInfo(await deviceInfoPlugin.windowsInfo);
-        }
+        deviceData = switch (defaultTargetPlatform) {
+          TargetPlatform.android =>
+            _readAndroidBuildData(await deviceInfoPlugin.androidInfo),
+          TargetPlatform.iOS =>
+            _readIosDeviceInfo(await deviceInfoPlugin.iosInfo),
+          TargetPlatform.linux =>
+            _readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo),
+          TargetPlatform.windows =>
+            _readWindowsDeviceInfo(await deviceInfoPlugin.windowsInfo),
+          TargetPlatform.macOS =>
+            _readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo),
+          TargetPlatform.fuchsia => <String, dynamic>{
+              'Error:': 'Fuchsia platform isn\'t supported'
+            },
+        };
       }
     } on PlatformException {
       deviceData = <String, dynamic>{
@@ -108,6 +109,7 @@ class _MyAppState extends State<MyApp> {
       'displayHeightInches': build.displayMetrics.heightInches,
       'displayXDpi': build.displayMetrics.xDpi,
       'displayYDpi': build.displayMetrics.yDpi,
+      'serialNumber': build.serialNumber,
     };
   }
 
@@ -171,6 +173,9 @@ class _MyAppState extends State<MyApp> {
       'arch': data.arch,
       'model': data.model,
       'kernelVersion': data.kernelVersion,
+      'majorVersion': data.majorVersion,
+      'minorVersion': data.minorVersion,
+      'patchVersion': data.patchVersion,
       'osRelease': data.osRelease,
       'activeCPUs': data.activeCPUs,
       'memorySize': data.memorySize,
@@ -212,23 +217,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
+      ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
-            kIsWeb
-                ? 'Web Browser info'
-                : Platform.isAndroid
-                    ? 'Android Device Info'
-                    : Platform.isIOS
-                        ? 'iOS Device Info'
-                        : Platform.isLinux
-                            ? 'Linux Device Info'
-                            : Platform.isMacOS
-                                ? 'MacOS Device Info'
-                                : Platform.isWindows
-                                    ? 'Windows Device Info'
-                                    : '',
-          ),
+          title: Text(_getAppBarTitle()),
+          elevation: 4,
         ),
         body: ListView(
           children: _deviceData.keys.map(
@@ -236,7 +232,7 @@ class _MyAppState extends State<MyApp> {
               return Row(
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10),
                     child: Text(
                       property,
                       style: const TextStyle(
@@ -245,14 +241,15 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                    child: Text(
-                      '${_deviceData[property]}',
-                      maxLines: 10,
-                      overflow: TextOverflow.ellipsis,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        '${_deviceData[property]}',
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  )),
+                  ),
                 ],
               );
             },
@@ -261,4 +258,15 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+  String _getAppBarTitle() => kIsWeb
+      ? 'Web Browser info'
+      : switch (defaultTargetPlatform) {
+          TargetPlatform.android => 'Android Device Info',
+          TargetPlatform.iOS => 'iOS Device Info',
+          TargetPlatform.linux => 'Linux Device Info',
+          TargetPlatform.windows => 'Windows Device Info',
+          TargetPlatform.macOS => 'MacOS Device Info',
+          TargetPlatform.fuchsia => 'Fuchsia Device Info',
+        };
 }

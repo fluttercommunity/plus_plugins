@@ -1,9 +1,9 @@
 name: sensors_plus
 description: Flutter plugin for accessing accelerometer, gyroscope, and
   magnetometer sensors.
-version: 2.0.1
+version: 3.0.2
 homepage: https://plus.fluttercommunity.dev/
-repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus/sensors_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/sensors_plus
 
 flutter:
@@ -25,11 +25,11 @@ dependencies:
     sdk: flutter
   sensors_plus_platform_interface: ^1.1.3
 dev_dependencies:
-  test: ^1.16.4
+  test: ^1.22.0
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.11.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"

@@ -4,7 +4,6 @@
 
 import 'dart:io';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
@@ -23,7 +22,7 @@ void main() {
     sharePlatform = SharePlatform();
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
-    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(MethodChannelShare.channel,
             (MethodCall call) async {
       // The explicit type can be void as the only method call has a return type of void.
@@ -92,6 +91,7 @@ void main() {
     }));
 
     await withFile('tempfile-83649a.png', (File fd) async {
+      // ignore: deprecated_member_use_from_same_package
       await sharePlatform.shareFiles(
         [fd.path],
         subject: 'some subject to share',
@@ -112,6 +112,7 @@ void main() {
         },
       ));
 
+      // ignore: deprecated_member_use_from_same_package
       await SharePlatform.instance.shareFilesWithResult(
         [fd.path],
         subject: 'some subject to share',
@@ -156,28 +157,29 @@ void main() {
 
   test('sharing empty file fails', () {
     expect(
+      // ignore: deprecated_member_use_from_same_package
       () => sharePlatform.shareFiles(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
+      // ignore: deprecated_member_use_from_same_package
       () => SharePlatform.instance.shareFilesWithResult(['']),
       throwsA(const TypeMatcher<AssertionError>()),
     );
-    expect(
-      () => sharePlatform.shareXFiles([XFile('')]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
+
     verifyZeroInteractions(mockChannel);
   });
 
   test('sharing file sets correct mimeType', () async {
     await withFile('tempfile-83649b.png', (File fd) async {
+      // ignore: deprecated_member_use_from_same_package
       await sharePlatform.shareFiles([fd.path]);
       verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
 
+      // ignore: deprecated_member_use_from_same_package
       await SharePlatform.instance.shareFilesWithResult([fd.path]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
@@ -194,6 +196,7 @@ void main() {
 
   test('sharing file sets passed mimeType', () async {
     await withFile('tempfile-83649c.png', (File fd) async {
+      // ignore: deprecated_member_use_from_same_package
       await sharePlatform.shareFiles([fd.path], mimeTypes: ['*/*']);
       verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],
@@ -201,6 +204,7 @@ void main() {
       }));
 
       await SharePlatform.instance
+          // ignore: deprecated_member_use_from_same_package
           .shareFilesWithResult([fd.path], mimeTypes: ['*/*']);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
@@ -228,6 +232,7 @@ void main() {
 
     await withFile('tempfile-83649d.png', (File fd) async {
       expect(
+        // ignore: deprecated_member_use_from_same_package
         sharePlatform.shareFilesWithResult([fd.path]),
         completion(equals(resultUnavailable)),
       );
@@ -250,6 +255,7 @@ void main() {
     }));
 
     await withFile('tempfile-83649e.png', (File fd) async {
+      // ignore: deprecated_member_use_from_same_package
       await sharePlatform.shareFilesWithResult([fd.path]);
       verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
         'paths': [fd.path],

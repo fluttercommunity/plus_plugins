@@ -5,7 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [ labeled ]
     paths:
       - "docs/**"
       - "website/**"
@@ -21,6 +22,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install Dependencies
         run: npm ci
       - name: Build website
@@ -35,9 +38,12 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'safe_deploy')
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:

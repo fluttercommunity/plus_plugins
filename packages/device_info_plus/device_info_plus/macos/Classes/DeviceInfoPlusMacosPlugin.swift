@@ -10,7 +10,7 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "getMacosDeviceInfo":
+        case "getDeviceInfo":
             handleDeviceInfo(result: result)
         default:
             result(FlutterMethodNotImplemented)
@@ -24,6 +24,10 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
         let model = Sysctl.model
         let kernelVersion = Sysctl.version
         let osRelease = ProcessInfo.processInfo.operatingSystemVersionString
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersion;
+        let majorVersion = osVersion.majorVersion
+        let minorVersion = osVersion.minorVersion
+        let patchVersion = osVersion.patchVersion
         let activeCPUs = Sysctl.activeCPUs
         let memorySize = Sysctl.memSize
         let cpuFrequency = Sysctl.cpuFreq
@@ -36,6 +40,9 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
             "model": model,
             "kernelVersion": kernelVersion,
             "osRelease": osRelease,
+            "majorVersion": majorVersion,
+            "minorVersion": minorVersion,
+            "patchVersion": patchVersion,
             "activeCPUs": activeCPUs,
             "memorySize": memorySize,
             "cpuFrequency": cpuFrequency,

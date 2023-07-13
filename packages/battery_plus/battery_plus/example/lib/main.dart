@@ -1,9 +1,6 @@
 // Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -21,17 +18,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, this.title}) : super(key: key);
-
-  final String? title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -62,54 +58,72 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plugin example app'),
+        title: const Text('Battery plus example app'),
+        elevation: 4,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('$_batteryState'),
+            Text(
+              '$_batteryState',
+              style: const TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () async {
-                final batteryLevel = await _battery.batteryLevel;
-                // ignore: unawaited_futures
-                showDialog<void>(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Text('Battery: $batteryLevel%'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('OK'),
-                      )
-                    ],
-                  ),
+              onPressed: () {
+                _battery.batteryLevel.then(
+                  (batteryLevel) {
+                    showDialog<void>(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        content: Text('Battery: $batteryLevel%'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('OK'),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
               child: const Text('Get battery level'),
             ),
+            const SizedBox(height: 24),
             ElevatedButton(
-                onPressed: () async {
-                  final isInPowerSaveMode = await _battery.isInBatterySaveMode;
-                  // ignore: unawaited_futures
-                  showDialog<void>(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      content: Text('Is on low power mode: $isInPowerSaveMode'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                child: const Text('Is on low power mode'))
+              onPressed: () {
+                _battery.isInBatterySaveMode.then(
+                  (isInPowerSaveMode) {
+                    showDialog<void>(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text(
+                          'Is in Battery Save mode?',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        content: Text(
+                          "$isInPowerSaveMode",
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Close'),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Text('Is in Battery Save mode?'),
+            )
           ],
         ),
       ),

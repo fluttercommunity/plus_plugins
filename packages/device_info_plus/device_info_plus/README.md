@@ -15,7 +15,7 @@ Get current device information from within the Flutter application.
 
 | Android | iOS | MacOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✔️    | ✔️  |  ✔️   | ✔️  |  ✔️   |   ✔️    |
+|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
 # Usage
 
@@ -39,15 +39,26 @@ WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
 print('Running on ${webBrowserInfo.userAgent}');  // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
 ```
 
-One common use case for this plugin is obtaining device information for telemetry or crash-reporting purposes. In this scenario your app is not interested in specific properties, instead it wants to send all it knows about the device to your backend service for further analysis. You can leverage `deviceInfo` property, which returns platform-specific device information in a generic way. You then use it's `toMap` method to serialize all known properties to a `Map`. Your backend service should be prepared to handle new properties, which can be added to this plugin in the future.
+The plugin provides a `data` method that returns platform-specific device
+information in a generic way, which can be used for crash-reporting purposes.
+
+However, the data provided by this `data` method is currently not serializable
+(i.e. it is not 100% JSON compatible) and shouldn't be treated as such.
 
 ```dart
 import 'package:device_info_plus/device_info_plus.dart';
 
 final deviceInfoPlugin = DeviceInfoPlugin();
 final deviceInfo = await deviceInfoPlugin.deviceInfo;
+final allInfo = deviceInfo.data;
 ```
 
-You will find links to the API docs on the [pub page](https://pub.dev/documentation/device_info_plus/latest/).
+> **Note**
+>
+> To get serial number on Android your app needs to meet one of official [requirements](https://developer.android.com/reference/android/os/Build#getSerial())
+> In case the app doesn't meet any of requirements plugin will return `unknown`.
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+## Learn more
+
+- [API Documentation](https://pub.dev/documentation/device_info_plus/latest/device_info_plus/device_info_plus-library.html)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/device_info_plus/overview)

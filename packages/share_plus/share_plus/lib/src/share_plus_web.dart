@@ -1,25 +1,29 @@
 import 'dart:html' as html;
 import 'dart:typed_data';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+import 'package:url_launcher_web/url_launcher_web.dart';
 
 /// The web implementation of [SharePlatform].
 class SharePlusWebPlugin extends SharePlatform {
+  final UrlLauncherPlatform urlLauncher;
+
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
-    SharePlatform.instance = SharePlusWebPlugin();
+    SharePlatform.instance = SharePlusWebPlugin(UrlLauncherPlugin());
   }
 
   final html.Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
-  SharePlusWebPlugin({@visibleForTesting html.Navigator? debugNavigator})
-      : _navigator = debugNavigator ?? html.window.navigator;
+  SharePlusWebPlugin(
+    this.urlLauncher, {
+    @visibleForTesting html.Navigator? debugNavigator,
+  }) : _navigator = debugNavigator ?? html.window.navigator;
 
   /// Share text
   @override
@@ -46,10 +50,12 @@ class SharePlusWebPlugin extends SharePlatform {
             .join('&'),
       );
 
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      } else {
-        throw Exception('Unable to share on web');
+      final launchResult = await urlLauncher.launchUrl(
+        uri.toString(),
+        const LaunchOptions(),
+      );
+      if (!launchResult) {
+        throw Exception('Failed to launch $uri');
       }
     }
   }

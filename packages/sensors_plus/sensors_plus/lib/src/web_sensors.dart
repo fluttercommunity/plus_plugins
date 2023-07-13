@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:html' as html
     show LinearAccelerationSensor, Accelerometer, Gyroscope, Magnetometer;
-import 'dart:js';
 import 'dart:js_util';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -144,6 +143,10 @@ class WebSensorsPlugin extends SensorsPlatform {
       );
       _gyroscopeEventResultStream =
           _gyroscopeEventStreamController!.stream.asBroadcastStream();
+
+      _gyroscopeEventStreamController!.onCancel = () {
+        _gyroscopeEventStreamController!.close();
+      };
     }
 
     return _gyroscopeEventResultStream;

@@ -5,11 +5,10 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus;
+    show ShareResult, ShareResultStatus, XFile;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
@@ -18,6 +17,19 @@ export 'src/share_plus_windows.dart'
 /// Plugin for summoning a platform share sheet.
 class Share {
   static SharePlatform get _platform => SharePlatform.instance;
+
+  /// Summons the platform's share sheet to share uri.
+  ///
+  /// Wraps the platform's native share dialog. Can share a URL.
+  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
+  /// on iOS. [shareUri] will trigger the iOS system to fetch the html page
+  /// (if available), and the website icon will be extracted and displayed on
+  /// the iOS share sheet.
+  static Future<void> shareUri(
+    Uri uri,
+  ) async {
+    return _platform.shareUri(uri);
+  }
 
   /// Summons the platform's share sheet to share text.
   ///

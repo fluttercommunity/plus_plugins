@@ -1,3 +1,12 @@
+## 3.2.1
+
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+
+## 3.2.0
+
+ - **FIX**: export XFile (#1286).
+ - **FEAT**: share XFile created using File.fromData() (#1284).
+
 ## 3.1.2
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

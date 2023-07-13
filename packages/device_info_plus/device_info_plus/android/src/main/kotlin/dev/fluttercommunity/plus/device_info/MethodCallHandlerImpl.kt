@@ -21,7 +21,7 @@ internal class MethodCallHandlerImpl(
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        if (call.method.equals("getAndroidDeviceInfo")) {
+        if (call.method.equals("getDeviceInfo")) {
             val build: MutableMap<String, Any> = HashMap()
 
             build["board"] = Build.BOARD
@@ -79,6 +79,16 @@ internal class MethodCallHandlerImpl(
             displayResult["yDpi"] = metrics.ydpi
             build["displayMetrics"] = displayResult
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                build["serialNumber"] = try {
+                    Build.getSerial()
+                } catch (ex: SecurityException) {
+                    Build.UNKNOWN
+                }
+            } else {
+                build["serialNumber"] = Build.SERIAL
+            }
+
             result.success(build)
         } else {
             result.notImplemented()
@@ -97,7 +107,7 @@ internal class MethodCallHandlerImpl(
      * detection systems
      */
     private val isEmulator: Boolean
-        get() = (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
+        get() = ((Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
             || Build.FINGERPRINT.startsWith("generic")
             || Build.FINGERPRINT.startsWith("unknown")
             || Build.HARDWARE.contains("goldfish")
@@ -106,10 +116,7 @@ internal class MethodCallHandlerImpl(
             || Build.MODEL.contains("Emulator")
             || Build.MODEL.contains("Android SDK built for x86")
             || Build.MANUFACTURER.contains("Genymotion")
-            || Build.PRODUCT.contains("sdk_google")
-            || Build.PRODUCT.contains("google_sdk")
             || Build.PRODUCT.contains("sdk")
-            || Build.PRODUCT.contains("sdk_x86")
             || Build.PRODUCT.contains("vbox86p")
             || Build.PRODUCT.contains("emulator")
             || Build.PRODUCT.contains("simulator"))

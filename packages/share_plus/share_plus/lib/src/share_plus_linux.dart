@@ -3,19 +3,22 @@ library share_plus_linux;
 
 import 'dart:ui';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_linux/url_launcher_linux.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 /// The Linux implementation of SharePlatform.
 class SharePlusLinuxPlugin extends SharePlatform {
+  SharePlusLinuxPlugin(this.urlLauncher);
+
+  final UrlLauncherPlatform urlLauncher;
+
   /// Register this dart class as the platform implementation for linux
   static void registerWith() {
-    SharePlatform.instance = SharePlusLinuxPlugin();
+    SharePlatform.instance = SharePlusLinuxPlugin(UrlLauncherLinux());
   }
 
   /// Share text.
-  /// Throws a [PlatformException] if `mailto:` scheme cannot be handled.
   @override
   Future<void> share(
     String text, {
@@ -36,7 +39,13 @@ class SharePlusLinuxPlugin extends SharePlatform {
           .join('&'),
     );
 
-    await launchUrl(uri);
+    final launchResult = await urlLauncher.launchUrl(
+      uri.toString(),
+      const LaunchOptions(),
+    );
+    if (!launchResult) {
+      throw Exception('Failed to launch $uri');
+    }
   }
 
   /// Share files.

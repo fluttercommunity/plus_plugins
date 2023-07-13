@@ -1,3 +1,51 @@
+## 4.0.2
+
+- **CHORE**(package_info_plus): Update http dependency constraints (#1851)([#1851](https://github.com/fluttercommunity/plus_plugins/pull/1851)). ([1463bea](https://github.com/fluttercommunity/plus_plugins/commit/1463bea77b79ee1460798b9f65d2a467023b2e38))
+
+## 4.0.1
+
+ - **FIX**(package_info_plus): Get Windows package info when app is on a network drive ([#1697](https://github.com/fluttercommunity/plus_plugins/issues/1697)). ([d7f9c28b](https://github.com/fluttercommunity/plus_plugins/commit/d7f9c28b20842b882b5e196bc3d1ce7963067db6))
+ - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+ - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+ - **CHORE**(package_info_plus): Win32 dependency upgrade ([#1805](https://github.com/fluttercommunity/plus_plugins/pull/1805)). ([3f68800](https://github.com/fluttercommunity/plus_plugins/commit/c8f7b6342a7c51eafafae95792775505d2b52ce9))
+
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **CHORE**(package_info_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+ - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
+ - **BREAKING** **CHORE**(package_info_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1776).
+ - **REFACTOR**(package_info_plus): Tidy up Windows implementation (#1768).
+ - **DOCS**(package_info_plus): Explain why buildNumber returns version when no build number defined (#1729).
+
+## 3.1.2
+
+ - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+
+## 3.1.1
+
+ - **FIX**(package_info_plus): remove html file parts from version url (#1330).
+ - **FIX**(package_info_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1704).
+
+## 3.1.0
+
+ - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+ - **FIX**(package_info_plus): Make example app content scrollable (#1614).
+ - **FIX**(package_info_plus): Make installerStore an optional argument in mocks (#1547).
+ - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+ - **FEAT**(package_info_plus): Use new API to get install source on Android >= 11 (#1616).
+
+## 3.0.3
+
+ - **REFACTOR**: Remove nullable struct fields (#1526).
+ - **DOCS**: Fixed markdown table formatting in README (#1477).
+ - **DOCS**: Updates for READMEs and website pages (#1389).
+
+## 3.0.2
+
+ - **FIX**: adds value equality for PackageInfo (#1328).
+
 ## 3.0.1
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).

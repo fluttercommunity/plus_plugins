@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0x9f4376f8),
       ),
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
@@ -88,7 +89,8 @@ class MyHomePage extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plugin example app'),
+        title: const Text('Android intent plus example app'),
+        elevation: 4,
       ),
       body: Center(child: body),
     );
@@ -204,6 +206,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Test explicit intents'),
+        elevation: 4,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -216,40 +219,48 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 child: const Text(
                     'Tap here to display panorama\nimagery in Google Street View.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _displayMapInGoogleMaps,
                 child: const Text('Tap here to display\na map in Google Maps.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _launchTurnByTurnNavigationInGoogleMaps,
                 child: const Text(
                     'Tap here to launch turn-by-turn\nnavigation in Google Maps.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openLinkInGoogleChrome,
                 child: const Text('Tap here to open link in Google Chrome.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _startActivityInNewTask,
                 child: const Text('Tap here to start activity in new task.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _testExplicitIntentFallback,
                 child: const Text(
                     'Tap here to test explicit intent fallback to implicit.'),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openLocationSettingsConfiguration,
                 child: const Text(
                   'Tap here to open Location Settings Configuration',
                 ),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openApplicationDetails,
                 child: const Text(
                   'Tap here to open Application Details',
                 ),
               ),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openGmail,
                 child: const Text(

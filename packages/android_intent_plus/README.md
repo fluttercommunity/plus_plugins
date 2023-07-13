@@ -1,4 +1,4 @@
-# Android Intent Plugin for Flutter
+# android_intent_plus
 
 [![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
 
@@ -8,9 +8,11 @@
 
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 
-This plugin allows Flutter apps to launch arbitrary intents when the platform
-is Android. If the plugin is invoked on iOS, it will crash your app. In checked
-mode, we assert that the platform should be Android.
+This plugin allows Flutter apps to launch arbitrary intents when the platform is Android.
+
+> **Warning**
+>
+> If the plugin is invoked on iOS, it will crash your app. In checked mode, we assert that the platform should be Android.
 
 Use it by specifying action, category, data and extra arguments for the intent.
 It does not support returning the result of the launched activity. Sample usage:
@@ -58,7 +60,9 @@ On the Android side, the arguments are used to populate an Android `Bundle`
 instance. This process currently restricts the use of lists to homogeneous lists
 of integers or strings.
 
-> Note that a similar method does not currently exist for iOS. Instead, the
+> **Note**
+>
+> There is no similar method for iOS. Instead, the
 > [url_launcher](https://pub.dartlang.org/packages/url_launcher) plugin
 > can be used for deep linking. Url launcher can also be used for creating
 > ACTION_VIEW intents for Android, however this intent plugin also allows
@@ -68,7 +72,7 @@ of integers or strings.
 
 | Android |
 | :-----: |
-|   ✔️    |
+|   ✅    |
 
 ## Android 11 package visibility
 
@@ -91,4 +95,5 @@ https://developer.android.com/training/package-visibility/automatic
 
 ## Learn more
 
-Check out our documentation website to learn more. [Plus plugins documentation](https://plus.fluttercommunity.dev/docs/overview)
+- [API Documentation](https://pub.dev/documentation/android_intent_plus/latest/)
+- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/android_intent_plus/overview)

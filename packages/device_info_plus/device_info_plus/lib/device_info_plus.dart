@@ -8,18 +8,22 @@ import 'dart:io';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter/foundation.dart';
 
+import 'src/model/android_device_info.dart';
+import 'src/model/ios_device_info.dart';
+import 'src/model/linux_device_info.dart';
+import 'src/model/macos_device_info.dart';
+import 'src/model/web_browser_info.dart';
+import 'src/model/windows_device_info.dart';
+
 export 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart'
-    show
-        AndroidBuildVersion,
-        AndroidDeviceInfo,
-        BaseDeviceInfo,
-        IosDeviceInfo,
-        IosUtsname,
-        LinuxDeviceInfo,
-        MacOsDeviceInfo,
-        WindowsDeviceInfo,
-        WebBrowserInfo,
-        BrowserName;
+    show BaseDeviceInfo;
+
+export 'src/model/android_device_info.dart';
+export 'src/model/ios_device_info.dart';
+export 'src/model/linux_device_info.dart';
+export 'src/model/macos_device_info.dart';
+export 'src/model/web_browser_info.dart';
+export 'src/model/windows_device_info.dart';
 
 export 'src/device_info_plus_linux.dart';
 export 'src/device_info_plus_windows.dart'
@@ -45,7 +49,8 @@ class DeviceInfoPlugin {
   ///
   /// See: https://developer.android.com/reference/android/os/Build.html
   Future<AndroidDeviceInfo> get androidInfo async =>
-      _cachedAndroidDeviceInfo ??= await _platform.androidInfo();
+      _cachedAndroidDeviceInfo ??=
+          AndroidDeviceInfo.fromMap((await _platform.deviceInfo()).data);
 
   /// This information does not change from call to call. Cache it.
   IosDeviceInfo? _cachedIosDeviceInfo;
@@ -53,8 +58,8 @@ class DeviceInfoPlugin {
   /// Information derived from `UIDevice`.
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
-  Future<IosDeviceInfo> get iosInfo async =>
-      _cachedIosDeviceInfo ??= await _platform.iosInfo();
+  Future<IosDeviceInfo> get iosInfo async => _cachedIosDeviceInfo ??=
+      IosDeviceInfo.fromMap((await _platform.deviceInfo()).data);
 
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo? _cachedLinuxDeviceInfo;
@@ -62,28 +67,29 @@ class DeviceInfoPlugin {
   /// Information derived from `/etc/os-release`.
   ///
   /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
-  Future<LinuxDeviceInfo> get linuxInfo async =>
-      _cachedLinuxDeviceInfo ??= await _platform.linuxInfo();
+  Future<LinuxDeviceInfo> get linuxInfo async => _cachedLinuxDeviceInfo ??=
+      await _platform.deviceInfo() as LinuxDeviceInfo;
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo? _cachedWebBrowserInfo;
 
   /// Information derived from `Navigator`.
   Future<WebBrowserInfo> get webBrowserInfo async =>
-      _cachedWebBrowserInfo ??= await _platform.webBrowserInfo();
+      _cachedWebBrowserInfo ??= await _platform.deviceInfo() as WebBrowserInfo;
 
   /// This information does not change from call to call. Cache it.
   MacOsDeviceInfo? _cachedMacosDeviceInfo;
 
   /// Returns device information for macos. Information sourced from Sysctl.
-  Future<MacOsDeviceInfo> get macOsInfo async =>
-      _cachedMacosDeviceInfo ??= await _platform.macosInfo();
+  Future<MacOsDeviceInfo> get macOsInfo async => _cachedMacosDeviceInfo ??=
+      MacOsDeviceInfo.fromMap((await _platform.deviceInfo()).data);
 
   WindowsDeviceInfo? _cachedWindowsDeviceInfo;
 
   /// Returns device information for Windows.
   Future<WindowsDeviceInfo> get windowsInfo async =>
-      _cachedWindowsDeviceInfo ??= await _platform.windowsInfo()!;
+      _cachedWindowsDeviceInfo ??=
+          await _platform.deviceInfo() as WindowsDeviceInfo;
 
   /// Returns device information for the current platform.
   Future<BaseDeviceInfo> get deviceInfo async {
@@ -102,7 +108,7 @@ class DeviceInfoPlugin {
         return windowsInfo;
       }
     }
-
-    throw UnsupportedError('Unsupported platform');
+    // allow for extension of the plugin
+    return _platform.deviceInfo();
   }
 }
