@@ -201,7 +201,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                                                        details:nil]);
                                         return;
                                     }
-                    CMRotationRate rotationRate = gyrodata.rotationRate;
+                    CMRotationRate rotationRate = gyroData.rotationRate;
                     sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
                                                     eventSink);
                                 }];
