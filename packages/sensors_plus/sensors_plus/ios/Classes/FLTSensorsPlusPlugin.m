@@ -188,24 +188,25 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
-    _initMotionManager();
+  _initMotionManager();
   [_motionManager
       startGyroUpdatesToQueue:[[NSOperationQueue alloc] init]
-                                withHandler:^(CMGyroData *gyroData, NSError *error) {
-                                    if (_isCleanUp) {
-                                        return;
-                                    }
-                                    if (error) {
-                                        eventSink([FlutterError errorWithCode:@"UNAVAILABLE"
-                                                                       message:[error localizedDescription]
-                                                                       details:nil]);
-                                        return;
-                                    }
+                  withHandler:^(CMGyroData *gyroData, NSError *error) {
+                    if (_isCleanUp) {
+                      return;
+                    }
+                    if (error) {
+                      eventSink([FlutterError
+                          errorWithCode:@"UNAVAILABLE"
+                                message:[error localizedDescription]
+                                details:nil]);
+                      return;
+                    }
                     CMRotationRate rotationRate = gyroData.rotationRate;
                     sendTriplet(rotationRate.x, rotationRate.y, rotationRate.z,
-                                                    eventSink);
-                                }];
-    return nil;
+                                eventSink);
+                  }];
+  return nil;
 }
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
