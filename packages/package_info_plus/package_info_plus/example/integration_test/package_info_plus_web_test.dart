@@ -139,6 +139,16 @@ void main() {
             plugin.versionJsonUrl('https://example.com/a/b/c/wrapper.html', 1),
             Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
           );
+          expect(
+            plugin.versionJsonUrl(
+                'https://example.com/my-special-file.html', 1),
+            Uri.parse('https://example.com/version.json?cachebuster=1'),
+          );
+          expect(
+            plugin.versionJsonUrl(
+                'https://example.com/a/b/c/my-special-file.html', 1),
+            Uri.parse('https://example.com/a/b/c/version.json?cachebuster=1'),
+          );
         },
       );
 
