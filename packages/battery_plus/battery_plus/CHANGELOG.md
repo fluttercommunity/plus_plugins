@@ -1,3 +1,8 @@
+## 4.0.2
+
+ - **FIX**(battery_plus): Regenerate iOS and MacOS example apps ([#1873](https://github.com/fluttercommunity/plus_plugins/issues/1873)). ([18deeff3](https://github.com/fluttercommunity/plus_plugins/commit/18deeff3c68f312e2dae0de80273e1991ef97f45))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 4.0.1
 
  - **FIX**(battery_plus): Use ContextCompat on Android to register broadcast receiver ([#1811](https://github.com/fluttercommunity/plus_plugins/issues/1811)). ([b901615c](https://github.com/fluttercommunity/plus_plugins/commit/b901615cdc12d4bc5140ba9713d16f5a85fa6198))

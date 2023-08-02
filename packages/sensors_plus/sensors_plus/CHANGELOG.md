@@ -1,3 +1,9 @@
+## 3.0.3
+
+ - **FIX**(sensors_plus): fixed the deprecated syntax ([#1904](https://github.com/fluttercommunity/plus_plugins/issues/1904)). ([57f06352](https://github.com/fluttercommunity/plus_plugins/commit/57f06352ccf0c6aec0f483cb595764826623e311))
+ - **FIX**(sensors_plus): Regenerate iOS example app ([#1870](https://github.com/fluttercommunity/plus_plugins/issues/1870)). ([5046f542](https://github.com/fluttercommunity/plus_plugins/commit/5046f542433726534a2fb1c06c85f8bfc5f41398))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 3.0.2
 
  - **FIX**(sensors_plus): Fix issues with emitting multiple sensors events on iOS ([#1859](https://github.com/fluttercommunity/plus_plugins/issues/1859)). ([d33b20fa](https://github.com/fluttercommunity/plus_plugins/commit/d33b20fa7c76368dbcc12064df8469c301658b53))
