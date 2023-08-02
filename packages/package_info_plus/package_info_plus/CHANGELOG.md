@@ -1,3 +1,11 @@
+## 4.1.0
+
+ - **FIX**(package_info_plus): proper version.json url for files with special characters ([#2015](https://github.com/fluttercommunity/plus_plugins/issues/2015)). ([235ee391](https://github.com/fluttercommunity/plus_plugins/commit/235ee391b87e9fa06ffc6c12a8fcdb1f6b446ca5))
+ - **FIX**(package_info_plus): not working in Windows release mode from network location ([#1931](https://github.com/fluttercommunity/plus_plugins/issues/1931)). ([784caca5](https://github.com/fluttercommunity/plus_plugins/commit/784caca5b373b2ed95a76a256499bd2ae0b6fe41))
+ - **FIX**(package_info_plus): Regenerate iOS and MacOS example apps ([#1871](https://github.com/fluttercommunity/plus_plugins/issues/1871)). ([0102fbbd](https://github.com/fluttercommunity/plus_plugins/commit/0102fbbdd096b23c802c31de69ec0bb08141645e))
+ - **FEAT**(package_info_plus): Added toMap method ([#1926](https://github.com/fluttercommunity/plus_plugins/issues/1926)). ([4696ff45](https://github.com/fluttercommunity/plus_plugins/commit/4696ff450c4c1a84b43ba5ef3453265bdd569ada))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 4.0.2
 
 - **CHORE**(package_info_plus): Update http dependency constraints (#1851)([#1851](https://github.com/fluttercommunity/plus_plugins/pull/1851)). ([1463bea](https://github.com/fluttercommunity/plus_plugins/commit/1463bea77b79ee1460798b9f65d2a467023b2e38))

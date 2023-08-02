@@ -1,3 +1,7 @@
+## 3.3.0
+
+ - **FEAT**(share_plus): Allow user to share URI with preview image on the iOS native share sheet ([#1779](https://github.com/fluttercommunity/plus_plugins/issues/1779)). ([c83b667e](https://github.com/fluttercommunity/plus_plugins/commit/c83b667eb12394feef69221eda0eab8716aa19d8))
+
 ## 3.2.1
 
  - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).

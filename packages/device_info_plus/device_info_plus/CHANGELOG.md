@@ -1,3 +1,8 @@
+## 9.0.3
+
+ - **FIX**(device_info_plus): Regenerate iOS and MacOS example apps ([#1868](https://github.com/fluttercommunity/plus_plugins/issues/1868)). ([6e1111ac](https://github.com/fluttercommunity/plus_plugins/commit/6e1111acff40fef6f77fe2561810d679bafe938c))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 9.0.2
 
  - **DOCS**(device_info_plus): Add links to Android and iOS docs to every field ([#1857](https://github.com/fluttercommunity/plus_plugins/issues/1857)). ([89eb5217](https://github.com/fluttercommunity/plus_plugins/commit/89eb52177c90d5453ba512e73472536fc8a03c9a))
