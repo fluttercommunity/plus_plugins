@@ -18,5 +18,5 @@ Flutter plugin to access the accelerometer, gyroscope, and magnetometer sensors.
   s.dependency 'Flutter'
 
   s.platform = :ios, '11.0'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end
