@@ -12,27 +12,37 @@ To start using Connectivity Plus, initialize the singleton, which will give you 
 final Connectivity _connectivity = Connectivity();
 ```
 
-### WiFi or Cellular?
+### Connection type
 
-Using Connectivity API, you can know whether the device is connected to WiFi or to cellular network.
+Using Connectivity API, you can find out which type of connection the device is using at the moment.
 
-``` dart
-ConnectivityResult connectivityResult = await _connectivity.checkConnectivity();
+```dart
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+final connectivityResult = await (Connectivity().checkConnectivity());
 
 if (connectivityResult == ConnectivityResult.mobile) {
   // I am connected to a mobile network.
 } else if (connectivityResult == ConnectivityResult.wifi) {
   // I am connected to a wifi network.
+} else if (connectivityResult == ConnectivityResult.ethernet) {
+  // I am connected to a ethernet network.
+} else if (connectivityResult == ConnectivityResult.vpn) {
+  // I am connected to a vpn network.
+  // Note for iOS and macOS:
+  // There is no separate network interface type for [vpn].
+  // It returns [other] on any device (also simulator)
+} else if (connectivityResult == ConnectivityResult.bluetooth) {
+  // I am connected to a bluetooth.
+} else if (connectivityResult == ConnectivityResult.other) {
+  // I am connected to a network which is not in the above mentioned networks.
+} else if (connectivityResult == ConnectivityResult.none) {
+  // I am not connected to any network.
 }
 ```
 
-Using `checkConnectivity()` method, you may get one of 3 network statuses:
-1. **Mobile:** connected to a mobile cellular network.
-2. **WiFi:** connected to WiFi access point.
-3. **None:** not connected at all.
-
 :::caution
-Note that on **Android**, this does not guarantee connection to internet.
+Note that on **Android**, this does not guarantee connection to the Internet.
 For instance, the app might have WiFi access but it might be a VPN or
 a hotel WiFi with no access to internet.
 :::
@@ -62,7 +72,6 @@ in the background starting with **Android 8.0**.
 *You should always check for connectivity status when your app is resumed.*
 The broadcast is only useful when your application is in the **foreground**.
 :::
-
 
 ``` dart
 // Initialize a variable with [none] status to avoid nulls at startup
