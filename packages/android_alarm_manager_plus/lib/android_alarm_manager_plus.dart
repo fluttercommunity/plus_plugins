@@ -208,8 +208,8 @@ class AndroidAlarmManager {
   /// `AlarmManagerCompat.setExact`. When `exact` is `false` (the default), the
   /// timer will be created with `AlarmManager.set`.
   /// For apps with `targetSDK=31` before scheduling an exact alarm a check for
-  /// `SCHEDULE_EXACT_ALARM` permission is required. Otherwise, an exeption will
-  /// be thrown and alarm won't schedule.
+  /// `SCHEDULE_EXACT_ALARM` permission is required. Otherwise, an exception
+  /// will be thrown and alarm won't schedule.
   ///
   /// If `wakeup` is passed as `true`, the device will be woken up when the
   /// alarm fires. If `wakeup` is false (the default), the device will not be
