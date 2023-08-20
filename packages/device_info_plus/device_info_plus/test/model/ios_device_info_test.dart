@@ -28,7 +28,6 @@ void main() {
       iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
     });
 
-
     test('fromMap should return $IosDeviceInfo with correct values', () {
       expect(iosDeviceInfo.name, 'name');
       expect(iosDeviceInfo.model, 'model');
