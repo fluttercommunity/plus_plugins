@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 part '../model/android_device_info_fake.dart';
 
-
 void main() {
   group('$AndroidDeviceInfo fromMap | toMap', () {
     test('fromMap should return $AndroidDeviceInfo with correct values', () {
