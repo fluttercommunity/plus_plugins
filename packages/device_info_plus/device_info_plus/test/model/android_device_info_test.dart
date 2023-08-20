@@ -45,8 +45,7 @@ void main() {
     });
 
     test('toMap should return map with correct key and map', () {
-      final androidDeviceInfo =
-      AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
+      final androidDeviceInfo = AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
 
       expect(androidDeviceInfo.data, _fakeAndroidDeviceInfo);
     });
