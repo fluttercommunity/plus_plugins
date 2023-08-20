@@ -9,7 +9,8 @@ part '../model/android_device_info_fake.dart';
 void main() {
   group('$AndroidDeviceInfo fromMap | toMap', () {
     test('fromMap should return $AndroidDeviceInfo with correct values', () {
-      final androidDeviceInfo = AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
+      final androidDeviceInfo =
+          AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
 
       expect(androidDeviceInfo.id, 'id');
       expect(androidDeviceInfo.host, 'host');
@@ -45,7 +46,8 @@ void main() {
     });
 
     test('toMap should return map with correct key and map', () {
-      final androidDeviceInfo = AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
+      final androidDeviceInfo =
+          AndroidDeviceInfo.fromMap(_fakeAndroidDeviceInfo);
 
       expect(androidDeviceInfo.data, _fakeAndroidDeviceInfo);
     });
