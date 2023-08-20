@@ -1,5 +1,3 @@
-
-
 part of '../model/android_device_info_test.dart';
 
 const _fakeAndroidBuildVersion = <String, dynamic>{
