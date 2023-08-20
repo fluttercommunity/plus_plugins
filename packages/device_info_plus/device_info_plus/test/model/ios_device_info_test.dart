@@ -6,7 +6,7 @@ void main() {
     late final IosDeviceInfo iosDeviceInfo;
     late final Map<String, dynamic> iosDeviceInfoMap;
 
-    setUpAll((){
+    setUpAll(() {
       const iosUtsnameMap = <String, dynamic>{
         'release': 'release',
         'version': 'version',
