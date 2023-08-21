@@ -44,6 +44,6 @@ typedef unsigned short uint16_t;
  * return value :
  *    0 : success
  *   -1 : failure    */
-/* NATPMP_LIBSPEC */int getdefaultgateway(in_addr_t * addr);
+/* NATPMP_LIBSPEC */ int getdefaultgateway(in_addr_t *addr);
 
 #endif

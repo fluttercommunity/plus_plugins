@@ -258,7 +258,9 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                         if (error) {
                                           eventSink([FlutterError
                                               errorWithCode:@"UNAVAILABLE"
-                                                    message:[error localizedDescription]
+                                                    message:
+                                                        [error
+                                                            localizedDescription]
                                                     details:nil]);
                                           return;
                                         }
