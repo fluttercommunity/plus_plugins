@@ -127,13 +127,20 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
       startAccelerometerUpdatesToQueue:[[NSOperationQueue alloc] init]
                            withHandler:^(CMAccelerometerData *accelerometerData,
                                          NSError *error) {
-                             CMAcceleration acceleration =
-                                 accelerometerData.acceleration;
-                             // Multiply by gravity, and adjust sign values to
-                             // align with Android.
                              if (_isCleanUp) {
                                return;
                              }
+                             if (error) {
+                               eventSink([FlutterError
+                                   errorWithCode:@"UNAVAILABLE"
+                                         message:[error localizedDescription]
+                                         details:nil]);
+                               return;
+                             }
+                             // Multiply by gravity, and adjust sign values to
+                             // align with Android.
+                             CMAcceleration acceleration =
+                                 accelerometerData.acceleration;
                              sendTriplet(-acceleration.x * GRAVITY,
                                          -acceleration.y * GRAVITY,
                                          -acceleration.z * GRAVITY, eventSink);
@@ -160,12 +167,19 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   [_motionManager
       startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
                           withHandler:^(CMDeviceMotion *data, NSError *error) {
-                            CMAcceleration acceleration = data.userAcceleration;
-                            // Multiply by gravity, and adjust sign values to
-                            // align with Android.
                             if (_isCleanUp) {
                               return;
                             }
+                            if (error) {
+                              eventSink([FlutterError
+                                  errorWithCode:@"UNAVAILABLE"
+                                        message:[error localizedDescription]
+                                        details:nil]);
+                              return;
+                            }
+                            // Multiply by gravity, and adjust sign values to
+                            // align with Android.
+                            CMAcceleration acceleration = data.userAcceleration;
                             sendTriplet(-acceleration.x * GRAVITY,
                                         -acceleration.y * GRAVITY,
                                         -acceleration.z * GRAVITY, eventSink);
@@ -238,13 +252,20 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
                                                       init]
                                       withHandler:^(CMDeviceMotion *motionData,
                                                     NSError *error) {
+                                        if (_isCleanUp) {
+                                          return;
+                                        }
+                                        if (error) {
+                                          eventSink([FlutterError
+                                              errorWithCode:@"UNAVAILABLE"
+                                                    message:[error localizedDescription]
+                                                    details:nil]);
+                                          return;
+                                        }
                                         // The `magneticField` is a
                                         // CMCalibratedMagneticField.
                                         CMMagneticField b =
                                             motionData.magneticField.field;
-                                        if (_isCleanUp) {
-                                          return;
-                                        }
                                         sendTriplet(b.x, b.y, b.z, eventSink);
                                       }];
   return nil;
