@@ -10,7 +10,7 @@ void main() {
     group('fromMap | toMap', () {
       test('fromMap should return $AndroidDeviceInfo with correct values', () {
         final androidDeviceInfo =
-        AndroidDeviceInfo.fromMap(fakeAndroidDeviceInfo);
+            AndroidDeviceInfo.fromMap(fakeAndroidDeviceInfo);
 
         expect(androidDeviceInfo.id, 'id');
         expect(androidDeviceInfo.host, 'host');
@@ -47,7 +47,7 @@ void main() {
 
       test('toMap should return map with correct key and map', () {
         final androidDeviceInfo =
-        AndroidDeviceInfo.fromMap(fakeAndroidDeviceInfo);
+            AndroidDeviceInfo.fromMap(fakeAndroidDeviceInfo);
 
         expect(androidDeviceInfo.data, fakeAndroidDeviceInfo);
       });
