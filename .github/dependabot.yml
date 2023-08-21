@@ -37,6 +37,22 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
 
+  - package-ecosystem: "gradle"
+    directory: "/packages/android_alarm_manager_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/android_alarm_manager_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
   - package-ecosystem: "pub"
     directory: "/packages/android_alarm_manager_plus/example"
     schedule:
@@ -71,6 +87,22 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/android_intent_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/android_intent_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
   # Battery Plus dependencies updates config
 
@@ -157,6 +189,22 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/connectivity_plus/connectivity_plus/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/packages/connectivity_plus/connectivity_plus/example/android"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
   # Device Info Plus dependencies updates config
 
