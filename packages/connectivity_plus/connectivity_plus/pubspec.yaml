@@ -1,6 +1,6 @@
 name: connectivity_plus
 description: Flutter plugin for discovering the state of the network (WiFi & mobile/cellular) connectivity on Android and iOS.
-version: 4.0.1
+version: 4.0.2
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus/connectivity_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/connectivity_plus
@@ -33,7 +33,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   connectivity_plus_platform_interface: ^1.2.4
-  js: ^0.6.5
+  js: ^0.6.4
   meta: ^1.8.0
   nm: ^0.5.0
 
@@ -42,7 +42,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.3.3
   dbus: ^0.7.8
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.2
   mockito: ^5.4.0
-  plugin_platform_interface: ^2.1.4
+  plugin_platform_interface: ^2.1.5
   test: ^1.22.0

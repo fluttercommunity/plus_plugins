@@ -1,3 +1,8 @@
+## 4.0.2
+
+ - **FIX**(network_info_plus): Regenerate iOS and MacOS example apps ([#1872](https://github.com/fluttercommunity/plus_plugins/issues/1872)). ([c9da2612](https://github.com/fluttercommunity/plus_plugins/commit/c9da2612801f26b943b2822be2baef0e695fdb02))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 4.0.1
 
  - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
