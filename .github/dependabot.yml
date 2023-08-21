@@ -18,7 +18,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/website"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     commit-message:
       prefix: "chore"
       include: "scope"
