@@ -21,11 +21,11 @@ class MockBatteryPlatform
 
   @override
   Stream<BatteryState> get onBatteryStateChanged => Stream.fromIterable([
-          BatteryState.unknown,
-          BatteryState.charging,
-          BatteryState.full,
-          BatteryState.discharging
-        ]);
+        BatteryState.unknown,
+        BatteryState.charging,
+        BatteryState.full,
+        BatteryState.discharging
+      ]);
 
   @override
   Future<bool> get isInBatterySaveMode => Future.value(true);
