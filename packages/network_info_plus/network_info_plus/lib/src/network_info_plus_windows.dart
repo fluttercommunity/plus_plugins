@@ -10,7 +10,7 @@ import 'package:win32/win32.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:win32/winsock2.dart';
 
-typedef WlanQuery = String Function(
+typedef WlanQuery = String? Function(
     Pointer<GUID> pGuid, Pointer<WLAN_CONNECTION_ATTRIBUTES> pAttributes);
 
 class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
@@ -46,13 +46,13 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     }
   }
 
-  String query(WlanQuery query) {
+  String? query(WlanQuery query) {
     openHandle();
     final ppInterfaceList = calloc<Pointer<WLAN_INTERFACE_INFO_LIST>>();
 
     try {
       var hr = WlanEnumInterfaces(clientHandle, nullptr, ppInterfaceList);
-      if (hr != ERROR_SUCCESS) return ''; // no wifi interface available
+      if (hr != ERROR_SUCCESS) return null; // no wifi interface available
 
       for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
         final pInterfaceGuid = calloc<GUID>()
@@ -76,7 +76,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
           free(pAttributes);
         }
       }
-      return '';
+      return null;
     } finally {
       WlanFreeMemory(ppInterfaceList);
       closeHandle();
@@ -105,12 +105,12 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     }
   }
 
-  String getAdapterAddress(Pointer<GUID> pGuid,
+  String? getAdapterAddress(Pointer<GUID> pGuid,
       Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddresses) {
     final ifLuid = calloc<NET_LUID_LH>();
     try {
       if (ConvertInterfaceGuidToLuid(pGuid, ifLuid) != NO_ERROR) {
-        return '';
+        return null;
       }
 
       var pCurrent = pIpAdapterAddresses;
@@ -120,15 +120,15 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
         }
         pCurrent = pCurrent.ref.Next;
       }
-      return '';
+      return null;
     } finally {
       free(ifLuid);
     }
   }
 
   @override
-  Future<String> getWifiName() {
-    return Future<String>.value(query((pGuid, pAttributes) {
+  Future<String?> getWifiName() {
+    return Future<String?>.value(query((pGuid, pAttributes) {
       final DOT11_SSID ssid =
           pAttributes.ref.wlanAssociationAttributes.dot11Ssid;
       final charCodes = <int>[];
@@ -142,8 +142,8 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
 
   /// Obtains the wifi BSSID of the connected network.
   @override
-  Future<String> getWifiBSSID() {
-    return Future<String>.value(query((pGuid, pAttributes) {
+  Future<String?> getWifiBSSID() {
+    return Future<String?>.value(query((pGuid, pAttributes) {
       return formatBssid([
         pAttributes.ref.wlanAssociationAttributes.dot11Bssid[0],
         pAttributes.ref.wlanAssociationAttributes.dot11Bssid[1],
@@ -158,7 +158,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   /// Obtains the IP v4 address of the connected wifi network
   @override
   Future<String?> getWifiIP() {
-    return Future<String>.value(query((pGuid, pAttributes) {
+    return Future<String?>.value(query((pGuid, pAttributes) {
       final ulSize = calloc<ULONG>();
       Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
       try {
