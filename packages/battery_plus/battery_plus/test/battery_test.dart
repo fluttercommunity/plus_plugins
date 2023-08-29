@@ -10,8 +10,6 @@ import 'package:battery_plus_platform_interface/battery_plus_platform_interface.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-late StreamController<BatteryState> controller;
-
 class MockBatteryPlatform
     with MockPlatformInterfaceMixin
     implements BatteryPlatform {
@@ -22,7 +20,12 @@ class MockBatteryPlatform
   Future<BatteryState> get batteryState => Future.value(BatteryState.charging);
 
   @override
-  Stream<BatteryState> get onBatteryStateChanged => controller.stream;
+  Stream<BatteryState> get onBatteryStateChanged => Stream.fromIterable([
+        BatteryState.unknown,
+        BatteryState.charging,
+        BatteryState.full,
+        BatteryState.discharging
+      ]);
 
   @override
   Future<bool> get isInBatterySaveMode => Future.value(true);
@@ -32,7 +35,7 @@ void main() {
   late Battery battery;
   late MockBatteryPlatform fakePlatform;
 
-  setUp(() {
+  setUpAll(() {
     fakePlatform = MockBatteryPlatform();
     BatteryPlatform.instance = fakePlatform;
     battery = Battery();
@@ -46,33 +49,18 @@ void main() {
     expect(await battery.isInBatterySaveMode, true);
   });
 
-  group('battery state', () {
-    setUp(() {
-      controller = StreamController<BatteryState>();
-    });
+  test('current state of the battery', () async {
+    expect(await battery.batteryState, BatteryState.charging);
+  });
 
-    tearDown(() {
-      controller.close();
-    });
+  test('receiving events of the battery state', () async {
+    final queue = StreamQueue<BatteryState>(battery.onBatteryStateChanged);
 
-    test('current', () async {
-      expect(await battery.batteryState, BatteryState.charging);
-    });
+    expect(await queue.next, BatteryState.unknown);
+    expect(await queue.next, BatteryState.charging);
+    expect(await queue.next, BatteryState.full);
+    expect(await queue.next, BatteryState.discharging);
 
-    test('receive values', () async {
-      final queue = StreamQueue<BatteryState>(battery.onBatteryStateChanged);
-
-      controller.add(BatteryState.full);
-      expect(await queue.next, BatteryState.full);
-
-      controller.add(BatteryState.discharging);
-      expect(await queue.next, BatteryState.discharging);
-
-      controller.add(BatteryState.charging);
-      expect(await queue.next, BatteryState.charging);
-
-      controller.add(BatteryState.unknown);
-      expect(await queue.next, BatteryState.unknown);
-    });
+    expect(await queue.hasNext, false);
   });
 }
