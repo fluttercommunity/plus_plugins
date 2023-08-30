@@ -42,7 +42,7 @@ if (result.status == ShareResultStatus.success) {
 To share one or multiple files, invoke the static `shareXFiles` method anywhere in your Dart code. The method returns a `ShareResult`. Optionally, you can pass `subject`, `text` and `sharePositionOrigin`.
 
 ```dart
-final result = await Share.shareXFiles(['${directory.path}/image.jpg'], text: 'Great picture');
+final result = await Share.shareXFiles(['XFile(${directory.path}/image.jpg')], text: 'Great picture');
 
 if (result.status == ShareResultStatus.success) {
     print('Thank you for sharing the picture!');
@@ -50,7 +50,7 @@ if (result.status == ShareResultStatus.success) {
 ```
 
 ```dart
-final result = await Share.shareXFiles(['${directory.path}/image1.jpg', '${directory.path}/image2.jpg']);
+final result = await Share.shareXFiles(['XFile(${directory.path}/image1.jpg'), XFile('${directory.path}/image2.jpg')]);
 
 if (result.status == ShareResultStatus.dismissed) {
     print('Did you not like the pictures?');
