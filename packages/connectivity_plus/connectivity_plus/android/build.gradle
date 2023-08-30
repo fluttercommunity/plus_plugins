@@ -1,4 +1,4 @@
-group 'io.flutter.plugins.connectivity'
+group 'dev.fluttercommunity.plus.connectivity'
 version '1.0-SNAPSHOT'
 
 buildscript {
