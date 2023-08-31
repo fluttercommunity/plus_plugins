@@ -28,7 +28,7 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
-        
+
       - name: "Build Example"
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
@@ -37,7 +37,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        android-api-level: [22, 26, 31]
+        android-api-level: [21, 26, 31]
 
     steps:
       - name: "Checkout repository"
