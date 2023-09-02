@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -30,8 +31,12 @@ android {
     namespace 'dev.fluttercommunity.plus.network_info_plus_example'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     lintOptions {
@@ -44,7 +49,6 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -62,4 +66,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
