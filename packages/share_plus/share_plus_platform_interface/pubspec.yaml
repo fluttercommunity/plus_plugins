@@ -12,7 +12,7 @@ dependencies:
   mime: ^1.0.4
   plugin_platform_interface: ^2.1.4
   path_provider: ^2.0.14
-  uuid: ^3.0.7
+  uuid: ">=3.0.7 <5.0.0"
 
 dev_dependencies:
   flutter_test:
