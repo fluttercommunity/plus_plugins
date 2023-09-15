@@ -7,9 +7,12 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodChannel
 
 /** SensorsPlugin  */
 class SensorsPlugin : FlutterPlugin {
+    private lateinit var methodChannel: MethodChannel
+
     private lateinit var accelerometerChannel: EventChannel
     private lateinit var userAccelChannel: EventChannel
     private lateinit var gyroscopeChannel: EventChannel
@@ -21,11 +24,36 @@ class SensorsPlugin : FlutterPlugin {
     private lateinit var magnetometerStreamHandler: StreamHandlerImpl
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
+        setupMethodChannel(binding.binaryMessenger)
         setupEventChannels(binding.applicationContext, binding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
+        teardownMethodChannel()
         teardownEventChannels()
+    }
+
+    private fun setupMethodChannel(messenger: BinaryMessenger) {
+        methodChannel = MethodChannel(messenger, METHOD_CHANNEL_NAME)
+        methodChannel.setMethodCallHandler { call, result ->
+            val streamHandler = when (call.method) {
+                "setAccelerationSamplingPeriod" -> accelerometerStreamHandler
+                "setUserAccelerometerSamplingPeriod" -> userAccelStreamHandler
+                "setGyroscopeSamplingPeriod" -> gyroscopeStreamHandler
+                "setMagnetometerSamplingPeriod" -> magnetometerStreamHandler
+                else -> null
+            }
+            streamHandler?.samplingPeriod = call.arguments as Int
+            if (streamHandler != null) {
+                result.success(null)
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
+
+    private fun teardownMethodChannel() {
+        methodChannel.setMethodCallHandler(null)
     }
 
     private fun setupEventChannels(context: Context, messenger: BinaryMessenger) {
@@ -73,6 +101,8 @@ class SensorsPlugin : FlutterPlugin {
     }
 
     companion object {
+        private const val METHOD_CHANNEL_NAME =
+            "dev.fluttercommunity.plus/sensors/method"
         private const val ACCELEROMETER_CHANNEL_NAME =
             "dev.fluttercommunity.plus/sensors/accelerometer"
         private const val GYROSCOPE_CHANNEL_NAME =

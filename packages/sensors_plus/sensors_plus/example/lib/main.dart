@@ -149,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _streamSubscriptions.add(
-      userAccelerometerEvents.listen(
+      userAccelerometerEventStream().listen(
         (UserAccelerometerEvent event) {
           setState(() {
             _userAccelerometerValues = <double>[event.x, event.y, event.z];
@@ -170,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     _streamSubscriptions.add(
-      accelerometerEvents.listen(
+      accelerometerEventStream().listen(
         (AccelerometerEvent event) {
           setState(() {
             _accelerometerValues = <double>[event.x, event.y, event.z];
@@ -191,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     _streamSubscriptions.add(
-      gyroscopeEvents.listen(
+      gyroscopeEventStream().listen(
         (GyroscopeEvent event) {
           setState(() {
             _gyroscopeValues = <double>[event.x, event.y, event.z];
@@ -212,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     _streamSubscriptions.add(
-      magnetometerEvents.listen(
+      magnetometerEventStream().listen(
         (MagnetometerEvent event) {
           setState(() {
             _magnetometerValues = <double>[event.x, event.y, event.z];

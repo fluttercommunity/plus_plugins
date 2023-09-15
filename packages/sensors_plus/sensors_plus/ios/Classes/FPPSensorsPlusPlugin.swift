@@ -5,7 +5,7 @@
 import Flutter
 
 var _eventChannels: [String: FlutterEventChannel] = [:]
-var _streamHandlers: [String: FlutterStreamHandler] = [:]
+var _streamHandlers: [String: MotionStreamHandler] = [:]
 var _isCleanUp = false
 
 public class FPPSensorsPlusPlugin: NSObject, FlutterPlugin {
@@ -50,6 +50,28 @@ public class FPPSensorsPlusPlugin: NSObject, FlutterPlugin {
         magnetometerChannel.setStreamHandler(magnetometerStreamHandler)
         _eventChannels[magnetometerStreamHandlerName] = magnetometerChannel
         _streamHandlers[magnetometerStreamHandlerName] = magnetometerStreamHandler
+
+        let methodChannel = FlutterMethodChannel(
+                name: "dev.fluttercommunity.plus/sensors/method",
+                binaryMessenger: registrar.messenger()
+        )
+        methodChannel.setMethodCallHandler { call, result in
+            let streamHandler: MotionStreamHandler!;
+            switch (call.method) {
+            case "setAccelerationSamplingPeriod":
+                streamHandler = _streamHandlers[accelerometerStreamHandlerName]
+            case "setUserAccelerometerSamplingPeriod":
+                streamHandler = _streamHandlers[userAccelerometerStreamHandlerName]
+            case "setGyroscopeSamplingPeriod":
+                streamHandler = _streamHandlers[gyroscopeStreamHandlerName]
+            case "setMagnetometerSamplingPeriod":
+                streamHandler = _streamHandlers[magnetometerStreamHandlerName]
+            default:
+                return result(FlutterMethodNotImplemented)
+            }
+            streamHandler.samplingPeriod = call.arguments as! Int
+            result(nil)
+        }
 
         _isCleanUp = false
     }

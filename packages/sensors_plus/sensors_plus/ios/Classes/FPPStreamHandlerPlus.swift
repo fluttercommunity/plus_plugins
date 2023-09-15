@@ -10,25 +10,42 @@ import CoreMotion
 let GRAVITY = 9.81
 var _motionManager: CMMotionManager!
 
+public protocol MotionStreamHandler: FlutterStreamHandler {
+    var samplingPeriod: Int { get set }
+}
+
 func _initMotionManager() {
     if (_motionManager == nil) {
         _motionManager = CMMotionManager()
+        _motionManager.accelerometerUpdateInterval = 0.2
+        _motionManager.deviceMotionUpdateInterval = 0.2
+        _motionManager.gyroUpdateInterval = 0.2
+        _motionManager.magnetometerUpdateInterval = 0.2
     }
 }
 
-func sendTriplet(x: Float64, y: Float64, z: Float64, sink: FlutterEventSink) {
+func sendTriplet(x: Float64, y: Float64, z: Float64, sink: @escaping FlutterEventSink) {
     if _isCleanUp {
         return
     }
     // Even after [detachFromEngineForRegistrar] some events may still be received
     // and fired until fully detached.
-    let triplet = [x, y, z];
-    triplet.withUnsafeBufferPointer { buffer in
-        sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
+    DispatchQueue.main.async {
+        let triplet = [x, y, z]
+        triplet.withUnsafeBufferPointer { buffer in
+            sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
+        }
     }
 }
 
-class FPPAccelerometerStreamHandlerPlus: NSObject, FlutterStreamHandler {
+class FPPAccelerometerStreamHandlerPlus: NSObject, MotionStreamHandler {
+
+    var samplingPeriod = 200000 {
+        didSet {
+            _initMotionManager()
+            _motionManager.accelerometerUpdateInterval = Double(samplingPeriod) * 0.000001
+        }
+    }
 
     func onListen(
             withArguments arguments: Any?,
@@ -70,7 +87,14 @@ class FPPAccelerometerStreamHandlerPlus: NSObject, FlutterStreamHandler {
     }
 }
 
-class FPPUserAccelStreamHandlerPlus: NSObject, FlutterStreamHandler {
+class FPPUserAccelStreamHandlerPlus: NSObject, MotionStreamHandler {
+
+    var samplingPeriod = 200000 {
+        didSet {
+            _initMotionManager()
+            _motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001
+        }
+    }
 
     func onListen(
             withArguments arguments: Any?,
@@ -112,7 +136,14 @@ class FPPUserAccelStreamHandlerPlus: NSObject, FlutterStreamHandler {
     }
 }
 
-class FPPGyroscopeStreamHandlerPlus: NSObject, FlutterStreamHandler {
+class FPPGyroscopeStreamHandlerPlus: NSObject, MotionStreamHandler {
+
+    var samplingPeriod = 200000 {
+        didSet {
+            _initMotionManager()
+            _motionManager.gyroUpdateInterval = Double(samplingPeriod) * 0.000001
+        }
+    }
 
     func onListen(
             withArguments arguments: Any?,
@@ -147,7 +178,14 @@ class FPPGyroscopeStreamHandlerPlus: NSObject, FlutterStreamHandler {
     }
 }
 
-class FPPMagnetometerStreamHandlerPlus: NSObject, FlutterStreamHandler {
+class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
+
+    var samplingPeriod = 200000 {
+        didSet {
+            _initMotionManager()
+            _motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001
+        }
+    }
 
     func onListen(
             withArguments arguments: Any?,

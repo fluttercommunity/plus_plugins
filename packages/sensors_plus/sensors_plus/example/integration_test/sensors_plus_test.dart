@@ -15,7 +15,8 @@ void main() {
       (WidgetTester tester) async {
     final completer = Completer<AccelerometerEvent>();
     late StreamSubscription<AccelerometerEvent> subscription;
-    subscription = accelerometerEvents.listen((AccelerometerEvent event) {
+    subscription =
+        accelerometerEventStream().listen((AccelerometerEvent event) {
       completer.complete(event);
       subscription.cancel();
     });
