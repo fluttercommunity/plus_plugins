@@ -95,6 +95,10 @@ class WebSensorsPlugin extends SensorsPlatform {
       );
       _accelerometerResultStream =
           _accelerometerStreamController!.stream.asBroadcastStream();
+
+      _accelerometerStreamController!.onCancel = () {
+        _accelerometerStreamController!.close();
+      };
     }
 
     return _accelerometerResultStream;
@@ -197,6 +201,10 @@ class WebSensorsPlugin extends SensorsPlatform {
       );
       _userAccelerometerResultStream =
           _userAccelerometerStreamController!.stream.asBroadcastStream();
+
+      _userAccelerometerStreamController!.onCancel = () {
+        _userAccelerometerStreamController!.close();
+      };
     }
 
     return _userAccelerometerResultStream;
