@@ -113,6 +113,23 @@ class SharePlatform extends PlatformInterface {
       sharePositionOrigin: sharePositionOrigin,
     );
   }
+
+  /// Share [XFile] objects whatsapp with Result.
+  Future<ShareResult> shareWhatsappXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    String? phone,
+  }) async {
+    return _instance.shareWhatsappXFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+      phone: phone,
+    );
+  }
 }
 
 /// The result of a share to determine what action the

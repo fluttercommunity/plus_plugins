@@ -202,4 +202,21 @@ class Share {
       sharePositionOrigin: sharePositionOrigin,
     );
   }
+
+  static Future<ShareResult> shareWhatsappXFiles(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    String? phone,
+  }) async {
+    assert(files.isNotEmpty);
+    return _platform.shareWhatsappXFiles(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+      phone: phone,
+    );
+  }
 }

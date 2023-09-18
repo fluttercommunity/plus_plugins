@@ -73,6 +73,32 @@ internal class MethodCallHandler(
                     result.error("Share failed", e.message, null)
                 }
             }
+            "shareWhatsappFiles" -> {
+                expectMapArguments(call)
+                if (isWithResult && !manager.setCallback(result)) return
+
+                // Android does not support showing the share sheet at a particular point on screen.
+                try {
+                    share.shareWhatsappFiles(
+                        call.argument<List<String>>("paths")!!,
+                        call.argument<List<String>?>("mimeTypes"),
+                        call.argument<String?>("text"),
+                        call.argument<String?>("subject"),
+                        isWithResult,
+                        call.argument<String?>("phone"),
+                    )
+
+                    if (!isWithResult) {
+                        if (isResultRequested) {
+                            result.success("dev.fluttercommunity.plus/share/unavailable")
+                        } else {
+                            result.success(null)
+                        }
+                    }
+                } catch (e: IOException) {
+                    result.error("Share failed", e.message, null)
+                }
+            }
             else -> result.notImplemented()
         }
     }

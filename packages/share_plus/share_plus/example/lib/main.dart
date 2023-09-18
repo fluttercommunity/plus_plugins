@@ -142,6 +142,21 @@ class DemoAppState extends State<DemoApp> {
                   );
                 },
               ),
+              const SizedBox(height: 32),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: text.isEmpty && imagePaths.isEmpty && uri.isEmpty
+                        ? null
+                        : () => _onShareWhatsapp(context),
+                    child: const Text('Share Whatsapp'),
+                  );
+                },
+              ),
               const SizedBox(height: 16),
               Builder(
                 builder: (BuildContext context) {
@@ -184,6 +199,30 @@ class DemoAppState extends State<DemoApp> {
       imagePaths.removeAt(position);
       imageNames.removeAt(position);
     });
+  }
+
+  void _onShareWhatsapp(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+
+    if (uri.isNotEmpty) {
+      await Share.shareUri(Uri.parse(uri));
+    } else if (imagePaths.isNotEmpty) {
+      final files = <XFile>[];
+      for (var i = 0; i < imagePaths.length; i++) {
+        files.add(XFile(imagePaths[i], name: imageNames[i]));
+      }
+      await Share.shareWhatsappXFiles(
+        files,
+        text: text,
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        phone: "6281555666333",
+      );
+    } else {
+      await Share.share(text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+    }
   }
 
   void _onShare(BuildContext context) async {

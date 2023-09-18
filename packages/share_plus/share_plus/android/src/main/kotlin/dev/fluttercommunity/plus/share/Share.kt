@@ -152,6 +152,52 @@ internal class Share(
         startActivity(chooserIntent, withResult)
     }
 
+    @Throws(IOException::class)
+    fun shareWhatsappFiles(
+        paths: List<String>,
+        mimeTypes: List<String>?,
+        text: String?,
+        subject: String?,
+        withResult: Boolean,
+        phone: String?
+    ) {
+        clearShareCacheFolder()
+        val fileUris = getUrisForPaths(paths)
+        val shareIntent = Intent()
+        when {
+            (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
+                share(text, subject, withResult)
+                return
+            }
+            fileUris.size == 1 -> {
+                val mimeType = if (!mimeTypes.isNullOrEmpty()) {
+                    mimeTypes.first()
+                } else {
+                    "*/*"
+                }
+                shareIntent.apply {
+                    action = Intent.ACTION_SEND
+                    type = mimeType
+                    putExtra(Intent.EXTRA_STREAM, fileUris.first())
+                }
+            }
+            else -> {
+                shareIntent.apply {
+                    action = Intent.ACTION_SEND_MULTIPLE
+                    type = reduceMimeTypes(mimeTypes)
+                    putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
+                }
+            }
+        }
+        shareIntent.setPackage("com.whatsapp");
+        shareIntent.putExtra("jid", "$phone@s.whatsapp.net");
+        if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        // If we dont want the result we use the old 'createChooser'
+        startActivity(shareIntent, withResult)
+    }
+
     private fun startActivity(intent: Intent, withResult: Boolean) {
         if (activity != null) {
             if (withResult) {
