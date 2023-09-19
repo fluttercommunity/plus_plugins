@@ -35,7 +35,7 @@ dependencies:
   share_plus_platform_interface:
     git:
       url: https://github.com/hadiisantoso/plus_plugins.git
-      ref: whatsapp_share
+      ref: share_to_package
       path: packages/share_plus/share_plus_platform_interface
   file: ">=6.1.4 <8.0.0"
   url_launcher_web: ^2.0.16
