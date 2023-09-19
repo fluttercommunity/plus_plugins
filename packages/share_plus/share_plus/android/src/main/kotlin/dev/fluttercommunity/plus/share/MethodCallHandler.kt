@@ -73,19 +73,20 @@ internal class MethodCallHandler(
                     result.error("Share failed", e.message, null)
                 }
             }
-            "shareWhatsappFiles" -> {
+            "shareFilesToPackage" -> {
                 expectMapArguments(call)
                 if (isWithResult && !manager.setCallback(result)) return
 
                 // Android does not support showing the share sheet at a particular point on screen.
                 try {
-                    share.shareWhatsappFiles(
+                    share.shareFilesToPackage(
                         call.argument<List<String>>("paths")!!,
                         call.argument<List<String>?>("mimeTypes"),
                         call.argument<String?>("text"),
                         call.argument<String?>("subject"),
                         isWithResult,
-                        call.argument<String?>("phone"),
+                        call.argument<String?>("packageName"),
+                        call.argument<List<Map<String,String>>?>("extras"),
                     )
 
                     if (!isWithResult) {

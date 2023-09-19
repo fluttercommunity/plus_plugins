@@ -153,13 +153,14 @@ internal class Share(
     }
 
     @Throws(IOException::class)
-    fun shareWhatsappFiles(
+    fun shareFilesToPackage(
         paths: List<String>,
         mimeTypes: List<String>?,
         text: String?,
         subject: String?,
         withResult: Boolean,
-        phone: String?
+        packageName: String?,
+        extras: List<Map<String, String>>?
     ) {
         clearShareCacheFolder()
         val fileUris = getUrisForPaths(paths)
@@ -189,8 +190,8 @@ internal class Share(
                 }
             }
         }
-        shareIntent.setPackage("com.whatsapp");
-        shareIntent.putExtra("jid", "$phone@s.whatsapp.net");
+        shareIntent.setPackage(packageName);
+        extras?.forEach { item -> shareIntent.putExtra(item.keys.first(), item.values.first()) }
         if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
         if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)

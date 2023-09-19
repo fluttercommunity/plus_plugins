@@ -143,42 +143,6 @@ class MethodChannelShare extends SharePlatform {
     return ShareResult(result, _statusFromResult(result));
   }
 
-  /// Summons the platform's share sheet to share multiple files and returns the result.
-  @override
-  Future<ShareResult> shareWhatsappFilesWithResult(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    String? phone,
-  }) async {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes ??
-          paths.map((String path) => _mimeTypeForPath(path)).toList(),
-    };
-
-    if (subject != null) params['subject'] = subject;
-    if (text != null) params['text'] = text;
-    if (phone != null) params['phone'] = phone;
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    final result =
-        await channel.invokeMethod<String>('shareWhatsappFiles', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
-
-    return ShareResult(result, _statusFromResult(result));
-  }
-
   /// Summons the platform's share sheet to share multiple files.
   @override
   Future<ShareResult> shareXFiles(
@@ -204,12 +168,13 @@ class MethodChannelShare extends SharePlatform {
 
   /// Summons the platform's share sheet to share multiple files.
   @override
-  Future<ShareResult> shareWhatsappXFiles(
+  Future<void> shareFilesToPackage(
     List<XFile> files, {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-    String? phone,
+    required String packageName,
+    List<Map<String, String>>? extras,
   }) async {
     final filesWithPath = await _getFiles(files);
 
@@ -217,14 +182,23 @@ class MethodChannelShare extends SharePlatform {
         .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
         .toList();
 
-    return shareWhatsappFilesWithResult(
-      filesWithPath.map((e) => e.path).toList(),
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      phone: phone,
-    );
+    final params = <String, dynamic>{
+      'paths': filesWithPath.map((e) => e.path).toList(),
+      'mimeTypes': mimeTypes,
+    };
+
+    if (subject != null) params['subject'] = subject;
+    if (text != null) params['text'] = text;
+    if (extras != null) params['extras'] = extras;
+    params['packageName'] = packageName;
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+    await channel.invokeMethod<String>('shareFilesToPackage', params);
   }
 
   /// if file doesn't contain path

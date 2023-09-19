@@ -211,12 +211,15 @@ class DemoAppState extends State<DemoApp> {
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      await Share.shareWhatsappXFiles(
+      await Share.shareFilesToPackage(
         files,
         text: text,
         subject: subject,
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-        phone: "6281555666333",
+        packageName: "com.whatsapp",
+        extras: [
+          {"jid": "628111555333@s.whatsapp.net"}
+        ],
       );
     } else {
       await Share.share(text,
