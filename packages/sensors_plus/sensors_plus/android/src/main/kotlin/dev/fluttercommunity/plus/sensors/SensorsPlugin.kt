@@ -15,9 +15,9 @@ class SensorsPlugin : FlutterPlugin {
     private lateinit var gyroscopeChannel: EventChannel
     private lateinit var magnetometerChannel: EventChannel
 
-    private lateinit var accelerationStreamHandler: StreamHandlerImpl
+    private lateinit var accelerometerStreamHandler: StreamHandlerImpl
     private lateinit var userAccelStreamHandler: StreamHandlerImpl
-    private lateinit var gyroScopeStreamHandler: StreamHandlerImpl
+    private lateinit var gyroscopeStreamHandler: StreamHandlerImpl
     private lateinit var magnetometerStreamHandler: StreamHandlerImpl
 
     override fun onAttachedToEngine(binding: FlutterPluginBinding) {
@@ -32,11 +32,11 @@ class SensorsPlugin : FlutterPlugin {
         val sensorsManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         accelerometerChannel = EventChannel(messenger, ACCELEROMETER_CHANNEL_NAME)
-        accelerationStreamHandler = StreamHandlerImpl(
+        accelerometerStreamHandler = StreamHandlerImpl(
             sensorsManager,
             Sensor.TYPE_ACCELEROMETER
         )
-        accelerometerChannel.setStreamHandler(accelerationStreamHandler)
+        accelerometerChannel.setStreamHandler(accelerometerStreamHandler)
 
         userAccelChannel = EventChannel(messenger, USER_ACCELEROMETER_CHANNEL_NAME)
         userAccelStreamHandler = StreamHandlerImpl(
@@ -46,11 +46,11 @@ class SensorsPlugin : FlutterPlugin {
         userAccelChannel.setStreamHandler(userAccelStreamHandler)
 
         gyroscopeChannel = EventChannel(messenger, GYROSCOPE_CHANNEL_NAME)
-        gyroScopeStreamHandler = StreamHandlerImpl(
+        gyroscopeStreamHandler = StreamHandlerImpl(
             sensorsManager,
             Sensor.TYPE_GYROSCOPE
         )
-        gyroscopeChannel.setStreamHandler(gyroScopeStreamHandler)
+        gyroscopeChannel.setStreamHandler(gyroscopeStreamHandler)
 
         magnetometerChannel = EventChannel(messenger, MAGNETOMETER_CHANNEL_NAME)
         magnetometerStreamHandler = StreamHandlerImpl(
@@ -66,9 +66,9 @@ class SensorsPlugin : FlutterPlugin {
         gyroscopeChannel.setStreamHandler(null)
         magnetometerChannel.setStreamHandler(null)
 
-        accelerationStreamHandler.onCancel(null)
+        accelerometerStreamHandler.onCancel(null)
         userAccelStreamHandler.onCancel(null)
-        gyroScopeStreamHandler.onCancel(null)
+        gyroscopeStreamHandler.onCancel(null)
         magnetometerStreamHandler.onCancel(null)
     }
 
