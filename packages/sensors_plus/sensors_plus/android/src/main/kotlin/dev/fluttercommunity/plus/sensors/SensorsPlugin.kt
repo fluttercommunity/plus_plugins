@@ -75,7 +75,8 @@ class SensorsPlugin : FlutterPlugin {
     companion object {
         private const val ACCELEROMETER_CHANNEL_NAME =
             "dev.fluttercommunity.plus/sensors/accelerometer"
-        private const val GYROSCOPE_CHANNEL_NAME = "dev.fluttercommunity.plus/sensors/gyroscope"
+        private const val GYROSCOPE_CHANNEL_NAME =
+            "dev.fluttercommunity.plus/sensors/gyroscope"
         private const val USER_ACCELEROMETER_CHANNEL_NAME =
             "dev.fluttercommunity.plus/sensors/user_accel"
         private const val MAGNETOMETER_CHANNEL_NAME =
