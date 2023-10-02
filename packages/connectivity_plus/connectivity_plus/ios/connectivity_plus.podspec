@@ -18,7 +18,7 @@ Downloaded by pub (not CocoaPods).
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'ReachabilitySwift'
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '12.0'
   s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end
