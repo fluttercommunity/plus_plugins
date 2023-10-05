@@ -31,6 +31,7 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
   final String hostName;
 
   /// Machine cpu architecture
+  /// Note, that on Apple Silicon Macs can return `x86_64` if app runs via Rosetta
   final String arch;
 
   /// Device model
