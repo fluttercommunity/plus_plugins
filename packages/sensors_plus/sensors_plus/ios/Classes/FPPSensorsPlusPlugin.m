@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTSensorsPlusPlugin.h"
+#import "FPPSensorsPlusPlugin.h"
 #import <CoreMotion/CoreMotion.h>
 
-@implementation FLTSensorsPlusPlugin
+@implementation FPPSensorsPlusPlugin
 
 NSMutableDictionary<NSString *, FlutterEventChannel *> *_eventChannels;
 NSMutableDictionary<NSString *, NSObject<FlutterStreamHandler> *>
@@ -16,8 +16,8 @@ BOOL _isCleanUp = NO;
   _eventChannels = [NSMutableDictionary dictionary];
   _streamHandlers = [NSMutableDictionary dictionary];
 
-  FLTAccelerometerStreamHandlerPlus *accelerometerStreamHandler =
-      [[FLTAccelerometerStreamHandlerPlus alloc] init];
+  FPPAccelerometerStreamHandlerPlus *accelerometerStreamHandler =
+      [[FPPAccelerometerStreamHandlerPlus alloc] init];
   NSString *accelerometerStreamHandlerName =
       @"dev.fluttercommunity.plus/sensors/accelerometer";
   FlutterEventChannel *accelerometerChannel =
@@ -29,8 +29,8 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:accelerometerStreamHandler
                       forKey:accelerometerStreamHandlerName];
 
-  FLTUserAccelStreamHandlerPlus *userAccelerometerStreamHandler =
-      [[FLTUserAccelStreamHandlerPlus alloc] init];
+  FPPUserAccelStreamHandlerPlus *userAccelerometerStreamHandler =
+      [[FPPUserAccelStreamHandlerPlus alloc] init];
   NSString *userAccelerometerStreamHandlerName =
       @"dev.fluttercommunity.plus/sensors/user_accel";
   FlutterEventChannel *userAccelerometerChannel = [FlutterEventChannel
@@ -42,8 +42,8 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:userAccelerometerStreamHandler
                       forKey:userAccelerometerStreamHandlerName];
 
-  FLTGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
-      [[FLTGyroscopeStreamHandlerPlus alloc] init];
+  FPPGyroscopeStreamHandlerPlus *gyroscopeStreamHandler =
+      [[FPPGyroscopeStreamHandlerPlus alloc] init];
   NSString *gyroscopeStreamHandlerName =
       @"dev.fluttercommunity.plus/sensors/gyroscope";
   FlutterEventChannel *gyroscopeChannel =
@@ -54,8 +54,8 @@ BOOL _isCleanUp = NO;
   [_streamHandlers setObject:gyroscopeStreamHandler
                       forKey:gyroscopeStreamHandlerName];
 
-  FLTMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
-      [[FLTMagnetometerStreamHandlerPlus alloc] init];
+  FPPMagnetometerStreamHandlerPlus *magnetometerStreamHandler =
+      [[FPPMagnetometerStreamHandlerPlus alloc] init];
   NSString *magnetometerStreamHandlerName =
       @"dev.fluttercommunity.plus/sensors/magnetometer";
   FlutterEventChannel *magnetometerChannel =
@@ -118,7 +118,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
   }
 }
 
-@implementation FLTAccelerometerStreamHandlerPlus
+@implementation FPPAccelerometerStreamHandlerPlus
 
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
@@ -159,7 +159,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 @end
 
-@implementation FLTUserAccelStreamHandlerPlus
+@implementation FPPUserAccelStreamHandlerPlus
 
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
@@ -198,7 +198,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 @end
 
-@implementation FLTGyroscopeStreamHandlerPlus
+@implementation FPPGyroscopeStreamHandlerPlus
 
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {
@@ -234,7 +234,7 @@ static void sendTriplet(Float64 x, Float64 y, Float64 z,
 
 @end
 
-@implementation FLTMagnetometerStreamHandlerPlus
+@implementation FPPMagnetometerStreamHandlerPlus
 
 - (FlutterError *)onListenWithArguments:(id)arguments
                               eventSink:(FlutterEventSink)eventSink {

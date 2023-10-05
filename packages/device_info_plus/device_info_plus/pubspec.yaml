@@ -13,7 +13,7 @@ flutter:
         package: dev.fluttercommunity.plus.device_info
         pluginClass: DeviceInfoPlusPlugin
       ios:
-        pluginClass: FLTDeviceInfoPlusPlugin
+        pluginClass: FPPDeviceInfoPlusPlugin
       linux:
         dartPluginClass: DeviceInfoPlusLinuxPlugin
       web:

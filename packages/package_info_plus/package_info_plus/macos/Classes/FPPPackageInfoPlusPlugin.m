@@ -2,30 +2,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTPackageInfoPlusPlugin.h"
+#import "FPPPackageInfoPlusPlugin.h"
 
-@implementation FLTPackageInfoPlusPlugin
+@implementation FPPPackageInfoPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   FlutterMethodChannel *channel = [FlutterMethodChannel
       methodChannelWithName:@"dev.fluttercommunity.plus/package_info"
             binaryMessenger:[registrar messenger]];
-  FLTPackageInfoPlusPlugin *instance = [[FLTPackageInfoPlusPlugin alloc] init];
+  FPPPackageInfoPlusPlugin *instance = [[FPPPackageInfoPlusPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"getAll"]) {
-    NSString *appStoreReceipt =
-        [[[NSBundle mainBundle] appStoreReceiptURL] path];
-
-    NSString *installerStore =
-        [appStoreReceipt containsString:@"CoreSimulator"]
-            ? @"com.apple.simulator"
-        : [appStoreReceipt containsString:@"sandboxReceipt"]
-            ? @"com.apple.testflight"
-            : @"com.apple";
-
     result(@{
       @"appName" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleDisplayName"]
@@ -39,7 +29,7 @@
       @"buildNumber" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
-      @"installerStore" : installerStore
+      @"installerStore" : [NSNull null]
     });
   } else {
     result(FlutterMethodNotImplemented);

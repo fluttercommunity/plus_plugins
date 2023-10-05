@@ -4,5 +4,5 @@
 
 #import <Flutter/Flutter.h>
 
-@interface FLTAndroidAlarmManagerPlusPlugin : NSObject <FlutterPlugin>
+@interface FPPAndroidAlarmManagerPlusPlugin : NSObject <FlutterPlugin>
 @end

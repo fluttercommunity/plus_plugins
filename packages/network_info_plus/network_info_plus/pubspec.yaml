@@ -16,7 +16,7 @@ flutter:
         package: dev.fluttercommunity.plus.network_info
         pluginClass: NetworkInfoPlusPlugin
       ios:
-        pluginClass: FLTNetworkInfoPlusPlugin
+        pluginClass: FPPNetworkInfoPlusPlugin
       linux:
         dartPluginClass: NetworkInfoPlusLinuxPlugin
       macos:
