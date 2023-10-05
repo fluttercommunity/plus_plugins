@@ -1,6 +1,6 @@
-#import "FLTNetworkInfo.h"
+#import "FPPNetworkInfo.h"
 
-@implementation FLTNetworkInfo
+@implementation FPPNetworkInfo
 
 - (instancetype)initWithSSID:(NSString *)SSID BSSID:(NSString *)BSSID {
   if ((self = [super init])) {

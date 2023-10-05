@@ -2,17 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTBatteryPlusPlugin.h"
+#import "FPPBatteryPlusPlugin.h"
 
-@interface FLTBatteryPlusPlugin () <FlutterStreamHandler>
+@interface FPPBatteryPlusPlugin () <FlutterStreamHandler>
 @end
 
-@implementation FLTBatteryPlusPlugin {
+@implementation FPPBatteryPlusPlugin {
   FlutterEventSink _eventSink;
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  FLTBatteryPlusPlugin *instance = [[FLTBatteryPlusPlugin alloc] init];
+  FPPBatteryPlusPlugin *instance = [[FPPBatteryPlusPlugin alloc] init];
 
   FlutterMethodChannel *channel = [FlutterMethodChannel
       methodChannelWithName:@"dev.fluttercommunity.plus/battery"

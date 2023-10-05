@@ -1,10 +1,10 @@
-#import "FLTCaptiveNetworkInfoProvider.h"
+#import "FPPCaptiveNetworkInfoProvider.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
-@implementation FLTCaptiveNetworkInfoProvider
+@implementation FPPCaptiveNetworkInfoProvider
 
 - (void)fetchNetworkInfoWithCompletionHandler:
-    (void (^)(FLTNetworkInfo *network))completionHandler {
+    (void (^)(FPPNetworkInfo *network))completionHandler {
   dispatch_async(dispatch_get_main_queue(), ^{
     NSArray *interfaceNames = (__bridge_transfer id)CNCopySupportedInterfaces();
     for (NSString *interfaceName in interfaceNames) {
@@ -14,7 +14,7 @@
       if (networkInfo) {
         NSString *ssid = networkInfo[(NSString *)kCNNetworkInfoKeySSID];
         NSString *bssid = networkInfo[(NSString *)kCNNetworkInfoKeyBSSID];
-        completionHandler([[FLTNetworkInfo alloc] initWithSSID:ssid
+        completionHandler([[FPPNetworkInfo alloc] initWithSSID:ssid
                                                          BSSID:bssid]);
         return;
       }

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import <FlutterMacOS/FlutterMacOS.h>
+#import <Flutter/Flutter.h>
 
-@interface FLTPackageInfoPlusPlugin : NSObject <FlutterPlugin>
+@interface FPPNetworkInfoPlusPlugin : NSObject <FlutterPlugin>
 @end
