@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTNetworkInfoPlusPlugin.h"
+#import "FPPNetworkInfoPlusPlugin.h"
 
-#import "FLTCaptiveNetworkInfoProvider.h"
-#import "FLTHotspotNetworkInfoProvider.h"
-#import "FLTNetworkInfo.h"
-#import "FLTNetworkInfoLocationPlusHandler.h"
-#import "FLTNetworkInfoProvider.h"
+#import "FPPCaptiveNetworkInfoProvider.h"
+#import "FPPHotspotNetworkInfoProvider.h"
+#import "FPPNetworkInfo.h"
+#import "FPPNetworkInfoLocationPlusHandler.h"
+#import "FPPNetworkInfoProvider.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 #import "getgateway.h"
 #import <CoreLocation/CoreLocation.h>
@@ -18,27 +18,27 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-@interface FLTNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
+@interface FPPNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
 
-@property(strong, nonatomic) FLTNetworkInfoLocationPlusHandler *locationHandler;
-@property(strong, nonatomic) id<FLTNetworkInfoProvider> networkInfoProvider;
+@property(strong, nonatomic) FPPNetworkInfoLocationPlusHandler *locationHandler;
+@property(strong, nonatomic) id<FPPNetworkInfoProvider> networkInfoProvider;
 
 - (instancetype)initWithNetworkInfoProvider:
-    (id<FLTNetworkInfoProvider>)networkInfoProvider;
+    (id<FPPNetworkInfoProvider>)networkInfoProvider;
 
 @end
 
-@implementation FLTNetworkInfoPlusPlugin {
+@implementation FPPNetworkInfoPlusPlugin {
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  id<FLTNetworkInfoProvider> networkInfoProvider;
+  id<FPPNetworkInfoProvider> networkInfoProvider;
   if (@available(iOS 14, *)) {
-    networkInfoProvider = [[FLTHotspotNetworkInfoProvider alloc] init];
+    networkInfoProvider = [[FPPHotspotNetworkInfoProvider alloc] init];
   } else {
-    networkInfoProvider = [[FLTCaptiveNetworkInfoProvider alloc] init];
+    networkInfoProvider = [[FPPCaptiveNetworkInfoProvider alloc] init];
   }
-  FLTNetworkInfoPlusPlugin *instance = [[FLTNetworkInfoPlusPlugin alloc]
+  FPPNetworkInfoPlusPlugin *instance = [[FPPNetworkInfoPlusPlugin alloc]
       initWithNetworkInfoProvider:networkInfoProvider];
 
   FlutterMethodChannel *channel = [FlutterMethodChannel
@@ -48,7 +48,7 @@
 }
 
 - (instancetype)initWithNetworkInfoProvider:
-    (id<FLTNetworkInfoProvider>)networkInfoProvider {
+    (id<FPPNetworkInfoProvider>)networkInfoProvider {
   if ((self = [super init])) {
     self.networkInfoProvider = networkInfoProvider;
   }
@@ -131,12 +131,12 @@
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"wifiName"]) {
     [self.networkInfoProvider
-        fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo *networkInfo) {
+        fetchNetworkInfoWithCompletionHandler:^(FPPNetworkInfo *networkInfo) {
           result(networkInfo.SSID);
         }];
   } else if ([call.method isEqualToString:@"wifiBSSID"]) {
     [self.networkInfoProvider
-        fetchNetworkInfoWithCompletionHandler:^(FLTNetworkInfo *networkInfo) {
+        fetchNetworkInfoWithCompletionHandler:^(FPPNetworkInfo *networkInfo) {
           result(networkInfo.BSSID);
         }];
   } else if ([call.method isEqualToString:@"wifiIPAddress"]) {
@@ -151,7 +151,7 @@
     result([self getGatewayIP]);
   } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
     result([self
-        convertCLAuthorizationStatusToString:[FLTNetworkInfoLocationPlusHandler
+        convertCLAuthorizationStatusToString:[FPPNetworkInfoLocationPlusHandler
                                                  locationAuthorizationStatus]]);
   } else if ([call.method
                  isEqualToString:@"requestLocationServiceAuthorization"]) {
@@ -169,9 +169,9 @@
   }
 }
 
-- (FLTNetworkInfoLocationPlusHandler *)locationHandler {
+- (FPPNetworkInfoLocationPlusHandler *)locationHandler {
   if (!_locationHandler) {
-    _locationHandler = [FLTNetworkInfoLocationPlusHandler new];
+    _locationHandler = [FPPNetworkInfoLocationPlusHandler new];
   }
   return _locationHandler;
 }

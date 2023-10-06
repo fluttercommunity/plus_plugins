@@ -2,23 +2,23 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FLTNetworkInfoLocationPlusHandler.h"
+#import "FPPNetworkInfoLocationPlusHandler.h"
 
-@interface FLTNetworkInfoLocationPlusHandler () <CLLocationManagerDelegate>
+@interface FPPNetworkInfoLocationPlusHandler () <CLLocationManagerDelegate>
 
-@property(copy, nonatomic) FLTNetworkInfoLocationPlusCompletion completion;
+@property(copy, nonatomic) FPPNetworkInfoLocationPlusCompletion completion;
 @property(strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
-@implementation FLTNetworkInfoLocationPlusHandler
+@implementation FPPNetworkInfoLocationPlusHandler
 
 + (CLAuthorizationStatus)locationAuthorizationStatus {
   return CLLocationManager.authorizationStatus;
 }
 
 - (void)requestLocationAuthorization:(BOOL)always
-                          completion:(FLTNetworkInfoLocationPlusCompletion)
+                          completion:(FPPNetworkInfoLocationPlusCompletion)
                                          completionHandler {
   CLAuthorizationStatus status = CLLocationManager.authorizationStatus;
   if (status != kCLAuthorizationStatusAuthorizedWhenInUse && always) {

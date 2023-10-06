@@ -1,7 +1,7 @@
 // Copyright 2019 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-#import "FLTSharePlusPlugin.h"
+#import "FPPSharePlusPlugin.h"
 #import "LinkPresentation/LPLinkMetadata.h"
 #import "LinkPresentation/LPMetadataProvider.h"
 
@@ -238,7 +238,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
 @end
 
-@implementation FLTSharePlusPlugin
+@implementation FPPSharePlusPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   FlutterMethodChannel *shareChannel =

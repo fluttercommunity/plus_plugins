@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface FLTNetworkInfo : NSObject
+@interface FPPNetworkInfo : NSObject
 
 @property(nonatomic, readonly) NSString *SSID;
 @property(nonatomic, readonly) NSString *BSSID;
