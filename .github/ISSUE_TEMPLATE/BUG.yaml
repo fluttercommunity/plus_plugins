@@ -103,6 +103,8 @@ body:
       label: Checklist before submitting a bug
       description: Please verify all the following items before submitting a bug. All options must be selected.
       options:
+        - label: I searched issues in this repository and couldn't find such bug/problem
+          required: true
         - label: I Google'd a solution and I couldn't find it
           required: true
         - label: I searched on StackOverflow for a solution and I couldn't find it
