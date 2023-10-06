@@ -6,17 +6,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class FLTNetworkInfoLocationPlusDelegate;
+@class FPPNetworkInfoLocationPlusDelegate;
 
-typedef void (^FLTNetworkInfoLocationPlusCompletion)(CLAuthorizationStatus);
+typedef void (^FPPNetworkInfoLocationPlusCompletion)(CLAuthorizationStatus);
 
-@interface FLTNetworkInfoLocationPlusHandler : NSObject
+@interface FPPNetworkInfoLocationPlusHandler : NSObject
 
 + (CLAuthorizationStatus)locationAuthorizationStatus;
 
 - (void)requestLocationAuthorization:(BOOL)always
                           completion:
-                              (_Nonnull FLTNetworkInfoLocationPlusCompletion)
+                              (_Nonnull FPPNetworkInfoLocationPlusCompletion)
                                   completionHnadler;
 
 @end

@@ -12,11 +12,11 @@ flutter:
         package: dev.fluttercommunity.plus.packageinfo
         pluginClass: PackageInfoPlugin
       ios:
-        pluginClass: FLTPackageInfoPlusPlugin
+        pluginClass: FPPPackageInfoPlusPlugin
       linux:
         dartPluginClass: PackageInfoPlusLinuxPlugin
       macos:
-        pluginClass: FLTPackageInfoPlusPlugin
+        pluginClass: FPPPackageInfoPlusPlugin
       web:
         pluginClass: PackageInfoPlusWebPlugin
         fileName: src/package_info_plus_web.dart

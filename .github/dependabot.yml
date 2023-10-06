@@ -9,6 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -19,6 +20,7 @@ updates:
     directory: "/website"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -30,6 +32,7 @@ updates:
     directory: "/packages/android_alarm_manager_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -41,6 +44,7 @@ updates:
     directory: "/packages/android_alarm_manager_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -49,6 +53,7 @@ updates:
     directory: "/packages/android_alarm_manager_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -57,6 +62,7 @@ updates:
     directory: "/packages/android_alarm_manager_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -70,6 +76,7 @@ updates:
     directory: "/packages/android_intent_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -81,6 +88,7 @@ updates:
     directory: "/packages/android_intent_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -92,6 +100,7 @@ updates:
     directory: "/packages/android_intent_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -100,6 +109,7 @@ updates:
     directory: "/packages/android_intent_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -110,6 +120,7 @@ updates:
     directory: "/packages/battery_plus/battery_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -121,6 +132,7 @@ updates:
     directory: "/packages/battery_plus/battery_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -132,6 +144,7 @@ updates:
     directory: "/packages/battery_plus/battery_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -143,6 +156,7 @@ updates:
     directory: "/packages/battery_plus/battery_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -151,6 +165,7 @@ updates:
     directory: "packages/battery_plus/battery_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -161,6 +176,7 @@ updates:
     directory: "/packages/connectivity_plus/connectivity_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -172,6 +188,7 @@ updates:
     directory: "/packages/connectivity_plus/connectivity_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -183,6 +200,7 @@ updates:
     directory: "/packages/connectivity_plus/connectivity_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -194,6 +212,7 @@ updates:
     directory: "/packages/connectivity_plus/connectivity_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -202,6 +221,7 @@ updates:
     directory: "/packages/connectivity_plus/connectivity_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -212,6 +232,7 @@ updates:
     directory: "/packages/device_info_plus/device_info_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -223,6 +244,7 @@ updates:
     directory: "/packages/device_info_plus/device_info_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -234,6 +256,7 @@ updates:
     directory: "/packages/device_info_plus/device_info_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -245,6 +268,7 @@ updates:
     directory: "/packages/device_info_plus/device_info_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -253,6 +277,7 @@ updates:
     directory: "/packages/device_info_plus/device_info_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -263,6 +288,7 @@ updates:
     directory: "/packages/network_info_plus/network_info_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -274,6 +300,7 @@ updates:
     directory: "/packages/network_info_plus/network_info_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -285,6 +312,7 @@ updates:
     directory: "/packages/network_info_plus/network_info_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -296,6 +324,7 @@ updates:
     directory: "/packages/network_info_plus/network_info_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -304,6 +333,7 @@ updates:
     directory: "/packages/network_info_plus/network_info_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -314,6 +344,7 @@ updates:
     directory: "/packages/package_info_plus/package_info_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -325,6 +356,7 @@ updates:
     directory: "/packages/package_info_plus/package_info_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -336,6 +368,7 @@ updates:
     directory: "/packages/package_info_plus/package_info_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -347,6 +380,7 @@ updates:
     directory: "/packages/package_info_plus/package_info_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -355,6 +389,7 @@ updates:
     directory: "/packages/package_info_plus/package_info_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -365,6 +400,7 @@ updates:
     directory: "/packages/sensors_plus/sensors_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -376,6 +412,7 @@ updates:
     directory: "/packages/sensors_plus/sensors_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -387,6 +424,7 @@ updates:
     directory: "/packages/sensors_plus/sensors_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -398,6 +436,7 @@ updates:
     directory: "/packages/sensors_plus/sensors_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -406,6 +445,7 @@ updates:
     directory: "/packages/sensors_plus/sensors_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -416,6 +456,7 @@ updates:
     directory: "/packages/share_plus/share_plus"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -427,6 +468,7 @@ updates:
     directory: "/packages/share_plus/share_plus/example"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -438,6 +480,7 @@ updates:
     directory: "/packages/share_plus/share_plus_platform_interface"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -449,6 +492,7 @@ updates:
     directory: "/packages/share_plus/share_plus/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -457,6 +501,7 @@ updates:
     directory: "/packages/share_plus/share_plus/example/android"
     schedule:
       interval: "monthly"
+    rebase-strategy: "disabled"
     commit-message:
       prefix: "chore"
       include: "scope"

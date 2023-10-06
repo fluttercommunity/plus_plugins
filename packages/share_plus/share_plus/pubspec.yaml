@@ -12,7 +12,7 @@ flutter:
         package: dev.fluttercommunity.plus.share
         pluginClass: SharePlusPlugin
       ios:
-        pluginClass: FLTSharePlusPlugin
+        pluginClass: FPPSharePlusPlugin
       linux:
         dartPluginClass: SharePlusLinuxPlugin
       macos:

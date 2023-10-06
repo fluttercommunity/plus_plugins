@@ -12,7 +12,7 @@ flutter:
         package: dev.fluttercommunity.plus.battery
         pluginClass: BatteryPlusPlugin
       ios:
-        pluginClass: FLTBatteryPlusPlugin
+        pluginClass: FPPBatteryPlusPlugin
       linux:
         dartPluginClass: BatteryPlusLinuxPlugin
       macos:

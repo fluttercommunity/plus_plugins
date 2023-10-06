@@ -115,29 +115,14 @@ public struct Sysctl {
 		return try string(for: keys(for: name))
 	}
 
-	/// e.g. "MyComputer.local" (from System Preferences -> Sharing -> Computer Name) or
-	/// "My-Name-iPhone" (from Settings -> General -> About -> Name)
+	/// e.g. "MyComputer.local" (from System Preferences -> Sharing -> Computer Name)
 	public static var hostName: String { return (try? Sysctl.string(for: [CTL_KERN, KERN_HOSTNAME])) ?? "" }
 
-	/// e.g. "x86_64" or "N71mAP"
-	/// NOTE: this is *corrected* on iOS devices to fetch hw.model
-	public static var machine: String {
-		#if os(iOS) && !arch(x86_64) && !arch(i386)
-			return (try? Sysctl.string(for: [CTL_HW, HW_MODEL])) ?? ""
-		#else
-			return (try? Sysctl.string(for: [CTL_HW, HW_MACHINE])) ?? ""
-		#endif
-	}
+	/// e.g. "x86_64" or "arm64"
+	public static var machine: String { return (try? Sysctl.string(for: [CTL_HW, HW_MACHINE])) ?? "" }
 
-	/// e.g. "MacPro4,1" or "iPhone8,1"
-	/// NOTE: this is *corrected* on iOS devices to fetch hw.machine
-	public static var model: String {
-		#if os(iOS) && !arch(x86_64) && !arch(i386)
-			return (try? Sysctl.string(for: [CTL_HW, HW_MACHINE])) ?? ""
-		#else
-			return (try? Sysctl.string(for: [CTL_HW, HW_MODEL])) ?? ""
-		#endif
-	}
+	/// e.g. "MacBookPro18,2"
+	public static var model: String { return (try? Sysctl.string(for: [CTL_HW, HW_MODEL])) ?? "" }
 
 	/// e.g. "8" or "2"
 	public static var activeCPUs: Int32 { return (try? Sysctl.value(ofType: Int32.self, forKeys: [CTL_HW, HW_AVAILCPU])) ?? 0 }
