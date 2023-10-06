@@ -4,14 +4,14 @@
 
 #import "AndroidAlarmManagerPlusPlugin.h"
 
-@implementation FLTAndroidAlarmManagerPlusPlugin
+@implementation FPPAndroidAlarmManagerPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   FlutterMethodChannel *channel = [FlutterMethodChannel
       methodChannelWithName:@"dev.fluttercommunity.plus/android_alarm_manager"
             binaryMessenger:[registrar messenger]
                       codec:[FlutterJSONMethodCodec sharedInstance]];
-  FLTAndroidAlarmManagerPlusPlugin *instance =
-      [[FLTAndroidAlarmManagerPlusPlugin alloc] init];
+  FPPAndroidAlarmManagerPlusPlugin *instance =
+      [[FPPAndroidAlarmManagerPlusPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

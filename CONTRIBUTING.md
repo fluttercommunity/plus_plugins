@@ -28,12 +28,12 @@ Ideally an expert in that platform will have to review the change to make sure i
 
 ### 🔴 Cannot be accepted
 
-- New features covering only one platform 
- 
-New features should cover at least the mobile platforms (Android and iOS) to be considered, 
+- New features covering only one platform
+
+New features should cover at least the mobile platforms (Android and iOS) to be considered,
 and a plan for the rest must be provided.
 
-- New plugins 
+- New plugins
 
 We don't have the capacity to accept new plugins.
 
@@ -123,19 +123,35 @@ flutter test
 E2e tests are those which directly communicate with Flutter, whose results cannot be mocked. **These tests run directly from
 an example application.**
 
-To run e2e tests, run the `flutter drive` command from the plugins main `example` directory, targeting the
-entry e2e test file.
+To run e2e tests, run the `flutter test` command from the plugins main `example` directory, and provide the path to the
+e2e test file. For example, to run the `sensors_plus` e2e tests:
+
+#### Mobile
 
 ```bash
 cd packages/sensors_plus/sensors_plus/example
-flutter drive --target=./test_driver/sensors_plus_e2e.dart
+flutter test integration_test/sensors_plus_test.dart
 ```
 
-To run tests against web environments, run the command as a release build:
+#### Web
+
+To run tests against web environments, you will need to have Chrome and ChromeDriver installed and use the `flutter drive` command.
+
+First start ChromeDriver on port 4444:
 
 ```bash
-cd packages/sensors_plus/sensors_plus/example
-flutter drive --target=./test_driver/sensors_plus_e2e.dart --release -d chrome
+chromedriver --port=4444
+```
+
+Then go to the `example` directory of the plugin you want to test and run the `flutter drive` command
+with the specific driver and `*_web_test.dart` target. For example, to run the `package_info_plus` web tests:
+
+```bash
+cd packages/package_info_plus/package_info_plus/example
+flutter drive \
+  --driver ./integration_test/driver.dart \
+  --target ./integration_test/package_info_plus_web_test.dart \
+  -d chrome
 ```
 
 ### Using Melos
@@ -273,4 +289,3 @@ Some things to keep in mind before publishing the release:
 9. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
 10. Run `melos publish --no-dry-run --git-tag-version` to now publish to Pub.dev.
 11. Run `git push --tags` to push tags to repository.
-
