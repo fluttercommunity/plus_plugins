@@ -22,7 +22,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 33
 
     namespace 'dev.fluttercommunity.plus.connectivity'
 
