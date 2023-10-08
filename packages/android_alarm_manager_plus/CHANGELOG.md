@@ -1,3 +1,11 @@
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **CHORE**(android_alarm_manager_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
+ - **FIX**(android_alarm_manager_plus): Fix documentation typo ([#2046](https://github.com/fluttercommunity/plus_plugins/issues/2046)). ([d98f67ea](https://github.com/fluttercommunity/plus_plugins/commit/d98f67ea61d6b423bef764ed7db8d493044fdab6))
+ - **FIX**(android_alarm_manager_plus): Revert bump compileSDK 34 ([#2235](https://github.com/fluttercommunity/plus_plugins/issues/2235)). ([9dabf257](https://github.com/fluttercommunity/plus_plugins/commit/9dabf257605c73c7d4905838c4b85a360fbae518))
+
 ## 3.0.2
 
  - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
