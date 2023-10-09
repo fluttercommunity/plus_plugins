@@ -4,7 +4,7 @@ description: Demonstrates how to use the device_info_plus plugin.
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus: ^9.0.3
+  device_info_plus: ^10.0.0
 
 dev_dependencies:
   flutter_driver:

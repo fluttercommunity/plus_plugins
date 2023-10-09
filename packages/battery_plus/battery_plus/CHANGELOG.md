@@ -1,3 +1,11 @@
+## 5.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **CHORE**(battery_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
+ - **FIX**(battery_plus): Revert bump of compileSDK to 34 ([#2228](https://github.com/fluttercommunity/plus_plugins/issues/2228)). ([e834f582](https://github.com/fluttercommunity/plus_plugins/commit/e834f582b85d5fb5a18aefc49b11b039ae600c78))
+ - **FEAT**(battery_plus): Remove deprecated VALID_ARCHS iOS property ([#2025](https://github.com/fluttercommunity/plus_plugins/issues/2025)). ([09318317](https://github.com/fluttercommunity/plus_plugins/commit/0931831758dfc829e5649d880a616840a9b1d21f))
+
 ## 4.0.2
 
  - **FIX**(battery_plus): Regenerate iOS and MacOS example apps ([#1873](https://github.com/fluttercommunity/plus_plugins/issues/1873)). ([18deeff3](https://github.com/fluttercommunity/plus_plugins/commit/18deeff3c68f312e2dae0de80273e1991ef97f45))

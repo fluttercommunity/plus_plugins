@@ -1,3 +1,15 @@
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **CHORE**(sensors_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
+ - **FIX**(sensors_plus): Revert bump compileSDK to 34 ([#2233](https://github.com/fluttercommunity/plus_plugins/issues/2233)). ([8574422a](https://github.com/fluttercommunity/plus_plugins/commit/8574422aad07955e6a2bad7863f557c7ae0a1d57))
+ - **FIX**(sensors_plus): Error handling of native crashes (e.g. missing hardware) ([#1987](https://github.com/fluttercommunity/plus_plugins/issues/1987)). ([ee942290](https://github.com/fluttercommunity/plus_plugins/commit/ee9422901bc16a5e6e183f918646865336646955))
+ - **FIX**(sensors_plus): fixed the deprecated syntax. ([#1904](https://github.com/fluttercommunity/plus_plugins/issues/1904)). ([57f06352](https://github.com/fluttercommunity/plus_plugins/commit/57f06352ccf0c6aec0f483cb595764826623e311))
+ - **FIX**(sensors_plus): Regenerate iOS example app ([#1870](https://github.com/fluttercommunity/plus_plugins/issues/1870)). ([5046f542](https://github.com/fluttercommunity/plus_plugins/commit/5046f542433726534a2fb1c06c85f8bfc5f41398))
+ - **FEAT**(sensors_plus): Remove deprecated VALID_ARCHS iOS property ([#2027](https://github.com/fluttercommunity/plus_plugins/issues/2027)). ([8ba4197e](https://github.com/fluttercommunity/plus_plugins/commit/8ba4197ee4258f56984e69d4c1196c234ed3dce0))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 3.0.3
 
  - **FIX**(sensors_plus): fixed the deprecated syntax ([#1904](https://github.com/fluttercommunity/plus_plugins/issues/1904)). ([57f06352](https://github.com/fluttercommunity/plus_plugins/commit/57f06352ccf0c6aec0f483cb595764826623e311))
