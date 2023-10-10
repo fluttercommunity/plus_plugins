@@ -1,8 +1,5 @@
-## 5.0.0
+## 4.0.3
 
-> Note: This release has breaking changes.
-
- - **BREAKING** **CHORE**(android_intent_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
  - **FIX**(android_intent_plus): Fix annotation dependency declaration ([#2237](https://github.com/fluttercommunity/plus_plugins/issues/2237)). ([795a3dd8](https://github.com/fluttercommunity/plus_plugins/commit/795a3dd81d8c718344936d65226d051f5fe4a125))
  - **FIX**(android_intent_plus): Revert bump compileSDK to 34 ([#2236](https://github.com/fluttercommunity/plus_plugins/issues/2236)). ([38bba0eb](https://github.com/fluttercommunity/plus_plugins/commit/38bba0ebc0f1db404a673440749e4d1d95dcf26c))
 
