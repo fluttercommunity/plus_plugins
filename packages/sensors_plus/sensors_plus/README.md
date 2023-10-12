@@ -4,7 +4,7 @@
 
 [![sensors_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/sensors_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/sensors_plus.yaml)
 [![pub points](https://img.shields.io/pub/points/sensors_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/sensors_plus/score)
-[![pub package](https://img.shields.io/pub/v/battery_plus.svg)](https://pub.dev/packages/battery_plus)
+[![pub package](https://img.shields.io/pub/v/sensors_plus.svg)](https://pub.dev/packages/sensors_plus)
 
 <a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a>
 
