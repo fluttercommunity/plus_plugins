@@ -1,13 +1,3 @@
-## 5.0.0
-
-> Note: This release has breaking changes.
-
- - **BREAKING** **CHORE**(network_info_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
- - **FIX**(network_info_plus): Revert bump compileSDK to 34 ([#2231](https://github.com/fluttercommunity/plus_plugins/issues/2231)). ([0c600ee5](https://github.com/fluttercommunity/plus_plugins/commit/0c600ee5fa0a0075ccd7446ad81857ed0855143d))
- - **FIX**(network_info_plus): Return nullable values on Windows again ([#2101](https://github.com/fluttercommunity/plus_plugins/issues/2101)). ([ab6e6b52](https://github.com/fluttercommunity/plus_plugins/commit/ab6e6b52ff456fa4b6f8c5a8e2cf7df5a1dd1f4e))
- - **FIX**(sensors_plus): Error handling of native crashes (e.g. missing hardware) ([#1987](https://github.com/fluttercommunity/plus_plugins/issues/1987)). ([ee942290](https://github.com/fluttercommunity/plus_plugins/commit/ee9422901bc16a5e6e183f918646865336646955))
- - **FEAT**(network_info_arm): Remove deprecated VALID_ARCHS iOS property ([#2026](https://github.com/fluttercommunity/plus_plugins/issues/2026)). ([5a20b5a7](https://github.com/fluttercommunity/plus_plugins/commit/5a20b5a7127670e37630d255b6f716777807ebe6))
-
 ## 4.0.2
 
  - **FIX**(network_info_plus): Regenerate iOS and MacOS example apps ([#1872](https://github.com/fluttercommunity/plus_plugins/issues/1872)). ([c9da2612](https://github.com/fluttercommunity/plus_plugins/commit/c9da2612801f26b943b2822be2baef0e695fdb02))
