@@ -1,8 +1,8 @@
-## 8.0.0
+## 7.2.0
 
-> Note: This release has breaking changes.
+> Info: This release is a replacement for release 8.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
 
- - **BREAKING** **CHORE**(share_plus): Bump Kotlin to 1.9.10. With this change projects required to use at least Kotlin 1.8.10 to compile successfully.
+ - **FIX**(share_plus): Change Kotlin version from 1.9.10 to 1.7.22 ([#2252](https://github.com/fluttercommunity/plus_plugins/issues/2252)). ([d4954f36](https://github.com/fluttercommunity/plus_plugins/commit/d4954f36b633e5894cfb4aff4acc995348ce3dca))
  - **FIX**(share_plus): Revert bump to compileSDK 34 ([#2234](https://github.com/fluttercommunity/plus_plugins/issues/2234)). ([6af2328d](https://github.com/fluttercommunity/plus_plugins/commit/6af2328da997b452758e6c78f3815bcf55ac24aa))
  - **FEAT**(share_plus): Remove deprecated VALID_ARCHS iOS property ([#2024](https://github.com/fluttercommunity/plus_plugins/issues/2024)). ([bb79888e](https://github.com/fluttercommunity/plus_plugins/commit/bb79888eda6425d8e772bb4bea47f4966610240f))
  - **DOCS**(share_plus): Fix usage code snippets ([#2106](https://github.com/fluttercommunity/plus_plugins/issues/2106)). ([346e07ea](https://github.com/fluttercommunity/plus_plugins/commit/346e07ea56088321f92530e4334edab0400f4c43))
