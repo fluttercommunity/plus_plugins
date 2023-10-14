@@ -1,3 +1,13 @@
+## 3.1.0
+
+> Info: This release is a replacement for release 4.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
+
+ - **FIX**(sensors_plus): Change Kotlin version from 1.9.10 to 1.7.22 ([#2253](https://github.com/fluttercommunity/plus_plugins/issues/2253)). ([10fade07](https://github.com/fluttercommunity/plus_plugins/commit/10fade073928e2676e6383e0697ba0d123ab4a87))
+ - **FIX**(sensors_plus): Close stream controllers onCancel on web ([#2249](https://github.com/fluttercommunity/plus_plugins/issues/2249)). ([476e17bc](https://github.com/fluttercommunity/plus_plugins/commit/476e17bc7e404862dafc5eb57c57908181f3f52f))
+ - **FIX**(sensors_plus): Revert bump compileSDK to 34 ([#2233](https://github.com/fluttercommunity/plus_plugins/issues/2233)). ([8574422a](https://github.com/fluttercommunity/plus_plugins/commit/8574422aad07955e6a2bad7863f557c7ae0a1d57))
+ - **FIX**(sensors_plus): Error handling of native crashes (e.g. missing hardware) ([#1987](https://github.com/fluttercommunity/plus_plugins/issues/1987)). ([ee942290](https://github.com/fluttercommunity/plus_plugins/commit/ee9422901bc16a5e6e183f918646865336646955))
+ - **FEAT**(sensors_plus): Remove deprecated VALID_ARCHS iOS property ([#2027](https://github.com/fluttercommunity/plus_plugins/issues/2027)). ([8ba4197e](https://github.com/fluttercommunity/plus_plugins/commit/8ba4197ee4258f56984e69d4c1196c234ed3dce0))
+
 ## 3.0.3
 
  - **FIX**(sensors_plus): fixed the deprecated syntax ([#1904](https://github.com/fluttercommunity/plus_plugins/issues/1904)). ([57f06352](https://github.com/fluttercommunity/plus_plugins/commit/57f06352ccf0c6aec0f483cb595764826623e311))

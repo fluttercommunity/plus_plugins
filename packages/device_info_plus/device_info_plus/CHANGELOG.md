@@ -1,3 +1,15 @@
+## 9.1.0
+
+> Info: This release is a replacement for release 10.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
+
+ - **FIX**(device_info_plus): Change Kotlin version from 1.9.10 to 1.7.22 ([#2256](https://github.com/fluttercommunity/plus_plugins/issues/2256)). ([313ec2c3](https://github.com/fluttercommunity/plus_plugins/commit/313ec2c328f34b278f197ee1f2d896f8820ac789))
+ - **FIX**(device_info_plus): Revert bump compileSDK to 34 ([#2230](https://github.com/fluttercommunity/plus_plugins/issues/2230)). ([2ba5b054](https://github.com/fluttercommunity/plus_plugins/commit/2ba5b054948f48a9aae72c8a63b39f6536ab678d))
+ - **FIX**(device_info_plus): Update exports to avoid web compatibility issues ([#2028](https://github.com/fluttercommunity/plus_plugins/issues/2028)). ([6c216053](https://github.com/fluttercommunity/plus_plugins/commit/6c2160537dc51493adc5bf22cd480a52582845b0))
+ - **FIX**(device_info_plus): Regenerate iOS and MacOS example apps ([#1868](https://github.com/fluttercommunity/plus_plugins/issues/1868)). ([6e1111ac](https://github.com/fluttercommunity/plus_plugins/commit/6e1111acff40fef6f77fe2561810d679bafe938c))
+ - **FEAT**(device_info_plus): Remove deprecated VALID_ARCHS iOS property ([#2022](https://github.com/fluttercommunity/plus_plugins/issues/2022)). ([13053295](https://github.com/fluttercommunity/plus_plugins/commit/13053295137201b34a6bf52e494ccf77e0321b18))
+ - **DOCS**(device_info_plus): Add note about arch returned value on MacOS ([#2220](https://github.com/fluttercommunity/plus_plugins/issues/2220)). ([80409e2a](https://github.com/fluttercommunity/plus_plugins/commit/80409e2ab13a6379b9101034ad453517151a719a))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 9.0.3
 
  - **FIX**(device_info_plus): Regenerate iOS and MacOS example apps ([#1868](https://github.com/fluttercommunity/plus_plugins/issues/1868)). ([6e1111ac](https://github.com/fluttercommunity/plus_plugins/commit/6e1111acff40fef6f77fe2561810d679bafe938c))

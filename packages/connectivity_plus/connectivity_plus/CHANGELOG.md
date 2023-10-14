@@ -1,3 +1,7 @@
+## 5.0.1
+
+ - **FIX**(connectivity_plus): Fix CHANGELOG to not mention Kotlin requirement ([#2246](https://github.com/fluttercommunity/plus_plugins/issues/2246)). ([e489d4aa](https://github.com/fluttercommunity/plus_plugins/commit/e489d4aa7a223b152b89b6c33ae994e8a73679bd))
+
 ## 5.0.0
 
 > Note: This release has breaking changes.
