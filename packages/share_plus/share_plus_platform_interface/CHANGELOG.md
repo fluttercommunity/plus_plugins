@@ -1,3 +1,7 @@
+## 3.3.1
+
+ - chore(deps): bump uuid from 3.0.7 to 4.0.0
+
 ## 3.3.0
 
  - **FEAT**(share_plus): Allow user to share URI with preview image on the iOS native share sheet ([#1779](https://github.com/fluttercommunity/plus_plugins/issues/1779)). ([c83b667e](https://github.com/fluttercommunity/plus_plugins/commit/c83b667eb12394feef69221eda0eab8716aa19d8))

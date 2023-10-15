@@ -1,3 +1,7 @@
+## 7.2.1
+
+ - **CHORE**(share_plus): Update share_plus_platform_interface for compatibility with uuid 4.x
+
 ## 7.2.0
 
 > Info: This release is a replacement for release 8.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
