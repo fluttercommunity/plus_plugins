@@ -38,7 +38,7 @@ dependencies:
   win32: ">=4.0.0 <6.0.0"
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints: ">=2.0.1 <4.0.0"
   flutter_test:
     sdk: flutter
   test: ^1.22.0
