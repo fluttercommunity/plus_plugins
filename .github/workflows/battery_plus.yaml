@@ -90,7 +90,7 @@ jobs:
       - name: "Bootstrap Workspace"
         run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v2
+        uses: futureware-tech/simulator-action@v3
         with:
           model: "iPhone 14"
       - name: "Run Integration Test"
