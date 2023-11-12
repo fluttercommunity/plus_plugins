@@ -4,7 +4,7 @@ public struct SystemUUID {
     
     public static func getSystemUUID() -> String? {
         let dev = IOServiceMatching("IOPlatformExpertDevice")
-        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
+        let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMainPortDefault, dev)
         let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
         IOObjectRelease(platformExpert)
         let ser: CFTypeRef? = serialNumberAsCFString?.takeUnretainedValue()
