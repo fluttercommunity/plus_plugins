@@ -42,7 +42,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.3.3
   dbus: ^0.7.8
-  flutter_lints: ^2.0.2
+  flutter_lints: ">=2.0.2 <4.0.0"
   mockito: ^5.4.0
   plugin_platform_interface: ^2.1.5
   test: ^1.22.0
