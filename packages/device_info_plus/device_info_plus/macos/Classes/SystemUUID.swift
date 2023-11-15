@@ -4,10 +4,12 @@ public struct SystemUUID {
     
     public static func getSystemUUID() -> String? {
         let dev = IOServiceMatching("IOPlatformExpertDevice")
+        var platformExpert: io_service_t
+
         if #available(macOS 12, *) {
-            let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMainPortDefault, dev)
+            platformExpert = IOServiceGetMatchingService(kIOMainPortDefault, dev)
         } else {
-            let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
+            platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
         }
         let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
         IOObjectRelease(platformExpert)
