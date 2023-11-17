@@ -24,12 +24,17 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   Uri versionJsonUrl(String baseUrl, int cacheBuster) {
     final baseUri = Uri.parse(baseUrl);
     final regExp = RegExp(r'[^/]+\.html.*');
-    final originPath =
-        '${baseUri._origin}${baseUri.path.replaceAll(regExp, '')}';
-    final versionJson = 'version.json?cachebuster=$cacheBuster';
-    return Uri.parse(originPath.endsWith('/')
-        ? '$originPath$versionJson'
-        : '$originPath/$versionJson');
+    final String originPath = '${baseUri._origin}${baseUri.path.replaceAll(regExp, '')}';
+
+    // Remove fragment and query
+    Uri uri = Uri.parse(originPath).replace(fragment: '', query: '');
+
+    // Remove file or last part since it's not a folder
+    final String basePath = uri.toString();
+    if (!basePath.endsWith('/')) uri = Uri.parse(basePath.substring(0, basePath.lastIndexOf('/')));
+
+    // Add file and cachebuster query
+    return uri.replace(query: 'cachebuster=$cacheBuster', pathSegments: [...uri.pathSegments, 'version.json']);
   }
 
   @override
