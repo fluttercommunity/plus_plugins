@@ -1,10 +1,14 @@
-## 5.0.0
+## 5.0.1
 
-> Note: This release has breaking changes. This is another 5.0.0 release, thus, ignore the note under 4.2.0 as it refers to older 5.0.0, which was retracted
+> Note: This release has breaking changes.
 
  - **BREAKING** **FIX**(package_info_plus): Allow no page extension in versionJsonUrl on web ([#2381](https://github.com/fluttercommunity/plus_plugins/issues/2381)). ([32652b87](https://github.com/fluttercommunity/plus_plugins/commit/32652b8750245207240e383690e3b434149b87d0))
  - **BREAKING**(package_info_plus): Bump min Dart to 3.2.0 and min Flutter to 3.6.0 to support pkg:web ([#2316](https://github.com/fluttercommunity/plus_plugins/issues/2316)). ([450aeb57](https://github.com/fluttercommunity/plus_plugins/commit/450aeb578db80a9c7fb473cea133dbc87a68e530))
  - **FEAT**(package_info_plus): Migrate to pkg:web from dart:html. ([#2316](https://github.com/fluttercommunity/plus_plugins/issues/2316)). ([450aeb57](https://github.com/fluttercommunity/plus_plugins/commit/450aeb578db80a9c7fb473cea133dbc87a68e530))
+
+## 5.0.0
+
+> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
 
 ## 4.2.0
 
