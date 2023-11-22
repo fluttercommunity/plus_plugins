@@ -55,8 +55,11 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<AccelerometerEvent>? _accelerometerStreamController;
   late Stream<AccelerometerEvent> _accelerometerResultStream;
 
+  // todo: make web also support setting samplingPeriod
   @override
-  Stream<AccelerometerEvent> get accelerometerEvents {
+  Stream<AccelerometerEvent> accelerometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
     if (_accelerometerStreamController == null) {
       _accelerometerStreamController = StreamController<AccelerometerEvent>();
       _featureDetected(
@@ -107,8 +110,11 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<GyroscopeEvent>? _gyroscopeEventStreamController;
   late Stream<GyroscopeEvent> _gyroscopeEventResultStream;
 
+  // todo: make web also support setting samplingPeriod
   @override
-  Stream<GyroscopeEvent> get gyroscopeEvents {
+  Stream<GyroscopeEvent> gyroscopeEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
     if (_gyroscopeEventStreamController == null) {
       _gyroscopeEventStreamController = StreamController<GyroscopeEvent>();
       _featureDetected(
@@ -159,8 +165,11 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<UserAccelerometerEvent>? _userAccelerometerStreamController;
   late Stream<UserAccelerometerEvent> _userAccelerometerResultStream;
 
+  // todo: make web also support setting samplingPeriod
   @override
-  Stream<UserAccelerometerEvent> get userAccelerometerEvents {
+  Stream<UserAccelerometerEvent> userAccelerometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
     if (_userAccelerometerStreamController == null) {
       _userAccelerometerStreamController =
           StreamController<UserAccelerometerEvent>();
@@ -213,8 +222,11 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<MagnetometerEvent>? _magnetometerStreamController;
   late Stream<MagnetometerEvent> _magnetometerResultStream;
 
+  // todo: make web also support setting samplingPeriod
   @override
-  Stream<MagnetometerEvent> get magnetometerEvents {
+  Stream<MagnetometerEvent> magnetometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
     if (_magnetometerStreamController == null) {
       _magnetometerStreamController = StreamController<MagnetometerEvent>();
       _featureDetected(
