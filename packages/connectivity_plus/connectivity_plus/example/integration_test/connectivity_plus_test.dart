@@ -51,7 +51,7 @@ void main() {
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.none);
+      expect(result, ConnectivityResult.other);
     }, skip: !Platform.isLinux);
   });
 }
