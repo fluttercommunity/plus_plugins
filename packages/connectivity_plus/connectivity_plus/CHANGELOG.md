@@ -1,3 +1,7 @@
+## 5.0.2
+
+ - **FIX**(connectivity_plus): Return correct connection state on Linux ([#2371](https://github.com/fluttercommunity/plus_plugins/issues/2371)). ([26576d83](https://github.com/fluttercommunity/plus_plugins/commit/26576d838be3b39121fd77ab33f49fc1fff1a97f))
+
 ## 5.0.1
 
  - **FIX**(connectivity_plus): Fix CHANGELOG to not mention Kotlin requirement ([#2246](https://github.com/fluttercommunity/plus_plugins/issues/2246)). ([e489d4aa](https://github.com/fluttercommunity/plus_plugins/commit/e489d4aa7a223b152b89b6c33ae994e8a73679bd))
