@@ -183,7 +183,7 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
     var samplingPeriod = 200000 {
         didSet {
             _initMotionManager()
-            _motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001
+            _motionManager.magnetometerUpdateInterval = Double(samplingPeriod) * 0.000001
         }
     }
 
@@ -192,16 +192,7 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
             eventSink sink: @escaping FlutterEventSink
     ) -> FlutterError? {
         _initMotionManager()
-        // Allow iOS to present calibration interaction.
-        _motionManager.showsDeviceMovementDisplay = true
-        _motionManager.startDeviceMotionUpdates(
-                // https://developer.apple.com/documentation/coremotion/cmattitudereferenceframe?language=objc
-                // "Using this reference frame may require device movement to
-                // calibrate the magnetometer," which is desired to ensure the
-                // DeviceMotion actually has updated, calibrated geomagnetic data.
-                using: CMAttitudeReferenceFrame.xMagneticNorthZVertical,
-                to: OperationQueue()
-        ) { data, error in
+        _motionManager.startMagnetometerUpdates(to: OperationQueue()) { data, error in
             if _isCleanUp {
                 return
             }
@@ -213,9 +204,7 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                 ))
                 return
             }
-            // The `magneticField` is a
-            // CMCalibratedMagneticField.
-            let magneticField = data!.magneticField.field
+            let magneticField = data!.magneticField
             sendTriplet(x: magneticField.x, y: magneticField.y, z: magneticField.z, sink: sink)
         }
         return nil
