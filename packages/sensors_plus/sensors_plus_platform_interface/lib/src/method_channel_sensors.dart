@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:logging/logging.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
 /// A method channel -based implementation of the SensorsPlatform interface.
@@ -24,6 +25,7 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _magnetometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
 
+  final logger = Logger('MethodChannelSensors');
   Stream<AccelerometerEvent>? _accelerometerEvents;
   Stream<GyroscopeEvent>? _gyroscopeEvents;
   Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
@@ -35,8 +37,17 @@ class MethodChannelSensors extends SensorsPlatform {
   Stream<AccelerometerEvent> accelerometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
-    _methodChannel.invokeMethod(
-        'setAccelerationSamplingPeriod', samplingPeriod.inMicroseconds);
+    var microseconds = samplingPeriod.inMicroseconds;
+    if (microseconds >= 1 && microseconds <= 3) {
+      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
+          'which is a reserved value in Android. Please consider changing it '
+          'to either 0 or 4μs. See https://developer.android.com/reference/'
+          'android/hardware/SensorManager#registerListener(android.hardware.'
+          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+          'information');
+      microseconds = 0;
+    }
+    _methodChannel.invokeMethod('setAccelerationSamplingPeriod', microseconds);
     _accelerometerEvents ??= _accelerometerEventChannel
         .receiveBroadcastStream()
         .map((dynamic event) {
@@ -52,8 +63,17 @@ class MethodChannelSensors extends SensorsPlatform {
   Stream<GyroscopeEvent> gyroscopeEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
-    _methodChannel.invokeMethod(
-        'setGyroscopeSamplingPeriod', samplingPeriod.inMicroseconds);
+    var microseconds = samplingPeriod.inMicroseconds;
+    if (microseconds >= 1 && microseconds <= 3) {
+      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
+          'which is a reserved value in Android. Please consider changing it '
+          'to either 0 or 4μs. See https://developer.android.com/reference/'
+          'android/hardware/SensorManager#registerListener(android.hardware.'
+          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+          'information');
+      microseconds = 0;
+    }
+    _methodChannel.invokeMethod('setGyroscopeSamplingPeriod', microseconds);
     _gyroscopeEvents ??=
         _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
@@ -68,8 +88,18 @@ class MethodChannelSensors extends SensorsPlatform {
   Stream<UserAccelerometerEvent> userAccelerometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
+    var microseconds = samplingPeriod.inMicroseconds;
+    if (microseconds >= 1 && microseconds <= 3) {
+      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
+          'which is a reserved value in Android. Please consider changing it '
+          'to either 0 or 4μs. See https://developer.android.com/reference/'
+          'android/hardware/SensorManager#registerListener(android.hardware.'
+          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+          'information');
+      microseconds = 0;
+    }
     _methodChannel.invokeMethod(
-        'setUserAccelerometerSamplingPeriod', samplingPeriod.inMicroseconds);
+        'setUserAccelerometerSamplingPeriod', microseconds);
     _userAccelerometerEvents ??= _userAccelerometerEventChannel
         .receiveBroadcastStream()
         .map((dynamic event) {
@@ -85,8 +115,17 @@ class MethodChannelSensors extends SensorsPlatform {
   Stream<MagnetometerEvent> magnetometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
-    _methodChannel.invokeMethod(
-        'setMagnetometerSamplingPeriod', samplingPeriod.inMicroseconds);
+    var microseconds = samplingPeriod.inMicroseconds;
+    if (microseconds >= 1 && microseconds <= 3) {
+      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
+          'which is a reserved value in Android. Please consider changing it '
+          'to either 0 or 4μs. See https://developer.android.com/reference/'
+          'android/hardware/SensorManager#registerListener(android.hardware.'
+          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+          'information');
+      microseconds = 0;
+    }
+    _methodChannel.invokeMethod('setMagnetometerSamplingPeriod', microseconds);
     _magnetometerEvents ??=
         _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();

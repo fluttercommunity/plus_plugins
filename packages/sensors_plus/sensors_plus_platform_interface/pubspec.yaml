@@ -7,6 +7,7 @@ repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 dependencies:
   flutter:
     sdk: flutter
+  logging: ^1.2.0
   meta: ^1.8.0
   plugin_platform_interface: ^2.1.4
 
