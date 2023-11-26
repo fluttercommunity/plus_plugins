@@ -30,6 +30,7 @@
     "axios": "^1.5.1",
     "classnames": "^2.3.2",
     "compare-versions": "^6.1.0",
+    "docusaurus": "^1.14.7",
     "docusaurus-plugin-sass": "^0.2.5",
     "dotenv": "^16.3.1",
     "lodash.get": "^4.4.2",
