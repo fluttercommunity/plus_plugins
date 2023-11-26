@@ -92,6 +92,8 @@ export default {
       return <Admonition type={'info'}>{props.children}</Admonition>;
     } else if (props.type === 'caution') {
       return <Admonition type={'caution'}>{props.children}</Admonition>;
+    } else if (props.type === 'warning') {
+          return <Admonition type={'warning'}>{props.children}</Admonition>;
     }
   },
 

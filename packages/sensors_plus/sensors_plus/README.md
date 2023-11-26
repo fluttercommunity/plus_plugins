@@ -15,7 +15,9 @@ sensors.
 
 | Android |  iOS  | MacOS |  Web  | Linux | Windows |
 | :-----: | :---: | :---: | :---: | :---: | :-----: |
-|   ✅   |   ✅   |   ❌   |   ✅  |   ❌    |    ❌   |
+|   ✅   |   ✅   |   ❌   |   ✅*  |   ❌    |    ❌   |
+
+\* Currently it is not possible to set sensors sampling rate on web
 
 ## Usage
 
@@ -48,7 +50,7 @@ These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
 `userAccelerometerEvents`, `gyroscopeEvents`, and `magnetometerEvents`,
 respectively.
 
-> **Note**
+> [!NOTE]
 >
 > Some low end or old Android devices don't have all sensors available. Plugin won't crash the app,
 > but it is highly recommended to add onError() to handle such cases gracefully.
@@ -105,9 +107,24 @@ magnetometerEvents.listen(
   cancelOnError: true,
 );
 // [MagnetometerEvent (x: -23.6, y: 6.2, z: -34.9)]
-
 ```
 
+Alternatively, every stream allows to specify the sampling rate for its sensor using one of predefined constants or using a custom value
+
+```dart
+magnetometerEvents(samplingPeriod: SensorInterval.normalInterval).listen(
+  (MagnetometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
+```
+
+For more detailed instruction check out the documentation linked below.
 Also see the `example` subdirectory for an example application that uses the
 sensor data.
 
