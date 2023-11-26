@@ -45,11 +45,11 @@ Plugin also supports setting of sampling rate for every sensor, but only on Andr
 Alternatively sampling rate parameter can be set as Dart's `Duration()` values. Be aware that values of sampling rate faster than default on Android requires a [HIGH_SAMPLING_RATE_SENSORS](https://developer.android.com/reference/android/Manifest.permission#HIGH_SAMPLING_RATE_SENSORS) permission declaration in app's AndroidManifest file.
 
 :::note
-> On Android it is not guaranteed that events from sensors will arrive with specified sampling rate as it is noted in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (see description for the `samplingPeriodUs` parameter). In reality delay varies depending on Android version, device hardware and vendor's OS customisations.
+On Android it is not guaranteed that events from sensors will arrive with specified sampling rate as it is noted in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (see description for the `samplingPeriodUs` parameter). In reality delay varies depending on Android version, device hardware and vendor's OS customisations.
 :::
 
 :::warning
-> It is not recommended to set sampling rate to `1`, `2` or `3` microseconds as these values are reserved in Android. With such values plugin will show warning in logs and change > value to `0`.
+It is not recommended to set sampling rate to `1`, `2` or `3` microseconds as these values are reserved in Android. With such values plugin will show warning in logs and change > value to `0`.
 :::
 
 ### Examples
