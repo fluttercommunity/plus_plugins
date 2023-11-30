@@ -9,8 +9,8 @@ BatteryState parseBatteryState(String state) {
       return BatteryState.charging;
     case 'discharging':
       return BatteryState.discharging;
-    case 'not_charging':
-      return BatteryState.notCharging;
+    case 'connected_not_charging':
+      return BatteryState.connectedNotCharging;
     case 'unknown':
       return BatteryState.unknown;
     default:
