@@ -1,3 +1,7 @@
+## 3.0.4
+
+ - **FIX**(android_alarm_manager): Add Kotlin dependency and convert AlarmBroadcastReceiver class to Kotlin ([#2271](https://github.com/fluttercommunity/plus_plugins/issues/2271)). ([1ecb676f](https://github.com/fluttercommunity/plus_plugins/commit/1ecb676f4923a54f239b99d18e0f8f819dcc0f15))
+
 ## 3.0.3
 
  - **FIX**(alarm_manager_plus): Revert bump compileSDK 34 ([#2235](https://github.com/fluttercommunity/plus_plugins/issues/2235)). ([9dabf257](https://github.com/fluttercommunity/plus_plugins/commit/9dabf257605c73c7d4905838c4b85a360fbae518))

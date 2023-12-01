@@ -1,3 +1,11 @@
+## 2.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**(battery_plus): Implement not charging battery state ([#2275](https://github.com/fluttercommunity/plus_plugins/issues/2275)). ([6595e035](https://github.com/fluttercommunity/plus_plugins/commit/6595e035fd113b4a75651c9d471cc098d5798de3))
+ - **FEAT**(battery_plus): Introduce not_charging state on Linux ([#2400](https://github.com/fluttercommunity/plus_plugins/issues/2400)). ([42ef02bd](https://github.com/fluttercommunity/plus_plugins/commit/42ef02bd6de219fef1b2d9db2eebe9775a6ac751))
+ - **BREAKING** **FEAT**(battery_plus): Introduce connected_not_charging state on MacOS ([#2399](https://github.com/fluttercommunity/plus_plugins/issues/2399)). ([78f44bf4](https://github.com/fluttercommunity/plus_plugins/commit/78f44bf41a7e8349240bacae2dd70598ba22e97a))
+
 ## 1.2.2
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
