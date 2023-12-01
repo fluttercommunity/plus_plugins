@@ -18,9 +18,10 @@ The available states are:
 - **Full**: the battery is at 100%, full of energy.
 - **Charging**: the battery is being charged.
 - **Discharging**: the battery is losing energy.
+- **Connected, but not charging**: the battery is connected to power source, but not charging. This state is only available on Android, MacOS and Linux platforms.
 - **Unknown**: unable to read the battery state or the device has no battery.
 
-To get these information in realtime, you can subscribe to the stream from the `Battery` API.
+To get this information in realtime, you can subscribe to the stream from the `Battery` API.
 
 ```dart
 // The enum that holds different states of a battery
@@ -35,7 +36,7 @@ void initState() {
   // Initialize the subscription by listening to onBatteryStateChanged Stream
   _batteryStateSubscription =
       _battery.onBatteryStateChanged.listen((BatteryState state) {
-    
+
     // Each time the battery state changes, the local state of the widget is updated
     setState(() {
       _batteryState = state;
@@ -56,4 +57,16 @@ Using the same `Battery` instance, it's possible to read the current percentage 
 
 ```dart
 final batteryLevel = await _battery.batteryLevel;
+```
+
+### Check if battery save mode is on
+
+:::note
+This check is currently available on Android, iOS and Windows platforms only
+:::
+
+The is also a possibility to check if device has battery save mode enabled
+
+```dart
+final isInSaveMode = await _battery.isInBatterySaveMode;
 ```
