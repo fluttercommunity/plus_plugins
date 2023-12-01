@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.version          = '1.0.0'
   s.summary          = 'Flutter plugin for accessing information about the battery_plus.'
   s.description      = <<-DESC
-A Flutter plugin to access various information about the battery_plus of the device the app is running on.
+A Flutter plugin to access various information about the battery of the device the app is running on.
 Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://plus.fluttercommunity.dev/'
@@ -18,6 +18,6 @@ Downloaded by pub (not CocoaPods).
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
 
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end
