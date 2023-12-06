@@ -35,6 +35,14 @@ internal class ShareSuccessManager(private val context: Context) : ActivityResul
     }
 
     /**
+     * Set the `isCalledBack` to `true`. Must be called in every share-sheet calling method
+     * before returning.
+     */
+    fun signalShareSheetCalledBack(){
+        isCalledBack.set(true)
+    }
+
+    /**
      * Must be called if `.startActivityForResult` is not available to avoid deadlocking.
      */
     fun unavailable() {
