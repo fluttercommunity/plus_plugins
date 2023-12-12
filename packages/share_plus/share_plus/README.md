@@ -28,6 +28,8 @@ Sharing files is not supported on Windows and Linux.
 
 To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://plus.fluttercommunity.dev/docs/overview).
 
+Make sure to set the `ext.kotlin_version` in `android/build.gradle` to at least `1.8.10`.
+
 ## Example
 
 Import the library.
