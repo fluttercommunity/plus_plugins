@@ -1,3 +1,7 @@
+## 5.0.2
+
+ - **FIX**(battery_plus): Return correct state enum value on Android for not charging state ([#2451](https://github.com/fluttercommunity/plus_plugins/issues/2451)). ([68ddda39](https://github.com/fluttercommunity/plus_plugins/commit/68ddda39f0fa8e7ac950c13721403d49d0d97a65))
+
 ## 5.0.1
 
 > Note: This release has breaking changes. There is a new state for battery available on Android, MacOS and Linux platforms.
