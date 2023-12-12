@@ -111,6 +111,11 @@ magnetometerEvents.listen(
 
 Alternatively, every stream allows to specify the sampling rate for its sensor using one of predefined constants or using a custom value
 
+> [!NOTE]
+>
+> On Android it is not guaranteed that events from sensors will arrive with specified sampling rate as it is noted in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (see the description for the `samplingPeriodUs` parameter). In reality delay varies depending on Android version, device hardware and vendor's OS customisations.
+
+
 ```dart
 magnetometerEvents(samplingPeriod: SensorInterval.normalInterval).listen(
   (MagnetometerEvent event) {
