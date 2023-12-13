@@ -265,6 +265,10 @@ class WebSensorsPlugin extends SensorsPlatform {
       );
       _magnetometerResultStream =
           _magnetometerStreamController!.stream.asBroadcastStream();
+
+      _magnetometerStreamController!.onCancel = () {
+        _magnetometerStreamController!.close();
+      };
     }
 
     return _magnetometerResultStream;
