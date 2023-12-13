@@ -1,3 +1,7 @@
+## 4.0.2
+
+ - **FIX**(sensors_plus): Close magnetometerStreamController on web ([#2456](https://github.com/fluttercommunity/plus_plugins/issues/2456)). ([64200667](https://github.com/fluttercommunity/plus_plugins/commit/64200667e94ec6eedeb3f8224f355d113dee3ac8))
+
 ## 4.0.1+1
 
  - **DOCS**(sensors_plus): Update README to mention how sampling rate works on Android ([#2452](https://github.com/fluttercommunity/plus_plugins/issues/2452)). ([4d8ce2f8](https://github.com/fluttercommunity/plus_plugins/commit/4d8ce2f8e9eb09e8ae6e5616599a593ff182ea24))
