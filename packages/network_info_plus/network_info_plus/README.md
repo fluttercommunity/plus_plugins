@@ -60,6 +60,9 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 > **Note**
 >
 > This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default
+>
+> From android 8.0 onwards the GPS must be ON (high accuracy) in order to
+> be able to obtain the SSID.
 
 #### iOS 12
 
