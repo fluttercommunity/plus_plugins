@@ -75,7 +75,7 @@ The broadcast is only useful when your application is in the **foreground**.
 
 ``` dart
 // Initialize a variable with [none] status to avoid nulls at startup
-ConnectivityResult connectivityResult = ConnectivityResult.none;
+ConnectivityResult _connectivityResult = ConnectivityResult.none;
 
 @override
 void initState() {
@@ -97,7 +97,7 @@ The listener will update the connectivity status.
 ``` dart
 Future<void> _updateConnectionStatus(ConnectivityResult result) async {
   setState((){
-      _connectionResult = result;
+      _connectivityResult = result;
   });
 }
 ```
