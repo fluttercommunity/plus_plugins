@@ -85,6 +85,7 @@ class WebSensorsPlugin extends SensorsPlatform {
                 accelerometer.x,
                 accelerometer.y,
                 accelerometer.z,
+                DateTime.now(),
               ),
             );
           }.toJS;
@@ -99,7 +100,8 @@ class WebSensorsPlugin extends SensorsPlatform {
         apiName: 'Accelerometer()',
         permissionName: 'accelerometer',
         onError: () {
-          _accelerometerStreamController!.add(AccelerometerEvent(0, 0, 0));
+          _accelerometerStreamController!
+              .add(AccelerometerEvent(0, 0, 0, DateTime.now()));
         },
       );
       _accelerometerResultStream =
@@ -138,6 +140,7 @@ class WebSensorsPlugin extends SensorsPlatform {
                 gyroscope.x,
                 gyroscope.y,
                 gyroscope.z,
+                DateTime.now(),
               ),
             );
           }.toJS;
@@ -152,7 +155,8 @@ class WebSensorsPlugin extends SensorsPlatform {
         apiName: 'Gyroscope()',
         permissionName: 'gyroscope',
         onError: () {
-          _gyroscopeEventStreamController!.add(GyroscopeEvent(0, 0, 0));
+          _gyroscopeEventStreamController!
+              .add(GyroscopeEvent(0, 0, 0, DateTime.now()));
         },
       );
       _gyroscopeEventResultStream =
@@ -192,6 +196,7 @@ class WebSensorsPlugin extends SensorsPlatform {
                 linearAccelerationSensor.x,
                 linearAccelerationSensor.y,
                 linearAccelerationSensor.z,
+                DateTime.now(),
               ),
             );
           }.toJS;
@@ -207,7 +212,7 @@ class WebSensorsPlugin extends SensorsPlatform {
         permissionName: 'accelerometer',
         onError: () {
           _userAccelerometerStreamController!
-              .add(UserAccelerometerEvent(0, 0, 0));
+              .add(UserAccelerometerEvent(0, 0, 0, DateTime.now()));
         },
       );
       _userAccelerometerResultStream =
@@ -247,6 +252,7 @@ class WebSensorsPlugin extends SensorsPlatform {
                 magnetometerSensor.x,
                 magnetometerSensor.y,
                 magnetometerSensor.z,
+                DateTime.now(),
               ),
             );
           }.toJS;
@@ -261,7 +267,8 @@ class WebSensorsPlugin extends SensorsPlatform {
         apiName: 'Magnetometer()',
         permissionName: 'magnetometer',
         onError: () {
-          _magnetometerStreamController!.add(MagnetometerEvent(0, 0, 0));
+          _magnetometerStreamController!
+              .add(MagnetometerEvent(0, 0, 0, DateTime.now()));
         },
       );
       _magnetometerResultStream =

@@ -6,7 +6,7 @@
 /// the device in 3D space.
 class GyroscopeEvent {
   /// Constructs an instance with the given [x], [y], and [z] values.
-  GyroscopeEvent(this.x, this.y, this.z);
+  GyroscopeEvent(this.x, this.y, this.z, this.timestamp);
 
   /// Rate of rotation around the x axis measured in rad/s.
   ///
@@ -29,6 +29,14 @@ class GyroscopeEvent {
   /// forward, but the orientation will change from portrait to landscape and so
   /// on.
   final double z;
+
+  /// timestamp of the event
+  ///
+  /// This is the timestamp of the event in microseconds, as provided by the
+  /// underlying platform. For Android, this is the uptimeMillis provided by
+  /// the SensorEvent. For iOS, this is the timestamp provided by the CMDeviceMotion.
+
+  final DateTime timestamp;
 
   @override
   String toString() => '[GyroscopeEvent (x: $x, y: $y, z: $z)]';
