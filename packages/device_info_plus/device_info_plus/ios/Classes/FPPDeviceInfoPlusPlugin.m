@@ -21,7 +21,8 @@
     struct utsname un;
     uname(&un);
 
-    NSNumber *isPhysicalNumber = [NSNumber numberWithBool:[self isDevicePhysical]];
+    NSNumber *isPhysicalNumber =
+        [NSNumber numberWithBool:[self isDevicePhysical]];
     NSString *machine;
     if ([self isDevicePhysical]) {
       machine = @(un.machine);
@@ -54,9 +55,9 @@
 
 // return value is false if code is run on a simulator
 - (BOOL)isDevicePhysical {
-    BOOL isPhysicalDevice = NO;
+  BOOL isPhysicalDevice = NO;
 #if TARGET_OS_SIMULATOR
-    isPhysicalDevice = NO;
+  isPhysicalDevice = NO;
 #else
   isPhysicalDevice = YES;
 #endif
