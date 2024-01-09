@@ -22,7 +22,7 @@ void main() {
 }
 
 class DemoApp extends StatefulWidget {
-  const DemoApp({Key? key}) : super(key: key);
+  const DemoApp({super.key});
 
   @override
   DemoAppState createState() => DemoAppState();
@@ -197,7 +197,8 @@ class DemoAppState extends State<DemoApp> {
     final box = context.findRenderObject() as RenderBox?;
 
     if (uri.isNotEmpty) {
-      await Share.shareUri(Uri.parse(uri));
+      await Share.shareUri(Uri.parse(uri),
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
     } else if (imagePaths.isNotEmpty) {
       final files = <XFile>[];
       for (var i = 0; i < imagePaths.length; i++) {

@@ -62,6 +62,18 @@ void main() {
   });
 
   test('sharing origin sets the right params', () async {
+    await sharePlatform.shareUri(
+      Uri.parse('https://pub.dev/packages/share_plus'),
+      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+    );
+    verify(mockChannel.invokeMethod<void>('shareUri', <String, dynamic>{
+      'uri': 'https://pub.dev/packages/share_plus',
+      'originX': 1.0,
+      'originY': 2.0,
+      'originWidth': 3.0,
+      'originHeight': 4.0,
+    }));
+
     await sharePlatform.share(
       'some text to share',
       subject: 'some subject to share',
