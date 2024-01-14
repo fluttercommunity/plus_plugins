@@ -22,7 +22,7 @@ on iOS.
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 
-Sharing files is not supported on Windows and Linux.
+Sharing files is not supported on Linux.
 
 ## Usage
 
