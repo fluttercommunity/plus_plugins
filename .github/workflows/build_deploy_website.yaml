@@ -27,7 +27,7 @@ jobs:
       - name: Build website
         run: npm run build
       - name: Archive Production Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: website/build
@@ -40,7 +40,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: website/build
