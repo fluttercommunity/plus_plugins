@@ -61,6 +61,10 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 >
 > This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default
 
+> **Note**
+>
+> Unlike Android, It is not possible to get wifi info in IOS simulators and It is going to be always `null`.
+
 #### iOS 12
 
 To use `.getWifiBSSID()` and `.getWifiName()` on iOS >= 12, the `Access WiFi information capability` in XCode must be enabled. Otherwise, both methods will return null.
