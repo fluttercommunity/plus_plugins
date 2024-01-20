@@ -60,7 +60,9 @@ internal class Share(
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
-            putExtra(Intent.EXTRA_SUBJECT, subject)
+            if (subject != null) {
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+            }
         }
         // If we dont want the result we use the old 'createChooser'
         val chooserIntent = if (withResult) {
