@@ -63,7 +63,8 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 > **Note**
 >
-> Unlike Android, It is not possible to get wifi info in IOS simulators and It is going to be always `null`.
+> On iOS simulators wifi info will always return `null`.
+> Android emulators have no such issue.
 
 #### iOS 12
 
