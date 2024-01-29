@@ -54,6 +54,7 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       final digitalProductIdValue =
           currentVersionKey.getValue('DigitalProductId');
       final digitalProductId = digitalProductIdValue != null
+          && digitalProductIdValue.data is Uint8List
           ? digitalProductIdValue.data as Uint8List
           : [] as Uint8List;
       final displayVersion =
