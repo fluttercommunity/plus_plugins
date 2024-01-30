@@ -1,3 +1,8 @@
+## 7.2.2
+
+ - **FIX**(share_plus): Ensure subject is not null before calling putExtra(Intent.EXTRA_SUBJECT, subject) ([#2518](https://github.com/fluttercommunity/plus_plugins/issues/2518)). ([f0bbbefc](https://github.com/fluttercommunity/plus_plugins/commit/f0bbbefc712e01da20e8107e8d25b2005cf7b728))
+ - **DOCS**(share_plus): Fix supported platforms in README ([#2510](https://github.com/fluttercommunity/plus_plugins/issues/2510)). ([6b4b855b](https://github.com/fluttercommunity/plus_plugins/commit/6b4b855bb6f3c2897e29d0d3ae4a0c0c99ff8c2f))
+
 ## 7.2.1
 
  - **CHORE**(share_plus): Update share_plus_platform_interface for compatibility with uuid 4.x
