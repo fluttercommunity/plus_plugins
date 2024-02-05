@@ -58,7 +58,7 @@ jobs:
           api-level: ${{ matrix.android-api-level }}
           cores: 3
           target: google_apis
-          arch: x86_64
+          arch: arm64-v8a
           force-avd-creation: false
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android device_info_plus_example
