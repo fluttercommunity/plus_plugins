@@ -1,3 +1,7 @@
+## 5.0.3
+
+ - **FIX**(battery_plus): battery state always unknown on iOS ([#2481](https://github.com/fluttercommunity/plus_plugins/issues/2481)). ([ea892fb9](https://github.com/fluttercommunity/plus_plugins/commit/ea892fb96d06dcd685fa7953a468c377cc133ecc))
+
 ## 5.0.2
 
  - **FIX**(battery_plus): Return correct state enum value on Android for not charging state ([#2451](https://github.com/fluttercommunity/plus_plugins/issues/2451)). ([68ddda39](https://github.com/fluttercommunity/plus_plugins/commit/68ddda39f0fa8e7ac950c13721403d49d0d97a65))
