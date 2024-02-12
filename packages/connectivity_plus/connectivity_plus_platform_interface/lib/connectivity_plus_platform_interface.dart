@@ -43,9 +43,24 @@ abstract class ConnectivityPlatform extends PlatformInterface {
     throw UnimplementedError('checkConnectivity() has not been implemented.');
   }
 
+
+
   /// Returns a Stream of ConnectivityResults changes.
   Stream<ConnectivityResult> get onConnectivityChanged {
     throw UnimplementedError(
         'get onConnectivityChanged has not been implemented.');
   }
+
+  
+  Future<int> wifiStrength() {
+    throw UnimplementedError('wifiStrength() has not been implemented.');
+  }
+
+  Stream<int> get onWifiStrengthChanged {
+    throw UnimplementedError(
+        'get onConnectivityChanged has not been implemented.');
+  }
+
+  
+
 }

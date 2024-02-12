@@ -20,3 +20,7 @@ ConnectivityResult parseConnectivityResult(String state) {
       return ConnectivityResult.none;
   }
 }
+
+int strengthResult(int value) {
+  return  value;
+}
