@@ -21,5 +21,6 @@ Downloaded by pub (not CocoaPods).
 
   s.platform = :ios, '11.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  s.resource_bundles = {'share_plus_privacy' => ['PrivacyInfo.xcprivacy']}
 end
 
