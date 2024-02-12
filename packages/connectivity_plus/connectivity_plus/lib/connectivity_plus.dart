@@ -52,4 +52,12 @@ class Connectivity {
   Future<ConnectivityResult> checkConnectivity() {
     return _platform.checkConnectivity();
   }
+
+  Future<int> wifiStrength() {
+    return _platform.wifiStrength();
+  }
+
+   Stream<int> get onWifiStrengthChanged_java {
+    return _platform.onWifiStrengthChanged;
+  }
 }
