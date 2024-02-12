@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,8 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
       const EventChannel('dev.fluttercommunity.plus/connectivity_status');
 
   Stream<ConnectivityResult>? _onConnectivityChanged;
+  Stream<int>? _onWifiStrengthChanged;
+  
 
   /// Fires whenever the connectivity state changes.
   @override
@@ -35,9 +38,30 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   }
 
   @override
+  Stream<int> get onWifiStrengthChanged {
+     _onWifiStrengthChanged ??= eventChannel
+        .receiveBroadcastStream()
+        .map((dynamic result) => result as int)
+        .map(strengthResult);
+    return _onWifiStrengthChanged!;
+  }
+
+  @override
   Future<ConnectivityResult> checkConnectivity() {
     return methodChannel
         .invokeMethod<String>('check')
         .then((value) => parseConnectivityResult(value ?? ''));
   }
+
+
+@override
+Future<int> wifiStrength() {
+   return methodChannel
+        .invokeMethod<int>('wifi_strength')
+        .then((value) => strengthResult(value!));
+
+  }
+
+
+
 }

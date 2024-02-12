@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 
 /** Reports connectivity related information such as connectivity type and wifi information. */
 public class Connectivity {
@@ -49,6 +52,25 @@ public class Connectivity {
 
     return getNetworkTypeLegacy();
   }
+
+
+  int wifiStrength_java(){
+        Network network = connectivityManager.getActiveNetwork();
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+        if (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+            // If the active network is Wi-Fi, get Wi-Fi signal strength
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int signalStrength = wifiInfo.getRssi(); // Returns the received signal strength in dBm
+
+            // Do something with the signalStrength
+            System.out.println("Wi-Fi Signal Strength: " + signalStrength + " dBm");            
+            return signalStrength;
+        }
+        return 0;
+  }
+  
 
   @SuppressWarnings("deprecation")
   private String getNetworkTypeLegacy() {

@@ -30,6 +30,8 @@ class ConnectivityMethodChannelHandler implements MethodChannel.MethodCallHandle
   public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
     if ("check".equals(call.method)) {
       result.success(connectivity.getNetworkType());
+    } else if("wifi_strength".equals(call.method)){
+      result.success(connectivity.wifiStrength_java());
     } else {
       result.notImplemented();
     }

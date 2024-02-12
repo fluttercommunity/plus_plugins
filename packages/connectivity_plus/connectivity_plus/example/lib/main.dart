@@ -45,19 +45,25 @@ class _MyHomePageState extends State<MyHomePage> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<int> _strengthValue;
+  int value=-2;
 
   @override
   void initState() {
     super.initState();
     initConnectivity();
+    wifiStrength();
 
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    
+    _strengthValue = _connectivity.onWifiStrengthChanged_java.listen(_updateWifiStrength);
   }
 
   @override
   void dispose() {
     _connectivitySubscription.cancel();
+    _strengthValue.cancel();
     super.dispose();
   }
 
@@ -82,9 +88,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return _updateConnectionStatus(result);
   }
 
+  Future<void> wifiStrength() async {
+    late int result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.getWifiStrength();
+      value = result;
+    } on PlatformException catch (e) {
+      developer.log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateWifiStrength(result);
+  }
+
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
       _connectionStatus = result;
+    });
+  }
+  
+  Future<void> _updateWifiStrength(int result) async {
+    setState(() {
+      value = result;
     });
   }
 
@@ -96,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 4,
       ),
       body: Center(
-          child: Text('Connection Status: ${_connectionStatus.toString()}')),
+          child: Text(
+              'Connection Status: ${value} -+- ${_connectionStatus.toString()} - hello')),
     );
   }
 }
