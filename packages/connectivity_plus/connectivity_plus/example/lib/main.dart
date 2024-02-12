@@ -96,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 4,
       ),
       body: Center(
-          child: Text('Connection Status: ${_connectionStatus.toString()}')),
+          child: Text(
+              'Connection Status: ${_connectionStatus.toString()} - hello')),
     );
   }
 }
