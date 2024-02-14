@@ -17,7 +17,7 @@ FLUTTER_PLUGIN_EXPORT void DataStrengthPlusPluginCApiRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)
-}  // extern "C"
+} // extern "C"
 #endif
 
-#endif  // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_C_API_H_
+#endif // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_C_API_H_

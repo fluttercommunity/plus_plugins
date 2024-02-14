@@ -9,7 +9,7 @@
 namespace data_strength_plus {
 
 class DataStrengthPlusPlugin : public flutter::Plugin {
- public:
+public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
   DataStrengthPlusPlugin();
@@ -17,8 +17,8 @@ class DataStrengthPlusPlugin : public flutter::Plugin {
   virtual ~DataStrengthPlusPlugin();
 
   // Disallow copy and assign.
-  DataStrengthPlusPlugin(const DataStrengthPlusPlugin&) = delete;
-  DataStrengthPlusPlugin& operator=(const DataStrengthPlusPlugin&) = delete;
+  DataStrengthPlusPlugin(const DataStrengthPlusPlugin &) = delete;
+  DataStrengthPlusPlugin &operator=(const DataStrengthPlusPlugin &) = delete;
 
   // Called when a method is called on this plugin's channel from Dart.
   void HandleMethodCall(
@@ -26,6 +26,6 @@ class DataStrengthPlusPlugin : public flutter::Plugin {
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
 };
 
-}  // namespace data_strength_plus
+} // namespace data_strength_plus
 
-#endif  // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_H_
+#endif // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_H_

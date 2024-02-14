@@ -56,4 +56,4 @@ void DataStrengthPlusPlugin::HandleMethodCall(
   }
 }
 
-}  // namespace data_strength_plus
+} // namespace data_strength_plus

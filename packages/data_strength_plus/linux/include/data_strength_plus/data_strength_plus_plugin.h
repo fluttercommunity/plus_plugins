@@ -18,9 +18,9 @@ typedef struct {
 
 FLUTTER_PLUGIN_EXPORT GType data_strength_plus_plugin_get_type();
 
-FLUTTER_PLUGIN_EXPORT void data_strength_plus_plugin_register_with_registrar(
-    FlPluginRegistrar* registrar);
+FLUTTER_PLUGIN_EXPORT void
+data_strength_plus_plugin_register_with_registrar(FlPluginRegistrar *registrar);
 
 G_END_DECLS
 
-#endif  // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_H_
+#endif // FLUTTER_PLUGIN_DATA_STRENGTH_PLUS_PLUGIN_H_

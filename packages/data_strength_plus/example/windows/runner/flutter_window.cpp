@@ -4,7 +4,7 @@
 
 #include "flutter/generated_plugin_registrant.h"
 
-FlutterWindow::FlutterWindow(const flutter::DartProject& project)
+FlutterWindow::FlutterWindow(const flutter::DartProject &project)
     : project_(project) {}
 
 FlutterWindow::~FlutterWindow() {}
@@ -27,9 +27,7 @@ bool FlutterWindow::OnCreate() {
   RegisterPlugins(flutter_controller_->engine());
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 
-  flutter_controller_->engine()->SetNextFrameCallback([&]() {
-    this->Show();
-  });
+  flutter_controller_->engine()->SetNextFrameCallback([&]() { this->Show(); });
 
   // Flutter can complete the first frame before the "show window" callback is
   // registered. The following call ensures a frame is pending to ensure the
@@ -62,9 +60,9 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
   }
 
   switch (message) {
-    case WM_FONTCHANGE:
-      flutter_controller_->engine()->ReloadSystemFonts();
-      break;
+  case WM_FONTCHANGE:
+    flutter_controller_->engine()->ReloadSystemFonts();
+    break;
   }
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);

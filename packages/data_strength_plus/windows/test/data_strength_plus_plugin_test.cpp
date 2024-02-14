@@ -20,7 +20,7 @@ using flutter::EncodableValue;
 using flutter::MethodCall;
 using flutter::MethodResultFunctions;
 
-}  // namespace
+} // namespace
 
 TEST(DataStrengthPlusPlugin, GetPlatformVersion) {
   DataStrengthPlusPlugin plugin;
@@ -29,7 +29,7 @@ TEST(DataStrengthPlusPlugin, GetPlatformVersion) {
   plugin.HandleMethodCall(
       MethodCall("getPlatformVersion", std::make_unique<EncodableValue>()),
       std::make_unique<MethodResultFunctions<>>(
-          [&result_string](const EncodableValue* result) {
+          [&result_string](const EncodableValue *result) {
             result_string = std::get<std::string>(*result);
           },
           nullptr, nullptr));
@@ -39,5 +39,5 @@ TEST(DataStrengthPlusPlugin, GetPlatformVersion) {
   EXPECT_TRUE(result_string.rfind("Windows ", 0) == 0);
 }
 
-}  // namespace test
-}  // namespace data_strength_plus
+} // namespace test
+} // namespace data_strength_plus

@@ -1,15 +1,12 @@
 package dev.fluttercommunity.plus.data_strength_plus;
 
-import androidx.annotation.NonNull;
 import android.content.Context;
-
+import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-
-
 
 /** DataStrengthPlusPlugin */
 public class DataStrengthPlusPlugin implements FlutterPlugin, MethodCallHandler {
@@ -20,6 +17,7 @@ public class DataStrengthPlusPlugin implements FlutterPlugin, MethodCallHandler 
   private MethodChannel channel;
   private Context context;
   private DataStrengthHelper dataStrengthHelper;
+
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "data_strength_plus");
@@ -34,23 +32,20 @@ public class DataStrengthPlusPlugin implements FlutterPlugin, MethodCallHandler 
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     }
 
-
-    if(call.method.equals("getMobileSignalStrength")){
+    if (call.method.equals("getMobileSignalStrength")) {
       Integer mobileSignal = dataStrengthHelper.getMobileSignalStrength();
       result.success(mobileSignal);
     }
 
-    if(call.method.equals("getWifiSignalStrength")){
+    if (call.method.equals("getWifiSignalStrength")) {
       Integer wifiSignal = dataStrengthHelper.getWifiSignalStrength();
       result.success(wifiSignal);
     }
 
-    if(call.method.equals("getWifiLinkSpeed")){
+    if (call.method.equals("getWifiLinkSpeed")) {
       Integer wifiLinkSpeed = dataStrengthHelper.getWifiLinkSpeed();
       result.success(wifiLinkSpeed);
     }
-
-
   }
 
   @Override
