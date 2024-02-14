@@ -1,4 +1,7 @@
 name: plus_plugins_workspace
+homepage: https://github.com/fluttercommunity/plus_plugins.git
+version: 0.0.5
+description: It combines of collection of packages support for the plugin_plus for data strength, device info, alarm etc.
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
