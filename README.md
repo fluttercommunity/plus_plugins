@@ -35,6 +35,7 @@ support for more platforms and better maintenance.
 - [Share➕ (`share_plus`)](#share_plus)
 - [Android Alarm Manager➕ (`android_alarm_manager_plus`)](#android_alarm_manager_plus)
 - [Android Intent➕ (`android_intent_plus`)](#android_intent_plus)
+- [Data Strength Plus ➕ (`data_strength_plus`)](#data_strength_plus)
 
 ---
 
@@ -176,6 +177,22 @@ Flutter plugin for accessing the Android AlarmManager service, and running Dart 
 Flutter plugin for launching Android Intents. Not supported on iOS.
 
 [[View Source][android_intent_plus_code]]
+
+#### Platform Support
+
+| Android |
+| :-----: |
+|   ✅    |
+
+---
+
+### `data_strength_plus`
+
+> [![data_strength_plus][data_strength_plus_badge_pub]][data_strength_plus] [![pub points][data_strength_plus_badge_pub_points]][data_strength_plus_pub_points]
+
+Flutter plugin for launching Android Intents. Not supported on iOS.
+
+[[View Source][data_strength_plus_code]]
 
 #### Platform Support
 
