@@ -1,7 +1,7 @@
 name: data_strength_plus
-description: A new Flutter plugin project.
+description: This used to fetch the strength of Wifi and Mobile Signal Strength and wifi speed.
 version: 0.0.1
-homepage:
+homepage: https://github.com/engineer-ece/plus_plugins.git
 
 environment:
   sdk: '>=3.1.3 <4.0.0'
