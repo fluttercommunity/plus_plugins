@@ -104,10 +104,30 @@ static std::string ConnectivityToString(ConnectivityType connectivityType) {
     return "wifi";
   case ConnectivityType::Ethernet:
     return "ethernet";
+  case ConnectivityType::VPN:
+    return "vpn";
+  case ConnectivityType::Other:
+    return "other";
   case ConnectivityType::None:
   default:
     return "none";
   }
+}
+
+static std::string
+ConnectivityToString(std::set<ConnectivityType> connectivityTypes) {
+  if (connectivityTypes.empty()) {
+    return "none";
+  }
+
+  std::string connectivity;
+  for (auto type : connectivityTypes) {
+    if (!connectivity.empty()) {
+      connectivity += ',';
+    }
+    connectivity += ConnectivityToString(type);
+  }
+  return connectivity;
 }
 
 void ConnectivityPlusWindowsPlugin::HandleMethodCall(
@@ -115,7 +135,7 @@ void ConnectivityPlusWindowsPlugin::HandleMethodCall(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("check") == 0) {
     std::string connectivity =
-        ConnectivityToString(manager->GetConnectivityType());
+        ConnectivityToString(manager->GetConnectivityTypes());
     result->Success(flutter::EncodableValue(connectivity));
   } else {
     result->NotImplemented();
@@ -130,7 +150,7 @@ ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
 
 void ConnectivityStreamHandler::AddConnectivityEvent() {
   std::string connectivity =
-      ConnectivityToString(manager->GetConnectivityType());
+      ConnectivityToString(manager->GetConnectivityTypes());
   sink->Success(flutter::EncodableValue(connectivity));
 }
 

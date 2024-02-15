@@ -29,23 +29,24 @@ class NetworkInformationApiConnectivityPlugin
 
   /// Checks the connection status of the device.
   @override
-  Future<ConnectivityResult> checkConnectivity() async {
+  Future<List<ConnectivityResult>> checkConnectivity() async {
     return networkInformationToConnectivityResult(_networkInformation);
   }
 
-  StreamController<ConnectivityResult>? _connectivityResultStreamController;
-  late Stream<ConnectivityResult> _connectivityResultStream;
+  StreamController<List<ConnectivityResult>>?
+      _connectivityResultStreamController;
+  late Stream<List<ConnectivityResult>> _connectivityResultStream;
 
   /// Returns a Stream of ConnectivityResults changes.
   @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged {
     // use fallback implementation if [_connectionSupported] is not availible
     if (_connectionSupported == null) {
       return _webPseudoStream();
     }
     if (_connectivityResultStreamController == null) {
       _connectivityResultStreamController =
-          StreamController<ConnectivityResult>();
+          StreamController<List<ConnectivityResult>>();
       setProperty(_networkInformation, 'onchange', allowInterop((_) {
         _connectivityResultStreamController!
             .add(networkInformationToConnectivityResult(_networkInformation));
@@ -66,11 +67,11 @@ class NetworkInformationApiConnectivityPlugin
   }
 
   /// stores the last fallback network state
-  ConnectivityResult? _lastFallbackState;
+  List<ConnectivityResult>? _lastFallbackState;
 
   /// periodically checks the current network state
-  Stream<ConnectivityResult> _webPseudoStream() {
-    final StreamController<ConnectivityResult> webStream =
+  Stream<List<ConnectivityResult>> _webPseudoStream() {
+    final StreamController<List<ConnectivityResult>> webStream =
         StreamController.broadcast();
     Timer.periodic(
       const Duration(milliseconds: 250),

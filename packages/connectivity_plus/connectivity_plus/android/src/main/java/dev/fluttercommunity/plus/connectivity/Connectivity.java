@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Reports connectivity related information such as connectivity type and wifi information. */
 public class Connectivity {
@@ -23,58 +25,75 @@ public class Connectivity {
     this.connectivityManager = connectivityManager;
   }
 
-  String getNetworkType() {
+  List<String> getNetworkTypes() {
+    List<String> types = new ArrayList<>();
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       Network network = connectivityManager.getActiveNetwork();
       NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
       if (capabilities == null) {
-        return CONNECTIVITY_NONE;
+        types.add(CONNECTIVITY_NONE);
+        return types;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-        return CONNECTIVITY_WIFI;
+        types.add(CONNECTIVITY_WIFI);
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-        return CONNECTIVITY_ETHERNET;
+        types.add(CONNECTIVITY_ETHERNET);
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-        return CONNECTIVITY_VPN;
+        types.add(CONNECTIVITY_VPN);
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-        return CONNECTIVITY_MOBILE;
+        types.add(CONNECTIVITY_MOBILE);
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
-        return CONNECTIVITY_BLUETOOTH;
+        types.add(CONNECTIVITY_BLUETOOTH);
       }
+      if (types.isEmpty()) {
+        types.add(CONNECTIVITY_NONE);
+        return types;
+      }
+    } else {
+      // For legacy versions, return a single type as before or adapt similarly if multiple types need to be supported
+      return getNetworkTypesLegacy();
     }
 
-    return getNetworkTypeLegacy();
+    return types;
   }
 
   @SuppressWarnings("deprecation")
-  private String getNetworkTypeLegacy() {
+  private List<String> getNetworkTypesLegacy() {
     // handle type for Android versions less than Android 6
     android.net.NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+    List<String> types = new ArrayList<>();
     if (info == null || !info.isConnected()) {
-      return CONNECTIVITY_NONE;
+      types.add(CONNECTIVITY_NONE);
+      return types;
     }
     int type = info.getType();
     switch (type) {
       case ConnectivityManager.TYPE_BLUETOOTH:
-        return CONNECTIVITY_BLUETOOTH;
+        types.add(CONNECTIVITY_BLUETOOTH);
+        break;
       case ConnectivityManager.TYPE_ETHERNET:
-        return CONNECTIVITY_ETHERNET;
+        types.add(CONNECTIVITY_ETHERNET);
+        break;
       case ConnectivityManager.TYPE_WIFI:
       case ConnectivityManager.TYPE_WIMAX:
-        return CONNECTIVITY_WIFI;
+        types.add(CONNECTIVITY_WIFI);
+        break;
       case ConnectivityManager.TYPE_VPN:
-        return CONNECTIVITY_VPN;
+        types.add(CONNECTIVITY_VPN);
+        break;
       case ConnectivityManager.TYPE_MOBILE:
       case ConnectivityManager.TYPE_MOBILE_DUN:
       case ConnectivityManager.TYPE_MOBILE_HIPRI:
-        return CONNECTIVITY_MOBILE;
+        types.add(CONNECTIVITY_MOBILE);
+        break;
       default:
-        return CONNECTIVITY_NONE;
+        types.add(CONNECTIVITY_NONE);
     }
+    return types;
   }
 
   public ConnectivityManager getConnectivityManager() {

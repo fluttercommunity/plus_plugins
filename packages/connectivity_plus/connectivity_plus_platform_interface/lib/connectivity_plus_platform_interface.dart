@@ -39,12 +39,12 @@ abstract class ConnectivityPlatform extends PlatformInterface {
   }
 
   /// Checks the connection status of the device.
-  Future<ConnectivityResult> checkConnectivity() {
+  Future<List<ConnectivityResult>> checkConnectivity() {
     throw UnimplementedError('checkConnectivity() has not been implemented.');
   }
 
   /// Returns a Stream of ConnectivityResults changes.
-  Stream<ConnectivityResult> get onConnectivityChanged {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged {
     throw UnimplementedError(
         'get onConnectivityChanged has not been implemented.');
   }

@@ -4,15 +4,18 @@ import Reachability
 public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
   private var _reachability: Reachability?
 
-  public var currentConnectivityType: ConnectivityType {
-    let reachability = ensureReachability()
+  public var currentConnectivityTypes: [ConnectivityType] {
+    guard let reachability = _reachability else {
+      return [.none]
+    }
+    
     switch reachability.connection {
     case .wifi:
-      return .wifi
+      return [.wifi]
     case .cellular:
-      return .cellular
+      return [.cellular]
     default:
-      return .none
+      return [.none]
     }
   }
 
@@ -54,6 +57,9 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
   }
 
   @objc private func reachabilityChanged(notification: NSNotification) {
-    connectivityUpdateHandler?(currentConnectivityType)
+    if let reachability = notification.object as? Reachability {
+      _reachability = reachability
+      connectivityUpdateHandler?(currentConnectivityTypes)
+    }
   }
 }

@@ -45,7 +45,7 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "check":
-      result(statusFrom(connectivityType: connectivityProvider.currentConnectivityType))
+      result(statusFrom(connectivityTypes: connectivityProvider.currentConnectivityTypes))
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -66,19 +66,25 @@ public class ConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     }
   }
 
+  private func statusFrom(connectivityTypes: [ConnectivityType]) -> String {
+    return connectivityTypes.map {
+      self.statusFrom(connectivityType: $0)
+    }.joined(separator: ",")
+  }
+
   public func onListen(
     withArguments _: Any?,
     eventSink events: @escaping FlutterEventSink
   ) -> FlutterError? {
     eventSink = events
     connectivityProvider.start()
-    connectivityUpdateHandler(connectivityType: connectivityProvider.currentConnectivityType)
+    connectivityUpdateHandler(connectivityTypes: connectivityProvider.currentConnectivityTypes)
     return nil
   }
 
-  private func connectivityUpdateHandler(connectivityType: ConnectivityType) {
+  private func connectivityUpdateHandler(connectivityTypes: [ConnectivityType]) {
     DispatchQueue.main.async {
-      self.eventSink?(self.statusFrom(connectivityType: connectivityType))
+      self.eventSink?(self.statusFrom(connectivityTypes: connectivityTypes))
     }
   }
 

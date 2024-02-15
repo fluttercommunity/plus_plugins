@@ -25,7 +25,7 @@ void main() {
     };
     expect(
       linux.checkConnectivity(),
-      completion(equals(ConnectivityResult.bluetooth)),
+      completion(equals([ConnectivityResult.bluetooth])),
     );
   });
 
@@ -40,7 +40,7 @@ void main() {
     };
     expect(
       linux.checkConnectivity(),
-      completion(equals(ConnectivityResult.ethernet)),
+      completion(equals([ConnectivityResult.ethernet])),
     );
   });
 
@@ -55,7 +55,7 @@ void main() {
     };
     expect(
       linux.checkConnectivity(),
-      completion(equals(ConnectivityResult.wifi)),
+      completion(equals([ConnectivityResult.wifi])),
     );
   });
 
@@ -70,7 +70,22 @@ void main() {
     };
     expect(
       linux.checkConnectivity(),
-      completion(equals(ConnectivityResult.vpn)),
+      completion(equals([ConnectivityResult.vpn])),
+    );
+  });
+
+  test('wireless+vpn', () async {
+    final linux = ConnectivityPlusLinuxPlugin();
+    linux.createClient = () {
+      final client = MockNetworkManagerClient();
+      when(client.connectivity)
+          .thenReturn(NetworkManagerConnectivityState.full);
+      when(client.primaryConnectionType).thenReturn('wireless,vpn');
+      return client;
+    };
+    expect(
+      linux.checkConnectivity(),
+      completion(equals([ConnectivityResult.wifi, ConnectivityResult.vpn])),
     );
   });
 
@@ -82,8 +97,8 @@ void main() {
           .thenReturn(NetworkManagerConnectivityState.none);
       return client;
     };
-    expect(
-        linux.checkConnectivity(), completion(equals(ConnectivityResult.none)));
+    expect(linux.checkConnectivity(),
+        completion(equals([ConnectivityResult.none])));
   });
 
   test('connectivity changes', () {
@@ -100,7 +115,11 @@ void main() {
       });
       return client;
     };
-    expect(linux.onConnectivityChanged,
-        emitsInOrder([ConnectivityResult.wifi, ConnectivityResult.none]));
+    expect(
+        linux.onConnectivityChanged,
+        emitsInOrder([
+          [ConnectivityResult.wifi],
+          [ConnectivityResult.none]
+        ]));
   });
 }

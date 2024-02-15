@@ -78,12 +78,12 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent) {
     if (events != null) {
-      events.success(connectivity.getNetworkType());
+      events.success(String.join(",", connectivity.getNetworkTypes()));
     }
   }
 
   private void sendEvent() {
-    Runnable runnable = () -> events.success(connectivity.getNetworkType());
+    Runnable runnable = () -> events.success(String.join(",", connectivity.getNetworkTypes()));
     mainHandler.post(runnable);
   }
 
