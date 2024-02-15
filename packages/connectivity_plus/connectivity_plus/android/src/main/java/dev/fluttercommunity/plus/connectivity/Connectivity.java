@@ -19,6 +19,7 @@ public class Connectivity {
   static final String CONNECTIVITY_ETHERNET = "ethernet";
   static final String CONNECTIVITY_BLUETOOTH = "bluetooth";
   static final String CONNECTIVITY_VPN = "vpn";
+  static final String CONNECTIVITY_OTHER = "other";
   private final ConnectivityManager connectivityManager;
 
   public Connectivity(ConnectivityManager connectivityManager) {
@@ -30,11 +31,13 @@ public class Connectivity {
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       Network network = connectivityManager.getActiveNetwork();
       NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
-      if (capabilities == null) {
+      if (capabilities == null
+          || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
         types.add(CONNECTIVITY_NONE);
         return types;
       }
-      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+          || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
         types.add(CONNECTIVITY_WIFI);
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
@@ -49,9 +52,12 @@ public class Connectivity {
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
         types.add(CONNECTIVITY_BLUETOOTH);
       }
+      if (types.isEmpty()
+          && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+        types.add(CONNECTIVITY_OTHER);
+      }
       if (types.isEmpty()) {
         types.add(CONNECTIVITY_NONE);
-        return types;
       }
     } else {
       // For legacy versions, return a single type as before or adapt similarly if multiple types need to be supported
@@ -91,7 +97,7 @@ public class Connectivity {
         types.add(CONNECTIVITY_MOBILE);
         break;
       default:
-        types.add(CONNECTIVITY_NONE);
+        types.add(CONNECTIVITY_OTHER);
     }
     return types;
   }

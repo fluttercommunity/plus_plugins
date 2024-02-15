@@ -65,10 +65,10 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
     }
   }
   
-  private func statusFrom(connectivityTypes: [ConnectivityType]) -> String {
+  private func statusFrom(connectivityTypes: [ConnectivityType]) -> [String] {
     return connectivityTypes.map {
       self.statusFrom(connectivityType: $0)
-    }.joined(separator: ",")
+    }
   }
 
   public func onListen(

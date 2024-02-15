@@ -1,8 +1,8 @@
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 
 /// Convert a comma-separated String to a list of ConnectivityResult values.
-List<ConnectivityResult> parseConnectivityResults(String states) {
-  return states.split(',').map((state) {
+List<ConnectivityResult> parseConnectivityResults(List<String> states) {
+  return states.map((state) {
     switch (state.trim()) {
       case 'bluetooth':
         return ConnectivityResult.bluetooth;

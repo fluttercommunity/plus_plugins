@@ -29,7 +29,7 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     _onConnectivityChanged ??= eventChannel
         .receiveBroadcastStream()
-        .map((dynamic result) => result.toString())
+        .map((dynamic result) => List<String>.from(result))
         .map(parseConnectivityResults);
     return _onConnectivityChanged!;
   }
@@ -37,7 +37,7 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   @override
   Future<List<ConnectivityResult>> checkConnectivity() {
     return methodChannel
-        .invokeMethod<String>('check')
-        .then((value) => parseConnectivityResults(value ?? ''));
+        .invokeListMethod<String>('check')
+        .then((value) => parseConnectivityResults(value ?? []));
   }
 }

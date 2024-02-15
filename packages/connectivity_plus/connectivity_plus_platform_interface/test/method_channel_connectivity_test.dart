@@ -24,8 +24,8 @@ void main() {
           log.add(methodCall);
           switch (methodCall.method) {
             case 'check':
-              // Simulate returning a comma-separated string of connectivity statuses
-              return 'wifi,mobile';
+              // Simulate returning a list of string of connectivity statuses
+              return ['wifi', 'mobile'];
             default:
               return null;
           }
@@ -45,7 +45,7 @@ void main() {
                   .handlePlatformMessage(
                 methodChannelConnectivity.eventChannel.name,
                 methodChannelConnectivity.eventChannel.codec
-                    .encodeSuccessEnvelope('wifi,mobile'),
+                    .encodeSuccessEnvelope(['wifi', 'mobile']),
                 (_) {},
               );
               break;

@@ -6,7 +6,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private let queue = DispatchQueue.global(qos: .background)
 
-  private var _pathMonitor: NWPathMonitor?
+  private var pathMonitor: NWPathMonitor?
 
   public var currentConnectivityTypes: [ConnectivityType] {
     let path = ensurePathMonitor().currentPath
@@ -43,18 +43,18 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
   }
 
   public func stop() {
-    _pathMonitor?.cancel()
-    _pathMonitor = nil
+    pathMonitor?.cancel()
+    pathMonitor = nil
   }
 
   private func ensurePathMonitor() -> NWPathMonitor {
-    if (_pathMonitor == nil) {
+    if (pathMonitor == nil) {
       let pathMonitor = NWPathMonitor()
       pathMonitor.start(queue: queue)
       pathMonitor.pathUpdateHandler = pathUpdateHandler
-      _pathMonitor = pathMonitor
+      self.pathMonitor = pathMonitor
     }
-    return _pathMonitor!
+    return self.pathMonitor!
   }
 
   private func pathUpdateHandler(path: NWPath) {
