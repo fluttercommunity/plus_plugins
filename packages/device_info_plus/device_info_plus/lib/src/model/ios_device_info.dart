@@ -65,7 +65,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       model: map['model'],
       localizedModel: map['localizedModel'],
       identifierForVendor: map['identifierForVendor'],
-      isPhysicalDevice: map['isPhysicalDevice'] == 'true',
+      isPhysicalDevice: map['isPhysicalDevice'],
       utsname:
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
