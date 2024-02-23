@@ -52,6 +52,10 @@ abstract class BatteryPlatform extends PlatformInterface {
     throw UnimplementedError('batteryState() has not been implemented.');
   }
 
+  Future<PowerSourceType> get powerSourceType {
+    throw UnimplementedError('powerSourceType() has not been implemented.');
+  }
+
   /// Returns a Stream of BatteryState changes.
   Stream<BatteryState> get onBatteryStateChanged {
     throw UnimplementedError(

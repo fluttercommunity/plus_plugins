@@ -44,6 +44,20 @@ class Battery {
     return _platform.isInBatterySaveMode;
   }
 
+  /// get the current power source type.
+  ///
+  /// When the [BatteryState] is in a state of
+  /// [BatteryState.connectedNotCharging],[BatteryState.charging]
+  /// or [BatteryState.full], the [PowerSourceType] can be determined
+  /// and see how the device gets it's power.
+  ///
+  /// when the device is mobile and has the [BatteryState] of
+  /// [BatteryState.discharging] or [BatteryState.unknown] the power source can 
+  /// not be determined
+  Future<PowerSourceType> get powerSourceType {
+    return _platform.powerSourceType;
+  }
+
   /// Get battery state
   Future<BatteryState> get batteryState {
     return _platform.batteryState;

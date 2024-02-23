@@ -42,6 +42,13 @@ class MethodChannelBattery extends BatteryPlatform {
       .invokeMethod<String>('getBatteryState')
       .then<BatteryState>((dynamic result) => parseBatteryState(result));
 
+  @override
+  Future<PowerSourceType> get powerSourceType => methodChannel
+      .invokeMethod<String>('getPowerSourceType')
+      .then<PowerSourceType>(
+        (dynamic result) => PowerSourceType.parsePowerSource(result),
+      );
+
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {
