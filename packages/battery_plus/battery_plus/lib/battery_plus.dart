@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 
 export 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart'
-    show BatteryState;
+    show BatteryState, PowerSourceType;
 
 export 'src/battery_plus_linux.dart';
 
@@ -52,7 +52,7 @@ class Battery {
   /// and see how the device gets it's power.
   ///
   /// when the device is mobile and has the [BatteryState] of
-  /// [BatteryState.discharging] or [BatteryState.unknown] the power source can 
+  /// [BatteryState.discharging] or [BatteryState.unknown] the power source can
   /// not be determined
   Future<PowerSourceType> get powerSourceType {
     return _platform.powerSourceType;
