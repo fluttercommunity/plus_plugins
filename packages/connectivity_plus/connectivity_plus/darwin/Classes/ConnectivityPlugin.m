@@ -1,4 +1,4 @@
-#import "ConnectivityPlusPlugin.h"
+#import "ConnectivityPlugin.h"
 #if __has_include(<connectivity_plus/connectivity_plus-Swift.h>)
 #import <connectivity_plus/connectivity_plus-Swift.h>
 #else
@@ -8,8 +8,8 @@
 #import "connectivity_plus-Swift.h"
 #endif
 
-@implementation ConnectivityPlusPlugin
+@implementation ConnectivityPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  [SwiftConnectivityPlusPlugin registerWithRegistrar:registrar];
+  [SwiftConnectivityPlugin registerWithRegistrar:registrar];
 }
 @end

@@ -2,9 +2,14 @@
 // Use of this source is governed by a BSD-style license that can
 // be found in the LICENSE file.
 
+#if os(iOS)
 import Flutter
+#elseif os(macOS)
+import Cocoa
+import FlutterMacOS
+#endif
 
-public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class SwiftConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   private let connectivityProvider: ConnectivityProvider
   private var eventSink: FlutterEventSink?
 
@@ -15,22 +20,28 @@ public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStream
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
+    #if os(iOS)
+    let binaryMessenger = registrar.messenger()
+    #elseif os(macOS)
+    let binaryMessenger = registrar.messenger
+    #endif
+
     let channel = FlutterMethodChannel(
       name: "dev.fluttercommunity.plus/connectivity",
-      binaryMessenger: registrar.messenger())
+      binaryMessenger: binaryMessenger)
 
     let streamChannel = FlutterEventChannel(
       name: "dev.fluttercommunity.plus/connectivity_status",
-      binaryMessenger: registrar.messenger())
+      binaryMessenger: binaryMessenger)
 
     let connectivityProvider: ConnectivityProvider
-    if #available(iOS 12, *) {
+    if #available(iOS 12, macOS 10.14, *) {
       connectivityProvider = PathMonitorConnectivityProvider()
     } else {
       connectivityProvider = ReachabilityConnectivityProvider()
     }
 
-    let instance = SwiftConnectivityPlusPlugin(connectivityProvider: connectivityProvider)
+    let instance = SwiftConnectivityPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)

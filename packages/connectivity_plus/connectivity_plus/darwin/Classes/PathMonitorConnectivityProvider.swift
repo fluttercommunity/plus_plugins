@@ -1,7 +1,7 @@
 import Foundation
 import Network
 
-@available(iOS 12, *)
+@available(iOS 12, macOS 10.14, *)
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private let queue = DispatchQueue.global(qos: .background)
