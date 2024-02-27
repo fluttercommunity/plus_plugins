@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
-import 'package:path/path.dart' as path;
 
 /// The Linux implementation of [PackageInfoPlatform].
 class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
@@ -28,11 +27,7 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
 
   Future<Map<String, dynamic>> _getVersionJson() async {
     try {
-      final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
-      final appPath = path.dirname(exePath);
-      final assetPath = path.join(appPath, 'data', 'flutter_assets');
-      final versionPath = path.join(assetPath, 'version.json');
-      return jsonDecode(await File(versionPath).readAsString());
+      return jsonDecode(await File('version.json').readAsString());
     } catch (_) {
       return <String, dynamic>{};
     }
