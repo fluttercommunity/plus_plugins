@@ -21,8 +21,10 @@
     struct utsname un;
     uname(&un);
 
+    NSNumber *isPhysicalNumber =
+        [NSNumber numberWithBool:[self isDevicePhysical]];
     NSString *machine;
-    if ([[self isDevicePhysical] isEqualToString:@"true"]) {
+    if ([self isDevicePhysical]) {
       machine = @(un.machine);
     } else {
       machine = [[NSProcessInfo processInfo]
@@ -37,7 +39,7 @@
       @"localizedModel" : [device localizedModel],
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
-      @"isPhysicalDevice" : [self isDevicePhysical],
+      @"isPhysicalDevice" : isPhysicalNumber,
       @"utsname" : @{
         @"sysname" : @(un.sysname),
         @"nodename" : @(un.nodename),
@@ -52,11 +54,12 @@
 }
 
 // return value is false if code is run on a simulator
-- (NSString *)isDevicePhysical {
+- (BOOL)isDevicePhysical {
+  BOOL isPhysicalDevice = NO;
 #if TARGET_OS_SIMULATOR
-  NSString *isPhysicalDevice = @"false";
+  isPhysicalDevice = NO;
 #else
-  NSString *isPhysicalDevice = @"true";
+  isPhysicalDevice = YES;
 #endif
 
   return isPhysicalDevice;
