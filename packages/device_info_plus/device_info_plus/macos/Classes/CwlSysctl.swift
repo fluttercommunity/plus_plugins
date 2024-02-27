@@ -37,7 +37,6 @@ public struct Sysctl {
 			let preFlightResult = Darwin.sysctl(UnsafeMutablePointer<Int32>(mutating: keysPointer.baseAddress), UInt32(keys.count), nil, &requiredSize, nil, 0)
 			if preFlightResult != 0 {
 				throw POSIXErrorCode(rawValue: errno).map {
-					print($0.rawValue)
 					return Error.posixError($0)
 				} ?? Error.unknown
 			}
