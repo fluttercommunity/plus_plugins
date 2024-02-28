@@ -23,10 +23,10 @@ class DartHtmlConnectivityPlugin extends ConnectivityPlusWebPlugin {
     if (_connectivityResult == null) {
       _connectivityResult = StreamController<ConnectivityResult>.broadcast();
       // Fallback to dart:html window.onOnline / window.onOffline
-      const EventStreamProvider<Event>('online').forTarget(window).listen((_) {
+      EventStreamProviders.onlineEvent.forTarget(window).listen((_) {
         _connectivityResult!.add(ConnectivityResult.wifi);
       });
-      const EventStreamProvider<Event>('offline').forTarget(window).listen((_) {
+      EventStreamProviders.offlineEvent.forTarget(window).listen((_) {
         _connectivityResult!.add(ConnectivityResult.none);
       });
     }
