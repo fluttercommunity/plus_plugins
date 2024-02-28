@@ -1,4 +1,8 @@
 import 'dart:async';
+// Used in web: 0.3.0, deprecated later.
+// Remove when increasing min web version.
+// ignore: deprecated_member_use
+import 'package:web/helpers.dart';
 import 'package:web/web.dart';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
@@ -22,10 +26,10 @@ class DartHtmlConnectivityPlugin extends ConnectivityPlusWebPlugin {
   Stream<ConnectivityResult> get onConnectivityChanged {
     if (_connectivityResult == null) {
       _connectivityResult = StreamController<ConnectivityResult>.broadcast();
-      EventStreamProviders.onlineEvent.forTarget(window).listen((_) {
+      const EventStreamProvider<Event>('online').forTarget(window).listen((_) {
         _connectivityResult!.add(ConnectivityResult.wifi);
       });
-      EventStreamProviders.offlineEvent.forTarget(window).listen((_) {
+      const EventStreamProvider<Event>('offline').forTarget(window).listen((_) {
         _connectivityResult!.add(ConnectivityResult.none);
       });
     }
