@@ -1,5 +1,7 @@
 import 'dart:async';
-import 'dart:html' as html show window;
+// import 'dart:js';
+// import 'dart:html' as html show window;
+import 'package:web/web.dart';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 
@@ -10,7 +12,7 @@ class DartHtmlConnectivityPlugin extends ConnectivityPlusWebPlugin {
   /// Checks the connection status of the device.
   @override
   Future<ConnectivityResult> checkConnectivity() async {
-    return (html.window.navigator.onLine ?? false)
+    return (window.navigator.onLine)
         ? ConnectivityResult.wifi
         : ConnectivityResult.none;
   }
@@ -23,10 +25,10 @@ class DartHtmlConnectivityPlugin extends ConnectivityPlusWebPlugin {
     if (_connectivityResult == null) {
       _connectivityResult = StreamController<ConnectivityResult>.broadcast();
       // Fallback to dart:html window.onOnline / window.onOffline
-      html.window.onOnline.listen((event) {
+      window.ononline.listen((event) {
         _connectivityResult!.add(ConnectivityResult.wifi);
       });
-      html.window.onOffline.listen((event) {
+      window.onoffline.listen((event) {
         _connectivityResult!.add(ConnectivityResult.none);
       });
     }
