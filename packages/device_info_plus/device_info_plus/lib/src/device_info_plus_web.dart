@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html' as html show window, Navigator;
+import 'package:web/web.dart' as html show window, Navigator;
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -28,7 +28,9 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
           'appCodeName': _navigator.appCodeName,
           'appName': _navigator.appName,
           'appVersion': _navigator.appVersion,
-          'deviceMemory': _navigator.deviceMemory,
+          // property is missing.
+          // ticket: https://github.com/dart-lang/web/issues/192
+          // 'deviceMemory': _navigator.deviceMemory,
           'language': _navigator.language,
           'languages': _navigator.languages,
           'platform': _navigator.platform,
