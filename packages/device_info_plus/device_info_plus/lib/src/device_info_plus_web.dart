@@ -47,6 +47,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
 
 /// Property is missing.
 /// Ticket: https://github.com/dart-lang/web/issues/192
+/// Probably won't be an int? in the future!
 extension on html.Navigator {
-  external double get deviceMemory;
+  external int? get deviceMemory;
 }
