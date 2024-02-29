@@ -28,9 +28,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
           'appCodeName': _navigator.appCodeName,
           'appName': _navigator.appName,
           'appVersion': _navigator.appVersion,
-          // property is missing.
-          // ticket: https://github.com/dart-lang/web/issues/192
-          // 'deviceMemory': _navigator.deviceMemory,
+          'deviceMemory': _navigator.deviceMemory,
           'language': _navigator.language,
           'languages': _navigator.languages,
           'platform': _navigator.platform,
@@ -45,4 +43,10 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
       ),
     );
   }
+}
+
+/// Property is missing.
+/// Ticket: https://github.com/dart-lang/web/issues/192
+extension on html.Navigator {
+  external double get deviceMemory;
 }
