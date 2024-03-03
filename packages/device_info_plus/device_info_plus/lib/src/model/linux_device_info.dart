@@ -160,4 +160,9 @@ class LinuxDeviceInfo implements BaseDeviceInfo {
       'machineId': machineId,
     };
   }
+
+  @override
+  String toString() {
+    return 'LinuxDeviceInfo(name: $name, version: $version, id: $id, idLike: $idLike, versionCodename: $versionCodename, versionId: $versionId, prettyName: $prettyName, buildId: $buildId, variant: $variant, variantId: $variantId, machineId: $machineId)';
+  }
 }
