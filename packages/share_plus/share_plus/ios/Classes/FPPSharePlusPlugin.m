@@ -358,6 +358,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
                     atSource:originRect
                     toResult:result
                   withResult:withResult];
+          if (!withResult)
+            result(nil);
         } else {
           result(FlutterMethodNotImplemented);
         }
