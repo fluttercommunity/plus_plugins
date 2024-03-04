@@ -18,13 +18,13 @@ flutter:
         package: dev.fluttercommunity.plus.connectivity
         pluginClass: ConnectivityPlugin
       ios:
-        pluginClass: ConnectivityPlugin
+        pluginClass: ConnectivityPlusPlugin
         sharedDarwinSource: true
       
       linux:
         dartPluginClass: ConnectivityPlusLinuxPlugin
       macos:
-        pluginClass: ConnectivityPlugin
+        pluginClass: ConnectivityPlusPlugin
         sharedDarwinSource: true
       web:
         pluginClass: ConnectivityPlusWebPlugin

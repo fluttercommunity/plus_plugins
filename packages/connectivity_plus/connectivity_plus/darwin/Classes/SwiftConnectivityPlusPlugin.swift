@@ -9,7 +9,7 @@ import Cocoa
 import FlutterMacOS
 #endif
 
-public class SwiftConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   private let connectivityProvider: ConnectivityProvider
   private var eventSink: FlutterEventSink?
 
@@ -41,7 +41,7 @@ public class SwiftConnectivityPlugin: NSObject, FlutterPlugin, FlutterStreamHand
       connectivityProvider = ReachabilityConnectivityProvider()
     }
 
-    let instance = SwiftConnectivityPlugin(connectivityProvider: connectivityProvider)
+    let instance = SwiftConnectivityPlusPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
