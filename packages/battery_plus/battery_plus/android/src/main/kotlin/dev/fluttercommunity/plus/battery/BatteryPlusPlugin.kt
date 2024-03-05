@@ -191,7 +191,8 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         return when (status) {
             BatteryManager.BATTERY_STATUS_CHARGING -> "charging"
             BatteryManager.BATTERY_STATUS_FULL -> "full"
-            BatteryManager.BATTERY_STATUS_DISCHARGING, BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "discharging"
+            BatteryManager.BATTERY_STATUS_DISCHARGING -> "discharging"
+            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "connected_not_charging"
             BatteryManager.BATTERY_STATUS_UNKNOWN -> "unknown"
             else -> null
         }

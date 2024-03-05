@@ -9,10 +9,17 @@ extension _ToBatteryState on UPowerDeviceState {
     switch (this) {
       case UPowerDeviceState.charging:
         return BatteryState.charging;
+
       case UPowerDeviceState.discharging:
+      case UPowerDeviceState.pendingDischarge:
         return BatteryState.discharging;
+
       case UPowerDeviceState.fullyCharged:
         return BatteryState.full;
+
+      case UPowerDeviceState.pendingCharge:
+        return BatteryState.connectedNotCharging;
+
       default:
         return BatteryState.unknown;
     }

@@ -1,6 +1,6 @@
 name: battery_plus_platform_interface
 description: A common platform interface for the battery_plus plugin.
-version: 1.2.2
+version: 2.0.0
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -17,4 +17,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ">=2.0.1 <4.0.0"

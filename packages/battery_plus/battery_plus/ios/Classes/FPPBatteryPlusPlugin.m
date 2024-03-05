@@ -70,7 +70,9 @@
 }
 
 - (NSString *)getBatteryState {
-  UIDeviceBatteryState state = [[UIDevice currentDevice] batteryState];
+  UIDevice *device = UIDevice.currentDevice;
+  device.batteryMonitoringEnabled = YES;
+  UIDeviceBatteryState state = [device batteryState];
   switch (state) {
   case UIDeviceBatteryStateUnknown:
     return @"unknown";

@@ -13,27 +13,56 @@ class Sensors extends SensorsPlatform {
 
   static SensorsPlatform get _platform => SensorsPlatform.instance;
 
-  /// A broadcast stream of events from the device accelerometer.
+  /// Returns a broadcast stream of events from the device accelerometer at the
+  /// given sampling frequency.
+  ///
+  /// This method always returning the same stream. If this method is called
+  /// again, the sampling period of the stream will be update. All previous
+  /// listener will also be affected.
   @override
-  Stream<AccelerometerEvent> get accelerometerEvents {
-    return _platform.accelerometerEvents;
+  Stream<AccelerometerEvent> accelerometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    return _platform.accelerometerEventStream(samplingPeriod: samplingPeriod);
   }
 
-  /// A broadcast stream of events from the device gyroscope.
+  /// Returns a broadcast stream of events from the device gyroscope at the
+  /// given sampling frequency.
+  ///
+  /// This method always returning the same stream. If this method is called
+  /// again, the sampling period of the stream will be update. All previous
+  /// listener will also be affected.
   @override
-  Stream<GyroscopeEvent> get gyroscopeEvents {
-    return _platform.gyroscopeEvents;
+  Stream<GyroscopeEvent> gyroscopeEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    return _platform.gyroscopeEventStream(samplingPeriod: samplingPeriod);
   }
 
-  /// Events from the device accelerometer with gravity removed.
+  /// Returns a broadcast stream of events from the device accelerometer with
+  /// gravity removed at the given sampling frequency.
+  ///
+  /// This method always returning the same stream. If this method is called
+  /// again, the sampling period of the stream will be update. All previous
+  /// listener will also be affected.
   @override
-  Stream<UserAccelerometerEvent> get userAccelerometerEvents {
-    return _platform.userAccelerometerEvents;
+  Stream<UserAccelerometerEvent> userAccelerometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    return _platform.userAccelerometerEventStream(
+        samplingPeriod: samplingPeriod);
   }
 
-  /// A broadcast stream of events from the device magnetometer.
+  /// Returns a broadcast stream of events from the device magnetometer at the
+  /// given sampling frequency.
+  ///
+  /// This method always returning the same stream. If this method is called
+  /// again, the sampling period of the stream will be update. All previous
+  /// listener will also be affected.
   @override
-  Stream<MagnetometerEvent> get magnetometerEvents {
-    return _platform.magnetometerEvents;
+  Stream<MagnetometerEvent> magnetometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    return _platform.magnetometerEventStream(samplingPeriod: samplingPeriod);
   }
 }

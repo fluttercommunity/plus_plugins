@@ -15,15 +15,17 @@ internal class StreamHandlerImpl(
 
     private var sensor: Sensor? = null
 
+    var samplingPeriod = 200000
+        set(value) {
+            field = value
+            updateRegistration()
+        }
+
     override fun onListen(arguments: Any?, events: EventSink) {
         sensor = sensorManager.getDefaultSensor(sensorType)
         if (sensor != null) {
             sensorEventListener = createSensorEventListener(events)
-            sensorManager.registerListener(
-                sensorEventListener,
-                sensor,
-                SensorManager.SENSOR_DELAY_NORMAL
-            )
+            sensorManager.registerListener(sensorEventListener, sensor, samplingPeriod)
         } else {
             events.error(
                 "NO_SENSOR",
@@ -36,6 +38,14 @@ internal class StreamHandlerImpl(
     override fun onCancel(arguments: Any?) {
         if (sensor != null) {
             sensorManager.unregisterListener(sensorEventListener)
+            sensorEventListener = null
+        }
+    }
+
+    private fun updateRegistration() {
+        if (sensorEventListener != null) {
+            sensorManager.unregisterListener(sensorEventListener)
+            sensorManager.registerListener(sensorEventListener, sensor, samplingPeriod)
         }
     }
 

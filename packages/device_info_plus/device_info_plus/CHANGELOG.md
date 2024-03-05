@@ -1,3 +1,11 @@
+## 9.1.2
+
+ - **FIX**(device_info_plus): fix crash on non-standard Digital Product IDs ([#2537](https://github.com/fluttercommunity/plus_plugins/issues/2537)). ([7b318b5c](https://github.com/fluttercommunity/plus_plugins/commit/7b318b5cd8496cf7d31c62314eb9bae17f9ef8d6))
+
+## 9.1.1
+
+ - **FIX**(device_info_plus): Fix deprecation warning on MacOS ([#2377](https://github.com/fluttercommunity/plus_plugins/issues/2377)). ([56a6d0ff](https://github.com/fluttercommunity/plus_plugins/commit/56a6d0ff3752570de89f00876eb7181d662a0465))
+
 ## 9.1.0
 
 > Info: This release is a replacement for release 10.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.

@@ -1,3 +1,7 @@
+## 4.1.0+1
+
+ - **DOCS**(network_info_plus): Add note about ios simulators ([#2524](https://github.com/fluttercommunity/plus_plugins/issues/2524)). ([20a7515e](https://github.com/fluttercommunity/plus_plugins/commit/20a7515ead6ffbae02be0b1a5cba91c93bf5c84f))
+
 ## 4.1.0
 
 > Info: This release is a replacement for release 5.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
