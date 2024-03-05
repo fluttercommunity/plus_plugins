@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx
-  s.osx.deployment_target = '10.11'
+  s.osx.deployment_target = '10.14'
 end
 
