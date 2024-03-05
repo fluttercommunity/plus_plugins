@@ -1,9 +1,3 @@
-//
-//  BatteryPlusChargingHandler.swift
-//  battery_plus
-//
-//  Created by Neevash Ramdial on 08/09/2020.
-//
 import Foundation
 import FlutterMacOS
 
@@ -64,26 +58,28 @@ class BatteryPlusChargingHandler: NSObject, FlutterStreamHandler {
         let powerSourceSnapshot = IOPSCopyPowerSourcesInfo().takeRetainedValue()
         let sources = IOPSCopyPowerSourcesList(powerSourceSnapshot).takeRetainedValue() as [CFTypeRef]
 
-        // Desktops do not have battery sources and are always charging.
+        // When no sources available it is highly likely a desktop, thus, connected_not_charging.
         if sources.isEmpty {
-            return "charging"
+            return "connected_not_charging"
         }
+
         let description = IOPSGetPowerSourceDescription(powerSourceSnapshot, sources[0]).takeUnretainedValue() as! [String: AnyObject]
 
-        if let currentCapacity = description[kIOPSCurrentCapacityKey] as? Int {
-            if currentCapacity >= 95 {
-                return "full"
+        if let isFullyCharged = description[kIOPSIsChargedKey] as? Bool {
+            if isFullyCharged {
+               return "full"
             }
         }
 
-        // Returns nil when battery is discharging
-        if let isCharging = (description[kIOPSPowerSourceStateKey] as? String) {
-            if isCharging == kIOPSACPowerValue {
+        let isConnected = (description[kIOPSPowerSourceStateKey] as? String)
+
+        if let isCharging = (description[kIOPSIsChargingKey] as? Bool) {
+            if isCharging {
                 return "charging"
-            } else if isCharging == kIOPSBatteryPowerValue {
-                return "discharging"
+            } else if isConnected == kIOPSACPowerValue {
+                return "connected_not_charging"
             } else {
-                return "unknown"
+                return "discharging"
             }
         }
         return "UNAVAILABLE"

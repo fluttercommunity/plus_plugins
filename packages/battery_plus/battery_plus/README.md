@@ -38,6 +38,10 @@ print(await battery.batteryLevel);
 battery.onBatteryStateChanged.listen((BatteryState state) {
   // Do something with new state
 });
+
+// Check if device in battery save mode
+// Currently available on Android, iOS and Windows platforms only
+print(await battery.isInBatterySaveMode);
 ```
 
 ## Learn more

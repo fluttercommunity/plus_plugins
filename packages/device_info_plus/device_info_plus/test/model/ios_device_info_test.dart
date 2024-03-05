@@ -19,7 +19,7 @@ void main() {
         'model': 'model',
         'utsname': iosUtsnameMap,
         'systemName': 'systemName',
-        'isPhysicalDevice': 'true',
+        'isPhysicalDevice': true,
         'systemVersion': 'systemVersion',
         'localizedModel': 'localizedModel',
         'identifierForVendor': 'identifierForVendor',

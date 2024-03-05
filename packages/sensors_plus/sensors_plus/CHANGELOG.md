@@ -1,3 +1,23 @@
+## 4.0.2
+
+ - **FIX**(sensors_plus): Close magnetometerStreamController on web ([#2456](https://github.com/fluttercommunity/plus_plugins/issues/2456)). ([64200667](https://github.com/fluttercommunity/plus_plugins/commit/64200667e94ec6eedeb3f8224f355d113dee3ac8))
+
+## 4.0.1+1
+
+ - **DOCS**(sensors_plus): Update README to mention how sampling rate works on Android ([#2452](https://github.com/fluttercommunity/plus_plugins/issues/2452)). ([4d8ce2f8](https://github.com/fluttercommunity/plus_plugins/commit/4d8ce2f8e9eb09e8ae6e5616599a593ff182ea24))
+
+## 4.0.1
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**(sensors_plus): Use magnetometer instead of deviceMotion on iOS ([#2250](https://github.com/fluttercommunity/plus_plugins/issues/2250)). ([d1751024](https://github.com/fluttercommunity/plus_plugins/commit/d175102404f5a614360dc52380e95aa0a6308481))
+ - **FEAT**(sensors_plus): Configurable sample rate on Android and iOS ([#2248](https://github.com/fluttercommunity/plus_plugins/issues/2248)). ([82ffe46c](https://github.com/fluttercommunity/plus_plugins/commit/82ffe46c6ff02a7fcaad35c74c872e1ceb37621c))
+ - **DOCS**(sensors_plus): Add info about sensors sampling rate configuration ([#2393](https://github.com/fluttercommunity/plus_plugins/issues/2393)). ([35900ead](https://github.com/fluttercommunity/plus_plugins/commit/35900eadd91e88d5eb2d28eeb32048edbb1057c9))
+
+## 4.0.0
+
+This release was retracted due to [#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251).
+
 ## 3.1.0
 
 > Info: This release is a replacement for release 4.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.

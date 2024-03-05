@@ -7,7 +7,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity_plus: ^5.0.1
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_driver:
@@ -17,7 +17,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   test: ^1.16.4
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

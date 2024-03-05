@@ -19,7 +19,7 @@ env:
 
 jobs:
   android_build:
-    runs-on: macos-13
+    runs-on: macos-14
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -33,6 +33,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
+    # Use non M1 machine till https://github.com/ReactiveCircus/android-emulator-runner/issues/350 is resolved
     runs-on: macos-13
     timeout-minutes: 30
     strategy:
@@ -61,7 +62,7 @@ jobs:
           script: ./.github/workflows/scripts/integration-test.sh android sensors_plus_example
 
   ios:
-    runs-on: macos-13
+    runs-on: macos-14
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -74,7 +75,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-13
+    runs-on: macos-14
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -84,7 +85,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v2
+        uses: futureware-tech/simulator-action@v3
         with:
           model: 'iPhone 14'
       - name: "Bootstrap Workspace"

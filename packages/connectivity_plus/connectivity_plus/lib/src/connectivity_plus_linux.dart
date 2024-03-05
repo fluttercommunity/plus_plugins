@@ -41,7 +41,7 @@ class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
   }
 
   ConnectivityResult _getConnectivity(NetworkManagerClient client) {
-    if (client.connectivity != NetworkManagerConnectivityState.full) {
+    if (client.connectivity == NetworkManagerConnectivityState.none) {
       return ConnectivityResult.none;
     }
     if (client.primaryConnectionType.contains('wireless')) {
@@ -56,7 +56,10 @@ class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
     if (client.primaryConnectionType.contains('bluetooth')) {
       return ConnectivityResult.bluetooth;
     }
-    return ConnectivityResult.mobile;
+    if (client.primaryConnectionType.contains('mobile')) {
+      return ConnectivityResult.mobile;
+    }
+    return ConnectivityResult.other;
   }
 
   Future<void> _startListenConnectivity() async {

@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  android_alarm_manager_plus: ^3.0.3
+  android_alarm_manager_plus: ^3.0.4
   shared_preferences: ^2.1.0
   path_provider: ^2.0.14
 
@@ -18,7 +18,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

@@ -15,7 +15,9 @@ sensors.
 
 | Android |  iOS  | MacOS |  Web  | Linux | Windows |
 | :-----: | :---: | :---: | :---: | :---: | :-----: |
-|   ✅   |   ✅   |   ❌   |   ✅  |   ❌    |    ❌   |
+|   ✅   |   ✅   |   ❌   |   ✅*  |   ❌    |    ❌   |
+
+\* Currently it is not possible to set sensors sampling rate on web
 
 ## Usage
 
@@ -48,7 +50,7 @@ These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
 `userAccelerometerEvents`, `gyroscopeEvents`, and `magnetometerEvents`,
 respectively.
 
-> **Note**
+> [!NOTE]
 >
 > Some low end or old Android devices don't have all sensors available. Plugin won't crash the app,
 > but it is highly recommended to add onError() to handle such cases gracefully.
@@ -105,9 +107,29 @@ magnetometerEvents.listen(
   cancelOnError: true,
 );
 // [MagnetometerEvent (x: -23.6, y: 6.2, z: -34.9)]
-
 ```
 
+Alternatively, every stream allows to specify the sampling rate for its sensor using one of predefined constants or using a custom value
+
+> [!NOTE]
+>
+> On Android it is not guaranteed that events from sensors will arrive with specified sampling rate as it is noted in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (see the description for the `samplingPeriodUs` parameter). In reality delay varies depending on Android version, device hardware and vendor's OS customisations.
+
+
+```dart
+magnetometerEvents(samplingPeriod: SensorInterval.normalInterval).listen(
+  (MagnetometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
+```
+
+For more detailed instruction check out the documentation linked below.
 Also see the `example` subdirectory for an example application that uses the
 sensor data.
 

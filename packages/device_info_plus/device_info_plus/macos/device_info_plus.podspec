@@ -18,5 +18,5 @@ https://github.com/flutter/flutter/issues/46618
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx
-  s.osx.deployment_target = '10.11'
+  s.osx.deployment_target = '10.14'
 end
