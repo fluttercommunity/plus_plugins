@@ -26,7 +26,7 @@ void main() {
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.wifi);
+      expect(result, [ConnectivityResult.wifi]);
     },
         skip: !Platform.isAndroid ||
             Platform.operatingSystemVersion.contains('5.0.2'));
@@ -35,7 +35,7 @@ void main() {
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.mobile);
+      expect(result, [ConnectivityResult.mobile]);
     },
         skip: !Platform.isAndroid ||
             !Platform.operatingSystemVersion.contains('5.0.2'));
@@ -44,14 +44,14 @@ void main() {
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.ethernet);
+      expect(result, [ConnectivityResult.ethernet]);
     }, skip: !Platform.isMacOS);
 
     testWidgets('connectivity on Linux should be none',
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
-      expect(result, ConnectivityResult.other);
+      expect(result, [ConnectivityResult.other]);
     }, skip: !Platform.isLinux);
   });
 }

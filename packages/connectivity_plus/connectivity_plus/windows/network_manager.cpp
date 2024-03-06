@@ -137,7 +137,7 @@ std::vector<GUID> NetworkManager::GetConnectedAdapterIds() const {
   return adapterIds;
 }
 
-ConnectivityType NetworkManager::GetConnectivityType() const {
+std::set<ConnectivityType> NetworkManager::GetConnectivityTypes() const {
   ULONG bufferSize = 15 * 1024;
   ULONG flags = GAA_FLAG_SKIP_UNICAST | GAA_FLAG_SKIP_ANYCAST |
                 GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_DNS_SERVER |
@@ -153,12 +153,12 @@ ConnectivityType NetworkManager::GetConnectivityType() const {
   }
 
   if (rc != NO_ERROR) {
-    return ConnectivityType::None;
+    return {ConnectivityType::None};
   }
 
   std::vector<GUID> adapterIds = GetConnectedAdapterIds();
   if (adapterIds.empty()) {
-    return ConnectivityType::None;
+    return {ConnectivityType::None};
   }
 
   std::set<ConnectivityType> connectivities;
@@ -177,26 +177,35 @@ ConnectivityType NetworkManager::GetConnectivityType() const {
 
     if (std::find(adapterIds.begin(), adapterIds.end(), guid) !=
         adapterIds.end()) {
+      // Read more at
+      // https://learn.microsoft.com/en-us/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
       switch (addresses->IfType) {
       case IF_TYPE_ETHERNET_CSMACD:
+      case IF_TYPE_IEEE1394:
         connectivities.insert(ConnectivityType::Ethernet);
         break;
-      default:
+      case IF_TYPE_IEEE80211:
         connectivities.insert(ConnectivityType::WiFi);
+        break;
+      case IF_TYPE_TUNNEL:
+      case IF_TYPE_PPP:
+        connectivities.insert(ConnectivityType::VPN);
+        break;
+      default:
+        connectivities.insert(ConnectivityType::Other);
         break;
       }
     }
   }
 
-  if (connectivities.find(ConnectivityType::WiFi) != connectivities.end()) {
-    return ConnectivityType::WiFi;
+  if (connectivities.empty()) {
+    // If no specific connectivity types were found, return a set containing
+    // only None
+    return {ConnectivityType::None};
   }
 
-  if (connectivities.find(ConnectivityType::Ethernet) != connectivities.end()) {
-    return ConnectivityType::Ethernet;
-  }
-
-  return ConnectivityType::None;
+  // Return the set of detected connectivity types
+  return connectivities;
 }
 
 bool NetworkManager::StartListen(NetworkCallback pCallback) {

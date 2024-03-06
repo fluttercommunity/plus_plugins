@@ -9,13 +9,13 @@ public enum ConnectivityType {
 }
 
 public protocol ConnectivityProvider: NSObjectProtocol {
-  typealias ConnectivityUpdateHandler = (ConnectivityType) -> Void
-
-  var currentConnectivityType: ConnectivityType { get }
-
+  typealias ConnectivityUpdateHandler = ([ConnectivityType]) -> Void
+  
+  var currentConnectivityTypes: [ConnectivityType] { get }
+  
   var connectivityUpdateHandler: ConnectivityUpdateHandler? { get set }
-
+  
   func start()
-
+  
   func stop()
 }
