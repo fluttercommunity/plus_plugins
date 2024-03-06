@@ -34,5 +34,26 @@ void main() {
         'machineId': 'machineId',
       });
     });
+
+    test('toString should return string representation', () {
+      final linuxDeviceInfo = LinuxDeviceInfo(
+        name: 'name',
+        version: 'version',
+        id: 'id',
+        idLike: ['idLike'],
+        versionCodename: 'versionCodename',
+        versionId: 'versionId',
+        prettyName: 'prettyName',
+        buildId: 'buildId',
+        variant: 'variant',
+        variantId: 'variantId',
+        machineId: 'machineId',
+      );
+
+      expect(
+        linuxDeviceInfo.toString(),
+        'LinuxDeviceInfo(name: name, version: version, id: id, idLike: [idLike], versionCodename: versionCodename, versionId: versionId, prettyName: prettyName, buildId: buildId, variant: variant, variantId: variantId, machineId: machineId)',
+      );
+    });
   });
 }
