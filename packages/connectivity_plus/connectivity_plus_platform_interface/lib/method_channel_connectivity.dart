@@ -22,22 +22,22 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   EventChannel eventChannel =
       const EventChannel('dev.fluttercommunity.plus/connectivity_status');
 
-  Stream<ConnectivityResult>? _onConnectivityChanged;
+  Stream<List<ConnectivityResult>>? _onConnectivityChanged;
 
   /// Fires whenever the connectivity state changes.
   @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged {
     _onConnectivityChanged ??= eventChannel
         .receiveBroadcastStream()
-        .map((dynamic result) => result.toString())
-        .map(parseConnectivityResult);
+        .map((dynamic result) => List<String>.from(result))
+        .map(parseConnectivityResults);
     return _onConnectivityChanged!;
   }
 
   @override
-  Future<ConnectivityResult> checkConnectivity() {
+  Future<List<ConnectivityResult>> checkConnectivity() {
     return methodChannel
-        .invokeMethod<String>('check')
-        .then((value) => parseConnectivityResult(value ?? ''));
+        .invokeListMethod<String>('check')
+        .then((value) => parseConnectivityResults(value ?? []));
   }
 }

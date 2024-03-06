@@ -2,17 +2,21 @@ import Foundation
 import Reachability
 
 public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
-  private var _reachability: Reachability?
+  private var reachability: Reachability?
 
-  public var currentConnectivityType: ConnectivityType {
-    let reachability = ensureReachability()
+  public var currentConnectivityTypes: [ConnectivityType] {
+    guard let reachability = reachability else {
+      return [.none]
+    }
+    
+    // Supported types https://github.com/ashleymills/Reachability.swift/blob/master/Sources/Reachability.swift#L99
     switch reachability.connection {
     case .wifi:
-      return .wifi
+      return [.wifi]
     case .cellular:
-      return .cellular
+      return [.cellular]
     default:
-      return .none
+      return [.none]
     }
   }
 
@@ -39,21 +43,24 @@ public class ReachabilityConnectivityProvider: NSObject, ConnectivityProvider {
     NotificationCenter.default.removeObserver(
       self,
       name: .reachabilityChanged,
-      object: _reachability)
+      object: reachability)
 
-    _reachability?.stopNotifier()
-    _reachability = nil
+    reachability?.stopNotifier()
+    reachability = nil
   }
 
   private func ensureReachability() -> Reachability {
-    if (_reachability == nil) {
+    if (reachability == nil) {
       let reachability = try? Reachability()
-      _reachability = reachability
+      self.reachability = reachability
     }
-    return _reachability!
+    return reachability!
   }
 
   @objc private func reachabilityChanged(notification: NSNotification) {
-    connectivityUpdateHandler?(currentConnectivityType)
+    if let reachability = notification.object as? Reachability {
+      self.reachability = reachability
+      connectivityUpdateHandler?(currentConnectivityTypes)
+    }
   }
 }
