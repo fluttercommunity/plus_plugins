@@ -22,7 +22,7 @@ void main() {
 }
 
 class DemoApp extends StatefulWidget {
-  const DemoApp({Key? key}) : super(key: key);
+  const DemoApp({super.key});
 
   @override
   DemoAppState createState() => DemoAppState();
