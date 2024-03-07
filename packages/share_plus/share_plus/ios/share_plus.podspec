@@ -19,7 +19,7 @@ Downloaded by pub (not CocoaPods).
   s.dependency 'Flutter'
   s.ios.weak_framework = 'LinkPresentation'
 
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.resource_bundles = {'share_plus_privacy' => ['PrivacyInfo.xcprivacy']}
 end

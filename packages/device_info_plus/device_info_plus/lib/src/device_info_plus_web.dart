@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html' as html show window, Navigator;
+import 'package:web/web.dart' as html show window, Navigator;
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -43,4 +43,11 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
       ),
     );
   }
+}
+
+/// Property is missing.
+/// Ticket: https://github.com/dart-lang/web/issues/192
+/// Probably won't be an int? in the future!
+extension on html.Navigator {
+  external int? get deviceMemory;
 }

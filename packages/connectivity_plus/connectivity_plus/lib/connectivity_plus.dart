@@ -39,7 +39,7 @@ class Connectivity {
   /// On iOS, the connectivity status might not update when WiFi
   /// status changes, this is a known issue that only affects simulators.
   /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
-  Stream<ConnectivityResult> get onConnectivityChanged {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged;
   }
 
@@ -49,7 +49,7 @@ class Connectivity {
   /// make a network request. It only gives you the radio status.
   ///
   /// Instead listen for connectivity changes via [onConnectivityChanged] stream.
-  Future<ConnectivityResult> checkConnectivity() {
+  Future<List<ConnectivityResult>> checkConnectivity() {
     return _platform.checkConnectivity();
   }
 }

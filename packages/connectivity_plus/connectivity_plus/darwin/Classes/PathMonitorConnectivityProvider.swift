@@ -1,30 +1,33 @@
 import Foundation
 import Network
 
-@available(iOS 12, *)
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private let queue = DispatchQueue.global(qos: .background)
 
-  private var _pathMonitor: NWPathMonitor?
+  private var pathMonitor: NWPathMonitor?
 
-  public var currentConnectivityType: ConnectivityType {
+  public var currentConnectivityTypes: [ConnectivityType] {
     let path = ensurePathMonitor().currentPath
-    // .satisfied means that the network is available
+    var types: [ConnectivityType] = []
+    
+    // Check for connectivity and append to types array as necessary
     if path.status == .satisfied {
       if path.usesInterfaceType(.wifi) {
-        return .wifi
-      } else if path.usesInterfaceType(.cellular) {
-        return .cellular
-      } else if path.usesInterfaceType(.wiredEthernet) {
-        // .wiredEthernet is available in simulator
-        // but for consistency it is probably correct to report .wifi
-        return .wifi
-      } else if path.usesInterfaceType(.other) {
-        return .other
+        types.append(.wifi)
+      }
+      if path.usesInterfaceType(.cellular) {
+        types.append(.cellular)
+      }
+      if path.usesInterfaceType(.wiredEthernet) {
+        types.append(.wiredEthernet)
+      }
+      if path.usesInterfaceType(.other) {
+        types.append(.other)
       }
     }
-    return .none
+    
+    return types.isEmpty ? [.none] : types
   }
 
   public var connectivityUpdateHandler: ConnectivityUpdateHandler?
@@ -39,22 +42,22 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
   }
 
   public func stop() {
-    _pathMonitor?.cancel()
-    _pathMonitor = nil
+    pathMonitor?.cancel()
+    pathMonitor = nil
   }
 
   @discardableResult
   private func ensurePathMonitor() -> NWPathMonitor {
-    if (_pathMonitor == nil) {
+    if (pathMonitor == nil) {
       let pathMonitor = NWPathMonitor()
       pathMonitor.start(queue: queue)
       pathMonitor.pathUpdateHandler = pathUpdateHandler
-      _pathMonitor = pathMonitor
+      self.pathMonitor = pathMonitor
     }
-    return _pathMonitor!
+    return self.pathMonitor!
   }
 
   private func pathUpdateHandler(path: NWPath) {
-    connectivityUpdateHandler?(currentConnectivityType)
+    connectivityUpdateHandler?(currentConnectivityTypes)
   }
 }
