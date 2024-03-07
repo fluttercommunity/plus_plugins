@@ -14,7 +14,7 @@ Downloaded by pub (not CocoaPods).
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.resource_bundles = {'package_info_plus_privacy' => ['PrivacyInfo.xcprivacy']}
 end
