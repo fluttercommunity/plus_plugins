@@ -25,10 +25,21 @@ class Share {
   /// on iOS. [shareUri] will trigger the iOS system to fetch the html page
   /// (if available), and the website icon will be extracted and displayed on
   /// the iOS share sheet.
+  ///
+  /// The optional `sharePositionOrigin` parameter can be used to specify a global
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
+  ///
+  /// May throw [PlatformException]
+  /// from [MethodChannel].
   static Future<void> shareUri(
-    Uri uri,
-  ) async {
-    return _platform.shareUri(uri);
+    Uri uri, {
+    Rect? sharePositionOrigin,
+  }) async {
+    return _platform.shareUri(
+      uri,
+      sharePositionOrigin: sharePositionOrigin,
+    );
   }
 
   /// Summons the platform's share sheet to share text.

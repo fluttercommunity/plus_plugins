@@ -24,8 +24,19 @@ class MethodChannelShare extends SharePlatform {
       MethodChannel('dev.fluttercommunity.plus/share');
 
   @override
-  Future<void> shareUri(Uri uri) {
+  Future<void> shareUri(
+    Uri uri, {
+    Rect? sharePositionOrigin,
+  }) {
     final params = <String, dynamic>{'uri': uri.toString()};
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
     return channel.invokeMethod<void>('shareUri', params);
   }
 
