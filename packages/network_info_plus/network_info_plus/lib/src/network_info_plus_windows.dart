@@ -62,19 +62,22 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
 
         const opCode = 7; // wlan_intf_opcode_current_connection
         final pdwDataSize = calloc<DWORD>();
-        final pAttributes = calloc<WLAN_CONNECTION_ATTRIBUTES>();
+        final ppAttributes = calloc<Pointer<WLAN_CONNECTION_ATTRIBUTES>>();
 
         try {
           hr = WlanQueryInterface(clientHandle, pInterfaceGuid, opCode, nullptr,
-              pdwDataSize, pAttributes.cast(), nullptr);
+              pdwDataSize, ppAttributes.cast(), nullptr);
           if (hr != ERROR_SUCCESS) break;
-          if (pAttributes.ref.isState != 0) {
-            return query(pInterfaceGuid, pAttributes);
+          if (ppAttributes.value.ref.isState != 0) {
+            return query(pInterfaceGuid, ppAttributes.value);
           }
         } finally {
           free(pInterfaceGuid);
           free(pdwDataSize);
-          free(pAttributes);
+          if (ppAttributes.value != nullptr) {
+            WlanFreeMemory(ppAttributes.value);
+          }
+          free(ppAttributes);
         }
       }
       return null;
