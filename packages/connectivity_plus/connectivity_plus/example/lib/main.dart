@@ -92,11 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connectivity example app'),
+        title: const Text('Connectivity Plus Example'),
         elevation: 4,
       ),
-      body: Center(
-          child: Text('Connection Status: ${_connectionStatus.toString()}')),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Spacer(flex: 2),
+          Text(
+            'Active connection types:',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const Spacer(),
+          ListView(
+            shrinkWrap: true,
+            children: List.generate(
+                _connectionStatus.length,
+                (index) => Center(
+                      child: Text(
+                        _connectionStatus[index].toString(),
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    )),
+          ),
+          const Spacer(flex: 2),
+        ],
+      ),
     );
   }
 }
