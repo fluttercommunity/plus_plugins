@@ -14,7 +14,6 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-
 import io.flutter.plugin.common.EventChannel;
 
 /**

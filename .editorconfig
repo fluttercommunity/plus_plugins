@@ -29,13 +29,6 @@ indent_size = 2
 indent_size = 4
 max_line_length = 100
 
-# Java code style according to https://google.github.io/styleguide/javaguide.html
-[*.java]
-indent_size = 2
-max_line_length = 100
-indent_style = space
-tab_width = 2
-
 [*.m]
 indent_style = space
 indent_size = 2
