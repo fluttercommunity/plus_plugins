@@ -148,36 +148,28 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiIPv6 = await _networkInfo.getWifiIPv6();
-      }
+      wifiIPv6 = await _networkInfo.getWifiIPv6();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi IPv6', error: e);
       wifiIPv6 = 'Failed to get Wifi IPv6';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiSubmask = await _networkInfo.getWifiSubmask();
-      }
+      wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi submask address', error: e);
       wifiSubmask = 'Failed to get Wifi submask address';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiBroadcast = await _networkInfo.getWifiBroadcast();
-      }
+      wifiBroadcast = await _networkInfo.getWifiBroadcast();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi broadcast', error: e);
       wifiBroadcast = 'Failed to get Wifi broadcast';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
-      }
+      wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi gateway address', error: e);
       wifiGatewayIP = 'Failed to get Wifi gateway address';
