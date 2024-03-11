@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class Connectivity {
       // For legacy versions, return a single type as before or adapt similarly if multiple types need to be supported
       return getNetworkTypesLegacy();
     }
-    Log.d("CONNECTIVITY", "RETURNING TYPES" + types);
+
     return types;
   }
 
