@@ -26,7 +26,7 @@ import io.flutter.plugin.common.EventChannel;
  * to set up the receiver.
  */
 public class ConnectivityBroadcastReceiver extends BroadcastReceiver
-  implements EventChannel.StreamHandler {
+    implements EventChannel.StreamHandler {
   private final Context context;
   private final Connectivity connectivity;
   private EventChannel.EventSink events;
@@ -44,22 +44,23 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
     this.events = events;
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       networkCallback =
-        new ConnectivityManager.NetworkCallback() {
-          @Override
-          public void onAvailable(Network network) {
-            sendEvent();
-          }
+          new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+              sendEvent();
+            }
 
-          @Override
-          public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
-            sendEvent();
-          }
+            @Override
+            public void onCapabilitiesChanged(
+                Network network, NetworkCapabilities networkCapabilities) {
+              sendEvent();
+            }
 
-          @Override
-          public void onLost(Network network) {
-            sendEvent();
-          }
-        };
+            @Override
+            public void onLost(Network network) {
+              sendEvent();
+            }
+          };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
     } else {
       context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION));
@@ -77,7 +78,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
       try {
         context.unregisterReceiver(this);
       } catch (Exception e) {
-        //listen never called, ignore the error
+        // listen never called, ignore the error
       }
     }
   }
@@ -92,7 +93,8 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
   private void sendEvent() {
     Runnable runnable = () -> events.success(connectivity.getNetworkTypes());
     // The dalay is needed because callback methods suffer from race conditions.
-    // More info: https://developer.android.com/develop/connectivity/network-ops/reading-network-state#listening-events
+    // More info:
+    // https://developer.android.com/develop/connectivity/network-ops/reading-network-state#listening-events
     mainHandler.postDelayed(runnable, 100);
   }
 }

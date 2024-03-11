@@ -33,6 +33,8 @@ max_line_length = 100
 [*.java]
 indent_size = 2
 max_line_length = 100
+indent_style = space
+tab_width = 2
 
 [*.m]
 indent_style = space
