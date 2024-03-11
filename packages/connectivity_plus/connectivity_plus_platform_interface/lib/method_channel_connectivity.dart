@@ -29,8 +29,7 @@ class MethodChannelConnectivity extends ConnectivityPlatform {
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     _onConnectivityChanged ??= eventChannel
         .receiveBroadcastStream()
-        .map((dynamic result) =>
-            result is String ? [result] : List<String>.from(result))
+        .map((dynamic result) => List<String>.from(result))
         .map(parseConnectivityResults);
     return _onConnectivityChanged!;
   }

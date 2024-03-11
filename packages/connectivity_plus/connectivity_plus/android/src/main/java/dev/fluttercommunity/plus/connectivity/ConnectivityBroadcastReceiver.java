@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -49,8 +50,14 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
             }
 
             @Override
+            public void onCapabilitiesChanged(
+                Network network, NetworkCapabilities networkCapabilities) {
+              sendEvent();
+            }
+
+            @Override
             public void onLost(Network network) {
-              sendEvent(Connectivity.CONNECTIVITY_NONE);
+              sendEvent();
             }
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
@@ -70,7 +77,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
       try {
         context.unregisterReceiver(this);
       } catch (Exception e) {
-        //listen never called, ignore the error
+        // listen never called, ignore the error
       }
     }
   }
@@ -84,11 +91,9 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
 
   private void sendEvent() {
     Runnable runnable = () -> events.success(connectivity.getNetworkTypes());
-    mainHandler.post(runnable);
-  }
-
-  private void sendEvent(final String networkType) {
-    Runnable runnable = () -> events.success(networkType);
-    mainHandler.post(runnable);
+    // The dalay is needed because callback methods suffer from race conditions.
+    // More info:
+    // https://developer.android.com/develop/connectivity/network-ops/reading-network-state#listening-events
+    mainHandler.postDelayed(runnable, 100);
   }
 }
