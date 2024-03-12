@@ -27,6 +27,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 /**
  * An background execution abstraction which handles initializing a background isolate running a
  * callback dispatcher, used to invoke Dart callbacks while backgrounded.
