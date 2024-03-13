@@ -15,7 +15,7 @@ class MainActivity: FlutterActivity() {
                 .penaltyLog()
                 .penaltyDeath()
                 .build())
-        };
+        }
         super.onCreate(savedInstanceState)
     }
 }
