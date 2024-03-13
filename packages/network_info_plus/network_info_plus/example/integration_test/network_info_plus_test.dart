@@ -16,14 +16,6 @@ void main() {
     networkInfo = NetworkInfo();
   });
 
-  testWidgets('test location methods, iOS only', (WidgetTester tester) async {
-    if (Platform.isIOS) {
-      // ignore: deprecated_member_use
-      expect((await networkInfo.getLocationServiceAuthorization()),
-          LocationAuthorizationStatus.notDetermined);
-    }
-  }, skip: !Platform.isIOS);
-
   testWidgets('test non-null network value', (WidgetTester tester) async {
     expect(networkInfo.getWifiName(), isNotNull);
     expect(networkInfo.getWifiBSSID(), isNotNull);
