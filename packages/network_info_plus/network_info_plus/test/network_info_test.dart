@@ -64,18 +64,6 @@ void main() {
       final result = await networkInfo.getWifiGatewayIP();
       expect(result, kWifiGatewayIP);
     });
-
-    test('requestLocationServiceAuthorization', () async {
-      // ignore: deprecated_member_use_from_same_package
-      final result = await networkInfo.requestLocationServiceAuthorization();
-      expect(result, kRequestLocationResult);
-    });
-
-    test('getLocationServiceAuthorization', () async {
-      // ignore: deprecated_member_use_from_same_package
-      final result = await networkInfo.getLocationServiceAuthorization();
-      expect(result, kRequestLocationResult);
-    });
   });
 }
 
@@ -115,17 +103,5 @@ class MockNetworkInfoPlatform extends Mock
   @override
   Future<String> getWifiIP() async {
     return kWifiIpAddressResult;
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
-    bool requestAlwaysLocationUsage = false,
-  }) async {
-    return kRequestLocationResult;
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> getLocationServiceAuthorization() async {
-    return kGetLocationResult;
   }
 }

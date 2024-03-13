@@ -72,17 +72,4 @@ abstract class NetworkInfoPlatform extends PlatformInterface {
   Future<String?> getWifiBroadcast() {
     throw UnimplementedError('getWifiBroadcast() has not been implemented.');
   }
-
-  /// Request to authorize the location service (Only on iOS).
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization(
-      {bool requestAlwaysLocationUsage = false}) {
-    throw UnimplementedError(
-        'requestLocationServiceAuthorization() has not been implemented.');
-  }
-
-  /// Get the current location service authorization (Only on iOS).
-  Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
-    throw UnimplementedError(
-        'getLocationServiceAuthorization() has not been implemented.');
-  }
 }
