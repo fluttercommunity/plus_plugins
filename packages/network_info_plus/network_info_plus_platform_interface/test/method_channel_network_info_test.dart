@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_info_plus_platform_interface/method_channel_network_info.dart';
@@ -141,36 +140,6 @@ void main() {
         <Matcher>[
           isMethodCall(
             'wifiSubmask',
-            arguments: null,
-          ),
-        ],
-      );
-    });
-
-    test('requestLocationServiceAuthorization', () async {
-      final result =
-          await methodChannelNetworkInfo.requestLocationServiceAuthorization();
-      expect(result, LocationAuthorizationStatus.authorizedAlways);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'requestLocationServiceAuthorization',
-            arguments: <bool>[false],
-          ),
-        ],
-      );
-    });
-
-    test('getLocationServiceAuthorization', () async {
-      final result =
-          await methodChannelNetworkInfo.getLocationServiceAuthorization();
-      expect(result, LocationAuthorizationStatus.authorizedAlways);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'getLocationServiceAuthorization',
             arguments: null,
           ),
         ],
