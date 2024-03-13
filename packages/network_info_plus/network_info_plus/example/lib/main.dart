@@ -98,10 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       if (!kIsWeb && Platform.isIOS) {
-        // ignore: deprecated_member_use
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
-          // ignore: deprecated_member_use
           status = await _networkInfo.requestLocationServiceAuthorization();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
@@ -120,10 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       if (!kIsWeb && Platform.isIOS) {
-        // ignore: deprecated_member_use
         var status = await _networkInfo.getLocationServiceAuthorization();
         if (status == LocationAuthorizationStatus.notDetermined) {
-          // ignore: deprecated_member_use
           status = await _networkInfo.requestLocationServiceAuthorization();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
