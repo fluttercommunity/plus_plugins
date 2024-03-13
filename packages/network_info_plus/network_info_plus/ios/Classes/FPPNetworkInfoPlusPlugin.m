@@ -7,7 +7,6 @@
 #import "FPPCaptiveNetworkInfoProvider.h"
 #import "FPPHotspotNetworkInfoProvider.h"
 #import "FPPNetworkInfo.h"
-#import "FPPNetworkInfoLocationPlusHandler.h"
 #import "FPPNetworkInfoProvider.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
 #import "getgateway.h"
@@ -20,7 +19,6 @@
 
 @interface FPPNetworkInfoPlusPlugin () <CLLocationManagerDelegate>
 
-@property(strong, nonatomic) FPPNetworkInfoLocationPlusHandler *locationHandler;
 @property(strong, nonatomic) id<FPPNetworkInfoProvider> networkInfoProvider;
 
 - (instancetype)initWithNetworkInfoProvider:
@@ -103,30 +101,6 @@
   return addr;
 }
 
-- (NSString *)convertCLAuthorizationStatusToString:
-    (CLAuthorizationStatus)status {
-  switch (status) {
-  case kCLAuthorizationStatusNotDetermined: {
-    return @"notDetermined";
-  }
-  case kCLAuthorizationStatusRestricted: {
-    return @"restricted";
-  }
-  case kCLAuthorizationStatusDenied: {
-    return @"denied";
-  }
-  case kCLAuthorizationStatusAuthorizedAlways: {
-    return @"authorizedAlways";
-  }
-  case kCLAuthorizationStatusAuthorizedWhenInUse: {
-    return @"authorizedWhenInUse";
-  }
-  default: {
-    return @"unknown";
-  }
-  }
-}
-
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"wifiName"]) {
@@ -149,31 +123,9 @@
     result([self getWifiBroadcast]);
   } else if ([call.method isEqualToString:@"wifiGatewayAddress"]) {
     result([self getGatewayIP]);
-  } else if ([call.method isEqualToString:@"getLocationServiceAuthorization"]) {
-    result([self
-        convertCLAuthorizationStatusToString:[FPPNetworkInfoLocationPlusHandler
-                                                 locationAuthorizationStatus]]);
-  } else if ([call.method
-                 isEqualToString:@"requestLocationServiceAuthorization"]) {
-    NSArray *arguments = call.arguments;
-    BOOL always = [arguments.firstObject boolValue];
-    __weak typeof(self) weakSelf = self;
-    [self.locationHandler
-        requestLocationAuthorization:always
-                          completion:^(CLAuthorizationStatus status) {
-                            result([weakSelf
-                                convertCLAuthorizationStatusToString:status]);
-                          }];
   } else {
     result(FlutterMethodNotImplemented);
   }
-}
-
-- (FPPNetworkInfoLocationPlusHandler *)locationHandler {
-  if (!_locationHandler) {
-    _locationHandler = [FPPNetworkInfoLocationPlusHandler new];
-  }
-  return _locationHandler;
 }
 
 #pragma mark - Utils
