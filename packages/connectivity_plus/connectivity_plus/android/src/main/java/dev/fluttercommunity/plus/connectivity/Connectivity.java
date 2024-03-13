@@ -60,7 +60,8 @@ public class Connectivity {
         types.add(CONNECTIVITY_NONE);
       }
     } else {
-      // For legacy versions, return a single type as before or adapt similarly if multiple types need to be supported
+      // For legacy versions, return a single type as before or adapt similarly if multiple types
+      // need to be supported
       return getNetworkTypesLegacy();
     }
 
