@@ -98,12 +98,16 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiSubmask;
 
     try {
-      // Request permissions as recommended by the plugin documentation:
-      // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
-      if (await Permission.locationWhenInUse.request().isGranted) {
-        wifiName = await _networkInfo.getWifiName();
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        // Request permissions as recommended by the plugin documentation:
+        // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
+        if (await Permission.locationWhenInUse.request().isGranted) {
+          wifiName = await _networkInfo.getWifiName();
+        } else {
+          wifiName = 'Unauthorized to get Wifi Name';
+        }
       } else {
-        wifiName = 'Unauthorized to get Wifi Name';
+        wifiName = await _networkInfo.getWifiName();
       }
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi Name', error: e);
@@ -111,10 +115,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (await Permission.locationWhenInUse.request().isGranted) {
-        wifiBSSID = await _networkInfo.getWifiBSSID();
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        // Request permissions as recommended by the plugin documentation:
+        // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
+        if (await Permission.locationWhenInUse.request().isGranted) {
+          wifiBSSID = await _networkInfo.getWifiBSSID();
+        } else {
+          wifiBSSID = 'Unauthorized to get Wifi BSSID';
+        }
       } else {
-        wifiBSSID = 'Unauthorized to get Wifi BSSID';
+        wifiName = await _networkInfo.getWifiName();
       }
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi BSSID', error: e);
