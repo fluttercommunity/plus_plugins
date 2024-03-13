@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // Sets a platform override for desktop to avoid exceptions. See
 // https://flutter.dev/desktop#target-platform-override for more info.
@@ -97,19 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiSubmask;
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
-          wifiName = await _networkInfo.getWifiName();
-        } else {
-          wifiName = await _networkInfo.getWifiName();
-        }
-      } else {
+      // Request permissions as recommended by the plugin documentation:
+      // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
+      if (await Permission.locationWhenInUse.request().isGranted) {
         wifiName = await _networkInfo.getWifiName();
+      } else {
+        wifiName = 'Unauthorized to get Wifi Name';
       }
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi Name', error: e);
@@ -117,19 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
-          wifiBSSID = await _networkInfo.getWifiBSSID();
-        } else {
-          wifiBSSID = await _networkInfo.getWifiBSSID();
-        }
-      } else {
+      if (await Permission.locationWhenInUse.request().isGranted) {
         wifiBSSID = await _networkInfo.getWifiBSSID();
+      } else {
+        wifiBSSID = 'Unauthorized to get Wifi BSSID';
       }
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi BSSID', error: e);
