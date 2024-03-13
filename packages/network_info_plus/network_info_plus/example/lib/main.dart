@@ -53,29 +53,14 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class _MyHomePageState extends State<MyHomePage> {
   String _connectionStatus = 'Unknown';
   final NetworkInfo _networkInfo = NetworkInfo();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _initNetworkInfo();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // reload network info when navigating back from granting permission
-    if (state == AppLifecycleState.resumed) {
-      _initNetworkInfo();
-    }
   }
 
   @override
