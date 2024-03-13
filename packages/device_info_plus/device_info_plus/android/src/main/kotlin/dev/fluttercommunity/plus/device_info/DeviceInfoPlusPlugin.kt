@@ -35,13 +35,11 @@ class DeviceInfoPlusPlugin : FlutterPlugin, ActivityAware {
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        // Set an empty method channel when the activity is detached
-        methodChannel.setMethodCallHandler { _, _ -> }
+        methodChannel.setMethodCallHandler(null)
     }
 
     override fun onDetachedFromActivity() {
-        // Set an empty method channel when the activity is detached
-        methodChannel.setMethodCallHandler { _, _ -> }
+        methodChannel.setMethodCallHandler(null)
     }
 
     private fun configureMethodCallHandler(binding: ActivityPluginBinding) {
