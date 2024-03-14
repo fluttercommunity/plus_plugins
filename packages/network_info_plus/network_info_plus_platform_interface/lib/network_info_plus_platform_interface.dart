@@ -7,7 +7,6 @@ import 'dart:async';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel_network_info.dart';
-import 'src/enums.dart';
 
 export 'src/enums.dart';
 
@@ -71,18 +70,5 @@ abstract class NetworkInfoPlatform extends PlatformInterface {
   /// Obtains the broadcast of the connected wifi network
   Future<String?> getWifiBroadcast() {
     throw UnimplementedError('getWifiBroadcast() has not been implemented.');
-  }
-
-  /// Request to authorize the location service (Only on iOS).
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization(
-      {bool requestAlwaysLocationUsage = false}) {
-    throw UnimplementedError(
-        'requestLocationServiceAuthorization() has not been implemented.');
-  }
-
-  /// Get the current location service authorization (Only on iOS).
-  Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
-    throw UnimplementedError(
-        'getLocationServiceAuthorization() has not been implemented.');
   }
 }

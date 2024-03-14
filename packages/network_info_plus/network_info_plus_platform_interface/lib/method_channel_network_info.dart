@@ -8,8 +8,6 @@ import 'package:network_info_plus_platform_interface/network_info_plus_platform_
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import 'src/utils.dart';
-
 /// An implementation of [NetworkInfoPlatform] that uses method channels.
 class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   /// The method channel used to interact with the native platform.
@@ -56,22 +54,5 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   @override
   Future<String?> getWifiBroadcast() {
     return methodChannel.invokeMethod<String>('wifiBroadcast');
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> requestLocationServiceAuthorization({
-    bool requestAlwaysLocationUsage = false,
-  }) {
-    return methodChannel.invokeMethod<String>(
-        'requestLocationServiceAuthorization', <bool>[
-      requestAlwaysLocationUsage
-    ]).then(parseLocationAuthorizationStatus);
-  }
-
-  @override
-  Future<LocationAuthorizationStatus> getLocationServiceAuthorization() {
-    return methodChannel
-        .invokeMethod<String>('getLocationServiceAuthorization')
-        .then(parseLocationAuthorizationStatus);
   }
 }
