@@ -178,6 +178,9 @@ Please peruse the
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
+**Important:** When modifying multiple packages, **create a different branch and pull request per package.**
+This facilitates maintenance, the review process, and generating changelogs.
+
 ### 5.1 Getting started
 
 To start working on a patch:
@@ -221,7 +224,7 @@ To send us a pull request:
 Please make sure all your check-ins have detailed commit messages explaining the patch.
 
 When naming the title of your pull request, please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-guide. For example, for a fix to the `sensor_plus` plugin:
+guide, and include the package name in parenthesis. For example, for a fix to the `sensor_plus` plugin:
 
 `fix(sensor_plus): fixed a bug!`
 
