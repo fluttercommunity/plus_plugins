@@ -13,7 +13,7 @@ void main() {
 
 /// A sample app for launching intents.
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
 /// Holds the different intent widgets.
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   void _createAlarm() {
     const intent = AndroidIntent(
