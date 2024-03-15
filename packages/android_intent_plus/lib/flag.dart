@@ -1,11 +1,11 @@
+// ignore_for_file: constant_identifier_names
+
 /// Special flags that can be set on an intent to control how it is handled.
 ///
 /// See
 /// https://developer.android.com/reference/android/content/Intent.html#setFlags(int)
 /// for the official documentation on Intent flags. The constants here mirror
 /// the existing [android.content.Intent] ones.
-// ignore_for_file: constant_identifier_names
-
 class Flag {
   /// Specifies how an activity should be launched. Generally set by the system
   /// in conjunction with SINGLE_TASK.
