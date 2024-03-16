@@ -177,41 +177,42 @@ class MethodChannelShare extends SharePlatform {
     );
   }
 
-  /// if file doesn't contain path
-  /// then make new file in TemporaryDirectory and return with path
+  /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.
   ///
+  /// if file doesn't contain path,
+  /// then make new file in TemporaryDirectory and return with path
   /// the system will automatically delete files in this
   /// TemporaryDirectory as disk space is needed elsewhere on the device
-  Future<List<XFile>> _getFiles(List<XFile> files) async {
-    if (files.any((element) => element.path.isEmpty)) {
-      final newFiles = <XFile>[];
-
-      final String tempPath = (await getTemporaryDirectory()).path;
-
-      const uuid = Uuid();
-      for (final XFile element in files) {
-        if (element.path.isEmpty) {
-          final name = uuid.v4();
-
-          final extension =
-              extensionFromMime(element.mimeType ?? 'octet-stream');
-
-          final path = '$tempPath/$name.$extension';
-          final file = File(path);
-
-          await file.writeAsBytes(await element.readAsBytes());
-
-          newFiles.add(XFile(path));
-        } else {
-          newFiles.add(element);
-        }
-      }
-
-      return newFiles;
+  Future<XFile> _getFile(XFile file, {String? tempRoot}) async {
+    if (file.path.isNotEmpty) {
+      return file;
     } else {
-      return files;
+      tempRoot ??= (await getTemporaryDirectory()).path;
+      var extension = extensionFromMime(file.mimeType ?? 'octet-stream');
+
+      // TODO: As soon as the mime package fixes the image/jpe issue, remove this line immediately
+      extension = extension == "jpe" ? "jpeg" : extension;
+
+      //By having a UUID v4 folder wrapping the file
+      //This path generation algorithm will not only minimize the risk of name collision but also ensure that the filename
+      //is not ridiculously long such that some platforms might not show the extension but ellipses
+      //which the user needs
+      final tempSubfolderPath = "$tempRoot/${const Uuid().v4()}";
+      await Directory(tempSubfolderPath).create(recursive: true);
+
+      final path =
+          "$tempSubfolderPath/${const Uuid().v1().substring(10)}.$extension";
+
+      //Write the file to FS
+      await File(path).writeAsBytes(await file.readAsBytes());
+
+      return XFile(path);
     }
   }
+
+  /// A wrapper of [MethodChannelShare._getFile] for multiple files.
+  Future<List<XFile>> _getFiles(List<XFile> files) async =>
+      await Future.wait(files.map((entry) => _getFile(entry)));
 
   static String _mimeTypeForPath(String path) {
     return lookupMimeType(path) ?? 'application/octet-stream';
