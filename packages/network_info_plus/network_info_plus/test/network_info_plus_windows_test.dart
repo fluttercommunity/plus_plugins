@@ -14,7 +14,7 @@ void main() {
   test('Test BSSID', () async {
     final plugin = NetworkInfoPlusWindowsPlugin();
     final bssID = await plugin.getWifiBSSID();
-    expect(bssID, equals('00:00:00:00:00:00'));
+    expect(bssID, matches(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'));
   });
 
   test('Wifi name', () async {

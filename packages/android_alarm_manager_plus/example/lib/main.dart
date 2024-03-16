@@ -41,7 +41,7 @@ Future<void> main() async {
 
 /// Example app for Espresso plugin.
 class AlarmManagerExampleApp extends StatelessWidget {
-  const AlarmManagerExampleApp({Key? key}) : super(key: key);
+  const AlarmManagerExampleApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -58,7 +58,7 @@ class AlarmManagerExampleApp extends StatelessWidget {
 }
 
 class _AlarmHomePage extends StatefulWidget {
-  const _AlarmHomePage({Key? key}) : super(key: key);
+  const _AlarmHomePage();
 
   @override
   _AlarmHomePageState createState() => _AlarmHomePageState();

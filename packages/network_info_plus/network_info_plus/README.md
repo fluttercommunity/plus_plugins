@@ -99,6 +99,34 @@ Make sure to add the following keys to your _Info.plist_ file, located in `<proj
 - `NSLocationAlwaysAndWhenInUseUsageDescription` - describe why the app needs access to the user’s location information all the time (foreground and background). This is called _Privacy - Location Always and When In Use Usage Description_ in the visual editor.
 - `NSLocationWhenInUseUsageDescription` - describe why the app needs access to the user’s location information when the app is running in the foreground. This is called _Privacy - Location When In Use Usage Description_ in the visual editor.
 
+#### iOS 14
+
+Starting on iOS 14, the plugin uses the method `NEHotspotNetwork.fetchCurrentWithCompletionHandler` to obtain the WIFI SSID (name) and BSSID.
+
+According to this method documentation:
+
+```
+ * @discussion This method returns SSID, BSSID and security type of the current Wi-Fi network when the
+ *   requesting application meets one of following 4 requirements -.
+ *   1. application is using CoreLocation API and has user's authorization to access precise location.
+ *   2. application has used NEHotspotConfiguration API to configure the current Wi-Fi network.
+ *   3. application has active VPN configurations installed.
+ *   4. application has active NEDNSSettingsManager configuration installed.
+ *   An application will receive nil if it fails to meet any of the above 4 requirements.
+ *   An application will receive nil if does not have the "com.apple.developer.networking.wifi-info" entitlement.
+ ```
+
+**You will have to comply with ONE of the 4 conditions listed.**
+
+The example application for this project, implements number 1 using the [permission_handler](https://pub.dev/packages/permission_handler) plugin.
+
+Also, **your application needs the "com.apple.developer.networking.wifi-info" entitlement.**
+
+This entitlement can be configured in xcode with the name "Access Wi-Fi information", and it is also found in the file `Runner.entitlements` in the example project. However, 
+**this entitlement is only possible when using a professional development team** and not a "Personal development team".
+
+Without complying with these conditions, the calls to `.getWifiBSSID()` and `.getWifiName()` will return null.
+
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/network_info_plus/latest/network_info_plus/network_info_plus-library.html)

@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:html' as html
-    show LinearAccelerationSensor, Accelerometer, Gyroscope, Magnetometer;
-import 'dart:js_util';
+import 'dart:js_interop';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:sensors_plus/src/web_sensors_interop.dart';
 import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.dart';
 
 /// The sensors plugin.
@@ -23,31 +22,34 @@ class WebSensorsPlugin extends SensorsPlatform {
   }) {
     try {
       initSensor();
-    } catch (error) {
+    } on DOMException catch (e) {
       if (onError != null) {
         onError();
       }
 
-      /// Handle construction errors.
-      ///
-      /// If a feature policy blocks use of a feature it is because your code
-      /// is inconsistent with the policies set on your server.
-      /// This is not something that would ever be shown to a user.
-      /// See Feature-Policy for implementation instructions in the browsers.
-      if (error.toString().contains('SecurityError')) {
-        /// See the note above about feature policy.
-        developer.log('$apiName construction was blocked by a feature policy.',
-            error: error);
-
-        /// if this feature is not supported or Flag is not enabled yet!
-      } else if (error.toString().contains('ReferenceError')) {
-        developer.log('$apiName is not supported by the User Agent.',
-            error: error);
-
-        /// if this is unknown error, rethrow it
-      } else {
-        developer.log('Unknown error happened, rethrowing.');
-        rethrow;
+      // Handle construction errors.
+      //
+      // If a feature policy blocks use of a feature it is because your code
+      // is inconsistent with the policies set on your server.
+      // This is not something that would ever be shown to a user.
+      // See Feature-Policy for implementation instructions in the browsers.
+      switch (e.name) {
+        case 'TypeError':
+          // if this feature is not supported or Flag is not enabled yet!
+          developer.log(
+            '$apiName is not supported by the User Agent.',
+            error: '${e.name}: ${e.message}',
+          );
+        case 'SecurityError':
+          // See the note above about feature policy.
+          developer.log(
+            '$apiName construction was blocked by a feature policy.',
+            error: '${e.name}: ${e.message}',
+          );
+        default:
+          // if this is unknown error, convert DOMException to Exception
+          developer.log('Unknown error happened, rethrowing.');
+          throw Exception('${e.name}: ${e.message}');
       }
     }
   }
@@ -55,7 +57,6 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<AccelerometerEvent>? _accelerometerStreamController;
   late Stream<AccelerometerEvent> _accelerometerResultStream;
 
-  // todo: make web also support setting samplingPeriod
   @override
   Stream<AccelerometerEvent> accelerometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
@@ -64,31 +65,30 @@ class WebSensorsPlugin extends SensorsPlatform {
       _accelerometerStreamController = StreamController<AccelerometerEvent>();
       _featureDetected(
         () {
-          final accelerometer = html.Accelerometer();
-
-          setProperty(
-            accelerometer,
-            'onreading',
-            allowInterop(
-              (_) {
-                _accelerometerStreamController!.add(
-                  AccelerometerEvent(
-                    accelerometer.x as double,
-                    accelerometer.y as double,
-                    accelerometer.z as double,
-                  ),
-                );
-              },
+          final accelerometer = Accelerometer(
+            SensorOptions(
+              frequency: samplingPeriod.frequency,
             ),
           );
 
           accelerometer.start();
 
-          accelerometer.onError.forEach(
-            (e) => developer.log(
-                'The accelerometer API is supported but something is wrong!',
-                error: e),
-          );
+          accelerometer.onreading = (Event _) {
+            _accelerometerStreamController!.add(
+              AccelerometerEvent(
+                accelerometer.x,
+                accelerometer.y,
+                accelerometer.z,
+              ),
+            );
+          }.toJS;
+
+          accelerometer.onerror = (SensorErrorEvent e) {
+            developer.log(
+              'The accelerometer API is supported but something is wrong!',
+              error: e.error.message,
+            );
+          }.toJS;
         },
         apiName: 'Accelerometer()',
         permissionName: 'accelerometer',
@@ -110,7 +110,6 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<GyroscopeEvent>? _gyroscopeEventStreamController;
   late Stream<GyroscopeEvent> _gyroscopeEventResultStream;
 
-  // todo: make web also support setting samplingPeriod
   @override
   Stream<GyroscopeEvent> gyroscopeEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
@@ -119,31 +118,30 @@ class WebSensorsPlugin extends SensorsPlatform {
       _gyroscopeEventStreamController = StreamController<GyroscopeEvent>();
       _featureDetected(
         () {
-          final gyroscope = html.Gyroscope();
-
-          setProperty(
-            gyroscope,
-            'onreading',
-            allowInterop(
-              (_) {
-                _gyroscopeEventStreamController!.add(
-                  GyroscopeEvent(
-                    gyroscope.x as double,
-                    gyroscope.y as double,
-                    gyroscope.z as double,
-                  ),
-                );
-              },
+          final gyroscope = Gyroscope(
+            SensorOptions(
+              frequency: samplingPeriod.frequency,
             ),
           );
 
           gyroscope.start();
 
-          gyroscope.onError.forEach(
-            (e) => developer.log(
-                'The gyroscope API is supported but something is wrong!',
-                error: e),
-          );
+          gyroscope.onreading = (Event _) {
+            _gyroscopeEventStreamController!.add(
+              GyroscopeEvent(
+                gyroscope.x,
+                gyroscope.y,
+                gyroscope.z,
+              ),
+            );
+          }.toJS;
+
+          gyroscope.onerror = (SensorErrorEvent e) {
+            developer.log(
+              'The gyroscope API is supported but something is wrong!',
+              error: e.error.message,
+            );
+          }.toJS;
         },
         apiName: 'Gyroscope()',
         permissionName: 'gyroscope',
@@ -165,7 +163,6 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<UserAccelerometerEvent>? _userAccelerometerStreamController;
   late Stream<UserAccelerometerEvent> _userAccelerometerResultStream;
 
-  // todo: make web also support setting samplingPeriod
   @override
   Stream<UserAccelerometerEvent> userAccelerometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
@@ -175,31 +172,30 @@ class WebSensorsPlugin extends SensorsPlatform {
           StreamController<UserAccelerometerEvent>();
       _featureDetected(
         () {
-          final linearAccelerationSensor = html.LinearAccelerationSensor();
-
-          setProperty(
-            linearAccelerationSensor,
-            'onreading',
-            allowInterop(
-              (_) {
-                _userAccelerometerStreamController!.add(
-                  UserAccelerometerEvent(
-                    linearAccelerationSensor.x as double,
-                    linearAccelerationSensor.y as double,
-                    linearAccelerationSensor.z as double,
-                  ),
-                );
-              },
+          final linearAccelerationSensor = LinearAccelerationSensor(
+            SensorOptions(
+              frequency: samplingPeriod.frequency,
             ),
           );
 
           linearAccelerationSensor.start();
 
-          linearAccelerationSensor.onError.forEach(
-            (e) => developer.log(
-                'The linear acceleration API is supported but something is wrong!',
-                error: e),
-          );
+          linearAccelerationSensor.onreading = (Event _) {
+            _gyroscopeEventStreamController!.add(
+              GyroscopeEvent(
+                linearAccelerationSensor.x,
+                linearAccelerationSensor.y,
+                linearAccelerationSensor.z,
+              ),
+            );
+          }.toJS;
+
+          linearAccelerationSensor.onerror = (SensorErrorEvent e) {
+            developer.log(
+              'The linear acceleration API is supported but something is wrong!',
+              error: e.error.message,
+            );
+          }.toJS;
         },
         apiName: 'LinearAccelerationSensor()',
         permissionName: 'accelerometer',
@@ -222,40 +218,39 @@ class WebSensorsPlugin extends SensorsPlatform {
   StreamController<MagnetometerEvent>? _magnetometerStreamController;
   late Stream<MagnetometerEvent> _magnetometerResultStream;
 
-  // todo: make web also support setting samplingPeriod
   @override
   Stream<MagnetometerEvent> magnetometerEventStream({
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
+    // The Magnetometer API is not supported by any modern browser.
     if (_magnetometerStreamController == null) {
       _magnetometerStreamController = StreamController<MagnetometerEvent>();
       _featureDetected(
         () {
-          final magnetometerSensor = html.Magnetometer();
-
-          setProperty(
-            magnetometerSensor,
-            'onreading',
-            allowInterop(
-              (_) {
-                _magnetometerStreamController!.add(
-                  MagnetometerEvent(
-                    magnetometerSensor.x as double,
-                    magnetometerSensor.y as double,
-                    magnetometerSensor.z as double,
-                  ),
-                );
-              },
+          final magnetometerSensor = Magnetometer(
+            SensorOptions(
+              frequency: samplingPeriod.frequency,
             ),
           );
 
           magnetometerSensor.start();
 
-          magnetometerSensor.onError.forEach(
-            (e) => developer.log(
-                'The magnetometer API is supported but something is wrong!',
-                error: e),
-          );
+          magnetometerSensor.onreading = (Event _) {
+            _gyroscopeEventStreamController!.add(
+              GyroscopeEvent(
+                magnetometerSensor.x,
+                magnetometerSensor.y,
+                magnetometerSensor.z,
+              ),
+            );
+          }.toJS;
+
+          magnetometerSensor.onerror = (SensorErrorEvent e) {
+            developer.log(
+              'The magnetometer API is supported but something is wrong!',
+              error: e,
+            );
+          }.toJS;
         },
         apiName: 'Magnetometer()',
         permissionName: 'magnetometer',
@@ -272,5 +267,16 @@ class WebSensorsPlugin extends SensorsPlatform {
     }
 
     return _magnetometerResultStream;
+  }
+}
+
+extension on Duration {
+  /// Converts the duration to a frequency in Hz.
+  int get frequency {
+    if (inMicroseconds <= 10) {
+      return 100;
+    }
+
+    return 1000 ~/ inMilliseconds;
   }
 }

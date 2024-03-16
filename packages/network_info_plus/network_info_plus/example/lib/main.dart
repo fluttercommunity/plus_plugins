@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // Sets a platform override for desktop to avoid exceptions. See
 // https://flutter.dev/desktop#target-platform-override for more info.
@@ -97,18 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
         wifiSubmask;
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        // ignore: deprecated_member_use
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          // ignore: deprecated_member_use
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        // Request permissions as recommended by the plugin documentation:
+        // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
+        if (await Permission.locationWhenInUse.request().isGranted) {
           wifiName = await _networkInfo.getWifiName();
         } else {
-          wifiName = await _networkInfo.getWifiName();
+          wifiName = 'Unauthorized to get Wifi Name';
         }
       } else {
         wifiName = await _networkInfo.getWifiName();
@@ -119,21 +115,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (!kIsWeb && Platform.isIOS) {
-        // ignore: deprecated_member_use
-        var status = await _networkInfo.getLocationServiceAuthorization();
-        if (status == LocationAuthorizationStatus.notDetermined) {
-          // ignore: deprecated_member_use
-          status = await _networkInfo.requestLocationServiceAuthorization();
-        }
-        if (status == LocationAuthorizationStatus.authorizedAlways ||
-            status == LocationAuthorizationStatus.authorizedWhenInUse) {
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        // Request permissions as recommended by the plugin documentation:
+        // https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
+        if (await Permission.locationWhenInUse.request().isGranted) {
           wifiBSSID = await _networkInfo.getWifiBSSID();
         } else {
-          wifiBSSID = await _networkInfo.getWifiBSSID();
+          wifiBSSID = 'Unauthorized to get Wifi BSSID';
         }
       } else {
-        wifiBSSID = await _networkInfo.getWifiBSSID();
+        wifiName = await _networkInfo.getWifiName();
       }
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi BSSID', error: e);
@@ -148,36 +139,28 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiIPv6 = await _networkInfo.getWifiIPv6();
-      }
+      wifiIPv6 = await _networkInfo.getWifiIPv6();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi IPv6', error: e);
       wifiIPv6 = 'Failed to get Wifi IPv6';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiSubmask = await _networkInfo.getWifiSubmask();
-      }
+      wifiSubmask = await _networkInfo.getWifiSubmask();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi submask address', error: e);
       wifiSubmask = 'Failed to get Wifi submask address';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiBroadcast = await _networkInfo.getWifiBroadcast();
-      }
+      wifiBroadcast = await _networkInfo.getWifiBroadcast();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi broadcast', error: e);
       wifiBroadcast = 'Failed to get Wifi broadcast';
     }
 
     try {
-      if (!Platform.isWindows) {
-        wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
-      }
+      wifiGatewayIP = await _networkInfo.getWifiGatewayIP();
     } on PlatformException catch (e) {
       developer.log('Failed to get Wifi gateway address', error: e);
       wifiGatewayIP = 'Failed to get Wifi gateway address';
