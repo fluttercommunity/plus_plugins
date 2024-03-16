@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
 
     namespace 'dev.fluttercommunity.plus.network_info_plus_example'
 
@@ -49,8 +49,8 @@ android {
 
     defaultConfig {
         applicationId "dev.fluttercommunity.plus.network_info_plus_example"
-        minSdkVersion 19
-        targetSdkVersion 33
+        minSdk 19
+        targetSdk 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
