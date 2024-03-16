@@ -7,6 +7,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -66,15 +67,24 @@ class _AlarmHomePage extends StatefulWidget {
 
 class _AlarmHomePageState extends State<_AlarmHomePage> {
   int _counter = 0;
+  PermissionStatus _exactAlarmPermissionStatus = PermissionStatus.granted;
 
   @override
   void initState() {
     super.initState();
     AndroidAlarmManager.initialize();
+    _checkExactAlarmPermission();
 
     // Register for events from the background isolate. These messages will
     // always coincide with an alarm firing.
     port.listen((_) async => await _incrementCounter());
+  }
+
+  void _checkExactAlarmPermission() async {
+    final currentStatus = await Permission.scheduleExactAlarm.status;
+    setState(() {
+      _exactAlarmPermissionStatus = currentStatus;
+    });
   }
 
   Future<void> _incrementCounter() async {
@@ -114,43 +124,65 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
       ),
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
+            const Spacer(),
             Text(
-              'Alarm fired $_counter times',
+              'Alarms fired during this run of the app: $_counter',
               style: textStyle,
+              textAlign: TextAlign.center,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Total alarms fired: ',
-                  style: textStyle,
-                ),
-                Text(
-                  prefs?.getInt(countKey).toString() ?? '',
-                  key: const ValueKey('BackgroundCountText'),
-                  style: textStyle,
-                ),
-              ],
+            const SizedBox(height: 16),
+            Text(
+              'Total alarms fired since app installation: ${prefs?.getInt(countKey).toString() ?? ''}',
+              style: textStyle,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              key: const ValueKey('RegisterOneShotAlarm'),
-              onPressed: () async {
-                await AndroidAlarmManager.oneShot(
-                  const Duration(seconds: 5),
-                  // Ensure we have a unique alarm ID.
-                  Random().nextInt(pow(2, 31) as int),
-                  callback,
-                  exact: true,
-                  wakeup: true,
-                );
-              },
-              child: const Text(
-                'Schedule OneShot Alarm',
+            const Spacer(),
+            if (_exactAlarmPermissionStatus.isDenied)
+              Text(
+                'SCHEDULE_EXACT_ALARM is denied\n\nAlarms scheduling is not available',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              )
+            else
+              Text(
+                'SCHEDULE_EXACT_ALARM is granted\n\nAlarms scheduling is available',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _exactAlarmPermissionStatus.isDenied
+                  ? () async {
+                      await Permission.scheduleExactAlarm
+                          .onGrantedCallback(() => setState(() {
+                                _exactAlarmPermissionStatus =
+                                    PermissionStatus.granted;
+                              }))
+                          .request();
+                    }
+                  : null,
+              child: const Text('Request exact alarm permission'),
             ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _exactAlarmPermissionStatus.isGranted
+                  ? () async {
+                      await AndroidAlarmManager.oneShot(
+                        const Duration(seconds: 5),
+                        // Ensure we have a unique alarm ID.
+                        Random().nextInt(pow(2, 31) as int),
+                        callback,
+                        exact: true,
+                        wakeup: true,
+                      );
+                    }
+                  : null,
+              child: const Text('Schedule OneShot Alarm'),
+            ),
+            const Spacer(),
           ],
         ),
       ),
