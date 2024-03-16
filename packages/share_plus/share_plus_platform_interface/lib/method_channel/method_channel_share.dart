@@ -197,11 +197,20 @@ class MethodChannelShare extends SharePlatform {
       //This path generation algorithm will not only minimize the risk of name collision but also ensure that the filename
       //is not ridiculously long such that some platforms might not show the extension but ellipses
       //which the user needs
+      //
+      //More importantly it allows us to use real filenames when available
       final tempSubfolderPath = "$tempRoot/${const Uuid().v4()}";
       await Directory(tempSubfolderPath).create(recursive: true);
 
-      final path =
-          "$tempSubfolderPath/${const Uuid().v1().substring(10)}.$extension";
+      //Per Issue [#1548](https://github.com/fluttercommunity/plus_plugins/issues/1548): attempt to use XFile.name when available
+      final filename = file.name.isNotEmpty // If filename exists
+              ||
+              lookupMimeType(file.name) !=
+                  null //If the filename has a valid extension
+          ? file.name
+          : "${const Uuid().v1().substring(10)}.$extension";
+
+      final path = "$tempSubfolderPath/$filename";
 
       //Write the file to FS
       await File(path).writeAsBytes(await file.readAsBytes());
