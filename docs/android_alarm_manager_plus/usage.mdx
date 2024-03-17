@@ -4,7 +4,7 @@ sidebar_label: Usage
 hide_title: true
 ---
 
-Before using the plugin you would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) if your app targets Android 14 and newer.
+Before using the plugin you would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) permission when your app targets Android 14 and newer.
 Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
 Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
 `android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
