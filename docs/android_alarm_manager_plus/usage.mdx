@@ -4,13 +4,19 @@ sidebar_label: Usage
 hide_title: true
 ---
 
-After importing this plugin to your project as usual, add the following to your
-`AndroidManifest.xml` within the `<manifest></manifest>` tags:
+Before using the plugin you would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) permission when your app targets Android 14 and newer.
+Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
+Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
+`android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
+To do so you would need an additional plugin, like [`permission_handler`](https://pub.dev/packages/permission_handler).
+
+After importing `android_alarm_manager_plus` plugin into your project, add the following lines to your
+`AndroidManifest.xml` file inside `<manifest></manifest>` tags:
 
 ```xml
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 <uses-permission android:name="android.permission.WAKE_LOCK"/>
-<!-- For apps with targetSDK=31 (Android 12) -->
+<!-- For apps with targetSDK 31 (Android 12) and newer  -->
 <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 ```
 
@@ -39,7 +45,7 @@ Then in Dart code add:
 ```dart
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
-// Be sure to annotate your callback function to avoid issues in release mode on Flutter >= 3.3.0
+// It is required to annotate your callback function like this to avoid issues in release mode on Flutter >= 3.3.0
 @pragma('vm:entry-point')
 void printHello() {
   final DateTime now = DateTime.now();
@@ -54,12 +60,16 @@ main() async {
   await AndroidAlarmManager.initialize();
   runApp(...);
   final int helloAlarmID = 0;
+
+  // Handle SCHEDULE_EXACT_ALARM permission before trying to schedule any alarm with the plugin
+  // Otherwise an exception will happen. Check Note below for more information
+
   await AndroidAlarmManager.periodic(const Duration(minutes: 1), helloAlarmID, printHello);
 }
 ```
 
 :::note
-If your app has targetSDK=31 (Android 12) and you would like to create alarms with `alarmClock=true` or `exact=true`
+If your app has targetSDK=31 (Android 12) or newer and you would like to create alarms with `alarmClock=true` or `exact=true`
 be aware that user or system might cancel such alarms by revoking `SCHEDULE_EXACT_ALARM` permission.
 More info can be found in [the official documentation](https://developer.android.com/training/scheduling/alarms#exact-permission-declare)
 
