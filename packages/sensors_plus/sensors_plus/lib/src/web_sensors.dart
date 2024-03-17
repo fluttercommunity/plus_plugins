@@ -51,6 +51,12 @@ class WebSensorsPlugin extends SensorsPlatform {
           developer.log('Unknown error happened, rethrowing.');
           throw Exception('${e.name}: ${e.message}');
       }
+    } on Error catch (_) {
+      // DOMException is not caught as in release build
+      // so we need to catch it as Error
+      if (onError != null) {
+        onError();
+      }
     }
   }
 
