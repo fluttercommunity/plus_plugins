@@ -6,7 +6,7 @@
 [![pub points](https://img.shields.io/pub/points/android_alarm_manager_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/android_alarm_manager_plus/score)
 [![android_alarm_manager_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml)
 
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+<div style="text-align: center;"><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></div>
 
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
@@ -17,6 +17,14 @@ Dart code in the background when alarms fire.
 | :-----: |
 |   ✅    |
 
+## Additional requirements
+
+You would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) if your app targets Android 14 and newer.
+Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
+Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
+`android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
+To do so you would need an additional plugin, like [`permission_handler`](https://pub.dev/packages/permission_handler).
+
 ## Getting Started
 
 After importing this plugin to your project as usual, add the following to your
@@ -25,7 +33,7 @@ After importing this plugin to your project as usual, add the following to your
 ```xml
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 <uses-permission android:name="android.permission.WAKE_LOCK"/>
-<!-- For apps with targetSDK=31 (Android 12) -->
+<!-- For apps with targetSDK 31 (Android 12) and newer -->
 <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 ```
 
