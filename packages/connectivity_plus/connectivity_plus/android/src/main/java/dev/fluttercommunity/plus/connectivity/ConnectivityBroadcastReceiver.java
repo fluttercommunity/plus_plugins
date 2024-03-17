@@ -64,6 +64,9 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
     } else {
       context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION));
     }
+    // Need to emit first event with connectivity types without waiting for first change in system
+    // that might happen much later
+    sendEvent();
   }
 
   @Override
