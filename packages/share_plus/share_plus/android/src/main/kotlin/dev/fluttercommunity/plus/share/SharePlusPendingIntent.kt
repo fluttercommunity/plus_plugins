@@ -2,6 +2,7 @@ package dev.fluttercommunity.plus.share
 
 import android.content.*
 import android.os.Build
+import androidx.annotation.RequiresApi
 
 /**
  * This helper class allows us to use FLAG_MUTABLE on the PendingIntent used in the Share class,
@@ -21,6 +22,7 @@ internal class SharePlusPendingIntent: BroadcastReceiver() {
     /**
      * Handler called after an action was chosen. Called only on success.
      */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     override fun onReceive(context: Context, intent: Intent) {
         // Extract chosen ComponentName
         val chosenComponent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -29,7 +31,7 @@ internal class SharePlusPendingIntent: BroadcastReceiver() {
         } else {
             // Deprecated in API level 33
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra<ComponentName>(Intent.EXTRA_CHOSEN_COMPONENT)
+            intent.getParcelableExtra(Intent.EXTRA_CHOSEN_COMPONENT)
         }
 
         // Unambiguously identify the chosen action
