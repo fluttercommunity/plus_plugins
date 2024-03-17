@@ -17,15 +17,14 @@ Dart code in the background when alarms fire.
 | :-----: |
 |   ✅    |
 
-## Additional requirements
-
-You would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) if your app targets Android 14 and newer.
-Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
-Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
-`android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
-To do so you would need an additional plugin, like [`permission_handler`](https://pub.dev/packages/permission_handler).
-
 ## Getting Started
+
+> [!IMPORTANT]  
+> You would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) permission if your app targets Android 14 and newer.
+> Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
+> Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
+> `android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
+> To do so you would need an additional plugin, like [`permission_handler`](https://pub.dev/packages/permission_handler).
 
 After importing this plugin to your project as usual, add the following to your
 `AndroidManifest.xml` within the `<manifest></manifest>` tags:
