@@ -191,6 +191,7 @@ class MethodChannelShare extends SharePlatform {
       var extension = extensionFromMime(file.mimeType ?? 'octet-stream');
 
       // TODO: As soon as the mime package fixes the image/jpe issue, remove this line immediately
+      // Reference: https://github.com/dart-lang/mime/issues/55
       extension = extension == "jpe" ? "jpeg" : extension;
 
       //By having a UUID v4 folder wrapping the file
