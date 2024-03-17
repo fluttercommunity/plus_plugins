@@ -65,21 +65,22 @@ internal class Share(
             }
         }
         // If we dont want the result we use the old 'createChooser'
-        val chooserIntent = if (withResult) {
-            // Build chooserIntent with broadcast to ShareSuccessManager on success
-            Intent.createChooser(
-                shareIntent,
-                null, // dialog title optional
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    Intent(context, SharePlusPendingIntent::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
-            )
-        } else {
-            Intent.createChooser(shareIntent, null /* dialog title optional */)
-        }
+        val chooserIntent =
+            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                // Build chooserIntent with broadcast to ShareSuccessManager on success
+                Intent.createChooser(
+                    shareIntent,
+                    null, // dialog title optional
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(context, SharePlusPendingIntent::class.java),
+                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
+                    ).intentSender
+                )
+            } else {
+                Intent.createChooser(shareIntent, null /* dialog title optional */)
+            }
         startActivity(chooserIntent, withResult)
     }
 
@@ -99,6 +100,7 @@ internal class Share(
                 share(text, subject, withResult)
                 return
             }
+
             fileUris.size == 1 -> {
                 val mimeType = if (!mimeTypes.isNullOrEmpty()) {
                     mimeTypes.first()
@@ -111,6 +113,7 @@ internal class Share(
                     putExtra(Intent.EXTRA_STREAM, fileUris.first())
                 }
             }
+
             else -> {
                 shareIntent.apply {
                     action = Intent.ACTION_SEND_MULTIPLE
@@ -123,21 +126,22 @@ internal class Share(
         if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         // If we dont want the result we use the old 'createChooser'
-        val chooserIntent = if (withResult) {
-            // Build chooserIntent with broadcast to ShareSuccessManager on success
-            Intent.createChooser(
-                shareIntent,
-                null, // dialog title optional
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    Intent(context, SharePlusPendingIntent::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
-            )
-        } else {
-            Intent.createChooser(shareIntent, null /* dialog title optional */)
-        }
+        val chooserIntent =
+            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                // Build chooserIntent with broadcast to ShareSuccessManager on success
+                Intent.createChooser(
+                    shareIntent,
+                    null, // dialog title optional
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(context, SharePlusPendingIntent::class.java),
+                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
+                    ).intentSender
+                )
+            } else {
+                Intent.createChooser(shareIntent, null /* dialog title optional */)
+            }
         val resInfoList = getContext().packageManager.queryIntentActivities(
             chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
         )
@@ -186,27 +190,27 @@ internal class Share(
         return uris
     }
 
-  /**
-   * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
-   * multiple files
-   */
-  private fun reduceMimeTypes(mimeTypes: List<String>?): String {
-    if (mimeTypes?.isEmpty() ?: true) return "*/*"
-    if (mimeTypes!!.size == 1) return mimeTypes.first()
+    /**
+     * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
+     * multiple files
+     */
+    private fun reduceMimeTypes(mimeTypes: List<String>?): String {
+        if (mimeTypes?.isEmpty() != false) return "*/*"
+        if (mimeTypes.size == 1) return mimeTypes.first()
 
-    var commonMimeType = mimeTypes.first()
-    for (i in 1..mimeTypes.lastIndex) {
-      if (commonMimeType != mimeTypes[i]) {
-        if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
-          commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
-        } else {
-          commonMimeType = "*/*"
-          break
+        var commonMimeType = mimeTypes.first()
+        for (i in 1..mimeTypes.lastIndex) {
+            if (commonMimeType != mimeTypes[i]) {
+                if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
+                    commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
+                } else {
+                    commonMimeType = "*/*"
+                    break
+                }
+            }
         }
-      }
+        return commonMimeType
     }
-    return commonMimeType
-  }
 
     /**
      * Returns the first part of provided MIME type, which comes before '/' symbol

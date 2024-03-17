@@ -28,6 +28,7 @@ internal class SharePlusPendingIntent: BroadcastReceiver() {
             intent.getParcelableExtra(Intent.EXTRA_CHOSEN_COMPONENT, ComponentName::class.java)
         } else {
             // Deprecated in API level 33
+            @Suppress("DEPRECATION")
             intent.getParcelableExtra<ComponentName>(Intent.EXTRA_CHOSEN_COMPONENT)
         }
 
