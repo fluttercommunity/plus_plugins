@@ -12,7 +12,7 @@ export 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
-    if (dart.library.html) 'src/share_plus_web.dart';
+    if (dart.library.js_interop) 'src/share_plus_web.dart';
 
 /// Plugin for summoning a platform share sheet.
 class Share {
