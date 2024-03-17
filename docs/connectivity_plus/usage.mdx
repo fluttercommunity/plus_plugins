@@ -19,25 +19,29 @@ Using Connectivity API, you can find out which type of connection the device is 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-final connectivityResult = await (Connectivity().checkConnectivity());
+final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
 
-if (connectivityResult == ConnectivityResult.mobile) {
-  // I am connected to a mobile network.
-} else if (connectivityResult == ConnectivityResult.wifi) {
-  // I am connected to a wifi network.
-} else if (connectivityResult == ConnectivityResult.ethernet) {
-  // I am connected to a ethernet network.
-} else if (connectivityResult == ConnectivityResult.vpn) {
-  // I am connected to a vpn network.
+// This condition is for demo purposes only to explain every connection type.
+// Use conditions which work for your requirements.
+if (connectivityResult.contains(ConnectivityResult.mobile)) {
+  // Mobile network available.
+} else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+  // Wi-fi is available.
+  // Note for Android:
+  // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
+} else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+  // Ethernet connection available.
+} else if (connectivityResult.contains(ConnectivityResult.vpn)) {
+  // Vpn connection active.
   // Note for iOS and macOS:
   // There is no separate network interface type for [vpn].
   // It returns [other] on any device (also simulator)
-} else if (connectivityResult == ConnectivityResult.bluetooth) {
-  // I am connected to a bluetooth.
-} else if (connectivityResult == ConnectivityResult.other) {
-  // I am connected to a network which is not in the above mentioned networks.
-} else if (connectivityResult == ConnectivityResult.none) {
-  // I am not connected to any network.
+} else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
+  // Bluetooth connection available.
+} else if (connectivityResult.contains(ConnectivityResult.other)) {
+  // Connected to a network which is not in the above mentioned networks.
+} else if (connectivityResult.contains(ConnectivityResult.none)) {
+  // No available network types
 }
 ```
 
@@ -58,12 +62,12 @@ user's connectivity.
 #### 1. Declare a StreamSubscription
 
 ``` dart
-StreamSubscription<ConnectivityResult> _connectivitySubscription;
+StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 ```
 
 #### 2. Listen to the Stream
 
-Use `onConnectivityChanged` method that has a return type `Stream<ConnectivityResult>`,
+Use `onConnectivityChanged` method that returns `Stream<List<ConnectivityResult>>`,
 to register a listener.
 
 :::note
@@ -75,13 +79,13 @@ The broadcast is only useful when your application is in the **foreground**.
 
 ``` dart
 // Initialize a variable with [none] status to avoid nulls at startup
-ConnectivityResult _connectivityResult = ConnectivityResult.none;
+List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
 
 @override
 void initState() {
   super.initState();
   _connectivitySubscription =
-      _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+      Connectivity().onConnectivityChanged.listen(_updateConnectionStatus);
 }
 
 // Make sure to cancel subscription after you are done
@@ -95,9 +99,9 @@ dispose() {
 The listener will update the connectivity status.
 
 ``` dart
-Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
   setState((){
-      _connectivityResult = result;
+      _connectionStatus = result;
   });
 }
 ```

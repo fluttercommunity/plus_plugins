@@ -10,8 +10,7 @@
 <center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
 </p>
 
-This plugin allows Flutter apps to discover network connectivity and configure
-themselves accordingly. It can distinguish between cellular vs WiFi connection.
+This plugin allows Flutter apps to discover network connectivity types that can be used.
 
 > **Note**
 >
@@ -25,29 +24,34 @@ themselves accordingly. It can distinguish between cellular vs WiFi connection.
 
 ## Usage
 
-Sample usage to check current status:
+Sample usage to check currently available connection types:
 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-final connectivityResult = await (Connectivity().checkConnectivity());
-if (connectivityResult == ConnectivityResult.mobile) {
-  // I am connected to a mobile network.
-} else if (connectivityResult == ConnectivityResult.wifi) {
-  // I am connected to a wifi network.
-} else if (connectivityResult == ConnectivityResult.ethernet) {
-  // I am connected to a ethernet network.
-} else if (connectivityResult == ConnectivityResult.vpn) {
-  // I am connected to a vpn network.
+final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+
+// This condition is for demo purposes only to explain every connection type.
+// Use conditions which work for your requirements.
+if (connectivityResult.contains(ConnectivityResult.mobile)) {
+  // Mobile network available.
+} else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+  // Wi-fi is available.
+  // Note for Android:
+  // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
+} else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+  // Ethernet connection available.
+} else if (connectivityResult.contains(ConnectivityResult.vpn)) {
+  // Vpn connection active.
   // Note for iOS and macOS:
   // There is no separate network interface type for [vpn].
   // It returns [other] on any device (also simulator)
-} else if (connectivityResult == ConnectivityResult.bluetooth) {
-  // I am connected to a bluetooth.
-} else if (connectivityResult == ConnectivityResult.other) {
-  // I am connected to a network which is not in the above mentioned networks.
-} else if (connectivityResult == ConnectivityResult.none) {
-  // I am not connected to any network.
+} else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
+  // Bluetooth connection available.
+} else if (connectivityResult.contains(ConnectivityResult.other)) {
+  // Connected to a network which is not in the above mentioned networks.
+} else if (connectivityResult.contains(ConnectivityResult.none)) {
+  // No available network types
 }
 ```
 
@@ -55,8 +59,8 @@ if (connectivityResult == ConnectivityResult.mobile) {
 >
 > You should not be using the current network status for deciding whether you can reliably make a network connection. Always guard your app code against timeouts and errors that might come from the network layer.
 
-You can also listen for network state changes by subscribing to the stream
-exposed by connectivity plugin:
+You can also listen for active connectivity types changes by subscribing to the stream
+exposed by the plugin:
 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -65,8 +69,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 initState() {
   super.initState();
 
-  subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    // Got a new connectivity status!
+  StreamSubscription<List<ConnectivityResult>> subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+    // Received changes in available connectivity types!
   });
 }
 
@@ -80,7 +84,7 @@ dispose() {
 
 > **Note**
 >
-> Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). _You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
+> Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
 
 ## Limitations on the web platform
 
