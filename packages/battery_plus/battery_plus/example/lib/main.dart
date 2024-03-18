@@ -65,8 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Current battery state:',
+              style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 8),
             Text(
-              '$_batteryState',
+              '${_batteryState?.name}',
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 24),
