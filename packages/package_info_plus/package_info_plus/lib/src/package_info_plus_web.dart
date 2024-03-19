@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'dart:ui_web';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
-import 'package:web/web.dart' as web;
 
 /// The web implementation of [PackageInfoPlatform].
 ///
@@ -51,7 +51,7 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll() async {
     final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final url = versionJsonUrl(web.window.document.baseURI, cacheBuster);
+    final url = versionJsonUrl(assetManager.baseUrl, cacheBuster);
     final response = _client == null ? await get(url) : await _client.get(url);
     final versionMap = _getVersionMap(response);
 
@@ -75,6 +75,19 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
     } else {
       return <String, dynamic>{};
     }
+  }
+}
+
+extension _AssetManager on AssetManager {
+  /// Get the base URL configured in the Flutter Web Engine initialization
+  ///
+  /// The AssetManager has the base URL as private ([AssetManager._baseUrl] property),
+  /// so we need to do some little hack to get it. If AssetManager adds in some
+  /// moment a public API to get the base URL, this extension can be replaced by that API.
+  ///
+  /// @see https://docs.flutter.dev/platform-integration/web/initialization#initializing-the-engine
+  String get baseUrl {
+    return getAssetUrl('').replaceAll('$assetsDir/', '');
   }
 }
 
