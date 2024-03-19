@@ -42,9 +42,24 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _battery.batteryState.then(_updateBatteryState);
-    _batteryStateSubscription =
-        _battery.onBatteryStateChanged.listen(_updateBatteryState);
+    try {
+      _battery.batteryState.then(
+        _updateBatteryState,
+        onError: (e) {
+          _showError('onError: batteryState: $e');
+          _updateBatteryState(BatteryState.unknown);
+        },
+      );
+      _batteryStateSubscription = _battery.onBatteryStateChanged.listen(
+        _updateBatteryState,
+        onError: (e) {
+          _showError('onError: onBatteryStateChanged: $e');
+          _updateBatteryState(BatteryState.unknown);
+        },
+      );
+    } on Error catch (e) {
+      _showError('catch: batteryState: $e');
+    }
   }
 
   void _updateBatteryState(BatteryState state) {
@@ -52,6 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _batteryState = state;
     });
+  }
+
+  void _showError(String message) {
+    // see https://github.com/fluttercommunity/plus_plugins/pull/2720
+    // The exception may not be caught in the package and an exception may occur in the caller, so use try-catch as needed.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
   }
 
   @override
@@ -77,55 +102,69 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                _battery.batteryLevel.then(
-                  (batteryLevel) {
-                    showDialog<void>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        content: Text('Battery: $batteryLevel%'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('OK'),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
+                try {
+                  _battery.batteryLevel.then(
+                    (batteryLevel) {
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          content: Text('Battery: $batteryLevel%'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    onError: (e) {
+                      _showError('onError: batteryLevel: $e');
+                    },
+                  );
+                } on Error catch (e) {
+                  _showError('catch: batteryLevel: $e');
+                }
               },
               child: const Text('Get battery level'),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                _battery.isInBatterySaveMode.then(
-                  (isInPowerSaveMode) {
-                    showDialog<void>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text(
-                          'Is in Battery Save mode?',
-                          style: TextStyle(fontSize: 20),
+                try {
+                  _battery.isInBatterySaveMode.then(
+                    (isInPowerSaveMode) {
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text(
+                            'Is in Battery Save mode?',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          content: Text(
+                            "$isInPowerSaveMode",
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Close'),
+                            )
+                          ],
                         ),
-                        content: Text(
-                          "$isInPowerSaveMode",
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Close'),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
+                      );
+                    },
+                    onError: (e) {
+                      _showError('onError: isInBatterySaveMode: $e');
+                    },
+                  );
+                } on Error catch (e) {
+                  _showError('catch: isInBatterySaveMode: $e');
+                }
               },
               child: const Text('Is in Battery Save mode?'),
             )

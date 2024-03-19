@@ -6,6 +6,11 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:web/web.dart' as web;
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
+///
+/// The Battery Status API is not supported by Firefox and Safari.
+/// Therefore, when using this plugin, recommend that test not only in Chrome but also in Firefox and Safari.
+/// In some environments, accessing this plugin from Firefox or Safari will cause unexpected exception.
+/// If an unexpected Exception occurs, try-catch at the point where the method is being called.
 class BatteryPlusWebPlugin extends BatteryPlatform {
   /// Constructs a BatteryPlusPlugin.
   BatteryPlusWebPlugin();
@@ -16,6 +21,9 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
       return await web.window.navigator.getBattery().toDart;
     } on NoSuchMethodError catch (_) {
       // BatteryManager API is not supported this User Agent.
+      return null;
+    } on Object catch (_) {
+      // Unexpected exception occurred.
       return null;
     }
   }
