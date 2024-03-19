@@ -21,7 +21,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -148,7 +148,7 @@ class _MyAppState extends State<MyApp> {
 
   Map<String, dynamic> _readWebBrowserInfo(WebBrowserInfo data) {
     return <String, dynamic>{
-      'browserName': data.browserName.name,
+      'browserName': describeEnum(data.browserName),
       'appCodeName': data.appCodeName,
       'appName': data.appName,
       'appVersion': data.appVersion,
