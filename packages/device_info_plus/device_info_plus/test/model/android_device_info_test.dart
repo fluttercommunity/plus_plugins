@@ -37,10 +37,6 @@ void main() {
       expect(androidDeviceInfo.version.codename, 'codename');
       expect(androidDeviceInfo.version.incremental, 'incremental');
       expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
-      expect(androidDeviceInfo.displayMetrics.widthPx, 1080);
-      expect(androidDeviceInfo.displayMetrics.heightPx, 2220);
-      expect(androidDeviceInfo.displayMetrics.xDpi, 530.0859);
-      expect(androidDeviceInfo.displayMetrics.yDpi, 529.4639);
       expect(androidDeviceInfo.serialNumber, 'SERIAL');
     });
 
