@@ -31,6 +31,7 @@ dependencies:
   battery_plus_platform_interface: ^2.0.0
   meta: ^1.8.0
   upower: ^0.7.0
+  web: ^0.5.0
 
 dev_dependencies:
   flutter_test:
@@ -41,5 +42,5 @@ dev_dependencies:
   plugin_platform_interface: ^2.1.4
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"

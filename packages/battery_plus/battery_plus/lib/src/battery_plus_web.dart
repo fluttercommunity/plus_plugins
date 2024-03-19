@@ -1,85 +1,92 @@
 import 'dart:async';
-import 'dart:html' as html show window, BatteryManager, Navigator;
-import 'dart:js_util';
+import 'dart:js_interop';
+
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as web;
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
 class BatteryPlusWebPlugin extends BatteryPlatform {
   /// Constructs a BatteryPlusPlugin.
-  BatteryPlusWebPlugin(html.Navigator navigator)
-      : _getBattery = navigator.getBattery;
+  BatteryPlusWebPlugin();
 
-  /// A check to determine if this version of the plugin can be used.
-  // ignore: unnecessary_null_comparison
-  bool get isSupported => html.window.navigator.getBattery != null;
-
-  late final Future<dynamic> Function() _getBattery;
+  /// Return [BatteryManager] if the BatteryManager API is supported by the User Agent.
+  Future<BatteryManager?> _getBatteryManager() async {
+    try {
+      return await web.window.navigator.getBattery().toDart;
+    } on NoSuchMethodError catch (_) {
+      // BatteryManager API is not supported this User Agent.
+      return null;
+    }
+  }
 
   /// Factory method that initializes the Battery plugin platform with an instance
   /// of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    BatteryPlatform.instance = BatteryPlusWebPlugin(html.window.navigator);
+    BatteryPlatform.instance = BatteryPlusWebPlugin();
   }
 
   /// Returns the current battery level in percent.
   @override
   Future<int> get batteryLevel async {
-    if (isSupported) {
-      //  level is a number representing the system's battery charge level scaled to a value between 0.0 and 1.0
-      final batteryManager = await _getBattery() as html.BatteryManager;
-      final level = batteryManager.level ?? 0;
-      return level * 100 as int;
+    final batteryManager = await _getBatteryManager();
+    if (batteryManager == null) {
+      return 0;
     }
-    return 0;
+
+    // level is a number representing the system's battery charge level scaled to a value between 0.0 and 1.0
+    final level = batteryManager.level;
+    return level * 100 as int;
   }
 
   /// Returns the current battery state.
   @override
   Future<BatteryState> get batteryState async {
-    if (isSupported) {
-      final battery = await _getBattery() as html.BatteryManager;
-      if (battery.charging != null) {
-        return _checkBatteryChargingState(battery.charging!);
-      }
+    final batteryManager = await _getBatteryManager();
+    if (batteryManager == null) {
+      return BatteryState.unknown;
     }
-    return BatteryState.unknown;
+
+    return _checkBatteryChargingState(batteryManager.charging);
   }
 
   StreamController<BatteryState>? _batteryChangeStreamController;
-  late Stream<BatteryState> _batteryChange;
+  Stream<BatteryState>? _batteryChange;
 
   /// Returns a Stream of BatteryState changes.
   @override
-  Stream<BatteryState> get onBatteryStateChanged {
-    if (_batteryChangeStreamController == null && isSupported) {
-      _batteryChangeStreamController = StreamController<BatteryState>();
-
-      _getBattery().then(
-        (battery) {
-          _batteryChangeStreamController!
-              .add(_checkBatteryChargingState(battery.charging));
-          setProperty(
-            battery,
-            'onchargingchange',
-            allowInterop(
-              (event) {
-                _batteryChangeStreamController!
-                    .add(_checkBatteryChargingState(battery.charging));
-              },
-            ),
-          );
-        },
-      );
-
-      _batteryChange =
-          _batteryChangeStreamController!.stream.asBroadcastStream();
-
-      _batteryChangeStreamController?.onCancel = () {
-        _batteryChangeStreamController?.close();
-      };
+  Stream<BatteryState> get onBatteryStateChanged async* {
+    final batteryManager = await _getBatteryManager();
+    if (batteryManager == null) {
+      yield BatteryState.unknown;
+      return;
     }
-    return _batteryChange;
+
+    if (_batteryChange != null) {
+      yield* _batteryChange!;
+      return;
+    }
+
+    _batteryChangeStreamController = StreamController<BatteryState>();
+    _batteryChangeStreamController?.add(
+      _checkBatteryChargingState(batteryManager.charging),
+    );
+
+    batteryManager.onchargingchange = (web.Event _) {
+      _batteryChangeStreamController?.add(
+        _checkBatteryChargingState(batteryManager.charging),
+      );
+    }.toJS;
+
+    _batteryChangeStreamController?.onCancel = () {
+      _batteryChangeStreamController?.close();
+
+      _batteryChangeStreamController = null;
+      _batteryChange = null;
+    };
+
+    _batteryChange = _batteryChangeStreamController!.stream.asBroadcastStream();
+    yield* _batteryChange!;
   }
 
   BatteryState _checkBatteryChargingState(bool charging) {
@@ -89,4 +96,22 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
       return BatteryState.discharging;
     }
   }
+}
+
+extension on web.Navigator {
+  /// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery
+  external JSPromise<BatteryManager> getBattery();
+}
+
+/// BatteryManager API
+/// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager
+extension type BatteryManager(JSObject _) implements JSObject {
+  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/level
+  external double get level;
+
+  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/charging
+  external bool get charging;
+
+  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/chargingchange_event
+  external set onchargingchange(JSFunction fn);
 }
