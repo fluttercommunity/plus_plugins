@@ -10,13 +10,6 @@ const _fakeAndroidBuildVersion = <String, dynamic>{
   'securityPatch': 'securityPatch',
 };
 
-const _fakeDisplayMetrics = <String, dynamic>{
-  'widthPx': 1080.0,
-  'heightPx': 2220.0,
-  'xDpi': 530.0859,
-  'yDpi': 529.4639,
-};
-
 const _fakeSupportedAbis = <String>['arm64-v8a', 'x86', 'x86_64'];
 const _fakeSupported32BitAbis = <String?>['x86 (IA-32)', 'MMX'];
 const _fakeSupported64BitAbis = <String?>['x86-64', 'MMX', 'SSSE3'];
@@ -43,6 +36,5 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'version': _fakeAndroidBuildVersion,
   'supported64BitAbis': _fakeSupported64BitAbis,
   'supported32BitAbis': _fakeSupported32BitAbis,
-  'displayMetrics': _fakeDisplayMetrics,
   'serialNumber': 'SERIAL',
 };

@@ -17,7 +17,6 @@ import kotlin.collections.HashMap
  */
 internal class MethodCallHandlerImpl(
     private val packageManager: PackageManager,
-    private val windowManager: WindowManager,
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -63,21 +62,6 @@ internal class MethodCallHandlerImpl(
             version["release"] = Build.VERSION.RELEASE
             version["sdkInt"] = Build.VERSION.SDK_INT
             build["version"] = version
-
-            val display: Display = windowManager.defaultDisplay
-            val metrics = DisplayMetrics()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                display.getRealMetrics(metrics)
-            } else {
-                display.getMetrics(metrics)
-            }
-
-            val displayResult: MutableMap<String, Any> = HashMap()
-            displayResult["widthPx"] = metrics.widthPixels.toDouble()
-            displayResult["heightPx"] = metrics.heightPixels.toDouble()
-            displayResult["xDpi"] = metrics.xdpi
-            displayResult["yDpi"] = metrics.ydpi
-            build["displayMetrics"] = displayResult
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 build["serialNumber"] = try {
