@@ -2,7 +2,8 @@ name: battery_plus_example
 description: Demonstrates how to use the battery_plus plugin.
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.19.0'
 
 dependencies:
   flutter:
