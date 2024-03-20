@@ -1,3 +1,9 @@
+## 2.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(network_info_plus): Remove deprecated permission handling methods, update example and docs ([#2686](https://github.com/fluttercommunity/plus_plugins/issues/2686)). ([a71a27c5](https://github.com/fluttercommunity/plus_plugins/commit/a71a27c5fbdbbfc56a30359a1aff0a3d3da8dc73))
+
 ## 1.1.3
 
  - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
