@@ -1,3 +1,22 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated to package:web, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+
+- **BREAKING** **FEAT**(battery_plus): Migrate to package:web ([#2720](https://github.com/fluttercommunity/plus_plugins/issues/2720)). ([21ccfa45](https://github.com/fluttercommunity/plus_plugins/commit/21ccfa459fcfb0609da46299fed6e10c9e77332b))
+- **BREAKING** **BUILD**(battery_plus): Target Java 17 on Android ([#2727](https://github.com/fluttercommunity/plus_plugins/issues/2727)). ([ca2c35ab](https://github.com/fluttercommunity/plus_plugins/commit/ca2c35abc464b26e741ace6e53e319dfa674b630))
+- **BREAKING** **BUILD**(battery_plus): Update to target and compile SDK 34 ([#2702](https://github.com/fluttercommunity/plus_plugins/pull/2702)). ([fc59745](https://github.com/fluttercommunity/plus_plugins/commit/fc59745d0a8650cc32f6e4d949887c4cdbffe547))
+- **BREAKING** **REFACTOR**(battery_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2592](https://github.com/fluttercommunity/plus_plugins/issues/2592)). ([fe07964b](https://github.com/fluttercommunity/plus_plugins/commit/fe07964b03997db73f22f3c30b7d09ea2c0adc93))
+ - **FIX**(battery_plus): Add iOS Privacy Info ([#2580](https://github.com/fluttercommunity/plus_plugins/issues/2580)). ([9f36a001](https://github.com/fluttercommunity/plus_plugins/commit/9f36a0018daa08e3f3ebb59cebcd4149fae7c4bc))
+
 ## 5.0.3
 
  - **FIX**(battery_plus): battery state always unknown on iOS ([#2481](https://github.com/fluttercommunity/plus_plugins/issues/2481)). ([ea892fb9](https://github.com/fluttercommunity/plus_plugins/commit/ea892fb96d06dcd685fa7953a468c377cc133ecc))

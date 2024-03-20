@@ -1,3 +1,23 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated from dart:html to js_interop, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+
+ - **BREAKING** **REFACTOR**(package_info_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2593](https://github.com/fluttercommunity/plus_plugins/issues/2593)). ([99c832ea](https://github.com/fluttercommunity/plus_plugins/commit/99c832ea646ae525e8af93be64fb94e09f1059f2))
+ - **BREAKING** **BUILD**(package_info_plus): Target Java 17 on Android ([#2728](https://github.com/fluttercommunity/plus_plugins/issues/2728)). ([23f2a7c2](https://github.com/fluttercommunity/plus_plugins/commit/23f2a7c2bb649e84763f0ba6489acf5d9487e185))
+ - **BREAKING** **BUILD**(package_info_plus): Update to target and compile SDK 34 ([#2707](https://github.com/fluttercommunity/plus_plugins/pull/2707)). ([df33fbd](https://github.com/fluttercommunity/plus_plugins/commit/df33fbdb4b6f03949b317c0019bc3f9098195340))
+ - **FIX**(package_info_plus): Add iOS Privacy Info ([#2584](https://github.com/fluttercommunity/plus_plugins/issues/2584)). ([895fe1a2](https://github.com/fluttercommunity/plus_plugins/commit/895fe1a2658f7f1d61b830d769e0b251e82991b4))
+ - **FEAT**(package_info_plus): Update min iOS target to 12, bump min Dart SDK to 3.3 ([#2660](https://github.com/fluttercommunity/plus_plugins/issues/2660)). ([6c0766dd](https://github.com/fluttercommunity/plus_plugins/commit/6c0766dd4f2a04f6dd3731584d6d8463db60a6d9))
+ - **FEAT**(package_info_plus): Use js_interop instead of html to support compilation to WASM ([#2625](https://github.com/fluttercommunity/plus_plugins/issues/2625)). ([c9435836](https://github.com/fluttercommunity/plus_plugins/commit/c9435836e8c7b354d5ca5383029e0172efe301d1))
+
 ## 5.0.1
 
 > Note: This release has breaking changes.

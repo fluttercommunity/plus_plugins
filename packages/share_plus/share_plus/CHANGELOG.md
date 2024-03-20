@@ -1,3 +1,31 @@
+## 8.0.1
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated migrated to package:web, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+
+ - **BREAKING** **FEAT**(share_plus): Migrate to package:web ([#2709](https://github.com/fluttercommunity/plus_plugins/issues/2709)). ([641e7905](https://github.com/fluttercommunity/plus_plugins/commit/641e7905b4055827f1481f036415095dc43afe5f))
+ - **BREAKING** **BUILD**(share_plus): Target Java 17 on Android ([#2730](https://github.com/fluttercommunity/plus_plugins/issues/2730)). ([e6853a06](https://github.com/fluttercommunity/plus_plugins/commit/e6853a06fa110d69776a85684e302a7c900a6e07))
+ - **BREAKING** **BUILD**(sensors_plus): Update to target and compile SDK 34 ([#2712](https://github.com/fluttercommunity/plus_plugins/pull/2712)). ([b752fc3](https://github.com/fluttercommunity/plus_plugins/commit/b752fc3bac2b7ce614faf0fbed010200d99a717b))
+ - **FIX**(share_plus): Resolve deprecation warning in Android part ([#2717](https://github.com/fluttercommunity/plus_plugins/issues/2717)). ([5913ac72](https://github.com/fluttercommunity/plus_plugins/commit/5913ac72f6dfcb0f02c371907871805c940a03a8))
+ - **FIX**(share_plus): add sharePositionOrigin parameter to shareUri ([#2517](https://github.com/fluttercommunity/plus_plugins/issues/2517)). ([f896d94e](https://github.com/fluttercommunity/plus_plugins/commit/f896d94e6c24551d9dc7d73d8fb05a0f283e0e83))
+ - **FIX**(share_plus): Add missing call to result for shareUri on iOS ([#2616](https://github.com/fluttercommunity/plus_plugins/issues/2616)). ([65f23a5d](https://github.com/fluttercommunity/plus_plugins/commit/65f23a5d12ac988d7424a56b1d808f2983e0459f))
+ - **FIX**(share_plus): Add iOS Privacy Info ([#2586](https://github.com/fluttercommunity/plus_plugins/issues/2586)). ([17fc2e05](https://github.com/fluttercommunity/plus_plugins/commit/17fc2e058f04168f17f5118bca24b02483af571b))
+ - **FIX**(share_plus): Ensure subject is not null before calling putExtra(Intent.EXTRA_SUBJECT, subject) ([#2518](https://github.com/fluttercommunity/plus_plugins/issues/2518)). ([f0bbbefc](https://github.com/fluttercommunity/plus_plugins/commit/f0bbbefc712e01da20e8107e8d25b2005cf7b728))
+ - **FEAT**(share_plus): Update min iOS target to 12 ([#2662](https://github.com/fluttercommunity/plus_plugins/issues/2662)). ([5cef2e50](https://github.com/fluttercommunity/plus_plugins/commit/5cef2e500cd10d55b749a6d53ce6e733fdb54d34))
+ - **DOCS**(share_plus): Fix supported platforms in README ([#2510](https://github.com/fluttercommunity/plus_plugins/issues/2510)). ([6b4b855b](https://github.com/fluttercommunity/plus_plugins/commit/6b4b855bb6f3c2897e29d0d3ae4a0c0c99ff8c2f))
+
+## 8.0.0
+
+> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+
 ## 7.2.2
 
  - **FIX**(share_plus): Ensure subject is not null before calling putExtra(Intent.EXTRA_SUBJECT, subject) ([#2518](https://github.com/fluttercommunity/plus_plugins/issues/2518)). ([f0bbbefc](https://github.com/fluttercommunity/plus_plugins/commit/f0bbbefc712e01da20e8107e8d25b2005cf7b728))

@@ -1,3 +1,17 @@
+## 5.0.1
+
+Plugin now requires the following:
+- compileSDK 34
+- Java 17
+- Gradle 8.4
+
+- **BREAKING** **BUILD**(android_intent_plus): Target Java 17 ([#2724](https://github.com/fluttercommunity/plus_plugins/issues/2724)). ([c66a67d](https://github.com/fluttercommunity/plus_plugins/commit/c66a67da396d088a2e02d4e6b69e0b8802189f9a))
+- **BREAKING** **BUILD**(android_intent_plus): Update to target and compile SDK 34 ([#2711](https://github.com/fluttercommunity/plus_plugins/pull/2711)). ([fd48920](https://github.com/fluttercommunity/plus_plugins/commit/fd489200a714594aad4e2eac5f0e56f43ebd751a))
+
+## 5.0.0
+
+> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+
 ## 4.0.3
 
  - **FIX**(android_intent_plus): Fix annotation dependency declaration ([#2237](https://github.com/fluttercommunity/plus_plugins/issues/2237)). ([795a3dd8](https://github.com/fluttercommunity/plus_plugins/commit/795a3dd81d8c718344936d65226d051f5fe4a125))

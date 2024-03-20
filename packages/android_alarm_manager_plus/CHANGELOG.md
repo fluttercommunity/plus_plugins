@@ -1,3 +1,18 @@
+## 4.0.1
+
+Plugin now requires the following:
+- compileSDK 34
+- Java 17
+- Gradle 8.4
+
+- **BREAKING** **BUILD**(alarm_manager_plus): Target Java 17 ([#2723](https://github.com/fluttercommunity/plus_plugins/issues/2723)). ([9e187803](https://github.com/fluttercommunity/plus_plugins/commit/9e187803d395bf1d8cbe74a0494ef28989451dde))
+- **BREAKING** **BUILD**(alarm_manager_plus): Update to target and compile SDK 34 ([#2714](https://github.com/fluttercommunity/plus_plugins/pull/2714)). ([0262766](https://github.com/fluttercommunity/plus_plugins/commit/0262766276b4ff695018a08ea398fba30dd881ac))
+- **DOCS**(android_alarm_manager_plus): Update information about SCHEDULE_EXACT_ALARM permission ([#2716](https://github.com/fluttercommunity/plus_plugins/issues/2716)). ([94e454f6](https://github.com/fluttercommunity/plus_plugins/commit/94e454f6e008691608d2c5e6df4d368d32cf0ca9))
+
+## 4.0.0
+
+> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+
 ## 3.0.4
 
  - **FIX**(android_alarm_manager): Add Kotlin dependency and convert AlarmBroadcastReceiver class to Kotlin ([#2271](https://github.com/fluttercommunity/plus_plugins/issues/2271)). ([1ecb676f](https://github.com/fluttercommunity/plus_plugins/commit/1ecb676f4923a54f239b99d18e0f8f819dcc0f15))
