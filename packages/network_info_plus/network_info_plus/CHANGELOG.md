@@ -2,11 +2,7 @@
 
 > Note: This release has breaking changes.
 
-In this release plugin migrated to package:web, meaning that it now supports WASM!
-
 Plugin now requires the following:
-- Flutter >=3.19.0
-- Dart >=3.3.0
 - compileSDK 34 for Android part
 - Java 17 for Android part
 - Gradle 8.4 for Android part
