@@ -2,7 +2,7 @@
 
 > Note: This release has breaking changes.
 
-In this release plugin migrated migrated to package:web, meaning that it now supports WASM!
+In this release plugin migrated migrated from dart:html to js_interop, meaning that it now supports WASM!
 
 Plugin now requires the following:
 - Flutter >=3.19.0
