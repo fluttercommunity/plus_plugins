@@ -1,20 +1,22 @@
+## 5.0.2
+
+> Plugin now requires the following:
+> - compileSDK 34 for Android part
+> - Java 17 for Android part
+> - Gradle 8.4 for Android part
+
+- **BREAKING** **REFACTOR**(network_info_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2590](https://github.com/fluttercommunity/plus_plugins/issues/2590)). ([4033e162](https://github.com/fluttercommunity/plus_plugins/commit/4033e1623de7836893a672098936c218ee9f7aca))
+- **BREAKING** **FEAT**(network_info_plus): Remove deprecated permission handling methods, update example and docs ([#2686](https://github.com/fluttercommunity/plus_plugins/issues/2686)). ([a71a27c5](https://github.com/fluttercommunity/plus_plugins/commit/a71a27c5fbdbbfc56a30359a1aff0a3d3da8dc73))
+- **BREAKING** **BUILD**(network_info_plus): Target Java 17 on Android ([#2726](https://github.com/fluttercommunity/plus_plugins/issues/2726)). ([5eaa3a7d](https://github.com/fluttercommunity/plus_plugins/commit/5eaa3a7d3ed47ced0a452f7604066d030490d379))
+- **BREAKING** **BUILD**(network_info_plus): Update to target and compile SDK 34 ([#2706](https://github.com/fluttercommunity/plus_plugins/pull/2706)). ([efb3bac](https://github.com/fluttercommunity/plus_plugins/commit/efb3bace46a1e71f4d4fef1d0de67c4195183bf3))
+- **FIX**(network_info_plus): Added getWifiIPv6, getWifiSubmask, getWifiBroadcast and getWifiGatewayIP functions for Windows and fixed getWifiName and getWifiBSSID. ([#2666](https://github.com/fluttercommunity/plus_plugins/issues/2666)). ([915a4431](https://github.com/fluttercommunity/plus_plugins/commit/915a44312b796b10ad65995e0297d7cd23b37cd0))
+- **FIX**(network_info_plus): Add iOS Privacy Info ([#2583](https://github.com/fluttercommunity/plus_plugins/issues/2583)). ([3b0cd6c3](https://github.com/fluttercommunity/plus_plugins/commit/3b0cd6c38e0b736a903c69cf6e3df8e40a37815f))
+- **FEAT**(network_info_plus): Update min iOS target to 12 ([#2659](https://github.com/fluttercommunity/plus_plugins/issues/2659)). ([c01d6012](https://github.com/fluttercommunity/plus_plugins/commit/c01d60120556449c4df5ce74d0f0941f4f8bc061))
+- **DOCS**(network_info_plus): Add note about ios simulators ([#2524](https://github.com/fluttercommunity/plus_plugins/issues/2524)). ([20a7515e](https://github.com/fluttercommunity/plus_plugins/commit/20a7515ead6ffbae02be0b1a5cba91c93bf5c84f))
+
 ## 5.0.1
 
-> Note: This release has breaking changes.
-
-Plugin now requires the following:
-- compileSDK 34 for Android part
-- Java 17 for Android part
-- Gradle 8.4 for Android part
-
- - **BREAKING** **REFACTOR**(network_info_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2590](https://github.com/fluttercommunity/plus_plugins/issues/2590)). ([4033e162](https://github.com/fluttercommunity/plus_plugins/commit/4033e1623de7836893a672098936c218ee9f7aca))
- - **BREAKING** **FEAT**(network_info_plus): Remove deprecated permission handling methods, update example and docs ([#2686](https://github.com/fluttercommunity/plus_plugins/issues/2686)). ([a71a27c5](https://github.com/fluttercommunity/plus_plugins/commit/a71a27c5fbdbbfc56a30359a1aff0a3d3da8dc73))
- - **BREAKING** **BUILD**(network_info_plus): Target Java 17 on Android ([#2726](https://github.com/fluttercommunity/plus_plugins/issues/2726)). ([5eaa3a7d](https://github.com/fluttercommunity/plus_plugins/commit/5eaa3a7d3ed47ced0a452f7604066d030490d379))
- - **BREAKING** **BUILD**(network_info_plus): Update to target and compile SDK 34 ([#2706](https://github.com/fluttercommunity/plus_plugins/pull/2706)). ([efb3bac](https://github.com/fluttercommunity/plus_plugins/commit/efb3bace46a1e71f4d4fef1d0de67c4195183bf3))
- - **FIX**(network_info_plus): Added getWifiIPv6, getWifiSubmask, getWifiBroadcast and getWifiGatewayIP functions for Windows and fixed getWifiName and getWifiBSSID. ([#2666](https://github.com/fluttercommunity/plus_plugins/issues/2666)). ([915a4431](https://github.com/fluttercommunity/plus_plugins/commit/915a44312b796b10ad65995e0297d7cd23b37cd0))
- - **FIX**(network_info_plus): Add iOS Privacy Info ([#2583](https://github.com/fluttercommunity/plus_plugins/issues/2583)). ([3b0cd6c3](https://github.com/fluttercommunity/plus_plugins/commit/3b0cd6c38e0b736a903c69cf6e3df8e40a37815f))
- - **FEAT**(network_info_plus): Update min iOS target to 12 ([#2659](https://github.com/fluttercommunity/plus_plugins/issues/2659)). ([c01d6012](https://github.com/fluttercommunity/plus_plugins/commit/c01d60120556449c4df5ce74d0f0941f4f8bc061))
- - **DOCS**(network_info_plus): Add note about ios simulators ([#2524](https://github.com/fluttercommunity/plus_plugins/issues/2524)). ([20a7515e](https://github.com/fluttercommunity/plus_plugins/commit/20a7515ead6ffbae02be0b1a5cba91c93bf5c84f))
+> Note: DO NOT USE THIS RELEASE. It is invalid due to a publishing issue
 
 ## 5.0.0
 
