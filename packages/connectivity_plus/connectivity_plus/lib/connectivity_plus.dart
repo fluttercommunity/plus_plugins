@@ -34,11 +34,16 @@ class Connectivity {
     return ConnectivityPlatform.instance;
   }
 
-  /// Fires whenever the connectivity state changes.
+  /// Exposes connectivity update events from the platform.
   ///
   /// On iOS, the connectivity status might not update when WiFi
   /// status changes, this is a known issue that only affects simulators.
   /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
+  ///
+  /// On Android, the Stream may emit new values even when
+  /// the [ConnectivityResult] list remains the same.
+  ///
+  /// This method doesn't filter event, nor it ensures distinct values.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged;
   }
