@@ -43,7 +43,7 @@ class Connectivity {
   /// On Android, the Stream may emit new values even when
   /// the [ConnectivityResult] list remains the same.
   ///
-  /// This method doesn't filter event, nor it ensures distinct values.
+  /// This method doesn't filter events, nor it ensures distinct values.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged;
   }
