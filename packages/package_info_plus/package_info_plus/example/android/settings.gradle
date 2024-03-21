@@ -23,5 +23,3 @@ plugins {
 }
 
 include ":app"
-
-rootProject.name = 'package_info_plus'
