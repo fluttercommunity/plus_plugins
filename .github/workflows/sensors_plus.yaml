@@ -60,7 +60,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        android-api-level: [ 22, 26, 31 ]
+        android-api-level: [ 22, 26, 31, 34 ]
 
     steps:
       - name: "Checkout repository"
@@ -109,7 +109,7 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v3
         with:
-          model: 'iPhone 14'
+          model: 'iPhone 15'
       - name: "Bootstrap Workspace"
         run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
