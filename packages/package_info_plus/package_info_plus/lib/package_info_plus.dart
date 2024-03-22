@@ -34,10 +34,9 @@ class PackageInfo {
   /// Retrieves package information from the platform.
   /// The result is cached.
   ///
-  /// Web: The plugin uses the generated version.json to read the package
-  /// information.
+  /// Web: Uses the generated version.json to read the package information.
   /// By default, the package uses the browser navigator base URL.
-  /// Optionally, a custom version JSON URI can be provided.
+  /// Optionally, a custom URI can be provided.
   static Future<PackageInfo> fromPlatform({Uri? customVersionJson}) async {
     if (_fromPlatform != null) {
       return _fromPlatform!;
