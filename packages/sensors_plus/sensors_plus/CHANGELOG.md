@@ -1,3 +1,23 @@
+## 5.0.0
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated migrated from dart:html to js_interop, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+
+ - **BREAKING** **FEAT**(sensors_plus): Migrate to dart:js_interop ([#2697](https://github.com/fluttercommunity/plus_plugins/issues/2697)). ([48edfa20](https://github.com/fluttercommunity/plus_plugins/commit/48edfa20558530cd08a55a880a42f3d080ccbe94))
+ - **BREAKING** **BUILD**(sensors_plus): Target Java 17 on Android ([#2729](https://github.com/fluttercommunity/plus_plugins/issues/2729)). ([7a83e355](https://github.com/fluttercommunity/plus_plugins/commit/7a83e3558db7c8d4d217a485ef9a5b0c1ed7039a))
+ - **BREAKING** **BUILD**(sensors_plus): Update to target and compile SDK 34 ([#2708](https://github.com/fluttercommunity/plus_plugins/pull/2708)). ([f110dfd](https://github.com/fluttercommunity/plus_plugins/commit/f110dfdd87f9de4346e8f9f765c0f05e0a02d1fa))
+ - **FIX**(sensors_plus): Add try-catch for release builds ([#2718](https://github.com/fluttercommunity/plus_plugins/issues/2718)). ([c37acd67](https://github.com/fluttercommunity/plus_plugins/commit/c37acd671801e6ebb1249b2ce1939799ea27b6fb))
+ - **FIX**(sensors_plus): Add iOS Privacy Info ([#2585](https://github.com/fluttercommunity/plus_plugins/issues/2585)). ([9b7198a9](https://github.com/fluttercommunity/plus_plugins/commit/9b7198a91ed2778a1399a9152441bea7fa75bf6e))
+ - **FEAT**(sensors_plus): Update min iOS target to 12 ([#2661](https://github.com/fluttercommunity/plus_plugins/issues/2661)). ([ca5d660f](https://github.com/fluttercommunity/plus_plugins/commit/ca5d660f8cb7350f7c364b9c91a377c21f7dd0a1))
+
 ## 4.0.2
 
  - **FIX**(sensors_plus): Close magnetometerStreamController on web ([#2456](https://github.com/fluttercommunity/plus_plugins/issues/2456)). ([64200667](https://github.com/fluttercommunity/plus_plugins/commit/64200667e94ec6eedeb3f8224f355d113dee3ac8))

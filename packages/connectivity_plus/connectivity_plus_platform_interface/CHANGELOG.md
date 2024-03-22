@@ -1,3 +1,11 @@
+## 2.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**(connectivity_plus): Fix connectivity state update on Android when network is lost ([#2673](https://github.com/fluttercommunity/plus_plugins/issues/2673)). ([21191682](https://github.com/fluttercommunity/plus_plugins/commit/2119168267e436e5900ea09cf68dd110e51b01e0))
+ - **FIX**(connectivity_plus): Return valid connection type when only one available ([#2668](https://github.com/fluttercommunity/plus_plugins/issues/2668)). ([81026a4c](https://github.com/fluttercommunity/plus_plugins/commit/81026a4c6c07cb610299a8f17db69c518475a675))
+ - **BREAKING** **FEAT**(connectivity_plus): support multiple connectivity types at the same time ([#2599](https://github.com/fluttercommunity/plus_plugins/issues/2599)). ([5b477468](https://github.com/fluttercommunity/plus_plugins/commit/5b4774683d6e186fbd69cf4208302221f52aa54d))
+
 ## 1.2.4
 
  - **FIX**: Do not return ConnectivityResult.none on iOS and MacOS with VPN (#1335).

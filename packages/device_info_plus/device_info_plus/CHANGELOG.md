@@ -1,3 +1,31 @@
+## 10.0.1
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated to package:web, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+-
+ - **BREAKING** **REFACTOR**(device_info_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2589](https://github.com/fluttercommunity/plus_plugins/issues/2589)). ([1c586abf](https://github.com/fluttercommunity/plus_plugins/commit/1c586abf7ee351927242a70cb88e2e36140cec9e))
+ - **BREAKING** **FIX**(device_info_plus): Remove Display Metrics from Android Device Info ([#2731](https://github.com/fluttercommunity/plus_plugins/issues/2731)). ([c5af3322](https://github.com/fluttercommunity/plus_plugins/commit/c5af332207e44902ac92765da72d2acb213fae91))
+ - **BREAKING** **FEAT**(device_info_plus): migrate to package:web ([#2624](https://github.com/fluttercommunity/plus_plugins/issues/2624)). ([154e76ca](https://github.com/fluttercommunity/plus_plugins/commit/154e76ca2f9e8c1ccdaa6e2076426002c9d372a3))
+ - **BREAKING** **BUILD**(device_info_plus): Target Java 17 on Android ([#2725](https://github.com/fluttercommunity/plus_plugins/issues/2725)). ([aa826dea](https://github.com/fluttercommunity/plus_plugins/commit/aa826deac5ef8136ce922f5823be2e7f90f828e9))
+ - **BREAKING** **BUILD**(device_info_plus): Update to target and compile SDK 34 ([#2704](https://github.com/fluttercommunity/plus_plugins/pull/2704)). ([a3cd72f](https://github.com/fluttercommunity/plus_plugins/commit/a3cd72f86ba47f43c507f8b83f89aac7519404de))
+ - **FIX**(device_info_plus): remove unnecessary print ([#2607](https://github.com/fluttercommunity/plus_plugins/issues/2607)). ([5d515816](https://github.com/fluttercommunity/plus_plugins/commit/5d5158169f75c50f15588c10e07af2e25f950c23))
+ - **FIX**(device_info_plus): return type of isPhysicalDevice as boolean for ios ([#2508](https://github.com/fluttercommunity/plus_plugins/issues/2508)). ([e3a983bb](https://github.com/fluttercommunity/plus_plugins/commit/e3a983bbf0b0bb70c7c50835ddb7f3c4a46b7122))
+ - **FIX**(device_info_plus): Add iOS Privacy Info ([#2582](https://github.com/fluttercommunity/plus_plugins/issues/2582)). ([34fe31eb](https://github.com/fluttercommunity/plus_plugins/commit/34fe31eb29e21fa9ea336e61d8df6858eb441a00))
+ - **FEAT**(device_info_plus): Update min iOS target to 12 ([#2658](https://github.com/fluttercommunity/plus_plugins/issues/2658)). ([a3436100](https://github.com/fluttercommunity/plus_plugins/commit/a3436100fabd04a4d4db7ac09128b5b5962579d3))
+ - **FEAT**(device_info_plus): LinuxDeviceInfo toString method ([#2652](https://github.com/fluttercommunity/plus_plugins/issues/2652)). ([f2fbcdb8](https://github.com/fluttercommunity/plus_plugins/commit/f2fbcdb813b62dcb76c18b00e51383e6643a93ed))
+
+## 10.0.0
+
+> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+
 ## 9.1.2
 
  - **FIX**(device_info_plus): fix crash on non-standard Digital Product IDs ([#2537](https://github.com/fluttercommunity/plus_plugins/issues/2537)). ([7b318b5c](https://github.com/fluttercommunity/plus_plugins/commit/7b318b5cd8496cf7d31c62314eb9bae17f9ef8d6))
