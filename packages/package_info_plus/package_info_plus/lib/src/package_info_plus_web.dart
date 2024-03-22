@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui_web';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
@@ -51,7 +52,7 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
   @override
   Future<PackageInfoData> getAll({String? baseUrl}) async {
-    final int cacheBuster = DateTime.now().millisecondsSinceEpoch;
+    final int cacheBuster = clock.now().millisecondsSinceEpoch;
     final Map<String, dynamic> versionMap =
         await _getVersionMap(baseUrl, cacheBuster) ??
             await _getVersionMap(assetManager.baseUrl, cacheBuster) ??

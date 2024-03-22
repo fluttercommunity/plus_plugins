@@ -3,6 +3,7 @@ library package_info_plus_web_test;
 
 import 'dart:convert';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
@@ -82,20 +83,28 @@ void main() {
         'Get correct values when using a custom base URL',
         (tester) async {
           const String baseUrl = 'https://www.example.com/';
+          final DateTime now = DateTime.now();
+          final Clock fakeClock = Clock(() => now);
 
-          when(client.get(Uri.parse('${baseUrl}version.json'))).thenAnswer(
-            (_) => Future.value(
-              http.Response(jsonEncode(VERSION_JSON), 200),
-            ),
-          );
+          await withClock(fakeClock, () async {
+            final int cache = now.millisecondsSinceEpoch;
 
-          final versionMap = await plugin.getAll(baseUrl: baseUrl);
+            when(client.get(
+              Uri.parse('${baseUrl}version.json?cachebuster=$cache'),
+            )).thenAnswer(
+              (_) => Future.value(
+                http.Response(jsonEncode(VERSION_JSON), 200),
+              ),
+            );
 
-          expect(versionMap.appName, VERSION_JSON['app_name']);
-          expect(versionMap.version, VERSION_JSON['version']);
-          expect(versionMap.buildNumber, VERSION_JSON['build_number']);
-          expect(versionMap.packageName, VERSION_JSON['package_name']);
-          expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
+            final versionMap = await plugin.getAll(baseUrl: baseUrl);
+
+            expect(versionMap.appName, VERSION_JSON['app_name']);
+            expect(versionMap.version, VERSION_JSON['version']);
+            expect(versionMap.buildNumber, VERSION_JSON['build_number']);
+            expect(versionMap.packageName, VERSION_JSON['package_name']);
+            expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
+          });
         },
       );
 
