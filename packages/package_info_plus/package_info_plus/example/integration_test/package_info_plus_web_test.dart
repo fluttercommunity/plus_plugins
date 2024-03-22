@@ -79,6 +79,27 @@ void main() {
       );
 
       testWidgets(
+        'Get correct values when using a custom base URL',
+        (tester) async {
+          const String baseUrl = 'https://www.example.com/';
+
+          when(client.get(Uri.parse('${baseUrl}version.json'))).thenAnswer(
+            (_) => Future.value(
+              http.Response(jsonEncode(VERSION_JSON), 200),
+            ),
+          );
+
+          final versionMap = await plugin.getAll(baseUrl: baseUrl);
+
+          expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.version, VERSION_JSON['version']);
+          expect(versionMap.buildNumber, VERSION_JSON['build_number']);
+          expect(versionMap.packageName, VERSION_JSON['package_name']);
+          expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
+        },
+      );
+
+      testWidgets(
         'Get correct versionJsonUrl for http and https',
         (tester) async {
           expect(
