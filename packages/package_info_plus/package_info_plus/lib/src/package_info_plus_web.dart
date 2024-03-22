@@ -5,6 +5,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
+import 'package:web/web.dart' as web;
 
 /// The web implementation of [PackageInfoPlatform].
 ///
@@ -50,10 +51,11 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
   @override
   Future<PackageInfoData> getAll() async {
-    final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final url = versionJsonUrl(assetManager.baseUrl, cacheBuster);
-    final response = _client == null ? await get(url) : await _client.get(url);
-    final versionMap = _getVersionMap(response);
+    final int cacheBuster = DateTime.now().millisecondsSinceEpoch;
+    final Map<String, dynamic> versionMap =
+            await _getVersionMap(assetManager.baseUrl, cacheBuster) ??
+            await _getVersionMap(web.window.document.baseURI, cacheBuster) ??
+            {};
 
     return PackageInfoData(
       appName: versionMap['app_name'] ?? '',
@@ -65,15 +67,33 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
     );
   }
 
-  Map<String, dynamic> _getVersionMap(Response response) {
+  Future<Map<String, dynamic>?> _getVersionMap(
+    String? baseUrl,
+    int cacheBuster,
+  ) async {
+    if (baseUrl?.isNotEmpty == true) {
+      final Uri url = versionJsonUrl(baseUrl!, cacheBuster);
+      final Response response = await _getResponse(url);
+
+      return _decodeVersionMap(response);
+    }
+
+    return null;
+  }
+
+  Future<Response> _getResponse(Uri uri) async {
+    return _client == null ? await get(uri) : await _client.get(uri);
+  }
+
+  Map<String, dynamic>? _decodeVersionMap(Response response) {
     if (response.statusCode == 200) {
       try {
         return jsonDecode(response.body);
       } catch (_) {
-        return <String, dynamic>{};
+        return null;
       }
     } else {
-      return <String, dynamic>{};
+      return null;
     }
   }
 }
