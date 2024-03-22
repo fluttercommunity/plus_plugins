@@ -50,9 +50,10 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   }
 
   @override
-  Future<PackageInfoData> getAll() async {
+  Future<PackageInfoData> getAll({String? baseUrl}) async {
     final int cacheBuster = DateTime.now().millisecondsSinceEpoch;
     final Map<String, dynamic> versionMap =
+        await _getVersionMap(baseUrl, cacheBuster) ??
             await _getVersionMap(assetManager.baseUrl, cacheBuster) ??
             await _getVersionMap(web.window.document.baseURI, cacheBuster) ??
             {};

@@ -33,12 +33,15 @@ class PackageInfo {
 
   /// Retrieves package information from the platform.
   /// The result is cached.
-  static Future<PackageInfo> fromPlatform() async {
+  static Future<PackageInfo> fromPlatform({String? baseUrl}) async {
     if (_fromPlatform != null) {
       return _fromPlatform!;
     }
 
-    final platformData = await PackageInfoPlatform.instance.getAll();
+    final platformData = await PackageInfoPlatform.instance.getAll(
+      baseUrl: baseUrl,
+    );
+
     _fromPlatform = PackageInfo(
       appName: platformData.appName,
       packageName: platformData.packageName,
