@@ -15,7 +15,7 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
   /// Returns a map with the following keys:
   /// appName, packageName, version, buildNumber
   @override
-  Future<PackageInfoData> getAll() async {
+  Future<PackageInfoData> getAll({Uri? customVersionJson}) async {
     final versionJson = await _getVersionJson();
     return PackageInfoData(
       appName: versionJson['app_name'] ?? '',

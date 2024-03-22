@@ -49,12 +49,19 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   }
 
   @override
-  Future<PackageInfoData> getAll() async {
+  Future<PackageInfoData> getAll({Uri? customVersionJson}) async {
     final cacheBuster = DateTime.now().millisecondsSinceEpoch;
-    final url = versionJsonUrl(web.window.document.baseURI, cacheBuster);
-    final response = _client == null ? await get(url) : await _client.get(url);
-    final versionMap = _getVersionMap(response);
 
+    Uri? url;
+    // If user provides a custom version.json, use it
+    if (customVersionJson != null) {
+      url = customVersionJson;
+    } else {
+      url = versionJsonUrl(web.window.document.baseURI, cacheBuster);
+    }
+
+    final response = await _get(url);
+    final versionMap = _getVersionMap(response);
     return PackageInfoData(
       appName: versionMap['app_name'] ?? '',
       version: versionMap['version'] ?? '',
@@ -64,6 +71,9 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
       buildSignature: '',
     );
   }
+
+  Future<Response> _get(Uri url) async =>
+      _client == null ? await get(url) : await _client.get(url);
 
   Map<String, dynamic> _getVersionMap(Response response) {
     if (response.statusCode == 200) {

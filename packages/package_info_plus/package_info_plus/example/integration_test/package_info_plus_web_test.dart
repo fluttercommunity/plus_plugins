@@ -29,6 +29,8 @@ void main() {
     'build_signature': '',
   };
 
+  final customUri = Uri.tryParse('https://example.com/version.json');
+
   late PackageInfoPlusWebPlugin plugin;
   late MockClient client;
 
@@ -75,6 +77,25 @@ void main() {
           expect(versionMap.packageName, isEmpty);
           expect(versionMap.version, isEmpty);
           expect(versionMap.buildSignature, isEmpty);
+        },
+      );
+
+      testWidgets(
+        'Get package info using custom version json uri',
+        (tester) async {
+          when(client.get(customUri)).thenAnswer(
+            (_) => Future.value(
+              http.Response(jsonEncode(VERSION_JSON), 200),
+            ),
+          );
+
+          final versionMap = await plugin.getAll(customVersionJson: customUri);
+
+          expect(versionMap.appName, VERSION_JSON['app_name']);
+          expect(versionMap.version, VERSION_JSON['version']);
+          expect(versionMap.buildNumber, VERSION_JSON['build_number']);
+          expect(versionMap.packageName, VERSION_JSON['package_name']);
+          expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
         },
       );
 
