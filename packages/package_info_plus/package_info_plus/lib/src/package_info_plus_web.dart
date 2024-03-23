@@ -13,9 +13,11 @@ import 'package:web/web.dart' as web;
 /// This class implements the `package:package_info_plus` functionality for the web.
 class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   final Client? _client;
+  final AssetManager _assetManager;
 
-  /// Create plugin with http client.
-  PackageInfoPlusWebPlugin([this._client]);
+  /// Create plugin with http client and asset manager for testing purposes.
+  PackageInfoPlusWebPlugin([this._client, AssetManager? assetManagerMock])
+      : _assetManager = assetManagerMock ?? assetManager;
 
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
@@ -55,7 +57,7 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
     final int cacheBuster = clock.now().millisecondsSinceEpoch;
     final Map<String, dynamic> versionMap =
         await _getVersionMap(baseUrl, cacheBuster) ??
-            await _getVersionMap(assetManager.baseUrl, cacheBuster) ??
+            await _getVersionMap(_assetManager.baseUrl, cacheBuster) ??
             await _getVersionMap(web.window.document.baseURI, cacheBuster) ??
             {};
 
