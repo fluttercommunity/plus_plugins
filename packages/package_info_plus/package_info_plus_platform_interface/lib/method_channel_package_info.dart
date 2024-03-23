@@ -9,7 +9,7 @@ const MethodChannel _channel =
 /// An implementation of [PackageInfoPlatform] that uses method channels.
 class MethodChannelPackageInfo extends PackageInfoPlatform {
   @override
-  Future<PackageInfoData> getAll() async {
+  Future<PackageInfoData> getAll({String? baseUrl}) async {
     final map = await _channel.invokeMapMethod<String, dynamic>('getAll');
     return PackageInfoData(
       appName: map!['appName'] ?? '',
