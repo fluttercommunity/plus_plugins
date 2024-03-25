@@ -58,6 +58,9 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
                     result.error("UNAVAILABLE", "Battery level not available.", null)
                 }
             }
+            "getPowerSourceType" -> {
+                result.success(getPowerSourceType())
+            }
 
             "getBatteryState" -> {
                 val currentBatteryStatus = getBatteryStatus()
@@ -108,6 +111,20 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         }
         return convertBatteryStatus(status)
     }
+
+    private fun getPowerSourceType(): String? {
+            val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val source = intent!!.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+           return when (source) {
+                -1 -> "unknown"
+                0 -> "battery"
+                BatteryManager.BATTERY_PLUGGED_AC -> "ac"
+                BatteryManager.BATTERY_PLUGGED_DOCK -> "dock"
+                BatteryManager.BATTERY_PLUGGED_USB -> "usb"
+                BatteryManager.BATTERY_PLUGGED_WIRELESS -> "wireless"
+                else -> null
+            }
+    } 
 
     private fun getBatteryLevel(): Int {
         return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
