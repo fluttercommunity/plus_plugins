@@ -40,6 +40,7 @@ internal class MethodCallHandler(
                     isWithResult,
                 )
 
+                manager.signalShareSheetCalledBack()
                 if (!isWithResult) {
                     if (isResultRequested) {
                         result.success("dev.fluttercommunity.plus/share/unavailable")
@@ -62,6 +63,7 @@ internal class MethodCallHandler(
                         isWithResult,
                     )
 
+                    manager.signalShareSheetCalledBack()
                     if (!isWithResult) {
                         if (isResultRequested) {
                             result.success("dev.fluttercommunity.plus/share/unavailable")
