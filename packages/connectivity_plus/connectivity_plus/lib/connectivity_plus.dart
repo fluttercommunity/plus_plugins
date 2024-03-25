@@ -43,6 +43,10 @@ class Connectivity {
   /// On Android, the Stream may emit new values even when
   /// the [ConnectivityResult] list remains the same.
   ///
+  /// The emitted list is never empty. In case of no connectivity, the list contains
+  /// a single element of [ConnectivityResult.none]. Note also that this is the only
+  /// case where [ConnectivityResult.none] is present.
+  ///
   /// This method doesn't filter events, nor it ensures distinct values.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged;
@@ -51,9 +55,12 @@ class Connectivity {
   /// Checks the connection status of the device.
   ///
   /// Do not use the result of this function to decide whether you can reliably
-  /// make a network request. It only gives you the radio status.
+  /// make a network request, it only gives you the radio status. Instead, listen
+  /// for connectivity changes via [onConnectivityChanged] stream.
   ///
-  /// Instead listen for connectivity changes via [onConnectivityChanged] stream.
+  /// The returned list is never empty. In case of no connectivity, the list contains
+  /// a single element of [ConnectivityResult.none]. Note also that this is the only
+  /// case where [ConnectivityResult.none] is present.
   Future<List<ConnectivityResult>> checkConnectivity() {
     return _platform.checkConnectivity();
   }
