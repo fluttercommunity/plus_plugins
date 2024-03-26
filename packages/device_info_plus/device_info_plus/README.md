@@ -60,7 +60,7 @@ In case the app doesn't meet any of requirements plugin will return `unknown`.
 
 ### iOS
 
-The plugin exposes the value in `UIDevice.current name` as the `name` property, which the assigned device name by the owner.
+The plugin exposes the value in `UIDevice.current.name` as the `name` property, which the assigned device name by the owner.
 This property requires special entitlement [com.apple.developer.device-information.user-assigned-device-name](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_device-information_user-assigned-device-name) in iOS 16 and later, otherwise, the property `name` will always be `iPad` or `iPhone`.
 
 ## Learn more
