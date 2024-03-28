@@ -107,6 +107,14 @@ Alternatively, don't use `XFile.fromData` and instead write the data down to a `
 
 Due to restrictions set up by Facebook this plugin isn't capable of sharing data reliably to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger. If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing)) or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
 
+#### Localization in Apple platforms
+
+It could happen that the Share sheet appears with a different language, [as reported here](https://github.com/fluttercommunity/plus_plugins/issues/2696).
+
+To fix this issue, you will have to setup the keys `CFBundleAllowMixedLocalizations` and `CFBundleDevelopmentRegion` in your project's `info.plist`.
+
+For more information check the [CoreFoundationKeys](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html) documentation.
+
 #### iPad
 
 `share_plus` requires iPad users to provide the `sharePositionOrigin` parameter.
