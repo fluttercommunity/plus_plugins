@@ -31,6 +31,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.isPhysicalDevice,
     required List<String> systemFeatures,
     required this.serialNumber,
+    required this.isLowRamDevice,
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -136,33 +137,36 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/os/Build#getSerial()
   final String serialNumber;
 
+  /// `true` is it running on a low ram device `false` otherwise
+  final bool isLowRamDevice;
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
-      data: map,
-      version: AndroidBuildVersion._fromMap(
-          map['version']?.cast<String, dynamic>() ?? {}),
-      board: map['board'],
-      bootloader: map['bootloader'],
-      brand: map['brand'],
-      device: map['device'],
-      display: map['display'],
-      fingerprint: map['fingerprint'],
-      hardware: map['hardware'],
-      host: map['host'],
-      id: map['id'],
-      manufacturer: map['manufacturer'],
-      model: map['model'],
-      product: map['product'],
-      supported32BitAbis: _fromList(map['supported32BitAbis'] ?? <String>[]),
-      supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
-      supportedAbis: _fromList(map['supportedAbis'] ?? []),
-      tags: map['tags'],
-      type: map['type'],
-      isPhysicalDevice: map['isPhysicalDevice'],
-      systemFeatures: _fromList(map['systemFeatures'] ?? []),
-      serialNumber: map['serialNumber'],
-    );
+        data: map,
+        version: AndroidBuildVersion._fromMap(
+            map['version']?.cast<String, dynamic>() ?? {}),
+        board: map['board'],
+        bootloader: map['bootloader'],
+        brand: map['brand'],
+        device: map['device'],
+        display: map['display'],
+        fingerprint: map['fingerprint'],
+        hardware: map['hardware'],
+        host: map['host'],
+        id: map['id'],
+        manufacturer: map['manufacturer'],
+        model: map['model'],
+        product: map['product'],
+        supported32BitAbis: _fromList(map['supported32BitAbis'] ?? <String>[]),
+        supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
+        supportedAbis: _fromList(map['supportedAbis'] ?? []),
+        tags: map['tags'],
+        type: map['type'],
+        isPhysicalDevice: map['isPhysicalDevice'],
+        systemFeatures: _fromList(map['systemFeatures'] ?? []),
+        serialNumber: map['serialNumber'],
+        isLowRamDevice: map['isLowRamDevice']);
   }
 
   /// Deserializes message as List<String>
