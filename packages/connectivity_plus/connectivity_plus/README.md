@@ -82,11 +82,21 @@ dispose() {
 }
 ```
 
-> **Note**
->
-> Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
+### Android
 
-## Limitations on the web platform
+Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed._ The broadcast is only useful when your application is in the foreground.
+
+### iOS
+
+On iOS, the connectivity status might not update when WiFi status changes, this is a known issue that affects mainly simulators.
+
+Starting on iOS 12, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types.
+
+We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
+
+We recommend to use the `onConnectivityChanged` with this limitation in mind, as the method doesn't filter events, nor it ensures distinct values.
+
+### Web
 
 In order to retrieve information about the quality/speed of a browser's connection, the web implementation of the `connectivity` plugin uses the browser's [**NetworkInformation** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation), which as of this writing (June 2020) is still "experimental", and not available in all browsers:
 
