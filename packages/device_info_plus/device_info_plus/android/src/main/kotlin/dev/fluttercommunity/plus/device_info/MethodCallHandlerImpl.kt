@@ -1,7 +1,6 @@
 package dev.fluttercommunity.plus.device_info
 
 import android.app.ActivityManager
-import android.content.Context
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageManager
 import android.os.Build
@@ -19,7 +18,7 @@ import kotlin.collections.HashMap
  */
 internal class MethodCallHandlerImpl(
     private val packageManager: PackageManager,
-    private val context: Context,
+    private val activityManager: ActivityManager,
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -65,7 +64,7 @@ internal class MethodCallHandlerImpl(
             version["release"] = Build.VERSION.RELEASE
             version["sdkInt"] = Build.VERSION.SDK_INT
             build["version"] = version
-            build["isLowRamDevice"] = isLowRamDevice()
+            build["isLowRamDevice"] = activityManager.isLowRamDevice
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 build["serialNumber"] = try {
                     Build.getSerial()
@@ -107,12 +106,4 @@ internal class MethodCallHandlerImpl(
             || Build.PRODUCT.contains("vbox86p")
             || Build.PRODUCT.contains("emulator")
             || Build.PRODUCT.contains("simulator"))
-
-    /**
-     * To detect whether it is running on a low-memory device
-     */
-    private fun isLowRamDevice(): Boolean {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        return activityManager.isLowRamDevice
-    }
 }
