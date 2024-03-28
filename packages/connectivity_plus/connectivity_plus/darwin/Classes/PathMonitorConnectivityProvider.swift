@@ -9,10 +9,9 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private var pathMonitor: NWPathMonitor?
 
-  public var currentConnectivityTypes: [ConnectivityType] {
-    let path = ensurePathMonitor().currentPath
+  private func connectivityFrom(path: NWPath) -> [ConnectivityType] {
     var types: [ConnectivityType] = []
-    
+        
     // Check for connectivity and append to types array as necessary
     if path.status == .satisfied {
       if path.usesInterfaceType(.wifi) {
@@ -28,8 +27,13 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
         types.append(.other)
       }
     }
-    
+        
     return types.isEmpty ? [.none] : types
+  }
+
+  public var currentConnectivityTypes: [ConnectivityType] {
+    let path = ensurePathMonitor().currentPath
+    return connectivityFrom(path: path)
   }
 
   public var connectivityUpdateHandler: ConnectivityUpdateHandler?
@@ -60,6 +64,6 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
   }
 
   private func pathUpdateHandler(path: NWPath) {
-    connectivityUpdateHandler?(currentConnectivityTypes)
+    connectivityUpdateHandler?(connectivityFrom(path: path))
   }
 }
