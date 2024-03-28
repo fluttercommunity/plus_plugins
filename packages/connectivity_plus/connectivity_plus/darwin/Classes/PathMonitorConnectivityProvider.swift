@@ -11,7 +11,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private func connectivityFrom(path: NWPath) -> [ConnectivityType] {
     var types: [ConnectivityType] = []
-        
+    
     // Check for connectivity and append to types array as necessary
     if path.status == .satisfied {
       if path.usesInterfaceType(.wifi) {
@@ -27,7 +27,7 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
         types.append(.other)
       }
     }
-        
+    
     return types.isEmpty ? [.none] : types
   }
 
