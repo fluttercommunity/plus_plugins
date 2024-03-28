@@ -3,7 +3,9 @@ import Network
 
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
-  private let queue = DispatchQueue.global(qos: .background)
+  // Use .utility, as it is intended for tasks that the user does not track actively.
+  // See: https://developer.apple.com/documentation/dispatch/dispatchqos
+  private let queue = DispatchQueue.global(qos: .utility)
 
   private var pathMonitor: NWPathMonitor?
 
