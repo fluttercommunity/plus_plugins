@@ -38,6 +38,7 @@ void main() {
       expect(androidDeviceInfo.version.incremental, 'incremental');
       expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
       expect(androidDeviceInfo.serialNumber, 'SERIAL');
+      expect(androidDeviceInfo.isLowRamDevice, false);
     });
 
     test('toMap should return map with correct key and map', () {

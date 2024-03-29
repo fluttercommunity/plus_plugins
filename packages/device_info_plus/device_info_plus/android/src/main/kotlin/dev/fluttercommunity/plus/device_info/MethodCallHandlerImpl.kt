@@ -1,5 +1,6 @@
 package dev.fluttercommunity.plus.device_info
 
+import android.app.ActivityManager
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageManager
 import android.os.Build
@@ -17,6 +18,7 @@ import kotlin.collections.HashMap
  */
 internal class MethodCallHandlerImpl(
     private val packageManager: PackageManager,
+    private val activityManager: ActivityManager,
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -62,7 +64,7 @@ internal class MethodCallHandlerImpl(
             version["release"] = Build.VERSION.RELEASE
             version["sdkInt"] = Build.VERSION.SDK_INT
             build["version"] = version
-
+            build["isLowRamDevice"] = activityManager.isLowRamDevice
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 build["serialNumber"] = try {
                     Build.getSerial()
