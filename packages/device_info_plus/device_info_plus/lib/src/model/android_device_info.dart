@@ -137,7 +137,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/os/Build#getSerial()
   final String serialNumber;
 
-  /// `true` is it running on a low ram device `false` otherwise
+  /// `true` if the application is running on a low-RAM device, `false` otherwise.
   final bool isLowRamDevice;
 
   /// Deserializes from the message received from [_kChannel].
