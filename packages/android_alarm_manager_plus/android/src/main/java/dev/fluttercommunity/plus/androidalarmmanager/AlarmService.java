@@ -148,19 +148,10 @@ public class AlarmService extends JobIntentService {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !manager.canScheduleExactAlarms()) {
         Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
       } else {
-        PackageManager packageManager = context.getPackageManager();
-        String appId = context.getPackageName();
-        Intent launchIntent = packageManager.getLaunchIntentForPackage(appId);
-        launchIntent.putExtra("id", requestCode);
-        launchIntent.putExtra("params", params == null ? null : params.toString());
-        PendingIntent showPendingIntent =
-            PendingIntent.getActivity(
-                context,
-                requestCode,
-                launchIntent,
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
-                    | PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManagerCompat.setAlarmClock(manager, startMillis, showPendingIntent, pendingIntent);
+        PendingIntent showPendingIntent = createShowPendingIntent(context, requestCode, params);
+        AlarmManagerCompat.setAlarmClock(
+            manager, startMillis,
+            showPendingIntent, pendingIntent);
       }
       return;
     }
@@ -362,6 +353,21 @@ public class AlarmService extends JobIntentService {
         }
       }
     }
+  }
+
+  private static PendingIntent createShowPendingIntent(
+      Context context, int requestCode, JSONObject params) {
+    PackageManager packageManager = context.getPackageManager();
+    String appId = context.getPackageName();
+    Intent launchIntent = packageManager.getLaunchIntentForPackage(appId);
+    launchIntent.putExtra("id", requestCode);
+    launchIntent.putExtra("params", params == null ? null : params.toString());
+    return PendingIntent.getActivity(
+        context,
+        requestCode,
+        launchIntent,
+        (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
+            | PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   @Override
