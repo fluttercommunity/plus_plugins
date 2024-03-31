@@ -80,6 +80,20 @@ dispose() {
 }
 ```
 
+## Platform Support
+
+The following table shows which `ConnectivityResult` values are supported per platform.
+
+|           | Android | iOS | Web | MacOS | Windows | Linux |
+|-----------|:-------:|:---:|:---:|:-----:|:-------:|:-----:|
+| wifi      | ✅      | ✅   |     | ✅      |         |       |
+| bluetooth | ✅      |      |     |       |         |       |
+| ethernet  | ✅      | ⚠️    |     | ⚠️      |         |       |
+| mobile    | ✅      | ✅   |     | ✅      |         |       |
+| vpn       | ✅      |      |     |       |         |       |
+| other     | ✅      | ⚠️    |     | ⚠️      |         |       |
+| none      | ✅      | ✅   |     | ✅      |         |       |
+
 ### Android
 
 Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed. The broadcast is only useful when your application is in the foreground.
