@@ -95,7 +95,7 @@ using.
 
 ## Receiving show intents for alarm clocks
 
-If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when the tap on such UIs. 
+If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when they tap on such UIs. 
 
 This intent includes the following `extras`:
 - `id`: The alarm id that you passed when scheduling the alarm.
