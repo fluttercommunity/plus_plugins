@@ -153,12 +153,13 @@ public class AlarmService extends JobIntentService {
         Intent launchIntent = packageManager.getLaunchIntentForPackage(appId);
         launchIntent.putExtra("id", requestCode);
         launchIntent.putExtra("params", params == null ? null : params.toString());
-        PendingIntent showPendingIntent = PendingIntent.getActivity(
-            context,
-            requestCode,
-            launchIntent,
-            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
-                | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent showPendingIntent =
+            PendingIntent.getActivity(
+                context,
+                requestCode,
+                launchIntent,
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0)
+                    | PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManagerCompat.setAlarmClock(manager, startMillis, showPendingIntent, pendingIntent);
       }
       return;
