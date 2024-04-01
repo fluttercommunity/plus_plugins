@@ -97,7 +97,7 @@ using.
 
 If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when they tap on such UIs. 
 
-This intent includes the following `extras`:
+This intent has the action `android.intent.action.MAIN` and includes the following `extras`:
 - `id`: The alarm id that you passed when scheduling the alarm.
 - `params`: The params argument that you passed when scheduling the alarm, if any.
 
@@ -126,16 +126,18 @@ import 'package:receive_intent/receive_intent.dart';
 import 'dart:convert'; // for jsonDecode
 
 final receivedIntent = await ReceiveIntent.getInitialIntent();
-final paramsExtra = receivedIntent.extra?["params"];
-if (paramsExtra != null){
-  // The received params is a string, so we need to convert it into a json map
-  final params = jsonDecode(params);
-  // use params
-  // params['param1']
-  // params['param2']
+if (receivedIntent.action == "android.intent.action.MAIN"){
+    final paramsExtra = receivedIntent.extra?["params"];
+    if (paramsExtra != null){
+      // The received params is a string, so we need to convert it into a json map
+      final params = jsonDecode(params);
+      // use params
+      // params['param1']
+      // params['param2']
+    }
+    final id = receivedIntent.extra?["id"];
+    // navigate user to alarm with given id
 }
-final id = receivedIntent.extra?["id"];
-// navigate user to alarm with given id
 ```
 For more information, check out the receive_intent [getting started](https://pub.dev/packages/receive_intent#getting-started).
 
