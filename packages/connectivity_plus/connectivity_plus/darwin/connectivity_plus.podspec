@@ -22,7 +22,6 @@ Downloaded by pub (not CocoaPods).
   ]
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
-  s.dependency 'ReachabilitySwift'
   s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.14'
   s.swift_version = '5.0'
