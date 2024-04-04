@@ -61,7 +61,9 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 The Android OS will return the Wi-Fi name surrounded in quotes. e.g. `"WiFi Name"` instead of `Wifi Name`.
 These double quotes are added by the operating system, but only when the original Wi-Fi name doesn't contain
-quotes already. This is a known limitation, do not create bug reports about this.
+quotes already.
+The plugin will always return the Wi-Fi name as provided by the OS.
+This is a known limitation, do not create bug reports about this.
 
 > **Note**
 >
