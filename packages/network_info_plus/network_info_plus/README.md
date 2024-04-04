@@ -57,6 +57,12 @@ To successfully get WiFi Name or Wi-Fi BSSID starting with Android 1O, ensure al
 
 - If you use device with Android 12 (API level 31) and newer be sure that your app has ACCESS_NETWORK_STATE permission.
 
+**Wi-Fi Name in quotes**
+
+The Android OS will return the Wi-Fi name surrounded in quotes. e.g. `"WiFi Name"` instead of `Wifi Name`.
+These double quotes are added by the operating system, but only when the original Wi-Fi name doesn't contain
+quotes already. This is a known limitation, do not create bug reports about this.
+
 > **Note**
 >
 > This package does not provide the ACCESS_FINE_LOCATION nor the ACCESS_COARSE_LOCATION permission by default
