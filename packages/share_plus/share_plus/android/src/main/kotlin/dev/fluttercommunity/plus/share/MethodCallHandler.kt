@@ -53,9 +53,9 @@ internal class MethodCallHandler(
 
                 else -> result.notImplemented()
             }
-        } catch (e: IOException) {
+        } catch (e: Throwable) {
             manager.clear()
-            result.error("Share failed", e.message, null)
+            result.error("Share failed", e.message, e)
         }
     }
 
