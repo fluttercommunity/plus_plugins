@@ -12,14 +12,18 @@ internal class MethodCallHandler(
 ) : MethodChannel.MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        expectMapArguments(call)
+
         // The user used a *WithResult method
         val isResultRequested = call.method.endsWith("WithResult")
         // We don't attempt to return a result if the current API version doesn't support it
         val isWithResult = isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
+        if (isWithResult)
+            manager.setCallback(result)
+
         when (call.method) {
             "shareUri" -> {
-                expectMapArguments(call)
                 share.share(
                     call.argument<Any>("uri") as String,
                     subject = null,
@@ -30,9 +34,6 @@ internal class MethodCallHandler(
                 }
             }
             "share", "shareWithResult" -> {
-                expectMapArguments(call)
-                if (isWithResult && !manager.setCallback(result)) return
-
                 // Android does not support showing the share sheet at a particular point on screen.
                 share.share(
                     call.argument<Any>("text") as String,
@@ -49,9 +50,6 @@ internal class MethodCallHandler(
                 }
             }
             "shareFiles", "shareFilesWithResult" -> {
-                expectMapArguments(call)
-                if (isWithResult && !manager.setCallback(result)) return
-
                 // Android does not support showing the share sheet at a particular point on screen.
                 try {
                     share.shareFiles(
