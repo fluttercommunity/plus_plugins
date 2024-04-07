@@ -42,6 +42,14 @@ internal class ShareSuccessManager(private val context: Context) : ActivityResul
     }
 
     /**
+     * Must be called on error to avoid deadlocking.
+     */
+    fun clear() {
+        isCalledBack.set(true)
+        callback = null
+    }
+
+    /**
      * Send the result to flutter by invoking the previously set callback.
      */
     private fun returnResult(result: String) {
