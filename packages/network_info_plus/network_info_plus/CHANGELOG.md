@@ -1,3 +1,8 @@
+## 5.0.3
+
+ - **REFACTOR**(network_info_plus): Migrate Android example to use the new plugins declaration ([#2768](https://github.com/fluttercommunity/plus_plugins/issues/2768)). ([d7206929](https://github.com/fluttercommunity/plus_plugins/commit/d72069292995355fbe0fe62ec6d74f34005008f6))
+ - **DOCS**(network_info_plus): Add explanation on Wi-Fi name in quotes to README ([#2815](https://github.com/fluttercommunity/plus_plugins/issues/2815)). ([e94c9b4b](https://github.com/fluttercommunity/plus_plugins/commit/e94c9b4be566f99dba34718fc2b4868165d31026))
+
 ## 5.0.2
 
 > Plugin now requires the following:

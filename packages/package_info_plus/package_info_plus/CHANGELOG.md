@@ -1,3 +1,10 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+
+ - **REFACTOR**(package_info_plus): Migrate Android example to use the new plugins declaration ([#2715](https://github.com/fluttercommunity/plus_plugins/issues/2715)). ([33681cd9](https://github.com/fluttercommunity/plus_plugins/commit/33681cd91982d4db8e6d3d0e1ccf7c604091e48f))
+ - **BREAKING** **FEAT**(package_info_plus): Support multiple version.json locations in web ([#2733](https://github.com/fluttercommunity/plus_plugins/issues/2733)). ([26047f30](https://github.com/fluttercommunity/plus_plugins/commit/26047f3062ea23f8e124f1c64e03dd8a566e9bac))
+
 ## 6.0.0
 
 > Note: This release has breaking changes.
