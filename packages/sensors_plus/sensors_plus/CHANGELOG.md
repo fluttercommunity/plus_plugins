@@ -1,3 +1,8 @@
+## 5.0.1
+
+ - **REFACTOR**(sensors_plus): Migrate Android example to use the new plugins declaration ([#2743](https://github.com/fluttercommunity/plus_plugins/issues/2743)). ([e884a9e9](https://github.com/fluttercommunity/plus_plugins/commit/e884a9e9979f8bda400fe063e73fc6f9a91dbfce))
+ - **FIX**(sensors_plus): WASM-compatible conditional imports ([#2824](https://github.com/fluttercommunity/plus_plugins/issues/2824)). ([823a7d78](https://github.com/fluttercommunity/plus_plugins/commit/823a7d785c7bff4823e10d044291396e97ec4a3c))
+
 ## 5.0.0
 
 > Note: This release has breaking changes.

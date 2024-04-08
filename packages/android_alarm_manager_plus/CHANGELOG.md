@@ -1,3 +1,8 @@
+## 4.0.2
+
+ - **REFACTOR**(android_alarm_manager_plus): Migrate Android example to use the new plugins declaration ([#2774](https://github.com/fluttercommunity/plus_plugins/issues/2774)). ([2b8489ca](https://github.com/fluttercommunity/plus_plugins/commit/2b8489cabce6f73d8c16c4206455800a7d003ce1))
+ - **FIX**(android_alarm_manager_plus): Fix showIntent not being set correctly in setAlarmClock ([#2778](https://github.com/fluttercommunity/plus_plugins/issues/2778)). ([7d578c36](https://github.com/fluttercommunity/plus_plugins/commit/7d578c364f9f17d932c34113ecdd33667006168d))
+
 ## 4.0.1
 
 Plugin now requires the following:

@@ -1,3 +1,14 @@
+## 6.0.2
+
+ - **REFACTOR**(connectivity_plus): remove ReachabilityConnectivityProvider and ReachabilitySwift dependency ([#2813](https://github.com/fluttercommunity/plus_plugins/issues/2813)). ([f9ad927f](https://github.com/fluttercommunity/plus_plugins/commit/f9ad927f5c18f8ed8d4c22a24476430239c13492))
+ - **REFACTOR**(connectivity_plus): Migrate Android example to use the new plugins declaration ([#2771](https://github.com/fluttercommunity/plus_plugins/issues/2771)). ([04200c23](https://github.com/fluttercommunity/plus_plugins/commit/04200c2311e8dd581980ed19f8ebd24d0afd1512))
+ - **FIX**(connectivity_plus): WASM-compatible conditional imports ([#2825](https://github.com/fluttercommunity/plus_plugins/issues/2825)). ([6bee4a7e](https://github.com/fluttercommunity/plus_plugins/commit/6bee4a7e02d681ce94d8bd95c4399d844b0ceb27))
+ - **FIX**(connectivity_plus): Improve iOS PathMonitorConnectivityProvider implementation and documentation ([#2763](https://github.com/fluttercommunity/plus_plugins/issues/2763)). ([c850d58e](https://github.com/fluttercommunity/plus_plugins/commit/c850d58ed9f422182c8f77583a43bcb13d5d979f))
+ - **DOCS**(connectivity_plus): Document supported ConnectivityResult per platform ([#2780](https://github.com/fluttercommunity/plus_plugins/issues/2780)). ([1c4aec01](https://github.com/fluttercommunity/plus_plugins/commit/1c4aec019e74433a2b1174d75522b5abb0c9d9b4))
+ - **DOCS**(connectivity_plus): Update README for more clarity ([#2770](https://github.com/fluttercommunity/plus_plugins/issues/2770)). ([8fb738e2](https://github.com/fluttercommunity/plus_plugins/commit/8fb738e2b8f5534db8f1c0fbbeae1a51cf03d099))
+ - **DOCS**(connectivity_plus): Specify behavior when there is no connectivity ([#2753](https://github.com/fluttercommunity/plus_plugins/issues/2753)). ([8f132a23](https://github.com/fluttercommunity/plus_plugins/commit/8f132a23a0424299c5e9b946171164bc66710540))
+ - **DOCS**(connectivity_plus): Improve documentation onConnectivityChanged method ([#2746](https://github.com/fluttercommunity/plus_plugins/issues/2746)). ([9ea21fbd](https://github.com/fluttercommunity/plus_plugins/commit/9ea21fbdbb9974077375f803f5bb3c57abcb6488))
+
 ## 6.0.1
 
 > Note: This release has breaking changes.

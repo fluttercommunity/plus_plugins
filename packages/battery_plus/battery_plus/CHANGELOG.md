@@ -1,3 +1,8 @@
+## 6.0.1
+
+ - **REFACTOR**(battery_plus): Migrate Android example to use the new plugins declaration ([#2772](https://github.com/fluttercommunity/plus_plugins/issues/2772)). ([740a5df2](https://github.com/fluttercommunity/plus_plugins/commit/740a5df21fb84df2b88cea822d53302ce61a6dc2))
+ - **FIX**(battery_plus): Fix return value of getBattery to be nullable ([#2745](https://github.com/fluttercommunity/plus_plugins/issues/2745)). ([4d5b950e](https://github.com/fluttercommunity/plus_plugins/commit/4d5b950ed1c74f801f621ef0c07b44f496a7465b))
+
 ## 6.0.0
 
 > Note: This release has breaking changes.

@@ -1,3 +1,10 @@
+## 8.0.3
+
+ - **REFACTOR**(share_plus): Migrate Android example to use the new plugins declaration ([#2742](https://github.com/fluttercommunity/plus_plugins/issues/2742)). ([a73af898](https://github.com/fluttercommunity/plus_plugins/commit/a73af898ee9b73dcc53307186ac4c79e795b1277))
+ - **FIX**(share_plus): Recover ShareSuccessManager state after error ([#2817](https://github.com/fluttercommunity/plus_plugins/issues/2817)). ([2b12d8a8](https://github.com/fluttercommunity/plus_plugins/commit/2b12d8a8ada0d3f00abda0467946bb241361d016))
+ - **DOCS**(share_plus): Add info regarding localization on Apple to README ([#2764](https://github.com/fluttercommunity/plus_plugins/issues/2764)). ([43f9a305](https://github.com/fluttercommunity/plus_plugins/commit/43f9a3051652448868c5031a45276f9ff870a025))
+ - **DOCS**(share_plus): remove typo from the changelog ([#2747](https://github.com/fluttercommunity/plus_plugins/issues/2747)). ([961c8e2d](https://github.com/fluttercommunity/plus_plugins/commit/961c8e2dbf2210947cbed898c90e2776322a0942))
+
 ## 8.0.2
 
 > Note: This release has breaking changes.
