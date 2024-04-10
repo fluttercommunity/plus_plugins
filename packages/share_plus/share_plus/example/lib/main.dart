@@ -188,14 +188,23 @@ class DemoAppState extends State<DemoApp> {
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      shareResult = await Share.shareXFiles(files,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      shareResult = await Share.shareXFiles(
+        files,
+        text: text,
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+    } else if (uri.isNotEmpty) {
+      shareResult = await Share.shareUri(
+        Uri.parse(uri),
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
     } else {
-      shareResult = await Share.share(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      shareResult = await Share.share(
+        text,
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
     }
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }

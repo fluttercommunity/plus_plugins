@@ -14,11 +14,9 @@ internal class MethodCallHandler(
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         expectMapArguments(call)
 
-        // The user used a *WithResult method
-        val isResultRequested = call.method.endsWith("WithResult")
         // We don't attempt to return a result if the current API version doesn't support it
         val isWithResult =
-            isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
         if (isWithResult && !manager.setCallback(result)) return
 
@@ -26,21 +24,23 @@ internal class MethodCallHandler(
             when (call.method) {
                 "shareUri" -> {
                     share.share(
-                        call.argument<Any>("uri") as String, subject = null, withResult = false
+                        call.argument<Any>("uri") as String,
+                        subject = null,
+                        withResult = isWithResult,
                     )
-                    success(isWithResult, isResultRequested, result)
+                    success(isWithResult, result)
                 }
 
-                "share", "shareWithResult" -> {
+                "share" -> {
                     share.share(
                         call.argument<Any>("text") as String,
                         call.argument<Any>("subject") as String?,
                         isWithResult,
                     )
-                    success(isWithResult, isResultRequested, result)
+                    success(isWithResult, result)
                 }
 
-                "shareFiles", "shareFilesWithResult" -> {
+                "shareFiles" -> {
                     share.shareFiles(
                         call.argument<List<String>>("paths")!!,
                         call.argument<List<String>?>("mimeTypes"),
@@ -48,7 +48,7 @@ internal class MethodCallHandler(
                         call.argument<String?>("subject"),
                         isWithResult,
                     )
-                    success(isWithResult, isResultRequested, result)
+                    success(isWithResult, result)
                 }
 
                 else -> result.notImplemented()
@@ -61,15 +61,10 @@ internal class MethodCallHandler(
 
     private fun success(
         isWithResult: Boolean,
-        isResultRequested: Boolean,
         result: MethodChannel.Result
     ) {
         if (!isWithResult) {
-            if (isResultRequested) {
-                result.success("dev.fluttercommunity.plus/share/unavailable")
-            } else {
-                result.success(null)
-            }
+            result.success("dev.fluttercommunity.plus/share/unavailable")
         }
     }
 

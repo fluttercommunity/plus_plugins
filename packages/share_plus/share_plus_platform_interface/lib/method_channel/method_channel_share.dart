@@ -105,9 +105,8 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result =
-        await channel.invokeMethod<String>('shareFilesWithResult', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
+    final result = await channel.invokeMethod<String>('shareFiles', params) ??
+        'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
   }
