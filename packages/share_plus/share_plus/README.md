@@ -101,6 +101,15 @@ This special method is only properly supported on iOS.
 Share.shareUri(uri: uri);
 ```
 
+### Share Results
+
+All three methods return a `ShareResult` object which contains the following information:
+
+- `status`: a `ShareResultStatus`
+- `raw`: a `String` describing the share result, e.g. the opening app ID.
+
+Note: `status` will be `ShareResultStatus.unavailable` if the platform does not support identifying the user action.
+
 ## Known Issues
 
 ### Sharing data created with XFile.fromData
