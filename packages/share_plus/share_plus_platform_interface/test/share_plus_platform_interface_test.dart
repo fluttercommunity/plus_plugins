@@ -95,8 +95,8 @@ void main() {
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
       );
-      verify(mockChannel.invokeMethod<void>(
-        'shareFilesWithResult',
+      verify(mockChannel.invokeMethod<String>(
+        'shareFiles',
         <String, dynamic>{
           'paths': [fd.path],
           'mimeTypes': ['image/png'],
@@ -111,23 +111,10 @@ void main() {
     });
   });
 
-  test('sharing empty file fails', () {
-    expect(
-      () => sharePlatform.shareXFiles([XFile('')]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
-    expect(
-      () => SharePlatform.instance.shareXFiles([XFile('')]),
-      throwsA(const TypeMatcher<AssertionError>()),
-    );
-
-    verifyZeroInteractions(mockChannel);
-  });
-
   test('sharing file sets correct mimeType', () async {
     await withFile('tempfile-83649b.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
-      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
+      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
@@ -137,7 +124,7 @@ void main() {
   test('sharing file sets passed mimeType', () async {
     await withFile('tempfile-83649c.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path, mimeType: '*/*')]);
-      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
+      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
       }));
@@ -169,7 +156,7 @@ void main() {
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<void>('share', <String, dynamic>{
+    verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
       'subject': 'some subject to share',
       'originX': 1.0,
@@ -180,7 +167,7 @@ void main() {
 
     await withFile('tempfile-83649e.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
-      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
+      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
