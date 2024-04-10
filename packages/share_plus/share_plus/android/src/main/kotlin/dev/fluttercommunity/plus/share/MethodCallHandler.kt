@@ -8,52 +8,39 @@ import java.io.IOException
 /** Handles the method calls for the plugin.  */
 internal class MethodCallHandler(
     private val share: Share,
-    private val manager: ShareSuccessManager
+    private val manager: ShareSuccessManager,
 ) : MethodChannel.MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        expectMapArguments(call)
+
         // The user used a *WithResult method
         val isResultRequested = call.method.endsWith("WithResult")
         // We don't attempt to return a result if the current API version doesn't support it
-        val isWithResult = isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+        val isWithResult =
+            isResultRequested && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
-        when (call.method) {
-            "shareUri" -> {
-                expectMapArguments(call)
-                share.share(
-                    call.argument<Any>("uri") as String,
-                    subject = null,
-                    withResult= false
-                )
-                if (!isWithResult) {
-                    result.success(null)
+        if (isWithResult && !manager.setCallback(result)) return
+
+        try {
+            when (call.method) {
+                "shareUri" -> {
+                    share.share(
+                        call.argument<Any>("uri") as String, subject = null, withResult = false
+                    )
+                    success(isWithResult, isResultRequested, result)
                 }
-            }
-            "share", "shareWithResult" -> {
-                expectMapArguments(call)
-                if (isWithResult && !manager.setCallback(result)) return
 
-                // Android does not support showing the share sheet at a particular point on screen.
-                share.share(
-                    call.argument<Any>("text") as String,
-                    call.argument<Any>("subject") as String?,
-                    isWithResult,
-                )
-
-                if (!isWithResult) {
-                    if (isResultRequested) {
-                        result.success("dev.fluttercommunity.plus/share/unavailable")
-                    } else {
-                        result.success(null)
-                    }
+                "share", "shareWithResult" -> {
+                    share.share(
+                        call.argument<Any>("text") as String,
+                        call.argument<Any>("subject") as String?,
+                        isWithResult,
+                    )
+                    success(isWithResult, isResultRequested, result)
                 }
-            }
-            "shareFiles", "shareFilesWithResult" -> {
-                expectMapArguments(call)
-                if (isWithResult && !manager.setCallback(result)) return
 
-                // Android does not support showing the share sheet at a particular point on screen.
-                try {
+                "shareFiles", "shareFilesWithResult" -> {
                     share.shareFiles(
                         call.argument<List<String>>("paths")!!,
                         call.argument<List<String>?>("mimeTypes"),
@@ -61,19 +48,28 @@ internal class MethodCallHandler(
                         call.argument<String?>("subject"),
                         isWithResult,
                     )
-
-                    if (!isWithResult) {
-                        if (isResultRequested) {
-                            result.success("dev.fluttercommunity.plus/share/unavailable")
-                        } else {
-                            result.success(null)
-                        }
-                    }
-                } catch (e: IOException) {
-                    result.error("Share failed", e.message, null)
+                    success(isWithResult, isResultRequested, result)
                 }
+
+                else -> result.notImplemented()
             }
-            else -> result.notImplemented()
+        } catch (e: Throwable) {
+            manager.clear()
+            result.error("Share failed", e.message, e)
+        }
+    }
+
+    private fun success(
+        isWithResult: Boolean,
+        isResultRequested: Boolean,
+        result: MethodChannel.Result
+    ) {
+        if (!isWithResult) {
+            if (isResultRequested) {
+                result.success("dev.fluttercommunity.plus/share/unavailable")
+            } else {
+                result.success(null)
+            }
         }
     }
 

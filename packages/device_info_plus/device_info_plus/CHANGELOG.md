@@ -1,3 +1,10 @@
+## 10.1.0
+
+ - **REFACTOR**(device_info_plus): Migrate Android example to use the new plugins declaration ([#2769](https://github.com/fluttercommunity/plus_plugins/issues/2769)). ([6103b155](https://github.com/fluttercommunity/plus_plugins/commit/6103b1559d6f9383bd66460bf7717afeeeb51d86))
+ - **FIX**(device_info_plus): WASM-compatible conditional imports ([#2826](https://github.com/fluttercommunity/plus_plugins/issues/2826)). ([11200cf4](https://github.com/fluttercommunity/plus_plugins/commit/11200cf4eb38bfa6bc83e955a3ceff7b8fc72493))
+ - **FEAT**(device_info_plus): Add isLowRamDevice property to AndroidDeviceInfo ([#2765](https://github.com/fluttercommunity/plus_plugins/issues/2765)). ([1376b035](https://github.com/fluttercommunity/plus_plugins/commit/1376b0359fd39172cfb54595178313c73f5d1942))
+ - **DOCS**(device_info_plus): Add iOS name property entitlements info ([#2756](https://github.com/fluttercommunity/plus_plugins/issues/2756)). ([d21f285a](https://github.com/fluttercommunity/plus_plugins/commit/d21f285a1d26e7a512c4a9aea579de9680a6ca48))
+
 ## 10.0.1
 
 > Note: This release has breaking changes.

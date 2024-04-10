@@ -18,7 +18,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
   /// Returns a map with the following keys:
   /// appName, packageName, version, buildNumber
   @override
-  Future<PackageInfoData> getAll() {
+  Future<PackageInfoData> getAll({String? baseUrl}) {
     String resolvedExecutable = Platform.resolvedExecutable;
 
     /// Workaround for https://github.com/dart-lang/sdk/issues/52309

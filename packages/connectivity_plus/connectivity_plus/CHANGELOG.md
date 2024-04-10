@@ -1,27 +1,42 @@
-## 6.0.0
+## 6.0.2
+
+ - **REFACTOR**(connectivity_plus): remove ReachabilityConnectivityProvider and ReachabilitySwift dependency ([#2813](https://github.com/fluttercommunity/plus_plugins/issues/2813)). ([f9ad927f](https://github.com/fluttercommunity/plus_plugins/commit/f9ad927f5c18f8ed8d4c22a24476430239c13492))
+ - **REFACTOR**(connectivity_plus): Migrate Android example to use the new plugins declaration ([#2771](https://github.com/fluttercommunity/plus_plugins/issues/2771)). ([04200c23](https://github.com/fluttercommunity/plus_plugins/commit/04200c2311e8dd581980ed19f8ebd24d0afd1512))
+ - **FIX**(connectivity_plus): WASM-compatible conditional imports ([#2825](https://github.com/fluttercommunity/plus_plugins/issues/2825)). ([6bee4a7e](https://github.com/fluttercommunity/plus_plugins/commit/6bee4a7e02d681ce94d8bd95c4399d844b0ceb27))
+ - **FIX**(connectivity_plus): Improve iOS PathMonitorConnectivityProvider implementation and documentation ([#2763](https://github.com/fluttercommunity/plus_plugins/issues/2763)). ([c850d58e](https://github.com/fluttercommunity/plus_plugins/commit/c850d58ed9f422182c8f77583a43bcb13d5d979f))
+ - **DOCS**(connectivity_plus): Document supported ConnectivityResult per platform ([#2780](https://github.com/fluttercommunity/plus_plugins/issues/2780)). ([1c4aec01](https://github.com/fluttercommunity/plus_plugins/commit/1c4aec019e74433a2b1174d75522b5abb0c9d9b4))
+ - **DOCS**(connectivity_plus): Update README for more clarity ([#2770](https://github.com/fluttercommunity/plus_plugins/issues/2770)). ([8fb738e2](https://github.com/fluttercommunity/plus_plugins/commit/8fb738e2b8f5534db8f1c0fbbeae1a51cf03d099))
+ - **DOCS**(connectivity_plus): Specify behavior when there is no connectivity ([#2753](https://github.com/fluttercommunity/plus_plugins/issues/2753)). ([8f132a23](https://github.com/fluttercommunity/plus_plugins/commit/8f132a23a0424299c5e9b946171164bc66710540))
+ - **DOCS**(connectivity_plus): Improve documentation onConnectivityChanged method ([#2746](https://github.com/fluttercommunity/plus_plugins/issues/2746)). ([9ea21fbd](https://github.com/fluttercommunity/plus_plugins/commit/9ea21fbdbb9974077375f803f5bb3c57abcb6488))
+
+## 6.0.1
 
 > Note: This release has breaking changes.
 
+> Plugin now requires the following:
+> - Flutter >=3.19.0
+> - Dart >=3.3.0
+> - compileSDK 34 for Android part
+> - Java 17 for Android part
+> - Gradle 8.4 for Android part
+
 In this release plugin migrated to package:web, meaning that it now supports WASM!
 
-Plugin now requires the following:
-- Flutter >=3.19.0
-- Dart >=3.3.0
-- compileSDK 34 for Android part
-- Java 17 for Android part
-- Gradle 8.4 for Android part
+- **BREAKING** **FEAT**(connectivity_plus): support multiple connectivity types at the same time ([#2599](https://github.com/fluttercommunity/plus_plugins/issues/2599)). ([5b477468](https://github.com/fluttercommunity/plus_plugins/commit/5b4774683d6e186fbd69cf4208302221f52aa54d))
+- **BREAKING** **FEAT**(connectivity_plus): Migrate to package:web ([#2621](https://github.com/fluttercommunity/plus_plugins/issues/2621)). ([fbc8e61c](https://github.com/fluttercommunity/plus_plugins/commit/fbc8e61c4f8996d6ba47622de191a83dc2fe1882))
+- **BREAKING** **BUILD**(connectivity_plus): Target Java 17 on Android ([2413e45e](https://github.com/fluttercommunity/plus_plugins/commit/2413e45e88fa6a431c29f8e6240780e20c405453))
+- **BREAKING** **BUILD**(connectivity_plus): Update to target and compile SDK 34 ([#2701](https://github.com/fluttercommunity/plus_plugins/pull/2701)). ([7ddd749](https://github.com/fluttercommunity/plus_plugins/commit/7ddd74989d2921af706f5e7a1aa32e41159ce13f))
+- **BREAKING** **REFACTOR**(connectivity_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2588](https://github.com/fluttercommunity/plus_plugins/issues/2588)). ([f6fe62d5](https://github.com/fluttercommunity/plus_plugins/commit/f6fe62d5f4d87c93e0f974e96bbd47ff453937d9))
+- **FIX**(connectivity_plus): Emit event with types on Android when subscribing to onConnectivityChanged ([#2721](https://github.com/fluttercommunity/plus_plugins/issues/2721)). ([5a81e7ef](https://github.com/fluttercommunity/plus_plugins/commit/5a81e7ef75d75852935f7a095e5b426d534edff9))
+- **FIX**(connectivity_plus): Fix connectivity state update on Android when network is lost ([#2673](https://github.com/fluttercommunity/plus_plugins/issues/2673)). ([21191682](https://github.com/fluttercommunity/plus_plugins/commit/2119168267e436e5900ea09cf68dd110e51b01e0))
+- **FIX**(connectivity_plus): Return valid connection type when only one available ([#2668](https://github.com/fluttercommunity/plus_plugins/issues/2668)). ([81026a4c](https://github.com/fluttercommunity/plus_plugins/commit/81026a4c6c07cb610299a8f17db69c518475a675))
+- **FIX**(connectivity_plus): Add iOS Privacy Info ([#2581](https://github.com/fluttercommunity/plus_plugins/issues/2581)). ([707fab70](https://github.com/fluttercommunity/plus_plugins/commit/707fab70eb1dd262226158be97586a67eec03dd0))
+- **FIX**(connectivity_plus): Fix iOS example app name ([#2722](https://github.com/fluttercommunity/plus_plugins/issues/2722)). ([2441accd](https://github.com/fluttercommunity/plus_plugins/commit/2441accdffc3bc86f5e74db6c682d0dd4fbd6813))
+- **DOCS**(connectivity_plus): Update documentation to address API changes ([#2719](https://github.com/fluttercommunity/plus_plugins/issues/2719)). ([59b9b341](https://github.com/fluttercommunity/plus_plugins/commit/59b9b3417cd0387d8a5f9e857eb350b4048dc68c))
 
- - **BREAKING** **FEAT**(connectivity_plus): support multiple connectivity types at the same time ([#2599](https://github.com/fluttercommunity/plus_plugins/issues/2599)). ([5b477468](https://github.com/fluttercommunity/plus_plugins/commit/5b4774683d6e186fbd69cf4208302221f52aa54d))
- - **BREAKING** **FEAT**(connectivity_plus): Migrate to package:web ([#2621](https://github.com/fluttercommunity/plus_plugins/issues/2621)). ([fbc8e61c](https://github.com/fluttercommunity/plus_plugins/commit/fbc8e61c4f8996d6ba47622de191a83dc2fe1882))
- - **BREAKING** **BUILD**(connectivity_plus): Target Java 17 on Android ([2413e45e](https://github.com/fluttercommunity/plus_plugins/commit/2413e45e88fa6a431c29f8e6240780e20c405453))
- - **BREAKING** **BUILD**(connectivity_plus): Update to target and compile SDK 34 ([#2701](https://github.com/fluttercommunity/plus_plugins/pull/2701)). ([7ddd749](https://github.com/fluttercommunity/plus_plugins/commit/7ddd74989d2921af706f5e7a1aa32e41159ce13f))
- - **BREAKING** **REFACTOR**(connectivity_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2588](https://github.com/fluttercommunity/plus_plugins/issues/2588)). ([f6fe62d5](https://github.com/fluttercommunity/plus_plugins/commit/f6fe62d5f4d87c93e0f974e96bbd47ff453937d9))
- - **FIX**(connectivity_plus): Emit event with types on Android when subscribing to onConnectivityChanged ([#2721](https://github.com/fluttercommunity/plus_plugins/issues/2721)). ([5a81e7ef](https://github.com/fluttercommunity/plus_plugins/commit/5a81e7ef75d75852935f7a095e5b426d534edff9))
- - **FIX**(connectivity_plus): Fix connectivity state update on Android when network is lost ([#2673](https://github.com/fluttercommunity/plus_plugins/issues/2673)). ([21191682](https://github.com/fluttercommunity/plus_plugins/commit/2119168267e436e5900ea09cf68dd110e51b01e0))
- - **FIX**(connectivity_plus): Return valid connection type when only one available ([#2668](https://github.com/fluttercommunity/plus_plugins/issues/2668)). ([81026a4c](https://github.com/fluttercommunity/plus_plugins/commit/81026a4c6c07cb610299a8f17db69c518475a675))
- - **FIX**(connectivity_plus): Add iOS Privacy Info ([#2581](https://github.com/fluttercommunity/plus_plugins/issues/2581)). ([707fab70](https://github.com/fluttercommunity/plus_plugins/commit/707fab70eb1dd262226158be97586a67eec03dd0))
- - **FIX**(connectivity_plus): Fix iOS example app name ([#2722](https://github.com/fluttercommunity/plus_plugins/issues/2722)). ([2441accd](https://github.com/fluttercommunity/plus_plugins/commit/2441accdffc3bc86f5e74db6c682d0dd4fbd6813))
- - **DOCS**(connectivity_plus): Update documentation to address API changes ([#2719](https://github.com/fluttercommunity/plus_plugins/issues/2719)). ([59b9b341](https://github.com/fluttercommunity/plus_plugins/commit/59b9b3417cd0387d8a5f9e857eb350b4048dc68c))
+## 6.0.0
+
+> Note: DO NOT USE THIS RELEASE. It is invalid due to a publishing issue
 
 ## 5.0.2
 

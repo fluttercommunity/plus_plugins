@@ -33,12 +33,54 @@ class PackageInfo {
 
   /// Retrieves package information from the platform.
   /// The result is cached.
-  static Future<PackageInfo> fromPlatform() async {
+  ///
+  /// The [baseUrl] parameter is for web use only and the other platforms will
+  /// ignore it.
+  ///
+  /// ## Web platform
+  ///
+  /// In a web environment, the package uses the `version.json` file that it is
+  /// generated in the build process.
+  ///
+  /// The package will try to locate this file in 3 ways:
+  ///
+  ///   * If you provide the optional custom [baseUrl] parameter, it will be
+  ///     used as the first option where to search. Example:
+  ///
+  ///     ```dart
+  ///     await PackageInfo.fromPlatform(baseUrl: 'https://cdn.domain.com/with/some/path/');
+  ///     ```
+  ///
+  ///     With this, the package will try to search the file in `https://cdn.domain.com/with/some/path/version.json`
+  ///
+  ///   * The second option where it will search is the [assetBase] parameter
+  ///     that you can pass to the Flutter Web Engine when you initialize it.
+  ///
+  ///     ```javascript
+  ///     _flutter.loader.loadEntrypoint({
+  ///         onEntrypointLoaded: async function(engineInitializer) {
+  ///           let appRunner = await engineInitializer.initializeEngine({
+  ///             assetBase: "https://cdn.domain.com/with/some/path/"
+  ///           });
+  ///           appRunner.runApp();
+  ///         }
+  ///     });
+  ///     ```
+  ///
+  ///     For more information about the Flutter Web Engine initialization see here:
+  ///     https://docs.flutter.dev/platform-integration/web/initialization#initializing-the-engine
+  ///
+  ///   * Finally, if none of the previous locations return the `version.json` file,
+  ///     the package will use the browser window base URL to resolve its location.
+  static Future<PackageInfo> fromPlatform({String? baseUrl}) async {
     if (_fromPlatform != null) {
       return _fromPlatform!;
     }
 
-    final platformData = await PackageInfoPlatform.instance.getAll();
+    final platformData = await PackageInfoPlatform.instance.getAll(
+      baseUrl: baseUrl,
+    );
+
     _fromPlatform = PackageInfo(
       appName: platformData.appName,
       packageName: platformData.packageName,

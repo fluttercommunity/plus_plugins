@@ -18,7 +18,7 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
   /// Return [BatteryManager] if the BatteryManager API is supported by the User Agent.
   Future<BatteryManager?> _getBatteryManager() async {
     try {
-      return await web.window.navigator.getBattery().toDart;
+      return await web.window.navigator.getBattery()?.toDart;
     } on NoSuchMethodError catch (_) {
       // BatteryManager API is not supported this User Agent.
       return null;
@@ -108,7 +108,7 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
 
 extension on web.Navigator {
   /// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery
-  external JSPromise<BatteryManager> getBattery();
+  external JSPromise<BatteryManager>? getBattery();
 }
 
 /// BatteryManager API

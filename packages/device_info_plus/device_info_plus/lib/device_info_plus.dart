@@ -26,9 +26,9 @@ export 'src/model/web_browser_info.dart';
 export 'src/model/windows_device_info.dart';
 
 export 'src/device_info_plus_linux.dart'
-    if (dart.library.html) 'src/device_info_plus_web.dart';
+    if (dart.library.js_interop) 'src/device_info_plus_web.dart';
 export 'src/device_info_plus_windows.dart'
-    if (dart.library.html) 'src/device_info_plus_web.dart';
+    if (dart.library.js_interop) 'src/device_info_plus_web.dart';
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {
