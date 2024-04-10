@@ -19,10 +19,6 @@ void main() {
     expect(Share.share('message', subject: 'title'), isNotNull);
   }, skip: !Platform.isMacOS);
 
-  testWidgets('Can launch shareWithResult', (WidgetTester tester) async {
-    expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
-  });
-
   testWidgets('Can shareXFile created using File.fromData()',
       (WidgetTester tester) async {
     final bytes = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8]);

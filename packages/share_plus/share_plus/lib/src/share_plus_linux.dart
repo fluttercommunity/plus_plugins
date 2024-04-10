@@ -7,6 +7,8 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher_linux/url_launcher_linux.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+import 'dart:developer' as developer;
+
 /// The Linux implementation of SharePlatform.
 class SharePlusLinuxPlugin extends SharePlatform {
   SharePlusLinuxPlugin(this.urlLauncher);
@@ -18,9 +20,20 @@ class SharePlusLinuxPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusLinuxPlugin(UrlLauncherLinux());
   }
 
+  @override
+  Future<ShareResult> shareUri(
+    Uri uri, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    throw UnimplementedError(
+        'shareUri() has not been implemented on Linux. Use share().');
+  }
+
   /// Share text.
   @override
-  Future<void> share(
+  Future<ShareResult> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
@@ -44,20 +57,13 @@ class SharePlusLinuxPlugin extends SharePlatform {
       const LaunchOptions(),
     );
     if (!launchResult) {
-      throw Exception('Failed to launch $uri');
+      developer.log(
+        'Failed to launch url: $uri',
+      );
+      return ShareResult.failed;
     }
-  }
 
-  /// Share files.
-  @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
-    throw UnimplementedError('shareFiles() has not been implemented on Linux.');
+    return ShareResult.unavailable;
   }
 
   /// Share [XFile] objects with Result.

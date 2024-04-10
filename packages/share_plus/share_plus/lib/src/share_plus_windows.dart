@@ -8,6 +8,8 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_windows/url_launcher_windows.dart';
 
+import 'dart:developer' as developer;
+
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
 ///
 class SharePlusWindowsPlugin extends SharePlatform {
@@ -23,9 +25,20 @@ class SharePlusWindowsPlugin extends SharePlatform {
     }
   }
 
+  @override
+  Future<ShareResult> shareUri(
+    Uri uri, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    throw UnimplementedError(
+        'shareUri() has not been implemented on Linux. Use share().');
+  }
+
   /// Share text.
   @override
-  Future<void> share(
+  Future<ShareResult> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
@@ -49,22 +62,13 @@ class SharePlusWindowsPlugin extends SharePlatform {
       const LaunchOptions(),
     );
     if (!launchResult) {
-      throw Exception('Failed to launch $uri');
+      developer.log(
+        'Failed to launch url: $uri',
+      );
+      return ShareResult.failed;
     }
-  }
 
-  /// Share files.
-  @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
-    throw UnimplementedError(
-      'shareFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
-    );
+    return ShareResult.unavailable;
   }
 
   /// Share [XFile] objects with Result.

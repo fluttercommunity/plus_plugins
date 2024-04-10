@@ -55,7 +55,7 @@ void main() {
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
-      () => SharePlatform.instance.shareWithResult(''),
+      () => SharePlatform.instance.share(''),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -66,7 +66,7 @@ void main() {
       Uri.parse('https://pub.dev/packages/share_plus'),
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<void>('shareUri', <String, dynamic>{
+    verify(mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
       'uri': 'https://pub.dev/packages/share_plus',
       'originX': 1.0,
       'originY': 2.0,
@@ -79,21 +79,7 @@ void main() {
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<void>('share', <String, dynamic>{
-      'text': 'some text to share',
-      'subject': 'some subject to share',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
-
-    await SharePlatform.instance.shareWithResult(
-      'some text to share',
-      subject: 'some subject to share',
-      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-    );
-    verify(mockChannel.invokeMethod<void>('shareWithResult', <String, dynamic>{
+    verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
       'subject': 'some subject to share',
       'originX': 1.0,
@@ -103,48 +89,6 @@ void main() {
     }));
 
     await withFile('tempfile-83649a.png', (File fd) async {
-      // ignore: deprecated_member_use_from_same_package
-      await sharePlatform.shareFiles(
-        [fd.path],
-        subject: 'some subject to share',
-        text: 'some text to share',
-        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-      );
-      verify(mockChannel.invokeMethod<void>(
-        'shareFiles',
-        <String, dynamic>{
-          'paths': [fd.path],
-          'mimeTypes': ['image/png'],
-          'subject': 'some subject to share',
-          'text': 'some text to share',
-          'originX': 1.0,
-          'originY': 2.0,
-          'originWidth': 3.0,
-          'originHeight': 4.0,
-        },
-      ));
-
-      // ignore: deprecated_member_use_from_same_package
-      await SharePlatform.instance.shareFilesWithResult(
-        [fd.path],
-        subject: 'some subject to share',
-        text: 'some text to share',
-        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-      );
-      verify(mockChannel.invokeMethod<void>(
-        'shareFilesWithResult',
-        <String, dynamic>{
-          'paths': [fd.path],
-          'mimeTypes': ['image/png'],
-          'subject': 'some subject to share',
-          'text': 'some text to share',
-          'originX': 1.0,
-          'originY': 2.0,
-          'originWidth': 3.0,
-          'originHeight': 4.0,
-        },
-      ));
-
       await sharePlatform.shareXFiles(
         [XFile(fd.path)],
         subject: 'some subject to share',
@@ -169,13 +113,11 @@ void main() {
 
   test('sharing empty file fails', () {
     expect(
-      // ignore: deprecated_member_use_from_same_package
-      () => sharePlatform.shareFiles(['']),
+      () => sharePlatform.shareXFiles([XFile('')]),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     expect(
-      // ignore: deprecated_member_use_from_same_package
-      () => SharePlatform.instance.shareFilesWithResult(['']),
+      () => SharePlatform.instance.shareXFiles([XFile('')]),
       throwsA(const TypeMatcher<AssertionError>()),
     );
 
@@ -184,20 +126,6 @@ void main() {
 
   test('sharing file sets correct mimeType', () async {
     await withFile('tempfile-83649b.png', (File fd) async {
-      // ignore: deprecated_member_use_from_same_package
-      await sharePlatform.shareFiles([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['image/png'],
-      }));
-
-      // ignore: deprecated_member_use_from_same_package
-      await SharePlatform.instance.shareFilesWithResult([fd.path]);
-      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['image/png'],
-      }));
-
       await sharePlatform.shareXFiles([XFile(fd.path)]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
@@ -208,21 +136,6 @@ void main() {
 
   test('sharing file sets passed mimeType', () async {
     await withFile('tempfile-83649c.png', (File fd) async {
-      // ignore: deprecated_member_use_from_same_package
-      await sharePlatform.shareFiles([fd.path], mimeTypes: ['*/*']);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['*/*'],
-      }));
-
-      await SharePlatform.instance
-          // ignore: deprecated_member_use_from_same_package
-          .shareFilesWithResult([fd.path], mimeTypes: ['*/*']);
-      verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['*/*'],
-      }));
-
       await sharePlatform.shareXFiles([XFile(fd.path, mimeType: '*/*')]);
       verify(mockChannel.invokeMethod('shareFilesWithResult', <String, dynamic>{
         'paths': [fd.path],
@@ -238,21 +151,20 @@ void main() {
     );
 
     expect(
-      sharePlatform.shareWithResult('some text to share'),
+      sharePlatform.share('some text to share'),
       completion(equals(resultUnavailable)),
     );
 
     await withFile('tempfile-83649d.png', (File fd) async {
       expect(
-        // ignore: deprecated_member_use_from_same_package
-        sharePlatform.shareFilesWithResult([fd.path]),
+        sharePlatform.shareXFiles([XFile(fd.path)]),
         completion(equals(resultUnavailable)),
       );
     });
   });
 
   test('withResult methods invoke normal share on non IOS & Android', () async {
-    await sharePlatform.shareWithResult(
+    await sharePlatform.share(
       'some text to share',
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
@@ -265,15 +177,6 @@ void main() {
       'originWidth': 3.0,
       'originHeight': 4.0,
     }));
-
-    await withFile('tempfile-83649e.png', (File fd) async {
-      // ignore: deprecated_member_use_from_same_package
-      await sharePlatform.shareFilesWithResult([fd.path]);
-      verify(mockChannel.invokeMethod('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['image/png'],
-      }));
-    });
 
     await withFile('tempfile-83649e.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
