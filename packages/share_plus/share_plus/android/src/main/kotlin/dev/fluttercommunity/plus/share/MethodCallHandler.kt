@@ -1,6 +1,7 @@
 package dev.fluttercommunity.plus.share
 
 import android.os.Build
+import io.flutter.BuildConfig
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import java.io.IOException
@@ -18,7 +19,8 @@ internal class MethodCallHandler(
         val isWithResult =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
 
-        if (isWithResult && !manager.setCallback(result)) return
+        if (isWithResult)
+            manager.setCallback(result)
 
         try {
             when (call.method) {
