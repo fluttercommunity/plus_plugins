@@ -78,9 +78,9 @@ class MethodChannelShare extends SharePlatform {
     Rect? sharePositionOrigin,
   }) async {
     assert(files.isNotEmpty);
-    assert(files.every((element) => element.path.isNotEmpty));
 
     final filesWithPath = await _getFiles(files);
+    assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
     final mimeTypes = filesWithPath
         .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
