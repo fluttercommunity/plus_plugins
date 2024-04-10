@@ -7,8 +7,6 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher_linux/url_launcher_linux.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import 'dart:developer' as developer;
-
 /// The Linux implementation of SharePlatform.
 class SharePlusLinuxPlugin extends SharePlatform {
   SharePlusLinuxPlugin(this.urlLauncher);

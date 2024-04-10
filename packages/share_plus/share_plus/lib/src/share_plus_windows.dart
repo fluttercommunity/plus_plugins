@@ -8,8 +8,6 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_windows/url_launcher_windows.dart';
 
-import 'dart:developer' as developer;
-
 /// The fallback Windows implementation of [SharePlatform], for older Windows versions.
 ///
 class SharePlusWindowsPlugin extends SharePlatform {
