@@ -96,11 +96,6 @@ class ShareResult {
     ShareResultStatus.unavailable,
   );
 
-  static const failed = ShareResult(
-    'dev.fluttercommunity.plus/share/failed',
-    ShareResultStatus.failed,
-  );
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -124,9 +119,6 @@ enum ShareResultStatus {
 
   /// The user dismissed the share-sheet
   dismissed,
-
-  /// The platform failed to share content to user
-  failed,
 
   /// The platform succeed to share content to user
   /// but the user action can not be determined

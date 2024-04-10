@@ -62,10 +62,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
       const LaunchOptions(),
     );
     if (!launchResult) {
-      developer.log(
-        'Failed to launch url: $uri',
-      );
-      return ShareResult.failed;
+      throw Exception('Failed to launch $uri');
     }
 
     return ShareResult.unavailable;

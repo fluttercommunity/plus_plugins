@@ -47,11 +47,11 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      return ShareResult.failed;
+      throw Exception('Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      return ShareResult.failed;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
@@ -63,7 +63,7 @@ class SharePlusWebPlugin extends SharePlatform {
         error: '${e.name}: ${e.message}',
       );
 
-      return ShareResult.failed;
+      throw Exception('Navigator.share() failed: ${e.message}');
     }
 
     return ShareResult.unavailable;
@@ -116,17 +116,14 @@ class SharePlusWebPlugin extends SharePlatform {
         const LaunchOptions(),
       );
       if (!launchResult) {
-        developer.log(
-          'Failed to launch uri: $uri',
-        );
-        return ShareResult.failed;
+        throw Exception('Failed to launch $uri');
       }
 
       return ShareResult.unavailable;
     }
 
     if (!canShare) {
-      return ShareResult.failed;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
@@ -143,9 +140,9 @@ class SharePlusWebPlugin extends SharePlatform {
         'Failed to share text',
         error: '${e.name}: ${e.message}',
       );
-    }
 
-    return ShareResult.failed;
+      throw Exception('Navigator.share() failed: ${e.message}');
+    }
   }
 
   /// Share [XFile] objects.
@@ -200,11 +197,11 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      return ShareResult.failed;
+      throw Exception('Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      return ShareResult.failed;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
@@ -221,9 +218,9 @@ class SharePlusWebPlugin extends SharePlatform {
         'Failed to share files',
         error: '${e.name}: ${e.message}',
       );
-    }
 
-    return ShareResult.failed;
+      throw Exception('Navigator.share() failed: ${e.message}');
+    }
   }
 
   static Future<web.File> _fromXFile(XFile file) async {
