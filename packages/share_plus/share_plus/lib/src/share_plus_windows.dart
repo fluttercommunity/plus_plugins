@@ -31,7 +31,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
     Rect? sharePositionOrigin,
   }) async {
     throw UnimplementedError(
-        'shareUri() has not been implemented on Linux. Use share().');
+        'shareUri() has not been implemented on Windows. Use share().');
   }
 
   /// Share text.

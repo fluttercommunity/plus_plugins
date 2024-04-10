@@ -93,10 +93,7 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
 void SharePlusWindowsPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
-  if (method_call.method_name().compare(kShare) == 0 ||
-      method_call.method_name().compare(kShareWithResult) == 0) {
-    auto is_result_requested =
-        method_call.method_name().compare(kShareWithResult) == 0;
+  if (method_call.method_name().compare(kShare) == 0) {
     auto data_transfer_manager = GetDataTransferManager();
     auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
     if (auto text_value =
@@ -142,15 +139,8 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     if (data_transfer_manager_interop_ != nullptr) {
       data_transfer_manager_interop_->ShowShareUIForWindow(GetWindow());
     }
-    if (is_result_requested) {
-      result->Success(flutter::EncodableValue(kShareResultUnavailable));
-    } else {
-      result->Success(flutter::EncodableValue());
-    }
-  } else if (method_call.method_name().compare(kShareFiles) == 0 ||
-             method_call.method_name().compare(kShareFilesWithResult) == 0) {
-    auto is_result_requested =
-        method_call.method_name().compare(kShareFilesWithResult) == 0;
+    result->Success(flutter::EncodableValue(kShareResultUnavailable));
+  } else if (method_call.method_name().compare(kShareFiles) == 0) {
     auto data_transfer_manager = GetDataTransferManager();
     auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
     if (auto text_value =
@@ -238,11 +228,7 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     if (data_transfer_manager_interop_ != nullptr) {
       data_transfer_manager_interop_->ShowShareUIForWindow(GetWindow());
     }
-    if (is_result_requested) {
-      result->Success(flutter::EncodableValue(kShareResultUnavailable));
-    } else {
-      result->Success(flutter::EncodableValue());
-    }
+    result->Success(flutter::EncodableValue(kShareResultUnavailable));
   } else {
     result->NotImplemented();
   }
