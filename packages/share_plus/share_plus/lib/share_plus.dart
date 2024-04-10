@@ -61,9 +61,11 @@ class Share {
   /// from [MethodChannel].
   ///
   /// [ShareResult] provides feedback on how the user
-  /// interacted with the share-sheet. Until the returned future is completed,
-  /// any other call to any share method that returns a result _might_ result in
-  /// a [PlatformException] (on Android).
+  /// interacted with the share-sheet.
+  ///
+  /// To avoid deadlocks on Android,
+  /// any new call to [share()] when there is a call pending,
+  /// will cause the previous call to return a [ShareResult.unavailable].
   ///
   /// Because IOS, Android and macOS provide different feedback on share-sheet
   /// interaction, a result on IOS will be more specific than on Android or macOS.
