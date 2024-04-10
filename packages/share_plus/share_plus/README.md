@@ -11,14 +11,16 @@
 A Flutter plugin to share content from your Flutter app via the platform's
 share dialog.
 
-Wraps the `ACTION_SEND` Intent on Android and `UIActivityViewController`
-on iOS.
+Wraps the `ACTION_SEND` Intent on Android, `UIActivityViewController`
+on iOS, or equivalent platform content sharing methods.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
-| :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
+| Method        | Android | iOS | MacOS | Web | Linux | Windows |
+| :-----------: | :-----: | :-: | :---: | :-: | :---: | :----: |
+| `share`       |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
+| `shareUri`    |   ✅    | ✅  |       |     |       |        |
+| `shareXFiles` |   ✅    | ✅  |  ✅   | ✅  |       |   ✅   |
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 
@@ -28,15 +30,15 @@ Sharing files is not supported on Linux.
 
 To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://plus.fluttercommunity.dev/docs/overview).
 
-## Example
-
 Import the library.
 
 ```dart
 import 'package:share_plus/share_plus.dart';
 ```
 
-Then invoke the static `share` method anywhere in your Dart code.
+### Share Text
+
+Invoke the static `share` method anywhere in your Dart code.
 
 ```dart
 Share.share('check out my website https://example.com');
@@ -49,15 +51,17 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
-If you are interested in the action your user performed with the share sheet, you can instead use the `shareWithResult` method.
+If you are interested in the action your user performed with the share sheet, the `share` method returns a status object.
 
 ```dart
-final result = await Share.shareWithResult('check out my website https://example.com');
+final result = await Share.share('check out my website https://example.com');
 
 if (result.status == ShareResultStatus.success) {
     print('Thank you for sharing my website!');
 }
 ```
+
+### Share Files
 
 To share one or multiple files, invoke the static `shareXFiles` method anywhere in your Dart code. The method returns a `ShareResult`. Optionally, you can pass `subject`, `text` and `sharePositionOrigin`.
 
@@ -77,7 +81,6 @@ if (result.status == ShareResultStatus.dismissed) {
 }
 ```
 
-
 On web, you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
 if it's available. Otherwise it falls back to downloading the shared files.
 See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
@@ -87,6 +90,15 @@ package.
 
 ```dart
 Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
+```
+
+### Share URI
+
+iOS supports fetching metadata from a URI when shared using `UIActivityViewController`.
+This special method is only properly supported on iOS.
+
+```dart
+Share.shareUri(uri: uri);
 ```
 
 ## Known Issues
@@ -103,9 +115,13 @@ Alternatively, don't use `XFile.fromData` and instead write the data down to a `
 
 ### Mobile platforms (Android and iOS)
 
-#### Facebook limitations (WhatsApp, Instagram, Facebook Messenger)
+#### Meta (WhatsApp, Instagram, Facebook Messenger) and similar apps
 
-Due to restrictions set up by Facebook this plugin isn't capable of sharing data reliably to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger. If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing)) or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
+Due to restrictions set up by Meta/Facebook this plugin isn't capable of sharing data reliably to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger. If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing)) or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
+
+Other apps may also give problems when attempting to share content to them.
+We cannot warranty that a 3rd party app will properly implement the share functionality.
+Therefore, all bugs reported regarding compatibility with a specific app will be closed.
 
 #### Localization in Apple platforms
 
