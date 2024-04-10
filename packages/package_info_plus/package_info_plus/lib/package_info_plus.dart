@@ -64,7 +64,9 @@ class PackageInfo {
   /// Docs about CFBundleVersion: https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion
   final String buildNumber;
 
-  /// The build signature. Empty string on iOS, signing key signature (hex) on Android.
+  /// The build signature.
+  /// Empty string on iOS.
+  /// SHA-256 signing key signature (hex) on Android.
   final String buildSignature;
 
   /// The installer store. Indicates through which store this application was installed.
