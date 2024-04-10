@@ -64,7 +64,7 @@ class Share {
   /// interacted with the share-sheet.
   ///
   /// To avoid deadlocks on Android,
-  /// any new call to [share()] when there is a call pending,
+  /// any new call to [share] when there is a call pending,
   /// will cause the previous call to return a [ShareResult.unavailable].
   ///
   /// Because IOS, Android and macOS provide different feedback on share-sheet
