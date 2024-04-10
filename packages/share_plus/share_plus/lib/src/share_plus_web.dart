@@ -57,7 +57,6 @@ class SharePlusWebPlugin extends SharePlatform {
     try {
       await _navigator.share(data).toDart;
     } on web.DOMException catch (e) {
-      // Ignore DOMException
       developer.log(
         'Failed to share uri',
         error: '${e.name}: ${e.message}',

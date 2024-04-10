@@ -26,12 +26,14 @@ class Share {
   /// (if available), and the website icon will be extracted and displayed on
   /// the iOS share sheet.
   ///
-  /// The optional `sharePositionOrigin` parameter can be used to specify a global
+  /// The optional [sharePositionOrigin] parameter can be used to specify a global
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
   /// May throw [PlatformException]
   /// from [MethodChannel].
+  ///
+  /// See documentation about [ShareResult] on [share] method.
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
@@ -103,12 +105,14 @@ class Share {
   /// On iOS image/jpg, image/jpeg and image/png are handled as images, while
   /// every other MIME type is considered a normal file.
   ///
-  /// The optional `sharePositionOrigin` parameter can be used to specify a global
+  /// The optional [sharePositionOrigin] parameter can be used to specify a global
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
+  ///
+  /// See documentation about [ShareResult] on [share] method.
   static Future<ShareResult> shareXFiles(
     List<XFile> files, {
     String? subject,
