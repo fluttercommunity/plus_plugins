@@ -65,8 +65,8 @@ __declspec(noreturn) __declspec(noinline) inline void ThrowHR(HRESULT hr,
   ThrowHR(hr);
 }
 
-__declspec(noreturn) __declspec(noinline) inline void
-ThrowHR(HRESULT hr, wchar_t const *message) {
+__declspec(noreturn) __declspec(noinline) inline void ThrowHR(
+    HRESULT hr, wchar_t const *message) {
   using ::Microsoft::WRL::Wrappers::HStringReference;
 
   ThrowHR(hr, HStringReference(message).Get());
