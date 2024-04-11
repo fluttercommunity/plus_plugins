@@ -49,20 +49,35 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
           new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network) {
-              // Use the provided Network object in the callback
+              // onAvailable is called when the phone switches to a new network
+              // e.g. the phone was offline and gets wifi connection
+              // or the phone was on wifi and now switches to mobile.
+              // The plugin sends the current capability connection to the users.
               sendEvent(connectivity.getCapabilitiesFromNetwork(network));
             }
 
             @Override
             public void onCapabilitiesChanged(
                 Network network, NetworkCapabilities networkCapabilities) {
-              // Use the provided NetworkCapabilities in the callback
+              // This callback is called multiple times after a call to onAvailable
+              // this also causes multiple callbacks to the Flutter layer.
               sendEvent(connectivity.getCapabilitiesList(networkCapabilities));
             }
 
             @Override
             public void onLost(Network network) {
-              // Send NONE to ensure no network is reported when connectivity is lost
+              // This callback is called when a capability is lost.
+
+              // e.g. user disconnected from wifi or disabled mobile data.
+              // If a user switches from wifi to mobile,
+              // onLost is called (for wifi),
+
+              // then onAvailable is called afterwards (for mobile).
+              // Meaning the user receives [wifi] -> [none] -> [mobile]
+
+              // If no other connectivity is present, onAvailable will not be called,
+              // and onLost is the only event that will happen.
+              // i.e. the user will only receive [wifi] -> [none]
               sendEvent(List.of(CONNECTIVITY_NONE));
             }
           };
