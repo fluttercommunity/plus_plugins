@@ -5,7 +5,6 @@
 import 'dart:async';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
-
 import 'package:collection/collection.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
