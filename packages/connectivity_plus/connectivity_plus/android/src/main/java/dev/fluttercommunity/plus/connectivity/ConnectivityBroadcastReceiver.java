@@ -115,9 +115,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
 
   private void sendEvent(List<String> networkTypes) {
     Runnable runnable = () -> events.success(networkTypes);
-    // The dalay is needed because callback methods suffer from race conditions.
-    // More info:
-    // https://developer.android.com/develop/connectivity/network-ops/reading-network-state#listening-events
-    mainHandler.postDelayed(runnable, 100);
+    // Emit events on main thread
+    mainHandler.post(runnable);
   }
 }
