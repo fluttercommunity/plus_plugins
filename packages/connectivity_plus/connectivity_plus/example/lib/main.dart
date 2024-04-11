@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -86,6 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _connectionStatus = result;
     });
+    // ignore: avoid_print
+    print('Connectivity changed: $_connectionStatus');
   }
 
   @override

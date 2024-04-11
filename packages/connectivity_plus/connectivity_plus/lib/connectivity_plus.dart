@@ -6,6 +6,8 @@ import 'dart:async';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 
+import 'package:collection/collection.dart';
+
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
     show ConnectivityResult;
@@ -40,16 +42,20 @@ class Connectivity {
   /// status changes, this is a known issue that only affects simulators.
   /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
   ///
-  /// On Android, the Stream may emit new values even when
-  /// the [ConnectivityResult] list remains the same.
+  /// On Android, the Stream may emit [ConnectivityResult.none] after
+  /// losing connection, then emit another [ConnectivityResult] for the
+  /// new network.
+  /// e.g. going from wifi to mobile would emit:
+  ///   wifi -> none -> mobile
   ///
   /// The emitted list is never empty. In case of no connectivity, the list contains
   /// a single element of [ConnectivityResult.none]. Note also that this is the only
   /// case where [ConnectivityResult.none] is present.
   ///
-  /// This method doesn't filter events, nor it ensures distinct values.
+  /// This method applies [Stream.distinct] over the received events to ensure
+  /// only emiting when connectivity changes.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
-    return _platform.onConnectivityChanged;
+    return _platform.onConnectivityChanged.distinct((a, b) => a.equals(b));
   }
 
   /// Checks the connection status of the device.
