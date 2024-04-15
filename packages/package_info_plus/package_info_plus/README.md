@@ -71,6 +71,26 @@ See https://github.com/fluttercommunity/plus_plugins/issues/309
 There was an [issue](https://github.com/flutter/flutter/issues/73652) in Flutter, which is already resolved since Flutter 3.3.
 If your project was created before Flutter 3.3 you need to migrate the project according to [this guide] (https://docs.flutter.dev/release/breaking-changes/windows-version-information) first to get correct version with `package_info_plus`
 
+### Web
+
+In a web environment, the package uses the `version.json` file that it is generated in the build process.
+
+#### Accessing the `version.json`
+
+The package tries to locate the `version.json` using three methods:
+
+1. Using the provided `baseUrl` in the `fromPlatform()` method.
+2. Checking the configured `assets` folder in the Flutter web configuration.
+3. Checking the path where the application is installed.
+
+See the documentation at the method `fromPlatform()` to learn more.
+
+#### CORS `version.json` access
+
+It could be possible that the plugin cannot access the `version.json` file because the server is preventing it.
+This can be due a CORS issue, and it is known to happen when hosting the Flutter code on Firebase Hosting.
+Ensure that your CORS Firebase configuration allows it.
+
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html)
