@@ -51,7 +51,7 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
-If you are interested in the action your user performed with the share sheet, the `share` method returns a status object.
+`share()` returns `status` object that allows to check the result of user action in the share sheet.
 
 ```dart
 final result = await Share.share('check out my website https://example.com');
