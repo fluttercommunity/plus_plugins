@@ -38,7 +38,7 @@ import 'package:share_plus/share_plus.dart';
 
 ### Share Text
 
-Invoke the static `share` method anywhere in your Dart code.
+Invoke the static `share()` method anywhere in your Dart code.
 
 ```dart
 Share.share('check out my website https://example.com');
