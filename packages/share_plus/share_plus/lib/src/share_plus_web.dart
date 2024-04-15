@@ -30,7 +30,7 @@ class SharePlusWebPlugin extends SharePlatform {
   }) : _navigator = debugNavigator ?? web.window.navigator;
 
   @override
-  Future<void> shareUri(
+  Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
   }) async {
@@ -47,39 +47,29 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      return;
+      throw Exception('Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      return;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
       await _navigator.share(data).toDart;
     } on web.DOMException catch (e) {
-      // Ignore DOMException
       developer.log(
         'Failed to share uri',
         error: '${e.name}: ${e.message}',
       );
+
+      throw Exception('Navigator.share() failed: ${e.message}');
     }
+
+    return ShareResult.unavailable;
   }
 
   @override
-  Future<void> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
-    await shareWithResult(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  @override
-  Future<ShareResult> shareWithResult(
+  Future<ShareResult> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
@@ -128,18 +118,18 @@ class SharePlusWebPlugin extends SharePlatform {
         throw Exception('Failed to launch $uri');
       }
 
-      return _resultUnavailable;
+      return ShareResult.unavailable;
     }
 
     if (!canShare) {
-      return _resultUnavailable;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
       await _navigator.share(data).toDart;
 
       // actions is success, but can't get the action name
-      return _resultUnavailable;
+      return ShareResult.unavailable;
     } on web.DOMException catch (e) {
       if (e.name case 'AbortError') {
         return _resultDismissed;
@@ -149,46 +139,9 @@ class SharePlusWebPlugin extends SharePlatform {
         'Failed to share text',
         error: '${e.name}: ${e.message}',
       );
+
+      throw Exception('Navigator.share() failed: ${e.message}');
     }
-
-    return _resultUnavailable;
-  }
-
-  @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) async {
-    await shareFilesWithResult(
-      paths,
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  @override
-  Future<ShareResult> shareFilesWithResult(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) async {
-    final files = <XFile>[];
-    for (var i = 0; i < paths.length; i++) {
-      files.add(XFile(paths[i], mimeType: mimeTypes?[i]));
-    }
-    return shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
   }
 
   /// Share [XFile] objects.
@@ -243,18 +196,18 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      return _resultUnavailable;
+      throw Exception('Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      return _resultUnavailable;
+      throw Exception('Navigator.canShare() is false');
     }
 
     try {
       await _navigator.share(data).toDart;
 
       // actions is success, but can't get the action name
-      return _resultUnavailable;
+      return ShareResult.unavailable;
     } on web.DOMException catch (e) {
       if (e.name case 'AbortError') {
         return _resultDismissed;
@@ -264,9 +217,9 @@ class SharePlusWebPlugin extends SharePlatform {
         'Failed to share files',
         error: '${e.name}: ${e.message}',
       );
-    }
 
-    return _resultUnavailable;
+      throw Exception('Navigator.share() failed: ${e.message}');
+    }
   }
 
   static Future<web.File> _fromXFile(XFile file) async {
@@ -288,11 +241,6 @@ class SharePlusWebPlugin extends SharePlatform {
 const _resultDismissed = ShareResult(
   '',
   ShareResultStatus.dismissed,
-);
-
-const _resultUnavailable = ShareResult(
-  'dev.fluttercommunity.plus/share/unavailable',
-  ShareResultStatus.unavailable,
 );
 
 extension on web.Navigator {

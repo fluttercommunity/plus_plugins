@@ -24,10 +24,10 @@ class MethodChannelShare extends SharePlatform {
       MethodChannel('dev.fluttercommunity.plus/share');
 
   @override
-  Future<void> shareUri(
+  Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
-  }) {
+  }) async {
     final params = <String, dynamic>{'uri': uri.toString()};
 
     if (sharePositionOrigin != null) {
@@ -37,108 +37,24 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    return channel.invokeMethod<void>('shareUri', params);
-  }
-
-  /// Summons the platform's share sheet to share text.
-  @override
-  Future<void> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) {
-    assert(text.isNotEmpty);
-    final params = <String, dynamic>{
-      'text': text,
-      'subject': subject,
-    };
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    return channel.invokeMethod<void>('share', params);
-  }
-
-  /// Summons the platform's share sheet to share multiple files.
-  @override
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
-    final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes ??
-          paths.map((String path) => _mimeTypeForPath(path)).toList(),
-    };
-
-    if (subject != null) params['subject'] = subject;
-    if (text != null) params['text'] = text;
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    return channel.invokeMethod('shareFiles', params);
-  }
-
-  /// Summons the platform's share sheet to share text and returns the result.
-  @override
-  Future<ShareResult> shareWithResult(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
-    assert(text.isNotEmpty);
-    final params = <String, dynamic>{
-      'text': text,
-      'subject': subject,
-    };
-
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
-
-    final result =
-        await channel.invokeMethod<String>('shareWithResult', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
+    final result = await channel.invokeMethod<String>('shareUri', params) ??
+        'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
   }
 
-  /// Summons the platform's share sheet to share multiple files and returns the result.
+  /// Summons the platform's share sheet to share text.
   @override
-  Future<ShareResult> shareFilesWithResult(
-    List<String> paths, {
-    List<String>? mimeTypes,
+  Future<ShareResult> share(
+    String text, {
     String? subject,
-    String? text,
     Rect? sharePositionOrigin,
   }) async {
-    assert(paths.isNotEmpty);
-    assert(paths.every((element) => element.isNotEmpty));
+    assert(text.isNotEmpty);
     final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes ??
-          paths.map((String path) => _mimeTypeForPath(path)).toList(),
+      'text': text,
+      'subject': subject,
     };
-
-    if (subject != null) params['subject'] = subject;
-    if (text != null) params['text'] = text;
 
     if (sharePositionOrigin != null) {
       params['originX'] = sharePositionOrigin.left;
@@ -147,9 +63,8 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result =
-        await channel.invokeMethod<String>('shareFilesWithResult', params) ??
-            'dev.fluttercommunity.plus/share/unavailable';
+    final result = await channel.invokeMethod<String>('share', params) ??
+        'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
   }
@@ -162,19 +77,38 @@ class MethodChannelShare extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
   }) async {
+    assert(files.isNotEmpty);
+
     final filesWithPath = await _getFiles(files);
+    assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
     final mimeTypes = filesWithPath
         .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
         .toList();
 
-    return shareFilesWithResult(
-      filesWithPath.map((e) => e.path).toList(),
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    final paths = filesWithPath.map((e) => e.path).toList();
+    assert(paths.length == mimeTypes.length);
+    assert(mimeTypes.every((element) => element.isNotEmpty));
+
+    final params = <String, dynamic>{
+      'paths': paths,
+      'mimeTypes': mimeTypes,
+    };
+
+    if (subject != null) params['subject'] = subject;
+    if (text != null) params['text'] = text;
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    final result = await channel.invokeMethod<String>('shareFiles', params) ??
+        'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
   }
 
   /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.
