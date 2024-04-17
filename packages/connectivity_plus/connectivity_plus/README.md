@@ -101,8 +101,6 @@ _`none` is supported on all platforms by default._
 
 Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed. The broadcast is only useful when your application is in the foreground.
 
-To ensure connectivity changes on Android are tracked correctly, an event containing `[ConnectivityResult.none]` may be emitted in during connectivity changes. e.g. Going from WiFi to mobile network may emit: `[wifi] -> [none] -> [mobile]`.
-
 ### iOS & MacOS
 
 On iOS simulators, the connectivity types stream might not update when Wi-Fi status changes. This is a known issue.
