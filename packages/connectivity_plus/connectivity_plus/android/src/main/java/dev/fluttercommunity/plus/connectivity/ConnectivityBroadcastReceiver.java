@@ -4,8 +4,6 @@
 
 package dev.fluttercommunity.plus.connectivity;
 
-import static dev.fluttercommunity.plus.connectivity.Connectivity.CONNECTIVITY_NONE;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -67,18 +65,13 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
             @Override
             public void onLost(Network network) {
               // This callback is called when a capability is lost.
-
-              // e.g. user disconnected from wifi or disabled mobile data.
-              // If a user switches from wifi to mobile,
-              // onLost is called (for wifi),
-
-              // then onAvailable is called afterwards (for mobile).
-              // Meaning the user receives [wifi] -> [none] -> [mobile]
-
-              // If no other connectivity is present, onAvailable will not be called,
-              // and onLost is the only event that will happen.
-              // i.e. the user will only receive [wifi] -> [none]
-              sendEvent(List.of(CONNECTIVITY_NONE));
+              //
+              // The provided Network object contains information about the
+              // network capability that has been lost, so we cannot use it.
+              //
+              // Instead, post the current network but with a delay long enough
+              // that we avoid a race condition.
+              sendCurrentStatusWithDelay();
             }
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
@@ -117,5 +110,12 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
     Runnable runnable = () -> events.success(networkTypes);
     // Emit events on main thread
     mainHandler.post(runnable);
+  }
+
+  private void sendCurrentStatusWithDelay() {
+    Runnable runnable = () -> events.success(connectivity.getNetworkTypes());
+    // Emit events on main thread
+    // 500 milliseconds to avoid race conditions
+    mainHandler.postDelayed(runnable, 500);
   }
 }
