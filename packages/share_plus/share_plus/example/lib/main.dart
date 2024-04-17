@@ -135,25 +135,10 @@ class DemoAppState extends State<DemoApp> {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    onPressed: text.isEmpty && imagePaths.isEmpty && uri.isEmpty
-                        ? null
-                        : () => _onShare(context),
-                    child: const Text('Share'),
-                  );
-                },
-              ),
-              const SizedBox(height: 16),
-              Builder(
-                builder: (BuildContext context) {
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                    ),
                     onPressed: text.isEmpty && imagePaths.isEmpty
                         ? null
                         : () => _onShareWithResult(context),
-                    child: const Text('Share With Result'),
+                    child: const Text('Share'),
                   );
                 },
               ),
@@ -186,7 +171,7 @@ class DemoAppState extends State<DemoApp> {
     });
   }
 
-  void _onShare(BuildContext context) async {
+  void _onShareWithResult(BuildContext context) async {
     // A builder is used to retrieve the context immediately
     // surrounding the ElevatedButton.
     //
@@ -196,29 +181,6 @@ class DemoAppState extends State<DemoApp> {
     // has its position and size after it's built.
     final box = context.findRenderObject() as RenderBox?;
 
-    if (uri.isNotEmpty) {
-      await Share.shareUri(
-        Uri.parse(uri),
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      );
-    } else if (imagePaths.isNotEmpty) {
-      final files = <XFile>[];
-      for (var i = 0; i < imagePaths.length; i++) {
-        files.add(XFile(imagePaths[i], name: imageNames[i]));
-      }
-      await Share.shareXFiles(files,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    } else {
-      await Share.share(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    }
-  }
-
-  void _onShareWithResult(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     ShareResult shareResult;
     if (imagePaths.isNotEmpty) {
@@ -226,14 +188,23 @@ class DemoAppState extends State<DemoApp> {
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      shareResult = await Share.shareXFiles(files,
-          text: text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      shareResult = await Share.shareXFiles(
+        files,
+        text: text,
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+    } else if (uri.isNotEmpty) {
+      shareResult = await Share.shareUri(
+        Uri.parse(uri),
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
     } else {
-      shareResult = await Share.shareWithResult(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      shareResult = await Share.share(
+        text,
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
     }
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }

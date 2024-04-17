@@ -94,9 +94,9 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                 val signingInfo = packageInfo.signingInfo ?: return null
 
                 if (signingInfo.hasMultipleSigners()) {
-                    signatureToSha1(signingInfo.apkContentsSigners.first().toByteArray())
+                    signatureToSha256(signingInfo.apkContentsSigners.first().toByteArray())
                 } else {
-                    signatureToSha1(signingInfo.signingCertificateHistory.first().toByteArray())
+                    signatureToSha256(signingInfo.signingCertificateHistory.first().toByteArray())
                 }
             } else {
                 val packageInfo = pm.getPackageInfo(
@@ -108,7 +108,7 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                 if (signatures.isNullOrEmpty() || packageInfo.signatures.first() == null) {
                     null
                 } else {
-                    signatureToSha1(signatures.first().toByteArray())
+                    signatureToSha256(signatures.first().toByteArray())
                 }
             }
         } catch (e: PackageManager.NameNotFoundException) {
@@ -120,8 +120,8 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
     // Credits https://gist.github.com/scottyab/b849701972d57cf9562e
     @Throws(NoSuchAlgorithmException::class)
-    private fun signatureToSha1(sig: ByteArray): String {
-        val digest = MessageDigest.getInstance("SHA1")
+    private fun signatureToSha256(sig: ByteArray): String {
+        val digest = MessageDigest.getInstance("SHA-256")
         digest.update(sig)
         val hashText = digest.digest()
         return bytesToHex(hashText)

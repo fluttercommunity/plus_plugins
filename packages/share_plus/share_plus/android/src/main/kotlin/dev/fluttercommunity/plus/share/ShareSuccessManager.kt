@@ -17,20 +17,22 @@ internal class ShareSuccessManager(private val context: Context) : ActivityResul
      * Set result callback that will wait for the share-sheet to close and get either
      * the componentname of the chosen option or an empty string on dismissal.
      */
-    fun setCallback(callback: MethodChannel.Result): Boolean {
+    fun setCallback(callback: MethodChannel.Result) {
         return if (isCalledBack.compareAndSet(true, false)) {
             // Prepare all state for new share
             SharePlusPendingIntent.result = ""
             isCalledBack.set(false)
             this.callback = callback
-            true
         } else {
-            callback.error(
-                "Share callback error",
-                "prior share-sheet did not call back, did you await it? Maybe use non-result variant",
-                null,
-            )
-            false
+            // Ensure no deadlocks.
+            // Return result of any waiting call.
+            // e.g. user called to `share` but did not await for result.
+            this.callback?.success(RESULT_UNAVAILABLE)
+
+            // Prepare all state for new share
+            SharePlusPendingIntent.result = ""
+            isCalledBack.set(false)
+            this.callback = callback
         }
     }
 

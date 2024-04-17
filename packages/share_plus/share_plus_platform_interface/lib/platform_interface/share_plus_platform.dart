@@ -32,7 +32,7 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share uri.
-  Future<void> shareUri(
+  Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
   }) {
@@ -42,70 +42,17 @@ class SharePlatform extends PlatformInterface {
     );
   }
 
-  /// Share text.
-  Future<void> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) {
-    return _instance.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  /// Share files.
-  @Deprecated("Use shareXFiles instead.")
-  Future<void> shareFiles(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
-    return _instance.shareFiles(
-      paths,
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
   /// Share text with Result.
-  Future<ShareResult> shareWithResult(
+  Future<ShareResult> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
-    await _instance.share(
+    return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
     );
-
-    return _resultUnavailable;
-  }
-
-  /// Share files with Result.
-  @Deprecated("Use shareXFiles instead.")
-  Future<ShareResult> shareFilesWithResult(
-    List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) async {
-    await _instance.shareFiles(
-      paths,
-      mimeTypes: mimeTypes,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-
-    return _resultUnavailable;
   }
 
   /// Share [XFile] objects with Result.
@@ -143,6 +90,26 @@ class ShareResult {
   final ShareResultStatus status;
 
   const ShareResult(this.raw, this.status);
+
+  static const unavailable = ShareResult(
+    'dev.fluttercommunity.plus/share/unavailable',
+    ShareResultStatus.unavailable,
+  );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ShareResult && other.raw == raw && other.status == status;
+  }
+
+  @override
+  int get hashCode => raw.hashCode ^ status.hashCode;
+
+  @override
+  String toString() {
+    return 'ShareResult(raw: $raw, status: $status)';
+  }
 }
 
 /// How the user handled the share-sheet
@@ -153,12 +120,7 @@ enum ShareResultStatus {
   /// The user dismissed the share-sheet
   dismissed,
 
-  /// The status can not be determined
+  /// The platform succeed to share content to user
+  /// but the user action can not be determined
   unavailable,
 }
-
-/// Returned if the platform is not supported
-const _resultUnavailable = ShareResult(
-  'dev.fluttercommunity.plus/share/unavailable',
-  ShareResultStatus.unavailable,
-);

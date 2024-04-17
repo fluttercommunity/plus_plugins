@@ -46,8 +46,6 @@ private:
 
   static constexpr auto kShare = "share";
   static constexpr auto kShareFiles = "shareFiles";
-  static constexpr auto kShareWithResult = "shareWithResult";
-  static constexpr auto kShareFilesWithResult = "shareFilesWithResult";
 
   HWND GetWindow();
 

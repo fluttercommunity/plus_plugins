@@ -12,16 +12,14 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Can launch share', (WidgetTester tester) async {
-    expect(Share.share('message', subject: 'title'), completes);
-  }, skip: Platform.isMacOS);
-
-  testWidgets('Can launch share in MacOS', (WidgetTester tester) async {
+    // Check isNotNull because we cannot wait for ShareResult
     expect(Share.share('message', subject: 'title'), isNotNull);
-  }, skip: !Platform.isMacOS);
-
-  testWidgets('Can launch shareWithResult', (WidgetTester tester) async {
-    expect(Share.shareWithResult('message', subject: 'title'), isNotNull);
   });
+
+  testWidgets('Can launch shareUri', (WidgetTester tester) async {
+    // Check isNotNull because we cannot wait for ShareResult
+    expect(Share.shareUri(Uri.parse('https://example.com')), isNotNull);
+  }, skip: !Platform.isAndroid && !Platform.isIOS);
 
   testWidgets('Can shareXFile created using File.fromData()',
       (WidgetTester tester) async {

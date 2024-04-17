@@ -247,7 +247,6 @@ TopViewControllerForViewController(UIViewController *viewController) {
 
   [shareChannel
       setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-        BOOL withResult = [call.method hasSuffix:@"WithResult"];
         NSDictionary *arguments = [call arguments];
         NSNumber *originX = arguments[@"originX"];
         NSNumber *originY = arguments[@"originY"];
@@ -261,8 +260,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                          [originWidth doubleValue], [originHeight doubleValue]);
         }
 
-        if ([@"share" isEqualToString:call.method] ||
-            [@"shareWithResult" isEqualToString:call.method]) {
+        if ([@"share" isEqualToString:call.method]) {
           NSString *shareText = arguments[@"text"];
           NSString *shareSubject = arguments[@"subject"];
 
@@ -287,12 +285,8 @@ TopViewControllerForViewController(UIViewController *viewController) {
                      subject:shareSubject
               withController:topViewController
                     atSource:originRect
-                    toResult:result
-                  withResult:withResult];
-          if (!withResult)
-            result(nil);
-        } else if ([@"shareFiles" isEqualToString:call.method] ||
-                   [@"shareFilesWithResult" isEqualToString:call.method]) {
+                    toResult:result];
+        } else if ([@"shareFiles" isEqualToString:call.method]) {
           NSArray *paths = arguments[@"paths"];
           NSArray *mimeTypes = arguments[@"mimeTypes"];
           NSString *subject = arguments[@"subject"];
@@ -329,10 +323,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                     withText:text
               withController:topViewController
                     atSource:originRect
-                    toResult:result
-                  withResult:withResult];
-          if (!withResult)
-            result(nil);
+                    toResult:result];
         } else if ([@"shareUri" isEqualToString:call.method]) {
           NSString *uri = arguments[@"uri"];
 
@@ -356,10 +347,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
           [self shareUri:uri
               withController:topViewController
                     atSource:originRect
-                    toResult:result
-                  withResult:withResult];
-          if (!withResult)
-            result(nil);
+                    toResult:result];
         } else {
           result(FlutterMethodNotImplemented);
         }
@@ -370,8 +358,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
        withSubject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result
-        withResult:(BOOL)withResult {
+          toResult:(FlutterResult)result {
   UIActivityViewSuccessController *activityViewController =
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
@@ -408,17 +395,16 @@ TopViewControllerForViewController(UIViewController *viewController) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
 
-  if (withResult) {
-    UIActivityViewSuccessCompanion *companion =
-        [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
-    activityViewController.companion = companion;
-    activityViewController.completionWithItemsHandler =
-        ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems,
-          NSError *activityError) {
-          companion.activityType = activityType;
-          companion.completed = completed;
-        };
-  }
+  UIActivityViewSuccessCompanion *companion =
+      [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
+  activityViewController.companion = companion;
+  activityViewController.completionWithItemsHandler =
+      ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems,
+        NSError *activityError) {
+        companion.activityType = activityType;
+        companion.completed = completed;
+      };
+
   [controller presentViewController:activityViewController
                            animated:YES
                          completion:nil];
@@ -427,31 +413,27 @@ TopViewControllerForViewController(UIViewController *viewController) {
 + (void)shareUri:(NSString *)uri
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result
-        withResult:(BOOL)withResult {
+          toResult:(FlutterResult)result {
   NSURL *data = [NSURL URLWithString:uri];
   [self share:@[ data ]
          withSubject:nil
       withController:controller
             atSource:origin
-            toResult:result
-          withResult:withResult];
+            toResult:result];
 }
 
 + (void)shareText:(NSString *)shareText
            subject:(NSString *)subject
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result
-        withResult:(BOOL)withResult {
+          toResult:(FlutterResult)result {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
   [self share:@[ data ]
          withSubject:subject
       withController:controller
             atSource:origin
-            toResult:result
-          withResult:withResult];
+            toResult:result];
 }
 
 + (void)shareFiles:(NSArray *)paths
@@ -460,8 +442,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
           withText:(NSString *)text
     withController:(UIViewController *)controller
           atSource:(CGRect)origin
-          toResult:(FlutterResult)result
-        withResult:(BOOL)withResult {
+          toResult:(FlutterResult)result {
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
   for (int i = 0; i < [paths count]; i++) {
@@ -480,8 +461,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
          withSubject:subject
       withController:controller
             atSource:origin
-            toResult:result
-          withResult:withResult];
+            toResult:result];
 }
 
 @end

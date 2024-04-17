@@ -23,18 +23,8 @@ public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePick
     case "share":
       let text = args["text"] as! String
       let subject = args["subject"] as? String
-      shareItems([text], subject: subject, origin: origin, view: registrar.view!)
-      result(true)
-    case "shareFiles":
-      let paths = args["paths"] as! [String]
-      let urls = paths.map { NSURL.fileURL(withPath: $0) }
-      shareItems(urls, origin: origin, view: registrar.view!)
-      result(true)
-    case "shareWithResult":
-      let text = args["text"] as! String
-      let subject = args["subject"] as? String
       shareItems([text], subject: subject, origin: origin, view: registrar.view!, callback: result)
-    case "shareFilesWithResult":
+    case "shareFiles":
       let paths = args["paths"] as! [String]
       let urls = paths.map { NSURL.fileURL(withPath: $0) }
       shareItems(urls, origin: origin, view: registrar.view!, callback: result)
@@ -48,15 +38,10 @@ public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePick
     return sharingService.delegate
   }
 
-  private func shareItems(_ items: [Any], subject: String? = nil, origin: NSRect, view: NSView, callback: FlutterResult? = nil) {
+  private func shareItems(_ items: [Any], subject: String? = nil, origin: NSRect, view: NSView, callback: @escaping FlutterResult) {
     DispatchQueue.main.async {
       let picker = NSSharingServicePicker(items: items)
-      if callback != nil {
-        picker.delegate = SharePlusMacosSuccessDelegate(subject: subject, callback: callback!).keep()
-      } else {
-        picker.delegate = self
-        self.subject = subject
-      }
+      picker.delegate = SharePlusMacosSuccessDelegate(subject: subject, callback: callback).keep()
       picker.show(relativeTo: origin, of: view, preferredEdge: NSRectEdge.maxY)
     }
   }
