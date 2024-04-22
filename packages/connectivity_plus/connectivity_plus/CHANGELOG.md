@@ -1,3 +1,7 @@
+## 6.0.3
+
+ - **FIX**(connectivity_plus): Ensure Connectivity on Android is correctly reported when lost ([#2836](https://github.com/fluttercommunity/plus_plugins/issues/2836)). ([2aa6ad7a](https://github.com/fluttercommunity/plus_plugins/commit/2aa6ad7a1c05d35b894e6cef515bd9dfa49351dd))
+
 ## 6.0.2
 
  - **REFACTOR**(connectivity_plus): remove ReachabilityConnectivityProvider and ReachabilitySwift dependency ([#2813](https://github.com/fluttercommunity/plus_plugins/issues/2813)). ([f9ad927f](https://github.com/fluttercommunity/plus_plugins/commit/f9ad927f5c18f8ed8d4c22a24476430239c13492))

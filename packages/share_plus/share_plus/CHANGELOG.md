@@ -1,3 +1,9 @@
+## 9.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**(share_plus): Share API cleanup ([#2832](https://github.com/fluttercommunity/plus_plugins/issues/2832)). ([fd0511ca](https://github.com/fluttercommunity/plus_plugins/commit/fd0511ca4d55db1e075e72af5a0832b5cfe81244))
+
 ## 8.0.3
 
  - **REFACTOR**(share_plus): Migrate Android example to use the new plugins declaration ([#2742](https://github.com/fluttercommunity/plus_plugins/issues/2742)). ([a73af898](https://github.com/fluttercommunity/plus_plugins/commit/a73af898ee9b73dcc53307186ac4c79e795b1277))
