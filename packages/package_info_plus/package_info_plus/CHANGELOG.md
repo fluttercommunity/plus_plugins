@@ -1,3 +1,11 @@
+## 8.0.0
+
+> Note: This release has breaking changes.
+
+ - **DOCS**(package_info_plus): Add platform specific documentation ([#2845](https://github.com/fluttercommunity/plus_plugins/issues/2845)). ([ad06a236](https://github.com/fluttercommunity/plus_plugins/commit/ad06a236d7647e958f4b25cd9ee8fe68f4c4faf3))
+ - **DOCS**(package_info_plus): Improve web documentation re. CORS ([#2841](https://github.com/fluttercommunity/plus_plugins/issues/2841)). ([7d712ef8](https://github.com/fluttercommunity/plus_plugins/commit/7d712ef816808d533b2fd0b4f8c9f11ebb23ab53))
+ - **BREAKING** **FEAT**(package_info_plus): Switch to SHA-256 for `buildSignature` on Android ([#2835](https://github.com/fluttercommunity/plus_plugins/issues/2835)). ([7259af20](https://github.com/fluttercommunity/plus_plugins/commit/7259af200810bd717d95688fbcdca67a028f9cd0))
+
 ## 7.0.0
 
 > Note: This release has breaking changes.
