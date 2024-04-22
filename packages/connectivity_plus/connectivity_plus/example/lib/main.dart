@@ -86,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _connectionStatus = result;
     });
+    // ignore: avoid_print
+    print('Connectivity changed: $_connectionStatus');
   }
 
   @override

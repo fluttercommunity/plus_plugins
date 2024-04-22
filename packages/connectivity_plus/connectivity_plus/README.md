@@ -58,7 +58,9 @@ if (connectivityResult.contains(ConnectivityResult.mobile)) {
 ```
 
 You can also listen for active connectivity types changes by subscribing to the stream
-exposed by the plugin:
+exposed by the plugin.
+
+This method should ensure emitting only distinct values.
 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
