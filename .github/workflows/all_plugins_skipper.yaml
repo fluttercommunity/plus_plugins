@@ -12,12 +12,6 @@ on:
       - "**.md"
 
 jobs:
-  analyze:
-    name: "Flutter Analyze"
-    runs-on: ubuntu-latest
-    steps:
-      - run: 'echo "No analyze required as only docs or non-plugin files changed"'
-
   check_formatting:
     name: "Check code formatting"
     runs-on: ubuntu-latest
