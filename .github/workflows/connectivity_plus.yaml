@@ -63,6 +63,7 @@ jobs:
     runs-on: macos-13
     timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         android-api-level: [ 21, 26, 31, 34]
 
