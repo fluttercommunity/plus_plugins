@@ -1,3 +1,7 @@
+## 4.0.3
+
+ - **FIX**(android_alarm_manager_plus): Remove references to v1 embedding ([#2864](https://github.com/fluttercommunity/plus_plugins/issues/2864)). ([0bb6a1fd](https://github.com/fluttercommunity/plus_plugins/commit/0bb6a1fd8c77b3ed8ec92ffbd15e426921d1c71a))
+
 ## 4.0.2
 
  - **REFACTOR**(android_alarm_manager_plus): Migrate Android example to use the new plugins declaration ([#2774](https://github.com/fluttercommunity/plus_plugins/issues/2774)). ([2b8489ca](https://github.com/fluttercommunity/plus_plugins/commit/2b8489cabce6f73d8c16c4206455800a7d003ce1))
