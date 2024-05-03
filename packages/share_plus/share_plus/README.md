@@ -124,13 +124,21 @@ Alternatively, don't use `XFile.fromData` and instead write the data down to a `
 
 ### Mobile platforms (Android and iOS)
 
-#### Meta (WhatsApp, Instagram, Facebook Messenger) and similar apps
+#### Sharing images + text
 
-Due to restrictions set up by Meta/Facebook this plugin isn't capable of sharing data reliably to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger. If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing)) or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
+When attempting to share images with text, some apps may fail to properly accept the share action with them.
+
+For example, due to restrictions set up by Meta/Facebook this plugin isn't capable of sharing data reliably
+to Facebook related apps on Android and iOS. This includes eg. sharing text to the Facebook Messenger.
+
+If you require this functionality please check the native Facebook Sharing SDK ([https://developers.facebook.com/docs/sharing](https://developers.facebook.com/docs/sharing))
+or search for other Flutter plugins implementing this SDK. More information can be found in [this issue](https://github.com/fluttercommunity/plus_plugins/issues/413).
 
 Other apps may also give problems when attempting to share content to them.
+This is because 3rd party app developers do not properly implement the logic to receive share actions.
+
 We cannot warranty that a 3rd party app will properly implement the share functionality.
-Therefore, all bugs reported regarding compatibility with a specific app will be closed.
+Therefore, **all bugs reported regarding compatibility with a specific app will be closed.**
 
 #### Localization in Apple platforms
 
