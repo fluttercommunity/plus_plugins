@@ -6,7 +6,7 @@
 [![pub points](https://img.shields.io/pub/points/android_alarm_manager_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/android_alarm_manager_plus/score)
 [![android_alarm_manager_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_alarm_manager_plus.yaml)
 
-[<img src="../../website/static/img/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
+[<img src="../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 A Flutter plugin for accessing the Android AlarmManager service, and running
 Dart code in the background when alarms fire.
@@ -28,7 +28,7 @@ Dart code in the background when alarms fire.
 
 ## Getting Started
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > You would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) permission if your app targets Android 14 and newer.
 > Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
 > Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
@@ -104,7 +104,7 @@ using.
 
 ## Receiving show intents for alarm clocks
 
-If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when they tap on such UIs. 
+If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when they tap on such UIs.
 
 This intent has the action `android.intent.action.MAIN` and includes the following `extras`:
 - `id`: The alarm id that you passed when scheduling the alarm.

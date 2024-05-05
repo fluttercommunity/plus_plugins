@@ -6,7 +6,7 @@
 [![pub points](https://img.shields.io/pub/points/android_intent_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/android_intent_plus/score)
 [![android_intent_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml)
 
-[<img src="../../website/static/img/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
+[<img src="../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 This plugin allows Flutter apps to launch arbitrary intents when the platform is Android.
 

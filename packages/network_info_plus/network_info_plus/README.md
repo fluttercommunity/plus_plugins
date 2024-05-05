@@ -6,9 +6,7 @@
 [![pub points](https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/network_info_plus/score)
 [![network_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml)
 
-<p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
+[<img src="../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 This plugin allows Flutter apps to discover network info and configure
 themselves accordingly.
@@ -142,7 +140,7 @@ The example application for this project, implements number 1 using the [permiss
 
 Also, **your application needs the "com.apple.developer.networking.wifi-info" entitlement.**
 
-This entitlement can be configured in xcode with the name "Access Wi-Fi information", and it is also found in the file `Runner.entitlements` in the example project. However, 
+This entitlement can be configured in xcode with the name "Access Wi-Fi information", and it is also found in the file `Runner.entitlements` in the example project. However,
 **this entitlement is only possible when using a professional development team** and not a "Personal development team".
 
 Without complying with these conditions, the calls to `.getWifiBSSID()` and `.getWifiName()` will return null.
