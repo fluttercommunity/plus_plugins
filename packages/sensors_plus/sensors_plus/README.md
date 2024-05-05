@@ -19,6 +19,17 @@ sensors.
 
 \* Currently it is not possible to set sensors sampling rate on web
 
+## Requirements
+
+- Flutter >=3.3.0
+- Dart >=2.18.0 <4.0.0
+- iOS >=12.0
+- MacOS >=10.14
+- Android `compileSDK` 34
+- Java 17
+- Android Gradle Plugin >=8.3.0
+- Gradle wrapper >=8.4
+
 ## Usage
 
 Add `sensors_plus` as a dependency in your pubspec.yaml file.
