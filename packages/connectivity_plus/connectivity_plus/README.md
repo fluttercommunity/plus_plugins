@@ -24,6 +24,17 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
+## Requirements
+
+- Flutter >=3.3.0
+- Dart >=2.18.0 <4.0.0
+- iOS >=12.0
+- MacOS >=10.14
+- Android `compileSDK` 34
+- Java 17
+- Android Gradle Plugin >=8.3.0
+- Gradle wrapper >=8.4
+
 ## Usage
 
 Sample usage to check currently available connection types:
