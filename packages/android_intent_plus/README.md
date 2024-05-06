@@ -1,14 +1,29 @@
 # android_intent_plus
 
-[![Flutter Community: android_intent_plus](https://fluttercommunity.dev/_github/header/android_intent_plus)](https://github.com/fluttercommunity/community)
-
 [![pub package](https://img.shields.io/pub/v/android_intent_plus.svg)](https://pub.dev/packages/android_intent_plus)
 [![pub points](https://img.shields.io/pub/points/android_intent_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/android_intent_plus/score)
 [![android_intent_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/android_intent_plus.yaml)
 
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
+[<img src="../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 This plugin allows Flutter apps to launch arbitrary intents when the platform is Android.
+
+## Platform Support
+
+| Android |
+| :-----: |
+|   ✅    |
+
+## Requirements
+
+- Flutter >=3.3.0
+- Dart >=2.18.0 <4.0.0
+- Android `compileSDK` 34
+- Java 17
+- Android Gradle Plugin >=8.3.0
+- Gradle wrapper >=8.4
+
+## Usage
 
 > **Warning**
 >
@@ -67,12 +82,6 @@ of integers or strings.
 > can be used for deep linking. Url launcher can also be used for creating
 > ACTION_VIEW intents for Android, however this intent plugin also allows
 > clients to set extra parameters for the intent.
-
-## Platform Support
-
-| Android |
-| :-----: |
-|   ✅    |
 
 ## Android 11 package visibility
 
