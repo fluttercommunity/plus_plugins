@@ -12,6 +12,9 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import kotlin.collections.HashMap
 
+import android.content.Context;
+
+
 /**
  * The implementation of [MethodChannel.MethodCallHandler] for the plugin. Responsible for
  * receiving method calls from method channel.
@@ -19,12 +22,12 @@ import kotlin.collections.HashMap
 internal class MethodCallHandlerImpl(
     private val packageManager: PackageManager,
     private val activityManager: ActivityManager,
+
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         if (call.method.equals("getDeviceInfo")) {
             val build: MutableMap<String, Any> = HashMap()
-
             build["board"] = Build.BOARD
             build["bootloader"] = Build.BOOTLOADER
             build["brand"] = Build.BRAND
@@ -34,6 +37,7 @@ internal class MethodCallHandlerImpl(
             build["hardware"] = Build.HARDWARE
             build["host"] = Build.HOST
             build["id"] = Build.ID
+            build["androidId"] =SPUtils.getAndroidId()
             build["manufacturer"] = Build.MANUFACTURER
             build["model"] = Build.MODEL
             build["product"] = Build.PRODUCT

@@ -8,6 +8,10 @@
 
 Get current device information from within the Flutter application.
 
+Add androidId to android device 
+针对Android系统部分手机获取不到AndroidID或者用户卸载后重新安装AndroidID改变的问题，插件做了SPUtil本地存储，卸载重装后会先取本地存储的值
+针对IOS系统，用户每次卸载重装都会得到不一样的UUID的问题，针对这个问题处理方案是把首次获取的UUID通过 keychain 存储下来，
+
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Windows |

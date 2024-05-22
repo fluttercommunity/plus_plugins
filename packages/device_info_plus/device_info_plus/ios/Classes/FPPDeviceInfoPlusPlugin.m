@@ -4,7 +4,7 @@
 
 #import "FPPDeviceInfoPlusPlugin.h"
 #import <sys/utsname.h>
-
+#import "KeychainManager.h"
 @implementation FPPDeviceInfoPlusPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
   FlutterMethodChannel *channel = [FlutterMethodChannel
@@ -30,6 +30,15 @@
       machine = [[NSProcessInfo processInfo]
           environment][@"SIMULATOR_MODEL_IDENTIFIER"];
     }
+      
+      
+      
+
+           NSString *uuid = [KeychainManager readDataFromKeyChain:@"UUID"];
+        if(!uuid){
+            uuid =  [[device identifierForVendor] UUIDString];
+            [KeychainManager saveDataForKeyChain:uuid identifier:@"UUID"];
+        }
 
     result(@{
       @"name" : [device name],
@@ -37,7 +46,7 @@
       @"systemVersion" : [device systemVersion],
       @"model" : [device model],
       @"localizedModel" : [device localizedModel],
-      @"identifierForVendor" : [[device identifierForVendor] UUIDString]
+      @"identifierForVendor" : uuid
           ?: [NSNull null],
       @"isPhysicalDevice" : isPhysicalNumber,
       @"utsname" : @{

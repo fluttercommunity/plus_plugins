@@ -32,6 +32,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required List<String> systemFeatures,
     required this.serialNumber,
     required this.isLowRamDevice,
+    required this.androidId,
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -76,6 +77,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// Either a changelist number, or a label like "M4-rc20".
   /// https://developer.android.com/reference/android/os/Build#ID
   final String id;
+
+  final String androidId;
 
   /// The manufacturer of the product/hardware.
   /// https://developer.android.com/reference/android/os/Build#MANUFACTURER
@@ -167,6 +170,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
       serialNumber: map['serialNumber'],
       isLowRamDevice: map['isLowRamDevice'],
+      androidId:  map['androidId'] ?? '',
     );
   }
 

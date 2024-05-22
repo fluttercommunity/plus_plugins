@@ -23,6 +23,7 @@ class DeviceInfoPlusPlugin : FlutterPlugin {
 
     private fun setupMethodChannel(messenger: BinaryMessenger, context: Context) {
         methodChannel = MethodChannel(messenger, "dev.fluttercommunity.plus/device_info")
+        App.context = context;
         val packageManager: PackageManager = context.packageManager
         val activityManager: ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val handler = MethodCallHandlerImpl(packageManager, activityManager)
