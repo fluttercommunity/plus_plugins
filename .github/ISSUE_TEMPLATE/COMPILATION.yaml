@@ -6,10 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please ensure that you have searched for a solution before
-        opening a new issue.
+        Please ensure that you have searched for a solution before opening a new issue.
 
-        1. Check in this repostory searching in the Issue tap. Ensure you look at the closed issues too.
+        1. Check in this repostory searching in the Issue tab. Ensure you look at the closed issues too.
         2. Search on Stack Overflow for similar errors.
         3. Search on Google or other general purpose search engines.
 
