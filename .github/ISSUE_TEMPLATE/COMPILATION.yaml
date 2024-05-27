@@ -1,0 +1,112 @@
+name: Compile Issue
+description: You added a plugin to your project but it does not compile or run anymore.
+title: "[Compile]: "
+labels: ["compile", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please ensure that you have searched for a solution before
+        opening a new issue.
+
+        1. Check in this repostory searching in the Issue tap. Ensure you look at the closed issues too.
+        2. Search on Stack Overflow for similar errors.
+        3. Search on Google or other general purpose search engines.
+
+        If you can prove that you have done all these steps and still have problems, proceed with the following template.
+
+        IMPORTANT: Bug reports that don't follow this template will be closed
+  - type: input
+    id: platform
+    attributes:
+      label: Operating System
+      description: Operating system where you are building the app
+      placeholder: ex. Windows 11
+    validations:
+      required: true
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin
+      description: Plugin name
+      placeholder: ex. share_plus
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Plugin version
+      placeholder: ex. 1.2.3
+    validations:
+      required: true
+  - type: input
+    id: sdk
+    attributes:
+      label: Flutter SDK
+      description: Flutter SDK Version
+      placeholder: ex. 3.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Compilation command
+      description: |
+        Please tell us exactly how are you building the project.
+
+        e.g. `flutter build apk`
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      render: dart
+      description: |
+        Include a list of dependencies that your project has.
+        You can copy your `package.yaml` here.
+    validations:
+      required: false
+  - type: textarea
+    id: Compilation error
+    attributes:
+      label: Error
+      render: shell
+      description: |
+        Paste here the compilation error.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Flutter Doctor
+      render: shell
+      description: |
+        Paste the output of running `flutter doctor -v` here.
+
+        Important -> If it is not provided, we will close the issue.
+    validations:
+      required: true
+  - type: checkboxes
+    id: self-checks
+    attributes:
+      label: Checklist before submitting a bug
+      description: Please verify all the following items before submitting a bug. All options must be selected.
+      options:
+        - label: I searched issues in this repository and couldn't find such bug/problem
+          required: true
+        - label: I Google'd a solution and I couldn't find it
+          required: true
+        - label: I searched on StackOverflow for a solution and I couldn't find it
+          required: true
+        - label: I read the README.md file of the plugin
+          required: true
+        - label: I'm using the latest version of the plugin
+          required: true
+        - label: All dependencies are up to date with `flutter pub upgrade`
+          required: true
+        - label: I did a `flutter clean`
+          required: true
+        - label: I tried running the example project
+          required: true
