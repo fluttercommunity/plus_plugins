@@ -11,6 +11,7 @@ body:
         1. Check in this repostory searching in the Issue tab. Ensure you look at the closed issues too.
         2. Search on Stack Overflow for similar errors.
         3. Search on Google or other general purpose search engines.
+        4. Perform a `flutter upgrade`, followed by `flutter pub upgrade` and finally `flutter clean`, then try again.
 
         If you can prove that you have done all these steps and still have problems, proceed with the following template.
 
@@ -43,7 +44,7 @@ body:
     id: sdk
     attributes:
       label: Flutter SDK
-      description: Flutter SDK Version
+      description: Flutter SDK Version. Run `flutter --version`.
       placeholder: ex. 3.0.0
     validations:
       required: true
@@ -60,11 +61,20 @@ body:
   - type: textarea
     id: dependencies
     attributes:
-      label: Dependencies
-      render: dart
+      label: Dart Dependencies
+      render: yaml
       description: |
         Include a list of dependencies that your project has.
         You can copy your `package.yaml` here.
+    validations:
+      required: false
+  - type: textarea
+    id: native
+    attributes:
+      label: Native dependencies
+      render: text
+      description: |
+        Include any relevant native dependencies here. e.g. gradle files, cocoa pods, etc.
     validations:
       required: false
   - type: textarea
