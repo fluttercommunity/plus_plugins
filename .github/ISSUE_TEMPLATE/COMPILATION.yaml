@@ -15,7 +15,7 @@ body:
 
         If you can prove that you have done all these steps and still have problems, proceed with the following template.
 
-        IMPORTANT: Bug reports that don't follow this template will be closed
+        IMPORTANT: Compile reports that don't follow this template will be closed
   - type: input
     id: platform
     attributes:
