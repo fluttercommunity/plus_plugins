@@ -25,7 +25,7 @@ void main() {
           (Widget widget) =>
               widget is Text && widget.data!.startsWith('Tap here'),
         ),
-        findsNWidgets(4),
+        findsNWidgets(5),
       );
     } else {
       expect(
