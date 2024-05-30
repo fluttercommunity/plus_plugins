@@ -7,12 +7,16 @@ SCOPE=$2
 
 if [ "$ACTION" == "android" ]
 then
+  melos bootstrap --scope="$PLUGIN_SCOPE"
+  melos bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
 if [ "$ACTION" == "linux" ]
 then
+  melos bootstrap --scope="$PLUGIN_SCOPE"
+  melos bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
   sudo apt-get update
   sudo apt-get install ninja-build libgtk-3-dev
   # Testrunner is headless. Required create virtual display for the linux tests to run.
@@ -24,18 +28,24 @@ fi
 
 if [ "$ACTION" == "windows" ]
 then
+  melos.bat bootstrap --scope="$PLUGIN_SCOPE"
+  melos.bat bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
   melos.bat exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test -d windows ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
 if [ "$ACTION" == "macos" ]
 then
+  melos bootstrap --scope="$PLUGIN_SCOPE"
+  melos bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test -d macos ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
 
 if [ "$ACTION" == "ios" ]
 then
+  melos bootstrap --scope="$PLUGIN_SCOPE"
+  melos bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
   melos exec -c 1 --scope="$SCOPE" --dir-exists="./integration_test" -- \
     "flutter test ./integration_test/MELOS_PARENT_PACKAGE_NAME_test.dart --dart-define=CI=true"
 fi
@@ -43,6 +53,8 @@ fi
 if [ "$ACTION" == "web" ]
 then
   melos bootstrap --scope="$SCOPE"
+  melos bootstrap --scope="$PLUGIN_SCOPE"
+  melos bootstrap --scope="$PLUGIN_EXAMPLE_SCOPE"
 
   # Start x virtual framebuffer for chrome to run.
   export DISPLAY=:99
