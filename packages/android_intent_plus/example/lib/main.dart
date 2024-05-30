@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
 /// Holds the different intent widgets.
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
+  static const _intent = 'intent://payment#Intent;action=ch.twint.action.TWINT_PAYMENT;scheme=twint;S.code=98815;S.startingOrigin=EXTERNAL_WEB_BROWSER;S.browser_fallback_url=;end';
 
   void _createAlarm() {
     const intent = AndroidIntent(
@@ -68,6 +69,11 @@ class MyHomePage extends StatelessWidget {
               onPressed: _createAlarm,
               child: const Text(
                   'Tap here to set an alarm\non weekdays at 9:30pm.'),
+            ),
+            ElevatedButton(
+              onPressed: _parseAndLaunch,
+              child: const Text(
+                  'Tap here to parse and launch intent $_intent'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
@@ -110,6 +116,10 @@ class MyHomePage extends StatelessWidget {
       action: 'com.example.broadcast',
     );
     intent.sendBroadcast();
+  }
+
+  void _parseAndLaunch() {
+    AndroidIntent.parseAndLaunch(_intent);
   }
 }
 

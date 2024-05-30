@@ -150,6 +150,18 @@ class AndroidIntent {
     await _channel.invokeMethod<void>('launch', _buildArguments());
   }
 
+  /// Parse and Launch the intent in format.
+  ///
+  /// Equivalent of native android Intent.parseUri(URI, Intent.URI_INTENT_SCHEME)
+  /// This works only on Android platforms.
+  static Future<void> parseAndLaunch(String uri) async {
+    if (!const LocalPlatform().isAndroid) {
+      return;
+    }
+
+    await const MethodChannel(_kChannelName).invokeMethod<void>('parseAndLaunch', {'uri': uri});
+  }
+
   /// Launch the intent with 'createChooser(intent, title)'.
   ///
   /// This works only on Android platforms.

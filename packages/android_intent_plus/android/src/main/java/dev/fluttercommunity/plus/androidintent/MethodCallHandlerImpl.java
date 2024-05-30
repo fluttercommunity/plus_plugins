@@ -14,6 +14,8 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -91,7 +93,14 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
         sender.buildIntent(
             action, flags, category, data, arguments, packageName, componentName, type);
 
-    if ("launch".equalsIgnoreCase(call.method)) {
+      if ("parseAndLaunch".equalsIgnoreCase(call.method)) {
+          try {
+              intent = sender.parse(call.argument("uri"));
+              sender.send(intent);
+          } catch (URISyntaxException e) {
+              result.error("WRONG_URI", "Uri's syntax is wrong", null);
+          }
+      } else if ("launch".equalsIgnoreCase(call.method)) {
 
       if (intent != null && !sender.canResolveActivity(intent)) {
         Log.i(TAG, "Cannot resolve explicit intent, falling back to implicit");

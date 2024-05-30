@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.Nullable;
 
+import java.net.URISyntaxException;
+
 /** Forms and launches intents. */
 public final class IntentSender {
   private static final String TAG = "IntentSender";
@@ -175,4 +177,8 @@ public final class IntentSender {
 
     return intent;
   }
+
+    public Intent parse(String uri) throws URISyntaxException {
+        return Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
+    }
 }
