@@ -1,7 +1,3 @@
-## 5.0.3
-
-- **FIX**(android_intent_plus): Add support for parking intent URI ([#2164](https://github.com/fluttercommunity/plus_plugins/issues/2164)).
-
 ## 5.0.2
 
  - **REFACTOR**(android_intent_plus): Migrate Android example to use the new plugins declaration ([#2773](https://github.com/fluttercommunity/plus_plugins/issues/2773)). ([7c2de04d](https://github.com/fluttercommunity/plus_plugins/commit/7c2de04deffa1dc788d93c12e5cee1fd98821514))
