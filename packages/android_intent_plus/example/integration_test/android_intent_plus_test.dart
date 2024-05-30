@@ -64,6 +64,18 @@ void main() {
     await intent.launch();
   }, skip: !Platform.isAndroid);
 
+  testWidgets('Parse and Launch should not throw', (WidgetTester tester) async {
+    const intent = 'intent:#Intent;'
+        'action=android.intent.action.SET_ALARM;'
+        'B.android.intent.extra.alarm.SKIP_UI=true;'
+        'S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;'
+        'i.android.intent.extra.alarm.MINUTES=30;'
+        'i.android.intent.extra.alarm.HOUR=21;'
+        'end';
+
+    AndroidIntent.parseAndLaunch(intent);
+  }, skip: !Platform.isAndroid);
+
   testWidgets('LaunchChooser should not throw', (WidgetTester tester) async {
     const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
