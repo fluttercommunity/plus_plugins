@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
   static const _intent =
-      'intent://payment#Intent;action=ch.twint.action.TWINT_PAYMENT;scheme=twint;S.code=98815;S.startingOrigin=EXTERNAL_WEB_BROWSER;S.browser_fallback_url=;end';
+      'intent:#Intent;action=android.intent.action.SET_ALARM;B.android.intent.extra.alarm.SKIP_UI=true;S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;i.android.intent.extra.alarm.MINUTES=30;i.android.intent.extra.alarm.HOUR=21;end';
 
   void _createAlarm() {
     const intent = AndroidIntent(
@@ -73,7 +73,8 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: _parseAndLaunch,
-              child: const Text('Tap here to parse and launch intent $_intent'),
+              child: const Text(
+                  'Tap here to set an alarm\n based on URI: $_intent'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
