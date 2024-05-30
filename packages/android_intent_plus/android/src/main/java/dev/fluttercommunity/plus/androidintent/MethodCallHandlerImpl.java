@@ -98,8 +98,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
         sender.send(intent);
         result.success(null);
       } catch (URISyntaxException e) {
-        final String errorMessage = "Uri's syntax is wrong";
-        result.error("WRONG_URI", errorMessage, errorMessage);
+        result.error("parse_error", "Failed to parse URI", e.getMessage());
       }
     } else if ("launch".equalsIgnoreCase(call.method)) {
 
