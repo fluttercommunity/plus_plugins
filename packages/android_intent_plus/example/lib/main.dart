@@ -36,8 +36,6 @@ class MyApp extends StatelessWidget {
 /// Holds the different intent widgets.
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
-  static const _intent =
-      'intent:#Intent;action=android.intent.action.SET_ALARM;B.android.intent.extra.alarm.SKIP_UI=true;S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;i.android.intent.extra.alarm.MINUTES=30;i.android.intent.extra.alarm.HOUR=21;end';
 
   void _createAlarm() {
     const intent = AndroidIntent(
@@ -73,8 +71,7 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: _parseAndLaunch,
-              child: const Text(
-                  'Tap here to set an alarm\n based on URI: $_intent'),
+              child: const Text('Tap here to set an alarm\n based on URI'),
             ),
             ElevatedButton(
               onPressed: _openChooser,
@@ -120,7 +117,15 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _parseAndLaunch() {
-    AndroidIntent.parseAndLaunch(_intent);
+    const intent = 'intent:#Intent;'
+        'action=android.intent.action.SET_ALARM;'
+        'B.android.intent.extra.alarm.SKIP_UI=true;'
+        'S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;'
+        'i.android.intent.extra.alarm.MINUTES=30;'
+        'i.android.intent.extra.alarm.HOUR=21;'
+        'end';
+
+    AndroidIntent.parseAndLaunch(intent);
   }
 }
 
