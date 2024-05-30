@@ -159,7 +159,8 @@ class AndroidIntent {
       return;
     }
 
-    await const MethodChannel(_kChannelName).invokeMethod<void>('parseAndLaunch', {'uri': uri});
+    await const MethodChannel(_kChannelName)
+        .invokeMethod<void>('parseAndLaunch', {'uri': uri});
   }
 
   /// Launch the intent with 'createChooser(intent, title)'.
