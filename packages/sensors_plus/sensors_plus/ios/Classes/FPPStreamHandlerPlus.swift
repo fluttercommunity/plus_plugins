@@ -192,7 +192,10 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
             eventSink sink: @escaping FlutterEventSink
     ) -> FlutterError? {
         _initMotionManager()
-        _motionManager.startMagnetometerUpdates(to: OperationQueue()) { data, error in
+        _motionManager.showsDeviceMovementDisplay = true
+        _motionManager.startDeviceMotionUpdates(
+            using: CMAttitudeReferenceFrame.xArbitraryCorrectedZVertical, to: OperationQueue()
+        ) { data, error in
             if _isCleanUp {
                 return
             }
@@ -204,7 +207,7 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                 ))
                 return
             }
-            let magneticField = data!.magneticField
+            let magneticField = data!.magneticField.field
             sendTriplet(x: magneticField.x, y: magneticField.y, z: magneticField.z, sink: sink)
         }
         return nil
