@@ -74,4 +74,3 @@ This property requires special entitlement [com.apple.developer.device-informati
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/device_info_plus/latest/device_info_plus/device_info_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/device_info_plus/overview)

@@ -101,5 +101,4 @@ Ensure that your CORS Firebase configuration allows it.
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
 

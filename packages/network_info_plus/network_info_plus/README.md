@@ -146,4 +146,3 @@ Without complying with these conditions, the calls to `.getWifiBSSID()` and `.ge
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/network_info_plus/latest/network_info_plus/network_info_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/network_info_plus/overview)
