@@ -5,7 +5,7 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:android_alarm_manager_example/main.dart';
+import 'package:android_alarm_manager_plus_example/main.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
