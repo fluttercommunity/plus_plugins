@@ -1,4 +1,4 @@
-name: android_alarm_manager_example
+name: android_alarm_manager_plus_example
 description: Demonstrates how to use the android_alarm_manager_plus plugin.
 
 environment:
