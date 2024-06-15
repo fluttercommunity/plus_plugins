@@ -1,14 +1,10 @@
 # network_info_plus
 
-[![Flutter Community: network_info_plus](https://fluttercommunity.dev/_github/header/network_info_plus)](https://github.com/fluttercommunity/community)
-
 [![pub package](https://img.shields.io/pub/v/network_info_plus.svg)](https://pub.dev/packages/network_info_plus)
 [![pub points](https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/network_info_plus/score)
 [![network_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/network_info_plus.yaml)
 
-<p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
+[<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 This plugin allows Flutter apps to discover network info and configure
 themselves accordingly.
@@ -20,6 +16,17 @@ themselves accordingly.
 |   ✅    | ✅  |  ✅   | ❌  |  ✅   |   ✅   |
 
 The functionality is not supported on Web.
+
+## Requirements
+
+- Flutter >=3.3.0
+- Dart >=2.18.0 <4.0.0
+- iOS >=12.0
+- MacOS >=10.14
+- Android `compileSDK` 34
+- Java 17
+- Android Gradle Plugin >=8.3.0
+- Gradle wrapper >=8.4
 
 ## Usage
 
@@ -131,7 +138,7 @@ The example application for this project, implements number 1 using the [permiss
 
 Also, **your application needs the "com.apple.developer.networking.wifi-info" entitlement.**
 
-This entitlement can be configured in xcode with the name "Access Wi-Fi information", and it is also found in the file `Runner.entitlements` in the example project. However, 
+This entitlement can be configured in xcode with the name "Access Wi-Fi information", and it is also found in the file `Runner.entitlements` in the example project. However,
 **this entitlement is only possible when using a professional development team** and not a "Personal development team".
 
 Without complying with these conditions, the calls to `.getWifiBSSID()` and `.getWifiName()` will return null.
@@ -139,4 +146,3 @@ Without complying with these conditions, the calls to `.getWifiBSSID()` and `.ge
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/network_info_plus/latest/network_info_plus/network_info_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/network_info_plus/overview)

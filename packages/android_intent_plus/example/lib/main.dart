@@ -70,6 +70,10 @@ class MyHomePage extends StatelessWidget {
                   'Tap here to set an alarm\non weekdays at 9:30pm.'),
             ),
             ElevatedButton(
+              onPressed: _parseAndLaunch,
+              child: const Text('Tap here to set an alarm\n based on URI'),
+            ),
+            ElevatedButton(
               onPressed: _openChooser,
               child: const Text('Tap here to launch Intent with Chooser'),
             ),
@@ -110,6 +114,18 @@ class MyHomePage extends StatelessWidget {
       action: 'com.example.broadcast',
     );
     intent.sendBroadcast();
+  }
+
+  void _parseAndLaunch() {
+    const intent = 'intent:#Intent;'
+        'action=android.intent.action.SET_ALARM;'
+        'B.android.intent.extra.alarm.SKIP_UI=true;'
+        'S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;'
+        'i.android.intent.extra.alarm.MINUTES=30;'
+        'i.android.intent.extra.alarm.HOUR=21;'
+        'end';
+
+    AndroidIntent.parseAndLaunch(intent);
   }
 }
 

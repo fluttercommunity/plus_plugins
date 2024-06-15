@@ -1,14 +1,10 @@
 # package_info_plus
 
-[![Flutter Community: package_info_plus](https://fluttercommunity.dev/_github/header/package_info_plus)](https://github.com/fluttercommunity/community)
-
 [![package_info_plus](https://github.com/fluttercommunity/plus_plugins/actions/workflows/package_info_plus.yaml/badge.svg)](https://github.com/fluttercommunity/plus_plugins/actions/workflows/package_info_plus.yaml)
 [![pub points](https://img.shields.io/pub/points/package_info_plus?color=2E8B57&label=pub%20points)](https://pub.dev/packages/package_info_plus/score)
 [![pub package](https://img.shields.io/pub/v/package_info_plus.svg)](https://pub.dev/packages/package_info_plus)
 
-<p class="center">
-<center><a href="https://flutter.dev/docs/development/packages-and-plugins/favorites" target="_blank" rel="noreferrer noopener"><img src="../../../website/static/img/flutter-favorite-badge.png" width="100" alt="build"></a></center>
-</p>
+[<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
 This Flutter plugin provides an API for querying information about an application package.
 
@@ -17,6 +13,17 @@ This Flutter plugin provides an API for querying information about an applicatio
 | Android |  iOS  | MacOS |  Web  | Linux | Windows |
 | :-----: | :---: | :---: | :---: | :---: | :-----: |
 |✅|✅|✅|✅|✅|✅|
+
+## Requirements
+
+- Flutter >=3.3.0
+- Dart >=2.18.0 <4.0.0
+- iOS >=12.0
+- MacOS >=10.14
+- Android `compileSDK` 34
+- Java 17
+- Android Gradle Plugin >=8.3.0
+- Gradle wrapper >=8.4
 
 ## Usage
 
@@ -94,5 +101,4 @@ Ensure that your CORS Firebase configuration allows it.
 ## Learn more
 
 - [API Documentation](https://pub.dev/documentation/package_info_plus/latest/package_info_plus/package_info_plus-library.html)
-- [Plugin documentation website](https://plus.fluttercommunity.dev/docs/package_info_plus/overview/)
 

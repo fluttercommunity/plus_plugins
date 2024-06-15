@@ -1,4 +1,4 @@
-name: android_intent_example
+name: android_intent_plus_example
 description: Demonstrates how to use the android_intent plugin.
 
 environment:
@@ -18,7 +18,7 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
 
 # The following section is specific to Flutter.
 flutter:
