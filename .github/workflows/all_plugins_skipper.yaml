@@ -7,8 +7,6 @@ name: all_plugins
 on:
   pull_request:
     paths:
-      - "docs/**"
-      - "website/**"
       - "**.md"
 
 jobs:

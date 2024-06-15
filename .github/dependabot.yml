@@ -14,18 +14,6 @@ updates:
       prefix: "chore"
       include: "scope"
 
-  # Website dependencies updates config
-
-  - package-ecosystem: "npm"
-    directory: "/website"
-    schedule:
-      interval: "monthly"
-    rebase-strategy: "disabled"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    versioning-strategy: increase
-
   # Android Alarm Manager dependencies updates config
 
   - package-ecosystem: "pub"

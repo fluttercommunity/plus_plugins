@@ -47,7 +47,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "io.flutter.plugins.batteryexample.example"
-        minSdk 19
+        minSdk 21
         targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

@@ -7,15 +7,11 @@ concurrency:
 on:
   pull_request:
     paths-ignore:
-      - "docs/**"
-      - "website/**"
       - "**.md"
   push:
     branches:
       - main
     paths-ignore:
-      - "docs/**"
-      - "website/**"
       - "**.md"
 
 jobs:
