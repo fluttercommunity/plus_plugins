@@ -156,10 +156,19 @@ class SharePlusWebPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
   }) async {
+    assert(fileNameOverrides == null || files.length == fileNameOverrides.length);
     final webFiles = <web.File>[];
-    for (final xFile in files) {
-      webFiles.add(await _fromXFile(xFile));
+    if (fileNameOverrides != null) {
+      for (final entry in files.asMap().entries) {
+        webFiles.add(await _fromXFile(entry.value,
+            nameOverride: fileNameOverrides[entry.key]));
+      }
+    } else {
+      for (final xFile in files) {
+        webFiles.add(await _fromXFile(xFile));
+      }
     }
 
     final ShareData data;
@@ -222,11 +231,11 @@ class SharePlusWebPlugin extends SharePlatform {
     }
   }
 
-  static Future<web.File> _fromXFile(XFile file) async {
+  static Future<web.File> _fromXFile(XFile file, {String? nameOverride}) async {
     final bytes = await file.readAsBytes();
     return web.File(
       [bytes.buffer.toJS].toJS,
-      file.name,
+      nameOverride ?? file.name,
       web.FilePropertyBag()
         ..type = file.mimeType ?? _mimeTypeForPath(file, bytes),
     );

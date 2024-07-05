@@ -4,6 +4,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_selector/file_selector.dart'
@@ -32,6 +33,7 @@ class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
   String uri = '';
+  String fileName = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
 
@@ -87,6 +89,18 @@ class DemoAppState extends State<DemoApp> {
                 maxLines: null,
                 onChanged: (String value) {
                   setState(() => uri = value);
+                },
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share Filename',
+                  hintText: 'Enter the filename you want to share your text as',
+                ),
+                maxLines: null,
+                onChanged: (String value) {
+                  setState(() => fileName = value);
                 },
               ),
               const SizedBox(height: 16),
@@ -157,6 +171,21 @@ class DemoAppState extends State<DemoApp> {
                   );
                 },
               ),
+              const SizedBox(height: 16),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: fileName.isEmpty || text.isEmpty
+                        ? null
+                        : () => _onShareTextAsXFile(context),
+                    child: const Text('Share text as XFile'),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -223,6 +252,24 @@ class DemoAppState extends State<DemoApp> {
         ),
       ],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+
+    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+  }
+  void _onShareTextAsXFile(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final data = utf8.encode(text);
+    final shareResult = await Share.shareXFiles(
+      [
+        XFile.fromData(
+          data,
+          // name: fileName, // Notice, how setting the name here does not work.
+          mimeType: 'text/plain',
+        ),
+      ],
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      fileNameOverrides: [fileName],
     );
 
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
