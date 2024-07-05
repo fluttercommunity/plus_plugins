@@ -158,7 +158,8 @@ class SharePlusWebPlugin extends SharePlatform {
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
   }) async {
-    assert(fileNameOverrides == null || files.length == fileNameOverrides.length);
+    assert(
+        fileNameOverrides == null || files.length == fileNameOverrides.length);
     final webFiles = <web.File>[];
     if (fileNameOverrides != null) {
       for (final entry in files.asMap().entries) {

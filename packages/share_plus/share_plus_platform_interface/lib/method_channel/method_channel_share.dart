@@ -79,7 +79,8 @@ class MethodChannelShare extends SharePlatform {
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
-    assert(fileNameOverrides == null || files.length == fileNameOverrides.length);
+    assert(
+        fileNameOverrides == null || files.length == fileNameOverrides.length);
     final filesWithPath = await _getFiles(files, fileNameOverrides);
     assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
@@ -118,7 +119,8 @@ class MethodChannelShare extends SharePlatform {
   /// then make new file in TemporaryDirectory and return with path
   /// the system will automatically delete files in this
   /// TemporaryDirectory as disk space is needed elsewhere on the device
-  Future<XFile> _getFile(XFile file, {String? tempRoot, String? nameOverride}) async {
+  Future<XFile> _getFile(XFile file,
+      {String? tempRoot, String? nameOverride}) async {
     if (file.path.isNotEmpty) {
       return file;
     } else {
@@ -140,12 +142,13 @@ class MethodChannelShare extends SharePlatform {
 
       //Per Issue [#3032](https://github.com/fluttercommunity/plus_plugins/issues/3032): use overriden name when avaiable.
       //Per Issue [#1548](https://github.com/fluttercommunity/plus_plugins/issues/1548): attempt to use XFile.name when available
-      final filename = nameOverride ?? (file.name.isNotEmpty // If filename exists
-              ||
-              lookupMimeType(file.name) !=
-                  null //If the filename has a valid extension
-          ? file.name
-          : "${const Uuid().v1().substring(10)}.$extension");
+      final filename = nameOverride ??
+          (file.name.isNotEmpty // If filename exists
+                  ||
+                  lookupMimeType(file.name) !=
+                      null //If the filename has a valid extension
+              ? file.name
+              : "${const Uuid().v1().substring(10)}.$extension");
 
       final path = "$tempSubfolderPath/$filename";
 
@@ -157,7 +160,8 @@ class MethodChannelShare extends SharePlatform {
   }
 
   /// A wrapper of [MethodChannelShare._getFile] for multiple files.
-  Future<List<XFile>> _getFiles(List<XFile> files, List<String>? fileNameOverrides) async =>
+  Future<List<XFile>> _getFiles(
+          List<XFile> files, List<String>? fileNameOverrides) async =>
       (fileNameOverrides == null)
           ? await Future.wait(files.map((entry) => _getFile(entry)))
           : await Future.wait(files.asMap().entries.map((entry) => _getFile(

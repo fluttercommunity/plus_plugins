@@ -256,6 +256,7 @@ class DemoAppState extends State<DemoApp> {
 
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }
+
   void _onShareTextAsXFile(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
