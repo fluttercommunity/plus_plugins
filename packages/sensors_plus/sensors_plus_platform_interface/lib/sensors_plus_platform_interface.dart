@@ -13,11 +13,13 @@ import 'src/accelerometer_event.dart';
 import 'src/gyroscope_event.dart';
 import 'src/magnetometer_event.dart';
 import 'src/user_accelerometer_event.dart';
+import 'src/barometer_event.dart';
 
 export 'src/accelerometer_event.dart';
 export 'src/gyroscope_event.dart';
 export 'src/magnetometer_event.dart';
 export 'src/user_accelerometer_event.dart';
+export 'src/barometer_event.dart';
 export 'src/sensor_interval.dart';
 
 /// The common platform interface for sensors.
@@ -69,6 +71,13 @@ abstract class SensorsPlatform extends PlatformInterface {
     return magnetometerEventStream();
   }
 
+  /// A broadcast stream of events from the device barometer.
+  @nonVirtual
+  @Deprecated('Use magnetometerEventStream() instead.')
+  Stream<BarometerEvent> get barometerEvents {
+    return barometerEventStream();
+  }
+
   /// Returns a broadcast stream of events from the device accelerometer at the
   /// given sampling frequency.
   Stream<AccelerometerEvent> accelerometerEventStream({
@@ -101,5 +110,13 @@ abstract class SensorsPlatform extends PlatformInterface {
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
     throw UnimplementedError('magnetometerEvents has not been implemented.');
+  }
+
+  /// Returns a broadcast stream of events from the device barometer at the
+  /// given sampling frequency.
+  Stream<BarometerEvent> barometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    throw UnimplementedError('barometerEvents has not been implemented.');
   }
 }
