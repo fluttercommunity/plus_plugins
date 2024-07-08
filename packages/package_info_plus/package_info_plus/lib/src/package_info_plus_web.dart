@@ -121,7 +121,7 @@ extension _UriOrigin on Uri {
   /// This is different from [Uri.origin] because that has checks to prevent
   /// non-http/https use-cases.
   String get _origin {
-    if (isScheme('chrome-extension')) {
+    if (isScheme('chrome-extension') || isScheme('moz-extension')) {
       return '$scheme://$host';
     }
     return origin;
