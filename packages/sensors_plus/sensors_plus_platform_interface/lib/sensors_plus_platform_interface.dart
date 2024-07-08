@@ -71,13 +71,6 @@ abstract class SensorsPlatform extends PlatformInterface {
     return magnetometerEventStream();
   }
 
-  /// A broadcast stream of events from the device barometer.
-  @nonVirtual
-  @Deprecated('Use barometerEventStream() instead.')
-  Stream<BarometerEvent> get barometerEvents {
-    return barometerEventStream();
-  }
-
   /// Returns a broadcast stream of events from the device accelerometer at the
   /// given sampling frequency.
   Stream<AccelerometerEvent> accelerometerEventStream({
