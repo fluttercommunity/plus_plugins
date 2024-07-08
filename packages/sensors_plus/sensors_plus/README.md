@@ -6,8 +6,8 @@
 
 [<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
-A Flutter plugin to access the accelerometer, gyroscope, and magnetometer
-sensors.
+A Flutter plugin to access the accelerometer, gyroscope, magnetometer and 
+barometer sensors.
 
 ## Platform Support
 
@@ -54,9 +54,11 @@ This will expose such classes of sensor events through a set of streams:
 - `GyroscopeEvent` describes the rotation of the device.
 - `MagnetometerEvent` describes the ambient magnetic field surrounding the
   device. A compass is an example usage of this data.
+- `BarometerEvent` describes the atmospheric pressure surrounding the device. 
+  An altimeter is an example usage of this data.
 
 These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
-`userAccelerometerEvents`, `gyroscopeEvents`, and `magnetometerEvents`,
+`userAccelerometerEvents`, `gyroscopeEvents`, `magnetometerEvents`, and `barometerEvents`,
 respectively.
 
 > [!NOTE]
@@ -116,6 +118,18 @@ magnetometerEvents.listen(
   cancelOnError: true,
 );
 // [MagnetometerEvent (x: -23.6, y: 6.2, z: -34.9)]
+
+barometerEvents.listen(
+  (BarometerEvent event) {
+    print(event);
+  },
+  onError: (error) {
+    // Logic to handle error
+    // Needed for Android in case sensor is not available
+    },
+  cancelOnError: true,
+);
+// [BarometerEvent (pressure: 1000.0)]
 ```
 
 Alternatively, every stream allows to specify the sampling rate for its sensor using one of predefined constants or using a custom value
