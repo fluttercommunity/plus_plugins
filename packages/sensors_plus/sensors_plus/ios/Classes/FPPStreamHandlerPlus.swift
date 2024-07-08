@@ -6,9 +6,11 @@ import Foundation
 import Flutter
 import UIKit
 import CoreMotion
+import CoreLocation
 
 let GRAVITY = 9.81
 var _motionManager: CMMotionManager!
+var _altimeter: CMAltimeter!
 
 public protocol MotionStreamHandler: FlutterStreamHandler {
     var samplingPeriod: Int { get set }
@@ -21,6 +23,12 @@ func _initMotionManager() {
         _motionManager.deviceMotionUpdateInterval = 0.2
         _motionManager.gyroUpdateInterval = 0.2
         _motionManager.magnetometerUpdateInterval = 0.2
+    }
+}
+
+func _initAltimeter() {
+    if (_altimeter == nil) {
+        _altimeter = CMAltimeter()
     }
 }
 
@@ -212,6 +220,59 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
 
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
         _motionManager.stopDeviceMotionUpdates()
+        return nil
+    }
+
+    func dealloc() {
+        FPPSensorsPlusPlugin._cleanUp()
+    }
+}
+
+class FPPBarometerStreamHandlerPlus: NSObject, MotionStreamHandler {
+
+    var samplingPeriod = 200000 {
+        didSet {
+            _initAltimeter()
+            // Note: CMAltimeter does not provide a way to set the sampling period directly.
+            // The sampling period would typically be managed by starting/stopping the updates.
+        }
+    }
+
+    func onListen(
+            withArguments arguments: Any?,
+            eventSink sink: @escaping FlutterEventSink
+    ) -> FlutterError? {
+        _initAltimeter()
+        if CMAltimeter.isRelativeAltitudeAvailable() {
+            _altimeter.startRelativeAltitudeUpdates(to: OperationQueue()) { data, error in
+                if _isCleanUp {
+                    return
+                }
+                if (error != nil) {
+                    sink(FlutterError(
+                            code: "UNAVAILABLE",
+                            message: error!.localizedDescription,
+                            details: nil
+                    ))
+                    return
+                }
+                let pressure = data!.pressure.doubleValue * 10.0 // kPa to hPa (hectopascals)
+                DispatchQueue.main.async {
+                    sink(pressure)
+                }
+            }
+        } else {
+            return FlutterError(
+                code: "UNAVAILABLE",
+                message: "Barometer is not available on this device",
+                details: nil
+            )
+        }
+        return nil
+    }
+
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        _altimeter.stopRelativeAltitudeUpdates()
         return nil
     }
 
