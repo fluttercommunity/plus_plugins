@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
             child: Table(
               columnWidths: const {
                 0: FlexColumnWidth(4),
@@ -169,6 +169,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text('${_magnetometerLastInterval?.toString() ?? '?'} ms'),
                   ],
                 ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+            child: Table(
+              columnWidths: const {
+                0: FlexColumnWidth(4),
+                1: FlexColumnWidth(3),
+                2: FlexColumnWidth(2),
+              },
+              children: [
+                const TableRow(
+                  children: [
+                    SizedBox.shrink(),
+                    Text('Pressure'),
+                    Text('Interval'),
+                  ],
+                ),
                 TableRow(
                   children: [
                     const Padding(
@@ -176,8 +195,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('Barometer'),
                     ),
                     Text(_barometerEvent?.pressure.toStringAsFixed(1) ?? '?'),
-                    const Text('?'),
-                    const Text('?'),
                     Text('${_barometerLastInterval?.toString() ?? '?'} ms'),
                   ],
                 ),
