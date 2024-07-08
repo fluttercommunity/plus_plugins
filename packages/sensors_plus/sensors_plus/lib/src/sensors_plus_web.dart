@@ -32,6 +32,12 @@ Stream<MagnetometerEvent> get magnetometerEvents {
   return _sensors.magnetometerEvents;
 }
 
+/// A broadcast stream of events from the device barometer.
+@Deprecated('Use barometerEventStream() instead.')
+Stream<BarometerEvent> get barometerEvents {
+  return _sensors.barometerEvents;
+}
+
 /// Returns a broadcast stream of events from the device accelerometer at the
 /// given sampling frequency.
 @override
@@ -66,4 +72,13 @@ Stream<MagnetometerEvent> magnetometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
   return _sensors.magnetometerEventStream(samplingPeriod: samplingPeriod);
+}
+
+/// Returns a broadcast stream of events from the device barometer at the
+/// given sampling frequency.
+@override
+Stream<BarometerEvent> barometerEventStream({
+  Duration samplingPeriod = SensorInterval.normalInterval,
+}) {
+  return _sensors.barometerEventStream(samplingPeriod: samplingPeriod);
 }

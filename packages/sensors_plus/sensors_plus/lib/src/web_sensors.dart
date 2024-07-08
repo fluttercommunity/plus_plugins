@@ -274,6 +274,58 @@ class WebSensorsPlugin extends SensorsPlatform {
 
     return _magnetometerResultStream;
   }
+
+  StreamController<BarometerEvent>? _barometerStreamController;
+  late Stream<BarometerEvent> _barometerResultStream;
+
+  @override
+  Stream<BarometerEvent> barometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    // The Barometer API does not exist and so not supported by any modern browser.
+    if (_barometerStreamController == null) {
+      _barometerStreamController = StreamController<BarometerEvent>();
+      _featureDetected(
+        () {
+          final barometerSensor = Barometer(
+            SensorOptions(
+              frequency: samplingPeriod.frequency,
+            ),
+          );
+
+          barometerSensor.start();
+
+          barometerSensor.onreading = (Event _) {
+            _barometerStreamController!.add(
+              BarometerEvent(
+                barometerSensor.pressure,
+              ),
+            );
+          }.toJS;
+
+          barometerSensor.onerror = (SensorErrorEvent e) {
+            developer.log(
+              'The Barometer API is supported but something is wrong!',
+              error: e,
+            );
+          }.toJS;
+        },
+        apiName: 'Barometer()',
+        permissionName: 'barometer',
+        onError: () {
+          _barometerStreamController!.add(BarometerEvent(0));
+        },
+      );
+      _barometerResultStream =
+          _barometerStreamController!.stream.asBroadcastStream();
+
+      _barometerStreamController!.onCancel = () {
+        _barometerStreamController!.close();
+      };
+    }
+
+    return _barometerResultStream;
+  }
 }
 
 extension on Duration {
