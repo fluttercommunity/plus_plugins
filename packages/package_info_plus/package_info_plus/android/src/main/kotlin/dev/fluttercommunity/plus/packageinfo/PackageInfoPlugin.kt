@@ -42,9 +42,9 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
-                    put("appName", info.applicationInfo.loadLabel(packageManager).toString())
+                    put("appName", info.applicationInfo?.loadLabel(packageManager)?.toString() ?: "")
                     put("packageName", applicationContext!!.packageName)
-                    put("version", info.versionName)
+                    put("version", info.versionName ?: "")
                     put("buildNumber", getLongVersionCode(info).toString())
                     if (buildSignature != null) put("buildSignature", buildSignature)
                     if (installerPackage != null) put("installerStore", installerPackage)
@@ -105,7 +105,7 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                 )
                 val signatures = packageInfo.signatures
 
-                if (signatures.isNullOrEmpty() || packageInfo.signatures.first() == null) {
+                if (signatures.isNullOrEmpty() || signatures.first() == null) {
                     null
                 } else {
                     signatureToSha256(signatures.first().toByteArray())
