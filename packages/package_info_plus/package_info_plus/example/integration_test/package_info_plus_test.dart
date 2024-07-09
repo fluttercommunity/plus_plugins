@@ -4,11 +4,14 @@
 
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:package_info_plus_example/main.dart';
+
+const android14SDK = 34;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -24,13 +27,21 @@ void main() {
       expect(info.version, '1.2.3');
       expect(info.installerStore, null);
     } else {
+
       if (Platform.isAndroid) {
+        final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
+
         expect(info.appName, 'package_info_example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isNotEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
         expect(info.version, '1.2.3');
-        expect(info.installerStore, null);
+        // Since Android 14 (API 34) OS returns com.android.shell when app is installed via package installer
+        if (androidVersionInfo.version.sdkInt >= android14SDK) {
+          expect(info.installerStore, 'com.android.shell');
+        } else {
+          expect(info.installerStore, null);
+        }
       } else if (Platform.isIOS) {
         expect(info.appName, 'Package Info Plus Example');
         expect(info.buildNumber, '4');
