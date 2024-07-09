@@ -11,24 +11,25 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
   private func connectivityFrom(path: NWPath) -> [ConnectivityType] {
     var types: [ConnectivityType] = []
-    
-    // Check for connectivity and append to types array as necessary
-    if path.status == .satisfied {
-      if path.usesInterfaceType(.wifi) {
-        types.append(.wifi)
-      }
-      if path.usesInterfaceType(.cellular) {
-        types.append(.cellular)
-      }
-      if path.usesInterfaceType(.wiredEthernet) {
-        types.append(.wiredEthernet)
-      }
-      if path.usesInterfaceType(.other) {
-        types.append(.other)
-      }
-    }
-    
-    return types.isEmpty ? [.none] : types
+
+     for interface in path.availableInterfaces {
+            switch interface.type {
+            case .wifi:
+                types.append(.wifi)
+            case .wiredEthernet:
+                types.append(.wiredEthernet)
+            case .cellular:
+                types.append(.cellular)
+            case .loopback:
+                types.append(.other)
+            case .other:
+                types.append(.other)
+            @unknown default:
+                types.append(.other)
+            }
+        }
+
+        return types.isEmpty ? [.none] : types
   }
 
   public var currentConnectivityTypes: [ConnectivityType] {

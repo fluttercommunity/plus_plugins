@@ -46,7 +46,7 @@ class Connectivity {
   /// case where [ConnectivityResult.none] is present.
   ///
   /// This method applies [Stream.distinct] over the received events to ensure
-  /// only emiting when connectivity changes.
+  /// only emitting when connectivity changes.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged.distinct((a, b) => a.equals(b));
   }
@@ -54,8 +54,7 @@ class Connectivity {
   /// Checks the connection status of the device.
   ///
   /// Do not use the result of this function to decide whether you can reliably
-  /// make a network request, it only gives you the radio status. Instead, listen
-  /// for connectivity changes via [onConnectivityChanged] stream.
+  /// make a network request, as it only provides network interfaces status, but not an Internet availability.
   ///
   /// The returned list is never empty. In case of no connectivity, the list contains
   /// a single element of [ConnectivityResult.none]. Note also that this is the only
