@@ -27,7 +27,6 @@ void main() {
       expect(info.version, '1.2.3');
       expect(info.installerStore, null);
     } else {
-
       if (Platform.isAndroid) {
         final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
 
