@@ -44,7 +44,7 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                 infoMap.apply {
                     put("appName", info.applicationInfo?.loadLabel(packageManager)?.toString() ?: "")
                     put("packageName", applicationContext!!.packageName)
-                    put("version", info?.versionName ?: "")
+                    put("version", info.versionName ?: "")
                     put("buildNumber", getLongVersionCode(info).toString())
                     if (buildSignature != null) put("buildSignature", buildSignature)
                     if (installerPackage != null) put("installerStore", installerPackage)
