@@ -85,13 +85,22 @@ void main() {
       expect(find.text('not available'), findsOneWidget);
     } else {
       if (Platform.isAndroid) {
+        final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
+
         expect(find.text('package_info_example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageinfoexample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageinfoexample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsNothing);
-        expect(find.text('not available'), findsOneWidget);
+        // Since Android 14 (API 34) OS returns com.android.shell when app is installed via package installer
+        if (androidVersionInfo.version.sdkInt >= android14SDK) {
+          expect(find.text('com.android.shell'), findsOneWidget);
+        } else {
+          expect(find.text('not available'), findsOneWidget);
+        }
       } else if (Platform.isIOS) {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
