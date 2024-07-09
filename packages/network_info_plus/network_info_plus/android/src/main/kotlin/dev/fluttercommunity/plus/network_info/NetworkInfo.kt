@@ -105,39 +105,32 @@ internal class NetworkInfo(
         )
 
     private fun getIPv4Subnet(inetAddress: InetAddress): String {
-        try {
-            val ni = NetworkInterface.getByInetAddress(inetAddress)
-            val intAddresses = ni.interfaceAddresses
-            for (ia in intAddresses) {
-                if (!ia.address.isLoopbackAddress && ia.address is Inet4Address) {
-                    val networkPrefix =
-                        getIPv4SubnetFromNetPrefixLength(ia.networkPrefixLength.toInt())
-                    if (networkPrefix != null) {
-                        return networkPrefix.hostAddress!!
-                    }
+        val ni = NetworkInterface.getByInetAddress(inetAddress)
+        val intAddresses = ni.interfaceAddresses
+        for (ia in intAddresses) {
+            if (!ia.address.isLoopbackAddress && ia.address is Inet4Address) {
+                val networkPrefix =
+                    getIPv4SubnetFromNetPrefixLength(ia.networkPrefixLength.toInt())
+                if (networkPrefix != null) {
+                    return networkPrefix.hostAddress!!
                 }
             }
-        } catch (ignored: Exception) {
         }
         return ""
     }
 
     private fun getIPv4SubnetFromNetPrefixLength(netPrefixLength: Int): InetAddress? {
-        try {
-            var shift = 1 shl 31
-            for (i in netPrefixLength - 1 downTo 1) {
-                shift = shift shr 1
-            }
-            val subnet = ((shift shr 24 and 255)
-                .toString() + "."
-                + (shift shr 16 and 255)
-                + "."
-                + (shift shr 8 and 255)
-                + "."
-                + (shift and 255))
-            return InetAddress.getByName(subnet)
-        } catch (ignored: Exception) {
+        var shift = 1 shl 31
+        for (i in netPrefixLength - 1 downTo 1) {
+            shift = shift shr 1
         }
-        return null
+        val subnet = ((shift shr 24 and 255)
+            .toString() + "."
+            + (shift shr 16 and 255)
+            + "."
+            + (shift shr 8 and 255)
+            + "."
+            + (shift and 255))
+        return InetAddress.getByName(subnet)
     }
 }
