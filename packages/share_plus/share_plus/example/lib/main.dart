@@ -95,7 +95,7 @@ class DemoAppState extends State<DemoApp> {
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Share Filename',
+                  labelText: 'Share Text as File',
                   hintText: 'Enter the filename you want to share your text as',
                 ),
                 maxLines: null,
