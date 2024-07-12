@@ -7,8 +7,9 @@ import android.os.Build
 import java.net.*
 
 /** Reports network info such as wifi name and address. */
-internal class NetworkInfo(private val wifiManager: WifiManager,
-                           private val connectivityManager: ConnectivityManager? = null
+internal class NetworkInfo(
+    private val wifiManager: WifiManager,
+    private val connectivityManager: ConnectivityManager? = null
 ) {
 
     // Using deprecated `connectionInfo` call here to be able to get info on demand
@@ -25,7 +26,8 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
         var ipAddress: String? = null
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val linkAddresses = connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)?.linkAddresses
+            val linkAddresses =
+                connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)?.linkAddresses
 
             val ipV4Address = linkAddresses?.firstOrNull { linkAddress ->
                 linkAddress.address.hostAddress?.contains('.')
@@ -35,7 +37,7 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
             ipAddress = ipV4Address
         } else {
             @Suppress("DEPRECATION")
-            val interfaceIp = wifiInfo!!.ipAddress
+            val interfaceIp = wifiInfo.ipAddress
             if (interfaceIp != 0) ipAddress = formatIPAddress(interfaceIp)
         }
         return ipAddress
@@ -43,56 +45,44 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
 
     fun getWifiSubnetMask(): String {
         val ip = getWifiIPAddress()
-        var subnet = ""
-        try {
-            val inetAddress = InetAddress.getByName(ip)
-            subnet = getIPv4Subnet(inetAddress)
-        } catch (ignored: Exception) {
-        }
+        val inetAddress = InetAddress.getByName(ip)
+        val subnet = getIPv4Subnet(inetAddress)
         return subnet
     }
 
     fun getBroadcastIP(): String? {
-        var broadcastIP: String? = null
         val currentWifiIpAddress = getWifiIPAddress()
         val inetAddress = InetAddress.getByName(currentWifiIpAddress)
-        try {
-            val networkInterface = NetworkInterface.getByInetAddress(inetAddress)
-            networkInterface.interfaceAddresses.forEach { interfaceAddress ->
-                if (!interfaceAddress.address.isLoopbackAddress) {
-                    if (interfaceAddress.broadcast != null) {
-                        broadcastIP = interfaceAddress.broadcast.hostAddress
-                    }
+        val networkInterface = NetworkInterface.getByInetAddress(inetAddress)
+        networkInterface.interfaceAddresses.forEach { interfaceAddress ->
+            if (!interfaceAddress.address.isLoopbackAddress) {
+                if (interfaceAddress.broadcast != null) {
+                    return interfaceAddress.broadcast.hostAddress
                 }
             }
-        } catch (ignored: Exception) {
-
         }
-        return broadcastIP
+        return null
     }
 
     fun getIpV6(): String? {
-        try {
-            val ip = getWifiIPAddress()
-            val ni = NetworkInterface.getByInetAddress(InetAddress.getByName(ip))
-            for (interfaceAddress in ni.interfaceAddresses) {
-                val address = interfaceAddress.address
-                if (!address.isLoopbackAddress && address is Inet6Address) {
-                    val ipaddress = address.getHostAddress()
-                    if (ipaddress != null) {
-                        return ipaddress.split("%").toTypedArray()[0]
-                    }
+        val ip = getWifiIPAddress()
+        val ni = NetworkInterface.getByInetAddress(InetAddress.getByName(ip))
+        for (interfaceAddress in ni.interfaceAddresses) {
+            val address = interfaceAddress.address
+            if (!address.isLoopbackAddress && address is Inet6Address) {
+                val ipaddress = address.getHostAddress()
+                if (ipaddress != null) {
+                    return ipaddress.split("%").toTypedArray()[0]
                 }
             }
-        } catch (ignored: SocketException) {
-
         }
         return null
     }
 
     fun getGatewayIPAddress(): String? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val linkAddresses = connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)
+            val linkAddresses =
+                connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)
             val dhcpServer = linkAddresses?.dhcpServerAddress?.hostAddress
 
             dhcpServer
@@ -115,39 +105,32 @@ internal class NetworkInfo(private val wifiManager: WifiManager,
         )
 
     private fun getIPv4Subnet(inetAddress: InetAddress): String {
-        try {
-            val ni = NetworkInterface.getByInetAddress(inetAddress)
-            val intAddresses = ni.interfaceAddresses
-            for (ia in intAddresses) {
-                if (!ia.address.isLoopbackAddress && ia.address is Inet4Address) {
-                    val networkPrefix =
-                        getIPv4SubnetFromNetPrefixLength(ia.networkPrefixLength.toInt())
-                    if (networkPrefix != null) {
-                        return networkPrefix.hostAddress!!
-                    }
+        val ni = NetworkInterface.getByInetAddress(inetAddress)
+        val intAddresses = ni.interfaceAddresses
+        for (ia in intAddresses) {
+            if (!ia.address.isLoopbackAddress && ia.address is Inet4Address) {
+                val networkPrefix =
+                    getIPv4SubnetFromNetPrefixLength(ia.networkPrefixLength.toInt())
+                if (networkPrefix != null) {
+                    return networkPrefix.hostAddress!!
                 }
             }
-        } catch (ignored: Exception) {
         }
         return ""
     }
 
     private fun getIPv4SubnetFromNetPrefixLength(netPrefixLength: Int): InetAddress? {
-        try {
-            var shift = 1 shl 31
-            for (i in netPrefixLength - 1 downTo 1) {
-                shift = shift shr 1
-            }
-            val subnet = ((shift shr 24 and 255)
-                .toString() + "."
-                + (shift shr 16 and 255)
-                + "."
-                + (shift shr 8 and 255)
-                + "."
-                + (shift and 255))
-            return InetAddress.getByName(subnet)
-        } catch (ignored: Exception) {
+        var shift = 1 shl 31
+        for (i in netPrefixLength - 1 downTo 1) {
+            shift = shift shr 1
         }
-        return null
+        val subnet = ((shift shr 24 and 255)
+            .toString() + "."
+            + (shift shr 16 and 255)
+            + "."
+            + (shift shr 8 and 255)
+            + "."
+            + (shift and 255))
+        return InetAddress.getByName(subnet)
     }
 }
