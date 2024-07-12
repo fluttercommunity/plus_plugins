@@ -171,7 +171,7 @@ class MethodChannelShare extends SharePlatform {
     List<String>? fileNameOverrides,
   ) async {
     return Future.wait([
-      for (var index = 1; index < files.length; index++)
+      for (var index = 0; index < files.length; index++)
         _getFile(
           files[index],
           nameOverride: fileNameOverrides?.elementAt(index),
