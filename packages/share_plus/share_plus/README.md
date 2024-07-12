@@ -90,7 +90,7 @@ if (result.status == ShareResultStatus.dismissed) {
 }
 ```
 
-On web, you can use `SharePlus.shareXFiles()`. This uses the [Web Share API](https://web.dev/web-share/)
+On web, this uses the [Web Share API](https://web.dev/web-share/)
 if it's available. Otherwise it falls back to downloading the shared files.
 See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
 which browsers are supported. This builds on the [`cross_file`](https://pub.dev/packages/cross_file)
@@ -101,13 +101,18 @@ package.
 Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
 ```
 
-#### Share data as Files
+#### Share Data
 
 You can also share files that you dynamically generated from its data using [`XFile.fromData`](https://pub.dev/documentation/share_plus/latest/share_plus/XFile/XFile.fromData.html).
+
 To set the name of these files, use the `fileNameOverrides` parameter, otherwise the file name will be a random UUID string.
+
 ```dart
 Share.shareXFiles([XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], fileNameOverrides: ['myfile.txt']);
 ```
+
+> [!CAUTION]
+> The `name` parameter in the `XFile.fromData` method is ignored in most platforms. Use `fileNameOverrides` instead.
 
 ### Share URI
 
