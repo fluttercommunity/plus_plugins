@@ -4,11 +4,14 @@
 
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:package_info_plus_example/main.dart';
+
+const android14SDK = 34;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +28,19 @@ void main() {
       expect(info.installerStore, null);
     } else {
       if (Platform.isAndroid) {
+        final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
+
         expect(info.appName, 'package_info_example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isNotEmpty);
         expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
         expect(info.version, '1.2.3');
-        expect(info.installerStore, null);
+        // Since Android 14 (API 34) OS returns com.android.shell when app is installed via package installer
+        if (androidVersionInfo.version.sdkInt >= android14SDK) {
+          expect(info.installerStore, 'com.android.shell');
+        } else {
+          expect(info.installerStore, null);
+        }
       } else if (Platform.isIOS) {
         expect(info.appName, 'Package Info Plus Example');
         expect(info.buildNumber, '4');
@@ -75,13 +85,22 @@ void main() {
       expect(find.text('not available'), findsOneWidget);
     } else {
       if (Platform.isAndroid) {
+        final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
+
         expect(find.text('package_info_example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageinfoexample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageinfoexample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsNothing);
-        expect(find.text('not available'), findsOneWidget);
+        // Since Android 14 (API 34) OS returns com.android.shell when app is installed via package installer
+        if (androidVersionInfo.version.sdkInt >= android14SDK) {
+          expect(find.text('com.android.shell'), findsOneWidget);
+        } else {
+          expect(find.text('not available'), findsOneWidget);
+        }
       } else if (Platform.isIOS) {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
