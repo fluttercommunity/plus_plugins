@@ -55,7 +55,7 @@ This will expose such classes of sensor events through a set of streams:
 - `MagnetometerEvent` describes the ambient magnetic field surrounding the
   device. A compass is an example usage of this data.
 - `BarometerEvent` describes the atmospheric pressure surrounding the device. 
-  An altimeter is an example usage of this data.
+  An altimeter is an example usage of this data. Not supported on web browsers.
 
 These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
 `userAccelerometerEvents`, `gyroscopeEvents`, `magnetometerEvents`, and `barometerEvents`,
