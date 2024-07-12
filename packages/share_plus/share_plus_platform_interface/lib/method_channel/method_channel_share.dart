@@ -80,7 +80,9 @@ class MethodChannelShare extends SharePlatform {
   }) async {
     assert(files.isNotEmpty);
     assert(
-        fileNameOverrides == null || files.length == fileNameOverrides.length);
+      fileNameOverrides == null || files.length == fileNameOverrides.length,
+      "fileNameOverrides list must be equal size as file list.",
+    );
     final filesWithPath = await _getFiles(files, fileNameOverrides);
     assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
@@ -121,7 +123,7 @@ class MethodChannelShare extends SharePlatform {
   /// TemporaryDirectory as disk space is needed elsewhere on the device
   Future<XFile> _getFile(
     XFile file, {
-    String? tempRoot, 
+    String? tempRoot,
     String? nameOverride,
   }) async {
     if (file.path.isNotEmpty) {
@@ -165,14 +167,17 @@ class MethodChannelShare extends SharePlatform {
 
   /// A wrapper of [MethodChannelShare._getFile] for multiple files.
   Future<List<XFile>> _getFiles(
-    List<XFile> files, 
+    List<XFile> files,
     List<String>? fileNameOverrides,
-  ) async =>
-      (fileNameOverrides == null)
-          ? await Future.wait(files.map((entry) => _getFile(entry)))
-          : await Future.wait(files.asMap().entries.map((entry) => _getFile(
-              entry.value,
-              nameOverride: fileNameOverrides[entry.key])));
+  ) async {
+    return Future.wait([
+      for (var index = 1; index < files.length; index++)
+        _getFile(
+          files[index],
+          nameOverride: fileNameOverrides?.elementAt(index),
+        )
+    ]);
+  }
 
   static String _mimeTypeForPath(String path) {
     return lookupMimeType(path) ?? 'application/octet-stream';
