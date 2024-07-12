@@ -140,13 +140,14 @@ class MethodChannelShare extends SharePlatform {
       final tempSubfolderPath = "$tempRoot/${const Uuid().v4()}";
       await Directory(tempSubfolderPath).create(recursive: true);
 
-      //Per Issue [#3032](https://github.com/fluttercommunity/plus_plugins/issues/3032): use overriden name when avaiable.
+      // True if filename exists, or the filename has a valid extension
+      final filenameNotEmptyOrHasValidExt =
+          file.name.isNotEmpty || lookupMimeType(file.name) != null;
+
+      //Per Issue [#3032](https://github.com/fluttercommunity/plus_plugins/issues/3032): use overridden name when available.
       //Per Issue [#1548](https://github.com/fluttercommunity/plus_plugins/issues/1548): attempt to use XFile.name when available
       final filename = nameOverride ??
-          (file.name.isNotEmpty // If filename exists
-                  ||
-                  lookupMimeType(file.name) !=
-                      null //If the filename has a valid extension
+          (filenameNotEmptyOrHasValidExt
               ? file.name
               : "${const Uuid().v1().substring(10)}.$extension");
 

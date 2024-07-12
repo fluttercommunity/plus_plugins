@@ -161,15 +161,10 @@ class SharePlusWebPlugin extends SharePlatform {
     assert(
         fileNameOverrides == null || files.length == fileNameOverrides.length);
     final webFiles = <web.File>[];
-    if (fileNameOverrides != null) {
-      for (final entry in files.asMap().entries) {
-        webFiles.add(await _fromXFile(entry.value,
-            nameOverride: fileNameOverrides[entry.key]));
-      }
-    } else {
-      for (final xFile in files) {
-        webFiles.add(await _fromXFile(xFile));
-      }
+    for (var index = 0; index < files.length; index++) {
+      final xFile = files[index];
+      final filename = fileNameOverrides?.elementAt(index);
+      webFiles.add(await _fromXFile(xFile, nameOverride: filename));
     }
 
     final ShareData data;
