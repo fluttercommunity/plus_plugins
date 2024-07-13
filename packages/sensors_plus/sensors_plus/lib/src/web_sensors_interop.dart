@@ -72,22 +72,6 @@ extension type Magnetometer._(JSObject _) implements JSObject {
   external void start();
 }
 
-/// Barometer not implemented
-/// https://developer.mozilla.org/en-US/docs/Web/API/Sensor
-@JS('Barometer')
-extension type Barometer._(JSObject _) implements JSObject {
-  external factory Barometer([
-    SensorOptions options,
-  ]);
-
-  external double get pressure;
-
-  external set onreading(JSFunction callback);
-  external set onerror(JSFunction callback);
-
-  external void start();
-}
-
 extension type SensorOptions._(JSObject _) implements JSObject {
   external factory SensorOptions({
     int frequency,
