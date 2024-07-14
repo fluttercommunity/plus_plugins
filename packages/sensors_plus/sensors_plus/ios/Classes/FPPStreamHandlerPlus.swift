@@ -6,7 +6,6 @@ import Foundation
 import Flutter
 import UIKit
 import CoreMotion
-import CoreLocation
 
 let GRAVITY = 9.81
 var _motionManager: CMMotionManager!
