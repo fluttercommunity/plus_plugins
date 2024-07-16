@@ -12,6 +12,7 @@ body:
         2. Search on Stack Overflow for similar errors.
         3. Search on Google or other general purpose search engines.
         4. Perform a `flutter upgrade`, followed by `flutter pub upgrade` and finally `flutter clean`, then try again.
+        5. Perform a `flutter pub cache repair` to clean install of the packages in your system cache. See [`dart pub cache`](https://dart.dev/tools/pub/cmd/pub-cache) for more info.
 
         If you can prove that you have done all these steps and still have problems, proceed with the following template.
 
