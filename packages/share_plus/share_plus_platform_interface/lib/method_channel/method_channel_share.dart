@@ -81,7 +81,7 @@ class MethodChannelShare extends SharePlatform {
     assert(files.isNotEmpty);
     assert(
       fileNameOverrides == null || files.length == fileNameOverrides.length,
-      "fileNameOverrides list must be equal size as file list.",
+      "fileNameOverrides list must have the same length as files list.",
     );
     final filesWithPath = await _getFiles(files, fileNameOverrides);
     assert(filesWithPath.every((element) => element.path.isNotEmpty));
