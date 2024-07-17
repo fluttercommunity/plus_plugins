@@ -145,7 +145,7 @@ class MethodChannelShare extends SharePlatform {
       final tempSubfolderPath = "$tempRoot/${const Uuid().v4()}";
       await Directory(tempSubfolderPath).create(recursive: true);
 
-      // True if filename exists, or the filename has a valid extension
+      // True if filename exists or the filename has a valid extension
       final filenameNotEmptyOrHasValidExt =
           file.name.isNotEmpty || lookupMimeType(file.name) != null;
 
