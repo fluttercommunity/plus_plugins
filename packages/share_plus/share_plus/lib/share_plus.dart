@@ -112,7 +112,7 @@ class Share {
   /// on other devices.
   ///
   /// The optional parameter [fileNameOverrides] can be used to override the names of shared files
-  /// If set, the length must match the length of [files].
+  /// When set, the list length must match the number of [files] to share.
   /// This is useful when sharing files that were created by [`XFile.fromData`](https://github.com/flutter/packages/blob/754de1918a339270b70971b6841cf1e04dd71050/packages/cross_file/lib/src/types/io.dart#L43),
   /// because name property will be ignored by  [`cross_file`](https://pub.dev/packages/cross_file) on all platforms except on web.
   ///
