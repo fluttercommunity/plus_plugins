@@ -257,7 +257,10 @@ class FPPBarometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                 }
                 let pressure = data!.pressure.doubleValue * 10.0 // kPa to hPa (hectopascals)
                 DispatchQueue.main.async {
-                    sink(pressure)
+                let pressureArray: [Double] = [pressure]
+                pressureArray.withUnsafeBufferPointer { buffer in
+                    sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
+                    }
                 }
             }
         } else {
