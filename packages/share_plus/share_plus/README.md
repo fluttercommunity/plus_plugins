@@ -103,7 +103,7 @@ Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
 
 #### Share Data
 
-You can also share files that you dynamically generated from its data using [`XFile.fromData`](https://pub.dev/documentation/share_plus/latest/share_plus/XFile/XFile.fromData.html).
+You can also share files that you dynamically generate from its data using [`XFile.fromData`](https://pub.dev/documentation/share_plus/latest/share_plus/XFile/XFile.fromData.html).
 
 To set the name of these files, use the `fileNameOverrides` parameter, otherwise the file name will be a random UUID string.
 
