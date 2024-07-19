@@ -168,9 +168,9 @@ The following lists the restrictions for the sensors on certain platforms due to
 
   Developers should consider alternative methods or inform users about the limitation when their application runs on a web platform. 
 
-  > [!NOTE]
-  >
-  > Plugin won't crash the app in the case of usage on these platforms, but it is highly recommended to add onError() to handle such cases gracefully.
+> [!NOTE]
+>
+> Plugin won't crash the app in the case of usage on these platforms, but it is highly recommended to add onError() to handle such cases gracefully.
 
 - **Barometer sampling period limitation for iOS**
 
@@ -187,9 +187,9 @@ The following lists the restrictions for the sensors on certain platforms due to
   <string>This app requires access to the barometer to provide altitude information.</string>
   ```
 
-  > [!NOTE]
-  > 
-  > Adding [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) is a requirement and not doing so will crash your app when it attempts to access motion data.
+> [!IMPORTANT]
+>
+> Adding [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) is a requirement and not doing so will crash your app when it attempts to access motion data.
 
 ## Learn more
 
