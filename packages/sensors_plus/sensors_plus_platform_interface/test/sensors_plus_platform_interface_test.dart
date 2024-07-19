@@ -48,6 +48,15 @@ Stream<MagnetometerEvent> magnetometerEventStream({
   return methodChannel.magnetometerEventStream(samplingPeriod: samplingPeriod);
 }
 
+/// Returns a broadcast stream of events from the device magnetometer at the
+/// given sampling frequency.
+@override
+Stream<BarometerEvent> barometerEventStream({
+  Duration samplingPeriod = SensorInterval.normalInterval,
+}) {
+  return methodChannel.barometerEventStream(samplingPeriod: samplingPeriod);
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -101,6 +110,17 @@ void main() {
     expect(event.x, sensorData[0]);
     expect(event.y, sensorData[1]);
     expect(event.z, sensorData[2]);
+  });
+
+  test('barometerEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/barometer';
+    const sensorData = <double>[1000.0];
+    _initializeFakeMethodChannel('setBarometerSamplingPeriod');
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await barometerEventStream().first;
+
+    expect(event.pressure, sensorData[0]);
   });
 }
 

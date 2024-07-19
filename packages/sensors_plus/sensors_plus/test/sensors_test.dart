@@ -62,6 +62,17 @@ void main() {
     expect(event.y, sensorData[1]);
     expect(event.z, sensorData[2]);
   });
+
+  test('barometerEvents are streamed', () async {
+    const channelName = 'dev.fluttercommunity.plus/sensors/barometer';
+    const sensorData = <double>[1000.0];
+    _initializeFakeMethodChannel('setBarometerSamplingPeriod');
+    _initializeFakeSensorChannel(channelName, sensorData);
+
+    final event = await barometerEventStream().first;
+
+    expect(event.pressure, sensorData[0]);
+  });
 }
 
 void _initializeFakeMethodChannel(String methodName) {

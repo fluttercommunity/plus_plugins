@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.version          = '0.0.1'
   s.summary          = 'Flutter Sensors'
   s.description      = <<-DESC
-Flutter plugin to access the accelerometer, gyroscope, and magnetometer sensors.
+Flutter plugin to access the accelerometer, gyroscope, magnetometer and barometer sensors.
                        DESC
   s.homepage         = 'https://github.com/fluttercommunity/plus_plugins'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }

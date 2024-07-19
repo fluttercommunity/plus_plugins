@@ -65,4 +65,17 @@ class Sensors extends SensorsPlatform {
   }) {
     return _platform.magnetometerEventStream(samplingPeriod: samplingPeriod);
   }
+
+  /// Returns a broadcast stream of events from the device barometer at the
+  /// given sampling frequency.
+  ///
+  /// This method always returning the same stream. If this method is called
+  /// again, the sampling period of the stream will be update. All previous
+  /// listener will also be affected.
+  @override
+  Stream<BarometerEvent> barometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    return _platform.barometerEventStream(samplingPeriod: samplingPeriod);
+  }
 }
