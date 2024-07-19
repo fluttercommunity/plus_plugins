@@ -172,6 +172,10 @@ The following lists the restrictions for the sensors on certain platforms due to
 >
 > Plugin won't crash the app in the case of usage on these platforms, but it is highly recommended to add onError() to handle such cases gracefully.
 
+- **Sampling periods for web**
+
+  Currently it is not possible to set sensors sampling rate on web. Calls to event streams at specied sampling periods will have the sampling period ignored. 
+
 - **Barometer sampling period limitation for iOS**
 
   On iOS devices, barometer updates are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides updates at regular intervals that cannot be controlled by the user. Calls to `barometerEventStream` at specied sampling periods will have the sampling period ignored. 
