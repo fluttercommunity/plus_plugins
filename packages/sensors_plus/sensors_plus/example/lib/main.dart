@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Text('Barometer'),
                     ),
-                    Text(_barometerEvent?.pressure.toStringAsFixed(1) ?? '?'),
+                    Text('${_barometerEvent?.pressure.toStringAsFixed(1) ?? '?'} hPa'),
                     Text('${_barometerLastInterval?.toString() ?? '?'} ms'),
                   ],
                 ),
