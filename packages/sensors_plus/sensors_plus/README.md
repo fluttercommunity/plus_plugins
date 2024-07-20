@@ -31,8 +31,21 @@ barometer sensors.
 ## Usage
 
 Add `sensors_plus` as a dependency in your pubspec.yaml file.
+  
+On iOS you must also include a key called [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) in your app's `Info.plist` file. This key provides a message that tells the user why the app is requesting access to the device’s motion data. The plugin itself needs access to motion data to get barometer data.
 
-This will expose such classes of sensor events through a set of streams:
+Example Info.plist entry:
+
+```xml
+<key>NSMotionUsageDescription</key>
+<string>This app requires access to the barometer to provide altitude information.</string>
+```
+
+> [!CAUTION]
+>
+> Adding [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) is a requirement and not doing so will crash your app when it attempts to access motion data.
+
+The plugin exposes such classes of sensor events through a set of streams:
 
 - `UserAccelerometerEvent` describes the acceleration of the device, in m/s<sup>2</sup>.
   If the device is still, or is moving along a straight line at constant speed,
@@ -179,21 +192,6 @@ The following lists the restrictions for the sensors on certain platforms due to
 - **Barometer sampling period limitation for iOS**
 
   On iOS devices, barometer updates are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides updates at regular intervals that cannot be controlled by the user. Calls to `barometerEventStream` at specied sampling periods will have the sampling period ignored. 
-
-- **Barometer requirements for iOS**
-
-  You must include a key called [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) in your app's `Info.plist` file. This key provides a message that tells the user why the app is requesting access to the device’s motion data.
-
-  Example Info.plist entry:
-
-  ```xml
-  <key>NSMotionUsageDescription</key>
-  <string>This app requires access to the barometer to provide altitude information.</string>
-  ```
-
-> [!IMPORTANT]
->
-> Adding [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) is a requirement and not doing so will crash your app when it attempts to access motion data.
 
 ## Learn more
 
