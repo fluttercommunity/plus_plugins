@@ -4,6 +4,10 @@ version: 5.0.3
 homepage: https://plus.fluttercommunity.dev/
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/network_info_plus
+topics:
+  - network
+  - information
+  - utils
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
