@@ -8,6 +8,7 @@ issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/device_in
 topics:
   - device
   - information
+  - utils
 
 flutter:
   plugin:

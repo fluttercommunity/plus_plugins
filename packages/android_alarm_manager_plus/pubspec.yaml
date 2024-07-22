@@ -8,6 +8,7 @@ issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/android_a
 topics:
   - android
   - alarm
+  - utils
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
