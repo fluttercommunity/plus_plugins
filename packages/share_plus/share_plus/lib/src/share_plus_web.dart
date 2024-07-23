@@ -9,8 +9,7 @@ import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
-import 'package:web/web.dart' as web
-    show DOMException, File, FilePropertyBag, Navigator, window;
+import 'package:web/web.dart';
 
 /// The web implementation of [SharePlatform].
 class SharePlusWebPlugin extends SharePlatform {
@@ -21,20 +20,20 @@ class SharePlusWebPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusWebPlugin(UrlLauncherPlugin());
   }
 
-  final web.Navigator _navigator;
+  final Navigator _navigator;
 
   /// A constructor that allows tests to override the window object used by the plugin.
   SharePlusWebPlugin(
     this.urlLauncher, {
-    @visibleForTesting web.Navigator? debugNavigator,
-  }) : _navigator = debugNavigator ?? web.window.navigator;
+    @visibleForTesting Navigator? debugNavigator,
+  }) : _navigator = debugNavigator ?? window.navigator;
 
   @override
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
   }) async {
-    final data = ShareData.url(
+    final data = ShareData(
       url: uri.toString(),
     );
 
@@ -56,7 +55,7 @@ class SharePlusWebPlugin extends SharePlatform {
 
     try {
       await _navigator.share(data).toDart;
-    } on web.DOMException catch (e) {
+    } on DOMException catch (e) {
       developer.log(
         'Failed to share uri',
         error: '${e.name}: ${e.message}',
@@ -76,12 +75,12 @@ class SharePlusWebPlugin extends SharePlatform {
   }) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
-      data = ShareData.textWithTitle(
+      data = ShareData(
         title: subject,
         text: text,
       );
     } else {
-      data = ShareData.text(
+      data = ShareData(
         text: text,
       );
     }
@@ -130,7 +129,7 @@ class SharePlusWebPlugin extends SharePlatform {
 
       // actions is success, but can't get the action name
       return ShareResult.unavailable;
-    } on web.DOMException catch (e) {
+    } on DOMException catch (e) {
       if (e.name case 'AbortError') {
         return _resultDismissed;
       }
@@ -160,7 +159,7 @@ class SharePlusWebPlugin extends SharePlatform {
   }) async {
     assert(
         fileNameOverrides == null || files.length == fileNameOverrides.length);
-    final webFiles = <web.File>[];
+    final webFiles = <File>[];
     for (var index = 0; index < files.length; index++) {
       final xFile = files[index];
       final filename = fileNameOverrides?.elementAt(index);
@@ -170,24 +169,24 @@ class SharePlusWebPlugin extends SharePlatform {
     final ShareData data;
     if (text != null && text.isNotEmpty) {
       if (subject != null && subject.isNotEmpty) {
-        data = ShareData.filesWithTextAndTitle(
+        data = ShareData(
           files: webFiles.toJS,
           text: text,
           title: subject,
         );
       } else {
-        data = ShareData.filesWithText(
+        data = ShareData(
           files: webFiles.toJS,
           text: text,
         );
       }
     } else if (subject != null && subject.isNotEmpty) {
-      data = ShareData.filesWithTitle(
+      data = ShareData(
         files: webFiles.toJS,
         title: subject,
       );
     } else {
-      data = ShareData.files(
+      data = ShareData(
         files: webFiles.toJS,
       );
     }
@@ -213,7 +212,7 @@ class SharePlusWebPlugin extends SharePlatform {
 
       // actions is success, but can't get the action name
       return ShareResult.unavailable;
-    } on web.DOMException catch (e) {
+    } on DOMException catch (e) {
       if (e.name case 'AbortError') {
         return _resultDismissed;
       }
@@ -227,12 +226,12 @@ class SharePlusWebPlugin extends SharePlatform {
     }
   }
 
-  static Future<web.File> _fromXFile(XFile file, {String? nameOverride}) async {
+  static Future<File> _fromXFile(XFile file, {String? nameOverride}) async {
     final bytes = await file.readAsBytes();
-    return web.File(
+    return File(
       [bytes.buffer.toJS].toJS,
       nameOverride ?? file.name,
-      web.FilePropertyBag()
+      FilePropertyBag()
         ..type = file.mimeType ?? _mimeTypeForPath(file, bytes),
     );
   }
@@ -247,46 +246,3 @@ const _resultDismissed = ShareResult(
   '',
   ShareResultStatus.dismissed,
 );
-
-extension on web.Navigator {
-  /// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/canShare
-  external bool canShare(ShareData data);
-
-  /// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-  external JSPromise share(ShareData data);
-}
-
-extension type ShareData._(JSObject _) implements JSObject {
-  external factory ShareData.text({
-    String text,
-  });
-
-  external factory ShareData.textWithTitle({
-    String text,
-    String title,
-  });
-
-  external factory ShareData.files({
-    JSArray<web.File> files,
-  });
-
-  external factory ShareData.filesWithText({
-    JSArray<web.File> files,
-    String text,
-  });
-
-  external factory ShareData.filesWithTitle({
-    JSArray<web.File> files,
-    String title,
-  });
-
-  external factory ShareData.filesWithTextAndTitle({
-    JSArray<web.File> files,
-    String text,
-    String title,
-  });
-
-  external factory ShareData.url({
-    String url,
-  });
-}
