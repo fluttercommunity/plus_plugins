@@ -1,8 +1,4 @@
 import 'dart:async';
-// Used in web: 0.3.0, deprecated later.
-// Remove when increasing min web version.
-// ignore: deprecated_member_use
-import 'package:web/helpers.dart';
 import 'package:web/web.dart';
 
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
