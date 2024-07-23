@@ -231,8 +231,7 @@ class SharePlusWebPlugin extends SharePlatform {
     return File(
       [bytes.buffer.toJS].toJS,
       nameOverride ?? file.name,
-      FilePropertyBag()
-        ..type = file.mimeType ?? _mimeTypeForPath(file, bytes),
+      FilePropertyBag()..type = file.mimeType ?? _mimeTypeForPath(file, bytes),
     );
   }
 
