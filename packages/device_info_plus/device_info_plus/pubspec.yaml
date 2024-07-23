@@ -5,6 +5,10 @@ version: 10.1.0
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus/device_info_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/device_info_plus
+topics:
+  - device
+  - information
+  - utils
 
 flutter:
   plugin:

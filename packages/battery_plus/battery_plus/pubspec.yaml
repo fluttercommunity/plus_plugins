@@ -4,6 +4,9 @@ version: 6.0.1
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus/battery_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/battery_plus
+topics:
+  - battery
+  - utils
 
 flutter:
   plugin:
