@@ -111,6 +111,11 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
+  /// The optional parameter [fileNameOverrides] can be used to override the names of shared files
+  /// When set, the list length must match the number of [files] to share.
+  /// This is useful when sharing files that were created by [`XFile.fromData`](https://github.com/flutter/packages/blob/754de1918a339270b70971b6841cf1e04dd71050/packages/cross_file/lib/src/types/io.dart#L43),
+  /// because name property will be ignored by  [`cross_file`](https://pub.dev/packages/cross_file) on all platforms except on web.
+  ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
   ///
@@ -120,6 +125,7 @@ class Share {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
     return _platform.shareXFiles(
@@ -127,6 +133,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      fileNameOverrides: fileNameOverrides,
     );
   }
 }
