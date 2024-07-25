@@ -359,7 +359,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
             UIViewController *topViewController =
                 TopViewControllerForViewController(rootViewController);
             
-            [topViewController dismissViewControllerAnimated:NO completion:nil];
+            [topViewController dismissViewControllerAnimated:YES completion:nil];
             result(nil);
         } else {
           result(FlutterMethodNotImplemented);
