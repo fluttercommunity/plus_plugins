@@ -360,6 +360,7 @@ TopViewControllerForViewController(UIViewController *viewController) {
                 TopViewControllerForViewController(rootViewController);
             
             [topViewController dismissViewControllerAnimated:YES completion:nil];
+            result(nil);
         } else {
           result(FlutterMethodNotImplemented);
         }

@@ -5,10 +5,7 @@ dependencies:
   flutter:
     sdk: flutter
   share_plus:
-    git:
-      url: git@github.com:Pierre-Monier/plus_plugins.git
-      ref: feat/close-share-plus-sheet
-      path: packages/share_plus
+    path: ../
   image_picker: ^1.0.0
   file_selector: ^1.0.0
 

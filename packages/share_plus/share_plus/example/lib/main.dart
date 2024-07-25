@@ -249,6 +249,7 @@ class DemoAppState extends State<DemoApp> {
       if (shouldAutoClose) {
         Future.delayed(const Duration(seconds: 5), () async {
           await Share.close();
+          debugPrint('Share closed');
         });
       }
 
