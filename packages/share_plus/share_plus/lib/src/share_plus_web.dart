@@ -227,6 +227,14 @@ class SharePlusWebPlugin extends SharePlatform {
     }
   }
 
+  /// Close the share sheet. Currently only supported on iOS.
+  @override
+  Future<ShareResult> close() {
+    throw UnimplementedError(
+      'close() has not been implemented on Web.',
+    );
+  }
+
   static Future<web.File> _fromXFile(XFile file, {String? nameOverride}) async {
     final bytes = await file.readAsBytes();
     return web.File(

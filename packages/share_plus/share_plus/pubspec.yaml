@@ -35,7 +35,11 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  share_plus_platform_interface: ^4.0.0
+  share_plus_platform_interface:
+    git:
+      url: git@github.com:Pierre-Monier/plus_plugins.git
+      ref: feat/close-share-plus-sheet
+      path: packages/share_plus_platform_interface
   file: ">=6.1.4 <8.0.0"
   url_launcher_web: ^2.0.16
   url_launcher_windows: ^3.0.6

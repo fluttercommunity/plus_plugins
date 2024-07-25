@@ -164,6 +164,22 @@ class DemoAppState extends State<DemoApp> {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
+                    onPressed: text.isEmpty && imagePaths.isEmpty
+                        ? null
+                        : () =>
+                            _onShareWithResult(context, shouldAutoClose: true),
+                    child: const Text('Share with auto close in 5 seconds'),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+              Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
                     onPressed: () {
                       _onShareXFileFromAssets(context);
                     },
@@ -200,7 +216,8 @@ class DemoAppState extends State<DemoApp> {
     });
   }
 
-  void _onShareWithResult(BuildContext context) async {
+  void _onShareWithResult(BuildContext context,
+      {bool shouldAutoClose = false}) async {
     // A builder is used to retrieve the context immediately
     // surrounding the ElevatedButton.
     //
@@ -229,6 +246,12 @@ class DemoAppState extends State<DemoApp> {
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
       );
     } else {
+      if (shouldAutoClose) {
+        Future.delayed(const Duration(seconds: 5), () async {
+          await Share.close();
+        });
+      }
+
       shareResult = await Share.share(
         text,
         subject: subject,

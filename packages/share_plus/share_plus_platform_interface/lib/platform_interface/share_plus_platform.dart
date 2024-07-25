@@ -71,6 +71,11 @@ class SharePlatform extends PlatformInterface {
       fileNameOverrides: fileNameOverrides,
     );
   }
+
+  /// Close the share sheet. Currently only supported on iOS.
+  Future<void> close() {
+    return _instance.close();
+  }
 }
 
 /// The result of a share to determine what action the

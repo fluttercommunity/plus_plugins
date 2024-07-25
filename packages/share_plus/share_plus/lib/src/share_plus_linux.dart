@@ -74,4 +74,12 @@ class SharePlusLinuxPlugin extends SharePlatform {
       'shareXFiles() has not been implemented on Linux.',
     );
   }
+
+  /// Closes the share sheet. Currently only supported on iOS.
+  @override
+  Future<ShareResult> close() {
+    throw UnimplementedError(
+      'close() has not been implemented on Linux.',
+    );
+  }
 }

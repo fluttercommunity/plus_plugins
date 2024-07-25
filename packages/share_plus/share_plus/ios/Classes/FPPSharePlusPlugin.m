@@ -348,6 +348,18 @@ TopViewControllerForViewController(UIViewController *viewController) {
               withController:topViewController
                     atSource:originRect
                     toResult:result];
+        } else if ([@"close" isEqualToString:call.method]) {
+            UIViewController *rootViewController = RootViewController();
+            if (!rootViewController) {
+              result([FlutterError errorWithCode:@"error"
+                                         message:@"No root view controller found"
+                                         details:nil]);
+              return;
+            }
+            UIViewController *topViewController =
+                TopViewControllerForViewController(rootViewController);
+            
+            [topViewController dismissViewControllerAnimated:YES completion:nil];
         } else {
           result(FlutterMethodNotImplemented);
         }

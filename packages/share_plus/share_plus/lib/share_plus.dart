@@ -133,7 +133,12 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
+      // fileNameOverrides: fileNameOverrides,
     );
+  }
+
+  /// Closes the share sheet. Currently only supported on iOS.
+  static Future<void> close() async {
+    return _platform.close();
   }
 }

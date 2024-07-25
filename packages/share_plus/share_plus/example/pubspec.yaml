@@ -4,7 +4,11 @@ description: Demonstrates how to use the share_plus plugin.
 dependencies:
   flutter:
     sdk: flutter
-  share_plus: ^9.0.0
+  share_plus:
+    git:
+      url: git@github.com:Pierre-Monier/plus_plugins.git
+      ref: feat/close-share-plus-sheet
+      path: packages/share_plus
   image_picker: ^1.0.0
   file_selector: ^1.0.0
 

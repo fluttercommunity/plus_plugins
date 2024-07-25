@@ -4,16 +4,15 @@
 
 import 'dart:async';
 import 'dart:io';
-
 // Keep dart:ui for retrocompatiblity with Flutter <3.3.0
 // ignore: unnecessary_import
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
 /// Plugin for summoning a platform share sheet.
@@ -113,6 +112,17 @@ class MethodChannelShare extends SharePlatform {
         'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
+  }
+
+  /// Closes the share sheet. Currently only supported on iOS.
+  @override
+  Future<void> close() {
+    if (defaultTargetPlatform != TargetPlatform.iOS) {
+      // Currently not supported outside of iOS
+      return Future<void>.value();
+    }
+
+    return channel.invokeMethod<void>('close');
   }
 
   /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.

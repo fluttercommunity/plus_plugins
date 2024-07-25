@@ -79,4 +79,12 @@ class SharePlusWindowsPlugin extends SharePlatform {
       'shareXFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
     );
   }
+
+  /// Closes the share sheet. Currently only supported on iOS.
+  @override
+  Future<ShareResult> close() {
+    throw UnimplementedError(
+      'close() has not been implemented on Windows.',
+    );
+  }
 }
