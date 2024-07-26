@@ -15,6 +15,8 @@ public protocol MotionStreamHandler: FlutterStreamHandler {
     var samplingPeriod: Int { get set }
 }
 
+let timestampMicroAtBoot = (Date().timeIntervalSince1970 - ProcessInfo.processInfo.systemUptime) * 1000000
+
 func _initMotionManager() {
     if (_motionManager == nil) {
         _motionManager = CMMotionManager()
@@ -31,14 +33,15 @@ func _initAltimeter() {
     }
 }
 
-func sendTriplet(x: Float64, y: Float64, z: Float64, sink: @escaping FlutterEventSink) {
+func sendFlutter(x: Float64, y: Float64, z: Float64, timestamp: TimeInterval, sink: @escaping FlutterEventSink) {
     if _isCleanUp {
         return
     }
     // Even after [detachFromEngineForRegistrar] some events may still be received
     // and fired until fully detached.
     DispatchQueue.main.async {
-        let triplet = [x, y, z]
+        let timestampSince1970Micro = timestampMicroAtBoot + (timestamp * 1000000)
+        let triplet = [x, y, z, timestampSince1970Micro]
         triplet.withUnsafeBufferPointer { buffer in
             sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
         }
@@ -74,10 +77,11 @@ class FPPAccelerometerStreamHandlerPlus: NSObject, MotionStreamHandler {
             // Multiply by gravity, and adjust sign values to
             // align with Android.
             let acceleration = data!.acceleration
-            sendTriplet(
+            sendFlutter(
                     x: -acceleration.x * GRAVITY,
                     y: -acceleration.y * GRAVITY,
                     z: -acceleration.z * GRAVITY,
+                    timestamp: data!.timestamp,
                     sink: sink
             )
         }
@@ -123,10 +127,11 @@ class FPPUserAccelStreamHandlerPlus: NSObject, MotionStreamHandler {
             // Multiply by gravity, and adjust sign values to
             // align with Android.
             let acceleration = data!.userAcceleration
-            sendTriplet(
+            sendFlutter(
                     x: -acceleration.x * GRAVITY,
                     y: -acceleration.y * GRAVITY,
                     z: -acceleration.z * GRAVITY,
+                    timestamp: data!.timestamp,
                     sink: sink
             )
         }
@@ -170,7 +175,13 @@ class FPPGyroscopeStreamHandlerPlus: NSObject, MotionStreamHandler {
                 return
             }
             let rotationRate = data!.rotationRate
-            sendTriplet(x: rotationRate.x, y: rotationRate.y, z: rotationRate.z, sink: sink)
+            sendFlutter(
+                x: rotationRate.x,
+                y: rotationRate.y,
+                z: rotationRate.z,
+                timestamp: data!.timestamp,
+                sink: sink
+            )
         }
         return nil
     }
@@ -212,7 +223,13 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                 return
             }
             let magneticField = data!.magneticField
-            sendTriplet(x: magneticField.x, y: magneticField.y, z: magneticField.z, sink: sink)
+            sendFlutter(
+                x: magneticField.x,
+                y: magneticField.y,
+                z: magneticField.z,
+                timestamp: data!.timestamp,
+                sink: sink
+            )
         }
         return nil
     }
@@ -257,7 +274,8 @@ class FPPBarometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                 }
                 let pressure = data!.pressure.doubleValue * 10.0 // kPa to hPa (hectopascals)
                 DispatchQueue.main.async {
-                let pressureArray: [Double] = [pressure]
+                let timestampSince1970Micro = timestampMicroAtBoot + (data!.timestamp * 1000000)
+                let pressureArray: [Double] = [pressure, timestampSince1970Micro]
                 pressureArray.withUnsafeBufferPointer { buffer in
                     sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
                     }
