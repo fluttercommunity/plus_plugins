@@ -39,5 +39,5 @@ class AccelerometerEvent {
   final DateTime timestamp;
 
   @override
-  String toString() => '[AccelerometerEvent (x: $x, y: $y, z: $z)]';
+  String toString() => '[AccelerometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
 }

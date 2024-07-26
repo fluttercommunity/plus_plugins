@@ -27,5 +27,5 @@ class MagnetometerEvent {
   final DateTime timestamp;
 
   @override
-  String toString() => '[MagnetometerEvent (x: $x, y: $y, z: $z)]';
+  String toString() => '[MagnetometerEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
 }

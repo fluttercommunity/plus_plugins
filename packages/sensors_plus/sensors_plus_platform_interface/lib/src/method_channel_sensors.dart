@@ -178,7 +178,10 @@ class MethodChannelSensors extends SensorsPlatform {
     _barometerEvents ??=
         _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
-      return BarometerEvent(list[0]!);
+      return BarometerEvent(
+        list[0]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[1]!.toInt()),
+      );
     });
     return _barometerEvents!;
   }
