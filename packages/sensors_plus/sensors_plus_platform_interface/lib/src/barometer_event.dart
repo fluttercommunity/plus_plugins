@@ -30,5 +30,6 @@ class BarometerEvent {
   final DateTime timestamp;
 
   @override
-  String toString() => '[BarometerEvent (pressure: $pressure hPa, timestamp: $timestamp)]';
+  String toString() =>
+      '[BarometerEvent (pressure: $pressure hPa, timestamp: $timestamp)]';
 }

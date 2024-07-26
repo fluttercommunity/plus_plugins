@@ -39,5 +39,6 @@ class GyroscopeEvent {
   final DateTime timestamp;
 
   @override
-  String toString() => '[GyroscopeEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
+  String toString() =>
+      '[GyroscopeEvent (x: $x, y: $y, z: $z, timestamp: $timestamp)]';
 }
