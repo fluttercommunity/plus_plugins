@@ -25,11 +25,15 @@ class MethodChannelSensors extends SensorsPlatform {
   static const EventChannel _magnetometerEventChannel =
       EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
 
+  static const EventChannel _barometerEventChannel =
+      EventChannel('dev.fluttercommunity.plus/sensors/barometer');
+
   final logger = Logger('MethodChannelSensors');
   Stream<AccelerometerEvent>? _accelerometerEvents;
   Stream<GyroscopeEvent>? _gyroscopeEvents;
   Stream<UserAccelerometerEvent>? _userAccelerometerEvents;
   Stream<MagnetometerEvent>? _magnetometerEvents;
+  Stream<BarometerEvent>? _barometerEvents;
 
   /// Returns a broadcast stream of events from the device accelerometer at the
   /// given sampling frequency.
@@ -152,5 +156,30 @@ class MethodChannelSensors extends SensorsPlatform {
       );
     });
     return _magnetometerEvents!;
+  }
+
+  /// Returns a broadcast stream of events from the device barometer at the
+  /// given sampling frequency.
+  @override
+  Stream<BarometerEvent> barometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    var microseconds = samplingPeriod.inMicroseconds;
+    if (microseconds >= 1 && microseconds <= 3) {
+      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
+          'which is a reserved value in Android. Please consider changing it '
+          'to either 0 or 4μs. See https://developer.android.com/reference/'
+          'android/hardware/SensorManager#registerListener(android.hardware.'
+          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+          'information');
+      microseconds = 0;
+    }
+    _methodChannel.invokeMethod('setBarometerSamplingPeriod', microseconds);
+    _barometerEvents ??=
+        _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
+      final list = event.cast<double>();
+      return BarometerEvent(list[0]!);
+    });
+    return _barometerEvents!;
   }
 }

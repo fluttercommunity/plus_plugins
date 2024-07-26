@@ -76,10 +76,14 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
-
-    final filesWithPath = await _getFiles(files);
+    assert(
+      fileNameOverrides == null || files.length == fileNameOverrides.length,
+      "fileNameOverrides list must have the same length as files list.",
+    );
+    final filesWithPath = await _getFiles(files, fileNameOverrides);
     assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
     final mimeTypes = filesWithPath
@@ -117,7 +121,11 @@ class MethodChannelShare extends SharePlatform {
   /// then make new file in TemporaryDirectory and return with path
   /// the system will automatically delete files in this
   /// TemporaryDirectory as disk space is needed elsewhere on the device
-  Future<XFile> _getFile(XFile file, {String? tempRoot}) async {
+  Future<XFile> _getFile(
+    XFile file, {
+    String? tempRoot,
+    String? nameOverride,
+  }) async {
     if (file.path.isNotEmpty) {
       return file;
     } else {
@@ -137,13 +145,16 @@ class MethodChannelShare extends SharePlatform {
       final tempSubfolderPath = "$tempRoot/${const Uuid().v4()}";
       await Directory(tempSubfolderPath).create(recursive: true);
 
+      // True if filename exists or the filename has a valid extension
+      final filenameNotEmptyOrHasValidExt =
+          file.name.isNotEmpty || lookupMimeType(file.name) != null;
+
+      //Per Issue [#3032](https://github.com/fluttercommunity/plus_plugins/issues/3032): use overridden name when available.
       //Per Issue [#1548](https://github.com/fluttercommunity/plus_plugins/issues/1548): attempt to use XFile.name when available
-      final filename = file.name.isNotEmpty // If filename exists
-              ||
-              lookupMimeType(file.name) !=
-                  null //If the filename has a valid extension
-          ? file.name
-          : "${const Uuid().v1().substring(10)}.$extension";
+      final filename = nameOverride ??
+          (filenameNotEmptyOrHasValidExt
+              ? file.name
+              : "${const Uuid().v1().substring(10)}.$extension");
 
       final path = "$tempSubfolderPath/$filename";
 
@@ -155,8 +166,18 @@ class MethodChannelShare extends SharePlatform {
   }
 
   /// A wrapper of [MethodChannelShare._getFile] for multiple files.
-  Future<List<XFile>> _getFiles(List<XFile> files) async =>
-      await Future.wait(files.map((entry) => _getFile(entry)));
+  Future<List<XFile>> _getFiles(
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+  ) async {
+    return Future.wait([
+      for (var index = 0; index < files.length; index++)
+        _getFile(
+          files[index],
+          nameOverride: fileNameOverrides?.elementAt(index),
+        )
+    ]);
+  }
 
   static String _mimeTypeForPath(String path) {
     return lookupMimeType(path) ?? 'application/octet-stream';

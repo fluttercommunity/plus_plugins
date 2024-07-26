@@ -281,6 +281,15 @@ class WebSensorsPlugin extends SensorsPlatform {
 
     return _magnetometerResultStream;
   }
+
+  @override
+  Stream<BarometerEvent> barometerEventStream({
+    Duration samplingPeriod = SensorInterval.normalInterval,
+  }) {
+    // The Barometer API does not exist and so is not supported by any modern browser.
+    // Therefore, we simply return an empty stream.
+    return const Stream.empty();
+  }
 }
 
 extension on Duration {
