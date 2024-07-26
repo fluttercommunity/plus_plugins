@@ -133,7 +133,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
-      // fileNameOverrides: fileNameOverrides,
+      fileNameOverrides: fileNameOverrides,
     );
   }
 
