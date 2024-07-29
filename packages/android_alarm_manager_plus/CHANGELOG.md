@@ -1,3 +1,8 @@
+## 4.0.4
+
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 4.0.3
 
  - **FIX**(android_alarm_manager_plus): Remove references to v1 embedding ([#2864](https://github.com/fluttercommunity/plus_plugins/issues/2864)). ([0bb6a1fd](https://github.com/fluttercommunity/plus_plugins/commit/0bb6a1fd8c77b3ed8ec92ffbd15e426921d1c71a))

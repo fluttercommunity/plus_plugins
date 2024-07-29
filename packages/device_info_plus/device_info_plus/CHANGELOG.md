@@ -1,3 +1,10 @@
+## 10.1.1
+
+ - **CHORE**(device_info_plus): Use `>=0.5.0 < 2.0.0` version range for package:web.
+ - **FIX**(device_info_plus): fix integration_test iOS ([#2958](https://github.com/fluttercommunity/plus_plugins/issues/2958)). ([93ab854e](https://github.com/fluttercommunity/plus_plugins/commit/93ab854ee76a3de48387b6c54ddaeccb01cf49a9))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 10.1.0
 
  - **REFACTOR**(device_info_plus): Migrate Android example to use the new plugins declaration ([#2769](https://github.com/fluttercommunity/plus_plugins/issues/2769)). ([6103b155](https://github.com/fluttercommunity/plus_plugins/commit/6103b1559d6f9383bd66460bf7717afeeeb51d86))
