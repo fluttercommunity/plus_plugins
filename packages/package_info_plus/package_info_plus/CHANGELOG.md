@@ -1,3 +1,9 @@
+## 8.0.1
+
+ - **FIX**(package_info_plus): Address changed fields nullability on Android 15 (API 35) ([#2975](https://github.com/fluttercommunity/plus_plugins/issues/2975)). ([dfa3bc2d](https://github.com/fluttercommunity/plus_plugins/commit/dfa3bc2de7d2a010bc81b0a7f19395b373e31cf1))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 8.0.0
 
 > Note: This release has breaking changes.

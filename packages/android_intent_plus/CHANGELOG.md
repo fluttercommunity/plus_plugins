@@ -1,3 +1,10 @@
+## 5.1.0
+
+ - **FIX**(android_intent_plus): remove package name from AndroidManifest ([#3033](https://github.com/fluttercommunity/plus_plugins/issues/3033)). ([af2f4afa](https://github.com/fluttercommunity/plus_plugins/commit/af2f4afaa419cdd9fb32632ea3ebe9a4e6df0513))
+ - **FEAT**(android_intent_plus): support for intent as URI ([#2970](https://github.com/fluttercommunity/plus_plugins/issues/2970)). ([e4530870](https://github.com/fluttercommunity/plus_plugins/commit/e4530870dd2412e04776dcecc0fbed2bb3842187))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 5.0.2
 
  - **REFACTOR**(android_intent_plus): Migrate Android example to use the new plugins declaration ([#2773](https://github.com/fluttercommunity/plus_plugins/issues/2773)). ([7c2de04d](https://github.com/fluttercommunity/plus_plugins/commit/7c2de04deffa1dc788d93c12e5cee1fd98821514))

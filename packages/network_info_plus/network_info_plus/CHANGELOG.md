@@ -1,3 +1,11 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**(network_info_plus): Do not ignore errors on Android ([#3080](https://github.com/fluttercommunity/plus_plugins/issues/3080)). ([5b0cdf4f](https://github.com/fluttercommunity/plus_plugins/commit/5b0cdf4f71a8cc21b245c7defe355ec7b5796cc2))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 5.0.3
 
  - **REFACTOR**(network_info_plus): Migrate Android example to use the new plugins declaration ([#2768](https://github.com/fluttercommunity/plus_plugins/issues/2768)). ([d7206929](https://github.com/fluttercommunity/plus_plugins/commit/d72069292995355fbe0fe62ec6d74f34005008f6))
