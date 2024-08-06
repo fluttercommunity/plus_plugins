@@ -28,7 +28,7 @@ flutter:
         pluginClass: SharePlusWindowsPluginCApi
 
 dependencies:
-  cross_file: ^0.3.3+4
+  cross_file: ^0.3.4+2
   meta: ^1.8.0
   mime: ^1.0.4
   flutter:
@@ -37,11 +37,11 @@ dependencies:
     sdk: flutter
   share_plus_platform_interface: ^5.0.0
   file: ">=6.1.4 <8.0.0"
-  url_launcher_web: ^2.0.16
-  url_launcher_windows: ^3.0.6
-  url_launcher_linux: ^3.0.5
-  url_launcher_platform_interface: ^2.1.2
-  ffi: ^2.0.1
+  url_launcher_web: ^2.3.2
+  url_launcher_windows: ^3.1.2
+  url_launcher_linux: ^3.1.1
+  url_launcher_platform_interface: ^2.3.2
+  ffi: ^2.1.2
   web: ^1.0.0
 
   # win32 is compatible across v4 and v5 for Win32 only (not COM)
