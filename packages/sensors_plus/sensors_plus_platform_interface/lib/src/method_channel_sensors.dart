@@ -56,7 +56,12 @@ class MethodChannelSensors extends SensorsPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final list = event.cast<double>();
-      return AccelerometerEvent(list[0]!, list[1]!, list[2]!);
+      return AccelerometerEvent(
+        list[0]!,
+        list[1]!,
+        list[2]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+      );
     });
     return _accelerometerEvents!;
   }
@@ -81,7 +86,12 @@ class MethodChannelSensors extends SensorsPlatform {
     _gyroscopeEvents ??=
         _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
-      return GyroscopeEvent(list[0]!, list[1]!, list[2]!);
+      return GyroscopeEvent(
+        list[0]!,
+        list[1]!,
+        list[2]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+      );
     });
     return _gyroscopeEvents!;
   }
@@ -108,7 +118,12 @@ class MethodChannelSensors extends SensorsPlatform {
         .receiveBroadcastStream()
         .map((dynamic event) {
       final list = event.cast<double>();
-      return UserAccelerometerEvent(list[0]!, list[1]!, list[2]!);
+      return UserAccelerometerEvent(
+        list[0]!,
+        list[1]!,
+        list[2]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+      );
     });
     return _userAccelerometerEvents!;
   }
@@ -133,7 +148,12 @@ class MethodChannelSensors extends SensorsPlatform {
     _magnetometerEvents ??=
         _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
-      return MagnetometerEvent(list[0]!, list[1]!, list[2]!);
+      return MagnetometerEvent(
+        list[0]!,
+        list[1]!,
+        list[2]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+      );
     });
     return _magnetometerEvents!;
   }
@@ -158,7 +178,10 @@ class MethodChannelSensors extends SensorsPlatform {
     _barometerEvents ??=
         _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
       final list = event.cast<double>();
-      return BarometerEvent(list[0]!);
+      return BarometerEvent(
+        list[0]!,
+        DateTime.fromMicrosecondsSinceEpoch(list[1]!.toInt()),
+      );
     });
     return _barometerEvents!;
   }

@@ -1,3 +1,12 @@
+## 6.0.0
+
+> Note: This release has breaking changes. Starting with this release on iOS it is required to add `NSMotionUsageDescription` entry in the Info.plist file. More info available in the README file.
+
+ - **BREAKING** **FEAT**(sensors_plus): Add support for platform timestamp in event ([#2506](https://github.com/fluttercommunity/plus_plugins/issues/2506)). ([8b3df176](https://github.com/fluttercommunity/plus_plugins/commit/8b3df17650769b913f64db48d2f56ab7a9a15616))
+ - **BREAKING** **FEAT**(sensors_plus): Add barometer support for all platforms ([#3079](https://github.com/fluttercommunity/plus_plugins/issues/3079)). ([5fa797d0](https://github.com/fluttercommunity/plus_plugins/commit/5fa797d033606106a762828c38c59597fe0e9253))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 5.0.1
 
  - **REFACTOR**(sensors_plus): Migrate Android example to use the new plugins declaration ([#2743](https://github.com/fluttercommunity/plus_plugins/issues/2743)). ([e884a9e9](https://github.com/fluttercommunity/plus_plugins/commit/e884a9e9979f8bda400fe063e73fc6f9a91dbfce))

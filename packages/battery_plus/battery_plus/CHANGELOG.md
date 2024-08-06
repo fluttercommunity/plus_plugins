@@ -1,3 +1,8 @@
+## 6.0.2
+
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
 ## 6.0.1
 
  - **REFACTOR**(battery_plus): Migrate Android example to use the new plugins declaration ([#2772](https://github.com/fluttercommunity/plus_plugins/issues/2772)). ([740a5df2](https://github.com/fluttercommunity/plus_plugins/commit/740a5df21fb84df2b88cea822d53302ce61a6dc2))
