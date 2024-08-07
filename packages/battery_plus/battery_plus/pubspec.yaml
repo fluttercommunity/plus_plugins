@@ -34,7 +34,7 @@ dependencies:
   battery_plus_platform_interface: ^2.0.1
   meta: ^1.8.0
   upower: ^0.7.0
-  web: ">=0.5.0 <2.0.0"
+  web: "^1.0.0"
 
 dev_dependencies:
   flutter_test:
