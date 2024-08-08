@@ -48,6 +48,9 @@ public class BatteryPlusMacosPlugin: NSObject, FlutterPlugin {
     private func getBatteryLevel()-> Int {
         let powerSourceSnapshot = IOPSCopyPowerSourcesInfo().takeRetainedValue()
         let sources = IOPSCopyPowerSourcesList(powerSourceSnapshot).takeRetainedValue() as Array
+        if sources.isEmpty {
+            return -1
+        }
         let description = IOPSGetPowerSourceDescription(powerSourceSnapshot, sources[0]).takeUnretainedValue() as! [String: AnyObject]
         if let currentCapacity = description[kIOPSCurrentCapacityKey] as? Int {
             return currentCapacity;
