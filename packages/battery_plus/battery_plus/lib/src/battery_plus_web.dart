@@ -44,7 +44,7 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
 
     // level is a number representing the system's battery charge level scaled to a value between 0.0 and 1.0
     final level = batteryManager.level;
-    return level * 100 as int;
+    return (level * 100).toInt();
   }
 
   /// Returns the current battery state.
