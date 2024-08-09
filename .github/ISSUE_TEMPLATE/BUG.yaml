@@ -12,6 +12,8 @@ body:
         or consider asking a question on Stack Overflow:
         * https://plus.fluttercommunity.dev/docs/overview
 
+        If you have a **compilation issue**, please use the [Compile Issue Template](https://github.com/fluttercommunity/plus_plugins/issues/new?assignees=&labels=compile%2Ctriage&projects=&template=COMPILATION.yaml&title=%5BCompile%5D%3A+).
+
         If you have found a bug or if our documentation doesn't have an answer
         to what you're looking for, then fill our the template below.
      
