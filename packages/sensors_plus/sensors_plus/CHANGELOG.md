@@ -1,3 +1,7 @@
+## 6.0.1
+
+ - **DOCS**(sensors_plus): Update plugin requirements in README ([#3164](https://github.com/fluttercommunity/plus_plugins/issues/3164)). ([82d95db4](https://github.com/fluttercommunity/plus_plugins/commit/82d95db42dbe9bad821fbcd033ea317cf6771691))
+
 ## 6.0.0
 
 > Note: This release has breaking changes. Starting with this release on iOS it is required to add `NSMotionUsageDescription` entry in the Info.plist file. More info available in the README file.

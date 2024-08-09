@@ -1,3 +1,8 @@
+## 8.0.2
+
+ - **CHORE**(package_info_plus): Update to package:web to ">=0.5.0 <2.0.0" ([#3102](https://github.com/fluttercommunity/plus_plugins/pull/3102)). ([05f8afb8](https://github.com/fluttercommunity/plus_plugins/commit/05f8afb8fc43bc702ab5e3e14e3cba9d79983446))
+ - **DOCS**(package_info_plus): Update plugin requirements in README ([#3163](https://github.com/fluttercommunity/plus_plugins/issues/3163)). ([6f09bb7e](https://github.com/fluttercommunity/plus_plugins/commit/6f09bb7ec4c0f88fea557a87dc0cd3aaa64ac9ee))
+
 ## 8.0.1
 
  - **FIX**(package_info_plus): Address changed fields nullability on Android 15 (API 35) ([#2975](https://github.com/fluttercommunity/plus_plugins/issues/2975)). ([dfa3bc2d](https://github.com/fluttercommunity/plus_plugins/commit/dfa3bc2de7d2a010bc81b0a7f19395b373e31cf1))

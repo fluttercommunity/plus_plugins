@@ -1,3 +1,7 @@
+## 10.1.2
+
+ - **DOCS**(device_info_plus): Update plugin requirements in README ([#3162](https://github.com/fluttercommunity/plus_plugins/issues/3162)). ([6cfa950f](https://github.com/fluttercommunity/plus_plugins/commit/6cfa950f66fec649093b6c44755dc06a3a23319e))
+
 ## 10.1.1
 
  - **CHORE**(device_info_plus): Use `>=0.5.0 < 2.0.0` version range for package:web.
