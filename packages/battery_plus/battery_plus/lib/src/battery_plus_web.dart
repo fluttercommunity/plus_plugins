@@ -3,7 +3,7 @@ import 'dart:js_interop';
 
 import 'package:battery_plus_platform_interface/battery_plus_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:web/web.dart' as web;
+import 'package:web/web.dart';
 
 /// The web implementation of the BatteryPlatform of the Battery plugin.
 ///
@@ -18,7 +18,7 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
   /// Return [BatteryManager] if the BatteryManager API is supported by the User Agent.
   Future<BatteryManager?> _getBatteryManager() async {
     try {
-      return await web.window.navigator.getBattery()?.toDart;
+      return await window.navigator.getBattery().toDart;
     } on NoSuchMethodError catch (_) {
       // BatteryManager API is not supported this User Agent.
       return null;
@@ -80,7 +80,7 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
       _checkBatteryChargingState(batteryManager.charging),
     );
 
-    batteryManager.onchargingchange = (web.Event _) {
+    batteryManager.onchargingchange = (Event _) {
       _batteryChangeStreamController?.add(
         _checkBatteryChargingState(batteryManager.charging),
       );
@@ -104,22 +104,4 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
       return BatteryState.discharging;
     }
   }
-}
-
-extension on web.Navigator {
-  /// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery
-  external JSPromise<BatteryManager>? getBattery();
-}
-
-/// BatteryManager API
-/// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager
-extension type BatteryManager(JSObject _) implements JSObject {
-  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/level
-  external double get level;
-
-  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/charging
-  external bool get charging;
-
-  /// https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager/chargingchange_event
-  external set onchargingchange(JSFunction fn);
 }
