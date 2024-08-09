@@ -19,8 +19,8 @@ barometer sensors.
 
 ## Requirements
 
-- Flutter >=3.3.0
-- Dart >=2.18.0 <4.0.0
+- Flutter >=3.19.0
+- Dart >=3.3.0 <4.0.0
 - iOS >=12.0
 - MacOS >=10.14
 - Android `compileSDK` 34
