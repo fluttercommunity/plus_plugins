@@ -1,3 +1,7 @@
+## 10.0.1
+
+- **CHORE**(share_plus): Update to package:web to ^1.0.0 ([#3105](https://github.com/fluttercommunity/plus_plugins/pull/3105)). ([1f23910a](https://github.com/fluttercommunity/plus_plugins/commit/1f23910ab50fef2e499054f35cedfd14c578976a))
+
 ## 10.0.0
 
 > Note: This release has breaking changes.

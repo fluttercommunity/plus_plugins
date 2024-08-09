@@ -1,3 +1,7 @@
+## 6.0.5
+
+ - **DOCS**(connectivity_plus): Update plugin requirements in README ([#3160](https://github.com/fluttercommunity/plus_plugins/issues/3160)). ([277f8b6b](https://github.com/fluttercommunity/plus_plugins/commit/277f8b6ba9ee6e7e5e3b1cce3e5eb8416830ba6b))
+
 ## 6.0.4
 
  - **CHORE**(connectivity_plus): Use `>=0.5.0 < 2.0.0` version range for package:web.
