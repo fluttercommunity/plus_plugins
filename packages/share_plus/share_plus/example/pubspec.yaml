@@ -5,8 +5,8 @@ dependencies:
   flutter:
     sdk: flutter
   share_plus: ^10.0.0
-  image_picker: ^1.0.0
-  file_selector: ^1.0.0
+  image_picker: ^1.1.2
+  file_selector: ^1.0.3
 
 dev_dependencies:
   flutter_driver:
@@ -15,7 +15,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
