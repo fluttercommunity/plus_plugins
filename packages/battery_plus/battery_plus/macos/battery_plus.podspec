@@ -13,7 +13,7 @@ A Flutter plugin for accessing information about the battery state(full, chargin
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :path => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus' }
-  s.source_files     = 'Classes/**/*'
+  s.source_files     = 'battery_plus/Sources/battery_plus/**/*.swift'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx, '10.14'
