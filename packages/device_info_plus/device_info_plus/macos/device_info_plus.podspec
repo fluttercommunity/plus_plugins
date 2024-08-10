@@ -13,8 +13,8 @@ https://github.com/flutter/flutter/issues/46618
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'device_info_plus/Sources/device_info_plus/**/*.swift'
+  s.public_header_files = 'device_info_plus/Sources/device_info_plus/**/*.swift'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx
