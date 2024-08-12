@@ -9,7 +9,7 @@ import Cocoa
 import FlutterMacOS
 #endif
 
-public class SwiftConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
+public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   private let connectivityProvider: ConnectivityProvider
   private var eventSink: FlutterEventSink?
 

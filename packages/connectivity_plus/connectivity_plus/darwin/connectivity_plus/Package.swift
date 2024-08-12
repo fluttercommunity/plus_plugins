@@ -19,9 +19,6 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("PrivacyInfo.xcprivacy"),
-            ],
-            cSettings: [
-                .headerSearchPath("include/connectivity_plus")
             ]
         )
     ]

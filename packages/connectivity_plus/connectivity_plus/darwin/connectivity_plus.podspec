@@ -14,8 +14,7 @@ Downloaded by pub (not CocoaPods).
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus' }
   s.documentation_url = 'https://pub.dev/packages/connectivity_plus'
-  s.source_files = 'connectivity_plus/Sources/connectivity_plus/**/*.{h,m,swift}'
-  s.public_header_files = 'connectivity_plus/Sources/connectivity_plus/include/**/*.h'
+  s.source_files = 'connectivity_plus/Sources/connectivity_plus/**/*.swift'
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
   s.ios.deployment_target = '12.0'
