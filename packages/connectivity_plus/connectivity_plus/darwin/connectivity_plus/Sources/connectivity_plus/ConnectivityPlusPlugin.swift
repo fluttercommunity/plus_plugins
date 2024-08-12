@@ -35,7 +35,7 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
       binaryMessenger: binaryMessenger)
 
     let connectivityProvider = PathMonitorConnectivityProvider()
-    let instance = SwiftConnectivityPlusPlugin(connectivityProvider: connectivityProvider)
+    let instance = ConnectivityPlusPlugin(connectivityProvider: connectivityProvider)
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
