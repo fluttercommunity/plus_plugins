@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FPPNetworkInfoPlusPlugin.h"
+#import "./include/network_info_plus/FPPNetworkInfoPlusPlugin.h"
 
-#import "FPPCaptiveNetworkInfoProvider.h"
-#import "FPPHotspotNetworkInfoProvider.h"
-#import "FPPNetworkInfo.h"
-#import "FPPNetworkInfoProvider.h"
+#import "./include/network_info_plus/FPPCaptiveNetworkInfoProvider.h"
+#import "./include/network_info_plus/FPPHotspotNetworkInfoProvider.h"
+#import "./include/network_info_plus/FPPNetworkInfo.h"
+#import "./include/network_info_plus/FPPNetworkInfoProvider.h"
 #import "SystemConfiguration/CaptiveNetwork.h"
-#import "getgateway.h"
+#import "./include/network_info_plus/getgateway.h"
 #import <CoreLocation/CoreLocation.h>
 
 #include <ifaddrs.h>
