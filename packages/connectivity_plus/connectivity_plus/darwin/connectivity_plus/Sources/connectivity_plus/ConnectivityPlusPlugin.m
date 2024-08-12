@@ -1,4 +1,4 @@
-#import "ConnectivityPlusPlugin.h"
+#import "./include/connectivity_plus/ConnectivityPlusPlugin.h"
 #if __has_include(<connectivity_plus/connectivity_plus-Swift.h>)
 #import <connectivity_plus/connectivity_plus-Swift.h>
 #else
