@@ -13,11 +13,10 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Team' => 'flutter-dev@googlegroups.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'network_info_plus/Sources/network_info_plus/**/*.swift'
+  s.public_header_files = 'network_info_plus/Sources/network_info_plus/**/*.h'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx
   s.osx.deployment_target = '10.14'
 end
-
