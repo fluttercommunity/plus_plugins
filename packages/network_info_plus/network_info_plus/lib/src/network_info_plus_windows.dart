@@ -1,5 +1,4 @@
 /// The Windows implementation of `network_info_plus`.
-// ignore_for_file: constant_identifier_names
 
 library network_info_plus_windows;
 
@@ -24,6 +23,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   void openHandle() {
     if (clientHandle != NULL) return;
 
+    // ignore: constant_identifier_names
     const WLAN_API_VERSION_2_0 = 0x00000002;
     final phClientHandle = calloc<HANDLE>();
     final pdwNegotiatedVersion = calloc<DWORD>();
@@ -31,7 +31,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     try {
       final hr = WlanOpenHandle(
           WLAN_API_VERSION_2_0, nullptr, pdwNegotiatedVersion, phClientHandle);
-      if (hr == ERROR_SERVICE_NOT_ACTIVE) return;
+      if (hr == WIN32_ERROR.ERROR_SERVICE_NOT_ACTIVE) return;
       clientHandle = phClientHandle.value;
     } finally {
       free(pdwNegotiatedVersion);
@@ -53,7 +53,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
 
     try {
       var hr = WlanEnumInterfaces(clientHandle, nullptr, ppInterfaceList);
-      if (hr != ERROR_SUCCESS) return null; // no wifi interface available
+      if (hr != WIN32_ERROR.ERROR_SUCCESS) return null; // no wifi interface available
 
       for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
         final pInterfaceGuid = calloc<GUID>()
@@ -67,7 +67,7 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
         try {
           hr = WlanQueryInterface(clientHandle, pInterfaceGuid, opCode, nullptr,
               pdwDataSize, ppAttributes.cast(), nullptr);
-          if (hr != ERROR_SUCCESS) break;
+          if (hr != WIN32_ERROR.ERROR_SUCCESS) break;
           if (ppAttributes.value.ref.isState != 0) {
             return query(pInterfaceGuid, ppAttributes.value);
           }
@@ -93,19 +93,19 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   String formatIPAddress(Pointer<SOCKADDR> addr) {
     final buffer = calloc<BYTE>(64).cast<Utf8>();
     try {
-      if (addr.ref.sa_family == AF_INET) {
+      if (addr.ref.sa_family == ADDRESS_FAMILY.AF_INET) {
         final sinAddr = addr.cast<SOCKADDR_IN>().ref.sin_addr;
         final sinAddrPtr = calloc<Int32>();
         sinAddrPtr.value = sinAddr;
-        inet_ntop(AF_INET, sinAddrPtr, buffer, 64);
+        inet_ntop(ADDRESS_FAMILY.AF_INET, sinAddrPtr, buffer, 64);
         free(sinAddrPtr);
-      } else if (addr.ref.sa_family == AF_INET6) {
+      } else if (addr.ref.sa_family == ADDRESS_FAMILY.AF_INET6) {
         final sinAddr = addr.cast<SOCKADDR_IN6>().ref.sin6_addr;
         final sinAddrPtr = calloc<Uint8>(16);
         for (var i = 0; i < 16; i++) {
           sinAddrPtr[i] = sinAddr[i];
         }
-        inet_ntop(AF_INET6, sinAddrPtr, buffer, 64);
+        inet_ntop(ADDRESS_FAMILY.AF_INET6, sinAddrPtr, buffer, 64);
         free(sinAddrPtr);
       }
       return buffer.cast<Utf8>().toDartString();
@@ -187,13 +187,13 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   /// Obtains the IP v4 address of the connected wifi network
   @override
   Future<String?> getWifiIP() {
-    return getIPAddr(AF_INET);
+    return getIPAddr(ADDRESS_FAMILY.AF_INET);
   }
 
   /// Obtains the IP v6 address of the connected wifi network
   @override
   Future<String?> getWifiIPv6() {
-    return getIPAddr(AF_INET6);
+    return getIPAddr(ADDRESS_FAMILY.AF_INET6);
   }
 
   /// Obtains the subnet mask of the connected wifi network
@@ -203,9 +203,9 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       final ulSize = calloc<ULONG>();
       Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
       try {
-        GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, ulSize);
+        GetAdaptersAddresses(ADDRESS_FAMILY.AF_INET, 0, nullptr, nullptr, ulSize);
         pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
-        GetAdaptersAddresses(AF_INET, 0, nullptr, pIpAdapterAddress, ulSize);
+        GetAdaptersAddresses(ADDRESS_FAMILY.AF_INET, 0, nullptr, pIpAdapterAddress, ulSize);
         final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
         if (pAddr == null) return null;
         return extractSubnet(pAddr);
@@ -263,9 +263,9 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       final ulSize = calloc<ULONG>();
       Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
       try {
-        GetAdaptersAddresses(AF_INET, 0x80, nullptr, nullptr, ulSize);
+        GetAdaptersAddresses(ADDRESS_FAMILY.AF_INET, 0x80, nullptr, nullptr, ulSize);
         pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
-        GetAdaptersAddresses(AF_INET, 0x80, nullptr, pIpAdapterAddress, ulSize);
+        GetAdaptersAddresses(ADDRESS_FAMILY.AF_INET, 0x80, nullptr, pIpAdapterAddress, ulSize);
         final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
         if (pAddr == null) return null;
         if (pAddr.ref.FirstGatewayAddress == nullptr) return null;
