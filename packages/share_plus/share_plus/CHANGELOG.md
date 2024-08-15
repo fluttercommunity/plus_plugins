@@ -1,3 +1,7 @@
+## 10.0.2
+
+ - **FIX**(share_plus): [#2910](https://github.com/fluttercommunity/plus_plugins/issues/2910) Handle user dismissing dialog on shareUri() in web ([#3175](https://github.com/fluttercommunity/plus_plugins/issues/3175)). ([bba78118](https://github.com/fluttercommunity/plus_plugins/commit/bba781187b4af5682331ed90929c61c13137809a))
+
 ## 10.0.1
 
 - **CHORE**(share_plus): Update to package:web to ^1.0.0 ([#3105](https://github.com/fluttercommunity/plus_plugins/pull/3105)). ([1f23910a](https://github.com/fluttercommunity/plus_plugins/commit/1f23910ab50fef2e499054f35cedfd14c578976a))
