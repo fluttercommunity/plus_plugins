@@ -1,3 +1,7 @@
+## 6.0.1
+
+ - **FIX**(network_info_plus): Avoid usage of unsupported package:win32 versions ([#3179](https://github.com/fluttercommunity/plus_plugins/issues/3179)). ([79f61add](https://github.com/fluttercommunity/plus_plugins/commit/79f61add195693f33330103dd5f31f6433dfc1f2))
+
 ## 6.0.0
 
 > Note: This release has breaking changes.
