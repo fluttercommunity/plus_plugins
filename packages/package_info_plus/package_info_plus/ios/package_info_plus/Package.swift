@@ -20,7 +20,6 @@ let package = Package(
                 .process("PrivacyInfo.xcprivacy"),
             ],
             cSettings: [
-                // TODO: Update your plugin name.
                 .headerSearchPath("include/package_info_plus")
             ]
         )
