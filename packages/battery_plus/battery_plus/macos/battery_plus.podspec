@@ -19,4 +19,5 @@ A Flutter plugin for accessing information about the battery state(full, chargin
   s.platform = :osx, '10.14'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
+  s.resource_bundles = {'batery_plus_privacy' => ['PrivacyInfo.xcprivacy']}
 end
