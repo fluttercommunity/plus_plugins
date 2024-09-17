@@ -4,24 +4,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "battery_plus",
-    platforms: [
-        .iOS("12.0")
-    ],
-    products: [
-        .library(name: "battery-plus", targets: ["battery_plus"])
-    ],
-    dependencies: [],
-    targets: [
-        .target(
-            name: "battery_plus",
-            dependencies: [],
-            resources: [
-                .process("PrivacyInfo.xcprivacy"),
-            ],
-            cSettings: [
-                .headerSearchPath("include/battery_plus")
-            ]
-        )
-    ]
+  name: "battery_plus",
+  platforms: [
+    .iOS("12.0")
+  ],
+  products: [
+    .library(name: "battery-plus", targets: ["battery_plus"])
+  ],
+  dependencies: [],
+  targets: [
+    .target(
+      name: "battery_plus",
+      dependencies: [],
+      resources: [
+        .process("PrivacyInfo.xcprivacy")
+      ],
+      cSettings: [
+        .headerSearchPath("include/battery_plus")
+      ]
+    )
+  ]
 )
