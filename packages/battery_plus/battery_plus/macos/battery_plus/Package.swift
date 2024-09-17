@@ -16,7 +16,9 @@ let package = Package(
         .target(
             name: "battery_plus",
             dependencies: [],
-            resources: []
+            resources: [
+                 .process("PrivacyInfo.xcprivacy"),
+            ]
         )
     ]
 )
