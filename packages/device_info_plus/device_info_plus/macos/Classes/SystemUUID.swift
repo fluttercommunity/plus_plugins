@@ -6,11 +6,13 @@ public struct SystemUUID {
         let dev = IOServiceMatching("IOPlatformExpertDevice")
         
         var platformExpert: io_service_t
-        if #available(macOS 12, *) {
+        #if MACOS12_OR_LATER
+            print("Running on macOS 12 or newer")
             platformExpert = IOServiceGetMatchingService(kIOMainPortDefault, dev)
-        } else {
+        #else
+            print("Running on an older version of macOS")
             platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault, dev)
-        }
+        #endif
         
         let serialNumberAsCFString = IORegistryEntryCreateCFProperty(platformExpert, kIOPlatformUUIDKey as CFString, kCFAllocatorDefault, 0)
         IOObjectRelease(platformExpert)
