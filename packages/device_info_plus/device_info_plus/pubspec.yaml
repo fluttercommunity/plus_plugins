@@ -38,9 +38,7 @@ dependencies:
     sdk: flutter
   meta: ^1.8.0
   web: ">=0.5.0 <2.0.0"
-
-  # win32 is compatible across v4 and v5 for Win32 only (not COM)
-  win32: ">=4.0.0 <6.0.0"
+  win32: "^5.5.3"
   win32_registry: ^1.1.0
 
 dev_dependencies:
