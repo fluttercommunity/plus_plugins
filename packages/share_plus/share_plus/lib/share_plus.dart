@@ -30,6 +30,9 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
+  /// The optional [title] parameter can be used to specify a custom title for
+  /// the uri on Android. It has no effect on other devices.
+  ///
   /// May throw [PlatformException]
   /// from [MethodChannel].
   ///
@@ -37,10 +40,12 @@ class Share {
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    String? title,
   }) async {
     return _platform.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
+      title: title,
     );
   }
 

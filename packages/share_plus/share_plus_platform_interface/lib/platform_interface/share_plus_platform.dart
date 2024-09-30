@@ -35,10 +35,12 @@ class SharePlatform extends PlatformInterface {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    String? title,
   }) {
     return _instance.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
+      title: title,
     );
   }
 

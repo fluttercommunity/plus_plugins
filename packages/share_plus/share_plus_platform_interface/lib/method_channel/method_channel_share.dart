@@ -27,6 +27,7 @@ class MethodChannelShare extends SharePlatform {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    String? title,
   }) async {
     final params = <String, dynamic>{'uri': uri.toString()};
 
@@ -35,6 +36,10 @@ class MethodChannelShare extends SharePlatform {
       params['originY'] = sharePositionOrigin.top;
       params['originWidth'] = sharePositionOrigin.width;
       params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    if (title != null) {
+      params['title'] = title;
     }
 
     final result = await channel.invokeMethod<String>('shareUri', params) ??

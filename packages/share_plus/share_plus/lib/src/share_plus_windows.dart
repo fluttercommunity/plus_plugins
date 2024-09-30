@@ -29,6 +29,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    String? title,
   }) async {
     throw UnimplementedError(
         'shareUri() has not been implemented on Windows. Use share().');

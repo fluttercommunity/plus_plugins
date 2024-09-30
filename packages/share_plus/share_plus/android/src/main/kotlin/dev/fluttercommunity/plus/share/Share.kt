@@ -55,13 +55,16 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
+    fun share(text: String, subject: String?, withResult: Boolean, title: String?) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
             if (subject != null) {
                 putExtra(Intent.EXTRA_SUBJECT, subject)
+            }
+            if (title != null) {
+                putExtra(Intent.EXTRA_TITLE, title)
             }
         }
         // If we dont want the result we use the old 'createChooser'
@@ -97,7 +100,7 @@ internal class Share(
         val shareIntent = Intent()
         when {
             (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, withResult)
+                share(text, subject, withResult, null)
                 return
             }
 

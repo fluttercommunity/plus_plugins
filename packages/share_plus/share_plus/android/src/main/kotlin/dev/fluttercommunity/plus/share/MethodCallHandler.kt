@@ -29,6 +29,7 @@ internal class MethodCallHandler(
                         call.argument<Any>("uri") as String,
                         subject = null,
                         withResult = isWithResult,
+                        call.argument<Any>("title") as String?,
                     )
                     success(isWithResult, result)
                 }
@@ -38,6 +39,7 @@ internal class MethodCallHandler(
                         call.argument<Any>("text") as String,
                         call.argument<Any>("subject") as String?,
                         isWithResult,
+                        null,
                     )
                     success(isWithResult, result)
                 }

@@ -32,6 +32,7 @@ class SharePlusWebPlugin extends SharePlatform {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    String? title,
   }) async {
     final data = ShareData(
       url: uri.toString(),

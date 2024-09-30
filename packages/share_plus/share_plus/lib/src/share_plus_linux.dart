@@ -24,6 +24,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    String? title,
   }) async {
     throw UnimplementedError(
         'shareUri() has not been implemented on Linux. Use share().');
