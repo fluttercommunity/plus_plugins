@@ -62,6 +62,7 @@ internal class Share(
             putExtra(Intent.EXTRA_TEXT, text)
             if (subject != null) {
                 putExtra(Intent.EXTRA_SUBJECT, subject)
+                putExtra(Intent.EXTRA_TITLE, subject)
             }
         }
         // If we dont want the result we use the old 'createChooser'
