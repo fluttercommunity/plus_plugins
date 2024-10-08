@@ -30,7 +30,7 @@ flutter:
 dependencies:
   cross_file: ^0.3.4+2
   meta: ^1.8.0
-  mime: ^1.0.4
+  mime: ">=1.0.4 <3.0.0"
   flutter:
     sdk: flutter
   flutter_web_plugins:
@@ -43,14 +43,12 @@ dependencies:
   url_launcher_platform_interface: ^2.3.2
   ffi: ^2.1.2
   web: ^1.0.0
-
-  # win32 is compatible across v4 and v5 for Win32 only (not COM)
-  win32: ">=4.0.0 <6.0.0"
+  win32: ^5.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ">=2.0.1 <4.0.0"
+  flutter_lints: ">=2.0.1 <6.0.0"
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
