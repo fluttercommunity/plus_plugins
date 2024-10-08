@@ -30,7 +30,7 @@ flutter:
 dependencies:
   cross_file: ^0.3.4+2
   meta: ^1.8.0
-  mime: ^2.0.0
+  mime: ">=1.0.4 <3.0.0"
   flutter:
     sdk: flutter
   flutter_web_plugins:
