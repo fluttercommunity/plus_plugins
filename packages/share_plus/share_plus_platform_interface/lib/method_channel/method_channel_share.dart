@@ -130,11 +130,10 @@ class MethodChannelShare extends SharePlatform {
       return file;
     } else {
       tempRoot ??= (await getTemporaryDirectory()).path;
-      var extension = extensionFromMime(file.mimeType ?? 'octet-stream');
-
-      // TODO: As soon as the mime package fixes the image/jpe issue, remove this line immediately
-      // Reference: https://github.com/dart-lang/mime/issues/55
-      extension = extension == "jpe" ? "jpeg" : extension;
+      // Method returns null as in v2.0.0
+      final extension =
+          // ignore: dead_null_aware_expression
+          extensionFromMime(file.mimeType ?? 'octet-stream') ?? 'bin';
 
       //By having a UUID v4 folder wrapping the file
       //This path generation algorithm will not only minimize the risk of name collision but also ensure that the filename
