@@ -43,7 +43,7 @@ dependencies:
   url_launcher_platform_interface: ^2.3.2
   ffi: ^2.1.2
   web: ^1.0.0
-  win32: ^5.5.3
+  win32: ^5.5.5
 
 dev_dependencies:
   flutter_test:
