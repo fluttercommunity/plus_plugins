@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Flutter Community' => 'authors@fluttercommunity.dev' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'package_info_plus/Sources/package_info_plus/**/*.{h,m}'
+  s.public_header_files = 'package_info_plus/Sources/package_info_plus/include/**/*.h'
   s.dependency 'FlutterMacOS'
   s.platform = :osx, '10.14'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
