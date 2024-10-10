@@ -14,13 +14,12 @@ Downloaded by pub (not CocoaPods).
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus' }
   s.documentation_url = 'https://pub.dev/packages/share_plus'
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'share_plus/Sources/share_plus/**/*.{h,m}'
+  s.public_header_files = 'share_plus/Sources/share_plus/include/**/*.h'
   s.dependency 'Flutter'
   s.ios.weak_framework = 'LinkPresentation'
 
   s.platform = :ios, '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.resource_bundles = {'share_plus_privacy' => ['PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'share_plus_privacy' => ['share_plus/Sources/share_plus/PrivacyInfo.xcprivacy']}
 end
-

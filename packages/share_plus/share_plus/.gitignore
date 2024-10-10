@@ -11,9 +11,11 @@ flutter_export_environment.sh
 
 examples/all_plugins/pubspec.yaml
 
+.build/
 Podfile
 Podfile.lock
 Pods/
+.swiftpm/
 .symlinks/
 **/Flutter/App.framework/
 **/Flutter/ephemeral/
