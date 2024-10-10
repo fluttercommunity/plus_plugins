@@ -1,4 +1,4 @@
-#import "FPPCaptiveNetworkInfoProvider.h"
+#import "./include/network_info_plus/FPPCaptiveNetworkInfoProvider.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
 @implementation FPPCaptiveNetworkInfoProvider

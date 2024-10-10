@@ -100,14 +100,14 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <sys/sysctl.h>
 #include <sys/socket.h>
 #include <net/if.h>
-#include "route.h"
+#include "./include/network_info_plus/route.h"
 #endif
 #ifdef USE_SOCKET_ROUTE
 #include <unistd.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <net/if.h>
-#include "route.h"
+#include "./include/network_info_plus/route.h"
 #endif
 
 #ifdef USE_WIN32_CODE
@@ -123,7 +123,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <iphlpapi.h>
 #endif
 
-#include "getgateway.h"
+#include "./include/network_info_plus/getgateway.h"
 
 #ifndef _WIN32
 #define SUCCESS (0)
