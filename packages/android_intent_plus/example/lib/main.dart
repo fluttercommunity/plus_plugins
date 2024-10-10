@@ -202,6 +202,20 @@ class ExplicitIntentsWidget extends StatelessWidget {
     intent.launch();
   }
 
+  void _getResolvedActivity(BuildContext context) async {
+    final intent = AndroidIntent(
+      action: 'action_view',
+      data: Uri.encodeFull('http://'),
+    );
+
+    final details = await intent.getResolvedActivity();
+    if (details != null && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${details.appName} - ${details.packageName}")),
+      );
+    }
+  }
+
   void _openGmail() {
     const intent = AndroidIntent(
       action: 'android.intent.action.SEND',
@@ -274,6 +288,13 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 onPressed: _openApplicationDetails,
                 child: const Text(
                   'Tap here to open Application Details',
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _getResolvedActivity(context),
+                child: const Text(
+                  'Tap here to get default resolved activity',
                 ),
               ),
               const SizedBox(height: 16),
