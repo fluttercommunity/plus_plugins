@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#import "FPPDeviceInfoPlusPlugin.h"
+#import "./include/device_info_plus/FPPDeviceInfoPlusPlugin.h"
 #import <sys/utsname.h>
 
 @implementation FPPDeviceInfoPlusPlugin
