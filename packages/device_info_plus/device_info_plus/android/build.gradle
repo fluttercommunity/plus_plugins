@@ -45,6 +45,7 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        disable 'MissingPermission'
     }
 
     dependencies {
