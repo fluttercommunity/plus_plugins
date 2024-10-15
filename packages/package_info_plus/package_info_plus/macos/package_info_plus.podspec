@@ -17,4 +17,5 @@ Pod::Spec.new do |s|
   s.dependency 'FlutterMacOS'
   s.platform = :osx, '10.14'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  s.resource_bundles = {'package_info_plus_privacy' => ['PrivacyInfo.xcprivacy']}
 end

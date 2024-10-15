@@ -1,3 +1,12 @@
+## 6.0.2
+
+ - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
+ - **FIX**(all): Add macOS Privacy Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
+
+## 6.0.1
+
+ - **FIX**(network_info_plus): Avoid usage of unsupported package:win32 versions ([#3179](https://github.com/fluttercommunity/plus_plugins/issues/3179)). ([79f61add](https://github.com/fluttercommunity/plus_plugins/commit/79f61add195693f33330103dd5f31f6433dfc1f2))
+
 ## 6.0.0
 
 > Note: This release has breaking changes.

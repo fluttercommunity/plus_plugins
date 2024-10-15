@@ -1,3 +1,7 @@
+## 5.0.1
+
+ - **FIX**(share_plus): `mime` compatible with v2 (v1 still supported) ([#3309](https://github.com/fluttercommunity/plus_plugins/issues/3309)). ([401db75e](https://github.com/fluttercommunity/plus_plugins/commit/401db75efa24c40fd96a05e79d12801f92666efd))
+
 ## 5.0.0
 
 > Note: This release has breaking changes.
