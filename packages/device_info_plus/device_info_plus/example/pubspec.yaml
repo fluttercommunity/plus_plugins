@@ -4,7 +4,7 @@ description: Demonstrates how to use the device_info_plus plugin.
 dependencies:
   flutter:
     sdk: flutter
-  device_info_plus: ^10.1.1
+  device_info_plus: ^11.0.0
 
 dev_dependencies:
   flutter_driver:
@@ -13,7 +13,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

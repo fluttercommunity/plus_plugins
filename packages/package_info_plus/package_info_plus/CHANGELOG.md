@@ -1,3 +1,13 @@
+## 8.0.3
+
+ - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
+ - **FIX**(all): Add macOS Privacy Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
+
+## 8.0.2
+
+ - **CHORE**(package_info_plus): Update to package:web to ">=0.5.0 <2.0.0" ([#3102](https://github.com/fluttercommunity/plus_plugins/pull/3102)). ([05f8afb8](https://github.com/fluttercommunity/plus_plugins/commit/05f8afb8fc43bc702ab5e3e14e3cba9d79983446))
+ - **DOCS**(package_info_plus): Update plugin requirements in README ([#3163](https://github.com/fluttercommunity/plus_plugins/issues/3163)). ([6f09bb7e](https://github.com/fluttercommunity/plus_plugins/commit/6f09bb7ec4c0f88fea557a87dc0cd3aaa64ac9ee))
+
 ## 8.0.1
 
  - **FIX**(package_info_plus): Address changed fields nullability on Android 15 (API 35) ([#2975](https://github.com/fluttercommunity/plus_plugins/issues/2975)). ([dfa3bc2d](https://github.com/fluttercommunity/plus_plugins/commit/dfa3bc2de7d2a010bc81b0a7f19395b373e31cf1))
