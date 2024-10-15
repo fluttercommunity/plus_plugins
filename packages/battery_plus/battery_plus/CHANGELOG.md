@@ -1,3 +1,8 @@
+## 6.0.4
+
+ - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
+ - **FIX**(all): Add macOS Privacy Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
+
 ## 6.0.3
 
  - **CHORE**(battery_plus): Update to package:web to ^1.0.0 ([#3103](https://github.com/fluttercommunity/plus_plugins/pull/3103)). ([cf534eec](https://github.com/fluttercommunity/plus_plugins/commit/cf534eec402b57b70ffe96bf5351afcdfa8c7c7e))

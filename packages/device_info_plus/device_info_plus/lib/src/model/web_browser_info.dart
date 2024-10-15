@@ -71,7 +71,7 @@ class WebBrowserInfo implements BaseDeviceInfo {
   final String? appVersion;
 
   /// the amount of device memory in gigabytes. This value is an approximation given by rounding to the nearest power of 2 and dividing that number by 1024.
-  final int? deviceMemory;
+  final double? deviceMemory;
 
   /// a DOMString representing the preferred language of the user, usually the language of the browser UI. The null value is returned when this is unknown.
   final String? language;
