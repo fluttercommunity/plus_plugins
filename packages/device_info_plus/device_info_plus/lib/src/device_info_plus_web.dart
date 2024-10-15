@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:js_interop';
 import 'package:web/web.dart' as html show window, Navigator;
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
@@ -30,7 +31,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
           'appVersion': _navigator.appVersion,
           'deviceMemory': _navigator.deviceMemory,
           'language': _navigator.language,
-          'languages': _navigator.languages,
+          'languages': _navigator.languages.toDart,
           'platform': _navigator.platform,
           'product': _navigator.product,
           'productSub': _navigator.productSub,
@@ -43,11 +44,4 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
       ),
     );
   }
-}
-
-/// Property is missing.
-/// Ticket: https://github.com/dart-lang/web/issues/192
-/// Probably won't be an int? in the future!
-extension on html.Navigator {
-  external int? get deviceMemory;
 }
