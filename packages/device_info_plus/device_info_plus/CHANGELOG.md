@@ -1,3 +1,12 @@
+## 11.0.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
+ - **FIX**(all): Add macOS Privacy Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
+ - **FIX**(device_info_plus): Fix type cast of digitalProductId on windows ([#3188](https://github.com/fluttercommunity/plus_plugins/issues/3188)). ([91f48a6b](https://github.com/fluttercommunity/plus_plugins/commit/91f48a6bc7d11c4238c9539ca06e6fa768995580))
+ - **BREAKING** **FIX**(device_info_plus): fixed webasm compliance ([#3254](https://github.com/fluttercommunity/plus_plugins/issues/3254)). ([e35e2123](https://github.com/fluttercommunity/plus_plugins/commit/e35e2123451fc103bbb6f6d94f71ebced2ae8af5))
+
 ## 10.1.2
 
  - **DOCS**(device_info_plus): Update plugin requirements in README ([#3162](https://github.com/fluttercommunity/plus_plugins/issues/3162)). ([6cfa950f](https://github.com/fluttercommunity/plus_plugins/commit/6cfa950f66fec649093b6c44755dc06a3a23319e))

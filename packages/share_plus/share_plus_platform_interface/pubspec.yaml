@@ -1,6 +1,6 @@
 name: share_plus_platform_interface
 description: A common platform interface for the share_plus plugin.
-version: 5.0.0
+version: 5.0.1
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.8.0
-  mime: ^1.0.4
+  mime: ">=1.0.4 <3.0.0"
   plugin_platform_interface: ^2.1.4
   path_provider: ^2.0.14
   uuid: ">=3.0.7 <5.0.0"
@@ -18,7 +18,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.4.0
-  flutter_lints: ">=2.0.1 <4.0.0"
+  flutter_lints: ">=2.0.1 <6.0.0"
   test: ^1.22.0
 
 environment:

@@ -119,6 +119,8 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       result.success(null);
     } else if ("canResolveActivity".equalsIgnoreCase(call.method)) {
       result.success(sender.canResolveActivity(intent));
+    } else if ("getResolvedActivity".equalsIgnoreCase(call.method)) {
+      result.success(sender.getResolvedActivity(intent));
     } else {
       result.notImplemented();
     }
