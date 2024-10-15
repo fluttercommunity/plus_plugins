@@ -207,6 +207,31 @@ class AndroidIntent {
     );
   }
 
+  /// Get the default activity that will resolve the intent
+  ///
+  /// Note: ensure the calling app's AndroidManifest contains queries that match the intent.
+  /// See: https://developer.android.com/guide/topics/manifest/queries-element
+  Future<ResolvedActivity?> getResolvedActivity() async {
+    if (!_platform.isAndroid) {
+      return null;
+    }
+
+    final result = await _channel.invokeMethod<Map<Object?, Object?>>(
+      'getResolvedActivity',
+      _buildArguments(),
+    );
+
+    if (result != null) {
+      return ResolvedActivity(
+        appName: result["appName"] as String,
+        activityName: result["activityName"] as String,
+        packageName: result["packageName"] as String,
+      );
+    }
+
+    return null;
+  }
+
   /// Constructs the map of arguments which is passed to the plugin.
   Map<String, dynamic> _buildArguments() {
     return {
@@ -222,5 +247,35 @@ class AndroidIntent {
       },
       if (type != null) 'type': type,
     };
+  }
+}
+
+class ResolvedActivity {
+  final String appName;
+  final String activityName;
+  final String packageName;
+
+  ResolvedActivity({
+    required this.appName,
+    required this.activityName,
+    required this.packageName,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ResolvedActivity &&
+          runtimeType == other.runtimeType &&
+          appName == other.appName &&
+          activityName == other.activityName &&
+          packageName == other.packageName;
+
+  @override
+  int get hashCode =>
+      appName.hashCode ^ activityName.hashCode ^ packageName.hashCode;
+
+  @override
+  String toString() {
+    return 'ResolvedActivity{appName: $appName, activityName: $activityName, packageName: $packageName}';
   }
 }
