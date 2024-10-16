@@ -1,6 +1,6 @@
 name: network_info_plus
 description: Flutter plugin for discovering information (e.g. WiFi details) of the network.
-version: 6.0.1
+version: 6.0.2
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus/network_info_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/network_info_plus
@@ -48,4 +48,4 @@ dev_dependencies:
     sdk: flutter
   mockito: ^5.4.0
   plugin_platform_interface: ^2.1.4
-  flutter_lints: ">=2.0.1 <4.0.0"
+  flutter_lints: ">=2.0.1 <6.0.0"

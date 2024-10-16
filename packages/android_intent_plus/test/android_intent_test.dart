@@ -141,6 +141,86 @@ void main() {
       });
     });
 
+    group('getResolvedActivity', () {
+      test('pass right params', () async {
+        androidIntent = AndroidIntent.private(
+            action: 'action_view',
+            data: Uri.encodeFull('https://flutter.dev'),
+            flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
+            channel: mockChannel,
+            platform: FakePlatform(operatingSystem: 'android'),
+            type: 'video/*');
+        await androidIntent.getResolvedActivity();
+        verify(mockChannel
+            .invokeMethod<void>('getResolvedActivity', <String, Object>{
+          'action': 'action_view',
+          'data': Uri.encodeFull('https://flutter.dev'),
+          'flags':
+              androidIntent.convertFlags(<int>[Flag.FLAG_ACTIVITY_NEW_TASK]),
+          'type': 'video/*',
+        }));
+      });
+
+      test('returns a ResolvedActivity', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'action_view',
+          data: Uri.encodeFull('https://flutter.dev'),
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+
+        when(mockChannel.invokeMethod("getResolvedActivity", any))
+            .thenAnswer((_) async => <String, dynamic>{
+                  "activityName": "activity name",
+                  "appName": "App Name",
+                  "packageName": "com.packagename",
+                });
+
+        final result = await androidIntent.getResolvedActivity();
+
+        expect(result?.activityName, equals("activity name"));
+        expect(result?.appName, equals("App Name"));
+        expect(result?.packageName, equals("com.packagename"));
+      });
+
+      test('can send Intent with an action and no component', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'action_view',
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.getResolvedActivity();
+        verify(mockChannel
+            .invokeMethod<void>('getResolvedActivity', <String, Object>{
+          'action': 'action_view',
+        }));
+      });
+
+      test('can send Intent with a component and no action', () async {
+        androidIntent = AndroidIntent.private(
+          package: 'packageName',
+          componentName: 'componentName',
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.getResolvedActivity();
+        verify(mockChannel
+            .invokeMethod<void>('getResolvedActivity', <String, Object>{
+          'package': 'packageName',
+          'componentName': 'componentName',
+        }));
+      });
+
+      test('call in ios platform', () async {
+        androidIntent = AndroidIntent.private(
+            action: 'action_view',
+            channel: mockChannel,
+            platform: FakePlatform(operatingSystem: 'ios'));
+        await androidIntent.getResolvedActivity();
+        verifyZeroInteractions(mockChannel);
+      });
+    });
+
     group('launchChooser', () {
       test('pass title', () async {
         androidIntent = AndroidIntent.private(

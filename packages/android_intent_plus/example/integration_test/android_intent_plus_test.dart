@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:android_intent_plus_example/main.dart';
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus_example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -106,5 +106,24 @@ void main() {
       (WidgetTester tester) async {
     const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
     await expectLater(await intent.canResolveActivity(), isFalse);
+  }, skip: !Platform.isAndroid);
+
+  testWidgets(
+      'getResolvedActivity return activity details when example Activity is found',
+      (WidgetTester tester) async {
+    final intent = AndroidIntent(
+      action: 'action_view',
+      data: Uri.encodeFull('http://'),
+    );
+    await expectLater(await intent.getResolvedActivity(), isNotNull);
+  }, skip: !Platform.isAndroid);
+
+  testWidgets('getResolvedActivity returns null when no Activity is found',
+      (WidgetTester tester) async {
+    final intent = AndroidIntent(
+      action: 'action_view',
+      data: Uri.encodeFull('mycustomscheme://'),
+    );
+    await expectLater(await intent.getResolvedActivity(), isNull);
   }, skip: !Platform.isAndroid);
 }
