@@ -14,11 +14,11 @@ Downloaded by pub (not CocoaPods).
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus' }
   s.documentation_url = 'https://pub.dev/packages/device_info_plus'
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'device_info_plus/Sources/device_info_plus/**/*.{h,m}'
+  s.public_header_files = 'device_info_plus/Sources/device_info_plus/include/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.resource_bundles = {'device_info_plus_privacy' => ['PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'device_info_plus_privacy' => ['device_info_plus/Sources/device_info_plus/PrivacyInfo.xcprivacy']}
 end
 
