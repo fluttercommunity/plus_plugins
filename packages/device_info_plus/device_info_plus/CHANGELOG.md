@@ -1,3 +1,8 @@
+## 11.1.0
+
+ - **FIX**(device_info_plus): Ignore `MissingPermission` lint error on Android ([#3317](https://github.com/fluttercommunity/plus_plugins/issues/3317)). ([6469523f](https://github.com/fluttercommunity/plus_plugins/commit/6469523fb14f32f7aa23892183693a8f502992d3))
+ - **FEAT**(device_info_plus): Add Swift Package Manager support ([#3167](https://github.com/fluttercommunity/plus_plugins/issues/3167)). ([6a347cb1](https://github.com/fluttercommunity/plus_plugins/commit/6a347cb106182d68329cd32827938e26bc7e7b00))
+
 ## 11.0.0
 
 > Note: This release has breaking changes.

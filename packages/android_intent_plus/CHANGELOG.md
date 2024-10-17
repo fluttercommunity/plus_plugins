@@ -1,3 +1,7 @@
+## 5.2.0
+
+ - **FEAT**(android_intent_plus): add getResolvedActivity method ([#3313](https://github.com/fluttercommunity/plus_plugins/issues/3313)). ([8ad1c6d9](https://github.com/fluttercommunity/plus_plugins/commit/8ad1c6d9e061a59383f82f9b4a7703ef03e4c04c))
+
 ## 5.1.0
 
  - **FIX**(android_intent_plus): remove package name from AndroidManifest ([#3033](https://github.com/fluttercommunity/plus_plugins/issues/3033)). ([af2f4afa](https://github.com/fluttercommunity/plus_plugins/commit/af2f4afaa419cdd9fb32632ea3ebe9a4e6df0513))

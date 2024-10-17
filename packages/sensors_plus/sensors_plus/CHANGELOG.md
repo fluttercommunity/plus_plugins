@@ -1,3 +1,7 @@
+## 6.1.0
+
+ - **FEAT**(sensors_plus): Add Swift Package Manager support ([#3170](https://github.com/fluttercommunity/plus_plugins/issues/3170)). ([3a0798c4](https://github.com/fluttercommunity/plus_plugins/commit/3a0798c4ef747b7d66ab74af3d5bea6fa3a1aa26))
+
 ## 6.0.1
 
  - **DOCS**(sensors_plus): Update plugin requirements in README ([#3164](https://github.com/fluttercommunity/plus_plugins/issues/3164)). ([82d95db4](https://github.com/fluttercommunity/plus_plugins/commit/82d95db42dbe9bad821fbcd033ea317cf6771691))

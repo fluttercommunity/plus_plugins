@@ -1,3 +1,7 @@
+## 6.1.0
+
+ - **FEAT**(connectivity_plus): Add Swift Package Manager support ([#3173](https://github.com/fluttercommunity/plus_plugins/issues/3173)). ([036afeeb](https://github.com/fluttercommunity/plus_plugins/commit/036afeeb549f24813256f5049def6a6a3740a4f2))
+
 ## 6.0.5
 
  - **DOCS**(connectivity_plus): Update plugin requirements in README ([#3160](https://github.com/fluttercommunity/plus_plugins/issues/3160)). ([277f8b6b](https://github.com/fluttercommunity/plus_plugins/commit/277f8b6ba9ee6e7e5e3b1cce3e5eb8416830ba6b))

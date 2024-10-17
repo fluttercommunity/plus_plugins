@@ -1,3 +1,7 @@
+## 8.1.0
+
+ - **FEAT**(package_info_plus): Add Swift Package Manager support ([#3171](https://github.com/fluttercommunity/plus_plugins/issues/3171)). ([a14d4727](https://github.com/fluttercommunity/plus_plugins/commit/a14d472749b28826b8402cc612e29f0860cc44bc))
+
 ## 8.0.3
 
  - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
