@@ -1,3 +1,7 @@
+## 10.1.0
+
+ - **FEAT**(share_plus): Add Swift Package Manager support ([#3169](https://github.com/fluttercommunity/plus_plugins/issues/3169)). ([b3970225](https://github.com/fluttercommunity/plus_plugins/commit/b3970225b80183548ecc5516a5c1a1ad61016860))
+
 ## 10.0.3
 
  - **FIX**(share_plus): `mime` compatible with v2 (v1 still supported) ([#3309](https://github.com/fluttercommunity/plus_plugins/issues/3309)). ([401db75e](https://github.com/fluttercommunity/plus_plugins/commit/401db75efa24c40fd96a05e79d12801f92666efd))
