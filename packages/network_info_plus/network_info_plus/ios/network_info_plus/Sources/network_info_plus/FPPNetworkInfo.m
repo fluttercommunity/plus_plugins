@@ -1,4 +1,4 @@
-#import "FPPNetworkInfo.h"
+#import "./include/network_info_plus/FPPNetworkInfo.h"
 
 @implementation FPPNetworkInfo
 

@@ -1,4 +1,4 @@
-#import "FPPHotspotNetworkInfoProvider.h"
+#import "./include/network_info_plus/FPPHotspotNetworkInfoProvider.h"
 #import <NetworkExtension/NetworkExtension.h>
 
 @implementation FPPHotspotNetworkInfoProvider
