@@ -228,8 +228,10 @@ TopViewControllerForViewController(UIViewController *viewController) {
     // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
     metadata.originalURL = [NSURL fileURLWithPath:description];
     if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
+      UIImage *image = [UIImage imageWithContentsOfFile:_path];
       metadata.imageProvider = [[NSItemProvider alloc]
-          initWithObject:[UIImage imageWithContentsOfFile:_path]];
+          initWithObject:[self imageWithImage:image
+                                 scaledToSize:CGSizeMake(120, 120)]];
     }
   }
 
