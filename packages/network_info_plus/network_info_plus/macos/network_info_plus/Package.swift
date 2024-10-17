@@ -17,6 +17,7 @@ let package = Package(
             name: "network_info_plus",
             dependencies: [],
             resources: [
+                .process("PrivacyInfo.xcprivacy"),
             ]
         )
     ]
