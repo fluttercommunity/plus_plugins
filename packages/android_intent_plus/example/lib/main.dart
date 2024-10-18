@@ -194,6 +194,13 @@ class ExplicitIntentsWidget extends StatelessWidget {
     intent.launch();
   }
 
+  void _openSimSettings() {
+    const AndroidIntent intent = AndroidIntent(
+      action: 'action_manage_all_sim_profiles_settings',
+    );
+    intent.launch();
+  }
+
   void _openApplicationDetails() {
     const intent = AndroidIntent(
       action: 'action_application_details_settings',
@@ -303,6 +310,11 @@ class ExplicitIntentsWidget extends StatelessWidget {
                 child: const Text(
                   'Tap here to open gmail app with details',
                 ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _openSimSettings(),
+                child: const Text('Tap here to open sim profiles.'),
               ),
             ],
           ),

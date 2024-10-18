@@ -142,6 +142,8 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
         return Settings.ACTION_LOCATION_SOURCE_SETTINGS;
       case "action_application_details_settings":
         return Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+      case "action_manage_all_sim_profiles_settings":
+        return Settings.ACTION_MANAGE_ALL_SIM_PROFILES_SETTINGS;
       default:
         return action;
     }
