@@ -17,8 +17,10 @@ void main() {
       Platform.isMacOS ||
       Platform.isWindows ||
       Platform.isLinux;
-  final bool isInBatterySaveModeIsImplemented =
-      Platform.isAndroid || Platform.isIOS || Platform.isWindows;
+  final bool isInBatterySaveModeIsImplemented = Platform.isAndroid ||
+      Platform.isIOS ||
+      Platform.isMacOS ||
+      Platform.isWindows;
 
   /// Throws [PlatformException] on iOS simulator and Windows.
   /// Run on Android only.

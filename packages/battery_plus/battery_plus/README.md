@@ -47,7 +47,7 @@ battery.onBatteryStateChanged.listen((BatteryState state) {
 });
 
 // Check if device in battery save mode
-// Currently available on Android, iOS and Windows platforms only
+// Currently available on Android, iOS, MacOS and Windows platforms only
 print(await battery.isInBatterySaveMode);
 ```
 
