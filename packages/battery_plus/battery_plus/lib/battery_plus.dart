@@ -32,14 +32,14 @@ class Battery {
     return BatteryPlatform.instance;
   }
 
-  /// get battery level
+  /// Get battery level
   Future<int> get batteryLevel {
     return _platform.batteryLevel;
   }
 
-  /// check if device is on battery save mode
+  /// Check if device is on battery save mode
   ///
-  /// Currently only implemented on Android, iOS and Windows.
+  /// Currently only implemented on Android, iOS, MacOS and Windows.
   Future<bool> get isInBatterySaveMode {
     return _platform.isInBatterySaveMode;
   }
