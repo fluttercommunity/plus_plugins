@@ -284,11 +284,13 @@ Some things to keep in mind before publishing the release:
 1. Switch to `main` branch locally.
 2. Run `git pull origin main`.
 3. Run `git pull --tags` to make sure all tags are fetched.
-4. Create new branch with the signature `release/[year]-[month]-[day]` and push it without any commits to remote as otherwise Melos would fail to version changes on next steps.
-5. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
-6. Run `melos publish` to dry run and confirm all packages are publishable.
-7. After successful dry run, commit all changes with the signature "chore(release): prepare for release".
-8. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
-9. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
-10. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
-11. Run `git push --tags` to push tags to repository.
+4. Create new branch with the signature `release/[year]-[month]-[day]`.
+5. Push this newly created brunch without new commits to remote as otherwise Melos would fail to version changes on next steps.
+6. Run `git branch --set-upstream-to=<remote>/release/[year]-[month]-[day] release/[year]-[month]-[day]` to let Melos see tracking information for the newly created branch.
+7. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
+8. Run `melos publish` to dry run and confirm all packages are publishable.
+9. After successful dry run, commit all changes with the signature "chore(release): prepare for release".
+10. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
+11. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
+12. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
+13. Run `git push --tags` to push tags to repository.
