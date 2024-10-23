@@ -1,3 +1,7 @@
+## 6.2.0
+
+ - **FEAT**(battery_plus): Add battery save mode check on MacOS ([#3332](https://github.com/fluttercommunity/plus_plugins/issues/3332)). ([0e8c9223](https://github.com/fluttercommunity/plus_plugins/commit/0e8c9223f00f801abeb203c25a79b8f19259a11c))
+
 ## 6.1.0
 
  - **FEAT**(battery_plus): Add Swift Package Manager support ([#3154](https://github.com/fluttercommunity/plus_plugins/issues/3154)). ([cba3279a](https://github.com/fluttercommunity/plus_plugins/commit/cba3279abf0faaa0b62323af0a33e118186b30fc))
