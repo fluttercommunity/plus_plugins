@@ -108,7 +108,7 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v3
+        uses: futureware-tech/simulator-action@v4
         with:
           model: 'iPhone 15'
       - name: "Bootstrap Workspace"
