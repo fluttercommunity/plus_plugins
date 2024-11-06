@@ -123,6 +123,8 @@ extension _UriOrigin on Uri {
   String get _origin {
     if (isScheme('chrome-extension')) {
       return '$scheme://$host';
+    } else if (isScheme('file')) {
+      return '$scheme://';
     }
     return origin;
   }

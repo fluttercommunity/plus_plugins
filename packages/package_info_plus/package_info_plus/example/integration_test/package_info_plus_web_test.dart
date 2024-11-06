@@ -217,6 +217,25 @@ void main() {
               'chrome-extension://abcdefgh/a/b/c/version.json?cachebuster=1'),
         );
       });
+
+      testWidgets('Get correct versionJsonUrl for file', (tester) async {
+        expect(
+          plugin.versionJsonUrl('file://abcdefgh', 1),
+          Uri.parse('file:///version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('file://abcdefgh/a/b/c', 1),
+          Uri.parse('file:///a/b/c/version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('file://abcdefgh/#my-page', 1),
+          Uri.parse('file:///version.json?cachebuster=1'),
+        );
+        expect(
+          plugin.versionJsonUrl('file://abcdefgh/a/b/c/#my-page', 1),
+          Uri.parse('file:///a/b/c/version.json?cachebuster=1'),
+        );
+      });
     },
   );
 
