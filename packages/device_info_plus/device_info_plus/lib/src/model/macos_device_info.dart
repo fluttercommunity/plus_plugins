@@ -12,7 +12,8 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
     required this.computerName,
     required this.hostName,
     required this.arch,
-    required this.model,
+    required this.modelName,
+    required this.modelIdentifier,
     required this.kernelVersion,
     required this.osRelease,
     required this.majorVersion,
@@ -34,8 +35,13 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
   /// Note, that on Apple Silicon Macs can return `x86_64` if app runs via Rosetta
   final String arch;
 
-  /// Device model
-  final String model;
+  /// Device model name
+  /// Examples: `MacBook Pro (16-inch, 2021)`, `iMac (24-inch, 2024)`.
+  final String modelName;
+
+  /// Device model identifier
+  /// Examples: `MacBookPro18,3`, `Mac16,2`.
+  final String modelIdentifier;
 
   /// Machine Kernel version.
   /// Examples:
@@ -75,7 +81,8 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
       computerName: map['computerName'],
       hostName: map['hostName'],
       arch: map['arch'],
-      model: map['model'],
+      modelName: map['modelName'],
+      modelIdentifier: map['modelIdentifier'],
       kernelVersion: map['kernelVersion'],
       osRelease: map['osRelease'],
       majorVersion: map['majorVersion'],
