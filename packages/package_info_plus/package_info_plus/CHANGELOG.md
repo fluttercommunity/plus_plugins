@@ -1,3 +1,7 @@
+## 8.1.1
+
+ - **FIX**(package_info_plus): Update privacy manifest path ([#3348](https://github.com/fluttercommunity/plus_plugins/issues/3348)). ([f47fcc97](https://github.com/fluttercommunity/plus_plugins/commit/f47fcc9774a860d7cffe306ba6ecca4ccae2896f))
+
 ## 8.1.0
 
  - **FEAT**(package_info_plus): Add Swift Package Manager support ([#3171](https://github.com/fluttercommunity/plus_plugins/issues/3171)). ([a14d4727](https://github.com/fluttercommunity/plus_plugins/commit/a14d472749b28826b8402cc612e29f0860cc44bc))

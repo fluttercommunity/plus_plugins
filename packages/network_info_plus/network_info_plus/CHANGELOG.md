@@ -1,3 +1,7 @@
+## 6.1.1
+
+ - **FIX**(network_info_plus): Update privacy manifest path on MacOS ([#3350](https://github.com/fluttercommunity/plus_plugins/issues/3350)). ([18c81efd](https://github.com/fluttercommunity/plus_plugins/commit/18c81efd0b9f510023c481965b5868184d435961))
+
 ## 6.1.0
 
  - **FEAT**(network_info_plus): Add Swift Package Manager support ([#3172](https://github.com/fluttercommunity/plus_plugins/issues/3172)). ([bcf7a5bb](https://github.com/fluttercommunity/plus_plugins/commit/bcf7a5bbd06d667cc6a4390c7cb79c349bdce6c7))
