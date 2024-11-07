@@ -17,7 +17,8 @@ let package = Package(
             name: "device_info_plus",
             dependencies: [],
             resources: [
-            ]
+                .process("PrivacyInfo.xcprivacy"),
+            ],
         )
     ]
 )
