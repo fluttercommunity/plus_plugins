@@ -1,3 +1,7 @@
+## 11.1.1
+
+ - **FIX**(device_info_plus): Update privacy manifest paths ([#3347](https://github.com/fluttercommunity/plus_plugins/issues/3347)). ([46df2302](https://github.com/fluttercommunity/plus_plugins/commit/46df23023a5ba6c98edd31d5fd06bec5df40bd3b))
+
 ## 11.1.0
 
  - **FIX**(device_info_plus): Ignore `MissingPermission` lint error on Android ([#3317](https://github.com/fluttercommunity/plus_plugins/issues/3317)). ([6469523f](https://github.com/fluttercommunity/plus_plugins/commit/6469523fb14f32f7aa23892183693a8f502992d3))
