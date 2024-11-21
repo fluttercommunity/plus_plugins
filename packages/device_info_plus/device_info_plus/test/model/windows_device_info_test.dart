@@ -33,6 +33,7 @@ void main() {
         registeredOwner: 'registeredOwner',
         releaseId: 'releaseId',
         deviceId: 'deviceId',
+        cpuArch: 'x64',
       );
 
       expect(windowsDeviceInfo.data, {
@@ -61,6 +62,7 @@ void main() {
         'registeredOwner': 'registeredOwner',
         'releaseId': 'releaseId',
         'deviceId': 'deviceId',
+        'cpuArch': 'x64',
       });
     });
   });

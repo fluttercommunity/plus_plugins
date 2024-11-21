@@ -74,6 +74,8 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
       GetSystemInfo(systemInfo);
 
+      final cpuArchitecture = deriveCpuArch(systemInfo);
+
       // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
       RtlGetVersion(osVersionInfo);
 
@@ -108,11 +110,31 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
         registeredOwner: registeredOwner,
         releaseId: releaseId,
         deviceId: machineId,
+        cpuArch: cpuArchitecture,
       );
       return data;
     } finally {
       free(systemInfo);
       free(osVersionInfo);
+    }
+  }
+
+  @visibleForTesting
+  String deriveCpuArch(Pointer<SYSTEM_INFO> systemInfo) {
+    final cpuArchInt = systemInfo.ref.wProcessorArchitecture;
+    switch (cpuArchInt) {
+      case PROCESSOR_ARCHITECTURE.PROCESSOR_ARCHITECTURE_AMD64:
+        return 'x64';
+      case PROCESSOR_ARCHITECTURE.PROCESSOR_ARCHITECTURE_ARM:
+        return 'arm';
+      case PROCESSOR_ARCHITECTURE.PROCESSOR_ARCHITECTURE_ARM64:
+        return 'arm64';
+      case PROCESSOR_ARCHITECTURE.PROCESSOR_ARCHITECTURE_IA64:
+        return 'ia64';
+      case PROCESSOR_ARCHITECTURE.PROCESSOR_ARCHITECTURE_INTEL:
+        return 'x86';
+      default:
+        return 'Unknown';
     }
   }
 

@@ -35,6 +35,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
     required this.registeredOwner,
     required this.releaseId,
     required this.deviceId,
+    required this.cpuArch,
   });
 
   /// The computer's fully-qualified DNS name, where available.
@@ -146,6 +147,9 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
   /// `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SQMClient\MachineId` registry key.
   final String deviceId;
 
+  /// Displayed as "System Architecture" in Windows Settings.
+  final String cpuArch;
+
   @Deprecated('use [data] instead')
   @override
   Map<String, dynamic> toMap() {
@@ -175,6 +179,7 @@ class WindowsDeviceInfo implements BaseDeviceInfo {
       'registeredOwner': registeredOwner,
       'releaseId': releaseId,
       'deviceId': deviceId,
+      'cpuArch': cpuArch,
     };
   }
 

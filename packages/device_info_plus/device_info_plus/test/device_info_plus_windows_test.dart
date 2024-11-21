@@ -82,5 +82,7 @@ void main() {
     expect(windowsInfo.releaseId, isNotEmpty);
     // Check whether windowsInfo.deviceId is a valid non-empty string.
     expect(windowsInfo.deviceId, isNotEmpty);
+    // Check whether windowsInfo.cpuArch is a known variant.
+    expect(windowsInfo.cpuArch, isNot('Unknown'));
   });
 }
