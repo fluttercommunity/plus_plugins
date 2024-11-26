@@ -16,8 +16,8 @@ A Flutter plugin to access various information about the battery of the device t
 
 ## Requirements
 
-- Flutter >=3.19.0
-- Dart >=3.3.0 <4.0.0
+- Flutter >=3.22.0
+- Dart >=3.4.0 <4.0.0
 - iOS >=12.0
 - MacOS >=10.14
 - Android `compileSDK` 34

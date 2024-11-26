@@ -45,5 +45,5 @@ dev_dependencies:
   plugin_platform_interface: ^2.1.4
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
