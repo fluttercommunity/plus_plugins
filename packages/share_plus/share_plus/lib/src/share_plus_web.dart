@@ -75,12 +75,16 @@ class SharePlusWebPlugin extends SharePlatform {
   Future<ShareResult> share(
     String text, {
     String? subject,
+    String? title,
     Rect? sharePositionOrigin,
+    XFile? thumbnail,
   }) async {
     final ShareData data;
-    if (subject != null && subject.isNotEmpty) {
+    final hasSubject = subject != null && subject.isNotEmpty;
+    final hasTitle = title != null && title.isNotEmpty;
+    if (hasTitle || hasSubject) {
       data = ShareData(
-        title: subject,
+        title: hasTitle ? title : subject!,
         text: text,
       );
     } else {

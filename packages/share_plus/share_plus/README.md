@@ -60,6 +60,22 @@ sharing to email.
 Share.share('check out my website https://example.com', subject: 'Look what I made!');
 ```
 
+The optional `title` and `thumbnail` parameters enable
+[rich content preview](https://developer.android.com/training/sharing/send#adding-rich-content-previews)
+on Android when sharing text.
+
+On the web the `title` or the `subject` (when the `title` is omitted) is passed to the
+[Web Share API](https://web.dev/web-share/)'s title parameter.
+
+```dart
+Share.share('Content which will be shared', title: 'Preview title', thumbnail: XFile('path/to/thumbnail.png'));
+```
+
+> [!CAUTION]
+> For the `thumbnail` parameter the
+> [Sharing data created with XFile.fromData](#sharing-data-created-with-xfilefromdata)
+> limitation has to be considered.
+
 `share()` returns `status` object that allows to check the result of user action in the share sheet.
 
 ```dart
