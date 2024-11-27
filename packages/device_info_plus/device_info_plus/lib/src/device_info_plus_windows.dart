@@ -124,8 +124,7 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       if (result != 0) {
         return memoryInKilobytes.value ~/ 1024;
       } else {
-        final error = GetLastError();
-        throw WindowsException(HRESULT_FROM_WIN32(error));
+        return 0;
       }
     } finally {
       free(memoryInKilobytes);
