@@ -65,6 +65,9 @@ void main() {
     await sharePlatform.shareUri(
       Uri.parse('https://pub.dev/packages/share_plus'),
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+      activityType: [
+        CupertinoActivityType.message,
+      ],
     );
     verify(mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
       'uri': 'https://pub.dev/packages/share_plus',
@@ -72,12 +75,18 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'activityTypes': [
+        CupertinoActivityType.message.value,
+      ],
     }));
 
     await sharePlatform.share(
       'some text to share',
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+      activityType: [
+        CupertinoActivityType.message,
+      ],
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
@@ -86,6 +95,9 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'activityTypes': [
+        CupertinoActivityType.message.value,
+      ],
     }));
 
     await withFile('tempfile-83649a.png', (File fd) async {
@@ -94,6 +106,9 @@ void main() {
         subject: 'some subject to share',
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        activityType: [
+          CupertinoActivityType.message,
+        ],
       );
       verify(mockChannel.invokeMethod<String>(
         'shareFiles',
@@ -106,6 +121,9 @@ void main() {
           'originY': 2.0,
           'originWidth': 3.0,
           'originHeight': 4.0,
+          'activityTypes': [
+            CupertinoActivityType.message.value,
+          ],
         },
       ));
     });
@@ -155,6 +173,9 @@ void main() {
       'some text to share',
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+      activityType: [
+        CupertinoActivityType.message,
+      ],
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
@@ -163,6 +184,9 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'activityTypes': [
+        CupertinoActivityType.message.value,
+      ],
     }));
 
     await withFile('tempfile-83649e.png', (File fd) async {
