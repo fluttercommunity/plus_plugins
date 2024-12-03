@@ -8,7 +8,7 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus, XFile;
+    show ShareResult, ShareResultStatus, XFile, CupertinoActivityType;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
@@ -30,6 +30,10 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
+  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// you feel are not suitable for your content.
+  /// It has no effect on other platforms.
+  ///
   /// May throw [PlatformException]
   /// from [MethodChannel].
   ///
@@ -37,10 +41,12 @@ class Share {
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
   }) async {
     return _platform.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
     );
   }
 
@@ -56,6 +62,10 @@ class Share {
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
+  ///
+  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// you feel are not suitable for your content.
+  /// It has no effect on other platforms.
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
@@ -83,12 +93,14 @@ class Share {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
   }) async {
     assert(text.isNotEmpty);
     return _platform.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
     );
   }
 
@@ -111,6 +123,10 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
+  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// you feel are not suitable for your content.
+  /// It has no effect on other platforms.
+  ///
   /// The optional parameter [fileNameOverrides] can be used to override the names of shared files
   /// When set, the list length must match the number of [files] to share.
   /// This is useful when sharing files that were created by [`XFile.fromData`](https://github.com/flutter/packages/blob/754de1918a339270b70971b6841cf1e04dd71050/packages/cross_file/lib/src/types/io.dart#L43),
@@ -125,6 +141,7 @@ class Share {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
@@ -133,6 +150,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
       fileNameOverrides: fileNameOverrides,
     );
   }
