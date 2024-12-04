@@ -23,14 +23,17 @@
 
     NSNumber *isPhysicalNumber =
         [NSNumber numberWithBool:[self isDevicePhysical]];
+    NSProcessInfo *info = [NSProcessInfo processInfo];
+    NSNumber *isiOSAppOnMac = [NSNumber numberWithBool:false];
+    if (@available(iOS 14.0, *)) {
+      isiOSAppOnMac = [NSNumber numberWithBool:[info isiOSAppOnMac]];
+    }
     NSString *machine;
     if ([self isDevicePhysical]) {
       machine = @(un.machine);
     } else {
-      machine = [[NSProcessInfo processInfo]
-          environment][@"SIMULATOR_MODEL_IDENTIFIER"];
+      machine = [info environment][@"SIMULATOR_MODEL_IDENTIFIER"];
     }
-
     result(@{
       @"name" : [device name],
       @"systemName" : [device systemName],
@@ -40,6 +43,7 @@
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
       @"isPhysicalDevice" : isPhysicalNumber,
+      @"isiOSAppOnMac" : isiOSAppOnMac,
       @"utsname" : @{
         @"sysname" : @(un.sysname),
         @"nodename" : @(un.nodename),
