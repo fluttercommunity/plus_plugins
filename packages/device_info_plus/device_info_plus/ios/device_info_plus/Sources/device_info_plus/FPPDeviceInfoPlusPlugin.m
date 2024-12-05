@@ -24,7 +24,7 @@
     NSNumber *isPhysicalNumber =
         [NSNumber numberWithBool:[self isDevicePhysical]];
     NSProcessInfo *info = [NSProcessInfo processInfo];
-    NSNumber *isiOSAppOnMac = [NSNumber numberWithBool:false];
+    NSNumber *isiOSAppOnMac = [NSNumber numberWithBool:NO];
     if (@available(iOS 14.0, *)) {
       isiOSAppOnMac = [NSNumber numberWithBool:[info isiOSAppOnMac]];
     }
