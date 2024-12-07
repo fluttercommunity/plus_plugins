@@ -35,10 +35,12 @@ class SharePlatform extends PlatformInterface {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
   }) {
     return _instance.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
     );
   }
 
@@ -47,11 +49,13 @@ class SharePlatform extends PlatformInterface {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
   }) async {
     return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
     );
   }
 
@@ -61,6 +65,7 @@ class SharePlatform extends PlatformInterface {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? activityType,
     List<String>? fileNameOverrides,
   }) async {
     return _instance.shareXFiles(
@@ -68,6 +73,7 @@ class SharePlatform extends PlatformInterface {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      activityType: activityType,
       fileNameOverrides: fileNameOverrides,
     );
   }
@@ -125,4 +131,35 @@ enum ShareResultStatus {
   /// The platform succeed to share content to user
   /// but the user action can not be determined
   unavailable,
+}
+
+/// An abstract class that you subclass to implement app-specific services
+/// for iOS and macOS.
+///
+/// https://developer.apple.com/documentation/uikit/uiactivity/activitytype
+enum CupertinoActivityType {
+  postToFacebook,
+  postToTwitter,
+  postToWeibo,
+  message,
+  mail,
+  print,
+  copyToPasteboard,
+  assignToContact,
+  saveToCameraRoll,
+  addToReadingList,
+  postToFlickr,
+  postToVimeo,
+  postToTencentWeibo,
+  airDrop,
+  openInIBooks,
+  markupAsPDF,
+  sharePlay,
+  collaborationInviteWithLink,
+  collaborationCopyLink,
+  addToHomeScreen,
+}
+
+extension Value on CupertinoActivityType {
+  String get value => toString().split('.').last;
 }
