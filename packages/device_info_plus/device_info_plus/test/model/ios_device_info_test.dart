@@ -20,6 +20,7 @@ void main() {
         'utsname': iosUtsnameMap,
         'systemName': 'systemName',
         'isPhysicalDevice': true,
+        'isiOSAppOnMac': true,
         'systemVersion': 'systemVersion',
         'localizedModel': 'localizedModel',
         'identifierForVendor': 'identifierForVendor',
@@ -32,6 +33,7 @@ void main() {
       expect(iosDeviceInfo.name, 'name');
       expect(iosDeviceInfo.model, 'model');
       expect(iosDeviceInfo.isPhysicalDevice, isTrue);
+      expect(iosDeviceInfo.isiOSAppOnMac, isTrue);
       expect(iosDeviceInfo.systemName, 'systemName');
       expect(iosDeviceInfo.systemVersion, 'systemVersion');
       expect(iosDeviceInfo.localizedModel, 'localizedModel');
