@@ -39,7 +39,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
   final String systemVersion;
 
   /// Device model.
-  /// https://developer.apple.com/documentation/uikit/uidevice/1620044-model
+  /// Examples: `iPhone 16 Pro`, `iPad Pro 11-Inch 3`
   final String model;
 
   /// Localized name of the device model.
