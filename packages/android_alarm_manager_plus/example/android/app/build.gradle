@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     namespace 'com.example.example'
 
@@ -33,7 +33,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = 17
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     sourceSets {
@@ -48,7 +48,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.example"
         minSdk 21
-        targetSdk 34
+        targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -71,7 +71,5 @@ flutter {
 dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "com.google.truth:truth:1.4.4"
-    androidTestImplementation 'androidx.test:runner:1.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     api 'androidx.test:core:1.6.1'
 }
