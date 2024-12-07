@@ -57,6 +57,14 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
+  /// The optional [title] parameter can be used to specify a title for the shared text.
+  /// This works only on Android and on the Web for text only sharing as additional context.
+  /// It is not part of the shared data.
+  ///
+  /// The optional [thumbnail] parameter can be used to specify a thumbnail for
+  /// the shared text on Android. This is only displayed on the share sheet
+  /// for additional context, it is not part of the shared data.
+  ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
   ///
@@ -82,13 +90,17 @@ class Share {
   static Future<ShareResult> share(
     String text, {
     String? subject,
+    String? title,
     Rect? sharePositionOrigin,
+    XFile? thumbnail,
   }) async {
     assert(text.isNotEmpty);
     return _platform.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      title: title,
+      thumbnail: thumbnail,
     );
   }
 
