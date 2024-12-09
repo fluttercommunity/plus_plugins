@@ -18,6 +18,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required this.localizedModel,
     this.identifierForVendor,
     required this.isPhysicalDevice,
+    required this.isiOSAppOnMac,
     required this.utsname,
   }) : super(data);
 
@@ -52,6 +53,10 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// `false` if the application is running in a simulator, `true` otherwise.
   final bool isPhysicalDevice;
 
+  /// that indicates whether the process is an iPhone or iPad app running on a Mac.
+  /// https://developer.apple.com/documentation/foundation/nsprocessinfo/3608556-iosapponmac
+  final bool isiOSAppOnMac;
+
   /// Operating system information derived from `sys/utsname.h`.
   final IosUtsname utsname;
 
@@ -66,6 +71,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       localizedModel: map['localizedModel'],
       identifierForVendor: map['identifierForVendor'],
       isPhysicalDevice: map['isPhysicalDevice'],
+      isiOSAppOnMac: map['isiOSAppOnMac'],
       utsname:
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );

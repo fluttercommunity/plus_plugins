@@ -7,7 +7,7 @@
 
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
-static UIViewController *RootViewController() {
+static UIViewController *RootViewController(void) {
   if (@available(iOS 13, *)) { // UIApplication.keyWindow is deprecated
     NSSet *scenes = [[UIApplication sharedApplication] connectedScenes];
     for (UIScene *scene in scenes) {
