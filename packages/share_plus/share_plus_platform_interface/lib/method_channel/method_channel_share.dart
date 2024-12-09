@@ -28,7 +28,7 @@ class MethodChannelShare extends SharePlatform {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     final params = <String, dynamic>{'uri': uri.toString()};
 
@@ -39,9 +39,9 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    if (activityType != null) {
-      final activityTypes = activityType.map((e) => e.value).toList();
-      params['activityTypes'] = activityTypes;
+    if (excludedActivityType != null) {
+      final activityTypes = excludedActivityType.map((e) => e.value).toList();
+      params['excludedActivityType'] = activityTypes;
     }
 
     final result = await channel.invokeMethod<String>('shareUri', params) ??
@@ -56,7 +56,7 @@ class MethodChannelShare extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
@@ -71,9 +71,9 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    if (activityType != null) {
-      final activityTypes = activityType.map((e) => e.value).toList();
-      params['activityTypes'] = activityTypes;
+    if (excludedActivityType != null) {
+      final activityTypes = excludedActivityType.map((e) => e.value).toList();
+      params['excludedActivityType'] = activityTypes;
     }
 
     final result = await channel.invokeMethod<String>('share', params) ??
@@ -89,7 +89,7 @@ class MethodChannelShare extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
@@ -123,9 +123,9 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    if (activityType != null) {
-      final activityTypes = activityType.map((e) => e.value).toList();
-      params['activityTypes'] = activityTypes;
+    if (excludedActivityType != null) {
+      final activityTypes = excludedActivityType.map((e) => e.value).toList();
+      params['excludedActivityType'] = activityTypes;
     }
 
     final result = await channel.invokeMethod<String>('shareFiles', params) ??

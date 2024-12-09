@@ -30,7 +30,7 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
-  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// The optional [excludedActivityType] parameter is used to exclude services on iOS and macOS that
   /// you feel are not suitable for your content.
   /// It has no effect on other platforms.
   ///
@@ -41,12 +41,12 @@ class Share {
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     return _platform.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
     );
   }
 
@@ -63,7 +63,7 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
-  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// The optional [excludedActivityType] parameter is used to exclude services on iOS and macOS that
   /// you feel are not suitable for your content.
   /// It has no effect on other platforms.
   ///
@@ -93,14 +93,14 @@ class Share {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     assert(text.isNotEmpty);
     return _platform.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
     );
   }
 
@@ -123,7 +123,7 @@ class Share {
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
   /// on other devices.
   ///
-  /// The optional [activityType] parameter is used to exclude services on iOS and macOS that
+  /// The optional [excludedActivityType] parameter is used to exclude services on iOS and macOS that
   /// you feel are not suitable for your content.
   /// It has no effect on other platforms.
   ///
@@ -141,7 +141,7 @@ class Share {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
@@ -150,7 +150,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
       fileNameOverrides: fileNameOverrides,
     );
   }

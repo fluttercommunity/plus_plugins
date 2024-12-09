@@ -32,7 +32,7 @@ class SharePlusWebPlugin extends SharePlatform {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     final data = ShareData(
       url: uri.toString(),
@@ -77,7 +77,7 @@ class SharePlusWebPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
@@ -162,7 +162,7 @@ class SharePlusWebPlugin extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     assert(
         fileNameOverrides == null || files.length == fileNameOverrides.length);

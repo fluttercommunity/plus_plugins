@@ -35,12 +35,12 @@ class SharePlatform extends PlatformInterface {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) {
     return _instance.shareUri(
       uri,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
     );
   }
 
@@ -49,13 +49,13 @@ class SharePlatform extends PlatformInterface {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
     );
   }
 
@@ -65,7 +65,7 @@ class SharePlatform extends PlatformInterface {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? activityType,
+    List<CupertinoActivityType>? excludedActivityType,
     List<String>? fileNameOverrides,
   }) async {
     return _instance.shareXFiles(
@@ -73,7 +73,7 @@ class SharePlatform extends PlatformInterface {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
-      activityType: activityType,
+      excludedActivityType: excludedActivityType,
       fileNameOverrides: fileNameOverrides,
     );
   }
