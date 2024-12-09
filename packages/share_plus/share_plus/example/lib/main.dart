@@ -275,7 +275,7 @@ class DemoAppState extends State<DemoApp> {
       );
 
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
-    } catch(e) {
+    } catch (e) {
       scaffoldMessenger.showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );

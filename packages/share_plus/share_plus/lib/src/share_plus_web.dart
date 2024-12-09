@@ -236,7 +236,8 @@ class SharePlusWebPlugin extends SharePlatform {
     }
   }
 
-  Future<ShareResult> _download(List<XFile> files, List<String>? fileNameOverrides) async {
+  Future<ShareResult> _download(
+      List<XFile> files, List<String>? fileNameOverrides) async {
     try {
       for (final (index, file) in files.indexed) {
         final bytes = await file.readAsBytes();
