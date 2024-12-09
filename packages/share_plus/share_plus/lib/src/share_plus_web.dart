@@ -217,16 +217,43 @@ class SharePlusWebPlugin extends SharePlatform {
       // actions is success, but can't get the action name
       return ShareResult.unavailable;
     } on DOMException catch (e) {
-      if (e.name case 'AbortError') {
+      final name = e.name;
+      final message = e.message;
+
+      if (name case 'AbortError') {
         return _resultDismissed;
       }
 
       developer.log(
         'Failed to share files',
-        error: '${e.name}: ${e.message}',
+        error: '$name: $message',
       );
+      if (name case 'NotAllowedError') {
+        return _download(files, fileNameOverrides);
+      }
 
-      throw Exception('Navigator.share() failed: ${e.message}');
+      throw Exception('Navigator.share() failed: $message');
+    }
+  }
+
+  Future<ShareResult> _download(List<XFile> files, List<String>? fileNameOverrides) async {
+    try {
+      for (final (index, file) in files.indexed) {
+        final bytes = await file.readAsBytes();
+
+        final anchor = document.createElement('a') as HTMLAnchorElement
+          ..href = Uri.dataFromBytes(bytes).toString()
+          ..style.display = 'none'
+          ..download = fileNameOverrides?.elementAt(index) ?? file.name;
+        document.body!.children.add(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+
+      return ShareResult.unavailable;
+    } catch (error) {
+      developer.log('Failed to share files', error: error);
+      throw Exception('Failed to to share files: $error');
     }
   }
 

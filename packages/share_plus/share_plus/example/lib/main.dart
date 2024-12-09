@@ -260,20 +260,26 @@ class DemoAppState extends State<DemoApp> {
   void _onShareTextAsXFile(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = utf8.encode(text);
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          data,
-          // name: fileName, // Notice, how setting the name here does not work.
-          mimeType: 'text/plain',
-        ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      fileNameOverrides: [fileName],
-    );
 
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    try {
+      final shareResult = await Share.shareXFiles(
+        [
+          XFile.fromData(
+            utf8.encode(text),
+            // name: fileName, // Notice, how setting the name here does not work.
+            mimeType: 'text/plain',
+          ),
+        ],
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        fileNameOverrides: [fileName],
+      );
+
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch(e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   SnackBar getResultSnackBar(ShareResult result) {
