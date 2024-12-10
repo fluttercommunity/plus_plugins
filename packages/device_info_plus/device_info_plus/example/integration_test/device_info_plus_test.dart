@@ -117,6 +117,7 @@ void main() {
     expect(macosInfo.hostName, isNotNull);
     expect(macosInfo.arch, isNotNull);
     expect(macosInfo.model, isNotNull);
+    expect(macosInfo.modelName, isNotNull);
     expect(macosInfo.kernelVersion, isNotNull);
     expect(macosInfo.osRelease, isNotNull);
     expect(macosInfo.activeCPUs, isNotNull);

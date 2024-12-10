@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #import "./include/device_info_plus/FPPDeviceInfoPlusPlugin.h"
+#import "./include/device_info_plus/DeviceIdentifiers.h"
 #import <sys/utsname.h>
 
 @implementation FPPDeviceInfoPlusPlugin
@@ -29,17 +30,21 @@
       isiOSAppOnMac = [NSNumber numberWithBool:[info isiOSAppOnMac]];
     }
     NSString *machine;
+    NSString *deviceName;
     if ([self isDevicePhysical]) {
       machine = @(un.machine);
     } else {
       machine = [info environment][@"SIMULATOR_MODEL_IDENTIFIER"];
     }
+    deviceName = [DeviceIdentifiers userKnownDeviceModel:machine];
+
     result(@{
       @"name" : [device name],
       @"systemName" : [device systemName],
       @"systemVersion" : [device systemVersion],
       @"model" : [device model],
       @"localizedModel" : [device localizedModel],
+      @"modelName" : deviceName,
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
       @"isPhysicalDevice" : isPhysicalNumber,
