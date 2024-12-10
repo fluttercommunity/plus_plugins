@@ -8,8 +8,8 @@ void main() {
     group('fromMap | data', () {
       const macosDeviceInfoMap = <String, dynamic>{
         'arch': 'arch',
+        'model': 'Mac16,2',
         'modelName': 'iMac (24-inch, 2024)',
-        'modelIdentifier': 'Mac16,2',
         'activeCPUs': 4,
         'memorySize': 16,
         'cpuFrequency': 2,
@@ -25,10 +25,9 @@ void main() {
 
       test('fromMap should return $MacOsDeviceInfo with correct values', () {
         final macosDeviceInfo = MacOsDeviceInfo.fromMap(macosDeviceInfoMap);
-
         expect(macosDeviceInfo.arch, 'arch');
+        expect(macosDeviceInfo.model, 'Mac16,2');
         expect(macosDeviceInfo.modelName, 'iMac (24-inch, 2024)');
-        expect(macosDeviceInfo.modelIdentifier, 'Mac16,2');
         expect(macosDeviceInfo.activeCPUs, 4);
         expect(macosDeviceInfo.memorySize, 16);
         expect(macosDeviceInfo.cpuFrequency, 2);
