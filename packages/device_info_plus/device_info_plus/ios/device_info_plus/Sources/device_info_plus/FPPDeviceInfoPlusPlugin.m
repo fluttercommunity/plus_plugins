@@ -41,8 +41,9 @@
       @"name" : [device name],
       @"systemName" : [device systemName],
       @"systemVersion" : [device systemVersion],
-      @"model" : deviceName,
+      @"model" : [device model],
       @"localizedModel" : [device localizedModel],
+      @"modelName" : deviceName,
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
       @"isPhysicalDevice" : isPhysicalNumber,

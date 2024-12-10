@@ -15,6 +15,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required this.systemName,
     required this.systemVersion,
     required this.model,
+    required this.modelName,
     required this.localizedModel,
     this.identifierForVendor,
     required this.isPhysicalDevice,
@@ -38,9 +39,13 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
   final String systemVersion;
 
-  /// Device model.
-  /// Examples: `iPhone 16 Pro`, `iPad Pro 11-Inch 3`
+  /// Device model according to OS
+  /// https://developer.apple.com/documentation/uikit/uidevice/1620044-model
   final String model;
+
+  /// Commercial or user-known model name
+  /// Examples: `iPhone 16 Pro`, `iPad Pro 11-Inch 3`
+  final String modelName;
 
   /// Localized name of the device model.
   /// https://developer.apple.com/documentation/uikit/uidevice/1620029-localizedmodel
@@ -68,6 +73,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       systemName: map['systemName'],
       systemVersion: map['systemVersion'],
       model: map['model'],
+      modelName: map['modelName'],
       localizedModel: map['localizedModel'],
       identifierForVendor: map['identifierForVendor'],
       isPhysicalDevice: map['isPhysicalDevice'],
