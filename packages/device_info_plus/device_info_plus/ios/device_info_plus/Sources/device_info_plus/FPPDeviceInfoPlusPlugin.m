@@ -36,6 +36,7 @@
       deviceName = [DeviceIdentifiers userKnownDeviceModel:@(un.machine)];
     } else {
       machine = [info environment][@"SIMULATOR_MODEL_IDENTIFIER"];
+      deviceName = [DeviceIdentifiers userKnownDeviceModel:machine];
     }
     result(@{
       @"name" : [device name],
