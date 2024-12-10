@@ -33,11 +33,11 @@
     NSString *deviceName;
     if ([self isDevicePhysical]) {
       machine = @(un.machine);
-      deviceName = [DeviceIdentifiers userKnownDeviceModel:@(un.machine)];
     } else {
       machine = [info environment][@"SIMULATOR_MODEL_IDENTIFIER"];
-      deviceName = [DeviceIdentifiers userKnownDeviceModel:machine];
     }
+    deviceName = [DeviceIdentifiers userKnownDeviceModel:machine];
+
     result(@{
       @"name" : [device name],
       @"systemName" : [device systemName],
