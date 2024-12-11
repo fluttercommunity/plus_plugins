@@ -32,10 +32,12 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  String title = '';
   String uri = '';
   String fileName = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
+  XFile? thumbnail;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,18 @@ class DemoAppState extends State<DemoApp> {
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
+                  labelText: 'Share title',
+                  hintText: 'Enter title to share (optional)',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  title = value;
+                }),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
                   labelText: 'Share uri',
                   hintText: 'Enter the uri you want to share',
                 ),
@@ -108,39 +122,21 @@ class DemoAppState extends State<DemoApp> {
               ElevatedButton.icon(
                 label: const Text('Add image'),
                 onPressed: () async {
-                  // Using `package:image_picker` to get image from gallery.
-                  if (!kIsWeb &&
-                      (Platform.isMacOS ||
-                          Platform.isLinux ||
-                          Platform.isWindows)) {
-                    // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
-                    const XTypeGroup typeGroup = XTypeGroup(
-                      label: 'images',
-                      extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
-                    );
-                    final file = await openFile(
-                        acceptedTypeGroups: <XTypeGroup>[typeGroup]);
-                    if (file != null) {
-                      setState(() {
-                        imagePaths.add(file.path);
-                        imageNames.add(file.name);
-                      });
-                    }
-                  } else {
-                    final imagePicker = ImagePicker();
-                    final pickedFile = await imagePicker.pickImage(
-                      source: ImageSource.gallery,
-                    );
-                    if (pickedFile != null) {
-                      setState(() {
-                        imagePaths.add(pickedFile.path);
-                        imageNames.add(pickedFile.name);
-                      });
-                    }
-                  }
+                  await _pickImage();
                 },
                 icon: const Icon(Icons.add),
               ),
+              const SizedBox(height: 16),
+              if (thumbnail != null)
+                ImagePreviews([thumbnail!.path], onDelete: _onDeleteThumbnail)
+              else
+                ElevatedButton.icon(
+                  label: const Text('Add thumbnail'),
+                  icon: const Icon(Icons.image),
+                  onPressed: () async {
+                    await _pickImage(pickThumbnail: true);
+                  },
+                ),
               const SizedBox(height: 32),
               Builder(
                 builder: (BuildContext context) {
@@ -200,6 +196,12 @@ class DemoAppState extends State<DemoApp> {
     });
   }
 
+  void _onDeleteThumbnail(int position) {
+    setState(() {
+      thumbnail = null;
+    });
+  }
+
   void _onShareWithResult(BuildContext context) async {
     // A builder is used to retrieve the context immediately
     // surrounding the ElevatedButton.
@@ -232,6 +234,8 @@ class DemoAppState extends State<DemoApp> {
       shareResult = await Share.share(
         text,
         subject: subject,
+        title: title,
+        thumbnail: thumbnail,
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
       );
     }
@@ -274,6 +278,37 @@ class DemoAppState extends State<DemoApp> {
     );
 
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+  }
+
+  Future<void> _pickImage({bool pickThumbnail = false}) async {
+    // Using `package:image_picker` to get image from gallery.
+    late final XFile? pickedFile;
+    if (!kIsWeb &&
+        (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+      // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
+      const XTypeGroup typeGroup = XTypeGroup(
+        label: 'images',
+        extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
+      );
+      pickedFile = await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+    } else {
+      final imagePicker = ImagePicker();
+      pickedFile = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+    }
+
+    setState(() {
+      if (pickedFile == null) {
+        return;
+      }
+      if (pickThumbnail) {
+        thumbnail = pickedFile;
+      } else {
+        imagePaths.add(pickedFile.path);
+        imageNames.add(pickedFile.name);
+      }
+    });
   }
 
   SnackBar getResultSnackBar(ShareResult result) {

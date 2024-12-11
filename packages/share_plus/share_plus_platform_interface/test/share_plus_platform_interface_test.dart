@@ -76,17 +76,32 @@ void main() {
 
     await sharePlatform.share(
       'some text to share',
-      subject: 'some subject to share',
-      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
-      'subject': 'some subject to share',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
+      'subject': null,
+      'title': null,
     }));
+
+    await withFile('tempfile-thumbnail123.png', (File fd) async {
+      await sharePlatform.share(
+        'some text to share',
+        subject: 'some subject to share',
+        title: 'some title to share',
+        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        thumbnail: XFile(fd.path),
+      );
+      verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
+        'text': 'some text to share',
+        'subject': 'some subject to share',
+        'title': 'some title to share',
+        'originX': 1.0,
+        'originY': 2.0,
+        'originWidth': 3.0,
+        'originHeight': 4.0,
+        'thumbnailPath': fd.path,
+      }));
+    });
 
     await withFile('tempfile-83649a.png', (File fd) async {
       await sharePlatform.shareXFiles(
@@ -154,11 +169,13 @@ void main() {
     await sharePlatform.share(
       'some text to share',
       subject: 'some subject to share',
+      title: 'some title to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
       'subject': 'some subject to share',
+      'title': 'some title to share',
       'originX': 1.0,
       'originY': 2.0,
       'originWidth': 3.0,
