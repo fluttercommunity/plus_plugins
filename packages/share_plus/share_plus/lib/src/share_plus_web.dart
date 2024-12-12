@@ -15,6 +15,9 @@ import 'package:web/web.dart';
 class SharePlusWebPlugin extends SharePlatform {
   final UrlLauncherPlatform urlLauncher;
 
+  /// Whether to fall back to download files if Navigator.share() fails.
+  static bool downloadFallbackEnabled = true;
+
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
     SharePlatform.instance = SharePlusWebPlugin(UrlLauncherPlugin());
@@ -204,11 +207,13 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      throw Exception('Navigator.canShare() is unavailable');
+      return _downloadIfFallbackEnabled(
+          files, fileNameOverrides, 'Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      throw Exception('Navigator.canShare() is false');
+      return _downloadIfFallbackEnabled(
+          files, fileNameOverrides, 'Navigator.canShare() is false');
     }
 
     try {
@@ -229,10 +234,20 @@ class SharePlusWebPlugin extends SharePlatform {
         error: '$name: $message',
       );
       if (name case 'NotAllowedError') {
-        return _download(files, fileNameOverrides);
+        return _downloadIfFallbackEnabled(
+            files, fileNameOverrides, 'Navigator.share() failed: $message');
       }
 
       throw Exception('Navigator.share() failed: $message');
+    }
+  }
+
+  Future<ShareResult> _downloadIfFallbackEnabled(
+      List<XFile> files, List<String>? fileNameOverrides, String message) {
+    if (downloadFallbackEnabled) {
+      return _download(files, fileNameOverrides);
+    } else {
+      throw Exception(message);
     }
   }
 
