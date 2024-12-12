@@ -245,20 +245,25 @@ class DemoAppState extends State<DemoApp> {
   void _onShareXFileFromAssets(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = await rootBundle.load('assets/flutter_logo.png');
-    final buffer = data.buffer;
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-          name: 'flutter_logo.png',
-          mimeType: 'image/png',
-        ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
-
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    try {
+      final data = await rootBundle.load('assets/flutter_logo.png');
+      final buffer = data.buffer;
+      final shareResult = await Share.shareXFiles(
+        [
+          XFile.fromData(
+            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+            name: 'flutter_logo.png',
+            mimeType: 'image/png',
+          ),
+        ],
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   void _onShareTextAsXFile(BuildContext context) async {

@@ -258,6 +258,7 @@ class SharePlusWebPlugin extends SharePlatform {
     List<XFile> files,
     List<String>? fileNameOverrides,
   ) async {
+    developer.log('Download files as fallback');
     try {
       for (final (index, file) in files.indexed) {
         final bytes = await file.readAsBytes();
