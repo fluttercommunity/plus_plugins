@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
+import 'package:share_plus/share_plus.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
@@ -204,11 +205,19 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      throw Exception('Navigator.canShare() is unavailable');
+      return _downloadIfFallbackEnabled(
+        files,
+        fileNameOverrides,
+        'Navigator.canShare() is unavailable',
+      );
     }
 
     if (!canShare) {
-      throw Exception('Navigator.canShare() is false');
+      return _downloadIfFallbackEnabled(
+        files,
+        fileNameOverrides,
+        'Navigator.canShare() is false',
+      );
     }
 
     try {
@@ -217,16 +226,56 @@ class SharePlusWebPlugin extends SharePlatform {
       // actions is success, but can't get the action name
       return ShareResult.unavailable;
     } on DOMException catch (e) {
-      if (e.name case 'AbortError') {
+      final name = e.name;
+      final message = e.message;
+
+      if (name case 'AbortError') {
         return _resultDismissed;
       }
 
-      developer.log(
-        'Failed to share files',
-        error: '${e.name}: ${e.message}',
+      return _downloadIfFallbackEnabled(
+        files,
+        fileNameOverrides,
+        'Navigator.share() failed: $message',
       );
+    }
+  }
 
-      throw Exception('Navigator.share() failed: ${e.message}');
+  Future<ShareResult> _downloadIfFallbackEnabled(
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+    String message,
+  ) {
+    developer.log(message);
+    if (Share.downloadFallbackEnabled) {
+      return _download(files, fileNameOverrides);
+    } else {
+      throw Exception(message);
+    }
+  }
+
+  Future<ShareResult> _download(
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+  ) async {
+    developer.log('Download files as fallback');
+    try {
+      for (final (index, file) in files.indexed) {
+        final bytes = await file.readAsBytes();
+
+        final anchor = document.createElement('a') as HTMLAnchorElement
+          ..href = Uri.dataFromBytes(bytes).toString()
+          ..style.display = 'none'
+          ..download = fileNameOverrides?.elementAt(index) ?? file.name;
+        document.body!.children.add(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+
+      return ShareResult.unavailable;
+    } catch (error) {
+      developer.log('Failed to download files', error: error);
+      throw Exception('Failed to to download files: $error');
     }
   }
 

@@ -18,6 +18,9 @@ export 'src/share_plus_windows.dart'
 class Share {
   static SharePlatform get _platform => SharePlatform.instance;
 
+  /// Whether to fall back to downloading files if [shareXFiles] fails on web.
+  static bool downloadFallbackEnabled = true;
+
   /// Summons the platform's share sheet to share uri.
   ///
   /// Wraps the platform's native share dialog. Can share a URL.

@@ -19,6 +19,10 @@ import 'package:share_plus/share_plus.dart';
 import 'image_previews.dart';
 
 void main() {
+  // Set `downloadFallbackEnabled` to `false`
+  // to disable downloading files if `shareXFiles` fails on web.
+  Share.downloadFallbackEnabled = true;
+
   runApp(const DemoApp());
 }
 
@@ -241,39 +245,50 @@ class DemoAppState extends State<DemoApp> {
   void _onShareXFileFromAssets(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = await rootBundle.load('assets/flutter_logo.png');
-    final buffer = data.buffer;
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-          name: 'flutter_logo.png',
-          mimeType: 'image/png',
-        ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
-
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    try {
+      final data = await rootBundle.load('assets/flutter_logo.png');
+      final buffer = data.buffer;
+      final shareResult = await Share.shareXFiles(
+        [
+          XFile.fromData(
+            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+            name: 'flutter_logo.png',
+            mimeType: 'image/png',
+          ),
+        ],
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   void _onShareTextAsXFile(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = utf8.encode(text);
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          data,
-          // name: fileName, // Notice, how setting the name here does not work.
-          mimeType: 'text/plain',
-        ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      fileNameOverrides: [fileName],
-    );
 
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    try {
+      final shareResult = await Share.shareXFiles(
+        [
+          XFile.fromData(
+            utf8.encode(text),
+            // name: fileName, // Notice, how setting the name here does not work.
+            mimeType: 'text/plain',
+          ),
+        ],
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        fileNameOverrides: [fileName],
+      );
+
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   SnackBar getResultSnackBar(ShareResult result) {

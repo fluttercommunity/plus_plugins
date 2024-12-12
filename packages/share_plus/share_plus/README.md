@@ -101,6 +101,12 @@ package.
 Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
 ```
 
+File downloading fallback mechanism for web can be disabled by setting:
+
+```dart
+Share.downloadFallbackEnabled = false;
+```
+
 #### Share Data
 
 You can also share files that you dynamically generate from its data using [`XFile.fromData`](https://pub.dev/documentation/share_plus/latest/share_plus/XFile/XFile.fromData.html).
