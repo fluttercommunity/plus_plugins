@@ -1,3 +1,7 @@
+## 6.1.2
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+
 ## 6.1.1
 
  - **FIX**(network_info_plus): Update privacy manifest path on MacOS ([#3350](https://github.com/fluttercommunity/plus_plugins/issues/3350)). ([18c81efd](https://github.com/fluttercommunity/plus_plugins/commit/18c81efd0b9f510023c481965b5868184d435961))

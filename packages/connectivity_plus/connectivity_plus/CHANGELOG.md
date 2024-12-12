@@ -1,3 +1,8 @@
+## 6.1.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(connectivity_plus): macOS Privacy Manifest ([#3390](https://github.com/fluttercommunity/plus_plugins/issues/3390)). ([170703b5](https://github.com/fluttercommunity/plus_plugins/commit/170703b525c5390682fb558235ce699d29923b29))
+
 ## 6.1.0
 
  - **FEAT**(connectivity_plus): Add Swift Package Manager support ([#3173](https://github.com/fluttercommunity/plus_plugins/issues/3173)). ([036afeeb](https://github.com/fluttercommunity/plus_plugins/commit/036afeeb549f24813256f5049def6a6a3740a4f2))

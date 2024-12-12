@@ -1,3 +1,8 @@
+## 6.2.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(battery_plus): Incorrect minimum version configuration. ([#3364](https://github.com/fluttercommunity/plus_plugins/issues/3364)). ([56fc9847](https://github.com/fluttercommunity/plus_plugins/commit/56fc98473d29f97ed4a014b85585d06d2356fd9e))
+
 ## 6.2.0
 
  - **FEAT**(battery_plus): Add battery save mode check on MacOS ([#3332](https://github.com/fluttercommunity/plus_plugins/issues/3332)). ([0e8c9223](https://github.com/fluttercommunity/plus_plugins/commit/0e8c9223f00f801abeb203c25a79b8f19259a11c))

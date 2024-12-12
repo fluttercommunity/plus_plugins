@@ -1,3 +1,11 @@
+## 11.2.0
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(device_info_plus): fix the error in the e2e test. ([#3382](https://github.com/fluttercommunity/plus_plugins/issues/3382)). ([3d06bf0e](https://github.com/fluttercommunity/plus_plugins/commit/3d06bf0ed8f1029df1230e4be6e75537abfcb19f))
+ - **FIX**(device_info_plus): Set correct Flutter and Dart versions requirements ([#3362](https://github.com/fluttercommunity/plus_plugins/issues/3362)). ([77861523](https://github.com/fluttercommunity/plus_plugins/commit/778615231c376c829d6241e7988f15a77bcaeb55))
+ - **FEAT**(device_info_plus): Return model name for iOS and MacOS devices ([#3358](https://github.com/fluttercommunity/plus_plugins/issues/3358)). ([63ca4cd8](https://github.com/fluttercommunity/plus_plugins/commit/63ca4cd8127e010650468a79532dd3a6047d2b31))
+ - **FEAT**(device_info_plus): Add the isiOSAppOnMac property for the iOS platform. ([#3383](https://github.com/fluttercommunity/plus_plugins/issues/3383)). ([e9077845](https://github.com/fluttercommunity/plus_plugins/commit/e9077845342023d325280985234b6a09d245ac02))
+
 ## 11.1.1
 
  - **FIX**(device_info_plus): Update privacy manifest paths ([#3347](https://github.com/fluttercommunity/plus_plugins/issues/3347)). ([46df2302](https://github.com/fluttercommunity/plus_plugins/commit/46df23023a5ba6c98edd31d5fd06bec5df40bd3b))

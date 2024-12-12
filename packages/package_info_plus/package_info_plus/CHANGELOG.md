@@ -1,3 +1,8 @@
+## 8.1.2
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(package_info_plus): add support for file scheme on web ([#3345](https://github.com/fluttercommunity/plus_plugins/issues/3345)). ([2d69758d](https://github.com/fluttercommunity/plus_plugins/commit/2d69758d86346203a37dabf876a7bb9862c1e553))
+
 ## 8.1.1
 
  - **FIX**(package_info_plus): Update privacy manifest path ([#3348](https://github.com/fluttercommunity/plus_plugins/issues/3348)). ([f47fcc97](https://github.com/fluttercommunity/plus_plugins/commit/f47fcc9774a860d7cffe306ba6ecca4ccae2896f))
