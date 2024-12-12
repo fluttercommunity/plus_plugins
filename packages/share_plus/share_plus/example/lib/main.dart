@@ -19,7 +19,10 @@ import 'package:share_plus/share_plus.dart';
 import 'image_previews.dart';
 
 void main() {
-  SharePlusWebPlugin.downloadFallbackEnabled = false;
+  // Set `downloadFallbackEnabled` to `false`
+  // to disable downloading files if `shareXFiles` fails on web.
+  Share.downloadFallbackEnabled = true;
+
   runApp(const DemoApp());
 }
 
