@@ -18,7 +18,7 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("PrivacyInfo.xcprivacy")
-            ]
+            ],
             cSettings: [
                 .headerSearchPath("include/package_info_plus")
             ]
