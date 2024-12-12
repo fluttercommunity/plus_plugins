@@ -1,3 +1,7 @@
+## 5.2.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+
 ## 5.2.0
 
  - **FEAT**(android_intent_plus): add getResolvedActivity method ([#3313](https://github.com/fluttercommunity/plus_plugins/issues/3313)). ([8ad1c6d9](https://github.com/fluttercommunity/plus_plugins/commit/8ad1c6d9e061a59383f82f9b4a7703ef03e4c04c))
