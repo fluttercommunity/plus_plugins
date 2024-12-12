@@ -22,6 +22,7 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
         let hostName = Sysctl.osType
         let arch = Sysctl.machine
         let model = Sysctl.model
+        let modelName = getMacModelName(modelNumber: Sysctl.model)
         let kernelVersion = Sysctl.version
         let osRelease = ProcessInfo.processInfo.operatingSystemVersionString
         let osVersion = ProcessInfo.processInfo.operatingSystemVersion;
@@ -38,6 +39,7 @@ public class DeviceInfoPlusMacosPlugin: NSObject, FlutterPlugin {
             "hostName": hostName,
             "arch": arch,
             "model": model,
+            "modelName": modelName,
             "kernelVersion": kernelVersion,
             "osRelease": osRelease,
             "majorVersion": majorVersion,
