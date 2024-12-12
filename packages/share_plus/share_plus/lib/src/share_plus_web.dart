@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
+import 'package:share_plus/share_plus.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
@@ -14,9 +15,6 @@ import 'package:web/web.dart';
 /// The web implementation of [SharePlatform].
 class SharePlusWebPlugin extends SharePlatform {
   final UrlLauncherPlatform urlLauncher;
-
-  /// Whether to fall back to download files if Navigator.share() fails.
-  static bool downloadFallbackEnabled = true;
 
   /// Registers this class as the default instance of [SharePlatform].
   static void registerWith(Registrar registrar) {
@@ -208,12 +206,18 @@ class SharePlusWebPlugin extends SharePlatform {
       );
 
       return _downloadIfFallbackEnabled(
-          files, fileNameOverrides, 'Navigator.canShare() is unavailable');
+        files,
+        fileNameOverrides,
+        'Navigator.canShare() is unavailable',
+      );
     }
 
     if (!canShare) {
       return _downloadIfFallbackEnabled(
-          files, fileNameOverrides, 'Navigator.canShare() is false');
+        files,
+        fileNameOverrides,
+        'Navigator.canShare() is false',
+      );
     }
 
     try {
@@ -229,22 +233,21 @@ class SharePlusWebPlugin extends SharePlatform {
         return _resultDismissed;
       }
 
-      developer.log(
-        'Failed to share files',
-        error: '$name: $message',
+      return _downloadIfFallbackEnabled(
+        files,
+        fileNameOverrides,
+        'Navigator.share() failed: $message',
       );
-      if (name case 'NotAllowedError') {
-        return _downloadIfFallbackEnabled(
-            files, fileNameOverrides, 'Navigator.share() failed: $message');
-      }
-
-      throw Exception('Navigator.share() failed: $message');
     }
   }
 
   Future<ShareResult> _downloadIfFallbackEnabled(
-      List<XFile> files, List<String>? fileNameOverrides, String message) {
-    if (downloadFallbackEnabled) {
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+    String message,
+  ) {
+    developer.log(message);
+    if (Share.downloadFallbackEnabled) {
       return _download(files, fileNameOverrides);
     } else {
       throw Exception(message);
@@ -252,7 +255,9 @@ class SharePlusWebPlugin extends SharePlatform {
   }
 
   Future<ShareResult> _download(
-      List<XFile> files, List<String>? fileNameOverrides) async {
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+  ) async {
     try {
       for (final (index, file) in files.indexed) {
         final bytes = await file.readAsBytes();
@@ -268,8 +273,8 @@ class SharePlusWebPlugin extends SharePlatform {
 
       return ShareResult.unavailable;
     } catch (error) {
-      developer.log('Failed to share files', error: error);
-      throw Exception('Failed to to share files: $error');
+      developer.log('Failed to download files', error: error);
+      throw Exception('Failed to to download files: $error');
     }
   }
 

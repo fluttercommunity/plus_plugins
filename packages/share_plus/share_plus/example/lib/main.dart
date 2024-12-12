@@ -19,6 +19,7 @@ import 'package:share_plus/share_plus.dart';
 import 'image_previews.dart';
 
 void main() {
+  SharePlusWebPlugin.downloadFallbackEnabled = false;
   runApp(const DemoApp());
 }
 
