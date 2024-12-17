@@ -72,6 +72,7 @@ internal class MethodCallHandlerImpl(
                     Build.UNKNOWN
                 }
             } else {
+                @Suppress("DEPRECATION")
                 build["serialNumber"] = Build.SERIAL
             }
 
