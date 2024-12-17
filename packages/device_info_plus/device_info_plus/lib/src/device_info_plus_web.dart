@@ -46,6 +46,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
   }
 }
 
+// TODO: Remove when https://github.com/dart-lang/web/issues/326 is resolved
 extension SafeNavigationGetterExtensions on html.Navigator {
   double? safeDeviceMemory() {
     try {
