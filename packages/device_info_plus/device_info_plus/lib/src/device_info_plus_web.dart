@@ -49,9 +49,9 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
 /// Some Navigator properties are not fully supported in all browsers.
 /// However, package:web does not provide a safe way to access these properties,
 /// and assumes they are always not null.
-/// 
+///
 /// This extension provides a safe way to access these properties.
-/// 
+///
 /// See: https://github.com/dart-lang/web/issues/326
 ///      https://github.com/fluttercommunity/plus_plugins/issues/3391
 extension SafeNavigationGetterExtensions on html.Navigator {
