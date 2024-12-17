@@ -17,8 +17,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
   /// Factory method that initializes the DeviceInfoPlus plugin platform
   /// with an instance of the plugin for the web.
   static void registerWith(Registrar registrar) {
-    DeviceInfoPlatform.instance =
-        DeviceInfoPlusWebPlugin(html.window.navigator);
+    DeviceInfoPlatform.instance = DeviceInfoPlusWebPlugin(html.window.navigator);
   }
 
   @override
@@ -29,7 +28,7 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
           'appCodeName': _navigator.appCodeName,
           'appName': _navigator.appName,
           'appVersion': _navigator.appVersion,
-          'deviceMemory': _navigator.deviceMemory,
+          'deviceMemory': _navigator.safeDeviceMemory(),
           'language': _navigator.language,
           'languages': _navigator.languages.toDart,
           'platform': _navigator.platform,
@@ -43,5 +42,15 @@ class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
         },
       ),
     );
+  }
+}
+
+extension SafeNavigationGetterExtensions on html.Navigator {
+  double? safeDeviceMemory() {
+    try {
+      return deviceMemory;
+    } catch (e) {
+      return 0.0;
+    }
   }
 }
