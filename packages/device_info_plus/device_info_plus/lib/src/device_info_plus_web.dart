@@ -52,7 +52,7 @@ extension SafeNavigationGetterExtensions on html.Navigator {
     try {
       return deviceMemory;
     } catch (e) {
-      return 0.0;
+      return null;
     }
   }
 }
