@@ -1,8 +1,6 @@
 /// The Windows implementation of `share_plus`.
 library share_plus_windows;
 
-import 'dart:ui';
-
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';

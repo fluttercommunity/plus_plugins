@@ -7,7 +7,7 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus, XFile;
+    show ShareResult, ShareResultStatus, XFile, ShareParams;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
@@ -15,6 +15,9 @@ export 'src/share_plus_windows.dart'
 
 class SharePlus {
   static SharePlatform get _platform => SharePlatform.instance;
+
+  /// The default instance of [SharePlus].
+  static final SharePlus instance = SharePlus();
 
   /// Summons the platform's share sheet to share context.
   ///
@@ -84,8 +87,6 @@ class SharePlus {
 
 @Deprecated('Use SharePlus instead')
 class Share {
-  static final SharePlus _sharePlus = SharePlus();
-
   /// Whether to fall back to downloading files if [shareXFiles] fails on web.
   @Deprecated('Use ShareParams.downloadFallbackEnabled instead')
   static bool downloadFallbackEnabled = true;
@@ -111,7 +112,7 @@ class Share {
     Uri uri, {
     Rect? sharePositionOrigin,
   }) async {
-    return _sharePlus.share(
+    return SharePlus.instance.share(
       ShareParams(
         uri: uri,
         sharePositionOrigin: sharePositionOrigin,
@@ -162,7 +163,7 @@ class Share {
     Rect? sharePositionOrigin,
   }) async {
     assert(text.isNotEmpty);
-    return _sharePlus.share(
+    return SharePlus.instance.share(
       ShareParams(
         text: text,
         subject: subject,
@@ -209,7 +210,7 @@ class Share {
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
-    return _sharePlus.share(
+    return SharePlus.instance.share(
       ShareParams(
         files: files,
         subject: subject,
