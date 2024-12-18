@@ -37,7 +37,15 @@ class SharePlatform extends PlatformInterface {
 }
 
 class ShareParams {
-  /// The text to share, cannot be provided at the same time as [uri]
+  /// The text to share
+  ///
+  /// Cannot be provided at the same time as [uri],
+  /// as the share method will use one or the other.
+  ///
+  /// Can be used together with [files],
+  /// but it depends on the receiving app if they support
+  /// loading files and text from a share action.
+  /// Some apps only support one or the other.
   ///
   /// * Supported platforms: All
   final String? text;
@@ -46,6 +54,7 @@ class ShareParams {
   ///
   /// Provided to Android Intent.createChooser as the title,
   /// as well as, EXTRA_TITLE Intent extra.
+  /// 
   /// Provided to web Navigator Share API as title.
   ///
   /// * Supported platforms: All
@@ -76,10 +85,11 @@ class ShareParams {
 
   /// Share a URI.
   ///
-  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
-  /// on iOS. [share] will trigger the iOS system to fetch the html page
+  /// On iOS, it will trigger the iOS system to fetch the html page
   /// (if available), and the website icon will be extracted and displayed on
   /// the iOS share sheet.
+  ///
+  /// On other platforms it behaves like sharing text.
   ///
   /// Cannot be used in combination with [text].
   ///
