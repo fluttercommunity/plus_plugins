@@ -32,6 +32,7 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  String title = '';
   String uri = '';
   String fileName = '';
   List<String> imageNames = [];
@@ -77,6 +78,18 @@ class DemoAppState extends State<DemoApp> {
                 maxLines: null,
                 onChanged: (String value) => setState(() {
                   subject = value;
+                }),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share title',
+                  hintText: 'Enter title to share (optional)',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  title = value;
                 }),
               ),
               const SizedBox(height: 16),
@@ -219,8 +232,9 @@ class DemoAppState extends State<DemoApp> {
       }
       shareResult = await SharePlus.instance.share(
         ShareParams(
-          text: text,
-          subject: subject,
+          text: text.isEmpty ? null : text,
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
           files: files,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
         ),
@@ -229,14 +243,17 @@ class DemoAppState extends State<DemoApp> {
       shareResult = await SharePlus.instance.share(
         ShareParams(
           uri: Uri.parse(uri),
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
         ),
       );
     } else {
       shareResult = await SharePlus.instance.share(
         ShareParams(
-          text: text,
-          subject: subject,
+          text: text.isEmpty ? null : text,
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
         ),
       );

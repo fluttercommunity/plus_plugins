@@ -42,8 +42,10 @@ class ShareParams {
   /// * Supported platforms: All
   final String? text;
 
-  /// Used as share sheet title where supported (e.g. EXTRA_TITLE on Android)
+  /// Used as share sheet title where supported
   ///
+  /// Provided to Android Intent.createChooser as the title,
+  /// as well as, EXTRA_TITLE Intent extra.
   /// Provided to web Navigator Share API as title.
   ///
   /// * Supported platforms: All
