@@ -5,10 +5,6 @@
 import 'dart:async';
 import 'dart:io';
 
-// Keep dart:ui for retrocompatiblity with Flutter <3.3.0
-// ignore: unnecessary_import
-import 'dart:ui';
-
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
