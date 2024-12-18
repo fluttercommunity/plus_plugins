@@ -46,15 +46,19 @@ class ShareParams {
   ///
   /// Provided to web Navigator Share API as title.
   ///
-  /// * Supported platforms: Android, Web
+  /// * Supported platforms: All
   final String? title;
 
-  /// Only used as email subject where supported (e.g. EXTRA_SUBJECT on Android)
+  /// Used as email subject where supported (e.g. EXTRA_SUBJECT on Android)
   ///
-  /// * Supported platforms: ???
+  /// When using the email fallback, this will be the subject of the email.
+  ///
+  /// * Supported platforms: All
   final String? subject;
 
   /// Preview thumbnail
+  ///
+  /// TODO: https://github.com/fluttercommunity/plus_plugins/pull/3372
   ///
   /// * Supported platforms: Android
   ///   Parameter ignored on other platforms.

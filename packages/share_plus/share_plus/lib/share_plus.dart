@@ -56,6 +56,9 @@ class SharePlus {
   /// for the current environment and return [ShareResult.unavailable].
   ///
   /// See [ShareParams] for more information on what can be shared.
+  /// Throws [ArgumentError] if [ShareParams] are invalid.
+  ///
+  /// Throws other types of exceptions if the share method fails.
   Future<ShareResult> share(ShareParams params) async {
     if (params.uri == null &&
         (params.files == null || params.files!.isEmpty) &&

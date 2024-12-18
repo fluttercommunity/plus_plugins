@@ -23,97 +23,56 @@ class MethodChannelShare extends SharePlatform {
   static const MethodChannel channel =
       MethodChannel('dev.fluttercommunity.plus/share');
 
-  // @override
-  // Future<ShareResult> shareUri(
-  //   Uri uri, {
-  //   Rect? sharePositionOrigin,
-  // }) async {
-  //   final params = <String, dynamic>{'uri': uri.toString()};
+  @override
+  Future<ShareResult> share(ShareParams params) async {
+    final paramsMap = await _toPlatformMap(params);
+    final result = await channel.invokeMethod<String>('share', paramsMap) ??
+        'dev.fluttercommunity.plus/share/unavailable';
 
-  //   if (sharePositionOrigin != null) {
-  //     params['originX'] = sharePositionOrigin.left;
-  //     params['originY'] = sharePositionOrigin.top;
-  //     params['originWidth'] = sharePositionOrigin.width;
-  //     params['originHeight'] = sharePositionOrigin.height;
-  //   }
+    return ShareResult(result, _statusFromResult(result));
+  }
 
-  //   final result = await channel.invokeMethod<String>('shareUri', params) ??
-  //       'dev.fluttercommunity.plus/share/unavailable';
+  Future<Map<String, dynamic>> _toPlatformMap(ShareParams params) async {
+    assert(
+      params.text != null ||
+          params.uri != null ||
+          (params.files != null && params.files!.isNotEmpty),
+      'At least one of text, uri or files must be provided',
+    );
 
-  //   return ShareResult(result, _statusFromResult(result));
-  // }
+    final map = <String, dynamic>{
+      if (params.text != null) 'text': params.text,
+      if (params.subject != null) 'subject': params.subject,
+      if (params.title != null) 'title': params.title,
+      if (params.uri != null) 'uri': params.uri.toString(),
+    };
 
-  // /// Summons the platform's share sheet to share text.
-  // @override
-  // Future<ShareResult> share(
-  //   String text, {
-  //   String? subject,
-  //   Rect? sharePositionOrigin,
-  // }) async {
-  //   assert(text.isNotEmpty);
-  //   final params = <String, dynamic>{
-  //     'text': text,
-  //     'subject': subject,
-  //   };
+    if (params.sharePositionOrigin != null) {
+      map['originX'] = params.sharePositionOrigin!.left;
+      map['originY'] = params.sharePositionOrigin!.top;
+      map['originWidth'] = params.sharePositionOrigin!.width;
+      map['originHeight'] = params.sharePositionOrigin!.height;
+    }
 
-  //   if (sharePositionOrigin != null) {
-  //     params['originX'] = sharePositionOrigin.left;
-  //     params['originY'] = sharePositionOrigin.top;
-  //     params['originWidth'] = sharePositionOrigin.width;
-  //     params['originHeight'] = sharePositionOrigin.height;
-  //   }
+    if (params.files != null) {
+      final filesWithPath =
+          await _getFiles(params.files!, params.fileNameOverrides);
+      assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
-  //   final result = await channel.invokeMethod<String>('share', params) ??
-  //       'dev.fluttercommunity.plus/share/unavailable';
+      final mimeTypes = filesWithPath
+          .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
+          .toList();
 
-  //   return ShareResult(result, _statusFromResult(result));
-  // }
+      final paths = filesWithPath.map((e) => e.path).toList();
+      assert(paths.length == mimeTypes.length);
+      assert(mimeTypes.every((element) => element.isNotEmpty));
 
-  // /// Summons the platform's share sheet to share multiple files.
-  // @override
-  // Future<ShareResult> shareXFiles(
-  //   List<XFile> files, {
-  //   String? subject,
-  //   String? text,
-  //   Rect? sharePositionOrigin,
-  //   List<String>? fileNameOverrides,
-  // }) async {
-  //   assert(files.isNotEmpty);
-  //   assert(
-  //     fileNameOverrides == null || files.length == fileNameOverrides.length,
-  //     "fileNameOverrides list must have the same length as files list.",
-  //   );
-  //   final filesWithPath = await _getFiles(files, fileNameOverrides);
-  //   assert(filesWithPath.every((element) => element.path.isNotEmpty));
+      map['paths'] = paths;
+      map['mimeTypes'] = mimeTypes;
+    }
 
-  //   final mimeTypes = filesWithPath
-  //       .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
-  //       .toList();
-
-  //   final paths = filesWithPath.map((e) => e.path).toList();
-  //   assert(paths.length == mimeTypes.length);
-  //   assert(mimeTypes.every((element) => element.isNotEmpty));
-
-  //   final params = <String, dynamic>{
-  //     'paths': paths,
-  //     'mimeTypes': mimeTypes,
-  //   };
-
-  //   if (subject != null) params['subject'] = subject;
-  //   if (text != null) params['text'] = text;
-
-  //   if (sharePositionOrigin != null) {
-  //     params['originX'] = sharePositionOrigin.left;
-  //     params['originY'] = sharePositionOrigin.top;
-  //     params['originWidth'] = sharePositionOrigin.width;
-  //     params['originHeight'] = sharePositionOrigin.height;
-  //   }
-
-  //   final result = await channel.invokeMethod<String>('shareFiles', params) ??
-  //       'dev.fluttercommunity.plus/share/unavailable';
-
-  //   return ShareResult(result, _statusFromResult(result));
-  // }
+    return map;
+  }
 
   /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.
   ///

@@ -142,7 +142,7 @@ class SharePlusWebPlugin extends SharePlatform {
   Future<ShareResult> _fallback(ShareParams params, String error) async {
     developer.log(error);
 
-    final title = params.title ?? params.subject;
+    final subject = params.subject;
     final text = params.text ?? params.uri?.toString() ?? '';
     final files = params.files;
     final fileNameOverrides = params.fileNameOverrides;
@@ -162,7 +162,7 @@ class SharePlusWebPlugin extends SharePlatform {
     }
 
     final queryParameters = {
-      if (title != null) 'subject': title,
+      if (subject != null) 'subject': subject,
       'body': text,
     };
 
