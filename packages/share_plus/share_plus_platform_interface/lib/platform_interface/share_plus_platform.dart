@@ -7,6 +7,7 @@ import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../method_channel/method_channel_share.dart';
 
@@ -31,6 +32,7 @@ class SharePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  // TODO: Delete
   /// Share uri.
   Future<ShareResult> shareUri(
     Uri uri, {
@@ -42,6 +44,7 @@ class SharePlatform extends PlatformInterface {
     );
   }
 
+  // TODO: Delete
   /// Share text with Result.
   Future<ShareResult> share(
     String text, {
@@ -55,6 +58,7 @@ class SharePlatform extends PlatformInterface {
     );
   }
 
+  // TODO: Delete
   /// Share [XFile] objects with Result.
   Future<ShareResult> shareXFiles(
     List<XFile> files, {
@@ -71,6 +75,48 @@ class SharePlatform extends PlatformInterface {
       fileNameOverrides: fileNameOverrides,
     );
   }
+
+  Future<ShareResult> shareNew(ShareParams params) async {
+    return _instance.shareNew(params);
+  }
+}
+
+class ShareParams {
+  ///
+  final String? text;
+
+  /// Used as share sheet title where supported (e.g. EXTRA_TITLE on Android)
+  final String? title;
+
+  /// Only used as email subject where supported (e.g. EXTRA_SUBJECT on Android)
+  final String? subject;
+
+  /// Only used in Android as preview thumbnail
+  final XFile? previewThumbnail;
+
+  /// Only used in iPad and Mac as share sheet origin
+  final Rect? sharePositionOrigin;
+
+  /// Share a URI, alternative to sharing [text]
+  final Uri? uri;
+
+  /// Share multiple files, can be used in combination with [text]
+  final List<XFile>? files;
+  final List<String>? fileNameOverrides;
+
+  final bool downloadFallbackEnabled;
+
+  ShareParams({
+    this.text,
+    this.subject,
+    this.title,
+    this.previewThumbnail,
+    this.sharePositionOrigin,
+    this.uri,
+    this.files,
+    this.fileNameOverrides,
+    this.downloadFallbackEnabled = true,
+  });
 }
 
 /// The result of a share to determine what action the

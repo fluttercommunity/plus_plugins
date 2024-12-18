@@ -1,8 +1,3 @@
-// Copyright 2019 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
@@ -10,15 +5,39 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
     show ShareResult, ShareResultStatus, XFile;
 
-export 'src/share_plus_linux.dart';
-export 'src/share_plus_windows.dart'
-    if (dart.library.js_interop) 'src/share_plus_web.dart';
+// export 'src/share_plus_linux.dart';
+// export 'src/share_plus_windows.dart'
+//     if (dart.library.js_interop) 'src/share_plus_web.dart';
 
-/// Plugin for summoning a platform share sheet.
-class Share {
+class SharePlus {
   static SharePlatform get _platform => SharePlatform.instance;
 
+  Future<ShareResult> share(ShareParams params) async {
+    if (params.uri == null &&
+        (params.files == null || params.files!.isEmpty) &&
+        params.text == null) {
+      throw ArgumentError(
+          'At least one of uri, files or text must be provided');
+    }
+
+    if (params.text != null && params.text!.isEmpty) {
+      throw ArgumentError('text provided, but cannot be empty');
+    }
+
+    if (params.files != null && params.files!.isEmpty) {
+      throw ArgumentError('files provided, but cannot be empty');
+    }
+
+    return _platform.shareNew(params);
+  }
+}
+
+@Deprecated('Use SharePlus instead')
+class Share {
+  static final SharePlus _sharePlus = SharePlus();
+
   /// Whether to fall back to downloading files if [shareXFiles] fails on web.
+  @Deprecated('Use ShareParams.downloadFallbackEnabled instead')
   static bool downloadFallbackEnabled = true;
 
   /// Summons the platform's share sheet to share uri.
@@ -37,13 +56,17 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
+  @Deprecated('Use SharePlus.share() instead')
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
   }) async {
-    return _platform.shareUri(
-      uri,
-      sharePositionOrigin: sharePositionOrigin,
+    return _sharePlus.share(
+      ShareParams(
+        uri: uri,
+        sharePositionOrigin: sharePositionOrigin,
+        downloadFallbackEnabled: downloadFallbackEnabled,
+      ),
     );
   }
 
@@ -82,16 +105,20 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
+  @Deprecated('Use SharePlus.share() instead')
   static Future<ShareResult> share(
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
   }) async {
     assert(text.isNotEmpty);
-    return _platform.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
+    return _sharePlus.share(
+      ShareParams(
+        text: text,
+        subject: subject,
+        sharePositionOrigin: sharePositionOrigin,
+        downloadFallbackEnabled: downloadFallbackEnabled,
+      ),
     );
   }
 
@@ -123,6 +150,7 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
+  @Deprecated('Use SharePlus.share() instead')
   static Future<ShareResult> shareXFiles(
     List<XFile> files, {
     String? subject,
@@ -131,12 +159,15 @@ class Share {
     List<String>? fileNameOverrides,
   }) async {
     assert(files.isNotEmpty);
-    return _platform.shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
+    return _sharePlus.share(
+      ShareParams(
+        files: files,
+        subject: subject,
+        text: text,
+        sharePositionOrigin: sharePositionOrigin,
+        fileNameOverrides: fileNameOverrides,
+        downloadFallbackEnabled: downloadFallbackEnabled,
+      ),
     );
   }
 }
