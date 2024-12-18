@@ -1,13 +1,13 @@
+// Copyright 2019 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'dart:ui';
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
     show ShareResult, ShareResultStatus, XFile;
-
-// export 'src/share_plus_linux.dart';
-// export 'src/share_plus_windows.dart'
-//     if (dart.library.js_interop) 'src/share_plus_web.dart';
 
 class SharePlus {
   static SharePlatform get _platform => SharePlatform.instance;
