@@ -9,6 +9,10 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
     show ShareResult, ShareResultStatus, XFile;
 
+export 'src/share_plus_linux.dart';
+export 'src/share_plus_windows.dart'
+    if (dart.library.js_interop) 'src/share_plus_web.dart';
+
 class SharePlus {
   static SharePlatform get _platform => SharePlatform.instance;
 
@@ -20,6 +24,10 @@ class SharePlus {
           'At least one of uri, files or text must be provided');
     }
 
+    if (params.uri != null && params.text != null) {
+      throw ArgumentError('uri and text cannot be provided at the same time');
+    }
+
     if (params.text != null && params.text!.isEmpty) {
       throw ArgumentError('text provided, but cannot be empty');
     }
@@ -28,7 +36,7 @@ class SharePlus {
       throw ArgumentError('files provided, but cannot be empty');
     }
 
-    return _platform.shareNew(params);
+    return _platform.share(params);
   }
 }
 

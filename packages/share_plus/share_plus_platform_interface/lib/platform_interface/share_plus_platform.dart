@@ -7,7 +7,6 @@ import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../method_channel/method_channel_share.dart';
 
@@ -32,57 +31,13 @@ class SharePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  // TODO: Delete
-  /// Share uri.
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-  }) {
-    return _instance.shareUri(
-      uri,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  // TODO: Delete
-  /// Share text with Result.
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
-    return await _instance.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
-    );
-  }
-
-  // TODO: Delete
-  /// Share [XFile] objects with Result.
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<String>? fileNameOverrides,
-  }) async {
-    return _instance.shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
-    );
-  }
-
-  Future<ShareResult> shareNew(ShareParams params) async {
-    return _instance.shareNew(params);
+  Future<ShareResult> share(ShareParams params) async {
+    return _instance.share(params);
   }
 }
 
 class ShareParams {
-  ///
+  /// The text to share, cannot be provided at the same time as [uri]
   final String? text;
 
   /// Used as share sheet title where supported (e.g. EXTRA_TITLE on Android)
