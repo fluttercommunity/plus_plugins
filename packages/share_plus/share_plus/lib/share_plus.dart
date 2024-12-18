@@ -16,12 +16,46 @@ export 'src/share_plus_windows.dart'
 class SharePlus {
   static SharePlatform get _platform => SharePlatform.instance;
 
+  /// Summons the platform's share sheet to share context.
+  ///
+  /// Wraps the platform's native share dialog. Can share a text and/or a URL.
+  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
+  /// on iOS.
+  ///
+  /// When no native share dialog is available,
+  /// it will fall back to using mailto to share the content as email.
+  ///
+  /// Returns [ShareResult] when the action completes.
+  ///
+  /// * [ShareResult.success] when the user selected a share action.
+  /// * [ShareResult.dismissed] when the user dismissed the share sheet.
+  /// * [ShareResult.unavailable] when the share result is not available.
+  ///
+  /// Providing result is only supported on Android, iOS and macOS.
+  ///
+  /// To avoid deadlocks on Android,
+  /// any new call to [share] when there is a call pending,
+  /// will cause the previous call to return a [ShareResult.unavailable].
+  ///
+  /// Because IOS, Android and macOS provide different feedback on share-sheet
+  /// interaction, a result on IOS will be more specific than on Android or macOS.
+  /// While on IOS the selected action can inform its caller that it was completed
+  /// or dismissed midway (_actions are free to return whatever they want_),
+  /// Android and macOS only record if the user selected an action or outright
+  /// dismissed the share-sheet. It is not guaranteed that the user actually shared
+  /// something.
+  ///
+  /// Will gracefully fall back to the non result variant if not implemented
+  /// for the current environment and return [ShareResult.unavailable].
+  ///
+  /// See [ShareParams] for more information on what can be shared.
   Future<ShareResult> share(ShareParams params) async {
     if (params.uri == null &&
         (params.files == null || params.files!.isEmpty) &&
         params.text == null) {
       throw ArgumentError(
-          'At least one of uri, files or text must be provided');
+        'At least one of uri, files or text must be provided',
+      );
     }
 
     if (params.uri != null && params.text != null) {
@@ -34,6 +68,14 @@ class SharePlus {
 
     if (params.files != null && params.files!.isEmpty) {
       throw ArgumentError('files provided, but cannot be empty');
+    }
+
+    if (params.fileNameOverrides != null &&
+        (params.files == null ||
+            params.files!.length != params.fileNameOverrides!.length)) {
+      throw ArgumentError(
+        'fileNameOverrides must have the same length as files.',
+      );
     }
 
     return _platform.share(params);

@@ -38,27 +38,78 @@ class SharePlatform extends PlatformInterface {
 
 class ShareParams {
   /// The text to share, cannot be provided at the same time as [uri]
+  ///
+  /// * Supported platforms: All
   final String? text;
 
   /// Used as share sheet title where supported (e.g. EXTRA_TITLE on Android)
+  ///
+  /// * Supported platforms: ???
   final String? title;
 
   /// Only used as email subject where supported (e.g. EXTRA_SUBJECT on Android)
+  ///
+  /// * Supported platforms: ???
   final String? subject;
 
-  /// Only used in Android as preview thumbnail
+  /// Preview thumbnail
+  ///
+  /// * Supported platforms: Android
+  ///   Parameter ignored on other platforms.
   final XFile? previewThumbnail;
 
-  /// Only used in iPad and Mac as share sheet origin
+  /// The optional [sharePositionOrigin] parameter can be used to specify a global
+  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
+  /// on other devices.
+  ///
+  /// * Supported platforms: iPad and Mac
+  ///   Parameter ignored on other platforms.
   final Rect? sharePositionOrigin;
 
-  /// Share a URI, alternative to sharing [text]
+  /// Share a URI.
+  ///
+  /// It uses the `ACTION_SEND` Intent on Android and `UIActivityViewController`
+  /// on iOS. [share] will trigger the iOS system to fetch the html page
+  /// (if available), and the website icon will be extracted and displayed on
+  /// the iOS share sheet.
+  ///
+  /// Cannot be used in combination with [text].
+  ///
+  /// * Supported platforms: iOS, Android
+  ///   Fallsback to sharing the URI as text on other platforms.
   final Uri? uri;
 
   /// Share multiple files, can be used in combination with [text]
+  ///
+  /// Android supports all natively available MIME types (wildcards like image/*
+  /// are also supported) and it's considered best practice to avoid mixing
+  /// unrelated file types (eg. image/jpg & application/pdf). If MIME types are
+  /// mixed the plugin attempts to find the lowest common denominator. Even
+  /// if MIME types are supplied the receiving app decides if those are used
+  /// or handled.
+  ///
+  /// On iOS image/jpg, image/jpeg and image/png are handled as images, while
+  /// every other MIME type is considered a normal file.
+  ///
+  ///
+  /// * Supported platforms: Android, iOS, Web, recent macOS and Windows versions
+  ///   Throws an [UnimplementedError] on other platforms.
   final List<XFile>? files;
+
+  /// Override the names of shared files.
+  ///
+  /// When set, the list length must match the number of [files] to share.
+  /// This is useful when sharing files that were created by [`XFile.fromData`](https://github.com/flutter/packages/blob/754de1918a339270b70971b6841cf1e04dd71050/packages/cross_file/lib/src/types/io.dart#L43),
+  /// because name property will be ignored by  [`cross_file`](https://pub.dev/packages/cross_file) on all platforms except on web.
+  ///
+  /// * Supported platforms: Same as [files]
+  ///   Ignored on platforms that don't support [files].
   final List<String>? fileNameOverrides;
 
+  /// Whether to fall back to downloading files if [share] fails on web.
+  ///
+  /// * Supported platforms: Web
+  ///   Parameter ignored on other platforms.
   final bool downloadFallbackEnabled;
 
   ShareParams({
