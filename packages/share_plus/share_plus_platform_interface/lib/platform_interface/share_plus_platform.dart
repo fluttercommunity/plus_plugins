@@ -44,7 +44,9 @@ class ShareParams {
 
   /// Used as share sheet title where supported (e.g. EXTRA_TITLE on Android)
   ///
-  /// * Supported platforms: ???
+  /// Provided to web Navigator Share API as title.
+  ///
+  /// * Supported platforms: Android, Web
   final String? title;
 
   /// Only used as email subject where supported (e.g. EXTRA_SUBJECT on Android)
@@ -112,6 +114,12 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final bool downloadFallbackEnabled;
 
+  /// Whether to fall back to sending an email if [share] fails on web.
+  ///
+  /// * Supported platforms: Web
+  ///   Parameter ignored on other platforms.
+  final bool mailToFallbackEnabled;
+
   ShareParams({
     this.text,
     this.subject,
@@ -122,6 +130,7 @@ class ShareParams {
     this.files,
     this.fileNameOverrides,
     this.downloadFallbackEnabled = true,
+    this.mailToFallbackEnabled = true,
   });
 }
 
