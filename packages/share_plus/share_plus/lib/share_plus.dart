@@ -14,10 +14,14 @@ export 'src/share_plus_windows.dart'
     if (dart.library.js_interop) 'src/share_plus_web.dart';
 
 class SharePlus {
-  static SharePlatform get _platform => SharePlatform.instance;
+  /// Use [SharePlus.instance] to access the [share] method.
+  SharePlus._(this._platform);
+
+  /// Platform interface
+  final SharePlatform _platform;
 
   /// The default instance of [SharePlus].
-  static final SharePlus instance = SharePlus();
+  static final SharePlus instance = SharePlus._(SharePlatform.instance);
 
   /// Summons the platform's share sheet to share context.
   ///
