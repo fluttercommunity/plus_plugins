@@ -120,7 +120,7 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
-  @Deprecated('Use SharePlus.share() instead')
+  @Deprecated('Use SharePlus.instance.share() instead')
   static Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
@@ -169,7 +169,7 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
-  @Deprecated('Use SharePlus.share() instead')
+  @Deprecated('Use SharePlus.instance.share() instead')
   static Future<ShareResult> share(
     String text, {
     String? subject,
@@ -214,7 +214,7 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
-  @Deprecated('Use SharePlus.share() instead')
+  @Deprecated('Use SharePlus.instance.share() instead')
   static Future<ShareResult> shareXFiles(
     List<XFile> files, {
     String? subject,
