@@ -39,7 +39,9 @@ class SharePlusWindowsPlugin extends SharePlatform {
   Future<ShareResult> share(
     String text, {
     String? subject,
+    String? title,
     Rect? sharePositionOrigin,
+    XFile? thumbnail,
   }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
