@@ -4,6 +4,7 @@
 
 import 'dart:ui';
 
+import 'package:meta/meta.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
@@ -22,6 +23,11 @@ class SharePlus {
 
   /// The default instance of [SharePlus].
   static final SharePlus instance = SharePlus._(SharePlatform.instance);
+
+  /// Create a custom instance of [SharePlus].
+  /// Use this constructor for testing purposes only.
+  @visibleForTesting
+  factory SharePlus.custom(SharePlatform platform) => SharePlus._(platform);
 
   /// Summons the platform's share sheet to share context.
   ///
