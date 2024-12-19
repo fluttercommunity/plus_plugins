@@ -69,6 +69,7 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
+                      if (addr) return;
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
@@ -78,6 +79,7 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET6
                     usingBlock:^(struct ifaddrs *ifaddr) {
+                      if (addr) return;
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
@@ -87,6 +89,7 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
+                      if (addr) return;
                       addr = [self descriptionForAddress:ifaddr->ifa_netmask];
                     }];
   return addr;
@@ -96,6 +99,7 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
+                      if (addr) return;
                       addr = [self descriptionForAddress:ifaddr->ifa_dstaddr];
                     }];
   return addr;
@@ -138,20 +142,22 @@
 
   // retrieve the current interfaces - returns 0 on success
   success = getifaddrs(&interfaces);
-  if (success == 0) {
-    // Loop through linked list of interfaces
-    temp_addr = interfaces;
-    while (temp_addr != NULL) {
+  if (success != 0) {
+      NSLog(@"Error: getifaddrs() failed with error code: %d", success);
+      return;
+  }
+
+  // Loop through linked list of interfaces
+  temp_addr = interfaces;
+  while (temp_addr != NULL) {
       if (temp_addr->ifa_addr->sa_family == family) {
-        // en0 is the wifi connection on iOS
-        if ([[NSString stringWithUTF8String:temp_addr->ifa_name]
-                isEqualToString:@"en0"]) {
-          block(temp_addr);
-        }
+          // One of `en` interfaces should be WiFi interface
+          if (strncmp(temp_addr->ifa_name, "en", 2) == 0) {
+              block(temp_addr);
+          }
       }
 
       temp_addr = temp_addr->ifa_next;
-    }
   }
 
   // Free memory
