@@ -271,6 +271,10 @@ TopViewControllerForViewController(UIViewController *viewController) {
       // Use title field for consistency with Android.
       // Subject field should only be used on email subjects.
       NSString *shareTitle = arguments[@"title"];
+      if (!shareTitle) {
+        // fallback to be backwards compatible with the subject field.
+        shareTitle = arguments[@"subject"];
+      }
 
       // Check if text provided is valid
       if (shareText && shareText.length == 0) {
