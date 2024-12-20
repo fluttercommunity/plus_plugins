@@ -54,7 +54,7 @@ class ShareParams {
   ///
   /// Provided to Android Intent.createChooser as the title,
   /// as well as, EXTRA_TITLE Intent extra.
-  /// 
+  ///
   /// Provided to web Navigator Share API as title.
   ///
   /// * Supported platforms: All
