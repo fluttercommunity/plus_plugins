@@ -46,12 +46,16 @@ class SharePlatform extends PlatformInterface {
   Future<ShareResult> share(
     String text, {
     String? subject,
+    String? title,
     Rect? sharePositionOrigin,
+    XFile? thumbnail,
   }) async {
     return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      title: title,
+      thumbnail: thumbnail,
     );
   }
 
