@@ -63,7 +63,6 @@ public final class IntentSender {
     }
   }
 
-
   /** Creates an intent and launches it as a Service. */
   void sendService(Intent intent) {
     if (applicationContext == null) {
