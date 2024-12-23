@@ -85,6 +85,13 @@ void main() {
     await intent.launchChooser('title');
   }, skip: !Platform.isAndroid);
 
+  testWidgets('sendService should not throw', (WidgetTester tester) async {
+    const intent = AndroidIntent(
+      action: 'com.example.service',
+    );
+    await intent.sendService();
+  }, skip: !Platform.isAndroid);
+
   testWidgets('SendBroadcast should not throw', (WidgetTester tester) async {
     const intent = AndroidIntent(
       action: 'com.example.broadcast',
