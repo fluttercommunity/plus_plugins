@@ -81,7 +81,11 @@ internal class Share(
             } else {
                 Intent.createChooser(shareIntent, null /* dialog title optional */)
             }
-        startActivity(chooserIntent, withResult)
+        startActivity(chooserIntent.apply {
+            getAvailableOemChooser()?.let {
+                action = it.action
+            }
+        }, withResult)
     }
 
     @Throws(IOException::class)
@@ -155,7 +159,11 @@ internal class Share(
                 )
             }
         }
-        startActivity(chooserIntent, withResult)
+        startActivity(chooserIntent.apply {
+            getAvailableOemChooser()?.let {
+                action = it.action
+            }
+        }, withResult)
     }
 
     private fun startActivity(intent: Intent, withResult: Boolean) {
@@ -251,4 +259,20 @@ internal class Share(
         file.copyTo(newFile, true)
         return newFile
     }
+
+    enum class OemChooser(
+        val action: String,
+        val packageName: String,
+    ) {
+        HUAWEI("com.huawei.intent.action.hwCHOOSER", "com.huawei.android.internal.app"),
+        HIHONOR("com.hihonor.intent.action.hwCHOOSER", "com.hihonor.android.internal.app")
+    }
+
+
+    private fun getAvailableOemChooser(): OemChooser? =
+        OemChooser.values().firstOrNull {
+            val resolveInfo = context.packageManager.resolveActivity(Intent(it.action), PackageManager.MATCH_DEFAULT_ONLY)
+
+            return@firstOrNull resolveInfo?.activityInfo?.packageName == it.packageName
+        }
 }
