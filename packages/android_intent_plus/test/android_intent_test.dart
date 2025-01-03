@@ -237,7 +237,7 @@ void main() {
     });
 
     group('sendService', () {
-      test('send a broadcast', () async {
+      test('start a service', () async {
         androidIntent = AndroidIntent.private(
           action: 'com.example.service',
           channel: mockChannel,
