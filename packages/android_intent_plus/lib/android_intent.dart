@@ -179,7 +179,7 @@ class AndroidIntent {
     );
   }
 
-  /// Sends intent as broadcast.
+  /// Starts intent as service.
   ///
   /// This works only on Android platforms.
   Future<void> sendService() async {
