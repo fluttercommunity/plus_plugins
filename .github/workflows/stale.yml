@@ -30,8 +30,5 @@ jobs:
           exempt-issue-labels: enhancement
           exempt-pr-labels: keep-open
           operations-per-run: 1000
-      - name: Lock closed issues and PRs (defaults to 365 days)
-        uses: dessant/lock-threads@v5.0.1
-        with:
-          process-only: 'issues, prs' # Ignore Discussions
-          
+      - name: Lock closed issues and PRs
+        uses: dessant/lock-threads@v5
