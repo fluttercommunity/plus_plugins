@@ -1,3 +1,9 @@
+## 11.2.1
+
+ - **FIX**(device_info_plus): Resolve compilation issues with SPM enabled ([#3405](https://github.com/fluttercommunity/plus_plugins/issues/3405)). ([3f098c30](https://github.com/fluttercommunity/plus_plugins/commit/3f098c30320e1595c06b093e8eb9827a44435c5d))
+ - **FIX**(device_info_plus): device memory null error on Safari and Firefox ([#3401](https://github.com/fluttercommunity/plus_plugins/issues/3401)). ([2b7cb088](https://github.com/fluttercommunity/plus_plugins/commit/2b7cb0888cd725dc69e409590861fe8118058c4d))
+ - **FIX**(device_info_plus): add @Suppress(deprecate) to Build.SERIAL ([#3402](https://github.com/fluttercommunity/plus_plugins/issues/3402)). ([8e70d3f3](https://github.com/fluttercommunity/plus_plugins/commit/8e70d3f33d5f1c005dbb1aef733a8a8578989bac))
+
 ## 11.2.0
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

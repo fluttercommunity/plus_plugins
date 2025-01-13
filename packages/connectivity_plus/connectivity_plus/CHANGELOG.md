@@ -1,3 +1,7 @@
+## 6.1.2
+
+ - **DOCS**(connectivity_plus): update package requirements ([#3409](https://github.com/fluttercommunity/plus_plugins/issues/3409)). ([cb8c5ead](https://github.com/fluttercommunity/plus_plugins/commit/cb8c5ead41bf8f1d5042a1109eac3e23305d3016))
+
 ## 6.1.1
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
