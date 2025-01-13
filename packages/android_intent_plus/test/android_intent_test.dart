@@ -236,6 +236,20 @@ void main() {
       });
     });
 
+    group('sendService', () {
+      test('start a service', () async {
+        androidIntent = AndroidIntent.private(
+          action: 'com.example.service',
+          channel: mockChannel,
+          platform: FakePlatform(operatingSystem: 'android'),
+        );
+        await androidIntent.sendService();
+        verify(mockChannel.invokeMethod<void>('sendService', <String, Object>{
+          'action': 'com.example.service',
+        }));
+      });
+    });
+
     group('sendBroadcast', () {
       test('send a broadcast', () async {
         androidIntent = AndroidIntent.private(
