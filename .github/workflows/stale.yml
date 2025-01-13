@@ -9,6 +9,10 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   stale:
     runs-on: ubuntu-latest
@@ -26,3 +30,5 @@ jobs:
           exempt-issue-labels: enhancement
           exempt-pr-labels: keep-open
           operations-per-run: 1000
+      - name: Lock closed issues and PRs
+        uses: dessant/lock-threads@v5
