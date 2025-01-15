@@ -103,13 +103,14 @@ void main() {
 
   test('hashCode checks for value equality', () async {
     final info1 = PackageInfo(
-        appName: 'package_info_example',
-        buildNumber: '1',
-        packageName: 'io.flutter.plugins.packageinfoexample',
-        version: '1.0',
-        buildSignature: '',
-        installerStore: null,
-        installTime: now);
+      appName: 'package_info_example',
+      buildNumber: '1',
+      packageName: 'io.flutter.plugins.packageinfoexample',
+      version: '1.0',
+      buildSignature: '',
+      installerStore: null,
+      installTime: now,
+    );
     final info2 = PackageInfo(
       appName: 'package_info_example',
       buildNumber: '1',
