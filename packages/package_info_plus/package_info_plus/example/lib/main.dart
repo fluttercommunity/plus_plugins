@@ -84,6 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
             'Installer store',
             _packageInfo.installerStore ?? 'not available',
           ),
+          _infoTile(
+            'Install time',
+            _packageInfo.installTime?.toIso8601String() ??
+                'Install time not available',
+          ),
         ],
       ),
     );
