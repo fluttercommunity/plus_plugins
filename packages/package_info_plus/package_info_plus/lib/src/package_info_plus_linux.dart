@@ -23,6 +23,7 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
       buildNumber: versionJson['build_number'] ?? '',
       packageName: versionJson['package_name'] ?? '',
       buildSignature: '',
+      installTime: versionJson['install_time'],
     );
   }
 
@@ -32,9 +33,35 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
       final appPath = path.dirname(exePath);
       final assetPath = path.join(appPath, 'data', 'flutter_assets');
       final versionPath = path.join(assetPath, 'version.json');
-      return jsonDecode(await File(versionPath).readAsString());
+
+      final installTime = await _getInstallTime(exePath);
+
+      return {
+        ...jsonDecode(await File(versionPath).readAsString()),
+        'install_time': installTime,
+      };
     } catch (_) {
       return <String, dynamic>{};
+    }
+  }
+
+  Future<DateTime?> _getInstallTime(String exePath) async {
+    try {
+      final statResult = await Process.run(
+        'stat',
+        ['-c', '%W', exePath],
+        stdoutEncoding: utf8,
+      );
+
+      if (statResult.exitCode == 0 && int.tryParse(statResult.stdout) != null) {
+        final creationTimeSeconds = int.parse(statResult.stdout) * 1000;
+
+        return DateTime.fromMillisecondsSinceEpoch(creationTimeSeconds);
+      }
+
+      return await File(exePath).lastModified();
+    } catch (_) {
+      return null;
     }
   }
 }

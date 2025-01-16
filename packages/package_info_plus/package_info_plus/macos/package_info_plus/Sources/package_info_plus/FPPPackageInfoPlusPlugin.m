@@ -16,6 +16,11 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"getAll"]) {
+    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    __autoreleasing NSError *error;
+    NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
+    NSNumber *installTimeMillis = installDate ? @((long long)([installDate timeIntervalSince1970] * 1000)) : [NSNull null];
+    
     result(@{
       @"appName" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleDisplayName"]
@@ -29,7 +34,8 @@
       @"buildNumber" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
-      @"installerStore" : [NSNull null]
+      @"installerStore" : [NSNull null],
+      @"installTime" : installTimeMillis ? [installTimeMillis stringValue] : [NSNull null]
     });
   } else {
     result(FlutterMethodNotImplemented);

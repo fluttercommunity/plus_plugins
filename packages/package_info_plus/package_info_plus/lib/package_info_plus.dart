@@ -149,11 +149,14 @@ class PackageInfo {
   /// The installer store. Indicates through which store this application was installed.
   final String? installerStore;
 
-  /// The time when the application was installed on the device.
+  /// The time when the application was installed.
   ///
-  /// Checks the creation date of the Documents directory on iOS
-  /// or returns `packageInfo.firstInstallTime` on Android.
-  /// Otherwise returns null.
+  /// - On Android, returns `PackageManager.firstInstallTime`
+  /// - On iOS and macOS, return the creation date of the app default `NSDocumentDirectory`
+  /// - On Windows and Linux, returns the creation date of the app executable.
+  ///   If the creation date is not available, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
   final DateTime? installTime;
 
   /// Initializes the application metadata with mock values for testing.
