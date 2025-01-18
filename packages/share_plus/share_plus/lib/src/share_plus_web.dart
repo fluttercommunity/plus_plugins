@@ -30,10 +30,8 @@ class SharePlusWebPlugin extends SharePlatform {
   }) : _navigator = debugNavigator ?? window.navigator;
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-  }) async {
+  Future<ShareResult> shareUri(Uri uri,
+      {Rect? sharePositionOrigin, PlatformOptions? platformOptions}) async {
     final data = ShareData(
       url: uri.toString(),
     );
@@ -73,11 +71,10 @@ class SharePlusWebPlugin extends SharePlatform {
   }
 
   @override
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
+  Future<ShareResult> share(String text,
+      {String? subject,
+      Rect? sharePositionOrigin,
+      PlatformOptions? platformOptions}) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
       data = ShareData(
@@ -155,13 +152,12 @@ class SharePlusWebPlugin extends SharePlatform {
   /// available. This builds on the
   /// [`cross_file`](https://pub.dev/packages/cross_file) package.
   @override
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<String>? fileNameOverrides,
-  }) async {
+  Future<ShareResult> shareXFiles(List<XFile> files,
+      {String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      List<String>? fileNameOverrides,
+      PlatformOptions? platformOptions}) async {
     assert(
         fileNameOverrides == null || files.length == fileNameOverrides.length);
     final webFiles = <File>[];

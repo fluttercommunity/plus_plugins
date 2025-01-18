@@ -9,6 +9,7 @@ import 'dart:io';
 // ignore: unnecessary_import
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
@@ -27,15 +28,12 @@ class MethodChannelShare extends SharePlatform {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    PlatformOptions? platformOptions,
   }) async {
     final params = <String, dynamic>{'uri': uri.toString()};
 
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
+    _addSharePositionOriginParams(params, sharePositionOrigin);
+    _addAndroidPlatformParams(params, platformOptions);
 
     final result = await channel.invokeMethod<String>('shareUri', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
@@ -49,6 +47,7 @@ class MethodChannelShare extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    PlatformOptions? platformOptions,
   }) async {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
@@ -56,12 +55,8 @@ class MethodChannelShare extends SharePlatform {
       'subject': subject,
     };
 
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
+    _addSharePositionOriginParams(params, sharePositionOrigin);
+    _addAndroidPlatformParams(params, platformOptions);
 
     final result = await channel.invokeMethod<String>('share', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
@@ -77,6 +72,7 @@ class MethodChannelShare extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    PlatformOptions? platformOptions,
   }) async {
     assert(files.isNotEmpty);
     assert(
@@ -102,12 +98,8 @@ class MethodChannelShare extends SharePlatform {
     if (subject != null) params['subject'] = subject;
     if (text != null) params['text'] = text;
 
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
+    _addSharePositionOriginParams(params, sharePositionOrigin);
+    _addAndroidPlatformParams(params, platformOptions);
 
     final result = await channel.invokeMethod<String>('shareFiles', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
@@ -190,6 +182,29 @@ class MethodChannelShare extends SharePlatform {
         return ShareResultStatus.unavailable;
       default:
         return ShareResultStatus.success;
+    }
+  }
+
+  void _addAndroidPlatformParams(
+      Map<String, dynamic> params, PlatformOptions? platformOptions) {
+    if (defaultTargetPlatform != TargetPlatform.android) {
+      return;
+    }
+    final androidIntentOptions = platformOptions?.androidIntentOptions;
+    if (androidIntentOptions != null) {
+      params['componentName'] = androidIntentOptions.componentName;
+      params['flags'] = androidIntentOptions.flags;
+      params['packageName'] = androidIntentOptions.packageName;
+    }
+  }
+
+  void _addSharePositionOriginParams(
+      Map<String, dynamic> params, Rect? sharePositionOrigin) {
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
     }
   }
 }

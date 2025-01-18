@@ -1,5 +1,5 @@
 /// The Linux implementation of `share_plus`.
-library share_plus_linux;
+library;
 
 import 'dart:ui';
 
@@ -19,23 +19,21 @@ class SharePlusLinuxPlugin extends SharePlatform {
   }
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) async {
+  Future<ShareResult> shareUri(Uri uri,
+      {String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      PlatformOptions? platformOptions}) async {
     throw UnimplementedError(
         'shareUri() has not been implemented on Linux. Use share().');
   }
 
   /// Share text.
   @override
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
+  Future<ShareResult> share(String text,
+      {String? subject,
+      Rect? sharePositionOrigin,
+      PlatformOptions? platformOptions}) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
       'body': text,
@@ -63,13 +61,12 @@ class SharePlusLinuxPlugin extends SharePlatform {
 
   /// Share [XFile] objects with Result.
   @override
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<String>? fileNameOverrides,
-  }) {
+  Future<ShareResult> shareXFiles(List<XFile> files,
+      {String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      List<String>? fileNameOverrides,
+      PlatformOptions? platformOptions}) {
     throw UnimplementedError(
       'shareXFiles() has not been implemented on Linux.',
     );

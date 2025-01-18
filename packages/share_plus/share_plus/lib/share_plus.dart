@@ -8,7 +8,13 @@ import 'dart:ui';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus, XFile;
+    show
+        ShareResult,
+        ShareResultStatus,
+        XFile,
+        PlatformOptions,
+        AndroidIntentOptions,
+        AndroidIntentFlag;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
@@ -37,14 +43,11 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
-  static Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-  }) async {
-    return _platform.shareUri(
-      uri,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+  static Future<ShareResult> shareUri(Uri uri,
+      {Rect? sharePositionOrigin, PlatformOptions? platformOptions}) async {
+    return _platform.shareUri(uri,
+        sharePositionOrigin: sharePositionOrigin,
+        platformOptions: platformOptions);
   }
 
   /// Summons the platform's share sheet to share text.
@@ -82,17 +85,15 @@ class Share {
   ///
   /// Will gracefully fall back to the non result variant if not implemented
   /// for the current environment and return [ShareResult.unavailable].
-  static Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
+  static Future<ShareResult> share(String text,
+      {String? subject,
+      Rect? sharePositionOrigin,
+      PlatformOptions? platformOptions}) async {
     assert(text.isNotEmpty);
-    return _platform.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    return _platform.share(text,
+        subject: subject,
+        sharePositionOrigin: sharePositionOrigin,
+        platformOptions: platformOptions);
   }
 
   /// Summons the platform's share sheet to share multiple files.
@@ -123,20 +124,18 @@ class Share {
   /// from [MethodChannel].
   ///
   /// See documentation about [ShareResult] on [share] method.
-  static Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<String>? fileNameOverrides,
-  }) async {
+  static Future<ShareResult> shareXFiles(List<XFile> files,
+      {String? subject,
+      String? text,
+      Rect? sharePositionOrigin,
+      List<String>? fileNameOverrides,
+      PlatformOptions? platformOptions}) async {
     assert(files.isNotEmpty);
-    return _platform.shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
-    );
+    return _platform.shareXFiles(files,
+        subject: subject,
+        text: text,
+        sharePositionOrigin: sharePositionOrigin,
+        fileNameOverrides: fileNameOverrides,
+        platformOptions: platformOptions);
   }
 }

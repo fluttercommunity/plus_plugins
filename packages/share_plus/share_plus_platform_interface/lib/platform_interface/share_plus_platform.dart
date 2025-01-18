@@ -7,6 +7,7 @@ import 'dart:ui';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:share_plus_platform_interface/options/platform_options.dart';
 
 import '../method_channel/method_channel_share.dart';
 
@@ -35,11 +36,11 @@ class SharePlatform extends PlatformInterface {
   Future<ShareResult> shareUri(
     Uri uri, {
     Rect? sharePositionOrigin,
+    PlatformOptions? platformOptions,
   }) {
-    return _instance.shareUri(
-      uri,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    return _instance.shareUri(uri,
+        sharePositionOrigin: sharePositionOrigin,
+        platformOptions: platformOptions);
   }
 
   /// Share text with Result.
@@ -47,12 +48,12 @@ class SharePlatform extends PlatformInterface {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    PlatformOptions? platformOptions,
   }) async {
-    return await _instance.share(
-      text,
-      subject: subject,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    return await _instance.share(text,
+        subject: subject,
+        sharePositionOrigin: sharePositionOrigin,
+        platformOptions: platformOptions);
   }
 
   /// Share [XFile] objects with Result.
@@ -62,14 +63,14 @@ class SharePlatform extends PlatformInterface {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    PlatformOptions? platformOptions,
   }) async {
-    return _instance.shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
-    );
+    return _instance.shareXFiles(files,
+        subject: subject,
+        text: text,
+        sharePositionOrigin: sharePositionOrigin,
+        fileNameOverrides: fileNameOverrides,
+        platformOptions: platformOptions);
   }
 }
 

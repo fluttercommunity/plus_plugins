@@ -55,8 +55,8 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
-        val shareIntent = Intent().apply {
+    fun share(text: String, subject: String?, withResult: Boolean,shareIntent: Intent) {
+        shareIntent.apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
@@ -90,14 +90,13 @@ internal class Share(
         mimeTypes: List<String>?,
         text: String?,
         subject: String?,
-        withResult: Boolean
+        withResult: Boolean,shareIntent: Intent
     ) {
         clearShareCacheFolder()
         val fileUris = getUrisForPaths(paths)
-        val shareIntent = Intent()
         when {
             (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, withResult)
+                share(text, subject, withResult, shareIntent)
                 return
             }
 

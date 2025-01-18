@@ -138,6 +138,26 @@ All three methods return a `ShareResult` object which contains the following inf
 
 Note: `status` will be `ShareResultStatus.unavailable` if the platform does not support identifying the user action.
 
+## Platform-Specific Features
+
+Use `PlatformOptions` to configure platform features.
+
+### Android
+
+Supports fine-grained configuration of intent in Android. You can use `AndroidIntentOptions` to specify the app to share.
+
+```dart
+  Share.share('check out my website https://example.com', platformOptions:PlatformOptions(
+    androidIntentOptions: AndroidIntentOptions(
+    	packageName: 'com.example.app',
+    	componentName: "com.example.app.ShareActivity",
+    	flags: [
+    	  AndroidIntentFlag.FLAG_ACTIVITY_CLEAR_TOP,
+    	  AndroidIntentFlag.FLAG_ACTIVITY_NEW_TASK,
+    	]
+  ));
+```
+
 ## Known Issues
 
 ### Sharing data created with XFile.fromData

@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart'
     show TestDefaultBinaryMessengerBinding, TestWidgetsFlutterBinding;
@@ -61,53 +62,17 @@ void main() {
     verifyZeroInteractions(mockChannel);
   });
 
-  test('sharing origin sets the right params', () async {
-    await sharePlatform.shareUri(
-      Uri.parse('https://pub.dev/packages/share_plus'),
-      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-    );
-    verify(mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
-      'uri': 'https://pub.dev/packages/share_plus',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
-
-    await sharePlatform.share(
-      'some text to share',
-      subject: 'some subject to share',
-      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-    );
-    verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
-      'text': 'some text to share',
-      'subject': 'some subject to share',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
-
-    await withFile('tempfile-83649a.png', (File fd) async {
-      await sharePlatform.shareXFiles(
-        [XFile(fd.path)],
-        subject: 'some subject to share',
-        text: 'some text to share',
-        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-      );
-      verify(mockChannel.invokeMethod<String>(
-        'shareFiles',
-        <String, dynamic>{
-          'paths': [fd.path],
-          'mimeTypes': ['image/png'],
-          'subject': 'some subject to share',
-          'text': 'some text to share',
-          'originX': 1.0,
-          'originY': 2.0,
-          'originWidth': 3.0,
-          'originHeight': 4.0,
-        },
-      ));
+  group('sharing sets the right params', () {
+    test('origin params', () {
+      return verifyParams(sharePlatform, mockChannel);
+    });
+    test('android options params', () {
+      return verifyParams(sharePlatform, mockChannel,
+          targetPlatform: TargetPlatform.android);
+    });
+    test('android options params on other platform(iOS)', () {
+      return verifyParams(sharePlatform, mockChannel,
+          targetPlatform: TargetPlatform.iOS);
     });
   });
 
@@ -173,6 +138,80 @@ void main() {
       }));
     });
   });
+}
+
+verifyParams(SharePlatform sharePlatform, MockMethodChannel mockChannel,
+    {TargetPlatform? targetPlatform}) async {
+  debugDefaultTargetPlatformOverride = targetPlatform;
+
+  final platformOptions = PlatformOptions(
+    androidIntentOptions: AndroidIntentOptions(
+    packageName: 'com.example.app',
+    componentName: "com.example.app.ShareActivity",
+    flags: [
+      AndroidIntentFlag.FLAG_ACTIVITY_CLEAR_TOP,
+      AndroidIntentFlag.FLAG_ACTIVITY_NEW_TASK,
+    ],
+  ));
+
+  final Map<String, dynamic> androidOptionsVerifyArgs = {
+    'componentName': "com.example.app.ShareActivity",
+    'packageName': "com.example.app",
+    'flags': AndroidIntentFlag.FLAG_ACTIVITY_CLEAR_TOP |
+    AndroidIntentFlag.FLAG_ACTIVITY_NEW_TASK,
+  };
+
+  await sharePlatform.shareUri(Uri.parse('https://pub.dev/packages/share_plus'),
+      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+      platformOptions: platformOptions);
+  verify(mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
+    'uri': 'https://pub.dev/packages/share_plus',
+    'originX': 1.0,
+    'originY': 2.0,
+    'originWidth': 3.0,
+    'originHeight': 4.0,
+    if (defaultTargetPlatform == TargetPlatform.android)
+      ...androidOptionsVerifyArgs
+  }));
+
+  await sharePlatform.share('some text to share',
+      subject: 'some subject to share',
+      sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+      platformOptions: platformOptions);
+  verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
+    'text': 'some text to share',
+    'subject': 'some subject to share',
+    'originX': 1.0,
+    'originY': 2.0,
+    'originWidth': 3.0,
+    'originHeight': 4.0,
+    if (defaultTargetPlatform == TargetPlatform.android)
+      ...androidOptionsVerifyArgs
+  }));
+
+  await withFile('tempfile-83649a.png', (File fd) async {
+    await sharePlatform.shareXFiles([XFile(fd.path)],
+        subject: 'some subject to share',
+        text: 'some text to share',
+        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        platformOptions: platformOptions);
+    verify(mockChannel.invokeMethod<String>(
+      'shareFiles',
+      <String, dynamic>{
+        'paths': [fd.path],
+        'mimeTypes': ['image/png'],
+        'subject': 'some subject to share',
+        'text': 'some text to share',
+        'originX': 1.0,
+        'originY': 2.0,
+        'originWidth': 3.0,
+        'originHeight': 4.0,
+        if (defaultTargetPlatform == TargetPlatform.android)
+          ...androidOptionsVerifyArgs
+      },
+    ));
+  });
+  debugDefaultTargetPlatformOverride = null;
 }
 
 /// Execute a block within a context that handles creation and deletion of a helper file

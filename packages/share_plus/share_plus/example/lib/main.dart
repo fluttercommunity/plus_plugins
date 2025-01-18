@@ -38,6 +38,8 @@ class DemoAppState extends State<DemoApp> {
   String subject = '';
   String uri = '';
   String fileName = '';
+  String packageName = '';
+  String componentName = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
 
@@ -107,6 +109,7 @@ class DemoAppState extends State<DemoApp> {
                   setState(() => fileName = value);
                 },
               ),
+              if(Platform.isAndroid) ...buildAndroidOptions(),
               const SizedBox(height: 16),
               ImagePreviews(imagePaths, onDelete: _onDeleteImage),
               ElevatedButton.icon(
@@ -197,6 +200,37 @@ class DemoAppState extends State<DemoApp> {
     );
   }
 
+  List<Widget> buildAndroidOptions() {
+    return [
+            const SizedBox(height: 16),
+            Text("Android Platform(Optional)"),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Target package name',
+                hintText: 'The target package name is available on Android.',
+              ),
+              maxLines: null,
+              onChanged: (String value) {
+                setState(() => packageName = value);
+              },
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Target component name',
+                hintText:
+                    'The target component name is available on Android.',
+              ),
+              maxLines: null,
+              onChanged: (String value) {
+                setState(() => componentName = value);
+              },
+            )];
+  }
+
   void _onDeleteImage(int position) {
     setState(() {
       imagePaths.removeAt(position);
@@ -216,28 +250,30 @@ class DemoAppState extends State<DemoApp> {
 
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     ShareResult shareResult;
+    final platformOptions =  PlatformOptions(
+      androidIntentOptions: AndroidIntentOptions(
+      packageName: packageName,
+      componentName: componentName,
+    ));
     if (imagePaths.isNotEmpty) {
       final files = <XFile>[];
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      shareResult = await Share.shareXFiles(
-        files,
-        text: text,
-        subject: subject,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      );
+      shareResult = await Share.shareXFiles(files,
+          text: text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          platformOptions: platformOptions);
     } else if (uri.isNotEmpty) {
-      shareResult = await Share.shareUri(
-        Uri.parse(uri),
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      );
+      shareResult = await Share.shareUri(Uri.parse(uri),
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          platformOptions: platformOptions);
     } else {
-      shareResult = await Share.share(
-        text,
-        subject: subject,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      );
+      shareResult = await Share.share(text,
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          platformOptions: platformOptions);
     }
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }

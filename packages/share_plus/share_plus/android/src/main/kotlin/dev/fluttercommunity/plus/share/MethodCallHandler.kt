@@ -1,5 +1,7 @@
 package dev.fluttercommunity.plus.share
 
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Build
 import io.flutter.BuildConfig
 import io.flutter.plugin.common.MethodCall
@@ -29,6 +31,7 @@ internal class MethodCallHandler(
                         call.argument<Any>("uri") as String,
                         subject = null,
                         withResult = isWithResult,
+                        shareIntent = obtainIntent(call)
                     )
                     success(isWithResult, result)
                 }
@@ -38,6 +41,7 @@ internal class MethodCallHandler(
                         call.argument<Any>("text") as String,
                         call.argument<Any>("subject") as String?,
                         isWithResult,
+                        shareIntent = obtainIntent(call)
                     )
                     success(isWithResult, result)
                 }
@@ -49,6 +53,7 @@ internal class MethodCallHandler(
                         call.argument<String?>("text"),
                         call.argument<String?>("subject"),
                         isWithResult,
+                        shareIntent = obtainIntent(call)
                     )
                     success(isWithResult, result)
                 }
@@ -58,6 +63,27 @@ internal class MethodCallHandler(
         } catch (e: Throwable) {
             manager.clear()
             result.error("Share failed", e.message, e)
+        }
+    }
+
+    private fun obtainIntent(call: MethodCall): Intent {
+        val flags = call.argument<Int?>("flags")
+        val packageName = call.argument<String?>("packageName")
+        val componentName = call.argument<String?>("componentName")
+
+        return Intent().apply {
+            if (flags != null) {
+                addFlags(flags);
+            }
+            when {
+                !componentName.isNullOrBlank() && !packageName.isNullOrBlank() -> {
+                    setComponent(ComponentName(packageName, componentName))
+                }
+
+                !packageName.isNullOrBlank() -> {
+                    setPackage(packageName)
+                }
+            }
         }
     }
 
