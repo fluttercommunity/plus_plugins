@@ -145,7 +145,7 @@ verifyParams(SharePlatform sharePlatform, MockMethodChannel mockChannel,
   debugDefaultTargetPlatformOverride = targetPlatform;
 
   final platformOptions = PlatformOptions(
-    androidIntentOptions: AndroidIntentOptions(
+      androidIntentOptions: AndroidIntentOptions(
     packageName: 'com.example.app',
     componentName: "com.example.app.ShareActivity",
     flags: [
@@ -158,7 +158,7 @@ verifyParams(SharePlatform sharePlatform, MockMethodChannel mockChannel,
     'componentName': "com.example.app.ShareActivity",
     'packageName': "com.example.app",
     'flags': AndroidIntentFlag.FLAG_ACTIVITY_CLEAR_TOP |
-    AndroidIntentFlag.FLAG_ACTIVITY_NEW_TASK,
+        AndroidIntentFlag.FLAG_ACTIVITY_NEW_TASK,
   };
 
   await sharePlatform.shareUri(Uri.parse('https://pub.dev/packages/share_plus'),

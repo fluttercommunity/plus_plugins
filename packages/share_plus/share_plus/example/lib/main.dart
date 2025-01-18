@@ -109,7 +109,7 @@ class DemoAppState extends State<DemoApp> {
                   setState(() => fileName = value);
                 },
               ),
-              if(Platform.isAndroid) ...buildAndroidOptions(),
+              if (Platform.isAndroid) ...buildAndroidOptions(),
               const SizedBox(height: 16),
               ImagePreviews(imagePaths, onDelete: _onDeleteImage),
               ElevatedButton.icon(
@@ -202,33 +202,33 @@ class DemoAppState extends State<DemoApp> {
 
   List<Widget> buildAndroidOptions() {
     return [
-            const SizedBox(height: 16),
-            Text("Android Platform(Optional)"),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Target package name',
-                hintText: 'The target package name is available on Android.',
-              ),
-              maxLines: null,
-              onChanged: (String value) {
-                setState(() => packageName = value);
-              },
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Target component name',
-                hintText:
-                    'The target component name is available on Android.',
-              ),
-              maxLines: null,
-              onChanged: (String value) {
-                setState(() => componentName = value);
-              },
-            )];
+      const SizedBox(height: 16),
+      Text("Android Platform(Optional)"),
+      const SizedBox(height: 16),
+      TextField(
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Target package name',
+          hintText: 'The target package name is available on Android.',
+        ),
+        maxLines: null,
+        onChanged: (String value) {
+          setState(() => packageName = value);
+        },
+      ),
+      const SizedBox(height: 16),
+      TextField(
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Target component name',
+          hintText: 'The target component name is available on Android.',
+        ),
+        maxLines: null,
+        onChanged: (String value) {
+          setState(() => componentName = value);
+        },
+      )
+    ];
   }
 
   void _onDeleteImage(int position) {
@@ -250,8 +250,8 @@ class DemoAppState extends State<DemoApp> {
 
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     ShareResult shareResult;
-    final platformOptions =  PlatformOptions(
-      androidIntentOptions: AndroidIntentOptions(
+    final platformOptions = PlatformOptions(
+        androidIntentOptions: AndroidIntentOptions(
       packageName: packageName,
       componentName: componentName,
     ));
