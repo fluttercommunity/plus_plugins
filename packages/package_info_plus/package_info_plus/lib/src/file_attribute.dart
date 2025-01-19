@@ -28,20 +28,17 @@ class FileAttributes {
   late final DateTime? lastWriteTime;
 
   FileAttributes(this.filePath) {
-    final attributesPtr = getFileAttributes(filePath);
+    final (:creationTime, :lastWriteTime) =
+        getFileCreationAndLastWriteTime(filePath);
 
-    if (attributesPtr != null) {
-      creationTime = fileTimeToDartDateTime(attributesPtr.ref.ftCreationTime);
-      lastWriteTime = fileTimeToDartDateTime(attributesPtr.ref.ftLastWriteTime);
-
-      free(attributesPtr);
-    } else {
-      creationTime = null;
-      lastWriteTime = null;
-    }
+    this.creationTime = creationTime;
+    this.lastWriteTime = lastWriteTime;
   }
 
-  static Pointer<FILEATTRIBUTEDATA>? getFileAttributes(String filePath) {
+  static ({
+    DateTime? creationTime,
+    DateTime? lastWriteTime,
+  }) getFileCreationAndLastWriteTime(String filePath) {
     if (!File(filePath).existsSync()) {
       throw ArgumentError.value(filePath, 'filePath', 'File not present');
     }
@@ -51,13 +48,23 @@ class FileAttributes {
 
     try {
       if (GetFileAttributesEx(lptstrFilename, 0, lpFileInformation) == 0) {
-        free(lpFileInformation);
-
-        return null;
+        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
       }
 
-      return lpFileInformation;
-    } finally {}
+      final FILEATTRIBUTEDATA fileInformation = lpFileInformation.ref;
+
+      return (
+        creationTime: fileTimeToDartDateTime(
+          fileInformation.ftCreationTime,
+        ),
+        lastWriteTime: fileTimeToDartDateTime(
+          fileInformation.ftLastWriteTime,
+        ),
+      );
+    } finally {
+      free(lptstrFilename);
+      free(lpFileInformation);
+    }
   }
 
   static DateTime? fileTimeToDartDateTime(FILETIME? fileTime) {
@@ -68,8 +75,9 @@ class FileAttributes {
 
     final fileTime64 = (high << 32) + low;
 
-    final unixTimeMs = ((fileTime64 ~/ 10000) - 11644473600000);
+    final windowsTimeMillis = fileTime64 ~/ 10000;
+    final unixTimeMillis = windowsTimeMillis - 11644473600000;
 
-    return DateTime.fromMillisecondsSinceEpoch(unixTimeMs);
+    return DateTime.fromMillisecondsSinceEpoch(unixTimeMillis);
   }
 }
