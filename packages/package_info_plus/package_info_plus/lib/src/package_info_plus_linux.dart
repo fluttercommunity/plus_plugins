@@ -16,30 +16,28 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
   /// appName, packageName, version, buildNumber
   @override
   Future<PackageInfoData> getAll({String? baseUrl}) async {
-    final versionJson = await _getVersionJson();
+    final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
+
+    final versionJson = await _getVersionJson(exePath);
+    final installTime = await _getInstallTime(exePath);
+
     return PackageInfoData(
       appName: versionJson['app_name'] ?? '',
       version: versionJson['version'] ?? '',
       buildNumber: versionJson['build_number'] ?? '',
       packageName: versionJson['package_name'] ?? '',
       buildSignature: '',
-      installTime: versionJson['install_time'],
+      installTime: installTime,
     );
   }
 
-  Future<Map<String, dynamic>> _getVersionJson() async {
+  Future<Map<String, dynamic>> _getVersionJson(String exePath) async {
     try {
-      final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
       final appPath = path.dirname(exePath);
       final assetPath = path.join(appPath, 'data', 'flutter_assets');
       final versionPath = path.join(assetPath, 'version.json');
 
-      final installTime = await _getInstallTime(exePath);
-
-      return {
-        ...jsonDecode(await File(versionPath).readAsString()),
-        'install_time': installTime,
-      };
+      return jsonDecode(await File(versionPath).readAsString());
     } catch (_) {
       return <String, dynamic>{};
     }
