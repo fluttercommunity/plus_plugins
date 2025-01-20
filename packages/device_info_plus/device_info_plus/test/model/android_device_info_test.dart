@@ -20,7 +20,7 @@ void main() {
       expect(androidDeviceInfo.brand, 'Google');
       expect(androidDeviceInfo.device, 'device');
       expect(androidDeviceInfo.product, 'product');
-      expect(androidDeviceInfo.product, "Custom Device Name");
+      expect(androidDeviceInfo.name, "Custom Device Name");
       expect(androidDeviceInfo.display, 'display');
       expect(androidDeviceInfo.hardware, 'hardware');
       expect(androidDeviceInfo.bootloader, 'bootloader');
