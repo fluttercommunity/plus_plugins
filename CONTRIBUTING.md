@@ -7,7 +7,8 @@ _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#co
 We welcome all contributions to the project, however some contributions will need extra work in
 order to be accepted.
 
-**New:** Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
+> [!IMPORTANT]  
+> Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
 
 Here's some examples:
 
@@ -180,7 +181,8 @@ Please follow the
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
-**Important:** When modifying multiple packages, **create a different branch and pull request per package.**
+> [!IMPORTANT]  
+> When modifying multiple packages, **create a different branch and pull request per package.**
 This facilitates maintenance, the review process, and generating changelogs.
 
 ### 5.1 Getting started
@@ -232,6 +234,9 @@ guide, and include the package name in parenthesis. For example, for a fix to th
 
 Please also enable **“Allow edits by maintainers”**, this will help to speed-up the review
 process as well.
+
+> [!TIP]
+> Ensure the PR description is filled correctly and the markdown looks correctly.
 
 ### 5.6 Now be patient :)
 
