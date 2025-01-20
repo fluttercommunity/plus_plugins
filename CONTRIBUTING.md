@@ -7,6 +7,8 @@ _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#co
 We welcome all contributions to the project, however some contributions will need extra work in
 order to be accepted.
 
+**New:** Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
+
 Here's some examples:
 
 ### 🟢 Easily accepted contributions
@@ -172,7 +174,7 @@ file.
 
 We gladly accept contributions via GitHub pull requests.
 
-Please peruse the
+Please follow the
 [Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) and
 [design principles](https://flutter.dev/design-principles/) before
 working on anything non-trivial. These guidelines are intended to
