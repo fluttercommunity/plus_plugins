@@ -11,6 +11,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import kotlin.collections.HashMap
+import android.provider.Settings
 
 /**
  * The implementation of [MethodChannel.MethodCallHandler] for the plugin. Responsible for
@@ -37,6 +38,7 @@ internal class MethodCallHandlerImpl(
             build["manufacturer"] = Build.MANUFACTURER
             build["model"] = Build.MODEL
             build["product"] = Build.PRODUCT
+            build["name"] = Settings.Global.getString(contentResolver, Settings.Global.DEVICE_NAME)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 build["supported32BitAbis"] = listOf(*Build.SUPPORTED_32_BIT_ABIS)
