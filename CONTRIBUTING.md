@@ -88,6 +88,7 @@ The bootstrap command locally links all dependencies within the project without 
 provide manual [`dependency_overrides`](https://dart.dev/tools/pub/pubspec). This allows all
 plugins, examples and tests to build from the local clone project.
 
+> [!TIP]
 > You do not need to run `flutter pub get` once bootstrap has been completed.
 
 ## 4. Running an example
@@ -183,7 +184,7 @@ keep the code consistent and avoid common pitfalls.
 
 > [!IMPORTANT]  
 > When modifying multiple packages, **create a different branch and pull request per package.**
-This facilitates maintenance, the review process, and generating changelogs.
+> This facilitates maintenance, the review process, and generating changelogs.
 
 ### 5.1 Getting started
 
@@ -206,9 +207,10 @@ melos run analyze
 melos run format
 ```
 
-### 5.3 (Do not) Update version and changelog
+### 5.3 Do not update version and changelog
 
-**NEW: Do not modify the CHANGELOG.md or the version in the pubspec.yaml, this is handled by the maintainers from now on**
+> [!CAUTION]
+> Do not modify the `CHANGELOG.md` or the version in the `pubspec.yaml`, this is handled by the maintainers from now on
 
 ### 5.4 Commit and push your changes
 
