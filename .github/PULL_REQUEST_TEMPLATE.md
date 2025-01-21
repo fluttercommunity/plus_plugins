@@ -7,8 +7,8 @@
 <!-- Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/fluttercommunity/plus_plugins/issues). Indicate, which of these issues are resolved or fixed by this PR.
 
 e.g.
-- Fix #123
-- Related #456
+- Fix #<ticket number>
+- Related #<ticket number>
 -->
 
 ## Checklist
