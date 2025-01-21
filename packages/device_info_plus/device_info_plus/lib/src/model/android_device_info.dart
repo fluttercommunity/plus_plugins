@@ -167,7 +167,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
       supportedAbis: _fromList(map['supportedAbis'] ?? []),
       tags: map['tags'],
-      time: int.tryParse(map['time']) ?? 0,
+      time: map['time'] ?? 0,
       type: map['type'],
       isPhysicalDevice: map['isPhysicalDevice'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),

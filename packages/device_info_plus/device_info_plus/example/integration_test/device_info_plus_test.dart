@@ -105,6 +105,7 @@ void main() {
     expect(androidInfo.supportedAbis, isNotNull);
 
     expect(androidInfo.tags, isNotNull);
+    expect(androidInfo.time, isNonNegative);
     expect(androidInfo.type, isNotNull);
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.systemFeatures, isNotNull);
