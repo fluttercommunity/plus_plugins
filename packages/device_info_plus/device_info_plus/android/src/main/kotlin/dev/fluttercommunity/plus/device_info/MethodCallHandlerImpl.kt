@@ -49,6 +49,7 @@ internal class MethodCallHandlerImpl(
             }
 
             build["tags"] = Build.TAGS
+            build["time"] = Build.TIME
             build["type"] = Build.TYPE
             build["isPhysicalDevice"] = !isEmulator
             build["systemFeatures"] = getSystemFeatures()

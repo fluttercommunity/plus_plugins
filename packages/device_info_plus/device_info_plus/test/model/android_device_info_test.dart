@@ -14,6 +14,7 @@ void main() {
       expect(androidDeviceInfo.id, 'id');
       expect(androidDeviceInfo.host, 'host');
       expect(androidDeviceInfo.tags, 'tags');
+      expect(androidDeviceInfo.time, 1735689600);
       expect(androidDeviceInfo.type, 'type');
       expect(androidDeviceInfo.model, 'model');
       expect(androidDeviceInfo.board, 'board');
