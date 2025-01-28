@@ -1,3 +1,8 @@
+## 11.2.2
+
+ - **FIX**(device_info_plus): Replace throwing exception with returning default values on Windows ([#3445](https://github.com/fluttercommunity/plus_plugins/issues/3445)). ([084730f8](https://github.com/fluttercommunity/plus_plugins/commit/084730f82436b474b31b16f6dc2d7b90585e899f))
+ - **DOCS**(device_info_plus): Update the documentation URL for property descriptions. ([#3441](https://github.com/fluttercommunity/plus_plugins/issues/3441)). ([743bec62](https://github.com/fluttercommunity/plus_plugins/commit/743bec626c909fdc8ba6d087006568cca60563d8))
+
 ## 11.2.1
 
  - **FIX**(device_info_plus): Resolve compilation issues with SPM enabled ([#3405](https://github.com/fluttercommunity/plus_plugins/issues/3405)). ([3f098c30](https://github.com/fluttercommunity/plus_plugins/commit/3f098c30320e1595c06b093e8eb9827a44435c5d))
