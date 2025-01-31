@@ -21,6 +21,7 @@ Downloaded by pub (not CocoaPods).
   s.osx.deployment_target = '10.14'
   s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
-  s.ios.resource_bundles = {'connectivity_plus_privacy' => ['connectivity_plus/Sources/connectivity_plus/PrivacyInfo-ios.xcprivacy']}
-  s.osx.resource_bundles = {'connectivity_plus_privacy' => ['connectivity_plus/Sources/connectivity_plus/PrivacyInfo-osx.xcprivacy']}
+  #s.ios.resource_bundles = {'connectivity_plus_privacy' => ['connectivity_plus/Sources/connectivity_plus/PrivacyInfo-ios.xcprivacy']}
+  #s.osx.resource_bundles = {'connectivity_plus_privacy' => ['connectivity_plus/Sources/connectivity_plus/PrivacyInfo-osx.xcprivacy']}
+  s.resource_bundles = {'connectivity_plus_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end
