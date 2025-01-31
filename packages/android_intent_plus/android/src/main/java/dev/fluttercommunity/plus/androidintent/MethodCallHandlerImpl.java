@@ -79,7 +79,8 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
       String category = call.argument("category");
       Uri data = call.argument("data") != null ? Uri.parse((String) call.argument("data")) : null;
       Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
-      Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
+      Bundle arrayArguments =
+          convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
       arguments.putAll(arrayArguments);
       String packageName = call.argument("package");
       ComponentName componentName =
