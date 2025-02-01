@@ -116,9 +116,6 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
 
         sender.launchChooser(intent, title);
         result.success(null);
-      } else if ("sendService".equalsIgnoreCase(call.method)) {
-        sender.sendService(intent);
-        result.success(null);
       } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {
         sender.sendBroadcast(intent);
         result.success(null);
