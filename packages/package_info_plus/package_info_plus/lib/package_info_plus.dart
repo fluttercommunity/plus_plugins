@@ -53,8 +53,8 @@ class PackageInfo {
   ///
   ///     With this, the package will try to search the file in `https://cdn.domain.com/with/some/path/version.json`
   ///
-  ///   * The second option where it will search is the [assetBase] parameter
-  ///     that you can pass to the Flutter Web Engine when you initialize it.
+  ///   * The second option where it will search is the [assetBase](https://docs.flutter.dev/platform-integration/web/initialization#customize-the-flutter-loader)
+  ///     parameter that you can pass to the Flutter Web Engine when you initialize it.
   ///
   ///     ```javascript
   ///     _flutter.loader.loadEntrypoint({

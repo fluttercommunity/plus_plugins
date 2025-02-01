@@ -76,7 +76,7 @@ See https://github.com/fluttercommunity/plus_plugins/issues/309
 #### I see wrong version on Windows platform
 
 There was an [issue](https://github.com/flutter/flutter/issues/73652) in Flutter, which is already resolved since Flutter 3.3.
-If your project was created before Flutter 3.3 you need to migrate the project according to [this guide] (https://docs.flutter.dev/release/breaking-changes/windows-version-information) first to get correct version with `package_info_plus`
+If your project was created before Flutter 3.3 you need to migrate the project according to [this guide](https://docs.flutter.dev/release/breaking-changes/windows-version-information) first to get correct version with `package_info_plus`
 
 ### Web
 

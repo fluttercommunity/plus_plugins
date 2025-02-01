@@ -1,3 +1,7 @@
+## 10.1.4
+
+ - **FIX**(share_plus): fallback for shareXFiles() to use download on web ([#3388](https://github.com/fluttercommunity/plus_plugins/issues/3388)). ([95a12ee3](https://github.com/fluttercommunity/plus_plugins/commit/95a12ee3982dd61de5d07005de62f81c2e99eb08))
+
 ## 10.1.3
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

@@ -1,3 +1,11 @@
+## 8.1.4
+
+ - **DOCS**(package_info_plus): doc ref links and unnecessary library names ([#3433](https://github.com/fluttercommunity/plus_plugins/issues/3433)). ([9275f622](https://github.com/fluttercommunity/plus_plugins/commit/9275f622191cee76bfcd90f3f96e6bbea1923f24))
+
+## 8.1.3
+
+ - **FIX**(package_info_plus): Resolve compilation issues with SPM enabled ([#3406](https://github.com/fluttercommunity/plus_plugins/issues/3406)). ([d421ec0e](https://github.com/fluttercommunity/plus_plugins/commit/d421ec0e75df5af3394e567e45ba63dbfc1839da))
+
 ## 8.1.2
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
