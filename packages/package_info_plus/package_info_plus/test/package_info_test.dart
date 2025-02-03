@@ -12,6 +12,8 @@ void main() {
   const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
   final log = <MethodCall>[];
 
+  final now = DateTime.now().copyWith(microsecond: 0);
+
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(
     channel,
@@ -25,6 +27,7 @@ void main() {
             'packageName': 'io.flutter.plugins.packageinfoexample',
             'version': '1.0',
             'installerStore': null,
+            'installTime': now.millisecondsSinceEpoch.toString(),
           };
         default:
           assert(false);
@@ -44,6 +47,7 @@ void main() {
     expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
     expect(info.version, '1.0');
     expect(info.installerStore, null);
+    expect(info.installTime, now);
     expect(
       log,
       <Matcher>[
@@ -63,6 +67,7 @@ void main() {
       buildNumber: '2',
       buildSignature: 'deadbeef',
       installerStore: null,
+      installTime: now,
     );
     final info = await PackageInfo.fromPlatform();
     expect(info.appName, 'mock_package_info_example');
@@ -71,6 +76,7 @@ void main() {
     expect(info.version, '1.1');
     expect(info.buildSignature, 'deadbeef');
     expect(info.installerStore, null);
+    expect(info.installTime, now);
   });
 
   test('equals checks for value equality', () async {
@@ -81,6 +87,7 @@ void main() {
       version: '1.0',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     final info2 = PackageInfo(
       appName: 'package_info_example',
@@ -89,6 +96,7 @@ void main() {
       version: '1.0',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     expect(info1, info2);
   });
@@ -101,6 +109,7 @@ void main() {
       version: '1.0',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     final info2 = PackageInfo(
       appName: 'package_info_example',
@@ -109,6 +118,7 @@ void main() {
       version: '1.0',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     expect(info1.hashCode, info2.hashCode);
   });
@@ -121,10 +131,11 @@ void main() {
       version: '1.0',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     expect(
       info.toString(),
-      'PackageInfo(appName: package_info_example, buildNumber: 1, packageName: io.flutter.plugins.packageinfoexample, version: 1.0, buildSignature: , installerStore: null)',
+      'PackageInfo(appName: package_info_example, buildNumber: 1, packageName: io.flutter.plugins.packageinfoexample, version: 1.0, buildSignature: , installerStore: null, installTime: $now)',
     );
   });
 
@@ -136,6 +147,7 @@ void main() {
       buildNumber: '2',
       buildSignature: '',
       installerStore: null,
+      installTime: now,
     );
     final info1 = await PackageInfo.fromPlatform();
     expect(info1.data, {
@@ -143,7 +155,10 @@ void main() {
       'packageName': 'io.flutter.plugins.mockpackageinfoexample',
       'version': '1.1',
       'buildNumber': '2',
+      'installTime': now,
     });
+
+    final nextWeek = now.add(const Duration(days: 7));
     PackageInfo.setMockInitialValues(
       appName: 'mock_package_info_example',
       packageName: 'io.flutter.plugins.mockpackageinfoexample',
@@ -151,6 +166,7 @@ void main() {
       buildNumber: '2',
       buildSignature: 'deadbeef',
       installerStore: 'testflight',
+      installTime: nextWeek,
     );
     final info2 = await PackageInfo.fromPlatform();
     expect(info2.data, {
@@ -160,6 +176,7 @@ void main() {
       'buildNumber': '2',
       'buildSignature': 'deadbeef',
       'installerStore': 'testflight',
+      'installTime': nextWeek,
     });
   });
 }

@@ -26,6 +26,12 @@
             ? @"com.apple.testflight"
             : @"com.apple";
 
+    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    __autoreleasing NSError *error;
+    NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
+    NSNumber *installTimeMillis = installDate ? @((long long)([installDate timeIntervalSince1970] * 1000)) : [NSNull null];
+
+
     result(@{
       @"appName" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleDisplayName"]
@@ -39,8 +45,10 @@
       @"buildNumber" : [[NSBundle mainBundle]
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
-      @"installerStore" : installerStore
+      @"installerStore" : installerStore,
+      @"installTime" : installTimeMillis ? [installTimeMillis stringValue] : [NSNull null]
     });
+
   } else {
     result(FlutterMethodNotImplemented);
   }
