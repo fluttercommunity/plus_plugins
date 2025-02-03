@@ -91,7 +91,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   final String product;
 
   /// The name of the device.
-  /// https://developer.android.com/reference/android/os/Build#NAME
+  /// https://developer.android.com/reference/android/provider/Settings.Global#DEVICE_NAME
   final String name;
 
   /// An ordered list of 32 bit ABIs supported by this device.
