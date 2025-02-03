@@ -1,3 +1,8 @@
+## 5.3.0
+
+ - **FIX**(android_intent_plus): adds error catching and forwarding ([#3452](https://github.com/fluttercommunity/plus_plugins/issues/3452)). ([37f533c7](https://github.com/fluttercommunity/plus_plugins/commit/37f533c7a6c16fc55ed743b78108b479fc2565c3))
+ - **FEAT**(android_intent_plus): adds sendService method ([#3410](https://github.com/fluttercommunity/plus_plugins/issues/3410)). ([ea72b632](https://github.com/fluttercommunity/plus_plugins/commit/ea72b632486a8f1a3416424017774a0fd9fc1a8d))
+
 ## 5.2.2
 
  - **FIX**(android_intent_plus): set correct environment versions ([#3421](https://github.com/fluttercommunity/plus_plugins/issues/3421)). ([dc3ba17a](https://github.com/fluttercommunity/plus_plugins/commit/dc3ba17a3948329de546c373aababb2401e556bb))

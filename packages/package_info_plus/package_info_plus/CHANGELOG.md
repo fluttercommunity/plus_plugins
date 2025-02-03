@@ -1,3 +1,7 @@
+## 8.2.0
+
+ - **FEAT**(package_info_plus): add install time ([#3434](https://github.com/fluttercommunity/plus_plugins/issues/3434)). ([0ea0402f](https://github.com/fluttercommunity/plus_plugins/commit/0ea0402f824104c36a806f32e88727801b40ba4c))
+
 ## 8.1.4
 
  - **DOCS**(package_info_plus): doc ref links and unnecessary library names ([#3433](https://github.com/fluttercommunity/plus_plugins/issues/3433)). ([9275f622](https://github.com/fluttercommunity/plus_plugins/commit/9275f622191cee76bfcd90f3f96e6bbea1923f24))
