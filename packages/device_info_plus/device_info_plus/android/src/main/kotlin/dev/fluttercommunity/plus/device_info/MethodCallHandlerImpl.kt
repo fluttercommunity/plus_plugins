@@ -1,16 +1,15 @@
 package dev.fluttercommunity.plus.device_info
 
 import android.app.ActivityManager
+import android.content.ContentResolver
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.DisplayMetrics
-import android.view.Display
-import android.view.WindowManager
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import kotlin.collections.HashMap
+import android.provider.Settings
 
 /**
  * The implementation of [MethodChannel.MethodCallHandler] for the plugin. Responsible for
@@ -19,6 +18,7 @@ import kotlin.collections.HashMap
 internal class MethodCallHandlerImpl(
     private val packageManager: PackageManager,
     private val activityManager: ActivityManager,
+    private val contentResolver: ContentResolver,
 ) : MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -37,6 +37,10 @@ internal class MethodCallHandlerImpl(
             build["manufacturer"] = Build.MANUFACTURER
             build["model"] = Build.MODEL
             build["product"] = Build.PRODUCT
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                build["name"] = Settings.Global.getString(contentResolver, Settings.Global.DEVICE_NAME)
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 build["supported32BitAbis"] = listOf(*Build.SUPPORTED_32_BIT_ABIS)
