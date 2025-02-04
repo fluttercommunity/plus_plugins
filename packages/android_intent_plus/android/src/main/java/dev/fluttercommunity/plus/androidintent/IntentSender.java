@@ -63,6 +63,23 @@ public final class IntentSender {
     }
   }
 
+  /** Creates an intent and launches it as a Service. */
+  void sendService(Intent intent) {
+    if (applicationContext == null) {
+      Log.wtf(TAG, "Trying to send an intent before the applicationContext was initialized.");
+      return;
+    }
+
+    Log.v(TAG, "Sending service intent " + intent);
+
+    if (activity != null) {
+      activity.startService(intent);
+    } else {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      applicationContext.startService(intent);
+    }
+  }
+
   /**
    * Like with {@code send}, creates and launches an intent with the given params, but wraps the
    * {@code Intent} with {@code Intent.createChooser}.

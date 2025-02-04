@@ -3,6 +3,7 @@ library device_info_plus_windows;
 
 import 'dart:ffi';
 import 'dart:typed_data';
+import 'dart:developer' as developer;
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:ffi/ffi.dart';
@@ -124,8 +125,8 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       if (result != 0) {
         return memoryInKilobytes.value ~/ 1024;
       } else {
-        final error = GetLastError();
-        throw WindowsException(HRESULT_FROM_WIN32(error));
+        developer.log('Failed to get system memory', error: GetLastError());
+        return 0;
       }
     } finally {
       free(memoryInKilobytes);
@@ -149,7 +150,8 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       if (result != 0) {
         return lpBuffer.toDartString();
       } else {
-        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+        developer.log('Failed to get computer name', error: GetLastError());
+        return "";
       }
     } finally {
       free(lpBuffer);
@@ -167,7 +169,8 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       if (result != 0) {
         return lpBuffer.toDartString();
       } else {
-        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+        developer.log('Failed to get user name', error: GetLastError());
+        return "";
       }
     } finally {
       free(pcbBuffer);

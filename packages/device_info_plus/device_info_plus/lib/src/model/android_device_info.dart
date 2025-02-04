@@ -114,7 +114,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   final String tags;
 
   /// The type of build, like "user" or "eng".
-  /// https://developer.android.com/reference/android/os/Build#TIME
+  /// https://developer.android.com/reference/android/os/Build#TYPE
   final String type;
 
   /// `false` if the application is running in an emulator, `true` otherwise.

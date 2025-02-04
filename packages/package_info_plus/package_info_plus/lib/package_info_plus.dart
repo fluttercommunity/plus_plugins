@@ -27,6 +27,7 @@ class PackageInfo {
     required this.buildNumber,
     this.buildSignature = '',
     this.installerStore,
+    this.installTime,
   });
 
   static PackageInfo? _fromPlatform;
@@ -53,8 +54,8 @@ class PackageInfo {
   ///
   ///     With this, the package will try to search the file in `https://cdn.domain.com/with/some/path/version.json`
   ///
-  ///   * The second option where it will search is the [assetBase] parameter
-  ///     that you can pass to the Flutter Web Engine when you initialize it.
+  ///   * The second option where it will search is the [assetBase](https://docs.flutter.dev/platform-integration/web/initialization#customize-the-flutter-loader)
+  ///     parameter that you can pass to the Flutter Web Engine when you initialize it.
   ///
   ///     ```javascript
   ///     _flutter.loader.loadEntrypoint({
@@ -88,6 +89,7 @@ class PackageInfo {
       buildNumber: platformData.buildNumber,
       buildSignature: platformData.buildSignature,
       installerStore: platformData.installerStore,
+      installTime: platformData.installTime,
     );
     return _fromPlatform!;
   }
@@ -147,6 +149,16 @@ class PackageInfo {
   /// The installer store. Indicates through which store this application was installed.
   final String? installerStore;
 
+  /// The time when the application was installed.
+  ///
+  /// - On Android, returns `PackageManager.firstInstallTime`
+  /// - On iOS and macOS, return the creation date of the app default `NSDocumentDirectory`
+  /// - On Windows and Linux, returns the creation date of the app executable.
+  ///   If the creation date is not available, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
+  final DateTime? installTime;
+
   /// Initializes the application metadata with mock values for testing.
   ///
   /// If the singleton instance has been initialized already, it is overwritten.
@@ -158,6 +170,7 @@ class PackageInfo {
     required String buildNumber,
     required String buildSignature,
     String? installerStore,
+    DateTime? installTime,
   }) {
     _fromPlatform = PackageInfo(
       appName: appName,
@@ -166,6 +179,7 @@ class PackageInfo {
       buildNumber: buildNumber,
       buildSignature: buildSignature,
       installerStore: installerStore,
+      installTime: installTime,
     );
   }
 
@@ -180,7 +194,8 @@ class PackageInfo {
           version == other.version &&
           buildNumber == other.buildNumber &&
           buildSignature == other.buildSignature &&
-          installerStore == other.installerStore;
+          installerStore == other.installerStore &&
+          installTime == other.installTime;
 
   /// Overwrite hashCode for value equality
   @override
@@ -190,11 +205,12 @@ class PackageInfo {
       version.hashCode ^
       buildNumber.hashCode ^
       buildSignature.hashCode ^
-      installerStore.hashCode;
+      installerStore.hashCode ^
+      installTime.hashCode;
 
   @override
   String toString() {
-    return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore)';
+    return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore, installTime: $installTime)';
   }
 
   Map<String, dynamic> _toMap() {
@@ -205,6 +221,7 @@ class PackageInfo {
       'version': version,
       if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
       if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
+      if (installTime != null) 'installTime': installTime
     };
   }
 

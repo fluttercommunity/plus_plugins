@@ -11,6 +11,12 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
   @override
   Future<PackageInfoData> getAll({String? baseUrl}) async {
     final map = await _channel.invokeMapMethod<String, dynamic>('getAll');
+
+    final installTime = map?['installTime'] != null &&
+            int.tryParse(map!['installTime']!) != null
+        ? DateTime.fromMillisecondsSinceEpoch(int.parse(map['installTime']!))
+        : null;
+
     return PackageInfoData(
       appName: map!['appName'] ?? '',
       packageName: map['packageName'] ?? '',
@@ -18,6 +24,7 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
       buildNumber: map['buildNumber'] ?? '',
       buildSignature: map['buildSignature'] ?? '',
       installerStore: map['installerStore'] as String?,
+      installTime: installTime,
     );
   }
 }
