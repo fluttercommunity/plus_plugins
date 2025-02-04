@@ -16,7 +16,7 @@ Downloaded by pub (not CocoaPods).
   s.documentation_url = 'https://pub.dev/packages/connectivity_plus'
   s.source_files = 'connectivity_plus/Sources/connectivity_plus/**/*.swift'
   s.dependency 'Flutter'
-  s.deployment_target = '12.0'
+  s.platform = :ios, '12.0'
   s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.resource_bundles = {'connectivity_plus_privacy' => ['connectivity_plus/Sources/connectivity_plus/PrivacyInfo.xcprivacy']}
