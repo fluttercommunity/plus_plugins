@@ -221,7 +221,7 @@ class PackageInfo {
       'version': version,
       if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
       if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
-      if (installTime != null) 'installTime': installTime
+      if (installTime != null) 'installTime': installTime.toString()
     };
   }
 
