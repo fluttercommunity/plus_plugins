@@ -155,7 +155,7 @@ void main() {
       'packageName': 'io.flutter.plugins.mockpackageinfoexample',
       'version': '1.1',
       'buildNumber': '2',
-      'installTime': now,
+      'installTime': now.toIso8601String(),
     });
 
     final nextWeek = now.add(const Duration(days: 7));
@@ -176,7 +176,7 @@ void main() {
       'buildNumber': '2',
       'buildSignature': 'deadbeef',
       'installerStore': 'testflight',
-      'installTime': nextWeek,
+      'installTime': nextWeek.toIso8601String(),
     });
   });
 }
