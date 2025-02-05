@@ -19,7 +19,13 @@
     NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     __autoreleasing NSError *error;
     NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
-    NSNumber *installTimeMillis = installDate ? @((long long)([installDate timeIntervalSince1970] * 1000)) : [NSNull null];
+      
+    NSNumber *installTimeMillis = nil;
+    if (installDate) {
+        installTimeMillis = @((long long)([installDate timeIntervalSince1970] * 1000));
+    } else {
+        installTimeMillis = nil;
+    }
     
     result(@{
       @"appName" : [[NSBundle mainBundle]
