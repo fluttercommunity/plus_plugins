@@ -29,6 +29,7 @@ void main() {
       expect(info.version, '1.2.3');
       expect(info.installerStore, null);
       expect(info.installTime, null);
+      expect(info.updateTime, null);
     } else {
       if (Platform.isAndroid) {
         final androidVersionInfo = await DeviceInfoPlugin().androidInfo;
@@ -52,6 +53,14 @@ void main() {
             lessThanOrEqualTo(1),
           ),
         );
+        expect(
+          info.updateTime,
+          isA<DateTime>().having(
+            (d) => d.difference(DateTime.now()).inMinutes,
+            'Was just updated',
+            lessThanOrEqualTo(1),
+          ),
+        );
       } else if (Platform.isIOS) {
         expect(info.appName, 'Package Info Plus Example');
         expect(info.buildNumber, '4');
@@ -64,6 +73,14 @@ void main() {
           isA<DateTime>().having(
             (d) => d.difference(DateTime.now()).inMinutes,
             'Was just installed',
+            lessThanOrEqualTo(1),
+          ),
+        );
+        expect(
+          info.updateTime,
+          isA<DateTime>().having(
+            (d) => d.difference(DateTime.now()).inMinutes,
+            'Was just updated',
             lessThanOrEqualTo(1),
           ),
         );
@@ -82,6 +99,14 @@ void main() {
             lessThanOrEqualTo(1),
           ),
         );
+        expect(
+          info.updateTime,
+          isA<DateTime>().having(
+            (d) => d.difference(DateTime.now()).inMinutes,
+            'Was just updated',
+            lessThanOrEqualTo(1),
+          ),
+        );
       } else if (Platform.isLinux) {
         expect(info.appName, 'package_info_plus_example');
         expect(info.buildNumber, '4');
@@ -93,6 +118,14 @@ void main() {
           isA<DateTime>().having(
             (d) => d.difference(DateTime.now()).inMinutes,
             'Was just installed',
+            lessThanOrEqualTo(1),
+          ),
+        );
+        expect(
+          info.updateTime,
+          isA<DateTime>().having(
+            (d) => d.difference(DateTime.now()).inMinutes,
+            'Was just updated',
             lessThanOrEqualTo(1),
           ),
         );
@@ -108,6 +141,14 @@ void main() {
           isA<DateTime>().having(
             (d) => d.difference(DateTime.now()).inMinutes,
             'Was just installed',
+            lessThanOrEqualTo(1),
+          ),
+        );
+        expect(
+          info.updateTime,
+          isA<DateTime>().having(
+            (d) => d.difference(DateTime.now()).inMinutes,
+            'Was just updated',
             lessThanOrEqualTo(1),
           ),
         );
@@ -127,6 +168,7 @@ void main() {
       expect(find.text('Not set'), findsOneWidget);
       expect(find.text('not available'), findsOneWidget);
       expect(find.text('Install time not available'), findsOneWidget);
+      expect(find.text('Update time not available'), findsOneWidget);
     } else {
       final expectedInstallTimeIso = testStartTime.toIso8601String();
       final installTimeRegex = RegExp(
@@ -153,7 +195,7 @@ void main() {
         } else {
           expect(find.text('not available'), findsOneWidget);
         }
-        expect(find.textContaining(installTimeRegex), findsOneWidget);
+        expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else if (Platform.isIOS) {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
@@ -162,7 +204,7 @@ void main() {
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('com.apple.simulator'), findsOneWidget);
-        expect(find.textContaining(installTimeRegex), findsOneWidget);
+        expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else if (Platform.isMacOS) {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
@@ -171,20 +213,20 @@ void main() {
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('not available'), findsOneWidget);
-        expect(find.textContaining(installTimeRegex), findsOneWidget);
+        expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else if (Platform.isLinux) {
         expect(find.text('package_info_plus_example'), findsNWidgets(2));
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
-        expect(find.textContaining(installTimeRegex), findsOneWidget);
+        expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else if (Platform.isWindows) {
         expect(find.text('example'), findsNWidgets(2));
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('not available'), findsOneWidget);
-        expect(find.textContaining(installTimeRegex), findsOneWidget);
+        expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else {
         throw (UnsupportedError('platform not supported'));
       }

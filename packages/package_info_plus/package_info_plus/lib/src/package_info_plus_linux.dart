@@ -19,7 +19,7 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
     final exePath = await File('/proc/self/exe').resolveSymbolicLinks();
 
     final versionJson = await _getVersionJson(exePath);
-    final installTime = await _getInstallTime(exePath);
+    final exeAttributes = await _getExeAttributes(exePath);
 
     return PackageInfoData(
       appName: versionJson['app_name'] ?? '',
@@ -27,7 +27,8 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
       buildNumber: versionJson['build_number'] ?? '',
       packageName: versionJson['package_name'] ?? '',
       buildSignature: '',
-      installTime: installTime,
+      installTime: exeAttributes.created,
+      updateTime: exeAttributes.modified,
     );
   }
 
@@ -43,23 +44,64 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
     }
   }
 
-  Future<DateTime?> _getInstallTime(String exePath) async {
+  Future<({DateTime? created, DateTime? modified})> _getExeAttributes(
+      String exePath) async {
     try {
       final statResult = await Process.run(
         'stat',
-        ['-c', '%W', exePath],
+        // birth time and last modification time
+        ['-c', '%W,%Y', exePath],
         stdoutEncoding: utf8,
       );
 
-      if (statResult.exitCode == 0 && int.tryParse(statResult.stdout) != null) {
-        final creationTimeSeconds = int.parse(statResult.stdout) * 1000;
-
-        return DateTime.fromMillisecondsSinceEpoch(creationTimeSeconds);
+      if (statResult.exitCode != 0) {
+        return await _fallbackAttributes(exePath);
       }
 
-      return await File(exePath).lastModified();
+      final String stdout =
+          statResult.stdout is String ? statResult.stdout : '';
+
+      if (stdout.split(',').length != 2) {
+        return await _fallbackAttributes(exePath);
+      }
+
+      final [creationMillis, modificationMillis] = stdout.split(',');
+
+      // birth time is 0 if it is unknown
+      final creationTime = _parseSecondsString(
+        creationMillis,
+        allowZero: false,
+      );
+      final modificationTime = _parseSecondsString(modificationMillis);
+
+      return (
+        created: creationTime,
+        modified: modificationTime,
+      );
     } catch (_) {
+      return (created: null, modified: null);
+    }
+  }
+
+  Future<({DateTime created, DateTime modified})> _fallbackAttributes(
+      String exePath) async {
+    final modifiedTime = await File(exePath).lastModified();
+
+    return (created: modifiedTime, modified: modifiedTime);
+  }
+
+  DateTime? _parseSecondsString(String? secondsString,
+      {bool allowZero = true}) {
+    if (secondsString == null) {
       return null;
     }
+
+    final millis = int.tryParse(secondsString);
+
+    if (millis == null || millis == 0 && !allowZero) {
+      return null;
+    }
+
+    return DateTime.fromMillisecondsSinceEpoch(millis * 1000);
   }
 }
