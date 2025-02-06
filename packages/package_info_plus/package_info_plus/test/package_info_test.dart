@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -177,6 +179,52 @@ void main() {
       'buildSignature': 'deadbeef',
       'installerStore': 'testflight',
       'installTime': nextWeek.toIso8601String(),
+    });
+  });
+
+  test('data supports null values', () async {
+    PackageInfo.setMockInitialValues(
+      appName: 'mock_package_info_example',
+      packageName: 'io.flutter.plugins.mockpackageinfoexample',
+      version: '1.1',
+      buildNumber: '2',
+      buildSignature: '',
+      installerStore: null,
+      installTime: null,
+    );
+    final info1 = await PackageInfo.fromPlatform();
+    expect(info1.data, {
+      'appName': 'mock_package_info_example',
+      'packageName': 'io.flutter.plugins.mockpackageinfoexample',
+      'version': '1.1',
+      'buildNumber': '2',
+    });
+  });
+
+  test('data can be converted to JSON and back', () async {
+    PackageInfo.setMockInitialValues(
+      appName: 'mock_package_info_example',
+      packageName: 'io.flutter.plugins.mockpackageinfoexample',
+      version: '1.1',
+      buildNumber: '2',
+      buildSignature: 'signature',
+      installerStore: 'store',
+      installTime: now,
+    );
+    final info1 = await PackageInfo.fromPlatform();
+
+    // Convert to Json and back to Map
+    final jsonData = jsonEncode(info1.data);
+    final parsedData = jsonDecode(jsonData);
+
+    expect(parsedData, {
+      'appName': 'mock_package_info_example',
+      'packageName': 'io.flutter.plugins.mockpackageinfoexample',
+      'version': '1.1',
+      'buildNumber': '2',
+      'buildSignature': 'signature',
+      'installerStore': 'store',
+      'installTime': now.toIso8601String(),
     });
   });
 }
