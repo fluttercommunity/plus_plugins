@@ -1,3 +1,7 @@
+## 11.3.0
+
+ - **FEAT**(device_info_plus): Add User Device Name in Android (PR [#3437](https://github.com/fluttercommunity/plus_plugins/issues/3437)) ([#3456](https://github.com/fluttercommunity/plus_plugins/issues/3456)). ([8c38a31d](https://github.com/fluttercommunity/plus_plugins/commit/8c38a31d7c1073d7011ec3e3193f6b99b3851ef1))
+
 ## 11.2.2
 
  - **FIX**(device_info_plus): Replace throwing exception with returning default values on Windows ([#3445](https://github.com/fluttercommunity/plus_plugins/issues/3445)). ([084730f8](https://github.com/fluttercommunity/plus_plugins/commit/084730f82436b474b31b16f6dc2d7b90585e899f))
