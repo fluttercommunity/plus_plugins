@@ -1,7 +1,3 @@
-## 3.2.0
-
- - **FEAT**(package_info_plus): add install time ([#3434](https://github.com/fluttercommunity/plus_plugins/issues/3434)). ([0ea0402f](https://github.com/fluttercommunity/plus_plugins/commit/0ea0402f824104c36a806f32e88727801b40ba4c))
-
 ## 3.1.0
 
  - **FEAT**(package_info_plus): add install time ([#3434](https://github.com/fluttercommunity/plus_plugins/issues/3434)). ([0ea0402f](https://github.com/fluttercommunity/plus_plugins/commit/0ea0402f824104c36a806f32e88727801b40ba4c))

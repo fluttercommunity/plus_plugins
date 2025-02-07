@@ -1,6 +1,6 @@
 ## 8.2.1
 
- - **FIX**(package_info_plus): data serialization converts installTime to String instead of DateTime ([#3464](https://github.com/fluttercommunity/plus_plugins/issues/3464)). ([aa10ce75](https://github.com/fluttercommunity/plus_plugins/commit/aa10ce758b6ee6895c7b4a05f16ffa08a434fa20))
+ - **FIX**(package_info_plus): convert installTime to String instead of DateTime to avoid serialization issues ([#3464](https://github.com/fluttercommunity/plus_plugins/issues/3464)). ([aa10ce75](https://github.com/fluttercommunity/plus_plugins/commit/aa10ce758b6ee6895c7b4a05f16ffa08a434fa20))
  - **FIX**(package_info_plus): fix macOS compilation warning ([#3460](https://github.com/fluttercommunity/plus_plugins/issues/3460)). ([6eec56c4](https://github.com/fluttercommunity/plus_plugins/commit/6eec56c4a2a5f49894e60c3b9ea263c3096c01d5))
 
 ## 8.2.0
