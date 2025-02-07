@@ -36,7 +36,7 @@ dependencies:
   http: ">=0.13.5 <2.0.0"
   meta: ^1.8.0
   path: ^1.8.2
-  package_info_plus_platform_interface: ^3.2.0
+  package_info_plus_platform_interface: ^3.1.0
   web: ">=0.5.0 <2.0.0"
   win32: ^5.5.3
   clock: ^1.1.1
