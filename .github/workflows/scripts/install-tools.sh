@@ -2,6 +2,12 @@
 
 set -e
 
+echo "Path: $PATH"
+ls -l "$GITHUB_WORKSPACE/_flutter/bin"
+
+echo "Flutter version:"
+flutter --version
+
 flutter config --no-analytics
 flutter pub global activate melos 6.3.2
 
