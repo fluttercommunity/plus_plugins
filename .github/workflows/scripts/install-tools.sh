@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# set -e
 
 flutter config --no-analytics
 flutter pub global activate melos 6.3.2
