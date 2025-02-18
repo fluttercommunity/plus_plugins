@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
@@ -64,7 +64,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -99,7 +99,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
@@ -117,7 +117,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - uses: flutter-actions/setup-flutter@v3
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
