@@ -44,7 +44,7 @@ support for more platforms and better maintenance.
 
 Flutter plugin for accessing information about the battery state(full, charging, discharging) on Android and iOS.
 
-[[View Source][battery_plus_code]]
+[[readme][battery_plus_readme]] [[code][battery_plus_code]]
 
 #### Platform Support
 
@@ -61,7 +61,7 @@ Flutter plugin for accessing information about the battery state(full, charging,
 Flutter plugin for discovering the state of the network (WiFi &
 mobile/cellular) connectivity on Android and iOS.
 
-[[View Source][connectivity_plus_code]]
+[[readme][connectivity_plus_readme]] [[code][connectivity_plus_code]]
 
 #### Platform Support
 
@@ -78,7 +78,7 @@ mobile/cellular) connectivity on Android and iOS.
 Flutter plugin providing detailed information about the device
 (make, model, etc.), and Android or iOS version the app is running on.
 
-[[View Source][device_info_plus_code]]
+[[readme][device_info_plus_readme]] [[code][device_info_plus_code]]
 
 #### Platform Support
 
@@ -94,7 +94,7 @@ Flutter plugin providing detailed information about the device
 
 Flutter plugin for discovering network info.
 
-[[View Source][network_info_plus_code]]
+[[readme][network_info_plus_readme]] [[code][network_info_plus_code]]
 
 #### Platform Support
 
@@ -111,7 +111,7 @@ Flutter plugin for discovering network info.
 Flutter plugin for querying information about the application
 package, such as CFBundleVersion on iOS or versionCode on Android.
 
-[[View Source][package_info_plus_code]]
+[[readme][package_info_plus_readme]] [[code][package_info_plus_code]]
 
 #### Platform Support
 
@@ -127,7 +127,7 @@ package, such as CFBundleVersion on iOS or versionCode on Android.
 
 Flutter plugin for accessing accelerometer, gyroscope, magnetometer and barometer sensors.
 
-[[View Source][sensors_plus_code]]
+[[readme][sensors_plus_readme]] [[code][sensors_plus_code]]
 
 #### Platform Support
 
@@ -143,7 +143,7 @@ Flutter plugin for accessing accelerometer, gyroscope, magnetometer and baromete
 
 Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.
 
-[[View Source][share_plus_code]]
+[[readme][share_plus_readme]] [[code][share_plus_code]]
 
 #### Platform Support
 
@@ -159,7 +159,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 Flutter plugin for accessing the Android AlarmManager service, and running Dart code in the background when alarms fire.
 
-[[View Source][android_alarm_manager_plus_code]]
+[[readme][android_alarm_manager_plus_readme]] [[code][android_alarm_manager_plus_code]]
 
 #### Platform Support
 
@@ -175,7 +175,7 @@ Flutter plugin for accessing the Android AlarmManager service, and running Dart 
 
 Flutter plugin for launching Android Intents. Not supported on iOS.
 
-[[View Source][android_intent_plus_code]]
+[[readme][android_intent_plus_readme]] [[code][android_intent_plus_code]]
 
 #### Platform Support
 
@@ -194,7 +194,7 @@ Plugin issues that are not specific to PlusPlugins can be filed in the [Flutter 
 ## Contributing
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/fluttercommunity/plus_plugins/blob/master/CONTRIBUTING.md)
+please review our [contribution guide](CONTRIBUTING.md)
 and open a [pull request](https://github.com/fluttercommunity/plus_plugins/pulls).
 
 ## Status
@@ -203,46 +203,55 @@ This repository is maintained by FlutterCommunity authors. Issues here are answe
 
 [battery_plus]: https://pub.dev/packages/battery_plus
 [battery_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus
+[battery_plus_readme]: packages/battery_plus/battery_plus/README.md
 [battery_plus_pub_points]: https://pub.dev/packages/battery_plus/score
 [battery_plus_badge_pub_points]: https://img.shields.io/pub/points/battery_plus?color=2E8B57&label=pub%20points
 [battery_plus_badge_pub]: https://img.shields.io/pub/v/battery_plus.svg
 [connectivity_plus]: https://pub.dev/packages/connectivity_plus
 [connectivity_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus
+[connectivity_plus_readme]: packages/connectivity_plus/connectivity_plus/README.md
 [connectivity_plus_pub_points]: https://pub.dev/packages/connectivity_plus/score
 [connectivity_plus_badge_pub_points]: https://img.shields.io/pub/points/connectivity_plus?color=2E8B57&label=pub%20points
 [connectivity_plus_badge_pub]: https://img.shields.io/pub/v/connectivity_plus.svg
 [network_info_plus]: https://pub.dev/packages/network_info_plus
 [network_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/network_info_plus
+[network_info_plus_readme]: packages/network_info_plus/network_info_plus/README.md
 [network_info_plus_pub_points]: https://pub.dev/packages/network_info_plus/score
 [network_info_plus_badge_pub_points]: https://img.shields.io/pub/points/network_info_plus?color=2E8B57&label=pub%20points
 [network_info_plus_badge_pub]: https://img.shields.io/pub/v/network_info_plus.svg
 [android_alarm_manager_plus]: https://pub.dev/packages/android_alarm_manager_plus
 [android_alarm_manager_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_alarm_manager_plus
+[android_alarm_manager_plus_readme]: packages/android_alarm_manager_plus/README.md
 [android_alarm_manager_plus_pub_points]: https://pub.dev/packages/android_alarm_manager_plus/score
 [android_alarm_manager_plus_badge_pub_points]: https://img.shields.io/pub/points/android_alarm_manager_plus?color=2E8B57&label=pub%20points
 [android_alarm_manager_plus_badge_pub]: https://img.shields.io/pub/v/android_alarm_manager_plus.svg
 [android_intent_plus]: https://pub.dev/packages/android_intent_plus
 [android_intent_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/android_intent_plus
+[android_intent_plus_readme]: packages/android_intent_plus/README.md
 [android_intent_plus_pub_points]: https://pub.dev/packages/android_intent_plus/score
 [android_intent_plus_badge_pub_points]: https://img.shields.io/pub/points/android_intent_plus?color=2E8B57&label=pub%20points
 [android_intent_plus_badge_pub]: https://img.shields.io/pub/v/android_intent_plus.svg
 [device_info_plus]: https://pub.dev/packages/device_info_plus
 [device_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus
+[device_info_plus_readme]: packages/device_info_plus/device_info_plus/README.md
 [device_info_plus_pub_points]: https://pub.dev/packages/device_info_plus/score
 [device_info_plus_badge_pub_points]: https://img.shields.io/pub/points/device_info_plus?color=2E8B57&label=pub%20points
 [device_info_plus_badge_pub]: https://img.shields.io/pub/v/device_info_plus.svg
 [package_info_plus]: https://pub.dev/packages/package_info_plus
 [package_info_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus
+[package_info_plus_readme]: packages/package_info_plus/package_info_plus/README.md 
 [package_info_plus_pub_points]: https://pub.dev/packages/package_info_plus/score
 [package_info_plus_badge_pub_points]: https://img.shields.io/pub/points/package_info_plus?color=2E8B57&label=pub%20points
 [package_info_plus_badge_pub]: https://img.shields.io/pub/v/package_info_plus.svg
 [sensors_plus]: https://pub.dev/packages/sensors_plus
 [sensors_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus
+[sensors_plus_readme]: packages/sensors_plus/sensors_plus/README.md
 [sensors_plus_pub_points]: https://pub.dev/packages/sensors_plus/score
 [sensors_plus_badge_pub_points]: https://img.shields.io/pub/points/sensors_plus?color=2E8B57&label=pub%20points
 [sensors_plus_badge_pub]: https://img.shields.io/pub/v/sensors_plus.svg
 [share_plus]: https://pub.dev/packages/share_plus
 [share_plus_code]: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus
+[share_plus_readme]: packages/share_plus/share_plus/README.md
 [share_plus_pub_points]: https://pub.dev/packages/share_plus/score
 [share_plus_badge_pub_points]: https://img.shields.io/pub/points/share_plus?color=2E8B57&label=pub%20points
 [share_plus_badge_pub]: https://img.shields.io/pub/v/share_plus.svg
