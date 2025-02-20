@@ -179,6 +179,20 @@ class AndroidIntent {
     );
   }
 
+  /// Starts intent as service.
+  ///
+  /// This works only on Android platforms.
+  Future<void> sendService() async {
+    if (!_platform.isAndroid) {
+      return;
+    }
+
+    await _channel.invokeMethod<void>(
+      'sendService',
+      _buildArguments(),
+    );
+  }
+
   /// Sends intent as broadcast.
   ///
   /// This works only on Android platforms.

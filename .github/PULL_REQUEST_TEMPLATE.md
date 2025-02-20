@@ -1,14 +1,15 @@
 ## Description
 
-*Replace this paragraph with a description of what this PR is doing. If you're modifying existing behavior, describe the existing behavior, how this PR is changing it, and what motivated the change.*
+<!-- Replace this paragraph with a description of what this PR is doing. If you're modifying existing behavior, describe the existing behavior, how this PR is changing it, and what motivated the change. -->
 
 ## Related Issues
 
-*Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/fluttercommunity/plus_plugins/issues). Indicate, which of these issues are resolved or fixed by this PR.*
+<!-- Replace this paragraph with a list of issues related to this PR from the [issue database](https://github.com/fluttercommunity/plus_plugins/issues). Indicate, which of these issues are resolved or fixed by this PR.
 
-*e.g.*
-- *Fix #123*
-- *Related #456*
+e.g.
+- Fix #<ticket number>
+- Related #<ticket number>
+-->
 
 ## Checklist
 

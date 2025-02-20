@@ -7,6 +7,9 @@ _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#co
 We welcome all contributions to the project, however some contributions will need extra work in
 order to be accepted.
 
+> [!IMPORTANT]  
+> Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
+
 Here's some examples:
 
 ### 🟢 Easily accepted contributions
@@ -85,6 +88,7 @@ The bootstrap command locally links all dependencies within the project without 
 provide manual [`dependency_overrides`](https://dart.dev/tools/pub/pubspec). This allows all
 plugins, examples and tests to build from the local clone project.
 
+> [!TIP]
 > You do not need to run `flutter pub get` once bootstrap has been completed.
 
 ## 4. Running an example
@@ -172,14 +176,15 @@ file.
 
 We gladly accept contributions via GitHub pull requests.
 
-Please peruse the
+Please follow the
 [Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) and
 [design principles](https://flutter.dev/design-principles/) before
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
-**Important:** When modifying multiple packages, **create a different branch and pull request per package.**
-This facilitates maintenance, the review process, and generating changelogs.
+> [!IMPORTANT]  
+> When modifying multiple packages, **create a different branch and pull request per package.**
+> This facilitates maintenance, the review process, and generating changelogs.
 
 ### 5.1 Getting started
 
@@ -188,6 +193,10 @@ To start working on a patch:
 1. `git fetch upstream`
 2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
+
+> [!CAUTION]  
+> Do not create PRs directly from the `main` branch of your repository, as it causes problems when pushing changes by reviewers.
+> Always create a new branch for your pull requests.
 
 ### 5.2 Check the code
 
@@ -202,9 +211,10 @@ melos run analyze
 melos run format
 ```
 
-### 5.3 (Do not) Update version and changelog
+### 5.3 Do not update version and changelog
 
-**NEW: Do not modify the CHANGELOG.md or the version in the pubspec.yaml, this is handled by the maintainers from now on**
+> [!CAUTION]
+> Do not modify the `CHANGELOG.md` or the version in the `pubspec.yaml`, this is handled by the maintainers from now on
 
 ### 5.4 Commit and push your changes
 
@@ -230,6 +240,9 @@ guide, and include the package name in parenthesis. For example, for a fix to th
 
 Please also enable **“Allow edits by maintainers”**, this will help to speed-up the review
 process as well.
+
+> [!TIP]
+> Ensure the PR description is filled correctly and the markdown looks correctly.
 
 ### 5.6 Now be patient :)
 

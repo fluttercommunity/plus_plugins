@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   platform: ^3.1.0
-  android_intent_plus: ^5.2.1
+  android_intent_plus: ^5.3.0
 
 dev_dependencies:
   flutter_driver:

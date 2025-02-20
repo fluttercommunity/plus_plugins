@@ -40,6 +40,9 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
                 val installerPackage = getInstallerPackageName()
 
+                val installTimeMillis = info.firstInstallTime
+                val updateTimeMillis = info.lastUpdateTime
+
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
                     put("appName", info.applicationInfo?.loadLabel(packageManager)?.toString() ?: "")
@@ -48,6 +51,8 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                     put("buildNumber", getLongVersionCode(info).toString())
                     if (buildSignature != null) put("buildSignature", buildSignature)
                     if (installerPackage != null) put("installerStore", installerPackage)
+                    put("installTime", installTimeMillis.toString())
+                    put("updateTime", updateTimeMillis.toString())
                 }.also { resultingMap ->
                     result.success(resultingMap)
                 }

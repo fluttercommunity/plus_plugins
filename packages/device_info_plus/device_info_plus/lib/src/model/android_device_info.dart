@@ -23,6 +23,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.manufacturer,
     required this.model,
     required this.product,
+    required this.name,
     required List<String> supported32BitAbis,
     required List<String> supported64BitAbis,
     required List<String> supportedAbis,
@@ -89,6 +90,10 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/os/Build#PRODUCT
   final String product;
 
+  /// The name of the device.
+  /// https://developer.android.com/reference/android/provider/Settings.Global#DEVICE_NAME
+  final String name;
+
   /// An ordered list of 32 bit ABIs supported by this device.
   /// Available only on Android L (API 21) and newer
   /// https://developer.android.com/reference/android/os/Build#SUPPORTED_32_BIT_ABIS
@@ -109,7 +114,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   final String tags;
 
   /// The type of build, like "user" or "eng".
-  /// https://developer.android.com/reference/android/os/Build#TIME
+  /// https://developer.android.com/reference/android/os/Build#TYPE
   final String type;
 
   /// `false` if the application is running in an emulator, `true` otherwise.
@@ -158,6 +163,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       manufacturer: map['manufacturer'],
       model: map['model'],
       product: map['product'],
+      name: map['name'] ?? '',
       supported32BitAbis: _fromList(map['supported32BitAbis'] ?? <String>[]),
       supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
       supportedAbis: _fromList(map['supportedAbis'] ?? []),

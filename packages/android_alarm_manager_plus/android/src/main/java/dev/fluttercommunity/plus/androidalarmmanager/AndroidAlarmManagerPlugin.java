@@ -6,6 +6,7 @@ package dev.fluttercommunity.plus.androidalarmmanager;
 
 import android.content.Context;
 import android.util.Log;
+import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.JSONMethodCodec;
@@ -13,7 +14,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.view.FlutterNativeView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +28,8 @@ import org.json.JSONObject;
  *   <li>The Dart side of this plugin sends the Android side a "AlarmService.start" message, along
  *       with a Dart callback handle for a Dart callback that should be immediately invoked by a
  *       background Dart isolate.
- *   <li>The Android side of this plugin spins up a background {@link FlutterNativeView}, which
- *       includes a background Dart isolate.
+ *   <li>The Android side of this plugin spins up a background {@link FlutterEngine} to run a
+ *       background Dart isolate.
  *   <li>The Android side of this plugin instructs the new background Dart isolate to execute the
  *       callback that was received in the "AlarmService.start" message.
  *   <li>The Dart side of this plugin, running within the new background isolate, executes the
