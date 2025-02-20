@@ -12,10 +12,8 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
   Future<PackageInfoData> getAll({String? baseUrl}) async {
     final map = await _channel.invokeMapMethod<String, dynamic>('getAll');
 
-    final installTime = map?['installTime'] != null &&
-            int.tryParse(map!['installTime']!) != null
-        ? DateTime.fromMillisecondsSinceEpoch(int.parse(map['installTime']!))
-        : null;
+    final installTime = _parseNullableStringMillis(map?['installTime']);
+    final updateTime = _parseNullableStringMillis(map?['updateTime']);
 
     return PackageInfoData(
       appName: map!['appName'] ?? '',
@@ -25,6 +23,13 @@ class MethodChannelPackageInfo extends PackageInfoPlatform {
       buildSignature: map['buildSignature'] ?? '',
       installerStore: map['installerStore'] as String?,
       installTime: installTime,
+      updateTime: updateTime,
     );
+  }
+
+  DateTime? _parseNullableStringMillis(String? millis) {
+    return millis != null && int.tryParse(millis) != null
+        ? DateTime.fromMillisecondsSinceEpoch(int.parse(millis))
+        : null;
   }
 }

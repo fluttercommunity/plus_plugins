@@ -39,7 +39,9 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                 val buildSignature = getBuildSignature(packageManager)
 
                 val installerPackage = getInstallerPackageName()
-                val installTimeMillis = getInstallTimeMillis()
+
+                val installTimeMillis = info.firstInstallTime
+                val updateTimeMillis = info.lastUpdateTime
 
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
@@ -49,7 +51,8 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
                     put("buildNumber", getLongVersionCode(info).toString())
                     if (buildSignature != null) put("buildSignature", buildSignature)
                     if (installerPackage != null) put("installerStore", installerPackage)
-                    if (installTimeMillis != null) put("installTime", installTimeMillis.toString())
+                    put("installTime", installTimeMillis.toString())
+                    put("updateTime", updateTimeMillis.toString())
                 }.also { resultingMap ->
                     result.success(resultingMap)
                 }
@@ -73,22 +76,6 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
         } else {
             @Suppress("DEPRECATION")
             packageManager.getInstallerPackageName(packageName)
-        }
-    }
-
-    private fun getInstallTimeMillis(): Long? {
-        return try {
-            val packageManager = applicationContext!!.packageManager
-            val packageName = applicationContext!!.packageName
-            val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
-            } else {
-                packageManager.getPackageInfo(packageName, 0)
-            }
-
-            packageInfo.firstInstallTime
-        } catch (e: PackageManager.NameNotFoundException) {
-            null
         }
     }
 

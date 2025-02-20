@@ -37,6 +37,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
       buildNumber: versions.getOrNull(1) ?? '',
       buildSignature: '',
       installTime: attributes.creationTime ?? attributes.lastWriteTime,
+      updateTime: attributes.lastWriteTime,
     );
     info.dispose();
     return Future.value(data);

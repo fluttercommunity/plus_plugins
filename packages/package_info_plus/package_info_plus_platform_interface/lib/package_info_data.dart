@@ -11,6 +11,7 @@ class PackageInfoData {
     required this.buildSignature,
     this.installerStore,
     this.installTime,
+    this.updateTime,
   });
 
   /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
@@ -40,4 +41,13 @@ class PackageInfoData {
   ///   If the last modified date is not available, returns `null`.
   /// - On web, returns `null`.
   final DateTime? installTime;
+
+  /// The time when the application was last updated.
+  ///
+  /// - On Android, returns `PackageManager.lastUpdateTime`
+  /// - On iOS and macOS, return the last modified date of the app main bundle
+  /// - On Windows and Linux, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
+  final DateTime? updateTime;
 }
