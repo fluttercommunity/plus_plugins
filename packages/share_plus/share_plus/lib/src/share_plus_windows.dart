@@ -28,6 +28,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
     Uri uri, {
     String? subject,
     String? text,
+    List<CupertinoActivityType>? excludedActivityType,
     Rect? sharePositionOrigin,
   }) async {
     throw UnimplementedError(
@@ -39,6 +40,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
   Future<ShareResult> share(
     String text, {
     String? subject,
+    List<CupertinoActivityType>? excludedActivityType,
     Rect? sharePositionOrigin,
   }) async {
     final queryParameters = {
@@ -73,6 +75,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? excludedActivityType,
     List<String>? fileNameOverrides,
   }) {
     throw UnimplementedError(
