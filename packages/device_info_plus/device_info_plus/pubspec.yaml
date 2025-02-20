@@ -39,7 +39,7 @@ dependencies:
   meta: ^1.8.0
   web: ^1.0.0
   win32: ^5.5.3
-  win32_registry: ^1.1.0
+  win32_registry: ^2.0.1
 
 dev_dependencies:
   flutter_lints: ">=4.0.0 <6.0.0"
