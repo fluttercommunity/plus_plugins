@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:io';
-
 // Keep dart:ui for retrocompatiblity with Flutter <3.3.0
 // ignore: unnecessary_import
 import 'dart:ui';
@@ -12,8 +11,8 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 import 'package:mime/mime.dart' show extensionFromMime, lookupMimeType;
-import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:uuid/uuid.dart';
 
 /// Plugin for summoning a platform share sheet.
@@ -48,12 +47,15 @@ class MethodChannelShare extends SharePlatform {
   Future<ShareResult> share(
     String text, {
     String? subject,
+    String? title,
     Rect? sharePositionOrigin,
+    XFile? thumbnail,
   }) async {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
       'text': text,
       'subject': subject,
+      'title': title,
     };
 
     if (sharePositionOrigin != null) {
@@ -61,6 +63,11 @@ class MethodChannelShare extends SharePlatform {
       params['originY'] = sharePositionOrigin.top;
       params['originWidth'] = sharePositionOrigin.width;
       params['originHeight'] = sharePositionOrigin.height;
+    }
+
+    if (thumbnail != null) {
+      final thumbnailFile = await _getFile(thumbnail);
+      params['thumbnailPath'] = thumbnailFile.path;
     }
 
     final result = await channel.invokeMethod<String>('share', params) ??
