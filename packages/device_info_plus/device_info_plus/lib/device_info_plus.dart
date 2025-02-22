@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' deferred as io;
 
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -50,8 +50,9 @@ class DeviceInfoPlugin {
   ///
   /// See: https://developer.android.com/reference/android/os/Build.html
   Future<AndroidDeviceInfo> get androidInfo async =>
-      _cachedAndroidDeviceInfo ??=
-          AndroidDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+      _cachedAndroidDeviceInfo ??= AndroidDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   /// This information does not change from call to call. Cache it.
   IosDeviceInfo? _cachedIosDeviceInfo;
@@ -59,8 +60,10 @@ class DeviceInfoPlugin {
   /// Information derived from `UIDevice`.
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
-  Future<IosDeviceInfo> get iosInfo async => _cachedIosDeviceInfo ??=
-      IosDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+  Future<IosDeviceInfo> get iosInfo async =>
+      _cachedIosDeviceInfo ??= IosDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo? _cachedLinuxDeviceInfo;
@@ -68,8 +71,9 @@ class DeviceInfoPlugin {
   /// Information derived from `/etc/os-release`.
   ///
   /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
-  Future<LinuxDeviceInfo> get linuxInfo async => _cachedLinuxDeviceInfo ??=
-      await _platform.deviceInfo() as LinuxDeviceInfo;
+  Future<LinuxDeviceInfo> get linuxInfo async =>
+      _cachedLinuxDeviceInfo ??=
+          await _platform.deviceInfo() as LinuxDeviceInfo;
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo? _cachedWebBrowserInfo;
@@ -82,8 +86,10 @@ class DeviceInfoPlugin {
   MacOsDeviceInfo? _cachedMacosDeviceInfo;
 
   /// Returns device information for macos. Information sourced from Sysctl.
-  Future<MacOsDeviceInfo> get macOsInfo async => _cachedMacosDeviceInfo ??=
-      MacOsDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+  Future<MacOsDeviceInfo> get macOsInfo async =>
+      _cachedMacosDeviceInfo ??= MacOsDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   WindowsDeviceInfo? _cachedWindowsDeviceInfo;
 
@@ -94,18 +100,19 @@ class DeviceInfoPlugin {
 
   /// Returns device information for the current platform.
   Future<BaseDeviceInfo> get deviceInfo async {
-    if (kIsWeb) {
+    if (kIsWeb || kIsWasm) {
       return webBrowserInfo;
     } else {
-      if (Platform.isAndroid) {
+      await io.loadLibrary();
+      if (io.Platform.isAndroid) {
         return androidInfo;
-      } else if (Platform.isIOS) {
+      } else if (io.Platform.isIOS) {
         return iosInfo;
-      } else if (Platform.isLinux) {
+      } else if (io.Platform.isLinux) {
         return linuxInfo;
-      } else if (Platform.isMacOS) {
+      } else if (io.Platform.isMacOS) {
         return macOsInfo;
-      } else if (Platform.isWindows) {
+      } else if (io.Platform.isWindows) {
         return windowsInfo;
       }
     }
