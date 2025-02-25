@@ -1,3 +1,7 @@
+## 11.3.1
+
+ - **FIX**(device_info_plus): fix memory leak when calling DeviceInfoPlugin().macOsInfo ([#3474](https://github.com/fluttercommunity/plus_plugins/issues/3474)). ([1cbf2b56](https://github.com/fluttercommunity/plus_plugins/commit/1cbf2b5621465456221b50ade7ac6c2f3266788d))
+
 ## 11.3.0
 
  - **FEAT**(device_info_plus): Add User Device Name in Android (PR [#3437](https://github.com/fluttercommunity/plus_plugins/issues/3437)) ([#3456](https://github.com/fluttercommunity/plus_plugins/issues/3456)). ([8c38a31d](https://github.com/fluttercommunity/plus_plugins/commit/8c38a31d7c1073d7011ec3e3193f6b99b3851ef1))
