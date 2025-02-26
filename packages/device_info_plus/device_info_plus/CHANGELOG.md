@@ -1,6 +1,11 @@
+## 11.3.2
+
+ - **FIX**(device_info_plus): tighten dependency constraints ([#3497](https://github.com/fluttercommunity/plus_plugins/issues/3497)). ([c7e2428a](https://github.com/fluttercommunity/plus_plugins/commit/c7e2428a6075df4e37da9ef4934861c7cb0c3bee))
+ - **FIX**(device_info_plus): fix memory leak when calling DeviceInfoPlugin().macOsInfo ([#3474](https://github.com/fluttercommunity/plus_plugins/issues/3474)). ([1cbf2b56](https://github.com/fluttercommunity/plus_plugins/commit/1cbf2b5621465456221b50ade7ac6c2f3266788d))
+
 ## 11.3.1
 
- - **FIX**(device_info_plus): fix memory leak when calling DeviceInfoPlugin().macOsInfo ([#3474](https://github.com/fluttercommunity/plus_plugins/issues/3474)). ([1cbf2b56](https://github.com/fluttercommunity/plus_plugins/commit/1cbf2b5621465456221b50ade7ac6c2f3266788d))
+- Retracted release due to [#3496](https://github.com/fluttercommunity/plus_plugins/issues/3496)
 
 ## 11.3.0
 
