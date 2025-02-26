@@ -107,6 +107,7 @@ jobs:
         run: melos run test:web --no-select
 
   analyze:
+    name: "Analyze all plugins"
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -125,6 +126,7 @@ jobs:
         run: melos run analyze
 
   downgrade:
+    name: "Downgrade and analyze all plugins"
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
