@@ -38,6 +38,8 @@ internal class MethodCallHandler(
                         call.argument<Any>("text") as String,
                         call.argument<Any>("subject") as String?,
                         isWithResult,
+                        title = call.argument<String?>("title"),
+                        thumbnailPath =  call.argument<String?>("thumbnailPath"),
                     )
                     success(isWithResult, result)
                 }
