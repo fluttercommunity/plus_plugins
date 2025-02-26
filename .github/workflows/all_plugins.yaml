@@ -106,3 +106,41 @@ jobs:
       - name: "Flutter Test - Web"
         run: melos run test:web --no-select
 
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: flutter-actions/setup-flutter@v4
+
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+
+      - name: "Analyze"
+        run: melos run analyze
+
+  downgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: flutter-actions/setup-flutter@v4
+
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+
+      - name: "Downgrade"
+        run: melos run downgrade
+
+      - name: "Analyze"
+        run: melos run analyze
