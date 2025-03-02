@@ -45,6 +45,13 @@ Import the library.
 import 'package:share_plus/share_plus.dart';
 ```
 
+**Note**: If your app is already running/debugging, please perform a fresh restart it (kill the app and relaunch it).
+Since this plugin uses Platform code, if you just hot-restart or hot-reload after installing the package, you will encounter the following exception when triggering a share action: 
+
+```plaintext
+Unhandled Exception: MissingPluginException(No implementation found for method share on channel dev.fluttercommunity.plus/share)
+```
+
 ### Share Text
 
 Invoke the static `share()` method anywhere in your Dart code.
