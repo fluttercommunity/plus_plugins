@@ -1,3 +1,7 @@
+## 11.3.3
+
+ - **FIX**(device_info_plus): handle nullability on getString(DEVICE_NAME) ([#3507](https://github.com/fluttercommunity/plus_plugins/issues/3507)). ([3201e056](https://github.com/fluttercommunity/plus_plugins/commit/3201e056b2a44ce74a3a9218fba59d71d9795379))
+
 ## 11.3.2
 
 **Note:** This release bumps dependency `win32_registry` from `1.1.5` to `2.0.1`. It will not compile if you have Dependency Overrides for that package.
