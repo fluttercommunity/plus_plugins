@@ -20,14 +20,12 @@ import 'package:uuid/uuid.dart';
 class MethodChannelShare extends SharePlatform {
   /// [MethodChannel] used to communicate with the platform side.
   @visibleForTesting
-  static const MethodChannel channel =
-      MethodChannel('dev.fluttercommunity.plus/share');
+  static const MethodChannel channel = MethodChannel(
+    'dev.fluttercommunity.plus/share',
+  );
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-  }) async {
+  Future<ShareResult> shareUri(Uri uri, {Rect? sharePositionOrigin}) async {
     final params = <String, dynamic>{'uri': uri.toString()};
 
     if (sharePositionOrigin != null) {
@@ -37,7 +35,8 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result = await channel.invokeMethod<String>('shareUri', params) ??
+    final result =
+        await channel.invokeMethod<String>('shareUri', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
@@ -51,10 +50,7 @@ class MethodChannelShare extends SharePlatform {
     Rect? sharePositionOrigin,
   }) async {
     assert(text.isNotEmpty);
-    final params = <String, dynamic>{
-      'text': text,
-      'subject': subject,
-    };
+    final params = <String, dynamic>{'text': text, 'subject': subject};
 
     if (sharePositionOrigin != null) {
       params['originX'] = sharePositionOrigin.left;
@@ -63,7 +59,8 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result = await channel.invokeMethod<String>('share', params) ??
+    final result =
+        await channel.invokeMethod<String>('share', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
@@ -86,18 +83,16 @@ class MethodChannelShare extends SharePlatform {
     final filesWithPath = await _getFiles(files, fileNameOverrides);
     assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
-    final mimeTypes = filesWithPath
-        .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
-        .toList();
+    final mimeTypes =
+        filesWithPath
+            .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
+            .toList();
 
     final paths = filesWithPath.map((e) => e.path).toList();
     assert(paths.length == mimeTypes.length);
     assert(mimeTypes.every((element) => element.isNotEmpty));
 
-    final params = <String, dynamic>{
-      'paths': paths,
-      'mimeTypes': mimeTypes,
-    };
+    final params = <String, dynamic>{'paths': paths, 'mimeTypes': mimeTypes};
 
     if (subject != null) params['subject'] = subject;
     if (text != null) params['text'] = text;
@@ -109,7 +104,8 @@ class MethodChannelShare extends SharePlatform {
       params['originHeight'] = sharePositionOrigin.height;
     }
 
-    final result = await channel.invokeMethod<String>('shareFiles', params) ??
+    final result =
+        await channel.invokeMethod<String>('shareFiles', params) ??
         'dev.fluttercommunity.plus/share/unavailable';
 
     return ShareResult(result, _statusFromResult(result));
@@ -150,7 +146,8 @@ class MethodChannelShare extends SharePlatform {
 
       //Per Issue [#3032](https://github.com/fluttercommunity/plus_plugins/issues/3032): use overridden name when available.
       //Per Issue [#1548](https://github.com/fluttercommunity/plus_plugins/issues/1548): attempt to use XFile.name when available
-      final filename = nameOverride ??
+      final filename =
+          nameOverride ??
           (filenameNotEmptyOrHasValidExt
               ? file.name
               : "${const Uuid().v1().substring(10)}.$extension");
@@ -174,7 +171,7 @@ class MethodChannelShare extends SharePlatform {
         _getFile(
           files[index],
           nameOverride: fileNameOverrides?.elementAt(index),
-        )
+        ),
     ]);
   }
 

@@ -1,37 +1,51 @@
 ## 6.2.1
 
- - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
- - **FIX**(battery_plus): Incorrect minimum version configuration. ([#3364](https://github.com/fluttercommunity/plus_plugins/issues/3364)). ([56fc9847](https://github.com/fluttercommunity/plus_plugins/commit/56fc98473d29f97ed4a014b85585d06d2356fd9e))
+- **REFACTOR**(all): Use range of flutter_lints for broader
+  compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+- **FIX**(battery_plus): Incorrect minimum version
+  configuration. ([#3364](https://github.com/fluttercommunity/plus_plugins/issues/3364)). ([56fc9847](https://github.com/fluttercommunity/plus_plugins/commit/56fc98473d29f97ed4a014b85585d06d2356fd9e))
 
 ## 6.2.0
 
- - **FEAT**(battery_plus): Add battery save mode check on MacOS ([#3332](https://github.com/fluttercommunity/plus_plugins/issues/3332)). ([0e8c9223](https://github.com/fluttercommunity/plus_plugins/commit/0e8c9223f00f801abeb203c25a79b8f19259a11c))
+- **FEAT**(battery_plus): Add battery save mode check on
+  MacOS ([#3332](https://github.com/fluttercommunity/plus_plugins/issues/3332)). ([0e8c9223](https://github.com/fluttercommunity/plus_plugins/commit/0e8c9223f00f801abeb203c25a79b8f19259a11c))
 
 ## 6.1.0
 
- - **FEAT**(battery_plus): Add Swift Package Manager support ([#3154](https://github.com/fluttercommunity/plus_plugins/issues/3154)). ([cba3279a](https://github.com/fluttercommunity/plus_plugins/commit/cba3279abf0faaa0b62323af0a33e118186b30fc))
+- **FEAT**(battery_plus): Add Swift Package Manager
+  support ([#3154](https://github.com/fluttercommunity/plus_plugins/issues/3154)). ([cba3279a](https://github.com/fluttercommunity/plus_plugins/commit/cba3279abf0faaa0b62323af0a33e118186b30fc))
 
 ## 6.0.4
 
- - **FIX**(all): Clean up macOS Privacy Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
- - **FIX**(all): Add macOS Privacy Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
+- **FIX**(all): Clean up macOS Privacy
+  Manifests ([#3268](https://github.com/fluttercommunity/plus_plugins/issues/3268)). ([d7b98ebd](https://github.com/fluttercommunity/plus_plugins/commit/d7b98ebd7d39b0143931f5cc6e627187576223dc))
+- **FIX**(all): Add macOS Privacy
+  Manifests ([#3251](https://github.com/fluttercommunity/plus_plugins/issues/3251)). ([bf5dad2a](https://github.com/fluttercommunity/plus_plugins/commit/bf5dad2ad249605055bcbd5f663e42569df12d64))
 
 ## 6.0.3
 
- - **CHORE**(battery_plus): Update to package:web to ^1.0.0 ([#3103](https://github.com/fluttercommunity/plus_plugins/pull/3103)). ([cf534eec](https://github.com/fluttercommunity/plus_plugins/commit/cf534eec402b57b70ffe96bf5351afcdfa8c7c7e))
- - **FIX**(battery_plus): Fix type conversion ([#3159](https://github.com/fluttercommunity/plus_plugins/issues/3159)). ([1145af14](https://github.com/fluttercommunity/plus_plugins/commit/1145af14298ecab7d7be57bfa9a32c628b9acdf3))
- - **FIX**(battery_plus): Fix crash when retrieving battery level on desktop Mac. ([#3155](https://github.com/fluttercommunity/plus_plugins/issues/3155)). ([36e7dd16](https://github.com/fluttercommunity/plus_plugins/commit/36e7dd16de3ac43d83eeece7e682b265c93f2fbe))
- - **DOCS**(battery_plus): Update plugin requirements ([#3158](https://github.com/fluttercommunity/plus_plugins/issues/3158)). ([c0353107](https://github.com/fluttercommunity/plus_plugins/commit/c0353107f17e5e32ca33e44742343ccd2c391a0c))
+- **CHORE**(battery_plus): Update to package:web to
+  ^1.0.0 ([#3103](https://github.com/fluttercommunity/plus_plugins/pull/3103)). ([cf534eec](https://github.com/fluttercommunity/plus_plugins/commit/cf534eec402b57b70ffe96bf5351afcdfa8c7c7e))
+- **FIX**(battery_plus): Fix type
+  conversion ([#3159](https://github.com/fluttercommunity/plus_plugins/issues/3159)). ([1145af14](https://github.com/fluttercommunity/plus_plugins/commit/1145af14298ecab7d7be57bfa9a32c628b9acdf3))
+- **FIX**(battery_plus): Fix crash when retrieving battery level on desktop
+  Mac. ([#3155](https://github.com/fluttercommunity/plus_plugins/issues/3155)). ([36e7dd16](https://github.com/fluttercommunity/plus_plugins/commit/36e7dd16de3ac43d83eeece7e682b265c93f2fbe))
+- **DOCS**(battery_plus): Update plugin
+  requirements ([#3158](https://github.com/fluttercommunity/plus_plugins/issues/3158)). ([c0353107](https://github.com/fluttercommunity/plus_plugins/commit/c0353107f17e5e32ca33e44742343ccd2c391a0c))
 
 ## 6.0.2
 
- - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
- - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+- **REFACTOR**(all): Remove website files, configs,
+  mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+- **FIX**(all): changed homepage url in
+  pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
 
 ## 6.0.1
 
- - **REFACTOR**(battery_plus): Migrate Android example to use the new plugins declaration ([#2772](https://github.com/fluttercommunity/plus_plugins/issues/2772)). ([740a5df2](https://github.com/fluttercommunity/plus_plugins/commit/740a5df21fb84df2b88cea822d53302ce61a6dc2))
- - **FIX**(battery_plus): Fix return value of getBattery to be nullable ([#2745](https://github.com/fluttercommunity/plus_plugins/issues/2745)). ([4d5b950e](https://github.com/fluttercommunity/plus_plugins/commit/4d5b950ed1c74f801f621ef0c07b44f496a7465b))
+- **REFACTOR**(battery_plus): Migrate Android example to use the new plugins
+  declaration ([#2772](https://github.com/fluttercommunity/plus_plugins/issues/2772)). ([740a5df2](https://github.com/fluttercommunity/plus_plugins/commit/740a5df21fb84df2b88cea822d53302ce61a6dc2))
+- **FIX**(battery_plus): Fix return value of getBattery to be
+  nullable ([#2745](https://github.com/fluttercommunity/plus_plugins/issues/2745)). ([4d5b950e](https://github.com/fluttercommunity/plus_plugins/commit/4d5b950ed1c74f801f621ef0c07b44f496a7465b))
 
 ## 6.0.0
 
@@ -40,106 +54,136 @@
 In this release plugin migrated to package:web, meaning that it now supports WASM!
 
 Plugin now requires the following:
+
 - Flutter >=3.19.0
 - Dart >=3.3.0
 - compileSDK 34 for Android part
 - Java 17 for Android part
 - Gradle 8.4 for Android part
 
-- **BREAKING** **FEAT**(battery_plus): Migrate to package:web ([#2720](https://github.com/fluttercommunity/plus_plugins/issues/2720)). ([21ccfa45](https://github.com/fluttercommunity/plus_plugins/commit/21ccfa459fcfb0609da46299fed6e10c9e77332b))
-- **BREAKING** **BUILD**(battery_plus): Target Java 17 on Android ([#2727](https://github.com/fluttercommunity/plus_plugins/issues/2727)). ([ca2c35ab](https://github.com/fluttercommunity/plus_plugins/commit/ca2c35abc464b26e741ace6e53e319dfa674b630))
-- **BREAKING** **BUILD**(battery_plus): Update to target and compile SDK 34 ([#2702](https://github.com/fluttercommunity/plus_plugins/pull/2702)). ([fc59745](https://github.com/fluttercommunity/plus_plugins/commit/fc59745d0a8650cc32f6e4d949887c4cdbffe547))
-- **BREAKING** **REFACTOR**(battery_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to 10.14 ([#2592](https://github.com/fluttercommunity/plus_plugins/issues/2592)). ([fe07964b](https://github.com/fluttercommunity/plus_plugins/commit/fe07964b03997db73f22f3c30b7d09ea2c0adc93))
- - **FIX**(battery_plus): Add iOS Privacy Info ([#2580](https://github.com/fluttercommunity/plus_plugins/issues/2580)). ([9f36a001](https://github.com/fluttercommunity/plus_plugins/commit/9f36a0018daa08e3f3ebb59cebcd4149fae7c4bc))
+- **BREAKING** **FEAT**(battery_plus): Migrate to package:
+  web ([#2720](https://github.com/fluttercommunity/plus_plugins/issues/2720)). ([21ccfa45](https://github.com/fluttercommunity/plus_plugins/commit/21ccfa459fcfb0609da46299fed6e10c9e77332b))
+- **BREAKING** **BUILD**(battery_plus): Target Java 17 on
+  Android ([#2727](https://github.com/fluttercommunity/plus_plugins/issues/2727)). ([ca2c35ab](https://github.com/fluttercommunity/plus_plugins/commit/ca2c35abc464b26e741ace6e53e319dfa674b630))
+- **BREAKING** **BUILD**(battery_plus): Update to target and compile SDK
+  34 ([#2702](https://github.com/fluttercommunity/plus_plugins/pull/2702)). ([fc59745](https://github.com/fluttercommunity/plus_plugins/commit/fc59745d0a8650cc32f6e4d949887c4cdbffe547))
+- **BREAKING** **REFACTOR**(battery_plus): bump MACOSX_DEPLOYMENT_TARGET from 10.11 to
+  10.14 ([#2592](https://github.com/fluttercommunity/plus_plugins/issues/2592)). ([fe07964b](https://github.com/fluttercommunity/plus_plugins/commit/fe07964b03997db73f22f3c30b7d09ea2c0adc93))
+- **FIX**(battery_plus): Add iOS Privacy
+  Info ([#2580](https://github.com/fluttercommunity/plus_plugins/issues/2580)). ([9f36a001](https://github.com/fluttercommunity/plus_plugins/commit/9f36a0018daa08e3f3ebb59cebcd4149fae7c4bc))
 
 ## 5.0.3
 
- - **FIX**(battery_plus): battery state always unknown on iOS ([#2481](https://github.com/fluttercommunity/plus_plugins/issues/2481)). ([ea892fb9](https://github.com/fluttercommunity/plus_plugins/commit/ea892fb96d06dcd685fa7953a468c377cc133ecc))
+- **FIX**(battery_plus): battery state always unknown on
+  iOS ([#2481](https://github.com/fluttercommunity/plus_plugins/issues/2481)). ([ea892fb9](https://github.com/fluttercommunity/plus_plugins/commit/ea892fb96d06dcd685fa7953a468c377cc133ecc))
 
 ## 5.0.2
 
- - **FIX**(battery_plus): Return correct state enum value on Android for not charging state ([#2451](https://github.com/fluttercommunity/plus_plugins/issues/2451)). ([68ddda39](https://github.com/fluttercommunity/plus_plugins/commit/68ddda39f0fa8e7ac950c13721403d49d0d97a65))
+- **FIX**(battery_plus): Return correct state enum value on Android for not charging
+  state ([#2451](https://github.com/fluttercommunity/plus_plugins/issues/2451)). ([68ddda39](https://github.com/fluttercommunity/plus_plugins/commit/68ddda39f0fa8e7ac950c13721403d49d0d97a65))
 
 ## 5.0.1
 
-> Note: This release has breaking changes. There is a new state for battery available on Android, MacOS and Linux platforms.
-> Also, MacOS implementation was updated to provide more accurate battery status. Be sure to test if it affects your MacOS app.
+> Note: This release has breaking changes. There is a new state for battery available on Android,
+> MacOS and Linux platforms.
+> Also, MacOS implementation was updated to provide more accurate battery status. Be sure to test if
+> it affects your MacOS app.
 
- - **BREAKING** **FIX**(battery_plus): Implement not_charging battery state ([#2275](https://github.com/fluttercommunity/plus_plugins/issues/2275)). ([6595e035](https://github.com/fluttercommunity/plus_plugins/commit/6595e035fd113b4a75651c9d471cc098d5798de3))
- - **BREAKING** **FEAT**(battery_plus): Introduce connected_not_charging state on MacOS ([#2399](https://github.com/fluttercommunity/plus_plugins/issues/2399)). ([78f44bf4](https://github.com/fluttercommunity/plus_plugins/commit/78f44bf41a7e8349240bacae2dd70598ba22e97a))
- - **BREAKING** **FEAT**(battery_plus): Introduce not_charging state on Linux ([#2400](https://github.com/fluttercommunity/plus_plugins/issues/2400)). ([42ef02bd](https://github.com/fluttercommunity/plus_plugins/commit/42ef02bd6de219fef1b2d9db2eebe9775a6ac751))
- - **DOCS**(battery_plus): Improve documentation on battery states ([#2402](https://github.com/fluttercommunity/plus_plugins/issues/2402)). ([baeb886f](https://github.com/fluttercommunity/plus_plugins/commit/baeb886fcc587f72662ce177ab4922496bb1db46))
- - **BREAKING** **FIX**(battery_plus): Bump iOS min target to 12 and update example app ([#2401](https://github.com/fluttercommunity/plus_plugins/issues/2401)). ([25ef7928](https://github.com/fluttercommunity/plus_plugins/commit/25ef7928cd57ca17d6107ed839711ea166d451a6))
+- **BREAKING** **FIX**(battery_plus): Implement not_charging battery
+  state ([#2275](https://github.com/fluttercommunity/plus_plugins/issues/2275)). ([6595e035](https://github.com/fluttercommunity/plus_plugins/commit/6595e035fd113b4a75651c9d471cc098d5798de3))
+- **BREAKING** **FEAT**(battery_plus): Introduce connected_not_charging state on
+  MacOS ([#2399](https://github.com/fluttercommunity/plus_plugins/issues/2399)). ([78f44bf4](https://github.com/fluttercommunity/plus_plugins/commit/78f44bf41a7e8349240bacae2dd70598ba22e97a))
+- **BREAKING** **FEAT**(battery_plus): Introduce not_charging state on
+  Linux ([#2400](https://github.com/fluttercommunity/plus_plugins/issues/2400)). ([42ef02bd](https://github.com/fluttercommunity/plus_plugins/commit/42ef02bd6de219fef1b2d9db2eebe9775a6ac751))
+- **DOCS**(battery_plus): Improve documentation on battery
+  states ([#2402](https://github.com/fluttercommunity/plus_plugins/issues/2402)). ([baeb886f](https://github.com/fluttercommunity/plus_plugins/commit/baeb886fcc587f72662ce177ab4922496bb1db46))
+- **BREAKING** **FIX**(battery_plus): Bump iOS min target to 12 and update example
+  app ([#2401](https://github.com/fluttercommunity/plus_plugins/issues/2401)). ([25ef7928](https://github.com/fluttercommunity/plus_plugins/commit/25ef7928cd57ca17d6107ed839711ea166d451a6))
 
 ## 5.0.0
 
-This release was retracted due to due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+This release was retracted due to due
+to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
 
 ## 4.1.0
 
-> Info: This release is a replacement for release 5.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
+> Info: This release is a replacement for release 5.0.0, which was retracted due to
+> issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change
+> was reverted the major release was also reverted in favor of this one.
 
- - **FIX**(battery_plus): Change Kotlin version from 1.9.10 to 1.7.22 ([#2257](https://github.com/fluttercommunity/plus_plugins/issues/2257)). ([f5244e36](https://github.com/fluttercommunity/plus_plugins/commit/f5244e368c74d8b6e7bdd0062a4a2250dcabe540))
- - **FIX**(battery_plus): Revert bump of compileSDK to 34 ([#2228](https://github.com/fluttercommunity/plus_plugins/issues/2228)). ([e834f582](https://github.com/fluttercommunity/plus_plugins/commit/e834f582b85d5fb5a18aefc49b11b039ae600c78))
- - **FEAT**(battery_plus): Remove deprecated VALID_ARCHS iOS property ([#2025](https://github.com/fluttercommunity/plus_plugins/issues/2025)). ([09318317](https://github.com/fluttercommunity/plus_plugins/commit/0931831758dfc829e5649d880a616840a9b1d21f))
+- **FIX**(battery_plus): Change Kotlin version from 1.9.10 to
+  1.7.22 ([#2257](https://github.com/fluttercommunity/plus_plugins/issues/2257)). ([f5244e36](https://github.com/fluttercommunity/plus_plugins/commit/f5244e368c74d8b6e7bdd0062a4a2250dcabe540))
+- **FIX**(battery_plus): Revert bump of compileSDK to
+  34 ([#2228](https://github.com/fluttercommunity/plus_plugins/issues/2228)). ([e834f582](https://github.com/fluttercommunity/plus_plugins/commit/e834f582b85d5fb5a18aefc49b11b039ae600c78))
+- **FEAT**(battery_plus): Remove deprecated VALID_ARCHS iOS
+  property ([#2025](https://github.com/fluttercommunity/plus_plugins/issues/2025)). ([09318317](https://github.com/fluttercommunity/plus_plugins/commit/0931831758dfc829e5649d880a616840a9b1d21f))
 
 ## 4.0.2
 
- - **FIX**(battery_plus): Regenerate iOS and MacOS example apps ([#1873](https://github.com/fluttercommunity/plus_plugins/issues/1873)). ([18deeff3](https://github.com/fluttercommunity/plus_plugins/commit/18deeff3c68f312e2dae0de80273e1991ef97f45))
- - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+- **FIX**(battery_plus): Regenerate iOS and MacOS example
+  apps ([#1873](https://github.com/fluttercommunity/plus_plugins/issues/1873)). ([18deeff3](https://github.com/fluttercommunity/plus_plugins/commit/18deeff3c68f312e2dae0de80273e1991ef97f45))
+- **DOCS**(all): Fix example links on
+  pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
 
 ## 4.0.1
 
- - **FIX**(battery_plus): Use ContextCompat on Android to register broadcast receiver ([#1811](https://github.com/fluttercommunity/plus_plugins/issues/1811)). ([b901615c](https://github.com/fluttercommunity/plus_plugins/commit/b901615cdc12d4bc5140ba9713d16f5a85fa6198))
- - **FIX**: Add jvm target compatibility to Kotlin plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
- - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+- **FIX**(battery_plus): Use ContextCompat on Android to register broadcast
+  receiver ([#1811](https://github.com/fluttercommunity/plus_plugins/issues/1811)). ([b901615c](https://github.com/fluttercommunity/plus_plugins/commit/b901615cdc12d4bc5140ba9713d16f5a85fa6198))
+- **FIX**: Add jvm target compatibility to Kotlin
+  plugins ([#1798](https://github.com/fluttercommunity/plus_plugins/issues/1798)). ([1b7dc432](https://github.com/fluttercommunity/plus_plugins/commit/1b7dc432ffb8d0474c9be6339d20b5a2cbcbab3f))
+- **DOCS**(all): Update
+  READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
 
 ## 4.0.0
 
 > Note: This release has breaking changes.
 
- - **CHORE**(battery_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
- - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
- - **BREAKING** **CHORE**(battery_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update podspec file (#1783).
- - **REFACTOR**(battery_plus): Update example app to use Material 3.
- - **FIX**(battery_plus): Close StreamController on Web and Linux when done (#1744).
+- **CHORE**(battery_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <
+  4.0.0
+- **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (
+  AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to
+  update at least to AGP 7.0 or newer.
+- **BREAKING** **CHORE**(battery_plus): Bump min Android to 4.4 (API 19) and iOS to 11, update
+  podspec file (#1783).
+- **REFACTOR**(battery_plus): Update example app to use Material 3.
+- **FIX**(battery_plus): Close StreamController on Web and Linux when done (#1744).
 
 ## 3.0.6
 
- - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+- **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
 
 ## 3.0.5
 
- - **FIX**(battery_plus): Huawei power save mode check (#1708).
- - **FIX**(battery_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1700).
+- **FIX**(battery_plus): Huawei power save mode check (#1708).
+- **FIX**(battery_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1700).
 
 ## 3.0.4
 
- - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
- - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+- **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+- **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
 
 ## 3.0.3
 
- - **FIX**: broadcast stream (#1479).
- - **DOCS**: Updates for READMEs and website pages (#1389).
+- **FIX**: broadcast stream (#1479).
+- **DOCS**: Updates for READMEs and website pages (#1389).
 
 ## 3.0.2
 
- - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+- **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
 
 ## 3.0.1
 
- - **FIX**: lint warnings - add missing dependency for tests (#1233).
+- **FIX**: lint warnings - add missing dependency for tests (#1233).
 
 ## 3.0.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **REFACTOR**: platform implementation refactor into a single package (#1169).
+- **BREAKING** **REFACTOR**: platform implementation refactor into a single package (#1169).
 
 ## 2.2.2
 
- - **FIX**: batteryState always return unknown on API < 26 (#1120).
+- **FIX**: batteryState always return unknown on API < 26 (#1120).
 
 ## 2.2.1
 
@@ -271,7 +315,8 @@ This release was retracted due to due to ([#2251](https://github.com/fluttercomm
 
 ## 0.3.1+9
 
-- Declare API stability and compatibility with `1.0.0` (more details at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
+- Declare API stability and compatibility with `1.0.0` (more details
+  at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
 
 ## 0.3.1+8
 
@@ -306,7 +351,8 @@ This release was retracted due to due to ([#2251](https://github.com/fluttercomm
 
 ## 0.3.1+1
 
-- Android: Use android.arch.lifecycle instead of androidx.lifecycle:lifecycle in `build.gradle` to support apps that has not been migrated to AndroidX.
+- Android: Use android.arch.lifecycle instead of androidx.lifecycle:lifecycle in `build.gradle` to
+  support apps that has not been migrated to AndroidX.
 
 ## 0.3.1
 

@@ -28,10 +28,7 @@ Future<void> main() async {
 
   // Register the UI isolate's SendPort to allow for communication from the
   // background isolate.
-  IsolateNameServer.registerPortWithName(
-    port.sendPort,
-    isolateName,
-  );
+  IsolateNameServer.registerPortWithName(port.sendPort, isolateName);
   prefs = await SharedPreferences.getInstance();
   if (!prefs!.containsKey(countKey)) {
     await prefs!.setInt(countKey, 0);
@@ -154,32 +151,36 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
               ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: _exactAlarmPermissionStatus.isDenied
-                  ? () async {
-                      await Permission.scheduleExactAlarm
-                          .onGrantedCallback(() => setState(() {
+              onPressed:
+                  _exactAlarmPermissionStatus.isDenied
+                      ? () async {
+                        await Permission.scheduleExactAlarm
+                            .onGrantedCallback(
+                              () => setState(() {
                                 _exactAlarmPermissionStatus =
                                     PermissionStatus.granted;
-                              }))
-                          .request();
-                    }
-                  : null,
+                              }),
+                            )
+                            .request();
+                      }
+                      : null,
               child: const Text('Request exact alarm permission'),
             ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: _exactAlarmPermissionStatus.isGranted
-                  ? () async {
-                      await AndroidAlarmManager.oneShot(
-                        const Duration(seconds: 5),
-                        // Ensure we have a unique alarm ID.
-                        Random().nextInt(pow(2, 31) as int),
-                        callback,
-                        exact: true,
-                        wakeup: true,
-                      );
-                    }
-                  : null,
+              onPressed:
+                  _exactAlarmPermissionStatus.isGranted
+                      ? () async {
+                        await AndroidAlarmManager.oneShot(
+                          const Duration(seconds: 5),
+                          // Ensure we have a unique alarm ID.
+                          Random().nextInt(pow(2, 31) as int),
+                          callback,
+                          exact: true,
+                          wakeup: true,
+                        );
+                      }
+                      : null,
               child: const Text('Schedule OneShot Alarm'),
             ),
             const Spacer(),

@@ -77,7 +77,8 @@ abstract class SensorsPlatform extends PlatformInterface {
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
     throw UnimplementedError(
-        'listenToAccelerometerEvents has not been implemented.');
+      'listenToAccelerometerEvents has not been implemented.',
+    );
   }
 
   /// Returns a broadcast stream of events from the device gyroscope at the
@@ -94,7 +95,8 @@ abstract class SensorsPlatform extends PlatformInterface {
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
     throw UnimplementedError(
-        'userAccelerometerEvents has not been implemented.');
+      'userAccelerometerEvents has not been implemented.',
+    );
   }
 
   /// Returns a broadcast stream of events from the device magnetometer at the

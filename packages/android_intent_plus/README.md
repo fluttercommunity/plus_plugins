@@ -11,8 +11,8 @@ This plugin allows Flutter apps to launch arbitrary intents when the platform is
 ## Platform Support
 
 | Android |
-| :-----: |
-|   ✅    |
+|:-------:|
+|    ✅    |
 
 ## Requirements
 
@@ -27,7 +27,8 @@ This plugin allows Flutter apps to launch arbitrary intents when the platform is
 
 > **Warning**
 >
-> If the plugin is invoked on iOS, it will crash your app. In checked mode, we assert that the platform should be Android.
+> If the plugin is invoked on iOS, it will crash your app. In checked mode, we assert that the
+> platform should be Android.
 
 Use it by specifying action, category, data and extra arguments for the intent.
 It does not support returning the result of the launched activity. Sample usage:
@@ -54,7 +55,8 @@ for it in the plugin and use an action constant to refer to it. For instance:
 
 `'action_location_source_settings'` translates to `android.settings.LOCATION_SOURCE_SETTINGS`
 
-`'action_application_details_settings'` translates to `android.settings.ACTION_APPLICATION_DETAILS_SETTINGS`
+`'action_application_details_settings'` translates to
+`android.settings.ACTION_APPLICATION_DETAILS_SETTINGS`
 
 ```dart
 if (platform.isAndroid) {
@@ -84,7 +86,9 @@ of integers or strings.
 > clients to set extra parameters for the intent.
 
 ### Querying activities
-`canResolveActivity()` and `getResolvedActivity()` can be used to query whether an activity can handle an intent,
+
+`canResolveActivity()` and `getResolvedActivity()` can be used to query whether an activity can
+handle an intent,
 or get the details of the activity that can handle the intent.
 
 ```dart
@@ -105,7 +109,8 @@ print(details.packageName); // prints com.google.chrome
 ## Android 11 package visibility
 
 Android 11 introduced new permissions for package visibility.
-If you plan to use `canResolveActivity()` method, you need to specify queries in `AndroidManifest.xml` with specific package names:
+If you plan to use `canResolveActivity()` method, you need to specify queries in
+`AndroidManifest.xml` with specific package names:
 
 https://developer.android.com/training/package-visibility/declaring
 

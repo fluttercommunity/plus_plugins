@@ -28,17 +28,16 @@ class FileAttributes {
   late final DateTime? lastWriteTime;
 
   FileAttributes(this.filePath) {
-    final (:creationTime, :lastWriteTime) =
-        getFileCreationAndLastWriteTime(filePath);
+    final (:creationTime, :lastWriteTime) = getFileCreationAndLastWriteTime(
+      filePath,
+    );
 
     this.creationTime = creationTime;
     this.lastWriteTime = lastWriteTime;
   }
 
-  static ({
-    DateTime? creationTime,
-    DateTime? lastWriteTime,
-  }) getFileCreationAndLastWriteTime(String filePath) {
+  static ({DateTime? creationTime, DateTime? lastWriteTime})
+  getFileCreationAndLastWriteTime(String filePath) {
     if (!File(filePath).existsSync()) {
       throw ArgumentError.value(filePath, 'filePath', 'File not present');
     }
@@ -54,12 +53,8 @@ class FileAttributes {
       final FILEATTRIBUTEDATA fileInformation = lpFileInformation.ref;
 
       return (
-        creationTime: fileTimeToDartDateTime(
-          fileInformation.ftCreationTime,
-        ),
-        lastWriteTime: fileTimeToDartDateTime(
-          fileInformation.ftLastWriteTime,
-        ),
+        creationTime: fileTimeToDartDateTime(fileInformation.ftCreationTime),
+        lastWriteTime: fileTimeToDartDateTime(fileInformation.ftLastWriteTime),
       );
     } finally {
       free(lptstrFilename);

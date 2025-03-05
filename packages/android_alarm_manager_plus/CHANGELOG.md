@@ -1,95 +1,117 @@
 ## 4.0.7
 
- - **FIX**(alarm_manager_plus): removed import that broke build ([#3477](https://github.com/fluttercommunity/plus_plugins/issues/3477)). ([fdac82b0](https://github.com/fluttercommunity/plus_plugins/commit/fdac82b06c8b7f9188656d86155fa041d19a3f2d))
+- **FIX**(alarm_manager_plus): removed import that broke
+  build ([#3477](https://github.com/fluttercommunity/plus_plugins/issues/3477)). ([fdac82b0](https://github.com/fluttercommunity/plus_plugins/commit/fdac82b06c8b7f9188656d86155fa041d19a3f2d))
 
 ## 4.0.6
 
- - **FIX**(android_alarm_manager_plus): set correct environment versions ([#3420](https://github.com/fluttercommunity/plus_plugins/issues/3420)). ([c2722f83](https://github.com/fluttercommunity/plus_plugins/commit/c2722f8345407d3bf7c66b99e57fbf5c75da428f))
+- **FIX**(android_alarm_manager_plus): set correct environment
+  versions ([#3420](https://github.com/fluttercommunity/plus_plugins/issues/3420)). ([c2722f83](https://github.com/fluttercommunity/plus_plugins/commit/c2722f8345407d3bf7c66b99e57fbf5c75da428f))
 
 ## 4.0.5
 
- - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+- **REFACTOR**(all): Use range of flutter_lints for broader
+  compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
 
 ## 4.0.4
 
- - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
- - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+- **REFACTOR**(all): Remove website files, configs,
+  mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+- **FIX**(all): changed homepage url in
+  pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
 
 ## 4.0.3
 
- - **FIX**(android_alarm_manager_plus): Remove references to v1 embedding ([#2864](https://github.com/fluttercommunity/plus_plugins/issues/2864)). ([0bb6a1fd](https://github.com/fluttercommunity/plus_plugins/commit/0bb6a1fd8c77b3ed8ec92ffbd15e426921d1c71a))
+- **FIX**(android_alarm_manager_plus): Remove references to v1
+  embedding ([#2864](https://github.com/fluttercommunity/plus_plugins/issues/2864)). ([0bb6a1fd](https://github.com/fluttercommunity/plus_plugins/commit/0bb6a1fd8c77b3ed8ec92ffbd15e426921d1c71a))
 
 ## 4.0.2
 
- - **REFACTOR**(android_alarm_manager_plus): Migrate Android example to use the new plugins declaration ([#2774](https://github.com/fluttercommunity/plus_plugins/issues/2774)). ([2b8489ca](https://github.com/fluttercommunity/plus_plugins/commit/2b8489cabce6f73d8c16c4206455800a7d003ce1))
- - **FIX**(android_alarm_manager_plus): Fix showIntent not being set correctly in setAlarmClock ([#2778](https://github.com/fluttercommunity/plus_plugins/issues/2778)). ([7d578c36](https://github.com/fluttercommunity/plus_plugins/commit/7d578c364f9f17d932c34113ecdd33667006168d))
+- **REFACTOR**(android_alarm_manager_plus): Migrate Android example to use the new plugins
+  declaration ([#2774](https://github.com/fluttercommunity/plus_plugins/issues/2774)). ([2b8489ca](https://github.com/fluttercommunity/plus_plugins/commit/2b8489cabce6f73d8c16c4206455800a7d003ce1))
+- **FIX**(android_alarm_manager_plus): Fix showIntent not being set correctly in
+  setAlarmClock ([#2778](https://github.com/fluttercommunity/plus_plugins/issues/2778)). ([7d578c36](https://github.com/fluttercommunity/plus_plugins/commit/7d578c364f9f17d932c34113ecdd33667006168d))
 
 ## 4.0.1
 
 Plugin now requires the following:
-- compileSDK 34
+
+- compileSDK 35
 - Java 17
 - Gradle 8.4
 
-- **BREAKING** **BUILD**(alarm_manager_plus): Target Java 17 ([#2723](https://github.com/fluttercommunity/plus_plugins/issues/2723)). ([9e187803](https://github.com/fluttercommunity/plus_plugins/commit/9e187803d395bf1d8cbe74a0494ef28989451dde))
-- **BREAKING** **BUILD**(alarm_manager_plus): Update to target and compile SDK 34 ([#2714](https://github.com/fluttercommunity/plus_plugins/pull/2714)). ([0262766](https://github.com/fluttercommunity/plus_plugins/commit/0262766276b4ff695018a08ea398fba30dd881ac))
-- **DOCS**(android_alarm_manager_plus): Update information about SCHEDULE_EXACT_ALARM permission ([#2716](https://github.com/fluttercommunity/plus_plugins/issues/2716)). ([94e454f6](https://github.com/fluttercommunity/plus_plugins/commit/94e454f6e008691608d2c5e6df4d368d32cf0ca9))
+- **BREAKING** **BUILD**(alarm_manager_plus): Target Java
+  17 ([#2723](https://github.com/fluttercommunity/plus_plugins/issues/2723)). ([9e187803](https://github.com/fluttercommunity/plus_plugins/commit/9e187803d395bf1d8cbe74a0494ef28989451dde))
+- **BREAKING** **BUILD**(alarm_manager_plus): Update to target and compile SDK
+  34 ([#2714](https://github.com/fluttercommunity/plus_plugins/pull/2714)). ([0262766](https://github.com/fluttercommunity/plus_plugins/commit/0262766276b4ff695018a08ea398fba30dd881ac))
+- **DOCS**(android_alarm_manager_plus): Update information about SCHEDULE_EXACT_ALARM
+  permission ([#2716](https://github.com/fluttercommunity/plus_plugins/issues/2716)). ([94e454f6](https://github.com/fluttercommunity/plus_plugins/commit/94e454f6e008691608d2c5e6df4d368d32cf0ca9))
 
 ## 4.0.0
 
-> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+> Note: This release was retracted due
+> to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
 
 ## 3.0.4
 
- - **FIX**(android_alarm_manager): Add Kotlin dependency and convert AlarmBroadcastReceiver class to Kotlin ([#2271](https://github.com/fluttercommunity/plus_plugins/issues/2271)). ([1ecb676f](https://github.com/fluttercommunity/plus_plugins/commit/1ecb676f4923a54f239b99d18e0f8f819dcc0f15))
+- **FIX**(android_alarm_manager): Add Kotlin dependency and convert AlarmBroadcastReceiver class to
+  Kotlin ([#2271](https://github.com/fluttercommunity/plus_plugins/issues/2271)). ([1ecb676f](https://github.com/fluttercommunity/plus_plugins/commit/1ecb676f4923a54f239b99d18e0f8f819dcc0f15))
 
 ## 3.0.3
 
- - **FIX**(alarm_manager_plus): Revert bump compileSDK 34 ([#2235](https://github.com/fluttercommunity/plus_plugins/issues/2235)). ([9dabf257](https://github.com/fluttercommunity/plus_plugins/commit/9dabf257605c73c7d4905838c4b85a360fbae518))
- - **FIX**(android_alarm_manager_plus): Fix documentation typo ([#2046](https://github.com/fluttercommunity/plus_plugins/issues/2046)). ([d98f67ea](https://github.com/fluttercommunity/plus_plugins/commit/d98f67ea61d6b423bef764ed7db8d493044fdab6))
+- **FIX**(alarm_manager_plus): Revert bump compileSDK
+  34 ([#2235](https://github.com/fluttercommunity/plus_plugins/issues/2235)). ([9dabf257](https://github.com/fluttercommunity/plus_plugins/commit/9dabf257605c73c7d4905838c4b85a360fbae518))
+- **FIX**(android_alarm_manager_plus): Fix documentation
+  typo ([#2046](https://github.com/fluttercommunity/plus_plugins/issues/2046)). ([d98f67ea](https://github.com/fluttercommunity/plus_plugins/commit/d98f67ea61d6b423bef764ed7db8d493044fdab6))
 
 ## 3.0.2
 
- - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+- **DOCS**(all): Fix example links on
+  pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
 
 ## 3.0.1
 
- - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+- **DOCS**(all): Update
+  READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
 
 ## 3.0.0
 
 > Note: This release has breaking changes.
 
- - **CHORE**(android_alarm_manager_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
- - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
- - **BREAKING** **CHORE**(android_alarm_manager_plus): Bump min Android version to 4.4 (API 19) (#1785).
- - **REFACTOR**(android_alarm_manager_plus): Update example app to use Material 3.
+- **CHORE**(android_alarm_manager_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart
+  to >=2.18.0 <4.0.0
+- **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (
+  AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to
+  update at least to AGP 7.0 or newer.
+- **BREAKING** **CHORE**(android_alarm_manager_plus): Bump min Android version to 4.4 (API 19) (
+  #1785).
+- **REFACTOR**(android_alarm_manager_plus): Update example app to use Material 3.
 
 ## 2.1.4
 
- - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+- **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
 
 ## 2.1.3
 
- - **FIX**(android_alarm_manager_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1698).
+- **FIX**(android_alarm_manager_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1698).
 
 ## 2.1.2
 
- - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
- - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+- **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+- **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
 
 ## 2.1.1
 
- - **DOCS**: Updates for READMEs and website pages (#1389).
+- **DOCS**: Updates for READMEs and website pages (#1389).
 
 ## 2.1.0
 
- - **FEAT**: we can now send extra data to alarm manager and receive it in our callback (#1014).
+- **FEAT**: we can now send extra data to alarm manager and receive it in our callback (#1014).
 
 ## 2.0.8
 
- - **FIX**: lint warnings - add missing dependency for tests (#1233).
- - **DOCS**: Fix example and docs to explain required annotation (#1229).
+- **FIX**: lint warnings - add missing dependency for tests (#1233).
+- **DOCS**: Fix example and docs to explain required annotation (#1229).
 
 ## 2.0.7+1
 
@@ -114,7 +136,8 @@ Plugin now requires the following:
 
 ## 2.0.4
 
-- Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule an alarm.
+- Fix FlutterEngine initialisation to avoid crashes when app is closed and plugin tries to schedule
+  an alarm.
 
 ## 2.0.3
 
@@ -187,7 +210,8 @@ Plugin now requires the following:
 
 ## 0.4.5+10
 
-- Declare API stability and compatibility with `1.0.0` (more details at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
+- Declare API stability and compatibility with `1.0.0` (more details
+  at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
 
 ## 0.4.5+9
 
@@ -302,27 +326,27 @@ Plugin now requires the following:
 
 - Added support for setting alarms which persist across reboots.
 
-  - Both `AndroidAlarmManager.oneShot` and `AndroidAlarmManager.periodic` have
-    an optional `rescheduleOnReboot` parameter which specifies whether the new
-    alarm should be rescheduled to run after a reboot (default: false). If set
-    to false, the alarm will not survive a device reboot.
-  - Requires AndroidManifest.xml to be updated to include the following
-    entries:
+    - Both `AndroidAlarmManager.oneShot` and `AndroidAlarmManager.periodic` have
+      an optional `rescheduleOnReboot` parameter which specifies whether the new
+      alarm should be rescheduled to run after a reboot (default: false). If set
+      to false, the alarm will not survive a device reboot.
+    - Requires AndroidManifest.xml to be updated to include the following
+      entries:
 
-    ```xml
-    <!--Within the application tag body-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+      ```xml
+      <!--Within the application tag body-->
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <!--Within the manifest tag body-->
-    <receiver
-        android:name="io.flutter.plugins.androidalarmmanager.RebootBroadcastReceiver"
-        android:enabled="false">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-        </intent-filter>
-    </receiver>
+      <!--Within the manifest tag body-->
+      <receiver
+          android:name="io.flutter.plugins.androidalarmmanager.RebootBroadcastReceiver"
+          android:enabled="false">
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+          </intent-filter>
+      </receiver>
 
-    ```
+      ```
 
 ## 0.4.0
 

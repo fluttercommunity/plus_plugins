@@ -19,7 +19,8 @@ List<ConnectivityResult> networkInformationToConnectivityResult(
 }
 
 List<ConnectivityResult> _effectiveTypeToConnectivityResult(
-    String effectiveType) {
+  String effectiveType,
+) {
   // Possible values:
   /*'2g'|'3g'|'4g'|'slow-2g'*/
   switch (effectiveType) {

@@ -5,44 +5,45 @@
 #import "./include/package_info_plus/FPPPackageInfoPlusPlugin.h"
 
 @implementation FPPPackageInfoPlusPlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  FlutterMethodChannel *channel = [FlutterMethodChannel
-      methodChannelWithName:@"dev.fluttercommunity.plus/package_info"
-            binaryMessenger:[registrar messenger]];
-  FPPPackageInfoPlusPlugin *instance = [[FPPPackageInfoPlusPlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
++ (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
+    FlutterMethodChannel *channel = [FlutterMethodChannel
+            methodChannelWithName:@"dev.fluttercommunity.plus/package_info"
+                  binaryMessenger:[registrar messenger]];
+    FPPPackageInfoPlusPlugin *instance = [[FPPPackageInfoPlusPlugin alloc] init];
+    [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
-  if ([call.method isEqualToString:@"getAll"]) {
-    NSDate *installDate = [self getInstallDate];
-    NSDate *updateDate = [self getUpdateDate];
-    
-    result(@{
-      @"appName" : [[NSBundle mainBundle]
-          objectForInfoDictionaryKey:@"CFBundleDisplayName"]
-          ?: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
-                 ?: [NSNull null],
-      @"packageName" : [[NSBundle mainBundle] bundleIdentifier]
-          ?: [NSNull null],
-      @"version" : [[NSBundle mainBundle]
-          objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
-          ?: [NSNull null],
-      @"buildNumber" : [[NSBundle mainBundle]
-          objectForInfoDictionaryKey:@"CFBundleVersion"]
-          ?: [NSNull null],
-      @"installerStore" : [NSNull null],
-      @"installTime" : [self getTimeMillisStringFromDate:installDate] ?: [NSNull null],
-      @"updateTime" : [self getTimeMillisStringFromDate:updateDate] ?: [NSNull null]
-    });
-  } else {
-    result(FlutterMethodNotImplemented);
-  }
+    if ([call.method isEqualToString:@"getAll"]) {
+        NSDate *installDate = [self getInstallDate];
+        NSDate *updateDate = [self getUpdateDate];
+
+        result(@{
+                       @"appName": [[NSBundle mainBundle]
+                                           objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+                                   ?: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"]
+                                      ?: [NSNull null],
+                       @"packageName": [[NSBundle mainBundle] bundleIdentifier]
+                                       ?: [NSNull null],
+                       @"version": [[NSBundle mainBundle]
+                                           objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+                                   ?: [NSNull null],
+                       @"buildNumber": [[NSBundle mainBundle]
+                                               objectForInfoDictionaryKey:@"CFBundleVersion"]
+                                       ?: [NSNull null],
+                       @"installerStore": [NSNull null],
+                       @"installTime": [self getTimeMillisStringFromDate:installDate]
+                                       ?: [NSNull null],
+                       @"updateTime": [self getTimeMillisStringFromDate:updateDate] ?: [NSNull null]
+               });
+    } else {
+        result(FlutterMethodNotImplemented);
+    }
 }
 
 - (NSDate *)getInstallDate {
-    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     __autoreleasing NSError *error;
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error];
 
@@ -70,7 +71,7 @@
         return nil;
     }
 
-    NSNumber *timeMillis = @((long long)([date timeIntervalSince1970] * 1000));
+    NSNumber *timeMillis = @((long long) ([date timeIntervalSince1970] * 1000));
     return [timeMillis stringValue];
 }
 

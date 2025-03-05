@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
  *
  * When the PendingIntent is sent, the system will instantiate this class and call `onReceive` on it.
  */
-internal class SharePlusPendingIntent: BroadcastReceiver() {
+internal class SharePlusPendingIntent : BroadcastReceiver() {
     companion object {
         /**
          * Static member to access the result of the system instantiated instance

@@ -12,8 +12,8 @@ Dart code in the background when alarms fire.
 ## Platform Support
 
 | Android |
-| :-----: |
-|   ✅    |
+|:-------:|
+|    ✅    |
 
 ## Requirements
 
@@ -27,11 +27,19 @@ Dart code in the background when alarms fire.
 ## Getting Started
 
 > [!IMPORTANT]
-> You would also need a plugin to request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM) permission if your app targets Android 14 and newer.
-> Google introduced SCHEDULE_EXACT_ALARM permission in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission). In Android 13 it was granted by default.
-> Since Android 14 this permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms) and apps need to ask user to provide it.
-> `android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to handle such logic yourself.
-> To do so you would need an additional plugin, like [`permission_handler`](https://pub.dev/packages/permission_handler).
+> You would also need a plugin to
+> request [SCHEDULE_EXACT_ALARM](https://developer.android.com/reference/android/Manifest.permission#SCHEDULE_EXACT_ALARM)
+> permission if your app targets Android 14 and newer.
+> Google introduced SCHEDULE_EXACT_ALARM permission
+> in [Android 12](https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission).
+> In Android 13 it was granted by default.
+> Since Android 14 this
+> permission [is denied by default](https://developer.android.com/about/versions/14/changes/schedule-exact-alarms)
+> and apps need to ask user to provide it.
+> `android_alarm_manager_plus` does not provide a way to work with this permission, so be sure to
+> handle such logic yourself.
+> To do so you would need an additional plugin, like [
+`permission_handler`](https://pub.dev/packages/permission_handler).
 
 After importing this plugin to your project as usual, add the following to your
 `AndroidManifest.xml` within the `<manifest></manifest>` tags:
@@ -90,7 +98,8 @@ main() async {
 
 `printHello` will then run (roughly) every minute, even if the main app ends. However, `printHello`
 will not run in the same isolate as the main application. Unlike threads, isolates do not share
-memory and communication between isolates must be done via message passing (see more documentation on
+memory and communication between isolates must be done via message passing (see more documentation
+on
 isolates [here](https://api.dart.dev/stable/2.0.0/dart-isolate/dart-isolate-library.html)).
 
 ## Using other plugins in alarm callbacks
@@ -102,9 +111,18 @@ using.
 
 ## Receiving show intents for alarm clocks
 
-If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html) or [`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html), you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user interacts with system UI that shows the next alarm. An example is the alarm tile in Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles). This functionality is to allow you to show users the relevant alarm, or allow them to edit it when they tap on such UIs.
+If your app is an alarm clock app and sets alarms using the `alarmClock` argument in [
+`oneShot`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShot.html)
+or [
+`oneShotAt`](https://pub.dev/documentation/android_alarm_manager_plus/latest/android_alarm_manager_plus/AndroidAlarmManager/oneShotAt.html),
+you can receive [intents](https://developer.android.com/reference/android/content/Intent) when user
+interacts with system UI that shows the next alarm. An example is the alarm tile in
+Android [quick-setting tiles](https://developer.android.com/develop/ui/views/quicksettings-tiles).
+This functionality is to allow you to show users the relevant alarm, or allow them to edit it when
+they tap on such UIs.
 
 This intent has the action `android.intent.action.MAIN` and includes the following `extras`:
+
 - `id`: The alarm id that you passed when scheduling the alarm.
 - `params`: The params argument that you passed when scheduling the alarm, if any.
 
@@ -126,7 +144,8 @@ await AndroidAlarmManager.oneShotAt(
 )
 ```
 
-To receive this intent in dart, you can use the [receive_intent](https://pub.dev/packages/receive_intent) package:
+To receive this intent in dart, you can use
+the [receive_intent](https://pub.dev/packages/receive_intent) package:
 
 ```dart
 import 'package:receive_intent/receive_intent.dart';
@@ -146,7 +165,9 @@ if (receivedIntent.action == "android.intent.action.MAIN"){
     // navigate user to alarm with given id
 }
 ```
-For more information, check out the receive_intent [getting started](https://pub.dev/packages/receive_intent#getting-started).
+
+For more information, check out the
+receive_intent [getting started](https://pub.dev/packages/receive_intent#getting-started).
 
 ## FAQ
 
@@ -154,8 +175,9 @@ For more information, check out the receive_intent [getting started](https://pub
 
 From the Android AlarmManager documentation:
 
-> Registered alarms are retained while the device is asleep (and can optionally wake the device up if they go off
-during that time), but will be cleared if it is turned off and rebooted.
+> Registered alarms are retained while the device is asleep (and can optionally wake the device up
+> if they go off
+> during that time), but will be cleared if it is turned off and rebooted.
 
 https://developer.android.com/reference/android/app/AlarmManager
 
@@ -163,12 +185,15 @@ https://developer.android.com/reference/android/app/AlarmManager
 
 The Android OS will not fire alarms for apps that have been force stopped.
 
-StackOverflow response: https://stackoverflow.com/questions/11241794/alarm-set-in-app-with-alarmmanager-got-removed-when-app-force-stop
+StackOverflow
+response: https://stackoverflow.com/questions/11241794/alarm-set-in-app-with-alarmmanager-got-removed-when-app-force-stop
 
 ### My alarm is not firing on a specific device
 
-Likely the device is running some battery optimization software that is preventing the alarm from firing.
-Check out https://dontkillmyapp.com/ to find out about more about optimizations done by different vendors.
+Likely the device is running some battery optimization software that is preventing the alarm from
+firing.
+Check out https://dontkillmyapp.com/ to find out about more about optimizations done by different
+vendors.
 
 ## Plugin Development
 

@@ -41,10 +41,7 @@ class Share {
     Uri uri, {
     Rect? sharePositionOrigin,
   }) async {
-    return _platform.shareUri(
-      uri,
-      sharePositionOrigin: sharePositionOrigin,
-    );
+    return _platform.shareUri(uri, sharePositionOrigin: sharePositionOrigin);
   }
 
   /// Summons the platform's share sheet to share text.

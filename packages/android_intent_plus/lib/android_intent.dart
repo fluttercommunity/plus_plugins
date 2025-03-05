@@ -41,10 +41,12 @@ class AndroidIntent {
     this.componentName,
     Platform? platform,
     this.type,
-  })  : assert(action != null || componentName != null,
-            'action or component (or both) must be specified'),
-        _channel = const MethodChannel(_kChannelName),
-        _platform = platform ?? const LocalPlatform();
+  }) : assert(
+         action != null || componentName != null,
+         'action or component (or both) must be specified',
+       ),
+       _channel = const MethodChannel(_kChannelName),
+       _platform = platform ?? const LocalPlatform();
 
   /// This constructor is only exposed for unit testing. Do not rely on this in
   /// app code, it may break without warning.
@@ -61,10 +63,12 @@ class AndroidIntent {
     this.package,
     this.componentName,
     this.type,
-  })  : assert(action != null || componentName != null,
-            'action or component (or both) must be specified'),
-        _channel = channel,
-        _platform = platform;
+  }) : assert(
+         action != null || componentName != null,
+         'action or component (or both) must be specified',
+       ),
+       _channel = channel,
+       _platform = platform;
 
   /// This is the general verb that the intent should attempt to do. This
   /// includes constants like `ACTION_VIEW`.
@@ -159,8 +163,9 @@ class AndroidIntent {
       return;
     }
 
-    await const MethodChannel(_kChannelName)
-        .invokeMethod<void>('parseAndLaunch', {'uri': uri});
+    await const MethodChannel(
+      _kChannelName,
+    ).invokeMethod<void>('parseAndLaunch', {'uri': uri});
   }
 
   /// Launch the intent with 'createChooser(intent, title)'.
@@ -173,10 +178,7 @@ class AndroidIntent {
 
     final buildArguments = _buildArguments();
     buildArguments['chooserTitle'] = title;
-    await _channel.invokeMethod<void>(
-      'launchChooser',
-      buildArguments,
-    );
+    await _channel.invokeMethod<void>('launchChooser', buildArguments);
   }
 
   /// Starts intent as service.
@@ -187,10 +189,7 @@ class AndroidIntent {
       return;
     }
 
-    await _channel.invokeMethod<void>(
-      'sendService',
-      _buildArguments(),
-    );
+    await _channel.invokeMethod<void>('sendService', _buildArguments());
   }
 
   /// Sends intent as broadcast.
@@ -201,10 +200,7 @@ class AndroidIntent {
       return;
     }
 
-    await _channel.invokeMethod<void>(
-      'sendBroadcast',
-      _buildArguments(),
-    );
+    await _channel.invokeMethod<void>('sendBroadcast', _buildArguments());
   }
 
   /// Check whether the intent can be resolved to an activity.

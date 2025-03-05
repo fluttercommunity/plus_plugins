@@ -6,14 +6,14 @@
 
 [<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
-A Flutter plugin to access the accelerometer, gyroscope, magnetometer and 
+A Flutter plugin to access the accelerometer, gyroscope, magnetometer and
 barometer sensors.
 
 ## Platform Support
 
-| Android |  iOS  | MacOS |  Web  | Linux | Windows |
-| :-----: | :---: | :---: | :---: | :---: | :-----: |
-|   ✅   |   ✅   |   ❌   |   ✅*  |   ❌    |    ❌   |
+| Android | iOS | MacOS | Web | Linux | Windows |
+|:-------:|:---:|:-----:|:---:|:-----:|:-------:|
+|    ✅    |  ✅  |   ❌   | ✅*  |   ❌   |    ❌    |
 
 \* Currently it is not possible to set sensors sampling rate on web
 
@@ -31,8 +31,12 @@ barometer sensors.
 ## Usage
 
 Add `sensors_plus` as a dependency in your pubspec.yaml file.
-  
-On iOS you must also include a key called [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) in your app's `Info.plist` file. This key provides a message that tells the user why the app is requesting access to the device’s motion data. The plugin itself needs access to motion data to get barometer data.
+
+On iOS you must also include a key called [
+`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription)
+in your app's `Info.plist` file. This key provides a message that tells the user why the app is
+requesting access to the device’s motion data. The plugin itself needs access to motion data to get
+barometer data.
 
 Example Info.plist entry:
 
@@ -43,7 +47,9 @@ Example Info.plist entry:
 
 > [!CAUTION]
 >
-> Adding [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) is a requirement and not doing so will crash your app when it attempts to access motion data.
+> Adding [
+`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription)
+> is a requirement and not doing so will crash your app when it attempts to access motion data.
 
 The plugin exposes such classes of sensor events through a set of streams:
 
@@ -53,7 +59,8 @@ The plugin exposes such classes of sensor events through a set of streams:
   If the device is moving e.g. towards north and its speed is increasing, the reported acceleration
   is towards north; if it is slowing down, the reported acceleration is towards south;
   if it is turning right, the reported acceleration is towards east.
-  The data of this stream is obtained by filtering out the effect of gravity from `AccelerometerEvent`.
+  The data of this stream is obtained by filtering out the effect of gravity from
+  `AccelerometerEvent`.
 - `AccelerometerEvent` describes the acceleration of the device, in m/s<sup>2</sup>, including the
   effects of gravity. Unlike `UserAccelerometerEvent`, this stream reports raw data from
   the accelerometer (physical sensor embedded in the mobile device) without any post-processing.
@@ -62,12 +69,13 @@ The plugin exposes such classes of sensor events through a set of streams:
   This means that, at the surface of Earth, even if the device is completely still,
   the reading of `AccelerometerEvent` is an acceleration of intensity 9.8 directed upwards
   (the opposite of the graviational acceleration).
-  This can be used to infer information about the position of the device (horizontal/vertical/tilted).
+  This can be used to infer information about the position of the device (
+  horizontal/vertical/tilted).
   `AccelerometerEvent` reports zero acceleration if the device is free falling.
 - `GyroscopeEvent` describes the rotation of the device.
 - `MagnetometerEvent` describes the ambient magnetic field surrounding the
   device. A compass is an example usage of this data.
-- `BarometerEvent` describes the atmospheric pressure surrounding the device, in hPa. 
+- `BarometerEvent` describes the atmospheric pressure surrounding the device, in hPa.
   An altimeter is an example usage of this data. Not supported on web browsers.
 
 These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
@@ -145,12 +153,16 @@ barometerEvents.listen(
 // [BarometerEvent (pressure: 1000.0)]
 ```
 
-Alternatively, every stream allows to specify the sampling rate for its sensor using one of predefined constants or using a custom value.
+Alternatively, every stream allows to specify the sampling rate for its sensor using one of
+predefined constants or using a custom value.
 
 > [!NOTE]
 >
-> On Android it is not guaranteed that events from sensors will arrive with specified sampling rate as it is noted in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (see the description for the `samplingPeriodUs` parameter). In reality delay varies depending on Android version, device hardware and vendor's OS customisations.
-
+> On Android it is not guaranteed that events from sensors will arrive with specified sampling rate
+> as it is noted
+> in [the official Android documentation](https://developer.android.com/reference/android/hardware/SensorManager.html#registerListener(android.hardware.SensorEventListener,%20android.hardware.Sensor,%20int)) (
+> see the description for the `samplingPeriodUs` parameter). In reality delay varies depending on
+> Android version, device hardware and vendor's OS customisations.
 
 ```dart
 magnetometerEvents(samplingPeriod: SensorInterval.normalInterval).listen(
@@ -171,27 +183,37 @@ sensor data.
 
 ### Platform Restrictions and Considerations
 
-The following lists the restrictions for the sensors on certain platforms due to limitations of the platform. 
+The following lists the restrictions for the sensors on certain platforms due to limitations of the
+platform.
 
 - **Magnetometer and Barometer missing for web**
 
-  The Magnetometer API is currently not supported by any modern web browsers. Check browser compatibility matrix on [MDN docs for Magnetormeter API](https://developer.mozilla.org/en-US/docs/Web/API/Magnetometer). 
+  The Magnetometer API is currently not supported by any modern web browsers. Check browser
+  compatibility matrix
+  on [MDN docs for Magnetormeter API](https://developer.mozilla.org/en-US/docs/Web/API/Magnetometer).
 
-  The Barometer API does not exist for web platforms as can be seen at [MDN docs forn Sensors API](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs). 
+  The Barometer API does not exist for web platforms as can be seen
+  at [MDN docs forn Sensors API](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs).
 
-  Developers should consider alternative methods or inform users about the limitation when their application runs on a web platform. 
+  Developers should consider alternative methods or inform users about the limitation when their
+  application runs on a web platform.
 
 > [!NOTE]
 >
-> Plugin won't crash the app in the case of usage on these platforms, but it is highly recommended to add onError() to handle such cases gracefully.
+> Plugin won't crash the app in the case of usage on these platforms, but it is highly recommended
+> to add onError() to handle such cases gracefully.
 
 - **Sampling periods for web**
 
-  Currently it is not possible to set sensors sampling rate on web. Calls to event streams at specied sampling periods will have the sampling period ignored. 
+  Currently it is not possible to set sensors sampling rate on web. Calls to event streams at
+  specied sampling periods will have the sampling period ignored.
 
 - **Barometer sampling period limitation for iOS**
 
-  On iOS devices, barometer updates are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides updates at regular intervals that cannot be controlled by the user. Calls to `barometerEventStream` at specied sampling periods will have the sampling period ignored. 
+  On iOS devices, barometer updates
+  are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides
+  updates at regular intervals that cannot be controlled by the user. Calls to
+  `barometerEventStream` at specied sampling periods will have the sampling period ignored.
 
 ## Learn more
 

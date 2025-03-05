@@ -5,6 +5,7 @@
 package dev.fluttercommunity.plus.connectivity;
 
 import androidx.annotation.NonNull;
+
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
@@ -15,23 +16,23 @@ import io.flutter.plugin.common.MethodChannel;
  */
 class ConnectivityMethodChannelHandler implements MethodChannel.MethodCallHandler {
 
-  private final Connectivity connectivity;
+    private final Connectivity connectivity;
 
-  /**
-   * Construct the ConnectivityMethodChannelHandler with a {@code connectivity}. The {@code
-   * connectivity} must not be null.
-   */
-  ConnectivityMethodChannelHandler(Connectivity connectivity) {
-    assert (connectivity != null);
-    this.connectivity = connectivity;
-  }
-
-  @Override
-  public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
-    if ("check".equals(call.method)) {
-      result.success(connectivity.getNetworkTypes());
-    } else {
-      result.notImplemented();
+    /**
+     * Construct the ConnectivityMethodChannelHandler with a {@code connectivity}. The {@code
+     * connectivity} must not be null.
+     */
+    ConnectivityMethodChannelHandler(Connectivity connectivity) {
+        assert (connectivity != null);
+        this.connectivity = connectivity;
     }
-  }
+
+    @Override
+    public void onMethodCall(MethodCall call, @NonNull MethodChannel.Result result) {
+        if ("check".equals(call.method)) {
+            result.success(connectivity.getNetworkTypes());
+        } else {
+            result.notImplemented();
+        }
+    }
 }

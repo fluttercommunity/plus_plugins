@@ -71,8 +71,10 @@ typedef GetCallbackHandle = CallbackHandle? Function(Function callback);
 class AndroidAlarmManager {
   static const String channelName =
       'dev.fluttercommunity.plus/android_alarm_manager';
-  static const MethodChannel channel =
-      MethodChannel(channelName, JSONMethodCodec());
+  static const MethodChannel channel = MethodChannel(
+    channelName,
+    JSONMethodCodec(),
+  );
 
   // Function used to get the current time. It's [DateTime.now] by default.
   // ignore: prefer_function_declarations_over_variables
@@ -105,8 +107,9 @@ class AndroidAlarmManager {
     if (handle == null) {
       return false;
     }
-    final r = await channel.invokeMethod<bool>(
-        'AlarmService.start', <dynamic>[handle.toRawHandle()]);
+    final r = await channel.invokeMethod<bool>('AlarmService.start', <dynamic>[
+      handle.toRawHandle(),
+    ]);
     return r ?? false;
   }
 
@@ -167,18 +170,17 @@ class AndroidAlarmManager {
     bool wakeup = false,
     bool rescheduleOnReboot = false,
     Map<String, dynamic> params = const {},
-  }) =>
-      oneShotAt(
-        _now().add(delay),
-        id,
-        callback,
-        alarmClock: alarmClock,
-        allowWhileIdle: allowWhileIdle,
-        exact: exact,
-        wakeup: wakeup,
-        rescheduleOnReboot: rescheduleOnReboot,
-        params: params,
-      );
+  }) => oneShotAt(
+    _now().add(delay),
+    id,
+    callback,
+    alarmClock: alarmClock,
+    allowWhileIdle: allowWhileIdle,
+    exact: exact,
+    wakeup: wakeup,
+    rescheduleOnReboot: rescheduleOnReboot,
+    params: params,
+  );
 
   /// Schedules a one-shot timer to run `callback` at `time`.
   ///
@@ -239,9 +241,11 @@ class AndroidAlarmManager {
     Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() ||
-        callback is Function(int) ||
-        callback is Function(int, Map<String, dynamic>));
+    assert(
+      callback is Function() ||
+          callback is Function(int) ||
+          callback is Function(int, Map<String, dynamic>),
+    );
     assert(id.bitLength < 32);
     checkIfSerializable(params);
     final startMillis = time.millisecondsSinceEpoch;
@@ -322,9 +326,11 @@ class AndroidAlarmManager {
     Map<String, dynamic> params = const {},
   }) async {
     // ignore: inference_failure_on_function_return_type
-    assert(callback is Function() ||
-        callback is Function(int) ||
-        callback is Function(int, Map<String, dynamic>));
+    assert(
+      callback is Function() ||
+          callback is Function(int) ||
+          callback is Function(int, Map<String, dynamic>),
+    );
     assert(id.bitLength < 32);
     checkIfSerializable(params);
     final now = _now().millisecondsSinceEpoch;
@@ -366,9 +372,10 @@ class AndroidAlarmManager {
       jsonEncode(params);
     } on JsonUnsupportedObjectError catch (e) {
       throw UnsupportedError(
-          "Cannot convert '${e.unsupportedObject.runtimeType}' class to json."
-          " Please put objects that can be converted to json into the "
-          "'params' parameter");
+        "Cannot convert '${e.unsupportedObject.runtimeType}' class to json."
+        " Please put objects that can be converted to json into the "
+        "'params' parameter",
+      );
     }
   }
 }

@@ -5,19 +5,19 @@
 #import "AndroidAlarmManagerPlusPlugin.h"
 
 @implementation FPPAndroidAlarmManagerPlusPlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  FlutterMethodChannel *channel = [FlutterMethodChannel
-      methodChannelWithName:@"dev.fluttercommunity.plus/android_alarm_manager"
-            binaryMessenger:[registrar messenger]
-                      codec:[FlutterJSONMethodCodec sharedInstance]];
-  FPPAndroidAlarmManagerPlusPlugin *instance =
-      [[FPPAndroidAlarmManagerPlusPlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
++ (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
+    FlutterMethodChannel *channel = [FlutterMethodChannel
+            methodChannelWithName:@"dev.fluttercommunity.plus/android_alarm_manager"
+                  binaryMessenger:[registrar messenger]
+                            codec:[FlutterJSONMethodCodec sharedInstance]];
+    FPPAndroidAlarmManagerPlusPlugin *instance =
+            [[FPPAndroidAlarmManagerPlusPlugin alloc] init];
+    [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
-  result(FlutterMethodNotImplemented);
+    result(FlutterMethodNotImplemented);
 }
 
 @end

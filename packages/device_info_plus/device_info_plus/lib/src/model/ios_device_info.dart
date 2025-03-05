@@ -78,8 +78,9 @@ class IosDeviceInfo extends BaseDeviceInfo {
       identifierForVendor: map['identifierForVendor'],
       isPhysicalDevice: map['isPhysicalDevice'],
       isiOSAppOnMac: map['isiOSAppOnMac'],
-      utsname:
-          IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
+      utsname: IosUtsname._fromMap(
+        map['utsname']?.cast<String, dynamic>() ?? {},
+      ),
     );
   }
 }

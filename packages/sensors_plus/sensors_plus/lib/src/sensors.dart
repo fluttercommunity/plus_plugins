@@ -50,7 +50,8 @@ class Sensors extends SensorsPlatform {
     Duration samplingPeriod = SensorInterval.normalInterval,
   }) {
     return _platform.userAccelerometerEventStream(
-        samplingPeriod: samplingPeriod);
+      samplingPeriod: samplingPeriod,
+    );
   }
 
   /// Returns a broadcast stream of events from the device magnetometer at the

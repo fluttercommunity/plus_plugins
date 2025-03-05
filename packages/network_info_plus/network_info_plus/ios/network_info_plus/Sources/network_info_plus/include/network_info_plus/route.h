@@ -63,6 +63,7 @@
 
 #ifndef _NET_ROUTE_H_
 #define _NET_ROUTE_H_
+
 #include <stdint.h>
 #include <sys/appleapiopts.h>
 #include <sys/socket.h>
@@ -104,17 +105,17 @@ struct route;
  * retransmission behavior and are included in the routing structure.
  */
 struct rt_metrics {
-  u_int32_t rmx_locks;     /* Kernel must leave these values alone */
-  u_int32_t rmx_mtu;       /* MTU for this path */
-  u_int32_t rmx_hopcount;  /* max hops expected */
-  int32_t rmx_expire;      /* lifetime for route, e.g. redirect */
-  u_int32_t rmx_recvpipe;  /* inbound delay-bandwidth product */
-  u_int32_t rmx_sendpipe;  /* outbound delay-bandwidth product */
-  u_int32_t rmx_ssthresh;  /* outbound gateway buffer limit */
-  u_int32_t rmx_rtt;       /* estimated round trip time */
-  u_int32_t rmx_rttvar;    /* estimated rtt variance */
-  u_int32_t rmx_pksent;    /* packets sent using this route */
-  u_int32_t rmx_filler[4]; /* will be used for T/TCP later */
+    u_int32_t rmx_locks;     /* Kernel must leave these values alone */
+    u_int32_t rmx_mtu;       /* MTU for this path */
+    u_int32_t rmx_hopcount;  /* max hops expected */
+    int32_t rmx_expire;      /* lifetime for route, e.g. redirect */
+    u_int32_t rmx_recvpipe;  /* inbound delay-bandwidth product */
+    u_int32_t rmx_sendpipe;  /* outbound delay-bandwidth product */
+    u_int32_t rmx_ssthresh;  /* outbound gateway buffer limit */
+    u_int32_t rmx_rtt;       /* estimated round trip time */
+    u_int32_t rmx_rttvar;    /* estimated rtt variance */
+    u_int32_t rmx_pksent;    /* packets sent using this route */
+    u_int32_t rmx_filler[4]; /* will be used for T/TCP later */
 };
 
 /*
@@ -184,57 +185,57 @@ struct rtentry {
 #define RTF_PRCLONING 0x10000   /* protocol requires cloning */
 #define RTF_WASCLONED 0x20000   /* route generated through cloning */
 #define RTF_PROTO3 0x40000      /* protocol specific routing flag */
-                                /* 0x80000 unused */
+/* 0x80000 unused */
 #define RTF_PINNED 0x100000     /* future use */
 #define RTF_LOCAL 0x200000      /* route represents a local address */
 #define RTF_BROADCAST 0x400000  /* route represents a bcast address */
 #define RTF_MULTICAST 0x800000  /* route represents a mcast address */
 #define RTF_IFSCOPE 0x1000000   /* has valid interface scope */
 #define RTF_CONDEMNED 0x2000000 /* defunct; no longer modifiable */
-                                /* 0x4000000 and up unassigned */
+/* 0x4000000 and up unassigned */
 
 /*
  * Routing statistics.
  */
 struct rtstat {
-  short rts_badredirect; /* bogus redirect calls */
-  short rts_dynamic;     /* routes created by redirects */
-  short rts_newgateway;  /* routes modified by redirects */
-  short rts_unreach;     /* lookups which failed */
-  short rts_wildcard;    /* lookups satisfied by a wildcard */
+    short rts_badredirect; /* bogus redirect calls */
+    short rts_dynamic;     /* routes created by redirects */
+    short rts_newgateway;  /* routes modified by redirects */
+    short rts_unreach;     /* lookups which failed */
+    short rts_wildcard;    /* lookups satisfied by a wildcard */
 };
 
 /*
  * Structures for routing messages.
  */
 struct rt_msghdr {
-  u_short rtm_msglen;        /* to skip over non-understood messages */
-  u_char rtm_version;        /* future binary compatibility */
-  u_char rtm_type;           /* message type */
-  u_short rtm_index;         /* index for associated ifp */
-  int rtm_flags;             /* flags, incl. kern & message, e.g. DONE */
-  int rtm_addrs;             /* bitmask identifying sockaddrs in msg */
-  pid_t rtm_pid;             /* identify sender */
-  int rtm_seq;               /* for sender to identify action */
-  int rtm_errno;             /* why failed */
-  int rtm_use;               /* from rtentry */
-  u_int32_t rtm_inits;       /* which metrics we are initializing */
-  struct rt_metrics rtm_rmx; /* metrics themselves */
+    u_short rtm_msglen;        /* to skip over non-understood messages */
+    u_char rtm_version;        /* future binary compatibility */
+    u_char rtm_type;           /* message type */
+    u_short rtm_index;         /* index for associated ifp */
+    int rtm_flags;             /* flags, incl. kern & message, e.g. DONE */
+    int rtm_addrs;             /* bitmask identifying sockaddrs in msg */
+    pid_t rtm_pid;             /* identify sender */
+    int rtm_seq;               /* for sender to identify action */
+    int rtm_errno;             /* why failed */
+    int rtm_use;               /* from rtentry */
+    u_int32_t rtm_inits;       /* which metrics we are initializing */
+    struct rt_metrics rtm_rmx; /* metrics themselves */
 };
 
 struct rt_msghdr2 {
-  u_short rtm_msglen;        /* to skip over non-understood messages */
-  u_char rtm_version;        /* future binary compatibility */
-  u_char rtm_type;           /* message type */
-  u_short rtm_index;         /* index for associated ifp */
-  int rtm_flags;             /* flags, incl. kern & message, e.g. DONE */
-  int rtm_addrs;             /* bitmask identifying sockaddrs in msg */
-  int32_t rtm_refcnt;        /* reference count */
-  int rtm_parentflags;       /* flags of the parent route */
-  int rtm_reserved;          /* reserved field set to 0 */
-  int rtm_use;               /* from rtentry */
-  u_int32_t rtm_inits;       /* which metrics we are initializing */
-  struct rt_metrics rtm_rmx; /* metrics themselves */
+    u_short rtm_msglen;        /* to skip over non-understood messages */
+    u_char rtm_version;        /* future binary compatibility */
+    u_char rtm_type;           /* message type */
+    u_short rtm_index;         /* index for associated ifp */
+    int rtm_flags;             /* flags, incl. kern & message, e.g. DONE */
+    int rtm_addrs;             /* bitmask identifying sockaddrs in msg */
+    int32_t rtm_refcnt;        /* reference count */
+    int rtm_parentflags;       /* flags of the parent route */
+    int rtm_reserved;          /* reserved field set to 0 */
+    int rtm_use;               /* from rtentry */
+    u_int32_t rtm_inits;       /* which metrics we are initializing */
+    struct rt_metrics rtm_rmx; /* metrics themselves */
 };
 
 #define RTM_VERSION 5 /* Up the ante and ignore older versions */
@@ -303,17 +304,17 @@ struct rt_msghdr2 {
 #define RTAX_MAX 8     /* size of array to allocate */
 
 struct rt_addrinfo {
-  int rti_addrs;
-  struct sockaddr *rti_info[RTAX_MAX];
+    int rti_addrs;
+    struct sockaddr *rti_info[RTAX_MAX];
 };
 
 struct route_cb {
-  int ip_count;
-  int ip6_count;
-  int ipx_count;
-  int ns_count;
-  int iso_count;
-  int any_count;
+    int ip_count;
+    int ip6_count;
+    int ipx_count;
+    int ns_count;
+    int iso_count;
+    int any_count;
 };
 
 #ifdef PRIVATE

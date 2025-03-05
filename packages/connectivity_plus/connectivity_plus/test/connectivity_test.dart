@@ -9,7 +9,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:mockito/mockito.dart';
 
 const List<ConnectivityResult> kCheckConnectivityResult = [
-  ConnectivityResult.wifi
+  ConnectivityResult.wifi,
 ];
 
 void main() {

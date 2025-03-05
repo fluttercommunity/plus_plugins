@@ -1,43 +1,48 @@
 ## 7.0.2
 
- - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+- **REFACTOR**(all): Use range of flutter_lints for broader
+  compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
 
 ## 7.0.1
 
- - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+- **FIX**(all): changed homepage url in
+  pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
 
 ## 7.0.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**: refactor of device_info_plus platform implementation (#1293).
+- **BREAKING** **FEAT**: refactor of device_info_plus platform implementation (#1293).
 
 ## 6.0.1
 
- - **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
+- **FIX**: Increase min Flutter version to fix dartPluginClass registration (#1275).
 
 ## 6.0.0
 
 > Note: This release has breaking changes.
 
- - **FIX**: add `@Deprecated` annotation to `toMap` method (#1142).
- - **DOCS**: Add info about Android properties availability, update API docs links (#1243).
- - **BREAKING** **REFACTOR**: Change nullability for AndroidDeviceInfo properties (#1246).
- - **BREAKING** **REFACTOR**: two-package federated architecture (#1228).
+- **FIX**: add `@Deprecated` annotation to `toMap` method (#1142).
+- **DOCS**: Add info about Android properties availability, update API docs links (#1243).
+- **BREAKING** **REFACTOR**: Change nullability for AndroidDeviceInfo properties (#1246).
+- **BREAKING** **REFACTOR**: two-package federated architecture (#1228).
 
 ## 5.0.0
 
 > Note: This release has breaking changes.
 
- - **BREAKING** **FEAT**: Add support of Android display metrics (#829).
+- **BREAKING** **FEAT**: Add support of Android display metrics (#829).
 
 ## 4.0.1
 
- - **CHORE**: Version tagging using melos.
+- **CHORE**: Version tagging using melos.
 
 ## 4.0.0
 
-- Re-introduce Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
+- Re-introduce Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId,
+  csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab,
+  buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName,
+  registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
 
 ## 3.0.0
 
@@ -58,7 +63,10 @@
 
 ## 2.4.0
 
-- Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion, servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx, digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner, releaseId, deviceId to WindowsDeviceInfo.
+- Windows: Add userName, majorVersion, minorVersion, buildNumber, platformId, csdVersion,
+  servicePackMajor, servicePackMinor, suitMask, productType, reserved, buildLab, buildLabEx,
+  digitalProductId, displayVersion, editionId, installDate, productId, productName, registeredOwner,
+  releaseId, deviceId to WindowsDeviceInfo.
 
 ## 2.3.0+1
 

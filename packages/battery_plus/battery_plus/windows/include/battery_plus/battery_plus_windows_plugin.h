@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 FLUTTER_PLUGIN_EXPORT void BatteryPlusWindowsPluginRegisterWithRegistrar(
-    FlutterDesktopPluginRegistrarRef registrar);
+        FlutterDesktopPluginRegistrarRef registrar);
 
 #if defined(__cplusplus)
 } // extern "C"

@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
-        ExplicitIntentsWidget.routeName: (BuildContext context) =>
-            const ExplicitIntentsWidget()
+        ExplicitIntentsWidget.routeName:
+            (BuildContext context) => const ExplicitIntentsWidget(),
       },
     );
   }
@@ -67,7 +67,8 @@ class MyHomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: _createAlarm,
               child: const Text(
-                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
+                'Tap here to set an alarm\non weekdays at 9:30pm.',
+              ),
             ),
             ElevatedButton(
               onPressed: _parseAndLaunch,
@@ -110,14 +111,13 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _sendBroadcast() {
-    const intent = AndroidIntent(
-      action: 'com.example.broadcast',
-    );
+    const intent = AndroidIntent(action: 'com.example.broadcast');
     intent.sendBroadcast();
   }
 
   void _parseAndLaunch() {
-    const intent = 'intent:#Intent;'
+    const intent =
+        'intent:#Intent;'
         'action=android.intent.action.SET_ALARM;'
         'B.android.intent.extra.alarm.SKIP_UI=true;'
         'S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;'
@@ -139,34 +139,39 @@ class ExplicitIntentsWidget extends StatelessWidget {
 
   void _openGoogleMapsStreetView() {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull('google.streetview:cbll=46.414382,10.013988'),
-        package: 'com.google.android.apps.maps');
+      action: 'action_view',
+      data: Uri.encodeFull('google.streetview:cbll=46.414382,10.013988'),
+      package: 'com.google.android.apps.maps',
+    );
     intent.launch();
   }
 
   void _displayMapInGoogleMaps({int zoomLevel = 12}) {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull('geo:37.7749,-122.4194?z=$zoomLevel'),
-        package: 'com.google.android.apps.maps');
+      action: 'action_view',
+      data: Uri.encodeFull('geo:37.7749,-122.4194?z=$zoomLevel'),
+      package: 'com.google.android.apps.maps',
+    );
     intent.launch();
   }
 
   void _launchTurnByTurnNavigationInGoogleMaps() {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull(
-            'google.navigation:q=Taronga+Zoo,+Sydney+Australia&avoid=tf'),
-        package: 'com.google.android.apps.maps');
+      action: 'action_view',
+      data: Uri.encodeFull(
+        'google.navigation:q=Taronga+Zoo,+Sydney+Australia&avoid=tf',
+      ),
+      package: 'com.google.android.apps.maps',
+    );
     intent.launch();
   }
 
   void _openLinkInGoogleChrome() {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull('https://flutter.dev'),
-        package: 'com.android.chrome');
+      action: 'action_view',
+      data: Uri.encodeFull('https://flutter.dev'),
+      package: 'com.android.chrome',
+    );
     intent.launch();
   }
 
@@ -181,9 +186,10 @@ class ExplicitIntentsWidget extends StatelessWidget {
 
   void _testExplicitIntentFallback() {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri.encodeFull('https://flutter.dev'),
-        package: 'com.android.chrome.implicit.fallback');
+      action: 'action_view',
+      data: Uri.encodeFull('https://flutter.dev'),
+      package: 'com.android.chrome.implicit.fallback',
+    );
     intent.launch();
   }
 
@@ -234,10 +240,7 @@ class ExplicitIntentsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Test explicit intents'),
-        elevation: 4,
-      ),
+      appBar: AppBar(title: const Text('Test explicit intents'), elevation: 4),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -247,7 +250,8 @@ class ExplicitIntentsWidget extends StatelessWidget {
               ElevatedButton(
                 onPressed: _openGoogleMapsStreetView,
                 child: const Text(
-                    'Tap here to display panorama\nimagery in Google Street View.'),
+                  'Tap here to display panorama\nimagery in Google Street View.',
+                ),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -258,7 +262,8 @@ class ExplicitIntentsWidget extends StatelessWidget {
               ElevatedButton(
                 onPressed: _launchTurnByTurnNavigationInGoogleMaps,
                 child: const Text(
-                    'Tap here to launch turn-by-turn\nnavigation in Google Maps.'),
+                  'Tap here to launch turn-by-turn\nnavigation in Google Maps.',
+                ),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -274,7 +279,8 @@ class ExplicitIntentsWidget extends StatelessWidget {
               ElevatedButton(
                 onPressed: _testExplicitIntentFallback,
                 child: const Text(
-                    'Tap here to test explicit intent fallback to implicit.'),
+                  'Tap here to test explicit intent fallback to implicit.',
+                ),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -286,23 +292,17 @@ class ExplicitIntentsWidget extends StatelessWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openApplicationDetails,
-                child: const Text(
-                  'Tap here to open Application Details',
-                ),
+                child: const Text('Tap here to open Application Details'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => _getResolvedActivity(context),
-                child: const Text(
-                  'Tap here to get default resolved activity',
-                ),
+                child: const Text('Tap here to get default resolved activity'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _openGmail,
-                child: const Text(
-                  'Tap here to open gmail app with details',
-                ),
+                child: const Text('Tap here to open gmail app with details'),
               ),
             ],
           ),

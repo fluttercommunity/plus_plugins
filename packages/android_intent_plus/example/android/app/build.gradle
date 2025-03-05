@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     namespace 'io.flutter.plugins.androidintentexample'
 
@@ -39,7 +39,7 @@ android {
     defaultConfig {
         applicationId "io.flutter.plugins.androidintentexample"
         minSdk 21
-        targetSdk 34
+        targetSdk 35
         multiDexEnabled true
 
         versionCode flutterVersionCode.toInteger()
@@ -70,7 +70,7 @@ dependencies {
         }
     }
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.core:core:1.15.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'

@@ -41,8 +41,10 @@ void main() {
       return client;
     };
     expect(battery.onBatteryStateChanged.isBroadcast, isTrue);
-    expect(battery.onBatteryStateChanged,
-        emitsInOrder([BatteryState.charging, BatteryState.full]));
+    expect(
+      battery.onBatteryStateChanged,
+      emitsInOrder([BatteryState.charging, BatteryState.full]),
+    );
   });
 }
 

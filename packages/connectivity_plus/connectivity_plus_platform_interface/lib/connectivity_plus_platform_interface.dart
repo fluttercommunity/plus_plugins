@@ -46,6 +46,7 @@ abstract class ConnectivityPlatform extends PlatformInterface {
   /// Returns a Stream of ConnectivityResults changes.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     throw UnimplementedError(
-        'get onConnectivityChanged has not been implemented.');
+      'get onConnectivityChanged has not been implemented.',
+    );
   }
 }

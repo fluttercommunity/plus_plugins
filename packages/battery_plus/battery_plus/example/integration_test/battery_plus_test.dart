@@ -12,12 +12,14 @@ void main() {
 
   final bool batteryLevelIsImplemented =
       Platform.isAndroid || Platform.isMacOS || Platform.isLinux;
-  final bool batteryStateIsImplemented = Platform.isAndroid ||
+  final bool batteryStateIsImplemented =
+      Platform.isAndroid ||
       Platform.isIOS ||
       Platform.isMacOS ||
       Platform.isWindows ||
       Platform.isLinux;
-  final bool isInBatterySaveModeIsImplemented = Platform.isAndroid ||
+  final bool isInBatterySaveModeIsImplemented =
+      Platform.isAndroid ||
       Platform.isIOS ||
       Platform.isMacOS ||
       Platform.isWindows;
@@ -34,9 +36,12 @@ void main() {
     expect(batteryState, isNotNull);
   }, skip: !batteryStateIsImplemented);
 
-  testWidgets('Can get if device is in battery save mode',
-      (WidgetTester tester) async {
-    final isInBatterySaveMode = await Battery().isInBatterySaveMode;
-    expect(isInBatterySaveMode, false);
-  }, skip: !isInBatterySaveModeIsImplemented);
+  testWidgets(
+    'Can get if device is in battery save mode',
+    (WidgetTester tester) async {
+      final isInBatterySaveMode = await Battery().isInBatterySaveMode;
+      expect(isInBatterySaveMode, false);
+    },
+    skip: !isInBatterySaveModeIsImplemented,
+  );
 }

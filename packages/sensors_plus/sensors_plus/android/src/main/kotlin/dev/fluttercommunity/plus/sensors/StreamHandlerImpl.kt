@@ -16,7 +16,8 @@ internal class StreamHandlerImpl(
 
     private var sensor: Sensor? = null
 
-    private var timestampMicroAtBoot: Long = System.currentTimeMillis() * 1000 - SystemClock.elapsedRealtimeNanos() / 1000
+    private var timestampMicroAtBoot: Long =
+        System.currentTimeMillis() * 1000 - SystemClock.elapsedRealtimeNanos() / 1000
 
     var samplingPeriod = 200000
         set(value) {

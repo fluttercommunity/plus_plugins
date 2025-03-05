@@ -1,7 +1,7 @@
 name: Bug Report
 description: You are using one of plugins in some project but due to the plugin the application is crashing or throws an exception, the plugin is buggy, or something looks wrong.
 title: "[Bug]: "
-labels: ["bug", "triage"]
+labels: [ "bug", "triage" ]
 body:
   - type: markdown
     attributes:
@@ -16,7 +16,7 @@ body:
 
         If you have found a bug or if our documentation doesn't have an answer
         to what you're looking for, then fill our the template below.
-     
+
         IMPORTANT: Bug reports that don't follow this template will be closed
   - type: input
     id: platform

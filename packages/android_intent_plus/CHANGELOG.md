@@ -1,95 +1,116 @@
 ## 5.3.0
 
- - **FIX**(android_intent_plus): adds error catching and forwarding ([#3452](https://github.com/fluttercommunity/plus_plugins/issues/3452)). ([37f533c7](https://github.com/fluttercommunity/plus_plugins/commit/37f533c7a6c16fc55ed743b78108b479fc2565c3))
- - **FEAT**(android_intent_plus): adds sendService method ([#3410](https://github.com/fluttercommunity/plus_plugins/issues/3410)). ([ea72b632](https://github.com/fluttercommunity/plus_plugins/commit/ea72b632486a8f1a3416424017774a0fd9fc1a8d))
+- **FIX**(android_intent_plus): adds error catching and
+  forwarding ([#3452](https://github.com/fluttercommunity/plus_plugins/issues/3452)). ([37f533c7](https://github.com/fluttercommunity/plus_plugins/commit/37f533c7a6c16fc55ed743b78108b479fc2565c3))
+- **FEAT**(android_intent_plus): adds sendService
+  method ([#3410](https://github.com/fluttercommunity/plus_plugins/issues/3410)). ([ea72b632](https://github.com/fluttercommunity/plus_plugins/commit/ea72b632486a8f1a3416424017774a0fd9fc1a8d))
 
 ## 5.2.2
 
- - **FIX**(android_intent_plus): set correct environment versions ([#3421](https://github.com/fluttercommunity/plus_plugins/issues/3421)). ([dc3ba17a](https://github.com/fluttercommunity/plus_plugins/commit/dc3ba17a3948329de546c373aababb2401e556bb))
+- **FIX**(android_intent_plus): set correct environment
+  versions ([#3421](https://github.com/fluttercommunity/plus_plugins/issues/3421)). ([dc3ba17a](https://github.com/fluttercommunity/plus_plugins/commit/dc3ba17a3948329de546c373aababb2401e556bb))
 
 ## 5.2.1
 
- - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+- **REFACTOR**(all): Use range of flutter_lints for broader
+  compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
 
 ## 5.2.0
 
- - **FEAT**(android_intent_plus): add getResolvedActivity method ([#3313](https://github.com/fluttercommunity/plus_plugins/issues/3313)). ([8ad1c6d9](https://github.com/fluttercommunity/plus_plugins/commit/8ad1c6d9e061a59383f82f9b4a7703ef03e4c04c))
+- **FEAT**(android_intent_plus): add getResolvedActivity
+  method ([#3313](https://github.com/fluttercommunity/plus_plugins/issues/3313)). ([8ad1c6d9](https://github.com/fluttercommunity/plus_plugins/commit/8ad1c6d9e061a59383f82f9b4a7703ef03e4c04c))
 
 ## 5.1.0
 
- - **FIX**(android_intent_plus): remove package name from AndroidManifest ([#3033](https://github.com/fluttercommunity/plus_plugins/issues/3033)). ([af2f4afa](https://github.com/fluttercommunity/plus_plugins/commit/af2f4afaa419cdd9fb32632ea3ebe9a4e6df0513))
- - **FEAT**(android_intent_plus): support for intent as URI ([#2970](https://github.com/fluttercommunity/plus_plugins/issues/2970)). ([e4530870](https://github.com/fluttercommunity/plus_plugins/commit/e4530870dd2412e04776dcecc0fbed2bb3842187))
- - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
- - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+- **FIX**(android_intent_plus): remove package name from
+  AndroidManifest ([#3033](https://github.com/fluttercommunity/plus_plugins/issues/3033)). ([af2f4afa](https://github.com/fluttercommunity/plus_plugins/commit/af2f4afaa419cdd9fb32632ea3ebe9a4e6df0513))
+- **FEAT**(android_intent_plus): support for intent as
+  URI ([#2970](https://github.com/fluttercommunity/plus_plugins/issues/2970)). ([e4530870](https://github.com/fluttercommunity/plus_plugins/commit/e4530870dd2412e04776dcecc0fbed2bb3842187))
+- **REFACTOR**(all): Remove website files, configs,
+  mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+- **FIX**(all): changed homepage url in
+  pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
 
 ## 5.0.2
 
- - **REFACTOR**(android_intent_plus): Migrate Android example to use the new plugins declaration ([#2773](https://github.com/fluttercommunity/plus_plugins/issues/2773)). ([7c2de04d](https://github.com/fluttercommunity/plus_plugins/commit/7c2de04deffa1dc788d93c12e5cee1fd98821514))
+- **REFACTOR**(android_intent_plus): Migrate Android example to use the new plugins
+  declaration ([#2773](https://github.com/fluttercommunity/plus_plugins/issues/2773)). ([7c2de04d](https://github.com/fluttercommunity/plus_plugins/commit/7c2de04deffa1dc788d93c12e5cee1fd98821514))
 
 ## 5.0.1
 
 Plugin now requires the following:
+
 - compileSDK 34
 - Java 17
 - Gradle 8.4
 
-- **BREAKING** **BUILD**(android_intent_plus): Target Java 17 ([#2724](https://github.com/fluttercommunity/plus_plugins/issues/2724)). ([c66a67d](https://github.com/fluttercommunity/plus_plugins/commit/c66a67da396d088a2e02d4e6b69e0b8802189f9a))
-- **BREAKING** **BUILD**(android_intent_plus): Update to target and compile SDK 34 ([#2711](https://github.com/fluttercommunity/plus_plugins/pull/2711)). ([fd48920](https://github.com/fluttercommunity/plus_plugins/commit/fd489200a714594aad4e2eac5f0e56f43ebd751a))
+- **BREAKING** **BUILD**(android_intent_plus): Target Java
+  17 ([#2724](https://github.com/fluttercommunity/plus_plugins/issues/2724)). ([c66a67d](https://github.com/fluttercommunity/plus_plugins/commit/c66a67da396d088a2e02d4e6b69e0b8802189f9a))
+- **BREAKING** **BUILD**(android_intent_plus): Update to target and compile SDK
+  34 ([#2711](https://github.com/fluttercommunity/plus_plugins/pull/2711)). ([fd48920](https://github.com/fluttercommunity/plus_plugins/commit/fd489200a714594aad4e2eac5f0e56f43ebd751a))
 
 ## 5.0.0
 
-> Note: This release was retracted due to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
+> Note: This release was retracted due
+> to ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)).
 
 ## 4.0.3
 
- - **FIX**(android_intent_plus): Fix annotation dependency declaration ([#2237](https://github.com/fluttercommunity/plus_plugins/issues/2237)). ([795a3dd8](https://github.com/fluttercommunity/plus_plugins/commit/795a3dd81d8c718344936d65226d051f5fe4a125))
- - **FIX**(android_intent_plus): Revert bump compileSDK to 34 ([#2236](https://github.com/fluttercommunity/plus_plugins/issues/2236)). ([38bba0eb](https://github.com/fluttercommunity/plus_plugins/commit/38bba0ebc0f1db404a673440749e4d1d95dcf26c))
+- **FIX**(android_intent_plus): Fix annotation dependency
+  declaration ([#2237](https://github.com/fluttercommunity/plus_plugins/issues/2237)). ([795a3dd8](https://github.com/fluttercommunity/plus_plugins/commit/795a3dd81d8c718344936d65226d051f5fe4a125))
+- **FIX**(android_intent_plus): Revert bump compileSDK to
+  34 ([#2236](https://github.com/fluttercommunity/plus_plugins/issues/2236)). ([38bba0eb](https://github.com/fluttercommunity/plus_plugins/commit/38bba0ebc0f1db404a673440749e4d1d95dcf26c))
 
 ## 4.0.2
 
- - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+- **DOCS**(all): Fix example links on
+  pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
 
 ## 4.0.1
 
- - **DOCS**(all): Update READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
+- **DOCS**(all): Update
+  READMEs ([#1828](https://github.com/fluttercommunity/plus_plugins/issues/1828)). ([57d9c884](https://github.com/fluttercommunity/plus_plugins/commit/57d9c8845edfc81fdbabcef9eb1d1ca450e62e7d))
 
 ## 4.0.0
 
 > Note: This release has breaking changes.
 
- - **CHORE**(android_intent_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
- - **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to update at least to AGP 7.0 or newer.
- - **BREAKING** **CHORE**(android_intent_plus): Bump min Android version to 4.4 (API 19) (#1784).
- - **REFACTOR**(android_intent_plus): Update example app to use Material 3.
+- **CHORE**(android_intent_plus): Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >
+  =2.18.0 <4.0.0
+- **BREAKING** **FIX**(all): Add support of namespace property to support Android Gradle Plugin (
+  AGP) 8 (#1727). Projects with AGP < 4.2 are not supported anymore. It is highly recommended to
+  update at least to AGP 7.0 or newer.
+- **BREAKING** **CHORE**(android_intent_plus): Bump min Android version to 4.4 (API 19) (#1784).
+- **REFACTOR**(android_intent_plus): Update example app to use Material 3.
 
 ## 3.1.9
 
- - **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
+- **FIX**(all): Revert addition of namespace to avoid build fails on old AGPs (#1725).
 
 ## 3.1.8
 
- - **FIX**(android_intent_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1699).
+- **FIX**(android_intent_plus): Add compatibility with AGP 8 (Android Gradle Plugin) (#1699).
 
 ## 3.1.7
 
- - **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
- - **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
+- **REFACTOR**(all): Remove all manual dependency_overrides (#1628).
+- **FIX**(all): Fix depreciations for flutter 3.7 and 2.19 dart (#1529).
 
 ## 3.1.6
 
- - **DOCS**: Updates for READMEs and website pages (#1389).
+- **DOCS**: Updates for READMEs and website pages (#1389).
 
 ## 3.1.5
 
- - **FIX**: lint warnings - add missing dependency for tests (#1233).
+- **FIX**: lint warnings - add missing dependency for tests (#1233).
 
 ## 3.1.4
 
- - **DOCS**: Add documentation for canResolveActivity.
+- **DOCS**: Add documentation for canResolveActivity.
 
 ## 3.1.3
 
- - **CHORE**: Version tagging using melos.
+- **CHORE**: Version tagging using melos.
 
 ## 3.1.2
 
@@ -167,7 +188,8 @@ Plugin now requires the following:
 
 ## 0.3.7+2
 
-- Declare API stability and compatibility with `1.0.0` (more details at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
+- Declare API stability and compatibility with `1.0.0` (more details
+  at: https://github.com/flutter/flutter/wiki/Package-migration-to-1.0.0).
 
 ## 0.3.7+1
 
@@ -199,7 +221,10 @@ Plugin now requires the following:
 
 ## 0.3.5
 
-- Add support for [setType](<https://developer.android.com/reference/android/content/Intent.html#setType(java.lang.String)>) and [setDataAndType](<https://developer.android.com/reference/android/content/Intent.html#setDataAndType(android.net.Uri,%20java.lang.String)>) parameters.
+- Add support
+  for [setType](<https://developer.android.com/reference/android/content/Intent.html#setType(java.lang.String)>)
+  and [setDataAndType](<https://developer.android.com/reference/android/content/Intent.html#setDataAndType(android.net.Uri,%20java.lang.String)>)
+  parameters.
 
 ## 0.3.4+8
 
@@ -226,7 +251,8 @@ Plugin now requires the following:
 
 ## 0.3.4+3
 
-- Android: Use android.arch.lifecycle instead of androidx.lifecycle:lifecycle in `build.gradle` to support apps that has not been migrated to AndroidX.
+- Android: Use android.arch.lifecycle instead of androidx.lifecycle:lifecycle in `build.gradle` to
+  support apps that has not been migrated to AndroidX.
 
 ## 0.3.4+2
 

@@ -6,25 +6,23 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('WebBrowserInfo from Map with values', () {
-    final info = WebBrowserInfo.fromMap(
-      {
-        'appCodeName': 'CODENAME',
-        'appName': 'NAME',
-        'appVersion': 'VERSION',
-        'deviceMemory': 64,
-        'language': 'en',
-        'languages': ['en', 'es'],
-        'platform': 'PLATFORM',
-        'product': 'PRODUCT',
-        'productSub': 'PRODUCTSUB',
-        'userAgent':
-            'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
-        'vendor': 'VENDOR',
-        'vendorSub': 'VENDORSUB',
-        'hardwareConcurrency': 1,
-        'maxTouchPoints': 2,
-      },
-    );
+    final info = WebBrowserInfo.fromMap({
+      'appCodeName': 'CODENAME',
+      'appName': 'NAME',
+      'appVersion': 'VERSION',
+      'deviceMemory': 64,
+      'language': 'en',
+      'languages': ['en', 'es'],
+      'platform': 'PLATFORM',
+      'product': 'PRODUCT',
+      'productSub': 'PRODUCTSUB',
+      'userAgent':
+          'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0',
+      'vendor': 'VENDOR',
+      'vendorSub': 'VENDORSUB',
+      'hardwareConcurrency': 1,
+      'maxTouchPoints': 2,
+    });
 
     expect(info.appName, 'NAME');
     expect(info.browserName, BrowserName.firefox);

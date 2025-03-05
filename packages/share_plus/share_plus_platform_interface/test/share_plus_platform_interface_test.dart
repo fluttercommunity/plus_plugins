@@ -23,12 +23,13 @@ void main() {
     mockChannel = MockMethodChannel();
     // Re-pipe to mockito for easier verifies.
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(MethodChannelShare.channel,
-            (MethodCall call) async {
-      // The explicit type can be void as the only method call has a return type of void.
-      await mockChannel.invokeMethod<void>(call.method, call.arguments);
-      return null;
-    });
+        .setMockMethodCallHandler(MethodChannelShare.channel, (
+          MethodCall call,
+        ) async {
+          // The explicit type can be void as the only method call has a return type of void.
+          await mockChannel.invokeMethod<void>(call.method, call.arguments);
+          return null;
+        });
   });
 
   test('can set SharePlatform instance', () {
@@ -38,15 +39,9 @@ void main() {
     final newInstanceId = identityHashCode(newInstance);
 
     expect(currentId, isNot(equals(newInstanceId)));
-    expect(
-      identityHashCode(SharePlatform.instance),
-      equals(currentId),
-    );
+    expect(identityHashCode(SharePlatform.instance), equals(currentId));
     SharePlatform.instance = newInstance;
-    expect(
-      identityHashCode(SharePlatform.instance),
-      equals(newInstanceId),
-    );
+    expect(identityHashCode(SharePlatform.instance), equals(newInstanceId));
   });
 
   test('sharing empty fails', () {
@@ -66,27 +61,31 @@ void main() {
       Uri.parse('https://pub.dev/packages/share_plus'),
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
-      'uri': 'https://pub.dev/packages/share_plus',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
+    verify(
+      mockChannel.invokeMethod<String>('shareUri', <String, dynamic>{
+        'uri': 'https://pub.dev/packages/share_plus',
+        'originX': 1.0,
+        'originY': 2.0,
+        'originWidth': 3.0,
+        'originHeight': 4.0,
+      }),
+    );
 
     await sharePlatform.share(
       'some text to share',
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
-      'text': 'some text to share',
-      'subject': 'some subject to share',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
+    verify(
+      mockChannel.invokeMethod<String>('share', <String, dynamic>{
+        'text': 'some text to share',
+        'subject': 'some subject to share',
+        'originX': 1.0,
+        'originY': 2.0,
+        'originWidth': 3.0,
+        'originHeight': 4.0,
+      }),
+    );
 
     await withFile('tempfile-83649a.png', (File fd) async {
       await sharePlatform.shareXFiles(
@@ -95,9 +94,8 @@ void main() {
         text: 'some text to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
       );
-      verify(mockChannel.invokeMethod<String>(
-        'shareFiles',
-        <String, dynamic>{
+      verify(
+        mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
           'paths': [fd.path],
           'mimeTypes': ['image/png'],
           'subject': 'some subject to share',
@@ -106,28 +104,32 @@ void main() {
           'originY': 2.0,
           'originWidth': 3.0,
           'originHeight': 4.0,
-        },
-      ));
+        }),
+      );
     });
   });
 
   test('sharing file sets correct mimeType', () async {
     await withFile('tempfile-83649b.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
-      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['image/png'],
-      }));
+      verify(
+        mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['image/png'],
+        }),
+      );
     });
   });
 
   test('sharing file sets passed mimeType', () async {
     await withFile('tempfile-83649c.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path, mimeType: '*/*')]);
-      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['*/*'],
-      }));
+      verify(
+        mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['*/*'],
+        }),
+      );
     });
   });
 
@@ -156,21 +158,25 @@ void main() {
       subject: 'some subject to share',
       sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
     );
-    verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
-      'text': 'some text to share',
-      'subject': 'some subject to share',
-      'originX': 1.0,
-      'originY': 2.0,
-      'originWidth': 3.0,
-      'originHeight': 4.0,
-    }));
+    verify(
+      mockChannel.invokeMethod<String>('share', <String, dynamic>{
+        'text': 'some text to share',
+        'subject': 'some subject to share',
+        'originX': 1.0,
+        'originY': 2.0,
+        'originWidth': 3.0,
+        'originHeight': 4.0,
+      }),
+    );
 
     await withFile('tempfile-83649e.png', (File fd) async {
       await sharePlatform.shareXFiles([XFile(fd.path)]);
-      verify(mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
-        'paths': [fd.path],
-        'mimeTypes': ['image/png'],
-      }));
+      verify(
+        mockChannel.invokeMethod<String>('shareFiles', <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['image/png'],
+        }),
+      );
     });
   });
 }
@@ -190,8 +196,9 @@ Future<T> withFile<T>(String filename, Future<T> Function(File fd) func) async {
 class MockMethodChannel extends Mock implements MethodChannel {
   @override
   Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
-    return super
-            .noSuchMethod(Invocation.method(#invokeMethod, [method, arguments]))
+    return super.noSuchMethod(
+          Invocation.method(#invokeMethod, [method, arguments]),
+        )
         as dynamic;
   }
 }

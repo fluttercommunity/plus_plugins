@@ -72,36 +72,37 @@ class WebSensorsPlugin extends SensorsPlatform {
       _featureDetected(
         () {
           final accelerometer = Accelerometer(
-            SensorOptions(
-              frequency: samplingPeriod.frequency,
-            ),
+            SensorOptions(frequency: samplingPeriod.frequency),
           );
 
           accelerometer.start();
 
-          accelerometer.onreading = (Event _) {
-            _accelerometerStreamController!.add(
-              AccelerometerEvent(
-                accelerometer.x,
-                accelerometer.y,
-                accelerometer.z,
-                DateTime.now(),
-              ),
-            );
-          }.toJS;
+          accelerometer.onreading =
+              (Event _) {
+                _accelerometerStreamController!.add(
+                  AccelerometerEvent(
+                    accelerometer.x,
+                    accelerometer.y,
+                    accelerometer.z,
+                    DateTime.now(),
+                  ),
+                );
+              }.toJS;
 
-          accelerometer.onerror = (SensorErrorEvent e) {
-            developer.log(
-              'The accelerometer API is supported but something is wrong!',
-              error: e.error.message,
-            );
-          }.toJS;
+          accelerometer.onerror =
+              (SensorErrorEvent e) {
+                developer.log(
+                  'The accelerometer API is supported but something is wrong!',
+                  error: e.error.message,
+                );
+              }.toJS;
         },
         apiName: 'Accelerometer()',
         permissionName: 'accelerometer',
         onError: () {
-          _accelerometerStreamController!
-              .add(AccelerometerEvent(0, 0, 0, DateTime.now()));
+          _accelerometerStreamController!.add(
+            AccelerometerEvent(0, 0, 0, DateTime.now()),
+          );
         },
       );
       _accelerometerResultStream =
@@ -127,36 +128,37 @@ class WebSensorsPlugin extends SensorsPlatform {
       _featureDetected(
         () {
           final gyroscope = Gyroscope(
-            SensorOptions(
-              frequency: samplingPeriod.frequency,
-            ),
+            SensorOptions(frequency: samplingPeriod.frequency),
           );
 
           gyroscope.start();
 
-          gyroscope.onreading = (Event _) {
-            _gyroscopeEventStreamController!.add(
-              GyroscopeEvent(
-                gyroscope.x,
-                gyroscope.y,
-                gyroscope.z,
-                DateTime.now(),
-              ),
-            );
-          }.toJS;
+          gyroscope.onreading =
+              (Event _) {
+                _gyroscopeEventStreamController!.add(
+                  GyroscopeEvent(
+                    gyroscope.x,
+                    gyroscope.y,
+                    gyroscope.z,
+                    DateTime.now(),
+                  ),
+                );
+              }.toJS;
 
-          gyroscope.onerror = (SensorErrorEvent e) {
-            developer.log(
-              'The gyroscope API is supported but something is wrong!',
-              error: e.error.message,
-            );
-          }.toJS;
+          gyroscope.onerror =
+              (SensorErrorEvent e) {
+                developer.log(
+                  'The gyroscope API is supported but something is wrong!',
+                  error: e.error.message,
+                );
+              }.toJS;
         },
         apiName: 'Gyroscope()',
         permissionName: 'gyroscope',
         onError: () {
-          _gyroscopeEventStreamController!
-              .add(GyroscopeEvent(0, 0, 0, DateTime.now()));
+          _gyroscopeEventStreamController!.add(
+            GyroscopeEvent(0, 0, 0, DateTime.now()),
+          );
         },
       );
       _gyroscopeEventResultStream =
@@ -183,36 +185,37 @@ class WebSensorsPlugin extends SensorsPlatform {
       _featureDetected(
         () {
           final linearAccelerationSensor = LinearAccelerationSensor(
-            SensorOptions(
-              frequency: samplingPeriod.frequency,
-            ),
+            SensorOptions(frequency: samplingPeriod.frequency),
           );
 
           linearAccelerationSensor.start();
 
-          linearAccelerationSensor.onreading = (Event _) {
-            _gyroscopeEventStreamController!.add(
-              GyroscopeEvent(
-                linearAccelerationSensor.x,
-                linearAccelerationSensor.y,
-                linearAccelerationSensor.z,
-                DateTime.now(),
-              ),
-            );
-          }.toJS;
+          linearAccelerationSensor.onreading =
+              (Event _) {
+                _gyroscopeEventStreamController!.add(
+                  GyroscopeEvent(
+                    linearAccelerationSensor.x,
+                    linearAccelerationSensor.y,
+                    linearAccelerationSensor.z,
+                    DateTime.now(),
+                  ),
+                );
+              }.toJS;
 
-          linearAccelerationSensor.onerror = (SensorErrorEvent e) {
-            developer.log(
-              'The linear acceleration API is supported but something is wrong!',
-              error: e.error.message,
-            );
-          }.toJS;
+          linearAccelerationSensor.onerror =
+              (SensorErrorEvent e) {
+                developer.log(
+                  'The linear acceleration API is supported but something is wrong!',
+                  error: e.error.message,
+                );
+              }.toJS;
         },
         apiName: 'LinearAccelerationSensor()',
         permissionName: 'accelerometer',
         onError: () {
-          _userAccelerometerStreamController!
-              .add(UserAccelerometerEvent(0, 0, 0, DateTime.now()));
+          _userAccelerometerStreamController!.add(
+            UserAccelerometerEvent(0, 0, 0, DateTime.now()),
+          );
         },
       );
       _userAccelerometerResultStream =
@@ -239,36 +242,37 @@ class WebSensorsPlugin extends SensorsPlatform {
       _featureDetected(
         () {
           final magnetometerSensor = Magnetometer(
-            SensorOptions(
-              frequency: samplingPeriod.frequency,
-            ),
+            SensorOptions(frequency: samplingPeriod.frequency),
           );
 
           magnetometerSensor.start();
 
-          magnetometerSensor.onreading = (Event _) {
-            _gyroscopeEventStreamController!.add(
-              GyroscopeEvent(
-                magnetometerSensor.x,
-                magnetometerSensor.y,
-                magnetometerSensor.z,
-                DateTime.now(),
-              ),
-            );
-          }.toJS;
+          magnetometerSensor.onreading =
+              (Event _) {
+                _gyroscopeEventStreamController!.add(
+                  GyroscopeEvent(
+                    magnetometerSensor.x,
+                    magnetometerSensor.y,
+                    magnetometerSensor.z,
+                    DateTime.now(),
+                  ),
+                );
+              }.toJS;
 
-          magnetometerSensor.onerror = (SensorErrorEvent e) {
-            developer.log(
-              'The magnetometer API is supported but something is wrong!',
-              error: e,
-            );
-          }.toJS;
+          magnetometerSensor.onerror =
+              (SensorErrorEvent e) {
+                developer.log(
+                  'The magnetometer API is supported but something is wrong!',
+                  error: e,
+                );
+              }.toJS;
         },
         apiName: 'Magnetometer()',
         permissionName: 'magnetometer',
         onError: () {
-          _magnetometerStreamController!
-              .add(MagnetometerEvent(0, 0, 0, DateTime.now()));
+          _magnetometerStreamController!.add(
+            MagnetometerEvent(0, 0, 0, DateTime.now()),
+          );
         },
       );
       _magnetometerResultStream =

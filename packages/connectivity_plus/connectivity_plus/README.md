@@ -10,15 +10,20 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 
 > **Note**
 >
-> You should not rely on the current connectivity status to decide whether you can reliably make a network request. Always guard your app code against timeouts and errors that might come from the network layer.
-> Connection type availability does not guarantee that there is an Internet access. For example, the plugin might return Wi-Fi connection type, but it might be a connection with no Internet access due to network requirements (like on hotel Wi-Fi networks where user often needs to go through a captive portal to authorize first).
+> You should not rely on the current connectivity status to decide whether you can reliably make a
+> network request. Always guard your app code against timeouts and errors that might come from the
+> network layer.
+> Connection type availability does not guarantee that there is an Internet access. For example, the
+> plugin might return Wi-Fi connection type, but it might be a connection with no Internet access due
+> to network requirements (like on hotel Wi-Fi networks where user often needs to go through a captive
+> portal to authorize first).
 >
 
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Windows |
-| :-----: | :-: | :---: | :-: | :---: | :-----: |
-|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
+|:-------:|:---:|:-----:|:---:|:-----:|:-------:|
+|    ✅    |  ✅  |   ✅   |  ✅  |   ✅   |    ✅    |
 
 ## Requirements
 
@@ -93,8 +98,8 @@ dispose() {
 
 The following table shows which `ConnectivityResult` values are supported per platform.
 
-|           | Android | iOS | Web | MacOS | Windows | Linux |
-|-----------|:-------:|:---:|:---:|:-----:|:-------:|:-----:|
+|           |      Android       |        iOS         |        Web         |       MacOS        |      Windows       |       Linux        |
+|-----------|:------------------:|:------------------:|:------------------:|:------------------:|:------------------:|:------------------:|
 | wifi      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | bluetooth | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |
 | ethernet  | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -106,33 +111,51 @@ _`none` is supported on all platforms by default._
 
 ### Android
 
-Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed. The broadcast is only useful when your application is in the foreground.
+Connectivity changes are no longer communicated to Android apps in the background starting with
+Android O (8.0). You should always check for connectivity status when your app is resumed. The
+broadcast is only useful when your application is in the foreground.
 
 ### iOS & MacOS
 
-On iOS simulators, the connectivity types stream might not update when Wi-Fi status changes. This is a known issue.
+On iOS simulators, the connectivity types stream might not update when Wi-Fi status changes. This is
+a known issue.
 
-Starting with iOS 12 and MacOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types. We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
+Starting with iOS 12 and MacOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled
+connectivity types. We noticed that this observer can give multiple or unreliable results. For
+example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
 
-We recommend to use the `onConnectivityChanged` with this limitation in mind, as the method doesn't filter events, nor it ensures distinct values.
+We recommend to use the `onConnectivityChanged` with this limitation in mind, as the method doesn't
+filter events, nor it ensures distinct values.
 
 ### Web
 
-In order to retrieve information about the quality/speed of a browser's connection, the web implementation of the `connectivity` plugin uses the browser's [**NetworkInformation** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation), which as of this writing (June 2020) is still "experimental", and not available in all browsers:
+In order to retrieve information about the quality/speed of a browser's connection, the web
+implementation of the `connectivity` plugin uses the browser's [**NetworkInformation
+** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation), which as of this
+writing (June 2020) is still "experimental", and not available in all browsers:
 
 ![Data on support for the netinfo feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/netinfo.png)
 
-On desktop browsers, this API only returns a very broad set of connectivity statuses (One of `'slow-2g', '2g', '3g', or '4g'`), and may _not_ provide a Stream of changes. Firefox still hasn't enabled this feature by default.
+On desktop browsers, this API only returns a very broad set of connectivity statuses (One of
+`'slow-2g', '2g', '3g', or '4g'`), and may _not_ provide a Stream of changes. Firefox still hasn't
+enabled this feature by default.
 
 **Fallback to `navigator.onLine`**
 
-For those browsers where the NetworkInformation Web API is not available, the plugin falls back to the [**NavigatorOnLine** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine), which is more broadly supported:
+For those browsers where the NetworkInformation Web API is not available, the plugin falls back to
+the [**NavigatorOnLine** Web API](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine),
+which is more broadly supported:
 
 ![Data on support for the online-status feature across the major browsers from caniuse.com](https://caniuse.bitsofco.de/image/online-status.png)
 
-The NavigatorOnLine API is [provided by `dart:html`](https://api.dart.dev/stable/2.7.2/dart-html/Navigator/onLine.html), and only supports a boolean connectivity status (either online or offline), with no network speed information. In those cases the plugin will return either `wifi` (when the browser is online) or `none` (when it's not).
+The NavigatorOnLine API is [provided by
+`dart:html`](https://api.dart.dev/stable/2.7.2/dart-html/Navigator/onLine.html), and only supports a
+boolean connectivity status (either online or offline), with no network speed information. In those
+cases the plugin will return either `wifi` (when the browser is online) or `none` (when it's not).
 
-Other than the approximate "downlink" speed, where available, and due to security and privacy concerns, **no Web browser will provide** any specific information about the actual network your users' device is connected to, like **the SSID on a Wi-Fi, or the MAC address of their device.**
+Other than the approximate "downlink" speed, where available, and due to security and privacy
+concerns, **no Web browser will provide** any specific information about the actual network your
+users' device is connected to, like **the SSID on a Wi-Fi, or the MAC address of their device.**
 
 ## Learn more
 

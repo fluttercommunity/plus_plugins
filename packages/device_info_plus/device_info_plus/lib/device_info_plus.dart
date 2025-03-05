@@ -50,8 +50,9 @@ class DeviceInfoPlugin {
   ///
   /// See: https://developer.android.com/reference/android/os/Build.html
   Future<AndroidDeviceInfo> get androidInfo async =>
-      _cachedAndroidDeviceInfo ??=
-          AndroidDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+      _cachedAndroidDeviceInfo ??= AndroidDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   /// This information does not change from call to call. Cache it.
   IosDeviceInfo? _cachedIosDeviceInfo;
@@ -59,8 +60,10 @@ class DeviceInfoPlugin {
   /// Information derived from `UIDevice`.
   ///
   /// See: https://developer.apple.com/documentation/uikit/uidevice
-  Future<IosDeviceInfo> get iosInfo async => _cachedIosDeviceInfo ??=
-      IosDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+  Future<IosDeviceInfo> get iosInfo async =>
+      _cachedIosDeviceInfo ??= IosDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo? _cachedLinuxDeviceInfo;
@@ -68,8 +71,9 @@ class DeviceInfoPlugin {
   /// Information derived from `/etc/os-release`.
   ///
   /// See: https://www.freedesktop.org/software/systemd/man/os-release.html
-  Future<LinuxDeviceInfo> get linuxInfo async => _cachedLinuxDeviceInfo ??=
-      await _platform.deviceInfo() as LinuxDeviceInfo;
+  Future<LinuxDeviceInfo> get linuxInfo async =>
+      _cachedLinuxDeviceInfo ??=
+          await _platform.deviceInfo() as LinuxDeviceInfo;
 
   /// This information does not change from call to call. Cache it.
   WebBrowserInfo? _cachedWebBrowserInfo;
@@ -82,8 +86,10 @@ class DeviceInfoPlugin {
   MacOsDeviceInfo? _cachedMacosDeviceInfo;
 
   /// Returns device information for macos. Information sourced from Sysctl.
-  Future<MacOsDeviceInfo> get macOsInfo async => _cachedMacosDeviceInfo ??=
-      MacOsDeviceInfo.fromMap((await _platform.deviceInfo()).data);
+  Future<MacOsDeviceInfo> get macOsInfo async =>
+      _cachedMacosDeviceInfo ??= MacOsDeviceInfo.fromMap(
+        (await _platform.deviceInfo()).data,
+      );
 
   WindowsDeviceInfo? _cachedWindowsDeviceInfo;
 
