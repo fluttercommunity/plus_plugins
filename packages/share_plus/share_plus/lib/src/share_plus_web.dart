@@ -30,22 +30,14 @@ class SharePlusWebPlugin extends SharePlatform {
   }) : _navigator = debugNavigator ?? window.navigator;
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-  }) async {
-    final data = ShareData(
-      url: uri.toString(),
-    );
+  Future<ShareResult> shareUri(Uri uri, {Rect? sharePositionOrigin}) async {
+    final data = ShareData(url: uri.toString());
 
     final bool canShare;
     try {
       canShare = _navigator.canShare(data);
     } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
+      developer.log('Share API is not supported in this User Agent.', error: e);
 
       throw Exception('Navigator.canShare() is unavailable');
     }
@@ -61,10 +53,7 @@ class SharePlusWebPlugin extends SharePlatform {
         return _resultDismissed;
       }
 
-      developer.log(
-        'Failed to share uri',
-        error: '${e.name}: ${e.message}',
-      );
+      developer.log('Failed to share uri', error: '${e.name}: ${e.message}');
 
       throw Exception('Navigator.share() failed: ${e.message}');
     }
@@ -80,24 +69,16 @@ class SharePlusWebPlugin extends SharePlatform {
   }) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
-      data = ShareData(
-        title: subject,
-        text: text,
-      );
+      data = ShareData(title: subject, text: text);
     } else {
-      data = ShareData(
-        text: text,
-      );
+      data = ShareData(text: text);
     }
 
     final bool canShare;
     try {
       canShare = _navigator.canShare(data);
     } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
+      developer.log('Share API is not supported in this User Agent.', error: e);
 
       // Navigator is not available or the webPage is not served on https
       final queryParameters = {
@@ -109,8 +90,10 @@ class SharePlusWebPlugin extends SharePlatform {
       final uri = Uri(
         scheme: 'mailto',
         query: queryParameters.entries
-            .map((e) =>
-                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+            .map(
+              (e) =>
+                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+            )
             .join('&'),
       );
 
@@ -139,10 +122,7 @@ class SharePlusWebPlugin extends SharePlatform {
         return _resultDismissed;
       }
 
-      developer.log(
-        'Failed to share text',
-        error: '${e.name}: ${e.message}',
-      );
+      developer.log('Failed to share text', error: '${e.name}: ${e.message}');
 
       throw Exception('Navigator.share() failed: ${e.message}');
     }
@@ -163,7 +143,8 @@ class SharePlusWebPlugin extends SharePlatform {
     List<String>? fileNameOverrides,
   }) async {
     assert(
-        fileNameOverrides == null || files.length == fileNameOverrides.length);
+      fileNameOverrides == null || files.length == fileNameOverrides.length,
+    );
     final webFiles = <File>[];
     for (var index = 0; index < files.length; index++) {
       final xFile = files[index];
@@ -174,36 +155,21 @@ class SharePlusWebPlugin extends SharePlatform {
     final ShareData data;
     if (text != null && text.isNotEmpty) {
       if (subject != null && subject.isNotEmpty) {
-        data = ShareData(
-          files: webFiles.toJS,
-          text: text,
-          title: subject,
-        );
+        data = ShareData(files: webFiles.toJS, text: text, title: subject);
       } else {
-        data = ShareData(
-          files: webFiles.toJS,
-          text: text,
-        );
+        data = ShareData(files: webFiles.toJS, text: text);
       }
     } else if (subject != null && subject.isNotEmpty) {
-      data = ShareData(
-        files: webFiles.toJS,
-        title: subject,
-      );
+      data = ShareData(files: webFiles.toJS, title: subject);
     } else {
-      data = ShareData(
-        files: webFiles.toJS,
-      );
+      data = ShareData(files: webFiles.toJS);
     }
 
     final bool canShare;
     try {
       canShare = _navigator.canShare(data);
     } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
+      developer.log('Share API is not supported in this User Agent.', error: e);
 
       return _downloadIfFallbackEnabled(
         files,
@@ -263,10 +229,11 @@ class SharePlusWebPlugin extends SharePlatform {
       for (final (index, file) in files.indexed) {
         final bytes = await file.readAsBytes();
 
-        final anchor = document.createElement('a') as HTMLAnchorElement
-          ..href = Uri.dataFromBytes(bytes).toString()
-          ..style.display = 'none'
-          ..download = fileNameOverrides?.elementAt(index) ?? file.name;
+        final anchor =
+            document.createElement('a') as HTMLAnchorElement
+              ..href = Uri.dataFromBytes(bytes).toString()
+              ..style.display = 'none'
+              ..download = fileNameOverrides?.elementAt(index) ?? file.name;
         document.body!.children.add(anchor);
         anchor.click();
         anchor.remove();
@@ -294,7 +261,4 @@ class SharePlusWebPlugin extends SharePlatform {
   }
 }
 
-const _resultDismissed = ShareResult(
-  '',
-  ShareResultStatus.dismissed,
-);
+const _resultDismissed = ShareResult('', ShareResultStatus.dismissed);

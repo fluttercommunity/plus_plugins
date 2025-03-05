@@ -14,13 +14,15 @@ import 'src/utils.dart';
 class MethodChannelBattery extends BatteryPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  MethodChannel methodChannel =
-      const MethodChannel('dev.fluttercommunity.plus/battery');
+  MethodChannel methodChannel = const MethodChannel(
+    'dev.fluttercommunity.plus/battery',
+  );
 
   /// The event channel used to receive BatteryState changes from the native platform.
   @visibleForTesting
-  EventChannel eventChannel =
-      const EventChannel('dev.fluttercommunity.plus/charging');
+  EventChannel eventChannel = const EventChannel(
+    'dev.fluttercommunity.plus/charging',
+  );
 
   Stream<BatteryState>? _onBatteryStateChanged;
 
@@ -45,9 +47,9 @@ class MethodChannelBattery extends BatteryPlatform {
   /// Fires whenever the battery state changes.
   @override
   Stream<BatteryState> get onBatteryStateChanged {
-    _onBatteryStateChanged ??= eventChannel
-        .receiveBroadcastStream()
-        .map((dynamic event) => parseBatteryState(event));
+    _onBatteryStateChanged ??= eventChannel.receiveBroadcastStream().map(
+      (dynamic event) => parseBatteryState(event),
+    );
     return _onBatteryStateChanged!;
   }
 }

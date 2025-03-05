@@ -6,13 +6,14 @@
 
 [<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
-A Flutter plugin to access various information about the battery of the device the app is running on.
+A Flutter plugin to access various information about the battery of the device the app is running
+on.
 
 ## Platform Support
 
 | Android | iOS | MacOS | Web | Linux | Windows |
-| :-----: | :-: | :---: | :-: | :---: | :----: |
-|   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
+|:-------:|:---:|:-----:|:---:|:-----:|:-------:|
+|    ✅    |  ✅  |   ✅   |  ✅  |   ✅   |    ✅    |
 
 ## Requirements
 

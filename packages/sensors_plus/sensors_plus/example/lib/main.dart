@@ -14,12 +14,10 @@ import 'snake.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ],
-  );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(const MyApp());
 }
@@ -80,10 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sensors Plus Example'),
-        elevation: 4,
-      ),
+      appBar: AppBar(title: const Text('Sensors Plus Example'), elevation: 4),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -130,7 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(_userAccelerometerEvent?.y.toStringAsFixed(1) ?? '?'),
                     Text(_userAccelerometerEvent?.z.toStringAsFixed(1) ?? '?'),
                     Text(
-                        '${_userAccelerometerLastInterval?.toString() ?? '?'} ms'),
+                      '${_userAccelerometerLastInterval?.toString() ?? '?'} ms',
+                    ),
                   ],
                 ),
                 TableRow(
@@ -195,7 +191,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text('Barometer'),
                     ),
                     Text(
-                        '${_barometerEvent?.pressure.toStringAsFixed(1) ?? '?'} hPa'),
+                      '${_barometerEvent?.pressure.toStringAsFixed(1) ?? '?'} hPa',
+                    ),
                     Text('${_barometerLastInterval?.toString() ?? '?'} ms'),
                   ],
                 ),
@@ -210,18 +207,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 segments: [
                   ButtonSegment(
                     value: SensorInterval.gameInterval,
-                    label: Text('Game\n'
-                        '(${SensorInterval.gameInterval.inMilliseconds}ms)'),
+                    label: Text(
+                      'Game\n'
+                      '(${SensorInterval.gameInterval.inMilliseconds}ms)',
+                    ),
                   ),
                   ButtonSegment(
                     value: SensorInterval.uiInterval,
-                    label: Text('UI\n'
-                        '(${SensorInterval.uiInterval.inMilliseconds}ms)'),
+                    label: Text(
+                      'UI\n'
+                      '(${SensorInterval.uiInterval.inMilliseconds}ms)',
+                    ),
                   ),
                   ButtonSegment(
                     value: SensorInterval.normalInterval,
-                    label: Text('Normal\n'
-                        '(${SensorInterval.normalInterval.inMilliseconds}ms)'),
+                    label: Text(
+                      'Normal\n'
+                      '(${SensorInterval.normalInterval.inMilliseconds}ms)',
+                    ),
                   ),
                   const ButtonSegment(
                     value: Duration(milliseconds: 500),
@@ -238,7 +241,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     sensorInterval = value.first;
                     userAccelerometerEventStream(
-                        samplingPeriod: sensorInterval);
+                      samplingPeriod: sensorInterval,
+                    );
                     accelerometerEventStream(samplingPeriod: sensorInterval);
                     gyroscopeEventStream(samplingPeriod: sensorInterval);
                     magnetometerEventStream(samplingPeriod: sensorInterval);
@@ -281,14 +285,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onError: (e) {
           showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support User Accelerometer Sensor"),
-                );
-              });
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                  "It seems that your device doesn't support User Accelerometer Sensor",
+                ),
+              );
+            },
+          );
         },
         cancelOnError: true,
       ),
@@ -310,14 +316,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onError: (e) {
           showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support Accelerometer Sensor"),
-                );
-              });
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                  "It seems that your device doesn't support Accelerometer Sensor",
+                ),
+              );
+            },
+          );
         },
         cancelOnError: true,
       ),
@@ -339,14 +347,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onError: (e) {
           showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support Gyroscope Sensor"),
-                );
-              });
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                  "It seems that your device doesn't support Gyroscope Sensor",
+                ),
+              );
+            },
+          );
         },
         cancelOnError: true,
       ),
@@ -368,14 +378,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onError: (e) {
           showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support Magnetometer Sensor"),
-                );
-              });
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                  "It seems that your device doesn't support Magnetometer Sensor",
+                ),
+              );
+            },
+          );
         },
         cancelOnError: true,
       ),
@@ -397,14 +409,16 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onError: (e) {
           showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text(
-                      "It seems that your device doesn't support Barometer Sensor"),
-                );
-              });
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Sensor Not Found"),
+                content: Text(
+                  "It seems that your device doesn't support Barometer Sensor",
+                ),
+              );
+            },
+          );
         },
         cancelOnError: true,
       ),

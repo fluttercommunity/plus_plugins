@@ -5,8 +5,8 @@
 #include "share_plus_windows_plugin.h"
 
 void SharePlusWindowsPluginCApiRegisterWithRegistrar(
-    FlutterDesktopPluginRegistrarRef registrar) {
-  share_plus_windows::SharePlusWindowsPlugin::RegisterWithRegistrar(
-      flutter::PluginRegistrarManager::GetInstance()
-          ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
+        FlutterDesktopPluginRegistrarRef registrar) {
+    share_plus_windows::SharePlusWindowsPlugin::RegisterWithRegistrar(
+            flutter::PluginRegistrarManager::GetInstance()
+                    ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }

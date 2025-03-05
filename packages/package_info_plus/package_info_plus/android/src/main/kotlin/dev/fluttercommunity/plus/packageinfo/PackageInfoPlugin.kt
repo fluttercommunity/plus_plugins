@@ -45,7 +45,10 @@ class PackageInfoPlugin : MethodCallHandler, FlutterPlugin {
 
                 val infoMap = HashMap<String, String>()
                 infoMap.apply {
-                    put("appName", info.applicationInfo?.loadLabel(packageManager)?.toString() ?: "")
+                    put(
+                        "appName",
+                        info.applicationInfo?.loadLabel(packageManager)?.toString() ?: ""
+                    )
                     put("packageName", applicationContext!!.packageName)
                     put("version", info.versionName ?: "")
                     put("buildNumber", getLongVersionCode(info).toString())

@@ -15,175 +15,177 @@
 
 namespace {
 
-typedef flutter::EventChannel<flutter::EncodableValue> FlEventChannel;
-typedef flutter::EventSink<flutter::EncodableValue> FlEventSink;
-typedef flutter::MethodCall<flutter::EncodableValue> FlMethodCall;
-typedef flutter::MethodResult<flutter::EncodableValue> FlMethodResult;
-typedef flutter::MethodChannel<flutter::EncodableValue> FlMethodChannel;
-typedef flutter::StreamHandler<flutter::EncodableValue> FlStreamHandler;
-typedef flutter::StreamHandlerError<flutter::EncodableValue>
-    FlStreamHandlerError;
+    typedef flutter::EventChannel <flutter::EncodableValue> FlEventChannel;
+    typedef flutter::EventSink <flutter::EncodableValue> FlEventSink;
+    typedef flutter::MethodCall <flutter::EncodableValue> FlMethodCall;
+    typedef flutter::MethodResult <flutter::EncodableValue> FlMethodResult;
+    typedef flutter::MethodChannel <flutter::EncodableValue> FlMethodChannel;
+    typedef flutter::StreamHandler <flutter::EncodableValue> FlStreamHandler;
+    typedef flutter::StreamHandlerError <flutter::EncodableValue>
+            FlStreamHandlerError;
 
-class ConnectivityPlusWindowsPlugin : public flutter::Plugin {
-public:
-  ConnectivityPlusWindowsPlugin();
-  virtual ~ConnectivityPlusWindowsPlugin();
+    class ConnectivityPlusWindowsPlugin : public flutter::Plugin {
+    public:
+        ConnectivityPlusWindowsPlugin();
 
-  std::shared_ptr<NetworkManager> GetManager() const;
+        virtual ~ConnectivityPlusWindowsPlugin();
 
-  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
+        std::shared_ptr <NetworkManager> GetManager() const;
 
-private:
-  void HandleMethodCall(const FlMethodCall &method_call,
-                        std::unique_ptr<FlMethodResult> result);
+        static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
-  std::shared_ptr<NetworkManager> manager;
-};
+    private:
+        void HandleMethodCall(const FlMethodCall &method_call,
+                              std::unique_ptr <FlMethodResult> result);
 
-class ConnectivityStreamHandler : public FlStreamHandler {
-public:
-  ConnectivityStreamHandler(std::shared_ptr<NetworkManager> manager);
-  virtual ~ConnectivityStreamHandler();
+        std::shared_ptr <NetworkManager> manager;
+    };
 
-protected:
-  void AddConnectivityEvent();
+    class ConnectivityStreamHandler : public FlStreamHandler {
+    public:
+        ConnectivityStreamHandler(std::shared_ptr <NetworkManager> manager);
 
-  std::unique_ptr<FlStreamHandlerError>
-  OnListenInternal(const flutter::EncodableValue *arguments,
-                   std::unique_ptr<FlEventSink> &&sink) override;
+        virtual ~ConnectivityStreamHandler();
 
-  std::unique_ptr<FlStreamHandlerError>
-  OnCancelInternal(const flutter::EncodableValue *arguments) override;
+    protected:
+        void AddConnectivityEvent();
 
-private:
-  std::shared_ptr<NetworkManager> manager;
-  std::unique_ptr<FlEventSink> sink;
-};
+        std::unique_ptr <FlStreamHandlerError>
+        OnListenInternal(const flutter::EncodableValue *arguments,
+                         std::unique_ptr <FlEventSink> &&sink) override;
 
-ConnectivityPlusWindowsPlugin::ConnectivityPlusWindowsPlugin() {
-  manager = std::make_shared<NetworkManager>();
-  manager->Init();
-}
+        std::unique_ptr <FlStreamHandlerError>
+        OnCancelInternal(const flutter::EncodableValue *arguments) override;
 
-ConnectivityPlusWindowsPlugin::~ConnectivityPlusWindowsPlugin() {
-  manager->Cleanup();
-}
+    private:
+        std::shared_ptr <NetworkManager> manager;
+        std::unique_ptr <FlEventSink> sink;
+    };
 
-std::shared_ptr<NetworkManager>
-ConnectivityPlusWindowsPlugin::GetManager() const {
-  return manager;
-}
+    ConnectivityPlusWindowsPlugin::ConnectivityPlusWindowsPlugin() {
+        manager = std::make_shared<NetworkManager>();
+        manager->Init();
+    }
 
-void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
-    flutter::PluginRegistrarWindows *registrar) {
-  auto plugin = std::make_unique<ConnectivityPlusWindowsPlugin>();
+    ConnectivityPlusWindowsPlugin::~ConnectivityPlusWindowsPlugin() {
+        manager->Cleanup();
+    }
 
-  auto methodChannel =
-      std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "dev.fluttercommunity.plus/connectivity",
-          &flutter::StandardMethodCodec::GetInstance());
+    std::shared_ptr <NetworkManager>
+    ConnectivityPlusWindowsPlugin::GetManager() const {
+        return manager;
+    }
 
-  methodChannel->SetMethodCallHandler(
-      [plugin_pointer = plugin.get()](const auto &call, auto result) {
-        plugin_pointer->HandleMethodCall(call, std::move(result));
-      });
+    void ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
+            flutter::PluginRegistrarWindows *registrar) {
+        auto plugin = std::make_unique<ConnectivityPlusWindowsPlugin>();
 
-  auto eventChannel = std::make_unique<FlEventChannel>(
-      registrar->messenger(), "dev.fluttercommunity.plus/connectivity_status",
-      &flutter::StandardMethodCodec::GetInstance());
+        auto methodChannel =
+                std::make_unique < flutter::MethodChannel < flutter::EncodableValue >> (
+                        registrar->messenger(), "dev.fluttercommunity.plus/connectivity",
+                                &flutter::StandardMethodCodec::GetInstance());
 
-  eventChannel->SetStreamHandler(
-      std::make_unique<ConnectivityStreamHandler>(plugin->GetManager()));
+        methodChannel->SetMethodCallHandler(
+                [plugin_pointer = plugin.get()](const auto &call, auto result) {
+                    plugin_pointer->HandleMethodCall(call, std::move(result));
+                });
 
-  registrar->AddPlugin(std::move(plugin));
-}
+        auto eventChannel = std::make_unique<FlEventChannel>(
+                registrar->messenger(), "dev.fluttercommunity.plus/connectivity_status",
+                &flutter::StandardMethodCodec::GetInstance());
 
-static std::string ConnectivityToString(ConnectivityType connectivityType) {
-  switch (connectivityType) {
-  case ConnectivityType::WiFi:
-    return "wifi";
-  case ConnectivityType::Ethernet:
-    return "ethernet";
-  case ConnectivityType::VPN:
-    return "vpn";
-  case ConnectivityType::Other:
-    return "other";
-  case ConnectivityType::None:
-  default:
-    return "none";
-  }
-}
+        eventChannel->SetStreamHandler(
+                std::make_unique<ConnectivityStreamHandler>(plugin->GetManager()));
 
-static flutter::EncodableList
-EncodeConnectivityTypes(std::set<ConnectivityType> connectivityTypes) {
-  flutter::EncodableList encodedList;
+        registrar->AddPlugin(std::move(plugin));
+    }
 
-  if (connectivityTypes.empty()) {
-    encodedList.push_back(
-        flutter::EncodableValue(ConnectivityToString(ConnectivityType::None)));
-    return encodedList;
-  }
+    static std::string ConnectivityToString(ConnectivityType connectivityType) {
+        switch (connectivityType) {
+            case ConnectivityType::WiFi:
+                return "wifi";
+            case ConnectivityType::Ethernet:
+                return "ethernet";
+            case ConnectivityType::VPN:
+                return "vpn";
+            case ConnectivityType::Other:
+                return "other";
+            case ConnectivityType::None:
+            default:
+                return "none";
+        }
+    }
 
-  for (const auto &type : connectivityTypes) {
-    std::string connectivityString = ConnectivityToString(type);
-    encodedList.push_back(flutter::EncodableValue(connectivityString));
-  }
+    static flutter::EncodableList
+    EncodeConnectivityTypes(std::set <ConnectivityType> connectivityTypes) {
+        flutter::EncodableList encodedList;
 
-  return encodedList;
-}
+        if (connectivityTypes.empty()) {
+            encodedList.push_back(
+                    flutter::EncodableValue(ConnectivityToString(ConnectivityType::None)));
+            return encodedList;
+        }
 
-void ConnectivityPlusWindowsPlugin::HandleMethodCall(
-    const flutter::MethodCall<flutter::EncodableValue> &method_call,
-    std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
-  if (method_call.method_name().compare("check") == 0) {
-    result->Success(EncodeConnectivityTypes(manager->GetConnectivityTypes()));
-  } else {
-    result->NotImplemented();
-  }
-}
+        for (const auto &type: connectivityTypes) {
+            std::string connectivityString = ConnectivityToString(type);
+            encodedList.push_back(flutter::EncodableValue(connectivityString));
+        }
 
-ConnectivityStreamHandler::ConnectivityStreamHandler(
-    std::shared_ptr<NetworkManager> manager)
-    : manager(manager) {}
+        return encodedList;
+    }
 
-ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
+    void ConnectivityPlusWindowsPlugin::HandleMethodCall(
+            const flutter::MethodCall <flutter::EncodableValue> &method_call,
+            std::unique_ptr <flutter::MethodResult<flutter::EncodableValue>> result) {
+        if (method_call.method_name().compare("check") == 0) {
+            result->Success(EncodeConnectivityTypes(manager->GetConnectivityTypes()));
+        } else {
+            result->NotImplemented();
+        }
+    }
 
-void ConnectivityStreamHandler::AddConnectivityEvent() {
-  sink->Success(EncodeConnectivityTypes(manager->GetConnectivityTypes()));
-}
+    ConnectivityStreamHandler::ConnectivityStreamHandler(
+            std::shared_ptr <NetworkManager> manager)
+            : manager(manager) {}
 
-std::unique_ptr<FlStreamHandlerError>
-ConnectivityStreamHandler::OnListenInternal(
-    const flutter::EncodableValue *arguments,
-    std::unique_ptr<FlEventSink> &&events) {
-  sink = std::move(events);
+    ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
 
-  auto callback =
-      std::bind(&ConnectivityStreamHandler::AddConnectivityEvent, this);
+    void ConnectivityStreamHandler::AddConnectivityEvent() {
+        sink->Success(EncodeConnectivityTypes(manager->GetConnectivityTypes()));
+    }
 
-  if (!manager->StartListen(callback)) {
-    return std::make_unique<FlStreamHandlerError>(
-        std::to_string(manager->GetError()), "NetworkManager::StartListen",
-        nullptr);
-  }
+    std::unique_ptr <FlStreamHandlerError>
+    ConnectivityStreamHandler::OnListenInternal(
+            const flutter::EncodableValue *arguments,
+            std::unique_ptr <FlEventSink> &&events) {
+        sink = std::move(events);
 
-  AddConnectivityEvent();
-  return nullptr;
-}
+        auto callback =
+                std::bind(&ConnectivityStreamHandler::AddConnectivityEvent, this);
 
-std::unique_ptr<FlStreamHandlerError>
-ConnectivityStreamHandler::OnCancelInternal(
-    const flutter::EncodableValue *arguments) {
-  manager->StopListen();
-  sink.reset();
-  return nullptr;
-}
+        if (!manager->StartListen(callback)) {
+            return std::make_unique<FlStreamHandlerError>(
+                    std::to_string(manager->GetError()), "NetworkManager::StartListen",
+                    nullptr);
+        }
+
+        AddConnectivityEvent();
+        return nullptr;
+    }
+
+    std::unique_ptr <FlStreamHandlerError>
+    ConnectivityStreamHandler::OnCancelInternal(
+            const flutter::EncodableValue *arguments) {
+        manager->StopListen();
+        sink.reset();
+        return nullptr;
+    }
 
 } // namespace
 
 void ConnectivityPlusWindowsPluginRegisterWithRegistrar(
-    FlutterDesktopPluginRegistrarRef registrar) {
-  ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
-      flutter::PluginRegistrarManager::GetInstance()
-          ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
+        FlutterDesktopPluginRegistrarRef registrar) {
+    ConnectivityPlusWindowsPlugin::RegisterWithRegistrar(
+            flutter::PluginRegistrarManager::GetInstance()
+                    ->GetRegistrar<flutter::PluginRegistrarWindows>(registrar));
 }

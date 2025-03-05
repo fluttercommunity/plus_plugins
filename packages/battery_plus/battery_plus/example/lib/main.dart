@@ -43,8 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _battery.batteryState.then(_updateBatteryState);
-    _batteryStateSubscription =
-        _battery.onBatteryStateChanged.listen(_updateBatteryState);
+    _batteryStateSubscription = _battery.onBatteryStateChanged.listen(
+      _updateBatteryState,
+    );
   }
 
   void _updateBatteryState(BatteryState state) {
@@ -77,58 +78,56 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                _battery.batteryLevel.then(
-                  (batteryLevel) {
-                    showDialog<void>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        content: Text('Battery: $batteryLevel%'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('OK'),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
+                _battery.batteryLevel.then((batteryLevel) {
+                  showDialog<void>(
+                    context: context,
+                    builder:
+                        (_) => AlertDialog(
+                          content: Text('Battery: $batteryLevel%'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                  );
+                });
               },
               child: const Text('Get battery level'),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                _battery.isInBatterySaveMode.then(
-                  (isInPowerSaveMode) {
-                    showDialog<void>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text(
-                          'Is in Battery Save mode?',
-                          style: TextStyle(fontSize: 20),
+                _battery.isInBatterySaveMode.then((isInPowerSaveMode) {
+                  showDialog<void>(
+                    context: context,
+                    builder:
+                        (_) => AlertDialog(
+                          title: const Text(
+                            'Is in Battery Save mode?',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          content: Text(
+                            "$isInPowerSaveMode",
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ],
                         ),
-                        content: Text(
-                          "$isInPowerSaveMode",
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Close'),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
+                  );
+                });
               },
               child: const Text('Is in Battery Save mode?'),
-            )
+            ),
           ],
         ),
       ),

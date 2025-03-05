@@ -30,10 +30,12 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
   // package:win32, so we have to manually define it here.
   //
   // ignore: non_constant_identifier_names
-  void Function(Pointer<OSVERSIONINFOEX>) RtlGetVersion =
-      DynamicLibrary.open('ntdll.dll').lookupFunction<
-          Void Function(Pointer<OSVERSIONINFOEX>),
-          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
+  void Function(Pointer<OSVERSIONINFOEX>) RtlGetVersion = DynamicLibrary.open(
+    'ntdll.dll',
+  ).lookupFunction<
+    Void Function(Pointer<OSVERSIONINFOEX>),
+    void Function(Pointer<OSVERSIONINFOEX>)
+  >('RtlGetVersion');
 
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
@@ -44,30 +46,36 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
   @visibleForTesting
   WindowsDeviceInfo getInfo() {
     final systemInfo = calloc<SYSTEM_INFO>();
-    final osVersionInfo = calloc<OSVERSIONINFOEX>()
-      ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFOEX>();
+    final osVersionInfo =
+        calloc<OSVERSIONINFOEX>()
+          ..ref.dwOSVersionInfoSize = sizeOf<OSVERSIONINFOEX>();
 
     try {
-      final currentVersionKey = Registry.openPath(RegistryHive.localMachine,
-          path: r'SOFTWARE\Microsoft\Windows NT\CurrentVersion');
+      final currentVersionKey = Registry.openPath(
+        RegistryHive.localMachine,
+        path: r'SOFTWARE\Microsoft\Windows NT\CurrentVersion',
+      );
       final buildLab = currentVersionKey.getStringValue('BuildLab') ?? '';
       final buildLabEx = currentVersionKey.getStringValue('BuildLabEx') ?? '';
       final digitalProductId =
           currentVersionKey.getBinaryValue('DigitalProductId') ??
-              Uint8List.fromList([]);
+          Uint8List.fromList([]);
       final displayVersion =
           currentVersionKey.getStringValue('DisplayVersion') ?? '';
       final editionId = currentVersionKey.getStringValue('EditionID') ?? '';
       final installDate = DateTime.fromMillisecondsSinceEpoch(
-          1000 * (currentVersionKey.getIntValue('InstallDate') ?? 0));
+        1000 * (currentVersionKey.getIntValue('InstallDate') ?? 0),
+      );
       final productId = currentVersionKey.getStringValue('ProductID') ?? '';
       var productName = currentVersionKey.getStringValue('ProductName') ?? '';
       final registeredOwner =
           currentVersionKey.getStringValue('RegisteredOwner') ?? '';
       final releaseId = currentVersionKey.getStringValue('ReleaseId') ?? '';
 
-      final sqmClientKey = Registry.openPath(RegistryHive.localMachine,
-          path: r'SOFTWARE\Microsoft\SQMClient');
+      final sqmClientKey = Registry.openPath(
+        RegistryHive.localMachine,
+        path: r'SOFTWARE\Microsoft\SQMClient',
+      );
       final machineId = sqmClientKey.getStringValue('MachineId') ?? '';
 
       GetSystemInfo(systemInfo);
@@ -140,8 +148,11 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
     // Now allocate memory for a native string and call this a second time.
     final lpBuffer = wsalloc(nSize.value);
     try {
-      final result =
-          GetComputerNameEx(ComputerNameDnsFullyQualified, lpBuffer, nSize);
+      final result = GetComputerNameEx(
+        ComputerNameDnsFullyQualified,
+        lpBuffer,
+        nSize,
+      );
 
       if (result != 0) {
         return lpBuffer.toDartString();

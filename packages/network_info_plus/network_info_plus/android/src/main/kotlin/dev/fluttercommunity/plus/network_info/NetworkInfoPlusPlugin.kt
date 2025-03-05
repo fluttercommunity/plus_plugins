@@ -29,7 +29,8 @@ class NetworkInfoPlusPlugin : FlutterPlugin {
 
         var connectivityManager: ConnectivityManager? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            connectivityManager = context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connectivityManager =
+                context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         }
 
         val networkInfo = NetworkInfo(wifiManager, connectivityManager)

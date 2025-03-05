@@ -18,8 +18,9 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('bluetooth');
       return client;
     };
@@ -33,8 +34,9 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('ethernet');
       return client;
     };
@@ -48,8 +50,9 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('wireless');
       return client;
     };
@@ -63,8 +66,9 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('vpn');
       return client;
     };
@@ -78,8 +82,9 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('wireless,vpn');
       return client;
     };
@@ -93,33 +98,39 @@ void main() {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.none);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.none);
       return client;
     };
-    expect(linux.checkConnectivity(),
-        completion(equals([ConnectivityResult.none])));
+    expect(
+      linux.checkConnectivity(),
+      completion(equals([ConnectivityResult.none])),
+    );
   });
 
   test('connectivity changes', () {
     final linux = ConnectivityPlusLinuxPlugin();
     linux.createClient = () {
       final client = MockNetworkManagerClient();
-      when(client.connectivity)
-          .thenReturn(NetworkManagerConnectivityState.full);
+      when(
+        client.connectivity,
+      ).thenReturn(NetworkManagerConnectivityState.full);
       when(client.primaryConnectionType).thenReturn('wireless');
       when(client.propertiesChanged).thenAnswer((_) {
-        when(client.connectivity)
-            .thenReturn(NetworkManagerConnectivityState.none);
+        when(
+          client.connectivity,
+        ).thenReturn(NetworkManagerConnectivityState.none);
         return Stream.value(['Connectivity']);
       });
       return client;
     };
     expect(
-        linux.onConnectivityChanged,
-        emitsInOrder([
-          [ConnectivityResult.wifi],
-          [ConnectivityResult.none]
-        ]));
+      linux.onConnectivityChanged,
+      emitsInOrder([
+        [ConnectivityResult.wifi],
+        [ConnectivityResult.none],
+      ]),
+    );
   });
 }

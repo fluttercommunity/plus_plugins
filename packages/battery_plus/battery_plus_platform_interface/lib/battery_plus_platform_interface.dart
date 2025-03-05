@@ -55,6 +55,7 @@ abstract class BatteryPlatform extends PlatformInterface {
   /// Returns a Stream of BatteryState changes.
   Stream<BatteryState> get onBatteryStateChanged {
     throw UnimplementedError(
-        'get onBatteryStateChanged has not been implemented.');
+      'get onBatteryStateChanged has not been implemented.',
+    );
   }
 }

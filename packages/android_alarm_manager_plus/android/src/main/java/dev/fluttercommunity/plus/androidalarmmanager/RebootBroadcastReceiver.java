@@ -23,39 +23,39 @@ import android.util.Log;
  * AlarmService} to run on {@code BOOT_COMPLETED} and do the rescheduling.
  */
 public class RebootBroadcastReceiver extends BroadcastReceiver {
-  /**
-   * Invoked by the OS whenever a broadcast is received by this app.
-   *
-   * <p>If the broadcast's action is {@code BOOT_COMPLETED} then this {@code
-   * RebootBroadcastReceiver} reschedules all persistent timer callbacks. That rescheduling work is
-   * handled by {@link AlarmService#reschedulePersistentAlarms(Context)}.
-   */
-  @Override
-  public void onReceive(Context context, Intent intent) {
-    if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-      Log.i("AlarmService", "Rescheduling after boot!");
-      AlarmService.reschedulePersistentAlarms(context);
+    /**
+     * Schedules this {@code RebootBroadcastReceiver} to be run whenever the Android device reboots.
+     */
+    public static void enableRescheduleOnReboot(Context context) {
+        scheduleOnReboot(context, PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
     }
-  }
 
-  /**
-   * Schedules this {@code RebootBroadcastReceiver} to be run whenever the Android device reboots.
-   */
-  public static void enableRescheduleOnReboot(Context context) {
-    scheduleOnReboot(context, PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
-  }
+    /**
+     * Unschedules this {@code RebootBroadcastReceiver} to be run whenever the Android device reboots.
+     * This {@code RebootBroadcastReceiver} will no longer be run upon reboot.
+     */
+    public static void disableRescheduleOnReboot(Context context) {
+        scheduleOnReboot(context, PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+    }
 
-  /**
-   * Unschedules this {@code RebootBroadcastReceiver} to be run whenever the Android device reboots.
-   * This {@code RebootBroadcastReceiver} will no longer be run upon reboot.
-   */
-  public static void disableRescheduleOnReboot(Context context) {
-    scheduleOnReboot(context, PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
-  }
+    private static void scheduleOnReboot(Context context, int state) {
+        ComponentName receiver = new ComponentName(context, RebootBroadcastReceiver.class);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(receiver, state, PackageManager.DONT_KILL_APP);
+    }
 
-  private static void scheduleOnReboot(Context context, int state) {
-    ComponentName receiver = new ComponentName(context, RebootBroadcastReceiver.class);
-    PackageManager pm = context.getPackageManager();
-    pm.setComponentEnabledSetting(receiver, state, PackageManager.DONT_KILL_APP);
-  }
+    /**
+     * Invoked by the OS whenever a broadcast is received by this app.
+     *
+     * <p>If the broadcast's action is {@code BOOT_COMPLETED} then this {@code
+     * RebootBroadcastReceiver} reschedules all persistent timer callbacks. That rescheduling work is
+     * handled by {@link AlarmService#reschedulePersistentAlarms(Context)}.
+     */
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            Log.i("AlarmService", "Rescheduling after boot!");
+            AlarmService.reschedulePersistentAlarms(context);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 name: Compile Issue
 description: You added a plugin to your project but it does not compile or run anymore.
 title: "[Compile]: "
-labels: ["compile", "triage"]
+labels: [ "compile", "triage" ]
 body:
   - type: markdown
     attributes:

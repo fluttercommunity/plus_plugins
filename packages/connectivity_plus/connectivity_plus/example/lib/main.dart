@@ -51,8 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     initConnectivity();
 
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
+      _updateConnectionStatus,
+    );
   }
 
   @override
@@ -109,13 +110,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ListView(
             shrinkWrap: true,
             children: List.generate(
-                _connectionStatus.length,
-                (index) => Center(
-                      child: Text(
-                        _connectionStatus[index].toString(),
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    )),
+              _connectionStatus.length,
+              (index) => Center(
+                child: Text(
+                  _connectionStatus[index].toString(),
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+            ),
           ),
           const Spacer(flex: 2),
         ],

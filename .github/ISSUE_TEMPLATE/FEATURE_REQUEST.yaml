@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest a new idea for one of plugins.
 title: "[Request]: "
-labels: ["enhancement", "triage"]
+labels: [ "enhancement", "triage" ]
 body:
   - type: markdown
     attributes:

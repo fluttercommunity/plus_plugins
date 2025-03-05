@@ -7,23 +7,15 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'url_launcher_mock.dart';
 
 void main() {
-  test(
-    'registered instance',
-    () {
-      SharePlusWindowsPlugin.registerWith();
-      expect(SharePlatform.instance, isA<SharePlusWindowsPlugin>());
-    },
-    skip: VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+  test('registered instance', () {
+    SharePlusWindowsPlugin.registerWith();
+    expect(SharePlatform.instance, isA<SharePlusWindowsPlugin>());
+  }, skip: VersionHelper.instance.isWindows10RS5OrGreater);
 
-  test(
-    'registered instance',
-    () {
-      SharePlusWindowsPlugin.registerWith();
-      expect(SharePlatform.instance, isA<MethodChannelShare>());
-    },
-    skip: !VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+  test('registered instance', () {
+    SharePlusWindowsPlugin.registerWith();
+    expect(SharePlatform.instance, isA<MethodChannelShare>());
+  }, skip: !VersionHelper.instance.isWindows10RS5OrGreater);
 
   // These tests are only valid on Windows versions lower than 10.0.17763.0.
 
@@ -58,8 +50,10 @@ void main() {
       final mock = MockUrlLauncherPlatform();
       mock.canLaunchMockValue = false;
 
-      expect(() async => await SharePlusWindowsPlugin(mock).share('foo bar'),
-          throwsException);
+      expect(
+        () async => await SharePlusWindowsPlugin(mock).share('foo bar'),
+        throwsException,
+      );
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
   );

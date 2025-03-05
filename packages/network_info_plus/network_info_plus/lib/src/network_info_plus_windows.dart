@@ -9,10 +9,11 @@ import 'package:win32/win32.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
 import 'package:win32/winsock2.dart';
 
-typedef WlanQuery = String? Function(
-  Pointer<GUID> pGuid,
-  Pointer<WLAN_CONNECTION_ATTRIBUTES> pAttributes,
-);
+typedef WlanQuery =
+    String? Function(
+      Pointer<GUID> pGuid,
+      Pointer<WLAN_CONNECTION_ATTRIBUTES> pAttributes,
+    );
 
 class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   int clientHandle = NULL;
@@ -63,9 +64,12 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       }
 
       for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
-        final pInterfaceGuid = calloc<GUID>()
-          ..ref.setGUID(ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid
-              .toString());
+        final pInterfaceGuid =
+            calloc<GUID>()
+              ..ref.setGUID(
+                ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid
+                    .toString(),
+              );
 
         const opCode = 7; // wlan_intf_opcode_current_connection
         final pdwDataSize = calloc<DWORD>();
@@ -128,8 +132,10 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     }
   }
 
-  Pointer<IP_ADAPTER_ADDRESSES_LH>? getAdapterAddress(Pointer<GUID> pGuid,
-      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddresses) {
+  Pointer<IP_ADAPTER_ADDRESSES_LH>? getAdapterAddress(
+    Pointer<GUID> pGuid,
+    Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddresses,
+  ) {
     final ifLuid = calloc<NET_LUID_LH>();
     try {
       if (ConvertInterfaceGuidToLuid(pGuid, ifLuid) != NO_ERROR) {
@@ -151,51 +157,59 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
 
   @override
   Future<String?> getWifiName() {
-    return Future<String?>.value(query((pGuid, pAttributes) {
-      final DOT11_SSID ssid =
-          pAttributes.ref.wlanAssociationAttributes.dot11Ssid;
-      final charCodes = <int>[];
-      for (var i = 0; i < ssid.uSSIDLength; i++) {
-        if (ssid.ucSSID[i] == 0x00) break;
-        charCodes.add(ssid.ucSSID[i]);
-      }
-      return String.fromCharCodes(charCodes);
-    }));
+    return Future<String?>.value(
+      query((pGuid, pAttributes) {
+        final DOT11_SSID ssid =
+            pAttributes.ref.wlanAssociationAttributes.dot11Ssid;
+        final charCodes = <int>[];
+        for (var i = 0; i < ssid.uSSIDLength; i++) {
+          if (ssid.ucSSID[i] == 0x00) break;
+          charCodes.add(ssid.ucSSID[i]);
+        }
+        return String.fromCharCodes(charCodes);
+      }),
+    );
   }
 
   /// Obtains the wifi BSSID of the connected network.
   @override
   Future<String?> getWifiBSSID() {
-    return Future<String?>.value(query((pGuid, pAttributes) {
-      return formatBssid([
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[0],
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[1],
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[2],
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[3],
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[4],
-        pAttributes.ref.wlanAssociationAttributes.dot11Bssid[5],
-      ]);
-    }));
+    return Future<String?>.value(
+      query((pGuid, pAttributes) {
+        return formatBssid([
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[0],
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[1],
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[2],
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[3],
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[4],
+          pAttributes.ref.wlanAssociationAttributes.dot11Bssid[5],
+        ]);
+      }),
+    );
   }
 
   Future<String?> getIPAddr(int family) {
-    return Future<String?>.value(query((pGuid, pAttributes) {
-      final ulSize = calloc<ULONG>();
-      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
-      try {
-        GetAdaptersAddresses(family, 0, nullptr, nullptr, ulSize);
-        pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
-        GetAdaptersAddresses(family, 0, nullptr, pIpAdapterAddress, ulSize);
-        final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
-        if (pAddr == null) return null;
-        if (pAddr.ref.FirstUnicastAddress == nullptr) return null;
-        return formatIPAddress(
-            pAddr.ref.FirstUnicastAddress.ref.Address.lpSockaddr);
-      } finally {
-        free(ulSize);
-        if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
-      }
-    }));
+    return Future<String?>.value(
+      query((pGuid, pAttributes) {
+        final ulSize = calloc<ULONG>();
+        Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
+        try {
+          GetAdaptersAddresses(family, 0, nullptr, nullptr, ulSize);
+          pIpAdapterAddress =
+              HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
+          GetAdaptersAddresses(family, 0, nullptr, pIpAdapterAddress, ulSize);
+          final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
+          if (pAddr == null) return null;
+          if (pAddr.ref.FirstUnicastAddress == nullptr) return null;
+          return formatIPAddress(
+            pAddr.ref.FirstUnicastAddress.ref.Address.lpSockaddr,
+          );
+        } finally {
+          free(ulSize);
+          if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
+        }
+      }),
+    );
   }
 
   /// Obtains the IP v4 address of the connected wifi network
@@ -213,33 +227,36 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   /// Obtains the subnet mask of the connected wifi network
   @override
   Future<String?> getWifiSubmask() {
-    return Future<String?>.value(query((pGuid, pAttributes) {
-      final ulSize = calloc<ULONG>();
-      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
-      try {
-        GetAdaptersAddresses(
-          ADDRESS_FAMILY.AF_INET,
-          0,
-          nullptr,
-          nullptr,
-          ulSize,
-        );
-        pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
-        GetAdaptersAddresses(
-          ADDRESS_FAMILY.AF_INET,
-          0,
-          nullptr,
-          pIpAdapterAddress,
-          ulSize,
-        );
-        final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
-        if (pAddr == null) return null;
-        return extractSubnet(pAddr);
-      } finally {
-        free(ulSize);
-        if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
-      }
-    }));
+    return Future<String?>.value(
+      query((pGuid, pAttributes) {
+        final ulSize = calloc<ULONG>();
+        Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
+        try {
+          GetAdaptersAddresses(
+            ADDRESS_FAMILY.AF_INET,
+            0,
+            nullptr,
+            nullptr,
+            ulSize,
+          );
+          pIpAdapterAddress =
+              HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
+          GetAdaptersAddresses(
+            ADDRESS_FAMILY.AF_INET,
+            0,
+            nullptr,
+            pIpAdapterAddress,
+            ulSize,
+          );
+          final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
+          if (pAddr == null) return null;
+          return extractSubnet(pAddr);
+        } finally {
+          free(ulSize);
+          if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
+        }
+      }),
+    );
   }
 
   String extractSubnet(Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress) {
@@ -274,8 +291,9 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
     final List<String> subnetParts = subnet.split('.');
     String broadcast = '';
     for (int i = 0; i < 4; i++) {
-      broadcast += (int.parse(ipParts[i]) | (~int.parse(subnetParts[i]) & 0xff))
-          .toString();
+      broadcast +=
+          (int.parse(ipParts[i]) | (~int.parse(subnetParts[i]) & 0xff))
+              .toString();
       if (i < 3) broadcast += '.';
     }
     return broadcast;
@@ -285,34 +303,38 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
   /// This is the IP address of the router
   @override
   Future<String?> getWifiGatewayIP() {
-    return Future<String?>.value(query((pGuid, pAttributes) {
-      final ulSize = calloc<ULONG>();
-      Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
-      try {
-        GetAdaptersAddresses(
-          ADDRESS_FAMILY.AF_INET,
-          0x80,
-          nullptr,
-          nullptr,
-          ulSize,
-        );
-        pIpAdapterAddress = HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
-        GetAdaptersAddresses(
-          ADDRESS_FAMILY.AF_INET,
-          0x80,
-          nullptr,
-          pIpAdapterAddress,
-          ulSize,
-        );
-        final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
-        if (pAddr == null) return null;
-        if (pAddr.ref.FirstGatewayAddress == nullptr) return null;
-        return formatIPAddress(
-            pAddr.ref.FirstGatewayAddress.ref.Address.lpSockaddr);
-      } finally {
-        free(ulSize);
-        if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
-      }
-    }));
+    return Future<String?>.value(
+      query((pGuid, pAttributes) {
+        final ulSize = calloc<ULONG>();
+        Pointer<IP_ADAPTER_ADDRESSES_LH> pIpAdapterAddress = nullptr;
+        try {
+          GetAdaptersAddresses(
+            ADDRESS_FAMILY.AF_INET,
+            0x80,
+            nullptr,
+            nullptr,
+            ulSize,
+          );
+          pIpAdapterAddress =
+              HeapAlloc(GetProcessHeap(), 0, ulSize.value).cast();
+          GetAdaptersAddresses(
+            ADDRESS_FAMILY.AF_INET,
+            0x80,
+            nullptr,
+            pIpAdapterAddress,
+            ulSize,
+          );
+          final pAddr = getAdapterAddress(pGuid, pIpAdapterAddress);
+          if (pAddr == null) return null;
+          if (pAddr.ref.FirstGatewayAddress == nullptr) return null;
+          return formatIPAddress(
+            pAddr.ref.FirstGatewayAddress.ref.Address.lpSockaddr,
+          );
+        } finally {
+          free(ulSize);
+          if (pIpAdapterAddress != nullptr) free(pIpAdapterAddress);
+        }
+      }),
+    );
   }
 }

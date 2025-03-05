@@ -17,13 +17,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
 import androidx.test.core.app.ApplicationProvider;
+
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.BinaryMessenger.BinaryMessageHandler;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel.Result;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,255 +36,255 @@ import org.robolectric.shadows.ShadowPackageManager;
 
 @RunWith(RobolectricTestRunner.class)
 public class MethodCallHandlerImplTest {
-  private static final String CHANNEL_NAME = "dev.fluttercommunity.plus/android_intent";
-  private Context context;
-  private IntentSender sender;
-  private MethodCallHandlerImpl methodCallHandler;
+    private static final String CHANNEL_NAME = "dev.fluttercommunity.plus/android_intent";
+    private Context context;
+    private IntentSender sender;
+    private MethodCallHandlerImpl methodCallHandler;
 
-  @Before
-  public void setUp() {
-    context = ApplicationProvider.getApplicationContext();
-    sender = new IntentSender(null, null);
-    methodCallHandler = new MethodCallHandlerImpl(sender);
-  }
+    @Before
+    public void setUp() {
+        context = ApplicationProvider.getApplicationContext();
+        sender = new IntentSender(null, null);
+        methodCallHandler = new MethodCallHandlerImpl(sender);
+    }
 
-  @Test
-  public void startListening_registersChannel() {
-    BinaryMessenger messenger = mock(BinaryMessenger.class);
+    @Test
+    public void startListening_registersChannel() {
+        BinaryMessenger messenger = mock(BinaryMessenger.class);
 
-    methodCallHandler.startListening(messenger);
+        methodCallHandler.startListening(messenger);
 
-    verify(messenger, times(1))
-        .setMessageHandler(eq(CHANNEL_NAME), any(BinaryMessageHandler.class));
-  }
+        verify(messenger, times(1))
+                .setMessageHandler(eq(CHANNEL_NAME), any(BinaryMessageHandler.class));
+    }
 
-  @Test
-  public void startListening_unregistersExistingChannel() {
-    BinaryMessenger firstMessenger = mock(BinaryMessenger.class);
-    BinaryMessenger secondMessenger = mock(BinaryMessenger.class);
-    methodCallHandler.startListening(firstMessenger);
+    @Test
+    public void startListening_unregistersExistingChannel() {
+        BinaryMessenger firstMessenger = mock(BinaryMessenger.class);
+        BinaryMessenger secondMessenger = mock(BinaryMessenger.class);
+        methodCallHandler.startListening(firstMessenger);
 
-    methodCallHandler.startListening(secondMessenger);
+        methodCallHandler.startListening(secondMessenger);
 
-    // Unregisters the first and then registers the second.
-    verify(firstMessenger, times(1)).setMessageHandler(CHANNEL_NAME, null);
-    verify(secondMessenger, times(1))
-        .setMessageHandler(eq(CHANNEL_NAME), any(BinaryMessageHandler.class));
-  }
+        // Unregisters the first and then registers the second.
+        verify(firstMessenger, times(1)).setMessageHandler(CHANNEL_NAME, null);
+        verify(secondMessenger, times(1))
+                .setMessageHandler(eq(CHANNEL_NAME), any(BinaryMessageHandler.class));
+    }
 
-  @Test
-  public void stopListening_unregistersExistingChannel() {
-    BinaryMessenger messenger = mock(BinaryMessenger.class);
-    methodCallHandler.startListening(messenger);
+    @Test
+    public void stopListening_unregistersExistingChannel() {
+        BinaryMessenger messenger = mock(BinaryMessenger.class);
+        methodCallHandler.startListening(messenger);
 
-    methodCallHandler.stopListening();
+        methodCallHandler.stopListening();
 
-    verify(messenger, times(1)).setMessageHandler(CHANNEL_NAME, null);
-  }
+        verify(messenger, times(1)).setMessageHandler(CHANNEL_NAME, null);
+    }
 
-  @Test
-  public void stopListening_doesNothingWhenUnset() {
-    BinaryMessenger messenger = mock(BinaryMessenger.class);
+    @Test
+    public void stopListening_doesNothingWhenUnset() {
+        BinaryMessenger messenger = mock(BinaryMessenger.class);
 
-    methodCallHandler.stopListening();
+        methodCallHandler.stopListening();
 
-    verify(messenger, never()).setMessageHandler(CHANNEL_NAME, null);
-  }
+        verify(messenger, never()).setMessageHandler(CHANNEL_NAME, null);
+    }
 
-  @Test
-  public void onMethodCall_doesNothingWhenContextIsNull() {
-    Result result = mock(Result.class);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
+    @Test
+    public void onMethodCall_doesNothingWhenContextIsNull() {
+        Result result = mock(Result.class);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    // No matter what, should always succeed.
-    verify(result, times(1)).success(null);
-    assertNull(shadowOf((Application) context).getNextStartedActivity());
-  }
+        // No matter what, should always succeed.
+        verify(result, times(1)).success(null);
+        assertNull(shadowOf((Application) context).getNextStartedActivity());
+    }
 
-  @Test
-  public void onMethodCall_setsAction() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_setsAction() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals("foo", intent.getAction());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals("foo", intent.getAction());
+    }
 
-  @Test
-  public void onMethodCall_setsNewTaskFlagWithApplicationContext() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_setsNewTaskFlagWithApplicationContext() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, intent.getFlags());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, intent.getFlags());
+    }
 
-  @Test
-  public void onMethodCall_addsFlags() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    Integer requestFlags = Intent.FLAG_FROM_BACKGROUND;
-    args.put("flags", requestFlags);
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_addsFlags() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        Integer requestFlags = Intent.FLAG_FROM_BACKGROUND;
+        args.put("flags", requestFlags);
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK | requestFlags, intent.getFlags());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK | requestFlags, intent.getFlags());
+    }
 
-  @Test
-  public void onMethodCall_addsCategory() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    String category = "bar";
-    args.put("category", category);
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_addsCategory() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        String category = "bar";
+        args.put("category", category);
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertTrue(intent.getCategories().contains(category));
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertTrue(intent.getCategories().contains(category));
+    }
 
-  @Test
-  public void onMethodCall_setsData() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    Uri data = Uri.parse("http://flutter.dev");
-    args.put("data", data.toString());
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_setsData() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        Uri data = Uri.parse("http://flutter.dev");
+        args.put("data", data.toString());
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals(data, intent.getData());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals(data, intent.getData());
+    }
 
-  @Test
-  public void onMethodCall_clearsInvalidPackageNames() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    args.put("packageName", "invalid");
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_clearsInvalidPackageNames() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        args.put("packageName", "invalid");
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertNull(intent.getPackage());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertNull(intent.getPackage());
+    }
 
-  @Test
-  public void onMethodCall_setsComponentName() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    ComponentName expectedComponent =
-        new ComponentName("io.flutter.plugins.androidintent", "MainActivity");
-    args.put("action", "foo");
-    args.put("package", expectedComponent.getPackageName());
-    args.put("componentName", expectedComponent.getClassName());
-    Result result = mock(Result.class);
-    ShadowPackageManager shadowPm =
-        shadowOf(ApplicationProvider.getApplicationContext().getPackageManager());
-    shadowPm.addActivityIfNotPresent(expectedComponent);
+    @Test
+    public void onMethodCall_setsComponentName() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        ComponentName expectedComponent =
+                new ComponentName("io.flutter.plugins.androidintent", "MainActivity");
+        args.put("action", "foo");
+        args.put("package", expectedComponent.getPackageName());
+        args.put("componentName", expectedComponent.getClassName());
+        Result result = mock(Result.class);
+        ShadowPackageManager shadowPm =
+                shadowOf(ApplicationProvider.getApplicationContext().getPackageManager());
+        shadowPm.addActivityIfNotPresent(expectedComponent);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertNotNull(intent.getComponent());
-    assertEquals("foo", intent.getAction());
-    assertEquals("io.flutter.plugins.androidintent", intent.getPackage());
-    assertEquals(
-        "io.flutter.plugins.androidintent/MainActivity", intent.getComponent().flattenToString());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals("foo", intent.getAction());
+        assertEquals("io.flutter.plugins.androidintent", intent.getPackage());
+        assertEquals(
+                "io.flutter.plugins.androidintent/MainActivity", intent.getComponent().flattenToString());
+    }
 
-  @Test
-  public void onMethodCall_setsOnlyComponentName() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    ComponentName expectedComponent =
-        new ComponentName("io.flutter.plugins.androidintent", "MainActivity");
-    args.put("package", expectedComponent.getPackageName());
-    args.put("componentName", expectedComponent.getClassName());
-    Result result = mock(Result.class);
-    ShadowPackageManager shadowPm =
-        shadowOf(ApplicationProvider.getApplicationContext().getPackageManager());
-    shadowPm.addActivityIfNotPresent(expectedComponent);
+    @Test
+    public void onMethodCall_setsOnlyComponentName() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        ComponentName expectedComponent =
+                new ComponentName("io.flutter.plugins.androidintent", "MainActivity");
+        args.put("package", expectedComponent.getPackageName());
+        args.put("componentName", expectedComponent.getClassName());
+        Result result = mock(Result.class);
+        ShadowPackageManager shadowPm =
+                shadowOf(ApplicationProvider.getApplicationContext().getPackageManager());
+        shadowPm.addActivityIfNotPresent(expectedComponent);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertNotNull(intent.getComponent());
-    assertEquals("io.flutter.plugins.androidintent", intent.getPackage());
-    assertEquals(
-        "io.flutter.plugins.androidintent/MainActivity", intent.getComponent().flattenToString());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals("io.flutter.plugins.androidintent", intent.getPackage());
+        assertEquals(
+                "io.flutter.plugins.androidintent/MainActivity", intent.getComponent().flattenToString());
+    }
 
-  @Test
-  public void onMethodCall_setsType() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    String type = "video/*";
-    args.put("type", type);
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_setsType() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        String type = "video/*";
+        args.put("type", type);
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals(type, intent.getType());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals(type, intent.getType());
+    }
 
-  @Test
-  public void onMethodCall_setsDataAndType() {
-    sender.setApplicationContext(context);
-    Map<String, Object> args = new HashMap<>();
-    args.put("action", "foo");
-    Uri data = Uri.parse("http://flutter.dev");
-    args.put("data", data.toString());
-    String type = "video/*";
-    args.put("type", type);
-    Result result = mock(Result.class);
+    @Test
+    public void onMethodCall_setsDataAndType() {
+        sender.setApplicationContext(context);
+        Map<String, Object> args = new HashMap<>();
+        args.put("action", "foo");
+        Uri data = Uri.parse("http://flutter.dev");
+        args.put("data", data.toString());
+        String type = "video/*";
+        args.put("type", type);
+        Result result = mock(Result.class);
 
-    methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
+        methodCallHandler.onMethodCall(new MethodCall("launch", args), result);
 
-    verify(result, times(1)).success(null);
-    Intent intent = shadowOf((Application) context).getNextStartedActivity();
-    assertNotNull(intent);
-    assertEquals(type, intent.getType());
-    assertEquals(data, intent.getData());
-  }
+        verify(result, times(1)).success(null);
+        Intent intent = shadowOf((Application) context).getNextStartedActivity();
+        assertNotNull(intent);
+        assertEquals(type, intent.getType());
+        assertEquals(data, intent.getData());
+    }
 }

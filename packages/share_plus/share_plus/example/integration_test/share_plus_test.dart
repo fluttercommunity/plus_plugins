@@ -21,11 +21,15 @@ void main() {
     expect(Share.shareUri(Uri.parse('https://example.com')), isNotNull);
   }, skip: !Platform.isAndroid && !Platform.isIOS);
 
-  testWidgets('Can shareXFile created using File.fromData()',
-      (WidgetTester tester) async {
+  testWidgets('Can shareXFile created using File.fromData()', (
+    WidgetTester tester,
+  ) async {
     final bytes = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8]);
-    final XFile file =
-        XFile.fromData(bytes, name: 'image.jpg', mimeType: 'image/jpeg');
+    final XFile file = XFile.fromData(
+      bytes,
+      name: 'image.jpg',
+      mimeType: 'image/jpeg',
+    );
 
     expect(Share.shareXFiles([file], text: "example"), isNotNull);
   });

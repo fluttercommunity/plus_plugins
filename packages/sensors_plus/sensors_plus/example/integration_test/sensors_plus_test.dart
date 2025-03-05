@@ -11,15 +11,19 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   // NOTE: The accelerometer events are not returned on iOS simulators.
-  testWidgets('Can subscribe to accelerometerEvents and get non-null events',
-      (WidgetTester tester) async {
-    final completer = Completer<AccelerometerEvent>();
-    late StreamSubscription<AccelerometerEvent> subscription;
-    subscription =
-        accelerometerEventStream().listen((AccelerometerEvent event) {
-      completer.complete(event);
-      subscription.cancel();
-    });
-    expect(await completer.future, isNotNull);
-  }, skip: !Platform.isAndroid);
+  testWidgets(
+    'Can subscribe to accelerometerEvents and get non-null events',
+    (WidgetTester tester) async {
+      final completer = Completer<AccelerometerEvent>();
+      late StreamSubscription<AccelerometerEvent> subscription;
+      subscription = accelerometerEventStream().listen((
+        AccelerometerEvent event,
+      ) {
+        completer.complete(event);
+        subscription.cancel();
+      });
+      expect(await completer.future, isNotNull);
+    },
+    skip: !Platform.isAndroid,
+  );
 }

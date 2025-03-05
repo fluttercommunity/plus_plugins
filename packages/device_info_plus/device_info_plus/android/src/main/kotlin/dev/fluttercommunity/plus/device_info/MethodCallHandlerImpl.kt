@@ -39,7 +39,8 @@ internal class MethodCallHandlerImpl(
             build["product"] = Build.PRODUCT
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                build["name"] = Settings.Global.getString(contentResolver, Settings.Global.DEVICE_NAME) ?: ""
+                build["name"] =
+                    Settings.Global.getString(contentResolver, Settings.Global.DEVICE_NAME) ?: ""
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

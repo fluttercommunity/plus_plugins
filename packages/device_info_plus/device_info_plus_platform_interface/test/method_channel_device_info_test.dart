@@ -16,17 +16,16 @@ void main() {
       methodChannelDeviceInfo = MethodChannelDeviceInfo();
 
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(
-        methodChannelDeviceInfo.channel,
-        (MethodCall methodCall) async {
-          switch (methodCall.method) {
-            case 'getDeviceInfo':
-              return {'device_info': 'is_fake'};
-            default:
-              return null;
-          }
-        },
-      );
+          .setMockMethodCallHandler(methodChannelDeviceInfo.channel, (
+            MethodCall methodCall,
+          ) async {
+            switch (methodCall.method) {
+              case 'getDeviceInfo':
+                return {'device_info': 'is_fake'};
+              default:
+                return null;
+            }
+          });
     });
 
     test('deviceInfo', () async {

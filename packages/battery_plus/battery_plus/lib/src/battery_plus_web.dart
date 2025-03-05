@@ -80,11 +80,12 @@ class BatteryPlusWebPlugin extends BatteryPlatform {
       _checkBatteryChargingState(batteryManager.charging),
     );
 
-    batteryManager.onchargingchange = (Event _) {
-      _batteryChangeStreamController?.add(
-        _checkBatteryChargingState(batteryManager.charging),
-      );
-    }.toJS;
+    batteryManager.onchargingchange =
+        (Event _) {
+          _batteryChangeStreamController?.add(
+            _checkBatteryChargingState(batteryManager.charging),
+          );
+        }.toJS;
 
     _batteryChangeStreamController?.onCancel = () {
       _batteryChangeStreamController?.close();

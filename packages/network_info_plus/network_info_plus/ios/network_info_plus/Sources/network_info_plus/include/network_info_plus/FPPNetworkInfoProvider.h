@@ -4,6 +4,6 @@
 @protocol FPPNetworkInfoProvider <NSObject>
 
 - (void)fetchNetworkInfoWithCompletionHandler:
-    (void (^)(FPPNetworkInfo *networkInfo))completionHandler;
+        (void (^)(FPPNetworkInfo *networkInfo))completionHandler;
 
 @end

@@ -67,9 +67,10 @@ class DemoAppState extends State<DemoApp> {
                   hintText: 'Enter some text and/or link to share',
                 ),
                 maxLines: null,
-                onChanged: (String value) => setState(() {
-                  text = value;
-                }),
+                onChanged:
+                    (String value) => setState(() {
+                      text = value;
+                    }),
               ),
               const SizedBox(height: 16),
               TextField(
@@ -79,9 +80,10 @@ class DemoAppState extends State<DemoApp> {
                   hintText: 'Enter subject to share (optional)',
                 ),
                 maxLines: null,
-                onChanged: (String value) => setState(() {
-                  subject = value;
-                }),
+                onChanged:
+                    (String value) => setState(() {
+                      subject = value;
+                    }),
               ),
               const SizedBox(height: 16),
               TextField(
@@ -123,7 +125,8 @@ class DemoAppState extends State<DemoApp> {
                       extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
                     );
                     final file = await openFile(
-                        acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                      acceptedTypeGroups: <XTypeGroup>[typeGroup],
+                    );
                     if (file != null) {
                       setState(() {
                         imagePaths.add(file.path);
@@ -153,9 +156,10 @@ class DemoAppState extends State<DemoApp> {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    onPressed: text.isEmpty && imagePaths.isEmpty
-                        ? null
-                        : () => _onShareWithResult(context),
+                    onPressed:
+                        text.isEmpty && imagePaths.isEmpty
+                            ? null
+                            : () => _onShareWithResult(context),
                     child: const Text('Share'),
                   );
                 },
@@ -183,9 +187,10 @@ class DemoAppState extends State<DemoApp> {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    onPressed: fileName.isEmpty || text.isEmpty
-                        ? null
-                        : () => _onShareTextAsXFile(context),
+                    onPressed:
+                        fileName.isEmpty || text.isEmpty
+                            ? null
+                            : () => _onShareTextAsXFile(context),
                     child: const Text('Share text as XFile'),
                   );
                 },
@@ -248,21 +253,16 @@ class DemoAppState extends State<DemoApp> {
     try {
       final data = await rootBundle.load('assets/flutter_logo.png');
       final buffer = data.buffer;
-      final shareResult = await Share.shareXFiles(
-        [
-          XFile.fromData(
-            buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-            name: 'flutter_logo.png',
-            mimeType: 'image/png',
-          ),
-        ],
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      );
+      final shareResult = await Share.shareXFiles([
+        XFile.fromData(
+          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+          name: 'flutter_logo.png',
+          mimeType: 'image/png',
+        ),
+      ], sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
     } catch (e) {
-      scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -285,9 +285,7 @@ class DemoAppState extends State<DemoApp> {
 
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
     } catch (e) {
-      scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -299,7 +297,7 @@ class DemoAppState extends State<DemoApp> {
         children: [
           Text("Share result: ${result.status}"),
           if (result.status == ShareResultStatus.success)
-            Text("Shared to: ${result.raw}")
+            Text("Shared to: ${result.raw}"),
         ],
       ),
     );

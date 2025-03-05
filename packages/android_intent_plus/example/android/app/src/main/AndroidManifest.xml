@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.flutter.plugins.androidintentexample">
+    package="io.flutter.plugins.androidintentexample">
 
-  <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-  <!--
- The INTERNET permission is required for development. Specifically,
-       flutter needs it to communicate with the running application
-       to allow setting breakpoints, to provide hot reload, etc.
-    -->
-  <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <!--
+   The INTERNET permission is required for development. Specifically,
+         flutter needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+      -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
-  <queries>
-    <intent>
-      <action android:name="android.intent.action.VIEW"/>
-      <data android:scheme="http"/>
-    </intent>
-    <intent>
-      <action android:name="android.intent.action.VIEW"/>
-      <data android:scheme="https"/>
-    </intent>
-  </queries>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
-  <application
-    android:name="${applicationName}"
-    android:icon="@mipmap/ic_launcher"
-    android:label="android_intent_example">
-    <activity
-      android:name=".MainActivity"
-      android:exported="true"
-      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale"
-      android:hardwareAccelerated="true"
-      android:theme="@android:style/Theme.Black.NoTitleBar"
-      android:windowSoftInputMode="adjustResize">
-      <meta-data
-        android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-        android:value="true" />
+    <application
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:label="android_intent_example">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+                android:value="true" />
 
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <meta-data
-      android:name="flutterEmbedding"
-      android:value="2" />
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
 
-    <receiver android:name=".MyBroadcastReceiver"
-      android:exported="true">
-      <intent-filter>
-        <action android:name="com.example.broadcast" />
-      </intent-filter>
-    </receiver>
-  </application>
+        <receiver
+            android:name=".MyBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.broadcast" />
+            </intent-filter>
+        </receiver>
+    </application>
 
 </manifest>

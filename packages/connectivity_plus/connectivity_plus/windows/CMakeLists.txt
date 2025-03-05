@@ -7,23 +7,23 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 set(PLUGIN_NAME "connectivity_plus_plugin")
 
 add_library(${PLUGIN_NAME} SHARED
-  "connectivity_plus_plugin.cpp"
-  "network_manager.cpp"
+        "connectivity_plus_plugin.cpp"
+        "network_manager.cpp"
 )
 apply_standard_settings(${PLUGIN_NAME})
 set_target_properties(${PLUGIN_NAME} PROPERTIES
-  CXX_VISIBILITY_PRESET hidden)
+        CXX_VISIBILITY_PRESET hidden)
 target_compile_definitions(${PLUGIN_NAME} PRIVATE FLUTTER_PLUGIN_IMPL)
 target_include_directories(${PLUGIN_NAME} INTERFACE
-  "${CMAKE_CURRENT_SOURCE_DIR}/include")
+        "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE
-  flutter
-  flutter_wrapper_plugin
-  iphlpapi
+        flutter
+        flutter_wrapper_plugin
+        iphlpapi
 )
 
 # List of absolute paths to libraries that should be bundled with the plugin
 set(connectivity_plus_bundled_libraries
-  ""
-  PARENT_SCOPE
+        ""
+        PARENT_SCOPE
 )

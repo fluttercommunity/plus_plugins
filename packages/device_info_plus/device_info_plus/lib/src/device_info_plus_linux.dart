@@ -18,7 +18,7 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
 
   ///
   DeviceInfoPlusLinuxPlugin({@visibleForTesting FileSystem? fileSystem})
-      : _fileSystem = fileSystem ?? const LocalFileSystem();
+    : _fileSystem = fileSystem ?? const LocalFileSystem();
 
   @override
   Future<BaseDeviceInfo> deviceInfo() async {
@@ -50,8 +50,9 @@ class DeviceInfoPlusLinuxPlugin extends DeviceInfoPlatform {
   }
 
   Future<Map<String, String?>?> _getOsRelease() {
-    return _tryReadKeyValues('/etc/os-release').then((value) async =>
-        value ?? await _tryReadKeyValues('/usr/lib/os-release'));
+    return _tryReadKeyValues('/etc/os-release').then(
+      (value) async => value ?? await _tryReadKeyValues('/usr/lib/os-release'),
+    );
   }
 
   Future<Map<String, String?>?> _getLsbRelease() {
@@ -95,10 +96,12 @@ extension _Unquote on String {
 
 extension _KeyValues on List<String> {
   Map<String, String?> toKeyValues() {
-    return Map.fromEntries(map((line) {
-      final parts = line.split('=');
-      if (parts.length != 2) return MapEntry(line, null);
-      return MapEntry(parts.first, parts.last.unquote());
-    }));
+    return Map.fromEntries(
+      map((line) {
+        final parts = line.split('=');
+        if (parts.length != 2) return MapEntry(line, null);
+        return MapEntry(parts.first, parts.last.unquote());
+      }),
+    );
   }
 }

@@ -10,23 +10,29 @@ import 'package:sensors_plus_platform_interface/sensors_plus_platform_interface.
 
 /// A method channel -based implementation of the SensorsPlatform interface.
 class MethodChannelSensors extends SensorsPlatform {
-  static const MethodChannel _methodChannel =
-      MethodChannel('dev.fluttercommunity.plus/sensors/method');
+  static const MethodChannel _methodChannel = MethodChannel(
+    'dev.fluttercommunity.plus/sensors/method',
+  );
 
-  static const EventChannel _accelerometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/accelerometer');
+  static const EventChannel _accelerometerEventChannel = EventChannel(
+    'dev.fluttercommunity.plus/sensors/accelerometer',
+  );
 
-  static const EventChannel _userAccelerometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/user_accel');
+  static const EventChannel _userAccelerometerEventChannel = EventChannel(
+    'dev.fluttercommunity.plus/sensors/user_accel',
+  );
 
-  static const EventChannel _gyroscopeEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/gyroscope');
+  static const EventChannel _gyroscopeEventChannel = EventChannel(
+    'dev.fluttercommunity.plus/sensors/gyroscope',
+  );
 
-  static const EventChannel _magnetometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/magnetometer');
+  static const EventChannel _magnetometerEventChannel = EventChannel(
+    'dev.fluttercommunity.plus/sensors/magnetometer',
+  );
 
-  static const EventChannel _barometerEventChannel =
-      EventChannel('dev.fluttercommunity.plus/sensors/barometer');
+  static const EventChannel _barometerEventChannel = EventChannel(
+    'dev.fluttercommunity.plus/sensors/barometer',
+  );
 
   final logger = Logger('MethodChannelSensors');
   Stream<AccelerometerEvent>? _accelerometerEvents;
@@ -43,26 +49,28 @@ class MethodChannelSensors extends SensorsPlatform {
   }) {
     var microseconds = samplingPeriod.inMicroseconds;
     if (microseconds >= 1 && microseconds <= 3) {
-      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
-          'which is a reserved value in Android. Please consider changing it '
-          'to either 0 or 4μs. See https://developer.android.com/reference/'
-          'android/hardware/SensorManager#registerListener(android.hardware.'
-          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
-          'information');
+      logger.warning(
+        'The SamplingPeriod is currently set to $microsecondsμs, '
+        'which is a reserved value in Android. Please consider changing it '
+        'to either 0 or 4μs. See https://developer.android.com/reference/'
+        'android/hardware/SensorManager#registerListener(android.hardware.'
+        'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+        'information',
+      );
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setAccelerationSamplingPeriod', microseconds);
     _accelerometerEvents ??= _accelerometerEventChannel
         .receiveBroadcastStream()
         .map((dynamic event) {
-      final list = event.cast<double>();
-      return AccelerometerEvent(
-        list[0]!,
-        list[1]!,
-        list[2]!,
-        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
-      );
-    });
+          final list = event.cast<double>();
+          return AccelerometerEvent(
+            list[0]!,
+            list[1]!,
+            list[2]!,
+            DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+          );
+        });
     return _accelerometerEvents!;
   }
 
@@ -74,17 +82,20 @@ class MethodChannelSensors extends SensorsPlatform {
   }) {
     var microseconds = samplingPeriod.inMicroseconds;
     if (microseconds >= 1 && microseconds <= 3) {
-      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
-          'which is a reserved value in Android. Please consider changing it '
-          'to either 0 or 4μs. See https://developer.android.com/reference/'
-          'android/hardware/SensorManager#registerListener(android.hardware.'
-          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
-          'information');
+      logger.warning(
+        'The SamplingPeriod is currently set to $microsecondsμs, '
+        'which is a reserved value in Android. Please consider changing it '
+        'to either 0 or 4μs. See https://developer.android.com/reference/'
+        'android/hardware/SensorManager#registerListener(android.hardware.'
+        'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+        'information',
+      );
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setGyroscopeSamplingPeriod', microseconds);
-    _gyroscopeEvents ??=
-        _gyroscopeEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _gyroscopeEvents ??= _gyroscopeEventChannel.receiveBroadcastStream().map((
+      dynamic event,
+    ) {
       final list = event.cast<double>();
       return GyroscopeEvent(
         list[0]!,
@@ -104,27 +115,31 @@ class MethodChannelSensors extends SensorsPlatform {
   }) {
     var microseconds = samplingPeriod.inMicroseconds;
     if (microseconds >= 1 && microseconds <= 3) {
-      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
-          'which is a reserved value in Android. Please consider changing it '
-          'to either 0 or 4μs. See https://developer.android.com/reference/'
-          'android/hardware/SensorManager#registerListener(android.hardware.'
-          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
-          'information');
+      logger.warning(
+        'The SamplingPeriod is currently set to $microsecondsμs, '
+        'which is a reserved value in Android. Please consider changing it '
+        'to either 0 or 4μs. See https://developer.android.com/reference/'
+        'android/hardware/SensorManager#registerListener(android.hardware.'
+        'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+        'information',
+      );
       microseconds = 0;
     }
     _methodChannel.invokeMethod(
-        'setUserAccelerometerSamplingPeriod', microseconds);
+      'setUserAccelerometerSamplingPeriod',
+      microseconds,
+    );
     _userAccelerometerEvents ??= _userAccelerometerEventChannel
         .receiveBroadcastStream()
         .map((dynamic event) {
-      final list = event.cast<double>();
-      return UserAccelerometerEvent(
-        list[0]!,
-        list[1]!,
-        list[2]!,
-        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
-      );
-    });
+          final list = event.cast<double>();
+          return UserAccelerometerEvent(
+            list[0]!,
+            list[1]!,
+            list[2]!,
+            DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+          );
+        });
     return _userAccelerometerEvents!;
   }
 
@@ -136,25 +151,28 @@ class MethodChannelSensors extends SensorsPlatform {
   }) {
     var microseconds = samplingPeriod.inMicroseconds;
     if (microseconds >= 1 && microseconds <= 3) {
-      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
-          'which is a reserved value in Android. Please consider changing it '
-          'to either 0 or 4μs. See https://developer.android.com/reference/'
-          'android/hardware/SensorManager#registerListener(android.hardware.'
-          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
-          'information');
+      logger.warning(
+        'The SamplingPeriod is currently set to $microsecondsμs, '
+        'which is a reserved value in Android. Please consider changing it '
+        'to either 0 or 4μs. See https://developer.android.com/reference/'
+        'android/hardware/SensorManager#registerListener(android.hardware.'
+        'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+        'information',
+      );
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setMagnetometerSamplingPeriod', microseconds);
-    _magnetometerEvents ??=
-        _magnetometerEventChannel.receiveBroadcastStream().map((dynamic event) {
-      final list = event.cast<double>();
-      return MagnetometerEvent(
-        list[0]!,
-        list[1]!,
-        list[2]!,
-        DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
-      );
-    });
+    _magnetometerEvents ??= _magnetometerEventChannel
+        .receiveBroadcastStream()
+        .map((dynamic event) {
+          final list = event.cast<double>();
+          return MagnetometerEvent(
+            list[0]!,
+            list[1]!,
+            list[2]!,
+            DateTime.fromMicrosecondsSinceEpoch(list[3]!.toInt()),
+          );
+        });
     return _magnetometerEvents!;
   }
 
@@ -166,17 +184,20 @@ class MethodChannelSensors extends SensorsPlatform {
   }) {
     var microseconds = samplingPeriod.inMicroseconds;
     if (microseconds >= 1 && microseconds <= 3) {
-      logger.warning('The SamplingPeriod is currently set to $microsecondsμs, '
-          'which is a reserved value in Android. Please consider changing it '
-          'to either 0 or 4μs. See https://developer.android.com/reference/'
-          'android/hardware/SensorManager#registerListener(android.hardware.'
-          'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
-          'information');
+      logger.warning(
+        'The SamplingPeriod is currently set to $microsecondsμs, '
+        'which is a reserved value in Android. Please consider changing it '
+        'to either 0 or 4μs. See https://developer.android.com/reference/'
+        'android/hardware/SensorManager#registerListener(android.hardware.'
+        'SensorEventListener,%20android.hardware.Sensor,%20int) for more '
+        'information',
+      );
       microseconds = 0;
     }
     _methodChannel.invokeMethod('setBarometerSamplingPeriod', microseconds);
-    _barometerEvents ??=
-        _barometerEventChannel.receiveBroadcastStream().map((dynamic event) {
+    _barometerEvents ??= _barometerEventChannel.receiveBroadcastStream().map((
+      dynamic event,
+    ) {
       final list = event.cast<double>();
       return BarometerEvent(
         list[0]!,

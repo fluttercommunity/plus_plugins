@@ -4,15 +4,16 @@ import 'dart:js_interop';
 /// https://developer.mozilla.org/en-US/docs/Web/API/Accelerometer
 @JS('Accelerometer')
 extension type Accelerometer._(JSObject _) implements JSObject {
-  external factory Accelerometer([
-    SensorOptions options,
-  ]);
+  external factory Accelerometer([SensorOptions options]);
 
   external double get x;
+
   external double get y;
+
   external double get z;
 
   external set onreading(JSFunction callback);
+
   external set onerror(JSFunction callback);
 
   external void start();
@@ -22,15 +23,16 @@ extension type Accelerometer._(JSObject _) implements JSObject {
 /// https://developer.mozilla.org/en-US/docs/Web/API/Gyroscope
 @JS('Gyroscope')
 extension type Gyroscope._(JSObject _) implements JSObject {
-  external factory Gyroscope([
-    SensorOptions options,
-  ]);
+  external factory Gyroscope([SensorOptions options]);
 
   external double get x;
+
   external double get y;
+
   external double get z;
 
   external set onreading(JSFunction callback);
+
   external set onerror(JSFunction callback);
 
   external void start();
@@ -40,15 +42,16 @@ extension type Gyroscope._(JSObject _) implements JSObject {
 /// https://developer.mozilla.org/en-US/docs/Web/API/LinearAccelerationSensor
 @JS('LinearAccelerationSensor')
 extension type LinearAccelerationSensor._(JSObject _) implements JSObject {
-  external factory LinearAccelerationSensor([
-    SensorOptions options,
-  ]);
+  external factory LinearAccelerationSensor([SensorOptions options]);
 
   external double get x;
+
   external double get y;
+
   external double get z;
 
   external set onreading(JSFunction callback);
+
   external set onerror(JSFunction callback);
 
   external void start();
@@ -58,24 +61,23 @@ extension type LinearAccelerationSensor._(JSObject _) implements JSObject {
 /// https://developer.mozilla.org/en-US/docs/Web/API/Magnetometer
 @JS('Magnetometer')
 extension type Magnetometer._(JSObject _) implements JSObject {
-  external factory Magnetometer([
-    SensorOptions options,
-  ]);
+  external factory Magnetometer([SensorOptions options]);
 
   external double get x;
+
   external double get y;
+
   external double get z;
 
   external set onreading(JSFunction callback);
+
   external set onerror(JSFunction callback);
 
   external void start();
 }
 
 extension type SensorOptions._(JSObject _) implements JSObject {
-  external factory SensorOptions({
-    int frequency,
-  });
+  external factory SensorOptions({int frequency});
 }
 
 /// Event
@@ -92,5 +94,6 @@ extension type SensorErrorEvent(JSObject _) implements JSObject {
 /// https://developer.mozilla.org/en-US/docs/Web/API/DOMException
 extension type DOMException(JSObject _) implements JSObject {
   external String? get name;
+
   external String? get message;
 }

@@ -36,7 +36,8 @@ Stream<UserAccelerometerEvent> userAccelerometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
   return methodChannel.userAccelerometerEventStream(
-      samplingPeriod: samplingPeriod);
+    samplingPeriod: samplingPeriod,
+  );
 }
 
 /// Returns a broadcast stream of events from the device magnetometer at the
@@ -143,10 +144,7 @@ void main() {
   test('barometerEvents are streamed', () async {
     const channelName = 'dev.fluttercommunity.plus/sensors/barometer';
     final date = DateTime.now();
-    final sensorData = <double>[
-      1000.0,
-      date.microsecondsSinceEpoch.toDouble(),
-    ];
+    final sensorData = <double>[1000.0, date.microsecondsSinceEpoch.toDouble()];
     _initializeFakeMethodChannel('setBarometerSamplingPeriod');
     _initializeFakeSensorChannel(channelName, sensorData);
 
@@ -161,15 +159,16 @@ void _initializeFakeMethodChannel(String methodName) {
   const standardMethod = StandardMethodCodec();
 
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMessageHandler('dev.fluttercommunity.plus/sensors/method',
-          (ByteData? message) async {
-    final methodCall = standardMethod.decodeMethodCall(message);
-    if (methodCall.method == methodName) {
-      return standardMethod.encodeSuccessEnvelope(null);
-    } else {
-      fail('Expected $methodName');
-    }
-  });
+      .setMockMessageHandler('dev.fluttercommunity.plus/sensors/method', (
+        ByteData? message,
+      ) async {
+        final methodCall = standardMethod.decodeMethodCall(message);
+        if (methodCall.method == methodName) {
+          return standardMethod.encodeSuccessEnvelope(null);
+        } else {
+          fail('Expected $methodName');
+        }
+      });
 }
 
 void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
@@ -177,24 +176,20 @@ void _initializeFakeSensorChannel(String channelName, List<double> sensorData) {
 
   void emitEvent(ByteData? event) {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .handlePlatformMessage(
-      channelName,
-      event,
-      (ByteData? reply) {},
-    );
+        .handlePlatformMessage(channelName, event, (ByteData? reply) {});
   }
 
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMessageHandler(channelName, (ByteData? message) async {
-    final methodCall = standardMethod.decodeMethodCall(message);
-    if (methodCall.method == 'listen') {
-      emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));
-      emitEvent(null);
-      return standardMethod.encodeSuccessEnvelope(null);
-    } else if (methodCall.method == 'cancel') {
-      return standardMethod.encodeSuccessEnvelope(null);
-    } else {
-      fail('Expected listen or cancel');
-    }
-  });
+        final methodCall = standardMethod.decodeMethodCall(message);
+        if (methodCall.method == 'listen') {
+          emitEvent(standardMethod.encodeSuccessEnvelope(sensorData));
+          emitEvent(null);
+          return standardMethod.encodeSuccessEnvelope(null);
+        } else if (methodCall.method == 'cancel') {
+          return standardMethod.encodeSuccessEnvelope(null);
+        } else {
+          fail('Expected listen or cancel');
+        }
+      });
 }

@@ -29,11 +29,16 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 #include <stdio.h>
 #include <ctype.h>
+
 #ifndef _WIN32
+
 #include <netinet/in.h>
+
 #endif
 #if !defined(_MSC_VER)
+
 #include <sys/param.h>
+
 #endif
 /* There is no portable method to get the default route gateway.
  * So below are four (or five ?) differents functions implementing this.
@@ -145,96 +150,96 @@ eth0    00000000        00000000        0001    0       0       1000    00000000
 */
 int getdefaultgateway(in_addr_t * addr)
 {
-	unsigned long d, g;
-	char buf[256];
-	int line = 0;
-	FILE * f;
-	char * p;
-	f = fopen("/proc/net/route", "r");
-	if(!f)
-		return FAILED;
-	while(fgets(buf, sizeof(buf), f)) {
-		if(line > 0) {	/* skip the first line */
-			p = buf;
-			/* skip the interface name */
-			while(*p && !isspace(*p))
-				p++;
-			while(*p && isspace(*p))
-				p++;
-			if(sscanf(p, "%lx%lx", &d, &g)==2) {
-				if(d == 0 && g != 0) { /* default */
-					*addr = g;
-					fclose(f);
-					return SUCCESS;
-				}
-			}
-		}
-		line++;
-	}
-	/* default route not found ! */
-	if(f)
-		fclose(f);
-	return FAILED;
+    unsigned long d, g;
+    char buf[256];
+    int line = 0;
+    FILE * f;
+    char * p;
+    f = fopen("/proc/net/route", "r");
+    if(!f)
+        return FAILED;
+    while(fgets(buf, sizeof(buf), f)) {
+        if(line > 0) {	/* skip the first line */
+            p = buf;
+            /* skip the interface name */
+            while(*p && !isspace(*p))
+                p++;
+            while(*p && isspace(*p))
+                p++;
+            if(sscanf(p, "%lx%lx", &d, &g)==2) {
+                if(d == 0 && g != 0) { /* default */
+                    *addr = g;
+                    fclose(f);
+                    return SUCCESS;
+                }
+            }
+        }
+        line++;
+    }
+    /* default route not found ! */
+    if(f)
+        fclose(f);
+    return FAILED;
 }
 
 #elif defined(USE_SYSCTL_NET_ROUTE)
 
 #define ROUNDUP(a) \
-	((a) > 0 ? (1 + (((a) - 1) | (sizeof(long) - 1))) : sizeof(long))
+    ((a) > 0 ? (1 + (((a) - 1) | (sizeof(long) - 1))) : sizeof(long))
 
 int getdefaultgateway(in_addr_t * addr)
 {
 #if 0
-	/* net.route.0.inet.dump.0.0 ? */
-	int mib[] = {CTL_NET, PF_ROUTE, 0, AF_INET,
-	             NET_RT_DUMP, 0, 0/*tableid*/};
+    /* net.route.0.inet.dump.0.0 ? */
+    int mib[] = {CTL_NET, PF_ROUTE, 0, AF_INET,
+                 NET_RT_DUMP, 0, 0/*tableid*/};
 #endif
-	/* net.route.0.inet.flags.gateway */
-	int mib[] = {CTL_NET, PF_ROUTE, 0, AF_INET,
-	             NET_RT_FLAGS, RTF_GATEWAY};
-	size_t l;
-	char * buf, * p;
-	struct rt_msghdr * rt;
-	struct sockaddr * sa;
-	struct sockaddr * sa_tab[RTAX_MAX];
-	int i;
-	int r = FAILED;
-	if(sysctl(mib, sizeof(mib)/sizeof(int), 0, &l, 0, 0) < 0) {
-		return FAILED;
-	}
-	if(l>0) {
-		buf = malloc(l);
-		if(sysctl(mib, sizeof(mib)/sizeof(int), buf, &l, 0, 0) < 0) {
-			free(buf);
-			return FAILED;
-		}
-		for(p=buf; p<buf+l; p+=rt->rtm_msglen) {
-			rt = (struct rt_msghdr *)p;
-			sa = (struct sockaddr *)(rt + 1);
-			for(i=0; i<RTAX_MAX; i++) {
-				if(rt->rtm_addrs & (1 << i)) {
-					sa_tab[i] = sa;
-					sa = (struct sockaddr *)((char *)sa + ROUNDUP(sa->sa_len));
-				} else {
-					sa_tab[i] = NULL;
-				}
-			}
-			if( ((rt->rtm_addrs & (RTA_DST|RTA_GATEWAY)) == (RTA_DST|RTA_GATEWAY))
+    /* net.route.0.inet.flags.gateway */
+    int mib[] = {CTL_NET, PF_ROUTE, 0, AF_INET,
+                 NET_RT_FLAGS, RTF_GATEWAY};
+    size_t l;
+    char * buf, * p;
+    struct rt_msghdr * rt;
+    struct sockaddr * sa;
+    struct sockaddr * sa_tab[RTAX_MAX];
+    int i;
+    int r = FAILED;
+    if(sysctl(mib, sizeof(mib)/sizeof(int), 0, &l, 0, 0) < 0) {
+        return FAILED;
+    }
+    if(l>0) {
+        buf = malloc(l);
+        if(sysctl(mib, sizeof(mib)/sizeof(int), buf, &l, 0, 0) < 0) {
+            free(buf);
+            return FAILED;
+        }
+        for(p=buf; p<buf+l; p+=rt->rtm_msglen) {
+            rt = (struct rt_msghdr *)p;
+            sa = (struct sockaddr *)(rt + 1);
+            for(i=0; i<RTAX_MAX; i++) {
+                if(rt->rtm_addrs & (1 << i)) {
+                    sa_tab[i] = sa;
+                    sa = (struct sockaddr *)((char *)sa + ROUNDUP(sa->sa_len));
+                } else {
+                    sa_tab[i] = NULL;
+                }
+            }
+            if( ((rt->rtm_addrs & (RTA_DST|RTA_GATEWAY)) == (RTA_DST|RTA_GATEWAY))
               && sa_tab[RTAX_DST]->sa_family == AF_INET
               && sa_tab[RTAX_GATEWAY]->sa_family == AF_INET) {
-				if(((struct sockaddr_in *)sa_tab[RTAX_DST])->sin_addr.s_addr == 0) {
-					char if_name[IF_NAMESIZE];
-					if_indextoname(rt->rtm_index, if_name);
-					if(strcmp(if_name, "en0") == 0) {
-						*addr = ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
-						r = SUCCESS;
-					}
-				}
-			}
-		}
-		free(buf);
-	}
-	return r;
+                if(((struct sockaddr_in *)sa_tab[RTAX_DST])->sin_addr.s_addr == 0) {
+                    char if_name[IF_NAMESIZE];
+                    if_indextoname(rt->rtm_index, if_name);
+                    if(strcmp(if_name, "en0") == 0) {
+                        *addr = ((struct sockaddr_in *)(sa_tab[RTAX_GATEWAY]))->sin_addr.s_addr;
+                        r = SUCCESS;
+                    }
+                }
+            }
+        }
+        free(buf);
+    }
+    return r;
 }
 
 #elif defined(USE_SOCKET_ROUTE)
@@ -327,195 +332,195 @@ int getdefaultgateway(in_addr_t *addr)
 
 int getdefaultgateway(in_addr_t * addr)
 {
-	HKEY networkCardsKey;
-	HKEY networkCardKey;
-	HKEY interfacesKey;
-	HKEY interfaceKey;
-	DWORD i = 0;
-	DWORD numSubKeys = 0;
-	TCHAR keyName[MAX_KEY_LENGTH];
-	DWORD keyNameLength = MAX_KEY_LENGTH;
-	TCHAR keyValue[MAX_VALUE_LENGTH];
-	DWORD keyValueLength = MAX_VALUE_LENGTH;
-	DWORD keyValueType = REG_SZ;
-	TCHAR gatewayValue[MAX_VALUE_LENGTH];
-	DWORD gatewayValueLength = MAX_VALUE_LENGTH;
-	DWORD gatewayValueType = REG_MULTI_SZ;
-	int done = 0;
+    HKEY networkCardsKey;
+    HKEY networkCardKey;
+    HKEY interfacesKey;
+    HKEY interfaceKey;
+    DWORD i = 0;
+    DWORD numSubKeys = 0;
+    TCHAR keyName[MAX_KEY_LENGTH];
+    DWORD keyNameLength = MAX_KEY_LENGTH;
+    TCHAR keyValue[MAX_VALUE_LENGTH];
+    DWORD keyValueLength = MAX_VALUE_LENGTH;
+    DWORD keyValueType = REG_SZ;
+    TCHAR gatewayValue[MAX_VALUE_LENGTH];
+    DWORD gatewayValueLength = MAX_VALUE_LENGTH;
+    DWORD gatewayValueType = REG_MULTI_SZ;
+    int done = 0;
 
-	//const char * networkCardsPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
-	//const char * interfacesPath = "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
+    //const char * networkCardsPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
+    //const char * interfacesPath = "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
 #ifdef UNICODE
-	LPCTSTR networkCardsPath = L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
-	LPCTSTR interfacesPath = L"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
+    LPCTSTR networkCardsPath = L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
+    LPCTSTR interfacesPath = L"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
 #define STR_SERVICENAME	 L"ServiceName"
 #define STR_DHCPDEFAULTGATEWAY L"DhcpDefaultGateway"
 #define STR_DEFAULTGATEWAY	L"DefaultGateway"
 #else
-	LPCTSTR networkCardsPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
-	LPCTSTR interfacesPath = "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
+    LPCTSTR networkCardsPath = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\NetworkCards";
+    LPCTSTR interfacesPath = "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces";
 #define STR_SERVICENAME	 "ServiceName"
 #define STR_DHCPDEFAULTGATEWAY "DhcpDefaultGateway"
 #define STR_DEFAULTGATEWAY	"DefaultGateway"
 #endif
-	// The windows registry lists its primary network devices in the following location:
-	// HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkCards
-	//
-	// Each network device has its own subfolder, named with an index, with various properties:
-	// -NetworkCards
-	//   -5
-	//     -Description = Broadcom 802.11n Network Adapter
-	//     -ServiceName = {E35A72F8-5065-4097-8DFE-C7790774EE4D}
-	//   -8
-	//     -Description = Marvell Yukon 88E8058 PCI-E Gigabit Ethernet Controller
-	//     -ServiceName = {86226414-5545-4335-A9D1-5BD7120119AD}
-	//
-	// The above service name is the name of a subfolder within:
-	// HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
-	//
-	// There may be more subfolders in this interfaces path than listed in the network cards path above:
-	// -Interfaces
-	//   -{3a539854-6a70-11db-887c-806e6f6e6963}
-	//     -DhcpIPAddress = 0.0.0.0
-	//     -[more]
-	//   -{E35A72F8-5065-4097-8DFE-C7790774EE4D}
-	//     -DhcpIPAddress = 10.0.1.4
-	//     -DhcpDefaultGateway = 10.0.1.1
-	//     -[more]
-	//   -{86226414-5545-4335-A9D1-5BD7120119AD}
-	//     -DhcpIpAddress = 10.0.1.5
-	//     -DhcpDefaultGateay = 10.0.1.1
-	//     -[more]
-	//
-	// In order to extract this information, we enumerate each network card, and extract the ServiceName value.
-	// This is then used to open the interface subfolder, and attempt to extract a DhcpDefaultGateway value.
-	// Once one is found, we're done.
-	//
-	// It may be possible to simply enumerate the interface folders until we find one with a DhcpDefaultGateway value.
-	// However, the technique used is the technique most cited on the web, and we assume it to be more correct.
+    // The windows registry lists its primary network devices in the following location:
+    // HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkCards
+    //
+    // Each network device has its own subfolder, named with an index, with various properties:
+    // -NetworkCards
+    //   -5
+    //     -Description = Broadcom 802.11n Network Adapter
+    //     -ServiceName = {E35A72F8-5065-4097-8DFE-C7790774EE4D}
+    //   -8
+    //     -Description = Marvell Yukon 88E8058 PCI-E Gigabit Ethernet Controller
+    //     -ServiceName = {86226414-5545-4335-A9D1-5BD7120119AD}
+    //
+    // The above service name is the name of a subfolder within:
+    // HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces
+    //
+    // There may be more subfolders in this interfaces path than listed in the network cards path above:
+    // -Interfaces
+    //   -{3a539854-6a70-11db-887c-806e6f6e6963}
+    //     -DhcpIPAddress = 0.0.0.0
+    //     -[more]
+    //   -{E35A72F8-5065-4097-8DFE-C7790774EE4D}
+    //     -DhcpIPAddress = 10.0.1.4
+    //     -DhcpDefaultGateway = 10.0.1.1
+    //     -[more]
+    //   -{86226414-5545-4335-A9D1-5BD7120119AD}
+    //     -DhcpIpAddress = 10.0.1.5
+    //     -DhcpDefaultGateay = 10.0.1.1
+    //     -[more]
+    //
+    // In order to extract this information, we enumerate each network card, and extract the ServiceName value.
+    // This is then used to open the interface subfolder, and attempt to extract a DhcpDefaultGateway value.
+    // Once one is found, we're done.
+    //
+    // It may be possible to simply enumerate the interface folders until we find one with a DhcpDefaultGateway value.
+    // However, the technique used is the technique most cited on the web, and we assume it to be more correct.
 
-	if(ERROR_SUCCESS != RegOpenKeyEx(HKEY_LOCAL_MACHINE, // Open registry key or predifined key
-	                                 networkCardsPath,   // Name of registry subkey to open
-	                                 0,                  // Reserved - must be zero
-	                                 KEY_READ,           // Mask - desired access rights
-	                                 &networkCardsKey))  // Pointer to output key
-	{
-		// Unable to open network cards keys
-		return -1;
-	}
+    if(ERROR_SUCCESS != RegOpenKeyEx(HKEY_LOCAL_MACHINE, // Open registry key or predifined key
+                                     networkCardsPath,   // Name of registry subkey to open
+                                     0,                  // Reserved - must be zero
+                                     KEY_READ,           // Mask - desired access rights
+                                     &networkCardsKey))  // Pointer to output key
+    {
+        // Unable to open network cards keys
+        return -1;
+    }
 
-	if(ERROR_SUCCESS != RegOpenKeyEx(HKEY_LOCAL_MACHINE, // Open registry key or predefined key
-	                                 interfacesPath,     // Name of registry subkey to open
-	                                 0,                  // Reserved - must be zero
-	                                 KEY_READ,           // Mask - desired access rights
-	                                 &interfacesKey))    // Pointer to output key
-	{
-		// Unable to open interfaces key
-		RegCloseKey(networkCardsKey);
-		return -1;
-	}
+    if(ERROR_SUCCESS != RegOpenKeyEx(HKEY_LOCAL_MACHINE, // Open registry key or predefined key
+                                     interfacesPath,     // Name of registry subkey to open
+                                     0,                  // Reserved - must be zero
+                                     KEY_READ,           // Mask - desired access rights
+                                     &interfacesKey))    // Pointer to output key
+    {
+        // Unable to open interfaces key
+        RegCloseKey(networkCardsKey);
+        return -1;
+    }
 
-	// Figure out how many subfolders are within the NetworkCards folder
-	RegQueryInfoKey(networkCardsKey, NULL, NULL, NULL, &numSubKeys, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    // Figure out how many subfolders are within the NetworkCards folder
+    RegQueryInfoKey(networkCardsKey, NULL, NULL, NULL, &numSubKeys, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-	//printf( "Number of subkeys: %u\n", (unsigned int)numSubKeys);
+    //printf( "Number of subkeys: %u\n", (unsigned int)numSubKeys);
 
-	// Enumrate through each subfolder within the NetworkCards folder
-	for(i = 0; i < numSubKeys && !done; i++)
-	{
-		keyNameLength = MAX_KEY_LENGTH;
-		if(ERROR_SUCCESS == RegEnumKeyEx(networkCardsKey, // Open registry key
-		                                 i,               // Index of subkey to retrieve
-		                                 keyName,         // Buffer that receives the name of the subkey
-		                                 &keyNameLength,  // Variable that receives the size of the above buffer
-		                                 NULL,            // Reserved - must be NULL
-		                                 NULL,            // Buffer that receives the class string
-		                                 NULL,            // Variable that receives the size of the above buffer
-		                                 NULL))           // Variable that receives the last write time of subkey
-		{
-			if(RegOpenKeyEx(networkCardsKey,  keyName, 0, KEY_READ, &networkCardKey) == ERROR_SUCCESS)
-			{
-				keyValueLength = MAX_VALUE_LENGTH;
-				if(ERROR_SUCCESS == RegQueryValueEx(networkCardKey,   // Open registry key
-				                                    STR_SERVICENAME,    // Name of key to query
-				                                    NULL,             // Reserved - must be NULL
-				                                    &keyValueType,    // Receives value type
-				                                    (LPBYTE)keyValue, // Receives value
-				                                    &keyValueLength)) // Receives value length in bytes
-				{
+    // Enumrate through each subfolder within the NetworkCards folder
+    for(i = 0; i < numSubKeys && !done; i++)
+    {
+        keyNameLength = MAX_KEY_LENGTH;
+        if(ERROR_SUCCESS == RegEnumKeyEx(networkCardsKey, // Open registry key
+                                         i,               // Index of subkey to retrieve
+                                         keyName,         // Buffer that receives the name of the subkey
+                                         &keyNameLength,  // Variable that receives the size of the above buffer
+                                         NULL,            // Reserved - must be NULL
+                                         NULL,            // Buffer that receives the class string
+                                         NULL,            // Variable that receives the size of the above buffer
+                                         NULL))           // Variable that receives the last write time of subkey
+        {
+            if(RegOpenKeyEx(networkCardsKey,  keyName, 0, KEY_READ, &networkCardKey) == ERROR_SUCCESS)
+            {
+                keyValueLength = MAX_VALUE_LENGTH;
+                if(ERROR_SUCCESS == RegQueryValueEx(networkCardKey,   // Open registry key
+                                                    STR_SERVICENAME,    // Name of key to query
+                                                    NULL,             // Reserved - must be NULL
+                                                    &keyValueType,    // Receives value type
+                                                    (LPBYTE)keyValue, // Receives value
+                                                    &keyValueLength)) // Receives value length in bytes
+                {
 //					printf("keyValue: %s\n", keyValue);
-					if(RegOpenKeyEx(interfacesKey, keyValue, 0, KEY_READ, &interfaceKey) == ERROR_SUCCESS)
-					{
-						gatewayValueLength = MAX_VALUE_LENGTH;
-						if(ERROR_SUCCESS == RegQueryValueEx(interfaceKey,         // Open registry key
-						                                    STR_DHCPDEFAULTGATEWAY, // Name of key to query
-						                                    NULL,                 // Reserved - must be NULL
-						                                    &gatewayValueType,    // Receives value type
-						                                    (LPBYTE)gatewayValue, // Receives value
-						                                    &gatewayValueLength)) // Receives value length in bytes
-						{
-							// Check to make sure it's a string
-							if((gatewayValueType == REG_MULTI_SZ || gatewayValueType == REG_SZ) && (gatewayValueLength > 1))
-							{
-								//printf("gatewayValue: %s\n", gatewayValue);
-								done = 1;
-							}
-						}
-						else if(ERROR_SUCCESS == RegQueryValueEx(interfaceKey,         // Open registry key
-						                                    STR_DEFAULTGATEWAY, // Name of key to query
-						                                    NULL,                 // Reserved - must be NULL
-						                                    &gatewayValueType,    // Receives value type
-						                                    (LPBYTE)gatewayValue,// Receives value
-						                                    &gatewayValueLength)) // Receives value length in bytes
-						{
-							// Check to make sure it's a string
-							if((gatewayValueType == REG_MULTI_SZ || gatewayValueType == REG_SZ) && (gatewayValueLength > 1))
-							{
-								//printf("gatewayValue: %s\n", gatewayValue);
-								done = 1;
-							}
-						}
-						RegCloseKey(interfaceKey);
-					}
-				}
-				RegCloseKey(networkCardKey);
-			}
-		}
-	}
+                    if(RegOpenKeyEx(interfacesKey, keyValue, 0, KEY_READ, &interfaceKey) == ERROR_SUCCESS)
+                    {
+                        gatewayValueLength = MAX_VALUE_LENGTH;
+                        if(ERROR_SUCCESS == RegQueryValueEx(interfaceKey,         // Open registry key
+                                                            STR_DHCPDEFAULTGATEWAY, // Name of key to query
+                                                            NULL,                 // Reserved - must be NULL
+                                                            &gatewayValueType,    // Receives value type
+                                                            (LPBYTE)gatewayValue, // Receives value
+                                                            &gatewayValueLength)) // Receives value length in bytes
+                        {
+                            // Check to make sure it's a string
+                            if((gatewayValueType == REG_MULTI_SZ || gatewayValueType == REG_SZ) && (gatewayValueLength > 1))
+                            {
+                                //printf("gatewayValue: %s\n", gatewayValue);
+                                done = 1;
+                            }
+                        }
+                        else if(ERROR_SUCCESS == RegQueryValueEx(interfaceKey,         // Open registry key
+                                                            STR_DEFAULTGATEWAY, // Name of key to query
+                                                            NULL,                 // Reserved - must be NULL
+                                                            &gatewayValueType,    // Receives value type
+                                                            (LPBYTE)gatewayValue,// Receives value
+                                                            &gatewayValueLength)) // Receives value length in bytes
+                        {
+                            // Check to make sure it's a string
+                            if((gatewayValueType == REG_MULTI_SZ || gatewayValueType == REG_SZ) && (gatewayValueLength > 1))
+                            {
+                                //printf("gatewayValue: %s\n", gatewayValue);
+                                done = 1;
+                            }
+                        }
+                        RegCloseKey(interfaceKey);
+                    }
+                }
+                RegCloseKey(networkCardKey);
+            }
+        }
+    }
 
-	RegCloseKey(interfacesKey);
-	RegCloseKey(networkCardsKey);
+    RegCloseKey(interfacesKey);
+    RegCloseKey(networkCardsKey);
 
-	if(done)
-	{
+    if(done)
+    {
 #if UNICODE
-		char tmp[32];
-		for(i = 0; i < 32; i++) {
-			tmp[i] = (char)gatewayValue[i];
-			if(!tmp[i])
-				break;
-		}
-		tmp[31] = '\0';
-		*addr = inet_addr(tmp);
+        char tmp[32];
+        for(i = 0; i < 32; i++) {
+            tmp[i] = (char)gatewayValue[i];
+            if(!tmp[i])
+                break;
+        }
+        tmp[31] = '\0';
+        *addr = inet_addr(tmp);
 #else
-		*addr = inet_addr(gatewayValue);
+        *addr = inet_addr(gatewayValue);
 #endif
-		return 0;
-	}
+        return 0;
+    }
 
-	return -1;
+    return -1;
 }
 
 #elif defined(USE_WIN32_CODE_2)
 
 int getdefaultgateway(in_addr_t *addr)
 {
-	MIB_IPFORWARDROW ip_forward;
-	memset(&ip_forward, 0, sizeof(ip_forward));
-	if(GetBestRoute(inet_addr("0.0.0.0"), 0, &ip_forward) != NO_ERROR)
-		return -1;
-	*addr = ip_forward.dwForwardNextHop;
-	return 0;
+    MIB_IPFORWARDROW ip_forward;
+    memset(&ip_forward, 0, sizeof(ip_forward));
+    if(GetBestRoute(inet_addr("0.0.0.0"), 0, &ip_forward) != NO_ERROR)
+        return -1;
+    *addr = ip_forward.dwForwardNextHop;
+    return 0;
 }
 
 #elif defined(USE_HAIKU_CODE)
@@ -573,9 +578,8 @@ fail:
 
 #else /* fallback */
 
-int getdefaultgateway(in_addr_t * addr)
-{
-    (void)addr;
+int getdefaultgateway(in_addr_t *addr) {
+    (void) addr;
     return -1;
 }
 

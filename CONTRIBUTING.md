@@ -7,8 +7,9 @@ _See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#co
 We welcome all contributions to the project, however some contributions will need extra work in
 order to be accepted.
 
-> [!IMPORTANT]  
-> Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
+> [!IMPORTANT]
+> Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give
+> you feedback.
 
 Here's some examples:
 
@@ -23,7 +24,8 @@ Here's some examples:
 
 - New features covering all platforms
 
-We need to make sure it works well before merging and each platform needs to be reviewed individually.
+We need to make sure it works well before merging and each platform needs to be reviewed
+individually.
 
 - Changing a platform implementation
 
@@ -49,7 +51,8 @@ Please follow this steps when working on the PlusPlugins.
 - Linux, Mac OS X, or Windows.
 - [git](https://git-scm.com) (used for source version control).
 - An ssh client (used to authenticate with GitHub).
-- An IDE such as [Android Studio](https://developer.android.com/studio) or [Visual Studio Code](https://code.visualstudio.com/).
+- An IDE such as [Android Studio](https://developer.android.com/studio)
+  or [Visual Studio Code](https://code.visualstudio.com/).
 - [`flutter_plugin_tools`](https://pub.dev/packages/flutter_plugin_tools) locally activated.
 - [`tuneup`](https://pub.dev/packages/tuneup) locally activated.
 
@@ -103,7 +106,8 @@ cd packages/sensors_plus/sensors_plus/example
 flutter run
 ```
 
-Using Melos (installed in step 3), any changes made to the plugins locally will also be reflected within all
+Using Melos (installed in step 3), any changes made to the plugins locally will also be reflected
+within all
 example applications code automatically.
 
 ## 4. Running tests
@@ -112,9 +116,12 @@ PlusPlugins comprises of a number of tests for each plugin, either end-to-end (e
 
 ### Unit tests
 
-Unit tests are responsible for ensuring expected behavior whilst developing the plugins Dart code. Unit tests do not
-interact with 3rd party services, and mock where possible. To run unit tests for a specific plugin, run the
-`flutter test` command from the plugins root directory. For example, sensors_plus platform interface tests can be run
+Unit tests are responsible for ensuring expected behavior whilst developing the plugins Dart code.
+Unit tests do not
+interact with 3rd party services, and mock where possible. To run unit tests for a specific plugin,
+run the
+`flutter test` command from the plugins root directory. For example, sensors_plus platform interface
+tests can be run
 with the following commands:
 
 ```bash
@@ -124,10 +131,12 @@ flutter test
 
 ### End-to-end (e2e) tests
 
-E2e tests are those which directly communicate with Flutter, whose results cannot be mocked. **These tests run directly from
+E2e tests are those which directly communicate with Flutter, whose results cannot be mocked. **These
+tests run directly from
 an example application.**
 
-To run e2e tests, run the `flutter test` command from the plugins main `example` directory, and provide the path to the
+To run e2e tests, run the `flutter test` command from the plugins main `example` directory, and
+provide the path to the
 e2e test file. For example, to run the `sensors_plus` e2e tests:
 
 #### Mobile
@@ -139,7 +148,8 @@ flutter test integration_test/sensors_plus_test.dart
 
 #### Web
 
-To run tests against web environments, you will need to have Chrome and ChromeDriver installed and use the `flutter drive` command.
+To run tests against web environments, you will need to have Chrome and ChromeDriver installed and
+use the `flutter drive` command.
 
 First start ChromeDriver on port 4444:
 
@@ -147,8 +157,10 @@ First start ChromeDriver on port 4444:
 chromedriver --port=4444
 ```
 
-Then go to the `example` directory of the plugin you want to test and run the `flutter drive` command
-with the specific driver and `*_web_test.dart` target. For example, to run the `package_info_plus` web tests:
+Then go to the `example` directory of the plugin you want to test and run the `flutter drive`
+command
+with the specific driver and `*_web_test.dart` target. For example, to run the `package_info_plus`
+web tests:
 
 ```bash
 cd packages/package_info_plus/package_info_plus/example
@@ -169,7 +181,8 @@ run the following command from the root of your cloned repository:
 melos run test:mobile_e2e
 ```
 
-A full list of all commands can be found within the [`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/main/melos.yaml)
+A full list of all commands can be found within the [
+`melos.yaml`](https://github.com/fluttercommunity/plus_plugins/blob/main/melos.yaml)
 file.
 
 ## 5. Contributing code
@@ -182,7 +195,7 @@ Please follow the
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > When modifying multiple packages, **create a different branch and pull request per package.**
 > This facilitates maintenance, the review process, and generating changelogs.
 
@@ -194,13 +207,15 @@ To start working on a patch:
 2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
 
-> [!CAUTION]  
-> Do not create PRs directly from the `main` branch of your repository, as it causes problems when pushing changes by reviewers.
+> [!CAUTION]
+> Do not create PRs directly from the `main` branch of your repository, as it causes problems when
+> pushing changes by reviewers.
 > Always create a new branch for your pull requests.
 
 ### 5.2 Check the code
 
-Once you have made your changes, ensure that it passes the internal analyzer & formatting checks. The following
+Once you have made your changes, ensure that it passes the internal analyzer & formatting checks.
+The following
 commands can be run locally to highlight any issues before committing your code:
 
 ```bash
@@ -214,7 +229,8 @@ melos run format
 ### 5.3 Do not update version and changelog
 
 > [!CAUTION]
-> Do not modify the `CHANGELOG.md` or the version in the `pubspec.yaml`, this is handled by the maintainers from now on
+> Do not modify the `CHANGELOG.md` or the version in the `pubspec.yaml`, this is handled by the
+> maintainers from now on
 
 ### 5.4 Commit and push your changes
 
@@ -233,8 +249,10 @@ To send us a pull request:
 
 Please make sure all your check-ins have detailed commit messages explaining the patch.
 
-When naming the title of your pull request, please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-guide, and include the package name in parenthesis. For example, for a fix to the `sensor_plus` plugin:
+When naming the title of your pull request, please follow
+the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+guide, and include the package name in parenthesis. For example, for a fix to the `sensor_plus`
+plugin:
 
 `fix(sensor_plus): fixed a bug!`
 
@@ -261,13 +279,16 @@ Newly opened PRs first go through initial triage which results in one of:
 
 - **Merging the PR** - if the PR can be quickly reviewed and looks good.
 - **Closing the PR** - if the maintainer decides that the PR should not be merged.
-- **Moving the PR to the backlog** - if the review requires non trivial effort and the issue isn't a priority; in this case the maintainer will:
-  - Make sure that the PR has an associated issue labeled with "plugin".
-  - Add the "backlog" label to the issue.
-  - Leave a comment on the PR explaining that the review is not trivial and that the issue will be looked at according to priority order.
-- **Starting a non trivial review** - if the review requires non trivial effort and the issue is a priority; in this case the maintainer will:
-  - Add the "in review" label to the issue.
-  - Self assign the PR.
+- **Moving the PR to the backlog** - if the review requires non trivial effort and the issue isn't a
+  priority; in this case the maintainer will:
+    - Make sure that the PR has an associated issue labeled with "plugin".
+    - Add the "backlog" label to the issue.
+    - Leave a comment on the PR explaining that the review is not trivial and that the issue will be
+      looked at according to priority order.
+- **Starting a non trivial review** - if the review requires non trivial effort and the issue is a
+  priority; in this case the maintainer will:
+    - Add the "in review" label to the issue.
+    - Self assign the PR.
 
 ### The release process
 
@@ -297,11 +318,14 @@ Some things to keep in mind before publishing the release:
 1. Switch to `main` branch locally.
 2. Run `git pull origin main`.
 3. Run `git pull --tags` to make sure all tags are fetched.
-4. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
+4. Run `melos version --no-git-commit-version` to automatically version packages and update
+   Changelogs.
 5. Run `melos publish` to dry run and confirm all packages are publishable.
-6. After successful dry run, create and checkout to a new branch named `release/[year]-[month]-[day]`.
+6. After successful dry run, create and checkout to a new branch named
+   `release/[year]-[month]-[day]`.
 7. Commit all changes with a commit message `chore(release): prepare for release`.
 8. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
-9. After successful review and merge of the pull request, switch to `main` branch locally, & run `git pull origin main`.
+9. After successful review and merge of the pull request, switch to `main` branch locally, & run
+   `git pull origin main`.
 10. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
 11. Run `git push --tags` to push tags to repository.

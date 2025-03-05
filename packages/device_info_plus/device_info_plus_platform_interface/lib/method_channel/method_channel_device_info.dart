@@ -9,13 +9,15 @@ import 'package:device_info_plus_platform_interface/device_info_plus_platform_in
 class MethodChannelDeviceInfo extends DeviceInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  MethodChannel channel =
-      const MethodChannel('dev.fluttercommunity.plus/device_info');
+  MethodChannel channel = const MethodChannel(
+    'dev.fluttercommunity.plus/device_info',
+  );
 
   // Generic method channel for all devices
   @override
   Future<BaseDeviceInfo> deviceInfo() async {
     return BaseDeviceInfo(
-        (await channel.invokeMethod('getDeviceInfo')).cast<String, dynamic>());
+      (await channel.invokeMethod('getDeviceInfo')).cast<String, dynamic>(),
+    );
   }
 }

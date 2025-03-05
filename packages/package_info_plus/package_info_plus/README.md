@@ -10,9 +10,9 @@ This Flutter plugin provides an API for querying information about an applicatio
 
 ## Platform Support
 
-| Android |  iOS  | MacOS |  Web  | Linux | Windows |
-| :-----: | :---: | :---: | :---: | :---: | :-----: |
-|✅|✅|✅|✅|✅|✅|
+| Android | iOS | MacOS | Web | Linux | Windows |
+|:-------:|:---:|:-----:|:---:|:-----:|:-------:|
+|    ✅    |  ✅  |   ✅   |  ✅  |   ✅   |    ✅    |
 
 ## Requirements
 
@@ -57,7 +57,8 @@ String buildNumber = packageInfo.buildNumber;
 Flutter build tools allow only digits and `.` (dot) symbols to be used in `version`
 of `pubspec.yaml` on iOS/MacOS to comply with official version format from Apple.
 
-More info available in [this comment](https://github.com/fluttercommunity/plus_plugins/issues/389#issuecomment-1106764429)
+More info available
+in [this comment](https://github.com/fluttercommunity/plus_plugins/issues/389#issuecomment-1106764429)
 
 #### I have changed version in pubspec.yaml and plugin returns wrong info
 
@@ -75,12 +76,16 @@ See https://github.com/fluttercommunity/plus_plugins/issues/309
 
 #### I see wrong version on Windows platform
 
-There was an [issue](https://github.com/flutter/flutter/issues/73652) in Flutter, which is already resolved since Flutter 3.3.
-If your project was created before Flutter 3.3 you need to migrate the project according to [this guide](https://docs.flutter.dev/release/breaking-changes/windows-version-information) first to get correct version with `package_info_plus`
+There was an [issue](https://github.com/flutter/flutter/issues/73652) in Flutter, which is already
+resolved since Flutter 3.3.
+If your project was created before Flutter 3.3 you need to migrate the project according
+to [this guide](https://docs.flutter.dev/release/breaking-changes/windows-version-information) first
+to get correct version with `package_info_plus`
 
 ### Web
 
-In a web environment, the package uses the `version.json` file that it is generated in the build process.
+In a web environment, the package uses the `version.json` file that it is generated in the build
+process.
 
 #### Accessing the `version.json`
 
@@ -94,8 +99,10 @@ See the documentation at the method `fromPlatform()` to learn more.
 
 #### CORS `version.json` access
 
-It could be possible that the plugin cannot access the `version.json` file because the server is preventing it.
-This can be due a CORS issue, and it is known to happen when hosting the Flutter code on Firebase Hosting.
+It could be possible that the plugin cannot access the `version.json` file because the server is
+preventing it.
+This can be due a CORS issue, and it is known to happen when hosting the Flutter code on Firebase
+Hosting.
 Ensure that your CORS Firebase configuration allows it.
 
 ## Learn more

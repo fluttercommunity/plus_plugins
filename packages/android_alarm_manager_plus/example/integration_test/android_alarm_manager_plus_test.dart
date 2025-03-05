@@ -125,10 +125,7 @@ Future<void> main() async {
           // Register the UI isolate's SendPort to allow for communication from the
           // background isolate.
           port = ReceivePort();
-          IsolateNameServer.registerPortWithName(
-            port.sendPort,
-            isolateName,
-          );
+          IsolateNameServer.registerPortWithName(port.sendPort, isolateName);
 
           await tester.pumpWidget(const AlarmManagerExampleApp());
           await tester.tap(find.byKey(const ValueKey('RegisterOneShotAlarm')));

@@ -80,9 +80,9 @@ class BatteryPlusLinuxPlugin extends BatteryPlatform {
 
   Future<void> _startListenState() async {
     _stateClient ??= createClient();
-    await _stateClient!
-        .connect()
-        .then((_) => _addState(_stateClient!.displayDevice.state));
+    await _stateClient!.connect().then(
+      (_) => _addState(_stateClient!.displayDevice.state),
+    );
     _stateClient!.displayDevice.propertiesChanged.listen((properties) {
       if (properties.contains('State')) {
         _addState(_stateClient!.displayDevice.state);

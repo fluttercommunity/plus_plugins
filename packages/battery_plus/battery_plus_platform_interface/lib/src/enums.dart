@@ -18,5 +18,5 @@ enum BatteryState {
   discharging,
 
   /// The state of the battery is unknown.
-  unknown;
+  unknown,
 }

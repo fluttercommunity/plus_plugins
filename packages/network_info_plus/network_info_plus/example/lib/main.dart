@@ -71,20 +71,18 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 4,
       ),
       body: Center(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Network info',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Network info',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(_connectionStatus),
-        ],
-      )),
+            const SizedBox(height: 16),
+            Text(_connectionStatus),
+          ],
+        ),
+      ),
     );
   }
 
@@ -167,7 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      _connectionStatus = 'Wifi Name: $wifiName\n'
+      _connectionStatus =
+          'Wifi Name: $wifiName\n'
           'Wifi BSSID: $wifiBSSID\n'
           'Wifi IPv4: $wifiIPv4\n'
           'Wifi IPv6: $wifiIPv6\n'

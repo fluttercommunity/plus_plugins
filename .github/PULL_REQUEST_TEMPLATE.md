@@ -13,7 +13,9 @@ e.g.
 
 ## Checklist
 
-- [ ] I read the [Contributor Guide](https://github.com/fluttercommunity/plus_plugins/blob/main/CONTRIBUTING.md) and followed the process outlined there for submitting PRs.
+- [ ] I read
+  the [Contributor Guide](https://github.com/fluttercommunity/plus_plugins/blob/main/CONTRIBUTING.md)
+  and followed the process outlined there for submitting PRs.
 - [ ] I titled the PR using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0).
 - [ ] I did not modify the `CHANGELOG.md` nor the plugin version in `pubspec.yaml` files.
 - [ ] All existing and new tests are passing.
@@ -23,6 +25,7 @@ e.g.
 
 Does your PR require plugin users to manually update their apps to accommodate your change?
 
-- [ ] Yes, this is a breaking change (please indicate that with a `!` in the title as explained in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0)).
+- [ ] Yes, this is a breaking change (please indicate that with a `!` in the title as explained
+  in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0)).
 - [ ] No, this is *not* a breaking change.
 

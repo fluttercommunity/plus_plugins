@@ -39,20 +39,25 @@ void main() {
     }
   });
 
-  testWidgets('Launch throws when no Activity is found',
-      (WidgetTester tester) async {
+  testWidgets('Launch throws when no Activity is found', (
+    WidgetTester tester,
+  ) async {
     // We can't test that any of this is really working, this is mostly just
     // checking that the plugin API is registered. Only works on Android.
     const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
-    await expectLater(() async => await intent.launch(), throwsA((Exception e) {
-      return e is PlatformException &&
-          e.message!.contains('No Activity found to handle Intent');
-    }));
+    await expectLater(
+      () async => await intent.launch(),
+      throwsA((Exception e) {
+        return e is PlatformException &&
+            e.message!.contains('No Activity found to handle Intent');
+      }),
+    );
   }, skip: !Platform.isAndroid);
 
-  testWidgets('Set an alarm on weekdays at 9:30pm should not throw',
-      (WidgetTester tester) async {
-    const intent = AndroidIntent(
+  testWidgets(
+    'Set an alarm on weekdays at 9:30pm should not throw',
+    (WidgetTester tester) async {
+      const intent = AndroidIntent(
         action: 'android.intent.action.SET_ALARM',
         arguments: <String, dynamic>{
           'android.intent.extra.alarm.DAYS': <int>[2, 3, 4, 5, 6],
@@ -60,12 +65,16 @@ void main() {
           'android.intent.extra.alarm.MINUTES': 30,
           'android.intent.extra.alarm.SKIP_UI': true,
           'android.intent.extra.alarm.MESSAGE': 'Just for Integration test',
-        });
-    await intent.launch();
-  }, skip: !Platform.isAndroid);
+        },
+      );
+      await intent.launch();
+    },
+    skip: !Platform.isAndroid,
+  );
 
   testWidgets('Parse and Launch should not throw', (WidgetTester tester) async {
-    const intent = 'intent:#Intent;'
+    const intent =
+        'intent:#Intent;'
         'action=android.intent.action.SET_ALARM;'
         'B.android.intent.extra.alarm.SKIP_UI=true;'
         'S.android.intent.extra.alarm.MESSAGE=Create%20a%20Flutter%20app;'
@@ -86,51 +95,58 @@ void main() {
   }, skip: !Platform.isAndroid);
 
   testWidgets('sendService should not throw', (WidgetTester tester) async {
-    const intent = AndroidIntent(
-      action: 'com.example.service',
-    );
+    const intent = AndroidIntent(action: 'com.example.service');
     await intent.sendService();
   }, skip: !Platform.isAndroid);
 
   testWidgets('SendBroadcast should not throw', (WidgetTester tester) async {
-    const intent = AndroidIntent(
-      action: 'com.example.broadcast',
-    );
+    const intent = AndroidIntent(action: 'com.example.broadcast');
     await intent.sendBroadcast();
   }, skip: !Platform.isAndroid);
 
-  testWidgets('CanResolveActivity returns true when example Activity is found',
-      (WidgetTester tester) async {
-    const intent = AndroidIntent(
-      action: 'action_view',
-      package: 'io.flutter.plugins.androidintentexample',
-      componentName: 'io.flutter.plugins.androidintentexample.MainActivity',
-    );
-    await expectLater(await intent.canResolveActivity(), isTrue);
-  }, skip: !Platform.isAndroid);
-
-  testWidgets('CanResolveActivity returns false when no Activity is found',
-      (WidgetTester tester) async {
-    const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
-    await expectLater(await intent.canResolveActivity(), isFalse);
-  }, skip: !Platform.isAndroid);
+  testWidgets(
+    'CanResolveActivity returns true when example Activity is found',
+    (WidgetTester tester) async {
+      const intent = AndroidIntent(
+        action: 'action_view',
+        package: 'io.flutter.plugins.androidintentexample',
+        componentName: 'io.flutter.plugins.androidintentexample.MainActivity',
+      );
+      await expectLater(await intent.canResolveActivity(), isTrue);
+    },
+    skip: !Platform.isAndroid,
+  );
 
   testWidgets(
-      'getResolvedActivity return activity details when example Activity is found',
-      (WidgetTester tester) async {
-    final intent = AndroidIntent(
-      action: 'action_view',
-      data: Uri.encodeFull('http://'),
-    );
-    await expectLater(await intent.getResolvedActivity(), isNotNull);
-  }, skip: !Platform.isAndroid);
+    'CanResolveActivity returns false when no Activity is found',
+    (WidgetTester tester) async {
+      const intent = AndroidIntent(action: 'LAUNCH', package: 'foobar');
+      await expectLater(await intent.canResolveActivity(), isFalse);
+    },
+    skip: !Platform.isAndroid,
+  );
 
-  testWidgets('getResolvedActivity returns null when no Activity is found',
-      (WidgetTester tester) async {
-    final intent = AndroidIntent(
-      action: 'action_view',
-      data: Uri.encodeFull('mycustomscheme://'),
-    );
-    await expectLater(await intent.getResolvedActivity(), isNull);
-  }, skip: !Platform.isAndroid);
+  testWidgets(
+    'getResolvedActivity return activity details when example Activity is found',
+    (WidgetTester tester) async {
+      final intent = AndroidIntent(
+        action: 'action_view',
+        data: Uri.encodeFull('http://'),
+      );
+      await expectLater(await intent.getResolvedActivity(), isNotNull);
+    },
+    skip: !Platform.isAndroid,
+  );
+
+  testWidgets(
+    'getResolvedActivity returns null when no Activity is found',
+    (WidgetTester tester) async {
+      final intent = AndroidIntent(
+        action: 'action_view',
+        data: Uri.encodeFull('mycustomscheme://'),
+      );
+      await expectLater(await intent.getResolvedActivity(), isNull);
+    },
+    skip: !Platform.isAndroid,
+  );
 }

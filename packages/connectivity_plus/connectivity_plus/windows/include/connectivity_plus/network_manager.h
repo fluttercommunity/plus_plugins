@@ -10,9 +10,12 @@
 #include <set>
 #include <string>
 
-enum class ConnectivityType { None, Ethernet, WiFi, Other, VPN };
+enum class ConnectivityType {
+    None, Ethernet, WiFi, Other, VPN
+};
 
 class NetworkListener;
+
 struct IConnectionPoint;
 struct IConnectionPointContainer;
 struct INetworkListManager;
@@ -22,29 +25,33 @@ typedef std::function<void()> NetworkCallback;
 
 class NetworkManager {
 public:
-  NetworkManager();
-  ~NetworkManager();
+    NetworkManager();
 
-  bool Init();
-  void Cleanup();
+    ~NetworkManager();
 
-  std::set<ConnectivityType> GetConnectivityTypes() const;
+    bool Init();
 
-  bool StartListen(NetworkCallback pCallback);
-  void StopListen();
+    void Cleanup();
 
-  bool HasError() const;
-  int GetError() const;
+    std::set <ConnectivityType> GetConnectivityTypes() const;
+
+    bool StartListen(NetworkCallback pCallback);
+
+    void StopListen();
+
+    bool HasError() const;
+
+    int GetError() const;
 
 private:
-  std::vector<GUID> GetConnectedAdapterIds() const;
+    std::vector <GUID> GetConnectedAdapterIds() const;
 
-  DWORD dwCookie = 0;
-  IUnknown *pUnknown = NULL;
-  INetworkListManager *pNetworkListManager = NULL;
-  IConnectionPointContainer *pCPContainer = NULL;
-  IConnectionPoint *pConnectPoint = NULL;
-  NetworkListener *pListener = NULL;
+    DWORD dwCookie = 0;
+    IUnknown *pUnknown = NULL;
+    INetworkListManager *pNetworkListManager = NULL;
+    IConnectionPointContainer *pCPContainer = NULL;
+    IConnectionPoint *pConnectPoint = NULL;
+    NetworkListener *pListener = NULL;
 };
 
 #endif // NETWORK_MANAGER_H
