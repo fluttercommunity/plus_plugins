@@ -1,5 +1,5 @@
 @TestOn('linux')
-library device_info_plus_linux_test;
+library;
 
 import 'package:device_info_plus/src/device_info_plus_linux.dart';
 import 'package:device_info_plus_platform_interface/device_info_plus_platform_interface.dart';
