@@ -1,5 +1,5 @@
 @TestOn('linux')
-library package_info_plus_linux_test;
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
