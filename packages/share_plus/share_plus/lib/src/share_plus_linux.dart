@@ -1,5 +1,5 @@
 /// The Linux implementation of `share_plus`.
-library share_plus_linux;
+library;
 
 import 'dart:ui';
 
