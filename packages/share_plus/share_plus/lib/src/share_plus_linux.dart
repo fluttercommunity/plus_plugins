@@ -24,6 +24,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     throw UnimplementedError(
         'shareUri() has not been implemented on Linux. Use share().');
@@ -35,6 +36,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? excludedActivityType,
   }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
@@ -68,6 +70,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<CupertinoActivityType>? excludedActivityType,
     List<String>? fileNameOverrides,
   }) {
     throw UnimplementedError(
