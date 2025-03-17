@@ -151,7 +151,7 @@ class AndroidAlarmManager {
   ///
   /// You can send extra data via `params`.
   /// For receiving extra data, a `callback` needs to be implemented:
-  /// Function(int, Map<String,dynamic>)
+  /// `Function(int, Map<String,dynamic>)`
   /// The params map must be parsable to Json.
   /// If one of the values can not be converted to Json,
   /// an UnsupportedError will be thrown.
@@ -221,7 +221,7 @@ class AndroidAlarmManager {
   ///
   /// You can send extra data via `params`.
   /// For receiving extra data, a `callback` needs to be implemented:
-  /// Function(int, Map<String,dynamic>)
+  /// `Function(int, Map<String,dynamic>)`
   /// The params map must be parsable to Json.
   /// If one of the values can not be converted to Json,
   /// an UnsupportedError will be thrown.
@@ -304,7 +304,7 @@ class AndroidAlarmManager {
   ///
   /// You can send extra data via `params`.
   /// For receiving extra data, a `callback` needs to be implemented:
-  /// Function(int, Map<String,dynamic>)
+  /// `Function(int, Map<String,dynamic>)`
   /// The params map must be parsable to Json.
   /// If one of the values can not be converted to Json,
   /// an UnsupportedError will be thrown.

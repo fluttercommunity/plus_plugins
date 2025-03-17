@@ -28,6 +28,7 @@ class PackageInfo {
     this.buildSignature = '',
     this.installerStore,
     this.installTime,
+    this.updateTime,
   });
 
   static PackageInfo? _fromPlatform;
@@ -90,6 +91,7 @@ class PackageInfo {
       buildSignature: platformData.buildSignature,
       installerStore: platformData.installerStore,
       installTime: platformData.installTime,
+      updateTime: platformData.updateTime,
     );
     return _fromPlatform!;
   }
@@ -159,6 +161,15 @@ class PackageInfo {
   /// - On web, returns `null`.
   final DateTime? installTime;
 
+  /// The time when the application was last updated.
+  ///
+  /// - On Android, returns `PackageManager.lastUpdateTime`
+  /// - On iOS and macOS, return the last modified date of the app main bundle
+  /// - On Windows and Linux, returns the last modified date of the app executable.
+  ///   If the last modified date is not available, returns `null`.
+  /// - On web, returns `null`.
+  final DateTime? updateTime;
+
   /// Initializes the application metadata with mock values for testing.
   ///
   /// If the singleton instance has been initialized already, it is overwritten.
@@ -171,6 +182,7 @@ class PackageInfo {
     required String buildSignature,
     String? installerStore,
     DateTime? installTime,
+    DateTime? updateTime,
   }) {
     _fromPlatform = PackageInfo(
       appName: appName,
@@ -180,6 +192,7 @@ class PackageInfo {
       buildSignature: buildSignature,
       installerStore: installerStore,
       installTime: installTime,
+      updateTime: updateTime,
     );
   }
 
@@ -195,7 +208,8 @@ class PackageInfo {
           buildNumber == other.buildNumber &&
           buildSignature == other.buildSignature &&
           installerStore == other.installerStore &&
-          installTime == other.installTime;
+          installTime == other.installTime &&
+          updateTime == other.updateTime;
 
   /// Overwrite hashCode for value equality
   @override
@@ -206,11 +220,12 @@ class PackageInfo {
       buildNumber.hashCode ^
       buildSignature.hashCode ^
       installerStore.hashCode ^
-      installTime.hashCode;
+      installTime.hashCode ^
+      updateTime.hashCode;
 
   @override
   String toString() {
-    return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore, installTime: $installTime)';
+    return 'PackageInfo(appName: $appName, buildNumber: $buildNumber, packageName: $packageName, version: $version, buildSignature: $buildSignature, installerStore: $installerStore, installTime: $installTime, updateTime: $updateTime)';
   }
 
   Map<String, dynamic> _toMap() {
@@ -221,7 +236,8 @@ class PackageInfo {
       'version': version,
       if (buildSignature.isNotEmpty) 'buildSignature': buildSignature,
       if (installerStore?.isNotEmpty ?? false) 'installerStore': installerStore,
-      if (installTime != null) 'installTime': installTime
+      if (installTime != null) 'installTime': installTime!.toIso8601String(),
+      if (updateTime != null) 'updateTime': updateTime!.toIso8601String(),
     };
   }
 

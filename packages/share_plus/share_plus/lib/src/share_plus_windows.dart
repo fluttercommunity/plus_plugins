@@ -1,5 +1,5 @@
 /// The Windows implementation of `share_plus`.
-library share_plus_windows;
+library;
 
 import 'dart:ui';
 
