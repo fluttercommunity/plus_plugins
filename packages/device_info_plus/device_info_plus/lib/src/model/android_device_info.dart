@@ -266,7 +266,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     );
   }
 
-  /// Deserializes message as List<String>
+  /// Deserializes message as `List<String>`
   static List<String> _fromList(List<dynamic> message) {
     final list = message.takeWhile((item) => item != null).toList();
     return List<String>.from(list);
