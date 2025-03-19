@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
+import 'package:meta/meta.dart';
 
 /// Information derived from `UIDevice`.
 ///
@@ -82,6 +83,53 @@ class IosDeviceInfo extends BaseDeviceInfo {
           IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
   }
+
+  /// Initializes the application metadata with mock values for testing.
+  @visibleForTesting
+  static IosDeviceInfo setMockInitialValues({
+    required String name,
+    required String systemName,
+    required String systemVersion,
+    required String model,
+    required String modelName,
+    required String localizedModel,
+    String? identifierForVendor,
+    required bool isPhysicalDevice,
+    required bool isiOSAppOnMac,
+    required IosUtsname utsname,
+  }) {
+    final Map<String, dynamic> data = {
+      'name': name,
+      'systemName': systemName,
+      'systemVersion': systemVersion,
+      'model': model,
+      'modelName': modelName,
+      'localizedModel': localizedModel,
+      'identifierForVendor': identifierForVendor,
+      'isPhysicalDevice': isPhysicalDevice,
+      'isiOSAppOnMac': isiOSAppOnMac,
+      'utsname': {
+        'sysname': utsname.sysname,
+        'nodename': utsname.nodename,
+        'release': utsname.release,
+        'version': utsname.version,
+        'machine': utsname.machine,
+      },
+    };
+    return IosDeviceInfo._(
+      data: data,
+      name: name,
+      systemName: systemName,
+      systemVersion: systemVersion,
+      model: model,
+      modelName: modelName,
+      localizedModel: localizedModel,
+      identifierForVendor: identifierForVendor,
+      isPhysicalDevice: isPhysicalDevice,
+      isiOSAppOnMac: isiOSAppOnMac,
+      utsname: utsname,
+    );
+  }
 }
 
 /// Information derived from `utsname`.
@@ -118,6 +166,24 @@ class IosUtsname {
       release: map['release'],
       version: map['version'],
       machine: map['machine'],
+    );
+  }
+
+  /// Initializes the application metadata with mock values for testing.
+  @visibleForTesting
+  static IosUtsname setMockInitialValues({
+    required String sysname,
+    required String nodename,
+    required String release,
+    required String version,
+    required String machine,
+  }) {
+    return IosUtsname._(
+      sysname: sysname,
+      nodename: nodename,
+      release: release,
+      version: version,
+      machine: machine,
     );
   }
 }
