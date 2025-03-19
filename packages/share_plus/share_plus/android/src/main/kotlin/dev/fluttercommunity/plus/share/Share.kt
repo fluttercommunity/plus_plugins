@@ -2,11 +2,13 @@ package dev.fluttercommunity.plus.share
 
 import android.app.Activity
 import android.app.PendingIntent
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.IOException
@@ -21,6 +23,10 @@ internal class Share(
     private var activity: Activity?,
     private val manager: ShareSuccessManager
 ) {
+    companion object {
+        const val TAG = "FlutterSharePlus"
+    }
+
     private val providerAuthority: String by lazy {
         getContext().packageName + ".flutter.share_provider"
     }
@@ -55,13 +61,25 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
+    fun share(
+        text: String,
+        subject: String?,
+        withResult: Boolean,
+        title: String? = null,
+        thumbnailPath: String? = null,
+    ) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
             if (subject != null) {
                 putExtra(Intent.EXTRA_SUBJECT, subject)
+            }
+            if (title != null) {
+                putExtra(Intent.EXTRA_TITLE, title)
+            }
+            if (thumbnailPath != null) {
+                addThumbnail(this, thumbnailPath)
             }
         }
         // If we dont want the result we use the old 'createChooser'
@@ -250,5 +268,19 @@ internal class Share(
         val newFile = File(folder, file.name)
         file.copyTo(newFile, true)
         return newFile
+    }
+
+    private fun addThumbnail(intent: Intent, thumbnailPath: String) {
+        try {
+            clearShareCacheFolder()
+            val uri = getUrisForPaths(listOf(thumbnailPath)).first()
+            intent.apply {
+                clipData = ClipData.newUri(getContext().contentResolver, null, uri)
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            }
+        } catch (e: IOException) {
+            // do not prevent sharing if the thumbnail cannot be added
+            Log.e(TAG, "Failed to add thumbnail", e)
+        }
     }
 }
