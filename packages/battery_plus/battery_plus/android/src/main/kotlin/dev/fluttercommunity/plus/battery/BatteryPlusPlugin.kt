@@ -123,21 +123,22 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     private fun isInPowerSaveMode(): Boolean? {
         val deviceManufacturer = Build.MANUFACTURER.lowercase(Locale.getDefault())
 
-        return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            when (deviceManufacturer) {
-                "xiaomi" -> isXiaomiPowerSaveModeActive()
-                "huawei" -> isHuaweiPowerSaveModeActive()
-                "samsung" -> isSamsungPowerSaveModeActive()
-                else -> checkPowerServiceSaveMode()
-            }
-        } else {
-            null
+        if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
+            return null
+        }
+
+        return when (deviceManufacturer) {
+            "xiaomi" -> isXiaomiPowerSaveModeActive()
+            "huawei" -> isHuaweiPowerSaveModeActive()
+            "samsung" -> isSamsungPowerSaveModeActive()
+            else -> checkPowerServiceSaveMode()
         }
     }
 
+    @RequiresApi(VERSION_CODES.LOLLIPOP)
     private fun isSamsungPowerSaveModeActive(): Boolean {
         val mode = Settings.System.getString(applicationContext!!.contentResolver, POWER_SAVE_MODE_SAMSUNG_NAME)
-        return if (mode == null && VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+        return if (mode == null) {
             checkPowerServiceSaveMode()
         } else {
             mode == POWER_SAVE_MODE_SAMSUNG_VALUE
@@ -156,12 +157,13 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         }
     }
 
-    private fun isXiaomiPowerSaveModeActive(): Boolean? {
+    @RequiresApi(VERSION_CODES.LOLLIPOP)
+    private fun isXiaomiPowerSaveModeActive(): Boolean {
         val mode = Settings.System.getInt(applicationContext!!.contentResolver, POWER_SAVE_MODE_XIAOMI_NAME, -1)
         return if (mode != -1) {
             mode == POWER_SAVE_MODE_XIAOMI_VALUE
         } else {
-            null
+            checkPowerServiceSaveMode()
         }
     }
 
