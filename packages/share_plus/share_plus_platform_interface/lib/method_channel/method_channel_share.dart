@@ -115,6 +115,41 @@ class MethodChannelShare extends SharePlatform {
     return ShareResult(result, _statusFromResult(result));
   }
 
+  /// Summons the platform's share sheet to share multiple files.
+  @override
+  Future<void> shareFilesToPackage(
+      List<XFile> files, {
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        required String packageName,
+        List<Map<String, String>>? extras,
+      }) async {
+    final filesWithPath = await _getFiles(files);
+
+    final mimeTypes = filesWithPath
+        .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
+        .toList();
+
+    final params = <String, dynamic>{
+      'paths': filesWithPath.map((e) => e.path).toList(),
+      'mimeTypes': mimeTypes,
+    };
+
+    if (subject != null) params['subject'] = subject;
+    if (text != null) params['text'] = text;
+    if (extras != null) params['extras'] = extras;
+    params['packageName'] = packageName;
+
+    if (sharePositionOrigin != null) {
+      params['originX'] = sharePositionOrigin.left;
+      params['originY'] = sharePositionOrigin.top;
+      params['originWidth'] = sharePositionOrigin.width;
+      params['originHeight'] = sharePositionOrigin.height;
+    }
+    await channel.invokeMethod<String>('shareFilesToPackage', params);
+  }
+
   /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.
   ///
   /// if file doesn't contain path,
