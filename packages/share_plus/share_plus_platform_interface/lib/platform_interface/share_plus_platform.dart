@@ -71,6 +71,27 @@ class SharePlatform extends PlatformInterface {
       fileNameOverrides: fileNameOverrides,
     );
   }
+
+  /// Share [XFile] objects to package.
+  Future<ShareResult> shareFilesToPackage(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
+    required String packageName,
+    List<Map<String, String>>? extras,
+  }) async {
+    return _instance.shareFilesToPackage(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+      fileNameOverrides: fileNameOverrides,
+      packageName: packageName,
+      extras: extras,
+    );
+  }
 }
 
 /// The result of a share to determine what action the

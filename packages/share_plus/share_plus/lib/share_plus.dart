@@ -139,4 +139,25 @@ class Share {
       fileNameOverrides: fileNameOverrides,
     );
   }
+
+  static Future<void> shareFilesToPackage(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
+    required String packageName,
+    List<Map<String, String>>? extras,
+  }) async {
+    assert(files.isNotEmpty);
+    _platform.shareFilesToPackage(
+      files,
+      subject: subject,
+      text: text,
+      sharePositionOrigin: sharePositionOrigin,
+      fileNameOverrides: fileNameOverrides,
+      packageName: packageName,
+      extras: extras,
+    );
+  }
 }

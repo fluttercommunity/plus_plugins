@@ -53,6 +53,20 @@ internal class MethodCallHandler(
                     success(isWithResult, result)
                 }
 
+                "shareFilesToPackage" -> {
+                    share.shareFilesToPackage(
+                        call.argument<List<String>>("paths")!!,
+                        call.argument<List<String>?>("mimeTypes"),
+                        call.argument<String?>("text"),
+                        call.argument<String?>("subject"),
+                        isWithResult,
+                        call.argument<String?>("packageName"),
+                        call.argument<List<Map<String,String>>?>("extras"),
+                    )
+
+                    success(isWithResult, result)
+                }
+
                 else -> result.notImplemented()
             }
         } catch (e: Throwable) {

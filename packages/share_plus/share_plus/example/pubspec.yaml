@@ -4,7 +4,8 @@ description: Demonstrates how to use the share_plus plugin.
 dependencies:
   flutter:
     sdk: flutter
-  share_plus: ^10.1.4
+  share_plus:
+    path: ../
   image_picker: ^1.1.2
   file_selector: ^1.0.3
 
@@ -24,5 +25,5 @@ flutter:
     - assets/flutter_logo.png
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
-  flutter: '>=3.22.0'
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"

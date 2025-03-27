@@ -1,3 +1,6 @@
+## 5.1.0
+ - **FEAT**(share_plus): shareFilesToPackage, allow user to share files to specific packages name
+
 ## 5.0.2
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
