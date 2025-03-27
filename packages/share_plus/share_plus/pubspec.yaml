@@ -35,7 +35,8 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  share_plus_platform_interface: ^5.0.2
+  share_plus_platform_interface:
+    path: ../share_plus_platform_interface
   file: ">=6.1.4 <8.0.0"
   url_launcher_web: ^2.3.2
   url_launcher_windows: ^3.1.2
@@ -53,4 +54,3 @@ dev_dependencies:
 environment:
   sdk: ">=3.4.0 <4.0.0"
   flutter: ">=3.22.0"
-

@@ -54,31 +54,17 @@ internal class MethodCallHandler(
                 }
 
                 "shareFilesToPackage" -> {
-                    expectMapArguments(call)
-                    if (isWithResult && !manager.setCallback(result)) return
+                    share.shareFilesToPackage(
+                        call.argument<List<String>>("paths")!!,
+                        call.argument<List<String>?>("mimeTypes"),
+                        call.argument<String?>("text"),
+                        call.argument<String?>("subject"),
+                        isWithResult,
+                        call.argument<String?>("packageName"),
+                        call.argument<List<Map<String,String>>?>("extras"),
+                    )
 
-                    // Android does not support showing the share sheet at a particular point on screen.
-                    try {
-                        share.shareFilesToPackage(
-                            call.argument<List<String>>("paths")!!,
-                            call.argument<List<String>?>("mimeTypes"),
-                            call.argument<String?>("text"),
-                            call.argument<String?>("subject"),
-                            isWithResult,
-                            call.argument<String?>("packageName"),
-                            call.argument<List<Map<String,String>>?>("extras"),
-                        )
-
-                        if (!isWithResult) {
-                            if (isResultRequested) {
-                                result.success("dev.fluttercommunity.plus/share/unavailable")
-                            } else {
-                                result.success(null)
-                            }
-                        }
-                    } catch (e: IOException) {
-                        result.error("Share failed", e.message, null)
-                    }
+                    success(isWithResult, result)
                 }
 
                 else -> result.notImplemented()

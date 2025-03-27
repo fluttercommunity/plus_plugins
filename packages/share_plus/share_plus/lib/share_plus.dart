@@ -145,6 +145,7 @@ class Share {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
     required String packageName,
     List<Map<String, String>>? extras,
   }) async {
@@ -154,6 +155,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      fileNameOverrides: fileNameOverrides,
       packageName: packageName,
       extras: extras,
     );

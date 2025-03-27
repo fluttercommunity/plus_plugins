@@ -117,22 +117,33 @@ class MethodChannelShare extends SharePlatform {
 
   /// Summons the platform's share sheet to share multiple files.
   @override
-  Future<void> shareFilesToPackage(
-      List<XFile> files, {
-        String? subject,
-        String? text,
-        Rect? sharePositionOrigin,
-        required String packageName,
-        List<Map<String, String>>? extras,
-      }) async {
-    final filesWithPath = await _getFiles(files);
+  Future<ShareResult> shareFilesToPackage(
+    List<XFile> files, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+    required String packageName,
+    List<Map<String, String>>? extras,
+    List<String>? fileNameOverrides,
+  }) async {
+    assert(files.isNotEmpty);
+    assert(
+      fileNameOverrides == null || files.length == fileNameOverrides.length,
+      "fileNameOverrides list must have the same length as files list.",
+    );
+    final filesWithPath = await _getFiles(files, fileNameOverrides);
+    assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
     final mimeTypes = filesWithPath
         .map((e) => e.mimeType ?? _mimeTypeForPath(e.path))
         .toList();
 
+    final paths = filesWithPath.map((e) => e.path).toList();
+    assert(paths.length == mimeTypes.length);
+    assert(mimeTypes.every((element) => element.isNotEmpty));
+
     final params = <String, dynamic>{
-      'paths': filesWithPath.map((e) => e.path).toList(),
+      'paths': paths,
       'mimeTypes': mimeTypes,
     };
 
@@ -147,7 +158,11 @@ class MethodChannelShare extends SharePlatform {
       params['originWidth'] = sharePositionOrigin.width;
       params['originHeight'] = sharePositionOrigin.height;
     }
-    await channel.invokeMethod<String>('shareFilesToPackage', params);
+    final result =
+        await channel.invokeMethod<String>('shareFilesToPackage', params) ??
+            'dev.fluttercommunity.plus/share/unavailable';
+
+    return ShareResult(result, _statusFromResult(result));
   }
 
   /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.

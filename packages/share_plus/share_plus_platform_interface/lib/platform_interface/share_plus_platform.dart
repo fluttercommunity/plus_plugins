@@ -73,11 +73,12 @@ class SharePlatform extends PlatformInterface {
   }
 
   /// Share [XFile] objects to package.
-  Future<void> shareFilesToPackage(
+  Future<ShareResult> shareFilesToPackage(
     List<XFile> files, {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
     required String packageName,
     List<Map<String, String>>? extras,
   }) async {
@@ -86,6 +87,7 @@ class SharePlatform extends PlatformInterface {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      fileNameOverrides: fileNameOverrides,
       packageName: packageName,
       extras: extras,
     );
