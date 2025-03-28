@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import android.os.Build;
 
 /** Forms and launches intents. */
 public final class IntentSender {
@@ -72,10 +73,9 @@ public final class IntentSender {
 
     Log.v(TAG, "Sending service intent " + intent);
 
-    if (activity != null) {
-      activity.startService(intent);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      applicationContext.startForegroundService(intent);
     } else {
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       applicationContext.startService(intent);
     }
   }
