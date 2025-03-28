@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +15,6 @@ import androidx.annotation.Nullable;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-import android.os.Build;
 
 /** Forms and launches intents. */
 public final class IntentSender {
