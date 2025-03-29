@@ -4,6 +4,7 @@
 
 #import "./include/device_info_plus/FPPDeviceInfoPlusPlugin.h"
 #import "./include/device_info_plus/DeviceIdentifiers.h"
+#import <mach/mach.h>
 #import <sys/utsname.h>
 
 @implementation FPPDeviceInfoPlusPlugin
@@ -38,6 +39,9 @@
     }
     deviceName = [DeviceIdentifiers userKnownDeviceModel:machine];
 
+    NSNumber *physicalRamSize = @([NSProcessInfo processInfo].physicalMemory / 1048576); // Mb
+    NSNumber *availableRamSize = @([self availableMemoryInbMB]);
+
     result(@{
       @"name" : [device name],
       @"systemName" : [device systemName],
@@ -49,6 +53,8 @@
           ?: [NSNull null],
       @"isPhysicalDevice" : isPhysicalNumber,
       @"isiOSAppOnMac" : isiOSAppOnMac,
+      @"physicalRamSize": physicalRamSize,
+      @"availableRamSize": availableRamSize,
       @"utsname" : @{
         @"sysname" : @(un.sysname),
         @"nodename" : @(un.nodename),
@@ -62,7 +68,25 @@
   }
 }
 
-// return value is false if code is run on a simulator
+// Return available memory in megabytes
+- (int)availableMemoryInbMB {
+    mach_port_t host_port = mach_host_self();
+    mach_msg_type_number_t host_size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+
+    vm_size_t page_size;
+    host_page_size(host_port, &page_size);
+
+    vm_statistics_data_t vm_stat;
+    if (host_statistics(host_port, HOST_VM_INFO, (host_info_t)&vm_stat, &host_size) != KERN_SUCCESS) {
+        // Failed to fetch vm statistics
+        return -1;
+    }
+
+    natural_t mem_free = vm_stat.free_count * page_size;
+    return mem_free / 1048576;
+}
+
+// Return value is false if code is run on a simulator
 - (BOOL)isDevicePhysical {
   BOOL isPhysicalDevice = NO;
 #if TARGET_OS_SIMULATOR

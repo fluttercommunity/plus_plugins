@@ -5,11 +5,10 @@ import android.content.ContentResolver
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import kotlin.collections.HashMap
-import android.provider.Settings
 
 /**
  * The implementation of [MethodChannel.MethodCallHandler] for the plugin. Responsible for
@@ -68,7 +67,13 @@ internal class MethodCallHandlerImpl(
             version["release"] = Build.VERSION.RELEASE
             version["sdkInt"] = Build.VERSION.SDK_INT
             build["version"] = version
-            build["isLowRamDevice"] = activityManager.isLowRamDevice
+
+            val memoryInfo: ActivityManager.MemoryInfo = ActivityManager.MemoryInfo()
+            activityManager.getMemoryInfo(memoryInfo)
+            build["isLowRamDevice"] = memoryInfo.lowMemory
+            build["physicalRamSize"] = memoryInfo.totalMem / 1048576L // Mb
+            build["availableRamSize"] = memoryInfo.availMem / 1048576L // Mb
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 build["serialNumber"] = try {
                     Build.getSerial()
