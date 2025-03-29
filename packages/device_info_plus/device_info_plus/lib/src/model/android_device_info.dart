@@ -34,6 +34,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required List<String> systemFeatures,
     required this.serialNumber,
     required this.isLowRamDevice,
+    required this.physicalRamSize,
+    required this.availableRamSize,
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -146,6 +148,16 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// `true` if the application is running on a low-RAM device, `false` otherwise.
   final bool isLowRamDevice;
 
+  /// Total physical RAM size of the device in megabytes
+  ///
+  /// https://developer.android.com/reference/android/app/ActivityManager.MemoryInfo#totalMem
+  final int physicalRamSize;
+
+  /// Current unallocated RAM size of the device in megabytes
+  ///
+  /// https://developer.android.com/reference/android/app/ActivityManager.MemoryInfo#availMem
+  final int availableRamSize;
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
@@ -174,6 +186,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
       serialNumber: map['serialNumber'],
       isLowRamDevice: map['isLowRamDevice'],
+      physicalRamSize: map['physicalRamSize'],
+      availableRamSize: map['availableRamSize'],
     );
   }
 
@@ -203,6 +217,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required List<String> systemFeatures,
     required String serialNumber,
     required bool isLowRamDevice,
+    required int physicalRamSize,
+    required int availableRamSize,
   }) {
     final Map<String, dynamic> data = {
       'version': {
@@ -236,6 +252,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       'systemFeatures': systemFeatures,
       'serialNumber': serialNumber,
       'isLowRamDevice': isLowRamDevice,
+      'physicalRamSize': physicalRamSize,
+      'availableRamSize': availableRamSize,
     };
 
     return AndroidDeviceInfo._(
@@ -263,6 +281,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       systemFeatures: _fromList(systemFeatures),
       serialNumber: serialNumber,
       isLowRamDevice: isLowRamDevice,
+      physicalRamSize: physicalRamSize,
+      availableRamSize: availableRamSize,
     );
   }
 
