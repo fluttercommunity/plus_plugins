@@ -18,6 +18,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required this.model,
     required this.modelName,
     required this.localizedModel,
+    required this.freeDiskSize,
+    required this.totalDiskSize,
     this.identifierForVendor,
     required this.isPhysicalDevice,
     required this.isiOSAppOnMac,
@@ -66,6 +68,12 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// Operating system information derived from `sys/utsname.h`.
   final IosUtsname utsname;
 
+  /// Free disk size in bytes
+  final int freeDiskSize;
+
+  /// Total disk size in bytes
+  final int totalDiskSize;
+
   /// Deserializes from the map message received from [_kChannel].
   static IosDeviceInfo fromMap(Map<String, dynamic> map) {
     return IosDeviceInfo._(
@@ -77,6 +85,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
       modelName: map['modelName'],
       localizedModel: map['localizedModel'],
       identifierForVendor: map['identifierForVendor'],
+      freeDiskSize: map['freeDiskSize'],
+      totalDiskSize: map['totalDiskSize'],
       isPhysicalDevice: map['isPhysicalDevice'],
       isiOSAppOnMac: map['isiOSAppOnMac'],
       utsname:
@@ -93,6 +103,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required String model,
     required String modelName,
     required String localizedModel,
+    required int freeDiskSize,
+    required int totalDiskSize,
     String? identifierForVendor,
     required bool isPhysicalDevice,
     required bool isiOSAppOnMac,
@@ -106,6 +118,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
       'modelName': modelName,
       'localizedModel': localizedModel,
       'identifierForVendor': identifierForVendor,
+      'freeDiskSize': freeDiskSize,
+      'totalDiskSize': totalDiskSize,
       'isPhysicalDevice': isPhysicalDevice,
       'isiOSAppOnMac': isiOSAppOnMac,
       'utsname': {
@@ -125,6 +139,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
       modelName: modelName,
       localizedModel: localizedModel,
       identifierForVendor: identifierForVendor,
+      freeDiskSize: freeDiskSize,
+      totalDiskSize: totalDiskSize,
       isPhysicalDevice: isPhysicalDevice,
       isiOSAppOnMac: isiOSAppOnMac,
       utsname: utsname,
