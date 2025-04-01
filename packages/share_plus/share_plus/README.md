@@ -62,7 +62,7 @@ which contains the content to share.
 These are some of the accepted parameters of the `ShareParams` class:
 
 - `text`: text to share.
-- `title`: content or share-sheet title (if supproted).
+- `title`: content or share-sheet title (if supported).
 - `subject`: email subject (if supported).
 
 Check the class documentation for more details.
