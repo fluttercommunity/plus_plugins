@@ -1,5 +1,5 @@
 /// The Linux implementation of `share_plus`.
-library share_plus_linux;
+library;
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_linux/url_launcher_linux.dart';

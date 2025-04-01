@@ -1,6 +1,6 @@
 # Contributing to PlusPlugins
 
-_See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#code-of-conduct)_
+_See also: [Code of Conduct](CODE_OF_CONDUCT.md)_
 
 ## Types of contributions
 

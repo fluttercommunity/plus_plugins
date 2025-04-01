@@ -1,5 +1,5 @@
 /// The Windows implementation of `share_plus`.
-library share_plus_windows;
+library;
 
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';

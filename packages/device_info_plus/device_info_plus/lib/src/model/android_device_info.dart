@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
+import 'package:meta/meta.dart';
 
 /// Information derived from `android.os.Build`.
 ///
@@ -176,7 +177,96 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     );
   }
 
-  /// Deserializes message as List<String>
+  /// Initializes the application metadata with mock values for testing.
+  @visibleForTesting
+  static AndroidDeviceInfo setMockInitialValues({
+    required AndroidBuildVersion version,
+    required String board,
+    required String bootloader,
+    required String brand,
+    required String device,
+    required String display,
+    required String fingerprint,
+    required String hardware,
+    required String host,
+    required String id,
+    required String manufacturer,
+    required String model,
+    required String product,
+    required String name,
+    required List<String> supported32BitAbis,
+    required List<String> supported64BitAbis,
+    required List<String> supportedAbis,
+    required String tags,
+    required String type,
+    required bool isPhysicalDevice,
+    required List<String> systemFeatures,
+    required String serialNumber,
+    required bool isLowRamDevice,
+  }) {
+    final Map<String, dynamic> data = {
+      'version': {
+        'baseOS': version.baseOS,
+        'sdkInt': version.sdkInt,
+        'release': version.release,
+        'codename': version.codename,
+        'incremental': version.incremental,
+        'previewSdkInt': version.previewSdkInt,
+        'securityPatch': version.securityPatch,
+      },
+      'board': board,
+      'bootloader': bootloader,
+      'brand': brand,
+      'device': device,
+      'display': display,
+      'fingerprint': fingerprint,
+      'hardware': hardware,
+      'host': host,
+      'id': id,
+      'manufacturer': manufacturer,
+      'model': model,
+      'product': product,
+      'name': name,
+      'supported32BitAbis': supported32BitAbis,
+      'supported64BitAbis': supported64BitAbis,
+      'supportedAbis': supportedAbis,
+      'tags': tags,
+      'type': type,
+      'isPhysicalDevice': isPhysicalDevice,
+      'systemFeatures': systemFeatures,
+      'serialNumber': serialNumber,
+      'isLowRamDevice': isLowRamDevice,
+    };
+
+    return AndroidDeviceInfo._(
+      data: data,
+      version: version,
+      board: board,
+      bootloader: bootloader,
+      brand: brand,
+      device: device,
+      display: display,
+      fingerprint: fingerprint,
+      hardware: hardware,
+      host: host,
+      id: id,
+      manufacturer: manufacturer,
+      model: model,
+      product: product,
+      name: name,
+      supported32BitAbis: _fromList(supported32BitAbis),
+      supported64BitAbis: _fromList(supported64BitAbis),
+      supportedAbis: _fromList(supportedAbis),
+      tags: tags,
+      type: type,
+      isPhysicalDevice: isPhysicalDevice,
+      systemFeatures: _fromList(systemFeatures),
+      serialNumber: serialNumber,
+      isLowRamDevice: isLowRamDevice,
+    );
+  }
+
+  /// Deserializes message as `List<String>`
   static List<String> _fromList(List<dynamic> message) {
     final list = message.takeWhile((item) => item != null).toList();
     return List<String>.from(list);
@@ -248,6 +338,28 @@ class AndroidBuildVersion {
       release: map['release'],
       sdkInt: map['sdkInt'],
       securityPatch: map['securityPatch'],
+    );
+  }
+
+  /// Initializes the application metadata with mock values for testing.
+  @visibleForTesting
+  static AndroidBuildVersion setMockInitialValues({
+    String? baseOS,
+    required String codename,
+    required String incremental,
+    required int previewSdkInt,
+    required String release,
+    required int sdkInt,
+    String? securityPatch,
+  }) {
+    return AndroidBuildVersion._(
+      baseOS: baseOS,
+      codename: codename,
+      incremental: incremental,
+      previewSdkInt: previewSdkInt,
+      release: release,
+      sdkInt: sdkInt,
+      securityPatch: securityPatch,
     );
   }
 }
