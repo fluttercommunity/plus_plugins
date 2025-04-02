@@ -20,7 +20,6 @@ import android.os.Build
 import java.util.Locale
 import android.os.PowerManager
 import android.provider.Settings
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
