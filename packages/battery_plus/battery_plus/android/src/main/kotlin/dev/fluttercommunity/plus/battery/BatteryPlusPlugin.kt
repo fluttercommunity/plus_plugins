@@ -173,9 +173,6 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
 
     @RequiresApi(VERSION_CODES.LOLLIPOP)
     private fun isXiaomiPowerSaveModeActive(): Boolean {
-        val allSettings = dumpSystemSettings(applicationContext!!)
-        Log.e("JB", allSettings.toString())
-        Log.e("JB", "------------")
         val mode = Settings.System.getInt(
             applicationContext!!.contentResolver,
             POWER_SAVE_MODE_XIAOMI_NAME,
@@ -186,30 +183,6 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
         } else {
             checkPowerServiceSaveMode()
         }
-    }
-
-    private fun dumpSystemSettings(context: Context): Map<String, String> {
-        val settingsMap = mutableMapOf<String, String>()
-
-        try {
-            val contentResolver = context.contentResolver
-            val uri = Settings.System.CONTENT_URI
-
-            contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-                val nameIndex = cursor.getColumnIndex("name")
-                val valueIndex = cursor.getColumnIndex("value")
-
-                while (cursor.moveToNext()) {
-                    val name = cursor.getString(nameIndex)
-                    val value = cursor.getString(valueIndex)
-                    settingsMap[name] = value
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        return settingsMap
     }
 
     @RequiresApi(api = VERSION_CODES.LOLLIPOP)

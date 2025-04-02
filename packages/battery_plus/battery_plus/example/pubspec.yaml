@@ -8,10 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  battery_plus_platform_interface:
-    path: ../../battery_plus_platform_interface
-  battery_plus:
-    path: ../
+  battery_plus: ^6.2.1
 
 dev_dependencies:
   flutter_driver:
@@ -21,12 +18,6 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_lints: ">=4.0.0 <6.0.0"
-
-dependency_overrides:
-  battery_plus_platform_interface:
-    path: ../../battery_plus_platform_interface
-  battery_plus:
-    path: ../
 
 flutter:
   uses-material-design: true
