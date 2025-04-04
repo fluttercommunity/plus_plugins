@@ -14,11 +14,11 @@ on iOS, or equivalent platform content sharing methods.
 
 ## Platform Support
 
-| Method        | Android | iOS | MacOS | Web | Linux | Windows |
-| :-----------: | :-----: | :-: | :---: | :-: | :---: | :----: |
-| `share`       |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
-| `shareUri`    |   ✅    | ✅  |       |     |       |        |
-| `shareXFiles` |   ✅    | ✅  |  ✅   | ✅  |       |   ✅   |
+| Shared content | Android | iOS | MacOS | Web | Linux | Windows |
+| :------------: | :-----: | :-: | :---: | :-: | :---: | :-----: |
+| Text           |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
+| URI            |   ✅    | ✅  |  ✅   | As text | As text | As text |
+| Files          |   ✅    | ✅  |  ✅   | ✅  |  ❌   |   ✅   |
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 
@@ -47,23 +47,30 @@ import 'package:share_plus/share_plus.dart';
 
 ### Share Text
 
-Invoke the static `share()` method anywhere in your Dart code.
+Access the `SharePlus` instance via `SharePlus.instance`.
+Then, invoke the `share()` method anywhere in your Dart code.
 
 ```dart
-Share.share('check out my website https://example.com');
+SharePlus.instance.share(
+  ShareParams(text: 'check out my website https://example.com')
+);
 ```
 
-The `share` method also takes an optional `subject` that will be used when
-sharing to email.
+The `share()` method requires the `ShareParams` object,
+which contains the content to share.
 
-```dart
-Share.share('check out my website https://example.com', subject: 'Look what I made!');
-```
+These are some of the accepted parameters of the `ShareParams` class:
+
+- `text`: text to share.
+- `title`: content or share-sheet title (if supported).
+- `subject`: email subject (if supported).
+
+Check the class documentation for more details.
 
 `share()` returns `status` object that allows to check the result of user action in the share sheet.
 
 ```dart
-final result = await Share.share('check out my website https://example.com');
+final result = await SharePlus.instance.share(params);
 
 if (result.status == ShareResultStatus.success) {
     print('Thank you for sharing my website!');
@@ -72,10 +79,16 @@ if (result.status == ShareResultStatus.success) {
 
 ### Share Files
 
-To share one or multiple files, invoke the static `shareXFiles` method anywhere in your Dart code. The method returns a `ShareResult`. Optionally, you can pass `subject`, `text` and `sharePositionOrigin`.
+To share one or multiple files, provide the `files` list in `ShareParams`.
+Optionally, you can pass `title`, `text` and `sharePositionOrigin`.
 
 ```dart
-final result = await Share.shareXFiles([XFile('${directory.path}/image.jpg')], text: 'Great picture');
+final params = ShareParams(
+  text: 'Great picture',
+  files: [XFile('${directory.path}/image.jpg')], 
+);
+
+final result = await SharePlus.instance.share(params);
 
 if (result.status == ShareResultStatus.success) {
     print('Thank you for sharing the picture!');
@@ -83,7 +96,14 @@ if (result.status == ShareResultStatus.success) {
 ```
 
 ```dart
-final result = await Share.shareXFiles([XFile('${directory.path}/image1.jpg'), XFile('${directory.path}/image2.jpg')]);
+final params = ShareParams(
+  files: [
+    XFile('${directory.path}/image1.jpg'), 
+    XFile('${directory.path}/image2.jpg'),
+  ],
+);
+
+final result = await SharePlus.instance.share(params);
 
 if (result.status == ShareResultStatus.dismissed) {
     print('Did you not like the pictures?');
@@ -96,15 +116,13 @@ See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
 which browsers are supported. This builds on the [`cross_file`](https://pub.dev/packages/cross_file)
 package.
 
-
-```dart
-Share.shareXFiles([XFile('assets/hello.txt')], text: 'Great picture');
-```
-
 File downloading fallback mechanism for web can be disabled by setting:
 
 ```dart
-Share.downloadFallbackEnabled = false;
+ShareParams(
+  // rest of params
+  downloadFallbackEnabled: false,
+)
 ```
 
 #### Share Data
@@ -114,7 +132,12 @@ You can also share files that you dynamically generate from its data using [`XFi
 To set the name of such files, use the `fileNameOverrides` parameter, otherwise the file name will be a random UUID string.
 
 ```dart
-Share.shareXFiles([XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], fileNameOverrides: ['myfile.txt']);
+final params = ShareParams(
+  files: [XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], 
+  fileNameOverrides: ['myfile.txt']
+);
+
+SharePlus.instance.share(params);
 ```
 
 > [!CAUTION]
@@ -123,10 +146,13 @@ Share.shareXFiles([XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], f
 ### Share URI
 
 iOS supports fetching metadata from a URI when shared using `UIActivityViewController`.
-This special method is only properly supported on iOS.
+This special functionality is only properly supported on iOS.
+On other platforms, the URI will be shared as plain text.
 
 ```dart
-Share.shareUri(uri: uri);
+final params = ShareParams(uri: uri);
+
+SharePlus.instance.share(params);
 ```
 
 ### Share Results
@@ -201,14 +227,51 @@ Builder(
 // _onShare method:
 final box = context.findRenderObject() as RenderBox?;
 
-await Share.share(
-  text,
-  subject: subject,
-  sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+await SharePlus.instance.share(
+  ShareParams(
+    text: text,
+    sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+  )
 );
 ```
 
 See the `main.dart` in the `example` for a complete example.
+
+## Migrating from `Share.share()` to `SharePlus.instance.share()`
+
+The static methods `Share.share()`, `Share.shareUri()` and `Share.shareXFiles()`
+have been deprecated in favor of the `SharePlus.instance.share(params)`.
+
+To convert code using `Share.share()` to the new `SharePlus` class:
+
+1. Wrap the current parameters in a `ShareParams` object.
+2. Change the call to `SharePlus.instance.share()`.
+
+e.g.
+
+```dart
+Share.share("Shared text");
+
+Share.shareUri("http://example.com");
+
+Share.shareXFiles(files);
+```
+
+Becomes:
+
+```dart
+SharePlus.instance.share(
+  ShareParams(text: "Shared text"),
+);
+
+SharePlus.instance.share(
+  ShareParams(uri: "http://example.com"),
+);
+
+SharePlus.instance.share(
+  ShareParams(files: files),
+);
+```
 
 ## Learn more
 
