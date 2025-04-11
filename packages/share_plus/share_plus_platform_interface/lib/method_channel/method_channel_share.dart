@@ -70,7 +70,9 @@ class MethodChannelShare extends SharePlatform {
     return map;
   }
 
-  /// Ensure that a file is readable from the file system. Will create file on-demand under TemporaryDiectory and return the temporary file otherwise.
+  /// Ensure that a file is readable from the file system. 
+  /// Will create file on-demand under TemporaryDirectory 
+  /// and return the temporary file otherwise.
   ///
   /// if file doesn't contain path,
   /// then make new file in TemporaryDirectory and return with path
