@@ -101,9 +101,9 @@ class SharePlus {
 @Deprecated('Use SharePlus instead')
 class Share {
   /// Whether to fall back to downloading files if [shareXFiles] fails on web.
-  /// This parameter is only used when suing the [Share] class.
+  /// This parameter is only used when using the [Share] class.
   /// If you want to use this parameter with the [SharePlus] class,
-  /// use [ShareParams.downloadFallbackEnabled] instead as it takes precedence.
+  /// use [ShareParams.downloadFallbackEnabled] instead as it takes preference.
   @Deprecated('Use ShareParams.downloadFallbackEnabled instead')
   static bool downloadFallbackEnabled = true;
 
