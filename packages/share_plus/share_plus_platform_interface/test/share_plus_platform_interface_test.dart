@@ -167,7 +167,16 @@ void main() {
   });
 
   test('withResult methods invoke normal share on non IOS & Android', () async {
-    await sharePlatform.share(
+    // Setup mockito to return a raw result instead of null
+    const success = ShareResult("raw result", ShareResultStatus.success);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(MethodChannelShare.channel,
+            (MethodCall call) async {
+      await mockChannel.invokeMethod<void>(call.method, call.arguments);
+      return success.raw;
+    });
+
+    final result = await sharePlatform.share(
       ShareParams(
         text: 'some text to share',
         subject: 'some subject to share',
@@ -182,9 +191,10 @@ void main() {
       'originWidth': 3.0,
       'originHeight': 4.0,
     }));
+    expect(result, success);
 
     await withFile('tempfile-83649e.png', (File fd) async {
-      await sharePlatform.share(
+      final result = await sharePlatform.share(
         ShareParams(
           files: [XFile(fd.path)],
         ),
@@ -193,6 +203,7 @@ void main() {
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
       }));
+      expect(result, success);
     });
   });
 }
