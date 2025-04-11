@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
 
   s.platform = :osx
   s.osx.deployment_target = '10.14'
-  s.resource_bundles = {'network_info_plus_privacy' => ['network_info_plus/Sources/network_info_plus/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'network_info_plus_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end
