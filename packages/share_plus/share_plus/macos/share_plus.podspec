@@ -19,5 +19,5 @@ https://github.com/flutter/flutter/issues/46618
 
   s.platform = :osx
   s.osx.deployment_target = '10.14'
-  s.resource_bundles = {'share_plus_privacy' => ['share_plus/Sources/share_plus/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'share_plus_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 end
