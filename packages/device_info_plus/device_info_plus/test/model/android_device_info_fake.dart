@@ -25,6 +25,7 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'brand': 'Google',
   'device': 'device',
   'product': 'product',
+  "name": "Custom Device Name",
   'display': 'display',
   'hardware': 'hardware',
   'isPhysicalDevice': true,

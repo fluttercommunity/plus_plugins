@@ -1,3 +1,22 @@
+## 11.3.3
+
+ - **FIX**(device_info_plus): handle nullability on getString(DEVICE_NAME) ([#3507](https://github.com/fluttercommunity/plus_plugins/issues/3507)). ([3201e056](https://github.com/fluttercommunity/plus_plugins/commit/3201e056b2a44ce74a3a9218fba59d71d9795379))
+
+## 11.3.2
+
+**Note:** This release bumps dependency `win32_registry` from `1.1.5` to `2.0.1`. It will not compile if you have Dependency Overrides for that package.
+
+ - **FIX**(device_info_plus): tighten dependency constraints ([#3497](https://github.com/fluttercommunity/plus_plugins/issues/3497)). ([c7e2428a](https://github.com/fluttercommunity/plus_plugins/commit/c7e2428a6075df4e37da9ef4934861c7cb0c3bee))
+ - **FIX**(device_info_plus): fix memory leak when calling DeviceInfoPlugin().macOsInfo ([#3474](https://github.com/fluttercommunity/plus_plugins/issues/3474)). ([1cbf2b56](https://github.com/fluttercommunity/plus_plugins/commit/1cbf2b5621465456221b50ade7ac6c2f3266788d))
+
+## 11.3.1
+
+- Retracted release due to [#3496](https://sgithub.com/fluttercommunity/plus_plugins/issues/3496)
+
+## 11.3.0
+
+ - **FEAT**(device_info_plus): Add User Device Name in Android (PR [#3437](https://github.com/fluttercommunity/plus_plugins/issues/3437)) ([#3456](https://github.com/fluttercommunity/plus_plugins/issues/3456)). ([8c38a31d](https://github.com/fluttercommunity/plus_plugins/commit/8c38a31d7c1073d7011ec3e3193f6b99b3851ef1))
+
 ## 11.2.2
 
  - **FIX**(device_info_plus): Replace throwing exception with returning default values on Windows ([#3445](https://github.com/fluttercommunity/plus_plugins/issues/3445)). ([084730f8](https://github.com/fluttercommunity/plus_plugins/commit/084730f82436b474b31b16f6dc2d7b90585e899f))

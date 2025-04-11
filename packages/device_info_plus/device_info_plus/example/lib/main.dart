@@ -94,6 +94,7 @@ class _MyAppState extends State<MyApp> {
       'manufacturer': build.manufacturer,
       'model': build.model,
       'product': build.product,
+      'name': build.name,
       'supported32BitAbis': build.supported32BitAbis,
       'supported64BitAbis': build.supported64BitAbis,
       'supportedAbis': build.supportedAbis,

@@ -1,6 +1,6 @@
 # Contributing to PlusPlugins
 
-_See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#code-of-conduct)_
+_See also: [Code of Conduct](CODE_OF_CONDUCT.md)_
 
 ## Types of contributions
 
@@ -193,6 +193,10 @@ To start working on a patch:
 1. `git fetch upstream`
 2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
+
+> [!CAUTION]  
+> Do not create PRs directly from the `main` branch of your repository, as it causes problems when pushing changes by reviewers.
+> Always create a new branch for your pull requests.
 
 ### 5.2 Check the code
 

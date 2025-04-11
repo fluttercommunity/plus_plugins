@@ -1,3 +1,7 @@
+## 4.0.7
+
+ - **FIX**(alarm_manager_plus): removed import that broke build ([#3477](https://github.com/fluttercommunity/plus_plugins/issues/3477)). ([fdac82b0](https://github.com/fluttercommunity/plus_plugins/commit/fdac82b06c8b7f9188656d86155fa041d19a3f2d))
+
 ## 4.0.6
 
  - **FIX**(android_alarm_manager_plus): set correct environment versions ([#3420](https://github.com/fluttercommunity/plus_plugins/issues/3420)). ([c2722f83](https://github.com/fluttercommunity/plus_plugins/commit/c2722f8345407d3bf7c66b99e57fbf5c75da428f))

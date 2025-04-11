@@ -1,3 +1,11 @@
+## 3.2.0
+
+ - **FEAT**(package_info_plus): add update time ([#3466](https://github.com/fluttercommunity/plus_plugins/issues/3466)). ([c0ab9214](https://github.com/fluttercommunity/plus_plugins/commit/c0ab9214479653ce976e427dc0fa5e58b71e7f66))
+
+## 3.1.0
+
+ - **FEAT**(package_info_plus): add install time ([#3434](https://github.com/fluttercommunity/plus_plugins/issues/3434)). ([0ea0402f](https://github.com/fluttercommunity/plus_plugins/commit/0ea0402f824104c36a806f32e88727801b40ba4c))
+
 ## 3.0.2
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

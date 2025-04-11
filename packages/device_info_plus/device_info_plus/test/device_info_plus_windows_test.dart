@@ -1,5 +1,5 @@
 @TestOn('windows')
-library device_info_plus_windows_test;
+library;
 
 import 'dart:typed_data';
 
