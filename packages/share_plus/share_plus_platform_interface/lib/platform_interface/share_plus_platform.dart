@@ -94,7 +94,7 @@ class ShareParams {
   /// Cannot be used in combination with [text].
   ///
   /// * Supported platforms: iOS, Android
-  ///   Fallsback to sharing the URI as text on other platforms.
+  ///   Falls back to sharing the URI as text on other platforms.
   final Uri? uri;
 
   /// Share multiple files, can be used in combination with [text]
