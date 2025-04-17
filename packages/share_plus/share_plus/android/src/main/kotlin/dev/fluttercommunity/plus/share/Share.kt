@@ -74,8 +74,8 @@ internal class Share(
                 action = Intent.ACTION_SEND
                 type = "text/plain"
                 putExtra(Intent.EXTRA_TEXT, uri ?: text)
-                if (subject != null) putExtra(Intent.EXTRA_SUBJECT, subject)
-                if (title != null) putExtra(Intent.EXTRA_TITLE, title)
+                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
             }
         } else {
             when {
@@ -106,9 +106,9 @@ internal class Share(
             }
 
             shareIntent.apply {
-                if (text != null) putExtra(Intent.EXTRA_TEXT, text)
-                if (subject != null) putExtra(Intent.EXTRA_SUBJECT, subject)
-                if (title != null) putExtra(Intent.EXTRA_TITLE, title)
+                if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
+                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         }
