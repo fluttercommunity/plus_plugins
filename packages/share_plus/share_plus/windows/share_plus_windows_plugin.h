@@ -45,7 +45,7 @@ private:
       "dev.fluttercommunity.plus/share/unavailable";
 
   static constexpr auto kShare = "share";
-  static constexpr auto kShareFiles = "shareFiles";
+  //static constexpr auto kShareFiles = "shareFiles";
 
   HWND GetWindow();
 
@@ -70,8 +70,10 @@ private:
   // Present here to keep |std::string| in memory until data request callback
   // from |IDataTransferManager| takes place.
   // Subsequent calls on the platform channel will overwrite the existing value.
-  std::string share_text_ = "";
+  std::optional<std::string> share_text_ = std::nullopt;
+  std::optional<std::string> share_uri_ = std::nullopt;
   std::optional<std::string> share_subject_ = std::nullopt;
+  std::optional<std::string> share_title_ = std::nullopt;
   std::vector<std::string> paths_ = {};
   std::vector<std::string> mime_types_ = {};
 };
