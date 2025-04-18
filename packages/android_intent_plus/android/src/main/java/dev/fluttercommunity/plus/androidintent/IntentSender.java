@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -72,10 +73,9 @@ public final class IntentSender {
 
     Log.v(TAG, "Sending service intent " + intent);
 
-    if (activity != null) {
-      activity.startService(intent);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      applicationContext.startForegroundService(intent);
     } else {
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       applicationContext.startService(intent);
     }
   }
