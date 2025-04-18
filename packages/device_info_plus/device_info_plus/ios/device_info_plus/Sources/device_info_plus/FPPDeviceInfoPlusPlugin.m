@@ -56,8 +56,8 @@
       @"modelName" : deviceName,
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
-      @"freeDiskSize": freeSize,
-      @"totalDiskSize": totalSize,
+      @"freeDiskSpace": freeSize,
+      @"totalDiskSpace": totalSize,
       @"isPhysicalDevice" : isPhysicalNumber,
       @"isiOSAppOnMac" : isiOSAppOnMac,
       @"utsname" : @{
