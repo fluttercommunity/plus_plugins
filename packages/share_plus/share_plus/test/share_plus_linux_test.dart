@@ -9,10 +9,13 @@ void main() {
     SharePlusLinuxPlugin.registerWith();
     expect(SharePlatform.instance, isA<SharePlusLinuxPlugin>());
   });
+
   test('url encoding is correct for &', () async {
     final mock = MockUrlLauncherPlatform();
 
-    await SharePlusLinuxPlugin(mock).share('foo&bar', subject: 'bar&foo');
+    await SharePlusLinuxPlugin(mock).share(
+      ShareParams(text: 'foo&bar', subject: 'bar&foo'),
+    );
 
     expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
   });
@@ -21,16 +24,20 @@ void main() {
   test('url encoding is correct for spaces', () async {
     final mock = MockUrlLauncherPlatform();
 
-    await SharePlusLinuxPlugin(mock).share('foo bar', subject: 'bar foo');
+    await SharePlusLinuxPlugin(mock).share(
+      ShareParams(text: 'foo bar', subject: 'bar foo'),
+    );
 
     expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
   });
 
-  test('throws when url_launcher can\'t launch uri', () async {
+  test('can share URI on Linux', () async {
     final mock = MockUrlLauncherPlatform();
-    mock.canLaunchMockValue = false;
 
-    expect(() async => await SharePlusLinuxPlugin(mock).share('foo bar'),
-        throwsException);
+    await SharePlusLinuxPlugin(mock).share(
+      ShareParams(uri: Uri.parse('http://example.com')),
+    );
+
+    expect(mock.url, 'mailto:?body=http%3A%2F%2Fexample.com');
   });
 }
