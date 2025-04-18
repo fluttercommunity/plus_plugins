@@ -104,6 +104,8 @@ class _MyAppState extends State<MyApp> {
       'systemFeatures': build.systemFeatures,
       'serialNumber': build.serialNumber,
       'isLowRamDevice': build.isLowRamDevice,
+      'physicalRamSize': build.physicalRamSize,
+      'availableRamSize': build.availableRamSize,
     };
   }
 
@@ -118,6 +120,8 @@ class _MyAppState extends State<MyApp> {
       'identifierForVendor': data.identifierForVendor,
       'isPhysicalDevice': data.isPhysicalDevice,
       'isiOSAppOnMac': data.isiOSAppOnMac,
+      'physicalRamSize': data.physicalRamSize,
+      'availableRamSize': data.availableRamSize,
       'utsname.sysname:': data.utsname.sysname,
       'utsname.nodename:': data.utsname.nodename,
       'utsname.release:': data.utsname.release,
