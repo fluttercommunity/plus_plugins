@@ -31,8 +31,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.tags,
     required this.type,
     required this.isPhysicalDevice,
-    required this.freeDiskSpace,
-    required this.totalDiskSpace,
+    required this.freeDiskSize,
+    required this.totalDiskSize,
     required List<String> systemFeatures,
     required this.serialNumber,
     required this.isLowRamDevice,
@@ -125,15 +125,15 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// `false` if the application is running in an emulator, `true` otherwise.
   final bool isPhysicalDevice;
 
-  /// Available disk space in bytes
+  /// Available disk size in bytes
   ///
   /// https://developer.android.com/reference/android/os/StatFs#getFreeBytes()
-  final int freeDiskSpace;
+  final int freeDiskSize;
 
-  /// Total disk space in bytes
+  /// Total disk size in bytes
   ///
   /// https://developer.android.com/reference/android/os/StatFs#getTotalBytes()
-  final int totalDiskSpace;
+  final int totalDiskSize;
 
   /// Describes what features are available on the current device.
   ///
@@ -174,8 +174,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
       data: map,
-      version: AndroidBuildVersion._fromMap(
-          map['version']?.cast<String, dynamic>() ?? {}),
+      version: AndroidBuildVersion._fromMap(map['version']?.cast<String, dynamic>() ?? {}),
       board: map['board'],
       bootloader: map['bootloader'],
       brand: map['brand'],
@@ -195,8 +194,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       tags: map['tags'],
       type: map['type'],
       isPhysicalDevice: map['isPhysicalDevice'],
-      freeDiskSpace: map['freeDiskSpace'],
-      totalDiskSpace: map['totalDiskSpace'],
+      freeDiskSize: map['freeDiskSize'],
+      totalDiskSize: map['totalDiskSize'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
       serialNumber: map['serialNumber'],
       isLowRamDevice: map['isLowRamDevice'],
@@ -228,8 +227,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required String tags,
     required String type,
     required bool isPhysicalDevice,
-    required int freeDiskSpace,
-    required int totalDiskSpace,
+    required int freeDiskSize,
+    required int totalDiskSize,
     required List<String> systemFeatures,
     required String serialNumber,
     required bool isLowRamDevice,
@@ -265,8 +264,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       'tags': tags,
       'type': type,
       'isPhysicalDevice': isPhysicalDevice,
-      'freeDiskSpace': freeDiskSpace,
-      'totalDiskSpace': totalDiskSpace,
+      'freeDiskSize': freeDiskSize,
+      'totalDiskSize': totalDiskSize,
       'systemFeatures': systemFeatures,
       'serialNumber': serialNumber,
       'isLowRamDevice': isLowRamDevice,
@@ -296,8 +295,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       tags: tags,
       type: type,
       isPhysicalDevice: isPhysicalDevice,
-      freeDiskSpace: freeDiskSpace,
-      totalDiskSpace: totalDiskSpace,
+      freeDiskSize: freeDiskSize,
+      totalDiskSize: totalDiskSize,
       systemFeatures: _fromList(systemFeatures),
       serialNumber: serialNumber,
       isLowRamDevice: isLowRamDevice,

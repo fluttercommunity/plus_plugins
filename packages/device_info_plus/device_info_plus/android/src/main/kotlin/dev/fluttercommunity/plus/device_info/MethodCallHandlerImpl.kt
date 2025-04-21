@@ -60,8 +60,8 @@ internal class MethodCallHandlerImpl(
             build["systemFeatures"] = getSystemFeatures()
 
             val statFs = StatFs(Environment.getDataDirectory().getPath())
-            build["freeDiskSpace"] = statFs.getFreeBytes()
-            build["totalDiskSpace"] = statFs.getTotalBytes()
+            build["freeDiskSize"] = statFs.getFreeBytes()
+            build["totalDiskSize"] = statFs.getTotalBytes()
 
             val version: MutableMap<String, Any> = HashMap()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

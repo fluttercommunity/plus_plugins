@@ -60,12 +60,12 @@
       @"modelName" : deviceName,
       @"identifierForVendor" : [[device identifierForVendor] UUIDString]
           ?: [NSNull null],
-      @"freeDiskSpace": freeSize,
-      @"totalDiskSpace": totalSize,
+      @"freeDiskSize" : freeSize,
+      @"totalDiskSize" : totalSize,
       @"isPhysicalDevice" : isPhysicalNumber,
       @"isiOSAppOnMac" : isiOSAppOnMac,
-      @"physicalRamSize": physicalRamSize,
-      @"availableRamSize": availableRamSize,
+      @"physicalRamSize" : physicalRamSize,
+      @"availableRamSize" : availableRamSize,
       @"utsname" : @{
         @"sysname" : @(un.sysname),
         @"nodename" : @(un.nodename),

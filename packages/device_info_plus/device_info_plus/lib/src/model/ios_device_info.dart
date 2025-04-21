@@ -18,8 +18,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required this.model,
     required this.modelName,
     required this.localizedModel,
-    required this.freeDiskSpace,
-    required this.totalDiskSpace,
+    required this.freeDiskSize,
+    required this.totalDiskSize,
     this.identifierForVendor,
     required this.isPhysicalDevice,
     required this.physicalRamSize,
@@ -77,10 +77,10 @@ class IosDeviceInfo extends BaseDeviceInfo {
   final IosUtsname utsname;
 
   /// Free disk space in bytes
-  final int freeDiskSpace;
+  final int freeDiskSize;
 
   /// Total disk space in bytes
-  final int totalDiskSpace;
+  final int totalDiskSize;
 
   /// Deserializes from the map message received from [_kChannel].
   static IosDeviceInfo fromMap(Map<String, dynamic> map) {
@@ -93,14 +93,13 @@ class IosDeviceInfo extends BaseDeviceInfo {
       modelName: map['modelName'],
       localizedModel: map['localizedModel'],
       identifierForVendor: map['identifierForVendor'],
-      freeDiskSpace: map['freeDiskSpace'],
-      totalDiskSpace: map['totalDiskSpace'],
+      freeDiskSize: map['freeDiskSize'],
+      totalDiskSize: map['totalDiskSize'],
       isPhysicalDevice: map['isPhysicalDevice'],
       physicalRamSize: map['physicalRamSize'],
       availableRamSize: map['availableRamSize'],
       isiOSAppOnMac: map['isiOSAppOnMac'],
-      utsname:
-          IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
+      utsname: IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
     );
   }
 
@@ -113,8 +112,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required String model,
     required String modelName,
     required String localizedModel,
-    required int freeDiskSpace,
-    required int totalDiskSpace,
+    required int freeDiskSize,
+    required int totalDiskSize,
     String? identifierForVendor,
     required bool isPhysicalDevice,
     required bool isiOSAppOnMac,
@@ -130,8 +129,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
       'modelName': modelName,
       'localizedModel': localizedModel,
       'identifierForVendor': identifierForVendor,
-      'freeDiskSpace': freeDiskSpace,
-      'totalDiskSpace': totalDiskSpace,
+      'freeDiskSize': freeDiskSize,
+      'totalDiskSize': totalDiskSize,
       'isPhysicalDevice': isPhysicalDevice,
       'isiOSAppOnMac': isiOSAppOnMac,
       'physicalRamSize': physicalRamSize,
@@ -153,8 +152,8 @@ class IosDeviceInfo extends BaseDeviceInfo {
       modelName: modelName,
       localizedModel: localizedModel,
       identifierForVendor: identifierForVendor,
-      freeDiskSpace: freeDiskSpace,
-      totalDiskSpace: totalDiskSpace,
+      freeDiskSize: freeDiskSize,
+      totalDiskSize: totalDiskSize,
       isPhysicalDevice: isPhysicalDevice,
       isiOSAppOnMac: isiOSAppOnMac,
       physicalRamSize: physicalRamSize,
