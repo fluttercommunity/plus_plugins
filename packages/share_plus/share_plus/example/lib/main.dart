@@ -169,7 +169,7 @@ class MyHomePageState extends State<MyHomePage> {
             if (Platform.isIOS || Platform.isMacOS)
               ElevatedButton(
                 onPressed: _onSelectExcludedActivityType,
-                child: Text('add Excluded Activity Type'),
+                child: const Text('add Excluded Activity Type'),
               ),
             const SizedBox(height: 32),
             Builder(
