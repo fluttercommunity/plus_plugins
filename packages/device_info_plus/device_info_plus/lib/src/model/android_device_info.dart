@@ -174,7 +174,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
       data: map,
-      version: AndroidBuildVersion._fromMap(map['version']?.cast<String, dynamic>() ?? {}),
+      version: AndroidBuildVersion._fromMap(
+          map['version']?.cast<String, dynamic>() ?? {}),
       board: map['board'],
       bootloader: map['bootloader'],
       brand: map['brand'],
