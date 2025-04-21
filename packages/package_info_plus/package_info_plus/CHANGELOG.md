@@ -1,3 +1,29 @@
+## 8.3.0
+
+ - **FEAT**(package_info_plus): add update time ([#3466](https://github.com/fluttercommunity/plus_plugins/issues/3466)). ([c0ab9214](https://github.com/fluttercommunity/plus_plugins/commit/c0ab9214479653ce976e427dc0fa5e58b71e7f66))
+
+## 8.2.1
+
+ - **FIX**(package_info_plus): convert installTime to String instead of DateTime to avoid serialization issues ([#3464](https://github.com/fluttercommunity/plus_plugins/issues/3464)). ([aa10ce75](https://github.com/fluttercommunity/plus_plugins/commit/aa10ce758b6ee6895c7b4a05f16ffa08a434fa20))
+ - **FIX**(package_info_plus): fix macOS compilation warning ([#3460](https://github.com/fluttercommunity/plus_plugins/issues/3460)). ([6eec56c4](https://github.com/fluttercommunity/plus_plugins/commit/6eec56c4a2a5f49894e60c3b9ea263c3096c01d5))
+
+## 8.2.0
+
+ - **FEAT**(package_info_plus): add install time ([#3434](https://github.com/fluttercommunity/plus_plugins/issues/3434)). ([0ea0402f](https://github.com/fluttercommunity/plus_plugins/commit/0ea0402f824104c36a806f32e88727801b40ba4c))
+
+## 8.1.4
+
+ - **DOCS**(package_info_plus): doc ref links and unnecessary library names ([#3433](https://github.com/fluttercommunity/plus_plugins/issues/3433)). ([9275f622](https://github.com/fluttercommunity/plus_plugins/commit/9275f622191cee76bfcd90f3f96e6bbea1923f24))
+
+## 8.1.3
+
+ - **FIX**(package_info_plus): Resolve compilation issues with SPM enabled ([#3406](https://github.com/fluttercommunity/plus_plugins/issues/3406)). ([d421ec0e](https://github.com/fluttercommunity/plus_plugins/commit/d421ec0e75df5af3394e567e45ba63dbfc1839da))
+
+## 8.1.2
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(package_info_plus): add support for file scheme on web ([#3345](https://github.com/fluttercommunity/plus_plugins/issues/3345)). ([2d69758d](https://github.com/fluttercommunity/plus_plugins/commit/2d69758d86346203a37dabf876a7bb9862c1e553))
+
 ## 8.1.1
 
  - **FIX**(package_info_plus): Update privacy manifest path ([#3348](https://github.com/fluttercommunity/plus_plugins/issues/3348)). ([f47fcc97](https://github.com/fluttercommunity/plus_plugins/commit/f47fcc9774a860d7cffe306ba6ecca4ccae2896f))

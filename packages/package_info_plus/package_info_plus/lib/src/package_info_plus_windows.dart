@@ -1,11 +1,12 @@
 /// The Windows implementation of `package_info_plus`.
-library package_info_plus_windows;
+library;
 
 import 'dart:io';
 
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 
+import 'file_attribute.dart';
 import 'file_version_info.dart';
 
 /// The Windows implementation of [PackageInfoPlatform].
@@ -27,6 +28,7 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
     }
 
     final info = FileVersionInfo(resolvedExecutable);
+    final attributes = FileAttributes(resolvedExecutable);
     final versions = info.productVersion.split('+');
     final data = PackageInfoData(
       appName: info.productName,
@@ -34,6 +36,8 @@ class PackageInfoPlusWindowsPlugin extends PackageInfoPlatform {
       version: versions.getOrNull(0) ?? '',
       buildNumber: versions.getOrNull(1) ?? '',
       buildSignature: '',
+      installTime: attributes.creationTime ?? attributes.lastWriteTime,
+      updateTime: attributes.lastWriteTime,
     );
     info.dispose();
     return Future.value(data);

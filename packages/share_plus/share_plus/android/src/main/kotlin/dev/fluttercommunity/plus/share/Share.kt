@@ -55,83 +55,71 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, text)
-            if (subject != null) {
-                putExtra(Intent.EXTRA_SUBJECT, subject)
-            }
-        }
-        // If we dont want the result we use the old 'createChooser'
-        val chooserIntent =
-            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                // Build chooserIntent with broadcast to ShareSuccessManager on success
-                Intent.createChooser(
-                    shareIntent,
-                    null, // dialog title optional
-                    PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        Intent(context, SharePlusPendingIntent::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                    ).intentSender
-                )
-            } else {
-                Intent.createChooser(shareIntent, null /* dialog title optional */)
-            }
-        startActivity(chooserIntent, withResult)
-    }
-
     @Throws(IOException::class)
-    fun shareFiles(
-        paths: List<String>,
-        mimeTypes: List<String>?,
-        text: String?,
-        subject: String?,
-        withResult: Boolean
-    ) {
+    fun share(arguments: Map<String, Any>, withResult: Boolean) {
         clearShareCacheFolder()
-        val fileUris = getUrisForPaths(paths)
+
+        val text = arguments["text"] as String?
+        val uri = arguments["uri"] as String?
+        val subject = arguments["subject"] as String?
+        val title = arguments["title"] as String?
+        val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
+        val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
+        val fileUris = paths?.let { getUrisForPaths(paths) }
+
+        // Create Share Intent
         val shareIntent = Intent()
-        when {
-            (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, withResult)
-                return
+        if (fileUris == null) {
+            shareIntent.apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, uri ?: text)
+                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+            }
+        } else {
+            when {
+                fileUris.isEmpty() -> {
+                    throw IOException("Error sharing files: No files found")
+                }
+
+                fileUris.size == 1 -> {
+                    val mimeType = if (!mimeTypes.isNullOrEmpty()) {
+                        mimeTypes.first()
+                    } else {
+                        "*/*"
+                    }
+                    shareIntent.apply {
+                        action = Intent.ACTION_SEND
+                        type = mimeType
+                        putExtra(Intent.EXTRA_STREAM, fileUris.first())
+                    }
+                }
+
+                else -> {
+                    shareIntent.apply {
+                        action = Intent.ACTION_SEND_MULTIPLE
+                        type = reduceMimeTypes(mimeTypes)
+                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
+                    }
+                }
             }
 
-            fileUris.size == 1 -> {
-                val mimeType = if (!mimeTypes.isNullOrEmpty()) {
-                    mimeTypes.first()
-                } else {
-                    "*/*"
-                }
-                shareIntent.apply {
-                    action = Intent.ACTION_SEND
-                    type = mimeType
-                    putExtra(Intent.EXTRA_STREAM, fileUris.first())
-                }
-            }
-
-            else -> {
-                shareIntent.apply {
-                    action = Intent.ACTION_SEND_MULTIPLE
-                    type = reduceMimeTypes(mimeTypes)
-                    putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
-                }
+            shareIntent.apply {
+                if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
+                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         }
-        if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
-        if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        // If we dont want the result we use the old 'createChooser'
+
+        // Create the chooser intent
         val chooserIntent =
             if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 // Build chooserIntent with broadcast to ShareSuccessManager on success
                 Intent.createChooser(
                     shareIntent,
-                    null, // dialog title optional
+                    title,
                     PendingIntent.getBroadcast(
                         context,
                         0,
@@ -140,21 +128,27 @@ internal class Share(
                     ).intentSender
                 )
             } else {
-                Intent.createChooser(shareIntent, null /* dialog title optional */)
+                Intent.createChooser(shareIntent, title)
             }
-        val resInfoList = getContext().packageManager.queryIntentActivities(
-            chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
-        )
-        resInfoList.forEach { resolveInfo ->
-            val packageName = resolveInfo.activityInfo.packageName
-            fileUris.forEach { fileUri ->
-                getContext().grantUriPermission(
-                    packageName,
-                    fileUri,
-                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
-                )
+
+        // Grant permissions to all apps that can handle the files shared
+        if (fileUris != null) {
+            val resInfoList = getContext().packageManager.queryIntentActivities(
+                chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
+            )
+            resInfoList.forEach { resolveInfo ->
+                val packageName = resolveInfo.activityInfo.packageName
+                fileUris.forEach { fileUri ->
+                    getContext().grantUriPermission(
+                        packageName,
+                        fileUri,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                    )
+                }
             }
         }
+
+        // Launch share intent
         startActivity(chooserIntent, withResult)
     }
 

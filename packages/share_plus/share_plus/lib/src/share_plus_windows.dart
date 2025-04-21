@@ -1,7 +1,5 @@
 /// The Windows implementation of `share_plus`.
-library share_plus_windows;
-
-import 'dart:ui';
+library;
 
 import 'package:share_plus/src/windows_version_helper.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
@@ -24,28 +22,17 @@ class SharePlusWindowsPlugin extends SharePlatform {
   }
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    String? subject,
-    String? text,
-    List<CupertinoActivityType>? excludedActivityType,
-    Rect? sharePositionOrigin,
-  }) async {
-    throw UnimplementedError(
-        'shareUri() has not been implemented on Windows. Use share().');
-  }
+  Future<ShareResult> share(ShareParams params) async {
+    if (params.files?.isNotEmpty == true) {
+      throw UnimplementedError(
+        'sharing files is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
+      );
+    }
 
-  /// Share text.
-  @override
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    List<CupertinoActivityType>? excludedActivityType,
-    Rect? sharePositionOrigin,
-  }) async {
     final queryParameters = {
-      if (subject != null) 'subject': subject,
-      'body': text,
+      if (params.subject != null) 'subject': params.subject,
+      if (params.uri != null) 'body': params.uri.toString(),
+      if (params.text != null) 'body': params.text,
     };
 
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
@@ -53,7 +40,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
       scheme: 'mailto',
       query: queryParameters.entries
           .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value ?? '')}')
           .join('&'),
     );
 
@@ -66,20 +53,5 @@ class SharePlusWindowsPlugin extends SharePlatform {
     }
 
     return ShareResult.unavailable;
-  }
-
-  /// Share [XFile] objects with Result.
-  @override
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-    List<String>? fileNameOverrides,
-  }) {
-    throw UnimplementedError(
-      'shareXFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
-    );
   }
 }

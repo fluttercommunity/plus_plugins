@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:device_info_plus_platform_interface/model/base_device_info.dart';
+import 'package:meta/meta.dart';
 
 /// Object encapsulating MACOS device information.
 class MacOsDeviceInfo extends BaseDeviceInfo {
@@ -13,6 +14,7 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
     required this.hostName,
     required this.arch,
     required this.model,
+    required this.modelName,
     required this.kernelVersion,
     required this.osRelease,
     required this.majorVersion,
@@ -34,8 +36,13 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
   /// Note, that on Apple Silicon Macs can return `x86_64` if app runs via Rosetta
   final String arch;
 
-  /// Device model
+  /// Device model identifier
+  /// Examples: `MacBookPro18,3`, `Mac16,2`.
   final String model;
+
+  /// Device model name
+  /// Examples: `MacBook Pro (16-inch, 2021)`, `iMac (24-inch, 2024)`.
+  final String modelName;
 
   /// Machine Kernel version.
   /// Examples:
@@ -76,6 +83,7 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
       hostName: map['hostName'],
       arch: map['arch'],
       model: map['model'],
+      modelName: map['modelName'],
       kernelVersion: map['kernelVersion'],
       osRelease: map['osRelease'],
       majorVersion: map['majorVersion'],
@@ -85,6 +93,59 @@ class MacOsDeviceInfo extends BaseDeviceInfo {
       memorySize: map['memorySize'],
       cpuFrequency: map['cpuFrequency'],
       systemGUID: map['systemGUID'],
+    );
+  }
+
+  /// Initializes the application metadata with mock values for testing.
+  @visibleForTesting
+  static MacOsDeviceInfo setMockInitialValues({
+    required String computerName,
+    required String hostName,
+    required String arch,
+    required String model,
+    required String modelName,
+    required String kernelVersion,
+    required String osRelease,
+    required int majorVersion,
+    required int minorVersion,
+    required int patchVersion,
+    required int activeCPUs,
+    required int memorySize,
+    required int cpuFrequency,
+    required String systemGUID,
+  }) {
+    final Map<String, dynamic> data = {
+      'computerName': computerName,
+      'hostName': hostName,
+      'arch': arch,
+      'model': model,
+      'modelName': modelName,
+      'kernelVersion': kernelVersion,
+      'osRelease': osRelease,
+      'majorVersion': majorVersion,
+      'minorVersion': minorVersion,
+      'patchVersion': patchVersion,
+      'activeCPUs': activeCPUs,
+      'memorySize': memorySize,
+      'cpuFrequency': cpuFrequency,
+      'systemGUID': systemGUID,
+    };
+    return MacOsDeviceInfo._(
+      data: data,
+      computerName: computerName,
+      hostName: hostName,
+      arch: arch,
+      model: model,
+      modelName: modelName,
+      kernelVersion: kernelVersion,
+      osRelease: osRelease,
+      majorVersion: majorVersion,
+      minorVersion: minorVersion,
+      patchVersion: patchVersion,
+      activeCPUs: activeCPUs,
+      memorySize: memorySize,
+      cpuFrequency: cpuFrequency,
+      systemGUID: systemGUID,
     );
   }
 }

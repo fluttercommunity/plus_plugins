@@ -93,78 +93,44 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
 void SharePlusWindowsPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
+  // Handle the share method.
   if (method_call.method_name().compare(kShare) == 0) {
     auto data_transfer_manager = GetDataTransferManager();
     auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
-    if (auto text_value =
-            std::get_if<std::string>(&args[flutter::EncodableValue("text")])) {
+
+    // Extract the text, subject, uri, title, paths and mimeTypes from the arguments
+    if (auto text_value = std::get_if<std::string>(
+            &args[flutter::EncodableValue("text")])) {
       share_text_ = *text_value;
     }
     if (auto subject_value = std::get_if<std::string>(
             &args[flutter::EncodableValue("subject")])) {
       share_subject_ = *subject_value;
     }
-    auto callback = WRL::Callback<WindowsFoundation::ITypedEventHandler<
-        DataTransfer::DataTransferManager *,
-        DataTransfer::DataRequestedEventArgs *>>(
-        [&](auto &&, DataTransfer::IDataRequestedEventArgs *e) {
-          using Microsoft::WRL::Wrappers::HStringReference;
-          WRL::ComPtr<DataTransfer::IDataRequest> request;
-          e->get_Request(&request);
-          WRL::ComPtr<DataTransfer::IDataPackage> data;
-          request->get_Data(&data);
-          WRL::ComPtr<DataTransfer::IDataPackagePropertySet> properties;
-          data->get_Properties(&properties);
-          // The title is mandatory for Windows.
-          // Using |share_text_| as title.
-          auto text = Utf16FromUtf8(share_text_);
-          properties->put_Title(HStringReference(text.c_str()).Get());
-          // If |share_subject_| is available, then set it as text since
-          // |share_text_| is already set as title.
-          if (share_subject_ && !share_subject_.value_or("").empty()) {
-            auto subject = Utf16FromUtf8(share_subject_.value_or(""));
-            properties->put_Description(
-                HStringReference(subject.c_str()).Get());
-            data->SetText(HStringReference(subject.c_str()).Get());
-          }
-          // If |share_subject_| is not available, then use |share_text_| as
-          // text aswell.
-          else {
-            data->SetText(HStringReference(text.c_str()).Get());
-          }
-          return S_OK;
-        });
-    data_transfer_manager->add_DataRequested(callback.Get(),
-                                             &data_transfer_manager_token_);
-    if (data_transfer_manager_interop_ != nullptr) {
-      data_transfer_manager_interop_->ShowShareUIForWindow(GetWindow());
+    if (auto uri_value = std::get_if<std::string>(
+      &args[flutter::EncodableValue("uri")])) {
+      share_uri_ = *uri_value;
     }
-    result->Success(flutter::EncodableValue(kShareResultUnavailable));
-  } else if (method_call.method_name().compare(kShareFiles) == 0) {
-    auto data_transfer_manager = GetDataTransferManager();
-    auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
-    if (auto text_value =
-            std::get_if<std::string>(&args[flutter::EncodableValue("text")])) {
-      share_text_ = *text_value;
-    }
-    if (auto subject_value = std::get_if<std::string>(
-            &args[flutter::EncodableValue("subject")])) {
-      share_subject_ = *subject_value;
+    if (auto title_value = std::get_if<std::string>(
+      &args[flutter::EncodableValue("title")])) {
+      share_title_ = *title_value;
     }
     if (auto paths = std::get_if<flutter::EncodableList>(
-            &args[flutter::EncodableValue("paths")])) {
+      &args[flutter::EncodableValue("paths")])) {
       paths_.clear();
-      for (auto &path : *paths) {
+      for (auto& path : *paths) {
         paths_.emplace_back(std::get<std::string>(path));
       }
     }
     if (auto mime_types = std::get_if<flutter::EncodableList>(
-            &args[flutter::EncodableValue("mimeTypes")])) {
+      &args[flutter::EncodableValue("mimeTypes")])) {
       mime_types_.clear();
-      for (auto &mime_type : *mime_types) {
+      for (auto& mime_type : *mime_types) {
         mime_types_.emplace_back(std::get<std::string>(mime_type));
       }
     }
+
+    // Create the share callback
     auto callback = WRL::Callback<WindowsFoundation::ITypedEventHandler<
         DataTransfer::DataTransferManager *,
         DataTransfer::DataRequestedEventArgs *>>(
@@ -176,53 +142,57 @@ void SharePlusWindowsPlugin::HandleMethodCall(
           request->get_Data(&data);
           WRL::ComPtr<DataTransfer::IDataPackagePropertySet> properties;
           data->get_Properties(&properties);
-          // The title is mandatory for Windows.
-          // Using |share_text_| as title if available.
-          if (!share_text_.empty()) {
-            auto text = Utf16FromUtf8(share_text_);
-            properties->put_Title(HStringReference(text.c_str()).Get());
+
+          // Set the title of the share dialog
+          // Prefer the title, then the subject, then the text
+          // Setting a title is mandatory for Windows
+          if (share_title_ && !share_title_.value_or("").empty()) {
+            auto title = Utf16FromUtf8(share_title_.value_or(""));
+            properties->put_Title(HStringReference(title.c_str()).Get());
           }
-          // Or use the file count string as title if there are multiple
-          // files & use the file name if a single file is shared.
-          // Same behavior may be seen in File Explorer.
+          else if (share_subject_ && !share_subject_.value_or("").empty()) {
+            auto title = Utf16FromUtf8(share_subject_.value_or(""));
+            properties->put_Title(HStringReference(title.c_str()).Get());
+          }
           else {
-            if (paths_.size() > 1) {
-              auto title = std::to_wstring(paths_.size()) + L" files";
-              properties->put_Title(HStringReference(title.c_str()).Get());
-            } else if (paths_.size() == 1) {
-              auto title = Utf16FromUtf8(paths_.front());
-              properties->put_Title(HStringReference(title.c_str()).Get());
-            }
+            auto title = Utf16FromUtf8(share_text_.value_or(""));
+            properties->put_Title(HStringReference(title.c_str()).Get());
           }
-          // If |share_subject_| is available, then set it as text since
-          // |share_text_| is already set as title.
-          if (share_subject_ && !share_subject_.value_or("").empty()) {
-            auto subject = Utf16FromUtf8(share_subject_.value_or(""));
+
+          // Set the text of the share dialog
+          if (share_text_ && !share_text_.value_or("").empty()) {
+            auto text = Utf16FromUtf8(share_text_.value_or(""));
             properties->put_Description(
-                HStringReference(subject.c_str()).Get());
-            data->SetText(HStringReference(subject.c_str()).Get());
-          }
-          // If |share_subject_| is not available, then use |share_text_| as
-          // text aswell.
-          else if (!share_text_.empty()) {
-            auto text = Utf16FromUtf8(share_text_);
+                HStringReference(text.c_str()).Get());
             data->SetText(HStringReference(text.c_str()).Get());
           }
+
+          // If URI provided, set the URI to share
+          if (share_uri_ && !share_uri_.value_or("").empty()) {
+            auto uri = Utf16FromUtf8(share_uri_.value_or(""));
+            properties->put_Description(
+              HStringReference(uri.c_str()).Get());
+            data->SetText(HStringReference(uri.c_str()).Get());
+          }
+
           // Add files to the data.
-          Vector<WindowsStorage::IStorageItem *> storage_items;
-          for (const std::string &path : paths_) {
+          Vector<WindowsStorage::IStorageItem*> storage_items;
+          for (const std::string& path : paths_) {
             auto str = Utf16FromUtf8(path);
-            wchar_t *ptr = const_cast<wchar_t *>(str.c_str());
-            WindowsStorage::IStorageFile *file = nullptr;
+            wchar_t* ptr = const_cast<wchar_t*>(str.c_str());
+            WindowsStorage::IStorageFile* file = nullptr;
             if (SUCCEEDED(GetStorageFileFromPath(ptr, &file)) &&
-                file != nullptr) {
+              file != nullptr) {
               storage_items.Append(
-                  reinterpret_cast<WindowsStorage::IStorageItem *>(file));
+                reinterpret_cast<WindowsStorage::IStorageItem*>(file));
             }
           }
           data->SetStorageItemsReadOnly(&storage_items);
+
           return S_OK;
         });
+
+    // Add the callback to the data transfer manager
     data_transfer_manager->add_DataRequested(callback.Get(),
                                              &data_transfer_manager_token_);
     if (data_transfer_manager_interop_ != nullptr) {

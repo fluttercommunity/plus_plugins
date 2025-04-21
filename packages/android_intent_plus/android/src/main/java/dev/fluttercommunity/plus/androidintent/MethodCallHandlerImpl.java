@@ -73,56 +73,64 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
    */
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    String action = convertAction((String) call.argument("action"));
-    Integer flags = call.argument("flags");
-    String category = call.argument("category");
-    Uri data = call.argument("data") != null ? Uri.parse((String) call.argument("data")) : null;
-    Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
-    Bundle arrayArguments = convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
-    arguments.putAll(arrayArguments);
-    String packageName = call.argument("package");
-    ComponentName componentName =
-        (!TextUtils.isEmpty(packageName)
-                && !TextUtils.isEmpty((String) call.argument("componentName")))
-            ? new ComponentName(packageName, (String) call.argument("componentName"))
-            : null;
-    String type = call.argument("type");
+    try {
+      String action = convertAction((String) call.argument("action"));
+      Integer flags = call.argument("flags");
+      String category = call.argument("category");
+      Uri data = call.argument("data") != null ? Uri.parse((String) call.argument("data")) : null;
+      Bundle arguments = convertArguments((Map<String, ?>) call.argument("arguments"));
+      Bundle arrayArguments =
+          convertArrayArguments((Map<String, ?>) call.argument("arrayArguments"));
+      arguments.putAll(arrayArguments);
+      String packageName = call.argument("package");
+      ComponentName componentName =
+          (!TextUtils.isEmpty(packageName)
+                  && !TextUtils.isEmpty((String) call.argument("componentName")))
+              ? new ComponentName(packageName, (String) call.argument("componentName"))
+              : null;
+      String type = call.argument("type");
 
-    Intent intent =
-        sender.buildIntent(
-            action, flags, category, data, arguments, packageName, componentName, type);
+      Intent intent =
+          sender.buildIntent(
+              action, flags, category, data, arguments, packageName, componentName, type);
 
-    if ("parseAndLaunch".equalsIgnoreCase(call.method)) {
-      try {
-        intent = sender.parse(call.argument("uri"));
+      if ("parseAndLaunch".equalsIgnoreCase(call.method)) {
+        try {
+          intent = sender.parse(call.argument("uri"));
+          sender.send(intent);
+          result.success(null);
+        } catch (URISyntaxException e) {
+          result.error("parse_error", "Failed to parse URI", e.getMessage());
+        }
+      } else if ("launch".equalsIgnoreCase(call.method)) {
+
+        if (intent != null && !sender.canResolveActivity(intent)) {
+          Log.i(TAG, "Cannot resolve explicit intent, falling back to implicit");
+          intent.setPackage(null);
+        }
+
         sender.send(intent);
         result.success(null);
-      } catch (URISyntaxException e) {
-        result.error("parse_error", "Failed to parse URI", e.getMessage());
+      } else if ("launchChooser".equalsIgnoreCase(call.method)) {
+        String title = call.argument("chooserTitle");
+
+        sender.launchChooser(intent, title);
+        result.success(null);
+      } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {
+        sender.sendBroadcast(intent);
+        result.success(null);
+      } else if ("sendService".equalsIgnoreCase(call.method)) {
+        sender.sendService(intent);
+        result.success(null);
+      } else if ("canResolveActivity".equalsIgnoreCase(call.method)) {
+        result.success(sender.canResolveActivity(intent));
+      } else if ("getResolvedActivity".equalsIgnoreCase(call.method)) {
+        result.success(sender.getResolvedActivity(intent));
+      } else {
+        result.notImplemented();
       }
-    } else if ("launch".equalsIgnoreCase(call.method)) {
-
-      if (intent != null && !sender.canResolveActivity(intent)) {
-        Log.i(TAG, "Cannot resolve explicit intent, falling back to implicit");
-        intent.setPackage(null);
-      }
-
-      sender.send(intent);
-      result.success(null);
-    } else if ("launchChooser".equalsIgnoreCase(call.method)) {
-      String title = call.argument("chooserTitle");
-
-      sender.launchChooser(intent, title);
-      result.success(null);
-    } else if ("sendBroadcast".equalsIgnoreCase(call.method)) {
-      sender.sendBroadcast(intent);
-      result.success(null);
-    } else if ("canResolveActivity".equalsIgnoreCase(call.method)) {
-      result.success(sender.canResolveActivity(intent));
-    } else if ("getResolvedActivity".equalsIgnoreCase(call.method)) {
-      result.success(sender.getResolvedActivity(intent));
-    } else {
-      result.notImplemented();
+    } catch (Throwable e) {
+      result.error("error", e.getMessage(), null);
     }
   }
 

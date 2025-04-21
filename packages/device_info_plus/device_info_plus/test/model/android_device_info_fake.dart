@@ -25,6 +25,7 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'brand': 'Google',
   'device': 'device',
   'product': 'product',
+  "name": "Custom Device Name",
   'display': 'display',
   'hardware': 'hardware',
   'isPhysicalDevice': true,
@@ -38,4 +39,6 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'supported32BitAbis': _fakeSupported32BitAbis,
   'serialNumber': 'SERIAL',
   'isLowRamDevice': false,
+  'physicalRamSize': 8192,
+  'availableRamSize': 4096,
 };

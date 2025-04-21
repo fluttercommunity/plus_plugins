@@ -20,6 +20,7 @@ void main() {
       expect(androidDeviceInfo.brand, 'Google');
       expect(androidDeviceInfo.device, 'device');
       expect(androidDeviceInfo.product, 'product');
+      expect(androidDeviceInfo.name, "Custom Device Name");
       expect(androidDeviceInfo.display, 'display');
       expect(androidDeviceInfo.hardware, 'hardware');
       expect(androidDeviceInfo.bootloader, 'bootloader');
@@ -39,6 +40,8 @@ void main() {
       expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
       expect(androidDeviceInfo.serialNumber, 'SERIAL');
       expect(androidDeviceInfo.isLowRamDevice, false);
+      expect(androidDeviceInfo.physicalRamSize, 8192);
+      expect(androidDeviceInfo.availableRamSize, 4096);
     });
 
     test('toMap should return map with correct key and map', () {

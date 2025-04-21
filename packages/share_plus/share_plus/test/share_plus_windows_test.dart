@@ -32,7 +32,9 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(mock).share('foo&bar', subject: 'bar&foo');
+      await SharePlusWindowsPlugin(mock).share(
+        ShareParams(text: 'foo&bar', subject: 'bar&foo'),
+      );
 
       expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
     },
@@ -45,7 +47,9 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(mock).share('foo bar', subject: 'bar foo');
+      await SharePlusWindowsPlugin(mock).share(
+        ShareParams(text: 'foo bar', subject: 'bar foo'),
+      );
 
       expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
     },
@@ -53,13 +57,15 @@ void main() {
   );
 
   test(
-    'throws when url_launcher can\'t launch uri',
+    'can share URI on Windows',
     () async {
       final mock = MockUrlLauncherPlatform();
-      mock.canLaunchMockValue = false;
 
-      expect(() async => await SharePlusWindowsPlugin(mock).share('foo bar'),
-          throwsException);
+      await SharePlusWindowsPlugin(mock).share(
+        ShareParams(uri: Uri.parse('http://example.com')),
+      );
+
+      expect(mock.url, 'mailto:?body=http%3A%2F%2Fexample.com');
     },
     skip: VersionHelper.instance.isWindows10RS5OrGreater,
   );

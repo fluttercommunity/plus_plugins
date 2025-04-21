@@ -94,6 +94,7 @@ class _MyAppState extends State<MyApp> {
       'manufacturer': build.manufacturer,
       'model': build.model,
       'product': build.product,
+      'name': build.name,
       'supported32BitAbis': build.supported32BitAbis,
       'supported64BitAbis': build.supported64BitAbis,
       'supportedAbis': build.supportedAbis,
@@ -103,6 +104,8 @@ class _MyAppState extends State<MyApp> {
       'systemFeatures': build.systemFeatures,
       'serialNumber': build.serialNumber,
       'isLowRamDevice': build.isLowRamDevice,
+      'physicalRamSize': build.physicalRamSize,
+      'availableRamSize': build.availableRamSize,
     };
   }
 
@@ -112,10 +115,13 @@ class _MyAppState extends State<MyApp> {
       'systemName': data.systemName,
       'systemVersion': data.systemVersion,
       'model': data.model,
+      'modelName': data.modelName,
       'localizedModel': data.localizedModel,
       'identifierForVendor': data.identifierForVendor,
       'isPhysicalDevice': data.isPhysicalDevice,
       'isiOSAppOnMac': data.isiOSAppOnMac,
+      'physicalRamSize': data.physicalRamSize,
+      'availableRamSize': data.availableRamSize,
       'utsname.sysname:': data.utsname.sysname,
       'utsname.nodename:': data.utsname.nodename,
       'utsname.release:': data.utsname.release,
@@ -166,6 +172,7 @@ class _MyAppState extends State<MyApp> {
       'hostName': data.hostName,
       'arch': data.arch,
       'model': data.model,
+      'modelName': data.modelName,
       'kernelVersion': data.kernelVersion,
       'majorVersion': data.majorVersion,
       'minorVersion': data.minorVersion,

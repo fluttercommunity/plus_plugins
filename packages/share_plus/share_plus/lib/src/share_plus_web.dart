@@ -1,7 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:js_interop';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
@@ -29,15 +28,11 @@ class SharePlusWebPlugin extends SharePlatform {
   }) : _navigator = debugNavigator ?? window.navigator;
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-  }) async {
-    final data = ShareData(
-      url: uri.toString(),
-    );
+  Future<ShareResult> share(ShareParams params) async {
+    // Prepare share data params
+    final ShareData data = await prepareData(params);
 
+    // Check if can share
     final bool canShare;
     try {
       canShare = _navigator.canShare(data);
@@ -47,11 +42,11 @@ class SharePlusWebPlugin extends SharePlatform {
         error: e,
       );
 
-      throw Exception('Navigator.canShare() is unavailable');
+      return _fallback(params, 'Navigator.canShare() is unavailable');
     }
 
     if (!canShare) {
-      throw Exception('Navigator.canShare() is false');
+      return _fallback(params, 'Navigator.canShare() is false');
     }
 
     try {
@@ -66,170 +61,154 @@ class SharePlusWebPlugin extends SharePlatform {
         error: '${e.name}: ${e.message}',
       );
 
-      throw Exception('Navigator.share() failed: ${e.message}');
+      return _fallback(params, 'Navigator.share() failed: ${e.message}');
     }
 
     return ShareResult.unavailable;
   }
 
-  @override
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-  }) async {
-    final ShareData data;
-    if (subject != null && subject.isNotEmpty) {
+  Future<ShareData> prepareData(ShareParams params) async {
+    // Prepare share data params
+    final uri = params.uri?.toString();
+    final text = params.text;
+    final title = params.subject ?? params.title;
+    ShareData data;
+
+    // Prepare files
+    final webFiles = <File>[];
+    if (params.files != null) {
+      final files = params.files;
+      if (files != null && files.isNotEmpty == true) {
+        for (var index = 0; index < files.length; index++) {
+          final xFile = files[index];
+          final filename = params.fileNameOverrides?.elementAt(index);
+          webFiles.add(await _fromXFile(xFile, nameOverride: filename));
+        }
+      }
+    }
+
+    if (uri == null && text == null && webFiles.isEmpty) {
+      throw ArgumentError(
+        'At least one of uri, text, or files must be provided',
+      );
+    }
+
+    if (uri != null && text != null) {
+      throw ArgumentError('Only one of uri or text can be provided');
+    }
+
+    if (uri != null) {
       data = ShareData(
-        title: subject,
+        url: uri,
+      );
+    } else if (webFiles.isNotEmpty && text != null && title != null) {
+      data = ShareData(
         text: text,
+        title: title,
+        files: webFiles.toJS,
+      );
+    } else if (webFiles.isNotEmpty && text != null) {
+      data = ShareData(
+        text: text,
+        files: webFiles.toJS,
+      );
+    } else if (webFiles.isNotEmpty && title != null) {
+      data = ShareData(
+        title: title,
+        files: webFiles.toJS,
+      );
+    } else if (webFiles.isNotEmpty) {
+      data = ShareData(
+        files: webFiles.toJS,
+      );
+    } else if (text != null && title != null) {
+      data = ShareData(
+        text: text,
+        title: title,
       );
     } else {
       data = ShareData(
-        text: text,
+        text: text!,
       );
     }
 
-    final bool canShare;
-    try {
-      canShare = _navigator.canShare(data);
-    } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
-
-      // Navigator is not available or the webPage is not served on https
-      final queryParameters = {
-        if (subject != null) 'subject': subject,
-        'body': text,
-      };
-
-      // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
-      final uri = Uri(
-        scheme: 'mailto',
-        query: queryParameters.entries
-            .map((e) =>
-                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-            .join('&'),
-      );
-
-      final launchResult = await urlLauncher.launchUrl(
-        uri.toString(),
-        const LaunchOptions(),
-      );
-      if (!launchResult) {
-        throw Exception('Failed to launch $uri');
-      }
-
-      return ShareResult.unavailable;
-    }
-
-    if (!canShare) {
-      throw Exception('Navigator.canShare() is false');
-    }
-
-    try {
-      await _navigator.share(data).toDart;
-
-      // actions is success, but can't get the action name
-      return ShareResult.unavailable;
-    } on DOMException catch (e) {
-      if (e.name case 'AbortError') {
-        return _resultDismissed;
-      }
-
-      developer.log(
-        'Failed to share text',
-        error: '${e.name}: ${e.message}',
-      );
-
-      throw Exception('Navigator.share() failed: ${e.message}');
-    }
+    return data;
   }
 
-  /// Share [XFile] objects.
-  ///
-  /// Remarks for the web implementation:
-  /// This uses the [Web Share API](https://web.dev/web-share/) if it's
-  /// available. This builds on the
-  /// [`cross_file`](https://pub.dev/packages/cross_file) package.
-  @override
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<String>? fileNameOverrides,
-    List<CupertinoActivityType>? excludedActivityType,
-  }) async {
-    assert(
-        fileNameOverrides == null || files.length == fileNameOverrides.length);
-    final webFiles = <File>[];
-    for (var index = 0; index < files.length; index++) {
-      final xFile = files[index];
-      final filename = fileNameOverrides?.elementAt(index);
-      webFiles.add(await _fromXFile(xFile, nameOverride: filename));
-    }
+  /// Fallback method to when sharing on web fails.
+  /// If [ShareParams.downloadFallbackEnabled] is true, it will attempt to download the files.
+  /// If [ShareParams.mailToFallbackEnabled] is true, it will attempt to share text as email.
+  /// Otherwise, it will throw an exception.
+  Future<ShareResult> _fallback(ShareParams params, String error) async {
+    developer.log(error);
 
-    final ShareData data;
-    if (text != null && text.isNotEmpty) {
-      if (subject != null && subject.isNotEmpty) {
-        data = ShareData(
-          files: webFiles.toJS,
-          text: text,
-          title: subject,
-        );
+    final subject = params.subject;
+    final text = params.text ?? params.uri?.toString() ?? '';
+    final files = params.files;
+    final fileNameOverrides = params.fileNameOverrides;
+    final downloadFallbackEnabled = params.downloadFallbackEnabled;
+    final mailToFallbackEnabled = params.mailToFallbackEnabled;
+
+    if (files != null && files.isNotEmpty) {
+      if (downloadFallbackEnabled) {
+        return _download(files, fileNameOverrides);
       } else {
-        data = ShareData(
-          files: webFiles.toJS,
-          text: text,
-        );
+        throw Exception(error);
       }
-    } else if (subject != null && subject.isNotEmpty) {
-      data = ShareData(
-        files: webFiles.toJS,
-        title: subject,
-      );
-    } else {
-      data = ShareData(
-        files: webFiles.toJS,
-      );
     }
 
-    final bool canShare;
+    if (!mailToFallbackEnabled) {
+      throw Exception(error);
+    }
+
+    final queryParameters = {
+      if (subject != null) 'subject': subject,
+      'body': text,
+    };
+
+    // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
+    final uri = Uri(
+      scheme: 'mailto',
+      query: queryParameters.entries
+          .map((e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&'),
+    );
+
+    final launchResult = await urlLauncher.launchUrl(
+      uri.toString(),
+      const LaunchOptions(),
+    );
+
+    if (!launchResult) {
+      throw Exception(error);
+    }
+
+    return ShareResult.unavailable;
+  }
+
+  Future<ShareResult> _download(
+    List<XFile> files,
+    List<String>? fileNameOverrides,
+  ) async {
+    developer.log('Download files as fallback');
     try {
-      canShare = _navigator.canShare(data);
-    } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
+      for (final (index, file) in files.indexed) {
+        final bytes = await file.readAsBytes();
 
-      throw Exception('Navigator.canShare() is unavailable');
-    }
+        final anchor = document.createElement('a') as HTMLAnchorElement
+          ..href = Uri.dataFromBytes(bytes).toString()
+          ..style.display = 'none'
+          ..download = fileNameOverrides?.elementAt(index) ?? file.name;
+        document.body!.children.add(anchor);
+        anchor.click();
+        anchor.remove();
+      }
 
-    if (!canShare) {
-      throw Exception('Navigator.canShare() is false');
-    }
-
-    try {
-      await _navigator.share(data).toDart;
-
-      // actions is success, but can't get the action name
       return ShareResult.unavailable;
-    } on DOMException catch (e) {
-      if (e.name case 'AbortError') {
-        return _resultDismissed;
-      }
-
-      developer.log(
-        'Failed to share files',
-        error: '${e.name}: ${e.message}',
-      );
-
-      throw Exception('Navigator.share() failed: ${e.message}');
+    } catch (error) {
+      developer.log('Failed to download files', error: error);
+      throw Exception('Failed to to download files: $error');
     }
   }
 

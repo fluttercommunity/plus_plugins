@@ -1,3 +1,7 @@
+## 6.1.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+
 ## 6.1.0
 
  - **FEAT**(sensors_plus): Add Swift Package Manager support ([#3170](https://github.com/fluttercommunity/plus_plugins/issues/3170)). ([3a0798c4](https://github.com/fluttercommunity/plus_plugins/commit/3a0798c4ef747b7d66ab74af3d5bea6fa3a1aa26))

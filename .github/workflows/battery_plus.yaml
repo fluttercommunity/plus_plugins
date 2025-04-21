@@ -29,8 +29,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
@@ -50,8 +49,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
@@ -70,8 +68,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
@@ -94,8 +91,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -107,8 +103,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -126,8 +121,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -140,8 +134,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -155,8 +148,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Install UPower"
@@ -170,8 +162,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Install UPower"
@@ -187,8 +178,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -200,8 +190,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -215,8 +204,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
-      - name: "Install Flutter"
-        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"

@@ -1,3 +1,13 @@
+## 10.1.4
+
+ - **FIX**(share_plus): fallback for shareXFiles() to use download on web ([#3388](https://github.com/fluttercommunity/plus_plugins/issues/3388)). ([95a12ee3](https://github.com/fluttercommunity/plus_plugins/commit/95a12ee3982dd61de5d07005de62f81c2e99eb08))
+
+## 10.1.3
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(share_plus): A function declaration without a prototype is deprecated in all versions of C ([#3375](https://github.com/fluttercommunity/plus_plugins/issues/3375)). ([40f9c421](https://github.com/fluttercommunity/plus_plugins/commit/40f9c42138bf1c80e6283f46e12109a0e66c0816))
+ - **FIX**(share_plus): Set correct Flutter and Dart versions requirements ([#3363](https://github.com/fluttercommunity/plus_plugins/issues/3363)). ([65616668](https://github.com/fluttercommunity/plus_plugins/commit/6561666885f547725f6e88ebaae498832b53efed))
+
 ## 10.1.2
 
  - **FIX**(share_plus): Update privacy manifest path ([#3349](https://github.com/fluttercommunity/plus_plugins/issues/3349)). ([d884a991](https://github.com/fluttercommunity/plus_plugins/commit/d884a9917769e11daa66c1aaa3ebd0d015506e77))

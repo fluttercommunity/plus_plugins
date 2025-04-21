@@ -1,10 +1,8 @@
 package dev.fluttercommunity.plus.share
 
 import android.os.Build
-import io.flutter.BuildConfig
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import java.io.IOException
 
 /** Handles the method calls for the plugin.  */
 internal class MethodCallHandler(
@@ -24,35 +22,13 @@ internal class MethodCallHandler(
 
         try {
             when (call.method) {
-                "shareUri" -> {
+                "share" -> {
                     share.share(
-                        call.argument<Any>("uri") as String,
-                        subject = null,
+                        arguments = call.arguments<Map<String, Any>>()!!,
                         withResult = isWithResult,
                     )
                     success(isWithResult, result)
                 }
-
-                "share" -> {
-                    share.share(
-                        call.argument<Any>("text") as String,
-                        call.argument<Any>("subject") as String?,
-                        isWithResult,
-                    )
-                    success(isWithResult, result)
-                }
-
-                "shareFiles" -> {
-                    share.shareFiles(
-                        call.argument<List<String>>("paths")!!,
-                        call.argument<List<String>?>("mimeTypes"),
-                        call.argument<String?>("text"),
-                        call.argument<String?>("subject"),
-                        isWithResult,
-                    )
-                    success(isWithResult, result)
-                }
-
                 else -> result.notImplemented()
             }
         } catch (e: Throwable) {

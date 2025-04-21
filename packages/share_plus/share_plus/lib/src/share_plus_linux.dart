@@ -1,7 +1,5 @@
 /// The Linux implementation of `share_plus`.
-library share_plus_linux;
-
-import 'dart:ui';
+library;
 
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:url_launcher_linux/url_launcher_linux.dart';
@@ -19,28 +17,15 @@ class SharePlusLinuxPlugin extends SharePlatform {
   }
 
   @override
-  Future<ShareResult> shareUri(
-    Uri uri, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-  }) async {
-    throw UnimplementedError(
-        'shareUri() has not been implemented on Linux. Use share().');
-  }
+  Future<ShareResult> share(ShareParams params) async {
+    if (params.files?.isNotEmpty == true) {
+      throw UnimplementedError('Sharing files not supported on Linux');
+    }
 
-  /// Share text.
-  @override
-  Future<ShareResult> share(
-    String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-  }) async {
     final queryParameters = {
-      if (subject != null) 'subject': subject,
-      'body': text,
+      if (params.subject != null) 'subject': params.subject,
+      if (params.uri != null) 'body': params.uri.toString(),
+      if (params.text != null) 'body': params.text,
     };
 
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
@@ -48,7 +33,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
       scheme: 'mailto',
       query: queryParameters.entries
           .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value ?? '')}')
           .join('&'),
     );
 
@@ -61,20 +46,5 @@ class SharePlusLinuxPlugin extends SharePlatform {
     }
 
     return ShareResult.unavailable;
-  }
-
-  /// Share [XFile] objects with Result.
-  @override
-  Future<ShareResult> shareXFiles(
-    List<XFile> files, {
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-    List<CupertinoActivityType>? excludedActivityType,
-    List<String>? fileNameOverrides,
-  }) {
-    throw UnimplementedError(
-      'shareXFiles() has not been implemented on Linux.',
-    );
   }
 }

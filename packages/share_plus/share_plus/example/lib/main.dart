@@ -32,6 +32,7 @@ class DemoApp extends StatefulWidget {
 class DemoAppState extends State<DemoApp> {
   String text = '';
   String subject = '';
+  String title = '';
   String uri = '';
   String fileName = '';
   List<String> imageNames = [];
@@ -77,6 +78,18 @@ class DemoAppState extends State<DemoApp> {
                 maxLines: null,
                 onChanged: (String value) => setState(() {
                   subject = value;
+                }),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Share title',
+                  hintText: 'Enter title to share (optional)',
+                ),
+                maxLines: null,
+                onChanged: (String value) => setState(() {
+                  title = value;
                 }),
               ),
               const SizedBox(height: 16),
@@ -217,22 +230,32 @@ class DemoAppState extends State<DemoApp> {
       for (var i = 0; i < imagePaths.length; i++) {
         files.add(XFile(imagePaths[i], name: imageNames[i]));
       }
-      shareResult = await Share.shareXFiles(
-        files,
-        text: text,
-        subject: subject,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      shareResult = await SharePlus.instance.share(
+        ShareParams(
+          text: text.isEmpty ? null : text,
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
+          files: files,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        ),
       );
     } else if (uri.isNotEmpty) {
-      shareResult = await Share.shareUri(
-        Uri.parse(uri),
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      shareResult = await SharePlus.instance.share(
+        ShareParams(
+          uri: Uri.parse(uri),
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        ),
       );
     } else {
-      shareResult = await Share.share(
-        text,
-        subject: subject,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      shareResult = await SharePlus.instance.share(
+        ShareParams(
+          text: text.isEmpty ? null : text,
+          subject: subject.isEmpty ? null : subject,
+          title: title.isEmpty ? null : title,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        ),
       );
     }
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
@@ -241,39 +264,56 @@ class DemoAppState extends State<DemoApp> {
   void _onShareXFileFromAssets(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = await rootBundle.load('assets/flutter_logo.png');
-    final buffer = data.buffer;
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-          name: 'flutter_logo.png',
-          mimeType: 'image/png',
+    try {
+      final data = await rootBundle.load('assets/flutter_logo.png');
+      final buffer = data.buffer;
+      final shareResult = await SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile.fromData(
+              buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+              name: 'flutter_logo.png',
+              mimeType: 'image/png',
+            ),
+          ],
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          downloadFallbackEnabled: true,
         ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
-
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+      );
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   void _onShareTextAsXFile(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final data = utf8.encode(text);
-    final shareResult = await Share.shareXFiles(
-      [
-        XFile.fromData(
-          data,
-          // name: fileName, // Notice, how setting the name here does not work.
-          mimeType: 'text/plain',
-        ),
-      ],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-      fileNameOverrides: [fileName],
-    );
 
-    scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    try {
+      final shareResult = await SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile.fromData(
+              utf8.encode(text),
+              // name: fileName, // Notice, how setting the name here does not work.
+              mimeType: 'text/plain',
+            ),
+          ],
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          fileNameOverrides: [fileName],
+          downloadFallbackEnabled: true,
+        ),
+      );
+
+      scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   SnackBar getResultSnackBar(ShareResult result) {

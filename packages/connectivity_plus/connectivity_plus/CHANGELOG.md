@@ -1,3 +1,16 @@
+## 6.1.3
+
+ - **FIX**(connectivity_plus): Resolve missing privacy manifest issue for iOS and MacOS ([#3458](https://github.com/fluttercommunity/plus_plugins/issues/3458)). ([dab92074](https://github.com/fluttercommunity/plus_plugins/commit/dab92074cbf7dece71a64854b4357eb5b62e2f4f))
+
+## 6.1.2
+
+ - **DOCS**(connectivity_plus): update package requirements ([#3409](https://github.com/fluttercommunity/plus_plugins/issues/3409)). ([cb8c5ead](https://github.com/fluttercommunity/plus_plugins/commit/cb8c5ead41bf8f1d5042a1109eac3e23305d3016))
+
+## 6.1.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+ - **FIX**(connectivity_plus): macOS Privacy Manifest ([#3390](https://github.com/fluttercommunity/plus_plugins/issues/3390)). ([170703b5](https://github.com/fluttercommunity/plus_plugins/commit/170703b525c5390682fb558235ce699d29923b29))
+
 ## 6.1.0
 
  - **FEAT**(connectivity_plus): Add Swift Package Manager support ([#3173](https://github.com/fluttercommunity/plus_plugins/issues/3173)). ([036afeeb](https://github.com/fluttercommunity/plus_plugins/commit/036afeeb549f24813256f5049def6a6a3740a4f2))

@@ -99,6 +99,7 @@ void main() {
     expect(androidInfo.manufacturer, isNotNull);
     expect(androidInfo.model, isNotNull);
     expect(androidInfo.product, isNotNull);
+    expect(androidInfo.name, isNotNull);
 
     expect(androidInfo.supported32BitAbis, isNotNull);
     expect(androidInfo.supported64BitAbis, isNotNull);
@@ -117,6 +118,7 @@ void main() {
     expect(macosInfo.hostName, isNotNull);
     expect(macosInfo.arch, isNotNull);
     expect(macosInfo.model, isNotNull);
+    expect(macosInfo.modelName, isNotNull);
     expect(macosInfo.kernelVersion, isNotNull);
     expect(macosInfo.osRelease, isNotNull);
     expect(macosInfo.activeCPUs, isNotNull);

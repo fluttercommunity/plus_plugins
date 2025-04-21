@@ -1,11 +1,14 @@
 # Contributing to PlusPlugins
 
-_See also: [Flutter's code of conduct](https://flutter.dev/design-principles/#code-of-conduct)_
+_See also: [Code of Conduct](CODE_OF_CONDUCT.md)_
 
 ## Types of contributions
 
 We welcome all contributions to the project, however some contributions will need extra work in
 order to be accepted.
+
+> [!IMPORTANT]  
+> Before submitting a large PR, create a ticket with a proposal and wait for the maintainers to give you feedback.
 
 Here's some examples:
 
@@ -85,6 +88,7 @@ The bootstrap command locally links all dependencies within the project without 
 provide manual [`dependency_overrides`](https://dart.dev/tools/pub/pubspec). This allows all
 plugins, examples and tests to build from the local clone project.
 
+> [!TIP]
 > You do not need to run `flutter pub get` once bootstrap has been completed.
 
 ## 4. Running an example
@@ -172,14 +176,15 @@ file.
 
 We gladly accept contributions via GitHub pull requests.
 
-Please peruse the
+Please follow the
 [Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) and
 [design principles](https://flutter.dev/design-principles/) before
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
 
-**Important:** When modifying multiple packages, **create a different branch and pull request per package.**
-This facilitates maintenance, the review process, and generating changelogs.
+> [!IMPORTANT]  
+> When modifying multiple packages, **create a different branch and pull request per package.**
+> This facilitates maintenance, the review process, and generating changelogs.
 
 ### 5.1 Getting started
 
@@ -188,6 +193,10 @@ To start working on a patch:
 1. `git fetch upstream`
 2. `git checkout upstream/main -b <name_of_your_branch>`
 3. Hack away!
+
+> [!CAUTION]  
+> Do not create PRs directly from the `main` branch of your repository, as it causes problems when pushing changes by reviewers.
+> Always create a new branch for your pull requests.
 
 ### 5.2 Check the code
 
@@ -202,9 +211,10 @@ melos run analyze
 melos run format
 ```
 
-### 5.3 (Do not) Update version and changelog
+### 5.3 Do not update version and changelog
 
-**NEW: Do not modify the CHANGELOG.md or the version in the pubspec.yaml, this is handled by the maintainers from now on**
+> [!CAUTION]
+> Do not modify the `CHANGELOG.md` or the version in the `pubspec.yaml`, this is handled by the maintainers from now on
 
 ### 5.4 Commit and push your changes
 
@@ -230,6 +240,9 @@ guide, and include the package name in parenthesis. For example, for a fix to th
 
 Please also enable **“Allow edits by maintainers”**, this will help to speed-up the review
 process as well.
+
+> [!TIP]
+> Ensure the PR description is filled correctly and the markdown looks correctly.
 
 ### 5.6 Now be patient :)
 
@@ -284,13 +297,11 @@ Some things to keep in mind before publishing the release:
 1. Switch to `main` branch locally.
 2. Run `git pull origin main`.
 3. Run `git pull --tags` to make sure all tags are fetched.
-4. Create new branch with the signature `release/[year]-[month]-[day]`.
-5. Push this newly created brunch without new commits to remote as otherwise Melos would fail to version changes on next steps.
-6. Run `git branch --set-upstream-to=<remote>/release/[year]-[month]-[day] release/[year]-[month]-[day]` to let Melos see tracking information for the newly created branch.
-7. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
-8. Run `melos publish` to dry run and confirm all packages are publishable.
-9. After successful dry run, commit all changes with the signature "chore(release): prepare for release".
-10. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
-11. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
-12. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
-13. Run `git push --tags` to push tags to repository.
+4. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
+5. Run `melos publish` to dry run and confirm all packages are publishable.
+6. After successful dry run, create and checkout to a new branch named `release/[year]-[month]-[day]`.
+7. Commit all changes with a commit message `chore(release): prepare for release`.
+8. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
+9. After successful review and merge of the pull request, switch to `main` branch locally, & run `git pull origin main`.
+10. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
+11. Run `git push --tags` to push tags to repository.
