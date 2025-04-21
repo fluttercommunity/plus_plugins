@@ -238,6 +238,6 @@ enum CupertinoActivityType {
   addToHomeScreen,
 }
 
-extension Value on CupertinoActivityType {
+extension CupertinoActivityTypeValue on CupertinoActivityType {
   String get value => toString().split('.').last;
 }

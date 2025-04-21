@@ -440,8 +440,8 @@ excludedActivityType:(NSArray *)excludedActivityType
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
   
-  NSMutableArray *excludedActivityTypes = [[NSMutableArray alloc] init];
   if(excludedActivityType.count > 0){
+    NSMutableArray *excludedActivityTypes = [[NSMutableArray alloc] init];
     for (NSString *type in excludedActivityType) {
       UIActivityType activityType = activityTypeForString(type);
       if (activityType != nil) {
