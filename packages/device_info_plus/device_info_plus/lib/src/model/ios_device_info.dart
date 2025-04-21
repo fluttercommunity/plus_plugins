@@ -76,10 +76,10 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// Operating system information derived from `sys/utsname.h`.
   final IosUtsname utsname;
 
-  /// Free disk space in bytes
+  /// Free disk size in bytes
   final int freeDiskSize;
 
-  /// Total disk space in bytes
+  /// Total disk size in bytes
   final int totalDiskSize;
 
   /// Deserializes from the map message received from [_kChannel].
