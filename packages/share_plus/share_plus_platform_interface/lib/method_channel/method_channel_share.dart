@@ -67,7 +67,8 @@ class MethodChannelShare extends SharePlatform {
       map['mimeTypes'] = mimeTypes;
     }
 
-    if (params.excludedActivityType != null) {
+    if (params.excludedActivityType != null &&
+        params.excludedActivityType!.isNotEmpty) {
       final activityTypes =
           params.excludedActivityType!.map((e) => e.value).toList();
       map['excludedActivityType'] = activityTypes;

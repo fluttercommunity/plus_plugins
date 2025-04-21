@@ -66,6 +66,7 @@ void main() {
       ShareParams(
         uri: Uri.parse('https://pub.dev/packages/share_plus'),
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        excludedActivityType: [CupertinoActivityType.airDrop]
       ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
@@ -82,6 +83,7 @@ void main() {
         text: 'some text to share',
         subject: 'some subject to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        excludedActivityType: [],
       ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
@@ -100,6 +102,7 @@ void main() {
           subject: 'some subject to share',
           text: 'some text to share',
           sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+          excludedActivityType: null
         ),
       );
       verify(mockChannel.invokeMethod<String>(
