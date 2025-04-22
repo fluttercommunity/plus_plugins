@@ -1,3 +1,7 @@
+## 6.1.4
+
+ - **FIX**(network_info_plus): fix deprecated member use in Windows implementation ([#3519](https://github.com/fluttercommunity/plus_plugins/issues/3519)). ([f723fad9](https://github.com/fluttercommunity/plus_plugins/commit/f723fad94e2a834cd0dbac861c6dc086b8dd71f2))
+
 ## 6.1.3
 
  - **FIX**(network_info_plus): Improve Wi-Fi IP address retrieval on iOS to avoid null ([#3408](https://github.com/fluttercommunity/plus_plugins/issues/3408)). ([7c8894b9](https://github.com/fluttercommunity/plus_plugins/commit/7c8894b99878ccbcc33845f9d19e0921470d5935))

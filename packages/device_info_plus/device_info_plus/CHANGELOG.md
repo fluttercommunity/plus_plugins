@@ -1,3 +1,8 @@
+## 11.4.0
+
+ - **FEAT**(device_info_plus): add ram information ([#3535](https://github.com/fluttercommunity/plus_plugins/issues/3535)). ([160a0182](https://github.com/fluttercommunity/plus_plugins/commit/160a01824cb8a245aec52eb3f5a1fa804ef791eb))
+ - **FEAT**(device_info_plus): allow to mock device info ([#3525](https://github.com/fluttercommunity/plus_plugins/issues/3525)). ([f78f32c4](https://github.com/fluttercommunity/plus_plugins/commit/f78f32c47fef8045f34944899f6082303182b615))
+
 ## 11.3.3
 
  - **FIX**(device_info_plus): handle nullability on getString(DEVICE_NAME) ([#3507](https://github.com/fluttercommunity/plus_plugins/issues/3507)). ([3201e056](https://github.com/fluttercommunity/plus_plugins/commit/3201e056b2a44ce74a3a9218fba59d71d9795379))
