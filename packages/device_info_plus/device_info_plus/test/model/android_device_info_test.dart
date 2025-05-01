@@ -25,6 +25,8 @@ void main() {
       expect(androidDeviceInfo.hardware, 'hardware');
       expect(androidDeviceInfo.bootloader, 'bootloader');
       expect(androidDeviceInfo.isPhysicalDevice, isTrue);
+      expect(androidDeviceInfo.freeDiskSize, 70729949184);
+      expect(androidDeviceInfo.totalDiskSize, 113281839104);
       expect(androidDeviceInfo.fingerprint, 'fingerprint');
       expect(androidDeviceInfo.manufacturer, 'manufacturer');
       expect(androidDeviceInfo.supportedAbis, _fakeSupportedAbis);
