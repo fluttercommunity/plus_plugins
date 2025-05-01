@@ -27,6 +27,8 @@ void main() {
         'systemVersion': 'systemVersion',
         'localizedModel': 'localizedModel',
         'identifierForVendor': 'identifierForVendor',
+        'freeDiskSize': 4096,
+        'totalDiskSize': 8192,
       };
 
       iosDeviceInfo = IosDeviceInfo.fromMap(iosDeviceInfoMap);
@@ -43,6 +45,8 @@ void main() {
       expect(iosDeviceInfo.systemName, 'systemName');
       expect(iosDeviceInfo.systemVersion, 'systemVersion');
       expect(iosDeviceInfo.localizedModel, 'localizedModel');
+      expect(iosDeviceInfo.freeDiskSize, 4096);
+      expect(iosDeviceInfo.totalDiskSize, 8192);
       expect(iosDeviceInfo.utsname.release, 'release');
       expect(iosDeviceInfo.utsname.version, 'version');
       expect(iosDeviceInfo.utsname.machine, 'machine');
