@@ -1,3 +1,7 @@
+## 6.1.4
+
+ - **REFACTOR**(connectivity_plus): removed unused code for web ([#3517](https://github.com/fluttercommunity/plus_plugins/issues/3517)). ([55ac8c5f](https://github.com/fluttercommunity/plus_plugins/commit/55ac8c5fa6f1192cf96e63de1506c82e95b00cda))
+
 ## 6.1.3
 
  - **FIX**(connectivity_plus): Resolve missing privacy manifest issue for iOS and MacOS ([#3458](https://github.com/fluttercommunity/plus_plugins/issues/3458)). ([dab92074](https://github.com/fluttercommunity/plus_plugins/commit/dab92074cbf7dece71a64854b4357eb5b62e2f4f))

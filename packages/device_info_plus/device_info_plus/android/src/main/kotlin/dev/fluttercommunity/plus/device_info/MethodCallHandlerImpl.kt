@@ -9,6 +9,9 @@ import android.provider.Settings
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import kotlin.collections.HashMap
+import android.os.StatFs
+import android.os.Environment
 
 /**
  * The implementation of [MethodChannel.MethodCallHandler] for the plugin. Responsible for
@@ -55,6 +58,10 @@ internal class MethodCallHandlerImpl(
             build["type"] = Build.TYPE
             build["isPhysicalDevice"] = !isEmulator
             build["systemFeatures"] = getSystemFeatures()
+
+            val statFs = StatFs(Environment.getDataDirectory().getPath())
+            build["freeDiskSize"] = statFs.getFreeBytes()
+            build["totalDiskSize"] = statFs.getTotalBytes()
 
             val version: MutableMap<String, Any> = HashMap()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

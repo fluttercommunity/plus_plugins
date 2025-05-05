@@ -1,3 +1,9 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(share_plus): SharePlus refactor ([#3404](https://github.com/fluttercommunity/plus_plugins/issues/3404)). ([0a19d460](https://github.com/fluttercommunity/plus_plugins/commit/0a19d46010b6ecf5c2f10771e33a39823f7c30b7))
+
 ## 5.0.2
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
