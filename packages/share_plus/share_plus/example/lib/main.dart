@@ -53,7 +53,7 @@ class MyHomePageState extends State<MyHomePage> {
   String fileName = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
-  List<CupertinoActivityType> cupertinoExcludedActivityType = [];
+  List<CupertinoActivityType> excludedCupertinoActivityType = [];
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +169,7 @@ class MyHomePageState extends State<MyHomePage> {
             if (Platform.isIOS || Platform.isMacOS)
               ElevatedButton(
                 onPressed: _onSelectExcludedActivityType,
-                child: const Text('add Excluded Activity Type'),
+                child: const Text('Add Excluded Activity Type'),
               ),
             const SizedBox(height: 32),
             Builder(
@@ -232,12 +232,13 @@ class MyHomePageState extends State<MyHomePage> {
   void _onSelectExcludedActivityType() async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ExcludedActivityTypePage(
-            excludedActivityType: cupertinoExcludedActivityType),
+        builder: (context) => ExcludedCupertinoActivityTypePage(
+          excludedActivityType: excludedCupertinoActivityType,
+        ),
       ),
     );
     if (result != null) {
-      cupertinoExcludedActivityType = result;
+      excludedCupertinoActivityType = result;
     }
   }
 
@@ -265,7 +266,7 @@ class MyHomePageState extends State<MyHomePage> {
           title: title.isEmpty ? null : title,
           files: files,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          excludedActivityType: [CupertinoActivityType.airDrop],
+          excludedCupertinoActivities: [CupertinoActivityType.airDrop],
         ),
       );
     } else if (uri.isNotEmpty) {
@@ -275,7 +276,7 @@ class MyHomePageState extends State<MyHomePage> {
           subject: subject.isEmpty ? null : subject,
           title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          excludedActivityType: cupertinoExcludedActivityType,
+          excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
       );
     } else {
@@ -285,7 +286,7 @@ class MyHomePageState extends State<MyHomePage> {
           subject: subject.isEmpty ? null : subject,
           title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          excludedActivityType: cupertinoExcludedActivityType,
+          excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
       );
     }
@@ -309,7 +310,7 @@ class MyHomePageState extends State<MyHomePage> {
           ],
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           downloadFallbackEnabled: true,
-          excludedActivityType: cupertinoExcludedActivityType,
+          excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
       );
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
@@ -337,7 +338,7 @@ class MyHomePageState extends State<MyHomePage> {
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           fileNameOverrides: [fileName],
           downloadFallbackEnabled: true,
-          excludedActivityType: cupertinoExcludedActivityType,
+          excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
       );
 

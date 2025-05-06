@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ExcludedActivityTypePage extends StatefulWidget {
+class ExcludedCupertinoActivityTypePage extends StatefulWidget {
   final List<CupertinoActivityType>? excludedActivityType;
 
-  const ExcludedActivityTypePage({
+  const ExcludedCupertinoActivityTypePage({
     super.key,
     this.excludedActivityType,
   });
@@ -13,7 +13,7 @@ class ExcludedActivityTypePage extends StatefulWidget {
   State<StatefulWidget> createState() => _ExcludedActivityTypePageState();
 }
 
-class _ExcludedActivityTypePageState extends State<ExcludedActivityTypePage> {
+class _ExcludedActivityTypePageState extends State<ExcludedCupertinoActivityTypePage> {
   final List<String> options = [];
   final List<String> selected = [];
 

@@ -140,7 +140,7 @@ class ShareParams {
   ///
   /// * Supported platforms: iOS, macOS
   ///   Parameter ignored on other platforms.
-  final List<CupertinoActivityType>? excludedActivityType;
+  final List<CupertinoActivityType>? excludedCupertinoActivities;
 
   ShareParams({
     this.text,
@@ -153,7 +153,7 @@ class ShareParams {
     this.fileNameOverrides,
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
-    this.excludedActivityType,
+    this.excludedCupertinoActivities,
   });
 }
 

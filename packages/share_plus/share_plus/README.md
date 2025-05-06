@@ -112,7 +112,7 @@ if (result.status == ShareResultStatus.dismissed) {
 
 On iOS or macOS, if you want to exclude certain options from appearing in your share sheet,
 you can set the excludedActivityTypes array.
-For the list of supported excludedActivityTypes, you can refer to Apple’s [documentation](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller/excludedactivitytypes/).
+For the list of supported excludedActivityTypes, you can refer to [CupertinoActivityType](https://pub.dev/documentation/share_plus/latest/share_plus/ShareParams-class.html).
 
 ```dart
 ShareParams(

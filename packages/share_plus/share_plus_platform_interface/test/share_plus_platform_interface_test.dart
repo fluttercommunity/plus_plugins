@@ -64,9 +64,10 @@ void main() {
   test('sharing origin sets the right params', () async {
     await sharePlatform.share(
       ShareParams(
-          uri: Uri.parse('https://pub.dev/packages/share_plus'),
-          sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-          excludedActivityType: [CupertinoActivityType.airDrop]),
+        uri: Uri.parse('https://pub.dev/packages/share_plus'),
+        sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        excludedCupertinoActivities: [CupertinoActivityType.airDrop],
+      ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'uri': 'https://pub.dev/packages/share_plus',
@@ -82,7 +83,7 @@ void main() {
         text: 'some text to share',
         subject: 'some subject to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-        excludedActivityType: [],
+        excludedCupertinoActivities: [],
       ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
@@ -97,11 +98,12 @@ void main() {
     await withFile('tempfile-83649a.png', (File fd) async {
       await sharePlatform.share(
         ShareParams(
-            files: [XFile(fd.path)],
-            subject: 'some subject to share',
-            text: 'some text to share',
-            sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
-            excludedActivityType: null),
+          files: [XFile(fd.path)],
+          subject: 'some subject to share',
+          text: 'some text to share',
+          sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+          excludedCupertinoActivities: null,
+        ),
       );
       verify(mockChannel.invokeMethod<String>(
         'share',
