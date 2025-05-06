@@ -13,7 +13,8 @@ class ExcludedCupertinoActivityTypePage extends StatefulWidget {
   State<StatefulWidget> createState() => _ExcludedActivityTypePageState();
 }
 
-class _ExcludedActivityTypePageState extends State<ExcludedCupertinoActivityTypePage> {
+class _ExcludedActivityTypePageState
+    extends State<ExcludedCupertinoActivityTypePage> {
   final List<String> options = [];
   final List<String> selected = [];
 
