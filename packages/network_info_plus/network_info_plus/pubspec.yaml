@@ -48,4 +48,4 @@ dev_dependencies:
     sdk: flutter
   mockito: ^5.4.0
   plugin_platform_interface: ^2.1.4
-  flutter_lints: ">=4.0.0 <6.0.0"
+  flutter_lints: ">=4.0.0 <7.0.0"
