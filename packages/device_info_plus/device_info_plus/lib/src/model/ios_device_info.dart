@@ -99,8 +99,9 @@ class IosDeviceInfo extends BaseDeviceInfo {
       physicalRamSize: map['physicalRamSize'],
       availableRamSize: map['availableRamSize'],
       isiOSAppOnMac: map['isiOSAppOnMac'],
-      utsname:
-          IosUtsname._fromMap(map['utsname']?.cast<String, dynamic>() ?? {}),
+      utsname: IosUtsname._fromMap(
+        map['utsname']?.cast<String, dynamic>() ?? {},
+      ),
     );
   }
 

@@ -38,11 +38,11 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.isLowRamDevice,
     required this.physicalRamSize,
     required this.availableRamSize,
-  })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
-        supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
-        supportedAbis = List<String>.unmodifiable(supportedAbis),
-        systemFeatures = List<String>.unmodifiable(systemFeatures),
-        super(data);
+  }) : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
+       supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
+       supportedAbis = List<String>.unmodifiable(supportedAbis),
+       systemFeatures = List<String>.unmodifiable(systemFeatures),
+       super(data);
 
   /// Android operating system version values derived from `android.os.Build.VERSION`.
   final AndroidBuildVersion version;
@@ -175,7 +175,8 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     return AndroidDeviceInfo._(
       data: map,
       version: AndroidBuildVersion._fromMap(
-          map['version']?.cast<String, dynamic>() ?? {}),
+        map['version']?.cast<String, dynamic>() ?? {},
+      ),
       board: map['board'],
       bootloader: map['bootloader'],
       brand: map['brand'],
