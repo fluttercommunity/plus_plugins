@@ -16,7 +16,7 @@
 
 ## 11.3.1
 
-- Retracted release due to [#3496](https://sgithub.com/fluttercommunity/plus_plugins/issues/3496)
+- Retracted release due to [#3496](https://github.com/fluttercommunity/plus_plugins/issues/3496)
 
 ## 11.3.0
 
