@@ -1,3 +1,9 @@
+## 11.5.0
+
+ - **FIX**(device_info_plus): Specify correct Dart and Flutter version requirements ([#3597](https://github.com/fluttercommunity/plus_plugins/issues/3597)). ([6ebc0ead](https://github.com/fluttercommunity/plus_plugins/commit/6ebc0ead68df477f06c6d4738a69a9e56223cf47))
+ - **FEAT**(device_info_plus): Add identifier for iPhone 16e ([#3596](https://github.com/fluttercommunity/plus_plugins/issues/3596)). ([e1152bb8](https://github.com/fluttercommunity/plus_plugins/commit/e1152bb87d702ff86aaf29e9b7362d8dfd3247e0))
+ - **FEAT**(device_info_plus): Add storage information ([#3536](https://github.com/fluttercommunity/plus_plugins/issues/3536)). ([fefe6ce7](https://github.com/fluttercommunity/plus_plugins/commit/fefe6ce7a04c01c39f0cf0ecd0855bce1d701883))
+
 ## 11.4.0
 
  - **FEAT**(device_info_plus): add ram information ([#3535](https://github.com/fluttercommunity/plus_plugins/issues/3535)). ([160a0182](https://github.com/fluttercommunity/plus_plugins/commit/160a01824cb8a245aec52eb3f5a1fa804ef791eb))
