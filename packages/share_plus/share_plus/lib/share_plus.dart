@@ -13,8 +13,7 @@ export 'package:share_plus_platform_interface/share_plus_platform_interface.dart
         ShareResultStatus,
         XFile,
         ShareParams,
-        CupertinoActivityType,
-        CupertinoActivityTypeValue;
+        CupertinoActivityType;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'
