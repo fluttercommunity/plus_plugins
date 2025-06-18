@@ -110,6 +110,17 @@ if (result.status == ShareResultStatus.dismissed) {
 }
 ```
 
+On iOS or macOS, if you want to exclude certain options from appearing in your share sheet,
+you can set the excludedActivityTypes array.
+For the list of supported excludedActivityTypes, you can refer to [CupertinoActivityType](https://pub.dev/documentation/share_plus/latest/share_plus/ShareParams-class.html).
+
+```dart
+ShareParams(
+  // rest of params
+  excludedActivityTypes: [CupertinoActivityType.postToFacebook],
+)
+```
+
 On web, this uses the [Web Share API](https://web.dev/web-share/)
 if it's available. Otherwise it falls back to downloading the shared files.
 See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand

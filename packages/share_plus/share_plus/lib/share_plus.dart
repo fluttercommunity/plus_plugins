@@ -8,7 +8,12 @@ import 'package:meta/meta.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 
 export 'package:share_plus_platform_interface/share_plus_platform_interface.dart'
-    show ShareResult, ShareResultStatus, XFile, ShareParams;
+    show
+        ShareResult,
+        ShareResultStatus,
+        XFile,
+        ShareParams,
+        CupertinoActivityType;
 
 export 'src/share_plus_linux.dart';
 export 'src/share_plus_windows.dart'

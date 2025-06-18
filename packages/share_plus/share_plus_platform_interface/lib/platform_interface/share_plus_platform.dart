@@ -136,6 +136,12 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final bool mailToFallbackEnabled;
 
+  /// Exclude services on iOS and macOS that you think are not suitable for your content.
+  ///
+  /// * Supported platforms: iOS, macOS
+  ///   Parameter ignored on other platforms.
+  final List<CupertinoActivityType>? excludedCupertinoActivities;
+
   ShareParams({
     this.text,
     this.subject,
@@ -147,6 +153,7 @@ class ShareParams {
     this.fileNameOverrides,
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
+    this.excludedCupertinoActivities,
   });
 }
 
@@ -202,4 +209,39 @@ enum ShareResultStatus {
   /// The platform succeed to share content to user
   /// but the user action can not be determined
   unavailable,
+}
+
+/// Represents iOS-supported share activity types, such as AirDrop, Messages,
+/// Mail, and others.
+///
+/// This enum is used to identify specific activity types in the iOS share sheet,
+/// especially when certain types should be excluded from the share options.
+///
+/// See also:
+/// [UIActivity.ActivityType](https://developer.apple.com/documentation/uikit/uiactivity/activitytype)
+enum CupertinoActivityType {
+  postToFacebook,
+  postToTwitter,
+  postToWeibo,
+  message,
+  mail,
+  print,
+  copyToPasteboard,
+  assignToContact,
+  saveToCameraRoll,
+  addToReadingList,
+  postToFlickr,
+  postToVimeo,
+  postToTencentWeibo,
+  airDrop,
+  openInIBooks,
+  markupAsPDF,
+  sharePlay,
+  collaborationInviteWithLink,
+  collaborationCopyLink,
+  addToHomeScreen;
+
+  String get value {
+    return toString().split('.').last;
+  }
 }
