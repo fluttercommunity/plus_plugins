@@ -211,10 +211,14 @@ enum ShareResultStatus {
   unavailable,
 }
 
-/// An abstract class that you subclass to implement app-specific services
-/// for iOS and macOS.
+/// Represents iOS-supported share activity types, such as AirDrop, Messages,
+/// Mail, and others.
 ///
-/// https://developer.apple.com/documentation/uikit/uiactivity/activitytype
+/// This enum is used to identify specific activity types in the iOS share sheet,
+/// especially when certain types should be excluded from the share options.
+///
+/// See also:
+/// [UIActivity.ActivityType](https://developer.apple.com/documentation/uikit/uiactivity/activitytype)
 enum CupertinoActivityType {
   postToFacebook,
   postToTwitter,
@@ -235,9 +239,9 @@ enum CupertinoActivityType {
   sharePlay,
   collaborationInviteWithLink,
   collaborationCopyLink,
-  addToHomeScreen,
-}
+  addToHomeScreen;
 
-extension CupertinoActivityTypeValue on CupertinoActivityType {
-  String get value => toString().split('.').last;
+  String get value {
+   return toString().split('.').last;
+  }
 }
