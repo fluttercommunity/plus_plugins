@@ -29,6 +29,8 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'display': 'display',
   'hardware': 'hardware',
   'isPhysicalDevice': true,
+  'freeDiskSize': 70729949184,
+  'totalDiskSize': 113281839104,
   'bootloader': 'bootloader',
   'fingerprint': 'fingerprint',
   'manufacturer': 'manufacturer',

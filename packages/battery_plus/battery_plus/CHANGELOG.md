@@ -1,3 +1,7 @@
+## 6.2.2
+
+ - **FIX**(battery_plus): Improve battery save mode check on Xiaomi devices ([#3555](https://github.com/fluttercommunity/plus_plugins/issues/3555)). ([32ba69ba](https://github.com/fluttercommunity/plus_plugins/commit/32ba69bafc6cc787eeb8e9df58eb572d22f4d42d))
+
 ## 6.2.1
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
