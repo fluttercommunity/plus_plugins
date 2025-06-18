@@ -242,6 +242,6 @@ enum CupertinoActivityType {
   addToHomeScreen;
 
   String get value {
-   return toString().split('.').last;
+    return toString().split('.').last;
   }
 }

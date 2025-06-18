@@ -84,21 +84,22 @@ static void initializeActivityTypeMapping(void) {
   });
 }
 
-static NSArray<UIActivityType> *activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
+static NSArray<UIActivityType> *
+activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   if (activityTypeStrings == nil || activityTypeStrings.count == 0) {
-      return nil;
+    return nil;
   }
-    initializeActivityTypeMapping();
-    NSMutableArray<UIActivityType> *result = [NSMutableArray array];
+  initializeActivityTypeMapping();
+  NSMutableArray<UIActivityType> *result = [NSMutableArray array];
 
-    for (NSString *key in activityTypeStrings) {
-        UIActivityType mapped = activityTypes[key];
-        if (mapped) {
-            [result addObject:mapped];
-        }
+  for (NSString *key in activityTypeStrings) {
+    UIActivityType mapped = activityTypes[key];
+    if (mapped) {
+      [result addObject:mapped];
     }
+  }
 
-    return [result copy];
+  return [result copy];
 }
 
 // We need the companion to avoid ARC deadlock
@@ -317,7 +318,8 @@ static NSArray<UIActivityType> *activityTypesForStrings(NSArray<NSString *> *act
     NSNumber *originWidth = arguments[@"originWidth"];
     NSNumber *originHeight = arguments[@"originHeight"];
     NSArray *excludedActivityTypeStrings = arguments[@"excludedActivityType"];
-    NSArray<UIActivityType> *excludedActivityTypes = activityTypesForStrings(excludedActivityTypeStrings);
+    NSArray<UIActivityType> *excludedActivityTypes =
+        activityTypesForStrings(excludedActivityTypeStrings);
 
     CGRect originRect = CGRectZero;
     if (originX && originY && originWidth && originHeight) {
@@ -406,26 +408,26 @@ static NSArray<UIActivityType> *activityTypesForStrings(NSArray<NSString *> *act
 
       if (uri) {
         [self shareUri:uri
- excludedActivityTypes:excludedActivityTypes
-                  withController:topViewController
-                        atSource:originRect
-                        toResult:result];
+            excludedActivityTypes:excludedActivityTypes
+                   withController:topViewController
+                         atSource:originRect
+                         toResult:result];
       } else if (paths) {
         [self shareFiles:paths
-                    withMimeType:mimeTypes
-                     withSubject:shareTitle
-                        withText:shareText
-   excludedActivityTypes:excludedActivityTypes
-                  withController:rootViewController
-                        atSource:originRect
-                        toResult:result];
+                     withMimeType:mimeTypes
+                      withSubject:shareTitle
+                         withText:shareText
+            excludedActivityTypes:excludedActivityTypes
+                   withController:rootViewController
+                         atSource:originRect
+                         toResult:result];
       } else if (shareText) {
         [self shareText:shareText
-                         subject:shareTitle
-  excludedActivityTypes:excludedActivityTypes
-                  withController:rootViewController
-                        atSource:originRect
-                        toResult:result];
+                          subject:shareTitle
+            excludedActivityTypes:excludedActivityTypes
+                   withController:rootViewController
+                         atSource:originRect
+                         toResult:result];
       } else {
         result([FlutterError errorWithCode:@"error"
                                    message:@"No share content provided"
@@ -438,11 +440,11 @@ static NSArray<UIActivityType> *activityTypesForStrings(NSArray<NSString *> *act
 }
 
 + (void)share:(NSArray *)shareItems
-             withSubject:(NSString *)subject
-excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
-          withController:(UIViewController *)controller
-                atSource:(CGRect)origin
-                toResult:(FlutterResult)result {
+              withSubject:(NSString *)subject
+    excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
+           withController:(UIViewController *)controller
+                 atSource:(CGRect)origin
+                 toResult:(FlutterResult)result {
   UIActivityViewSuccessController *activityViewController =
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
@@ -497,43 +499,43 @@ excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
 }
 
 + (void)shareUri:(NSString *)uri
-excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
-          withController:(UIViewController *)controller
-                atSource:(CGRect)origin
-                toResult:(FlutterResult)result {
+    excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
+           withController:(UIViewController *)controller
+                 atSource:(CGRect)origin
+                 toResult:(FlutterResult)result {
   NSURL *data = [NSURL URLWithString:uri];
   [self share:@[ data ]
-               withSubject:nil
-excludedActivityTypes:excludedActivityTypes
-            withController:controller
-                  atSource:origin
-                  toResult:result];
+                withSubject:nil
+      excludedActivityTypes:excludedActivityTypes
+             withController:controller
+                   atSource:origin
+                   toResult:result];
 }
 
 + (void)shareText:(NSString *)shareText
-                 subject:(NSString *)subject
-excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
-          withController:(UIViewController *)controller
-                atSource:(CGRect)origin
-                toResult:(FlutterResult)result {
+                  subject:(NSString *)subject
+    excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
+           withController:(UIViewController *)controller
+                 atSource:(CGRect)origin
+                 toResult:(FlutterResult)result {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
   [self share:@[ data ]
-               withSubject:subject
-excludedActivityTypes:excludedActivityTypes
-            withController:controller
-                  atSource:origin
-                  toResult:result];
+                withSubject:subject
+      excludedActivityTypes:excludedActivityTypes
+             withController:controller
+                   atSource:origin
+                   toResult:result];
 }
 
 + (void)shareFiles:(NSArray *)paths
-            withMimeType:(NSArray *)mimeTypes
-             withSubject:(NSString *)subject
-                withText:(NSString *)text
-excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
-          withController:(UIViewController *)controller
-                atSource:(CGRect)origin
-                toResult:(FlutterResult)result {
+             withMimeType:(NSArray *)mimeTypes
+              withSubject:(NSString *)subject
+                 withText:(NSString *)text
+    excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
+           withController:(UIViewController *)controller
+                 atSource:(CGRect)origin
+                 toResult:(FlutterResult)result {
   NSMutableArray *items = [[NSMutableArray alloc] init];
 
   for (int i = 0; i < [paths count]; i++) {
@@ -549,11 +551,11 @@ excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
   }
 
   [self share:items
-               withSubject:subject
-excludedActivityTypes:excludedActivityTypes
-            withController:controller
-                  atSource:origin
-                  toResult:result];
+                withSubject:subject
+      excludedActivityTypes:excludedActivityTypes
+             withController:controller
+                   atSource:origin
+                   toResult:result];
 }
 
 @end
