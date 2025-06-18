@@ -84,12 +84,21 @@ static void initializeActivityTypeMapping(void) {
   });
 }
 
-static UIActivityType activityTypeForString(NSString *activityTypeString) {
-  initializeActivityTypeMapping();
-  if ([activityTypes.allKeys containsObject:activityTypeString]) {
-    return activityTypes[activityTypeString];
+static NSArray<UIActivityType> *activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
+  if (activityTypeStrings == nil || activityTypeStrings.count == 0) {
+      return nil;
   }
-  return nil;
+    initializeActivityTypeMapping();
+    NSMutableArray<UIActivityType> *result = [NSMutableArray array];
+
+    for (NSString *key in activityTypeStrings) {
+        UIActivityType mapped = activityTypes[key];
+        if (mapped) {
+            [result addObject:mapped];
+        }
+    }
+
+    return [result copy];
 }
 
 // We need the companion to avoid ARC deadlock
@@ -307,7 +316,8 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
     NSNumber *originY = arguments[@"originY"];
     NSNumber *originWidth = arguments[@"originWidth"];
     NSNumber *originHeight = arguments[@"originHeight"];
-    NSArray *excludedActivityType = arguments[@"excludedActivityType"];
+    NSArray *excludedActivityTypeStrings = arguments[@"excludedActivityType"];
+    NSArray<UIActivityType> *excludedActivityTypes = activityTypesForStrings(excludedActivityTypeStrings);
 
     CGRect originRect = CGRectZero;
     if (originX && originY && originWidth && originHeight) {
@@ -396,7 +406,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
 
       if (uri) {
         [self shareUri:uri
-            excludedActivityType:excludedActivityType
+ excludedActivityTypes:excludedActivityTypes
                   withController:topViewController
                         atSource:originRect
                         toResult:result];
@@ -405,14 +415,14 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
                     withMimeType:mimeTypes
                      withSubject:shareTitle
                         withText:shareText
-            excludedActivityType:excludedActivityType
+   excludedActivityTypes:excludedActivityTypes
                   withController:rootViewController
                         atSource:originRect
                         toResult:result];
       } else if (shareText) {
         [self shareText:shareText
                          subject:shareTitle
-            excludedActivityType:excludedActivityType
+  excludedActivityTypes:excludedActivityTypes
                   withController:rootViewController
                         atSource:originRect
                         toResult:result];
@@ -429,7 +439,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
 
 + (void)share:(NSArray *)shareItems
              withSubject:(NSString *)subject
-    excludedActivityType:(NSArray *)excludedActivityType
+excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
           withController:(UIViewController *)controller
                 atSource:(CGRect)origin
                 toResult:(FlutterResult)result {
@@ -437,16 +447,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
       [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
                                                applicationActivities:nil];
 
-  if (excludedActivityType.count > 0) {
-    NSMutableArray *excludedActivityTypes = [[NSMutableArray alloc] init];
-    for (NSString *type in excludedActivityType) {
-      UIActivityType activityType = activityTypeForString(type);
-      if (activityType != nil) {
-        [excludedActivityTypes addObject:activityType];
-      }
-    }
-    activityViewController.excludedActivityTypes = excludedActivityTypes;
-  }
+  activityViewController.excludedActivityTypes = excludedActivityTypes;
 
   // Force subject when sharing a raw url or files
   if (![subject isKindOfClass:[NSNull class]]) {
@@ -496,14 +497,14 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
 }
 
 + (void)shareUri:(NSString *)uri
-    excludedActivityType:(NSArray *)excludedActivityType
+excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
           withController:(UIViewController *)controller
                 atSource:(CGRect)origin
                 toResult:(FlutterResult)result {
   NSURL *data = [NSURL URLWithString:uri];
   [self share:@[ data ]
                withSubject:nil
-      excludedActivityType:excludedActivityType
+excludedActivityTypes:excludedActivityTypes
             withController:controller
                   atSource:origin
                   toResult:result];
@@ -511,7 +512,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
 
 + (void)shareText:(NSString *)shareText
                  subject:(NSString *)subject
-    excludedActivityType:(NSArray *)excludedActivityType
+excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
           withController:(UIViewController *)controller
                 atSource:(CGRect)origin
                 toResult:(FlutterResult)result {
@@ -519,7 +520,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
                                                      text:shareText];
   [self share:@[ data ]
                withSubject:subject
-      excludedActivityType:excludedActivityType
+excludedActivityTypes:excludedActivityTypes
             withController:controller
                   atSource:origin
                   toResult:result];
@@ -529,7 +530,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
             withMimeType:(NSArray *)mimeTypes
              withSubject:(NSString *)subject
                 withText:(NSString *)text
-    excludedActivityType:(NSArray *)excludedActivityType
+excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
           withController:(UIViewController *)controller
                 atSource:(CGRect)origin
                 toResult:(FlutterResult)result {
@@ -549,7 +550,7 @@ static UIActivityType activityTypeForString(NSString *activityTypeString) {
 
   [self share:items
                withSubject:subject
-      excludedActivityType:excludedActivityType
+excludedActivityTypes:excludedActivityTypes
             withController:controller
                   atSource:origin
                   toResult:result];
