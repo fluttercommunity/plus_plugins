@@ -75,7 +75,7 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
-      'excludedActivityType': ['airDrop'],
+      'excludedActivityTypes': ['airDrop'],
     }));
 
     await sharePlatform.share(
