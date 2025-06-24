@@ -66,6 +66,7 @@ void main() {
       ShareParams(
         uri: Uri.parse('https://pub.dev/packages/share_plus'),
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        excludedCupertinoActivities: [CupertinoActivityType.airDrop],
       ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
@@ -74,6 +75,7 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'excludedCupertinoActivities': ['airDrop'],
     }));
 
     await sharePlatform.share(
@@ -81,6 +83,7 @@ void main() {
         text: 'some text to share',
         subject: 'some subject to share',
         sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+        excludedCupertinoActivities: [],
       ),
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
@@ -99,6 +102,7 @@ void main() {
           subject: 'some subject to share',
           text: 'some text to share',
           sharePositionOrigin: const Rect.fromLTWH(1.0, 2.0, 3.0, 4.0),
+          excludedCupertinoActivities: null,
         ),
       );
       verify(mockChannel.invokeMethod<String>(
