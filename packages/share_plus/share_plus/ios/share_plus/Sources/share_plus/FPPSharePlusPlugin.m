@@ -317,7 +317,7 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     NSNumber *originY = arguments[@"originY"];
     NSNumber *originWidth = arguments[@"originWidth"];
     NSNumber *originHeight = arguments[@"originHeight"];
-    NSArray *excludedActivityTypeStrings = arguments[@"excludedActivityType"];
+    NSArray *excludedActivityTypeStrings = arguments[@"excludedActivityTypes"];
     NSArray<UIActivityType> *excludedActivityTypes =
         activityTypesForStrings(excludedActivityTypeStrings);
 
