@@ -71,7 +71,7 @@ class MethodChannelShare extends SharePlatform {
         params.excludedCupertinoActivities!.isNotEmpty) {
       final excludedActivityTypes =
           params.excludedCupertinoActivities!.map((e) => e.value).toList();
-      map['excludedActivityTypes'] = excludedActivityTypes;
+      map['excludedCupertinoActivities'] = excludedActivityTypes;
     }
 
     return map;
