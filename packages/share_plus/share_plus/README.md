@@ -110,17 +110,6 @@ if (result.status == ShareResultStatus.dismissed) {
 }
 ```
 
-On iOS or macOS, if you want to exclude certain options from appearing in your share sheet,
-you can set the excludedActivityTypes array.
-For the list of supported excludedActivityTypes, you can refer to [CupertinoActivityType](https://pub.dev/documentation/share_plus/latest/share_plus/ShareParams-class.html).
-
-```dart
-ShareParams(
-  // rest of params
-  excludedActivityTypes: [CupertinoActivityType.postToFacebook],
-)
-```
-
 On web, this uses the [Web Share API](https://web.dev/web-share/)
 if it's available. Otherwise it falls back to downloading the shared files.
 See [Can I Use - Web Share API](https://caniuse.com/web-share) to understand
@@ -174,6 +163,48 @@ All three methods return a `ShareResult` object which contains the following inf
 - `raw`: a `String` describing the share result, e.g. the opening app ID.
 
 Note: `status` will be `ShareResultStatus.unavailable` if the platform does not support identifying the user action.
+
+### Other Parameters
+
+#### Title
+
+Used as share sheet title where supported.
+
+- Provided to Android's `Intent.createChooser` as the title, as well as, `EXTRA_TITLE` Intent extra.
+- Provided to web Navigator Share API as title.
+
+```dart
+ShareParams(
+  // rest of params
+  title: 'Title',
+)
+```
+
+#### Subject
+
+Used as email subject where supported (e.g. `EXTRA_SUBJECT` on Android)
+
+When using the email fallback, this will be the subject of the email.
+
+```dart
+ShareParams(
+  // rest of params
+  subject: 'Subject',
+)
+```
+
+#### Excluded Cupertino Activities
+
+On iOS or macOS, if you want to exclude certain options from appearing in your share sheet, you can set the `excludedCupertinoActivities` array.
+
+For the list of supported `excludedCupertinoActivities`, refer to [CupertinoActivityType](https://pub.dev/documentation/share_plus/latest/share_plus/ShareParams-class.html).
+
+```dart
+ShareParams(
+  // rest of params
+  excludedCupertinoActivities: [CupertinoActivityType.postToFacebook],
+)
+```
 
 ## Known Issues
 
