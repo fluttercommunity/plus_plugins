@@ -1,6 +1,4 @@
-// ignore_for_file: deprecated_member_use_from_same_package
-
-import 'package:device_info_plus/src/model/android_device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 part '../model/android_device_info_fake.dart';
@@ -45,6 +43,7 @@ void main() {
       expect(androidDeviceInfo.isLowRamDevice, false);
       expect(androidDeviceInfo.physicalRamSize, 8192);
       expect(androidDeviceInfo.availableRamSize, 4096);
+      expect(androidDeviceInfo.androidId, 'androidId');
     });
 
     test('toMap should return map with correct key and map', () {

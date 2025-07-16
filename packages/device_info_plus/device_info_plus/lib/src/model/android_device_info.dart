@@ -38,6 +38,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.isLowRamDevice,
     required this.physicalRamSize,
     required this.availableRamSize,
+    required this.androidId,
   }) : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
        supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
        supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -170,6 +171,11 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/app/ActivityManager.MemoryInfo#availMem
   final int availableRamSize;
 
+  /// The Android hardware device ID that is unique between the device + user and app signing.
+  ///
+  /// https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID
+  final String? androidId;
+
   /// Deserializes from the message received from [_kChannel].
   static AndroidDeviceInfo fromMap(Map<String, dynamic> map) {
     return AndroidDeviceInfo._(
@@ -203,6 +209,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       isLowRamDevice: map['isLowRamDevice'],
       physicalRamSize: map['physicalRamSize'],
       availableRamSize: map['availableRamSize'],
+      androidId: map['androidId'],
     );
   }
 
@@ -236,6 +243,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required bool isLowRamDevice,
     required int physicalRamSize,
     required int availableRamSize,
+    required String? androidId,
   }) {
     final Map<String, dynamic> data = {
       'version': {
@@ -273,6 +281,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       'isLowRamDevice': isLowRamDevice,
       'physicalRamSize': physicalRamSize,
       'availableRamSize': availableRamSize,
+      'androidId': androidId,
     };
 
     return AndroidDeviceInfo._(
@@ -304,6 +313,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       isLowRamDevice: isLowRamDevice,
       physicalRamSize: physicalRamSize,
       availableRamSize: availableRamSize,
+      androidId: androidId,
     );
   }
 

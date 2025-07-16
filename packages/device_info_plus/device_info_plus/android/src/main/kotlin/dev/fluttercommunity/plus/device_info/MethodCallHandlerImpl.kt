@@ -74,6 +74,7 @@ internal class MethodCallHandlerImpl(
             version["release"] = Build.VERSION.RELEASE
             version["sdkInt"] = Build.VERSION.SDK_INT
             build["version"] = version
+            build["android_id"] = getAndroidId()
 
             val memoryInfo: ActivityManager.MemoryInfo = ActivityManager.MemoryInfo()
             activityManager.getMemoryInfo(memoryInfo)
@@ -103,6 +104,16 @@ internal class MethodCallHandlerImpl(
         return featureInfos
             .filterNot { featureInfo -> featureInfo.name == null }
             .map { featureInfo -> featureInfo.name }
+    }
+    
+    /**
+     * Returns the Android hardware device ID that is unique between the device + user and app
+     * signing. This key will change if the app is uninstalled or its data is cleared. Device factory
+     * reset will also result in a value change.
+     */
+    @SuppressLint("HardwareIds")
+    private fun getAndroidId(): String {
+        return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
     }
 
     /**

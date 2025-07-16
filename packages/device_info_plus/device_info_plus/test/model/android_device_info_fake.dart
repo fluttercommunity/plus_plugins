@@ -43,4 +43,5 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'isLowRamDevice': false,
   'physicalRamSize': 8192,
   'availableRamSize': 4096,
+  'androidId': 'androidId',
 };
