@@ -127,6 +127,8 @@ package.
 File downloading fallback mechanism for web can be disabled by setting:
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+
 ShareParams(
   // rest of params
   downloadFallbackEnabled: false,
@@ -140,6 +142,10 @@ You can also share files that you dynamically generate from its data using [`XFi
 To set the name of such files, use the `fileNameOverrides` parameter, otherwise the file name will be a random UUID string.
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+import 'package:cross_file/cross_file.dart';
+import 'dart:convert';
+
 final params = ShareParams(
   files: [XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], 
   fileNameOverrides: ['myfile.txt']
@@ -158,6 +164,8 @@ This special functionality is only properly supported on iOS.
 On other platforms, the URI will be shared as plain text.
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+
 final params = ShareParams(uri: uri);
 
 SharePlus.instance.share(params);

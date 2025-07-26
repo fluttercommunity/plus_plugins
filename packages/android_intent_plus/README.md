@@ -88,6 +88,8 @@ of integers or strings.
 or get the details of the activity that can handle the intent.
 
 ```dart
+import 'package:android_intent_plus/android_intent.dart';
+
 final intent = AndroidIntent(
       action: 'action_view',
       data: Uri.encodeFull('http://'),
