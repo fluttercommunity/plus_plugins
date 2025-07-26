@@ -51,6 +51,8 @@ Access the `SharePlus` instance via `SharePlus.instance`.
 Then, invoke the `share()` method anywhere in your Dart code.
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+
 SharePlus.instance.share(
   ShareParams(text: 'check out my website https://example.com')
 );
@@ -83,6 +85,9 @@ To share one or multiple files, provide the `files` list in `ShareParams`.
 Optionally, you can pass `title`, `text` and `sharePositionOrigin`.
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+import 'package:cross_file/cross_file.dart';
+
 final params = ShareParams(
   text: 'Great picture',
   files: [XFile('${directory.path}/image.jpg')], 
@@ -96,6 +101,9 @@ if (result.status == ShareResultStatus.success) {
 ```
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+import 'package:cross_file/cross_file.dart';
+
 final params = ShareParams(
   files: [
     XFile('${directory.path}/image1.jpg'), 
@@ -233,7 +241,7 @@ or search for other Flutter plugins implementing this SDK. More information can 
 Other apps may also give problems when attempting to share content to them.
 This is because 3rd party app developers do not properly implement the logic to receive share actions.
 
-We cannot warranty that a 3rd party app will properly implement the share functionality.
+We cannot warrant that a 3rd party app will properly implement the share functionality.
 Therefore, **all bugs reported regarding compatibility with a specific app will be closed.**
 
 #### Localization in Apple platforms
@@ -249,7 +257,7 @@ For more information check the [CoreFoundationKeys](https://developer.apple.com/
 `share_plus` requires iPad users to provide the `sharePositionOrigin` parameter.
 
 Without it, `share_plus` will not work on iPads and may cause a crash or
-letting the UI not responding.
+leave the UI unresponsive.
 
 To avoid that problem, provide the `sharePositionOrigin`.
 
@@ -292,6 +300,8 @@ To convert code using `Share.share()` to the new `SharePlus` class:
 e.g.
 
 ```dart
+import 'package:share/share.dart';
+
 Share.share("Shared text");
 
 Share.shareUri("http://example.com");
@@ -302,6 +312,8 @@ Share.shareXFiles(files);
 Becomes:
 
 ```dart
+import 'package:share_plus/share_plus.dart';
+
 SharePlus.instance.share(
   ShareParams(text: "Shared text"),
 );
