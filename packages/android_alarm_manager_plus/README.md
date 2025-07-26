@@ -113,6 +113,8 @@ This intent has the action `android.intent.action.MAIN` and includes the followi
 Setting the alarm:
 
 ```dart
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+
 await AndroidAlarmManager.oneShotAt(
     time,
     id,

@@ -153,6 +153,8 @@ Alternatively, every stream allows to specify the sampling rate for its sensor u
 
 
 ```dart
+import 'package:sensors_plus/sensors_plus.dart';
+
 magnetometerEvents(samplingPeriod: SensorInterval.normalInterval).listen(
   (MagnetometerEvent event) {
     print(event);
