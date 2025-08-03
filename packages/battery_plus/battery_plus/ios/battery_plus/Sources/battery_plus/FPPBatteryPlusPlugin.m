@@ -114,6 +114,7 @@
 
 - (FlutterError *)onCancelWithArguments:(id)arguments {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [[UIDevice currentDevice] setBatteryMonitoringEnabled:NO];
   _eventSink = nil;
   return nil;
 }
