@@ -71,21 +71,31 @@ This method should ensure emitting only distinct values.
 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
 
-@override
-initState() {
-  super.initState();
-
-  StreamSubscription<List<ConnectivityResult>> subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-    // Received changes in available connectivity types!
-  });
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
 }
 
-// Be sure to cancel subscription after you are done
-@override
-dispose() {
-  subscription.cancel();
-  super.dispose();
+class _MyWidgetState extends State<MyWidget> {
+  StreamSubscription<List<ConnectivityResult>>? subscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+      // Received changes in available connectivity types!
+    });
+  }
+
+  // Be sure to cancel subscription after you are done
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
+  }
 }
 ```
 
