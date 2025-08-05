@@ -249,7 +249,7 @@ or search for other Flutter plugins implementing this SDK. More information can 
 Other apps may also give problems when attempting to share content to them.
 This is because 3rd party app developers do not properly implement the logic to receive share actions.
 
-We cannot warrant that a 3rd party app will properly implement the share functionality.
+We cannot guarantee that a 3rd party app will properly implement the share functionality.
 Therefore, **all bugs reported regarding compatibility with a specific app will be closed.**
 
 #### Localization in Apple platforms
