@@ -16,8 +16,8 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call
                   result:(FlutterResult)result {
   if ([call.method isEqualToString:@"getAll"]) {
-    NSDate *installDate = [self getInstallDate];
-    NSDate *updateDate = [self getUpdateDate];
+    NSString *installDateStr = [self getTimeMillisStringFromDate:[self getInstallDate]];
+    NSString *updateDateStr = [self getTimeMillisStringFromDate:[self getUpdateDate]];
     
     result(@{
       @"appName" : [[NSBundle mainBundle]
@@ -33,8 +33,8 @@
           objectForInfoDictionaryKey:@"CFBundleVersion"]
           ?: [NSNull null],
       @"installerStore" : [NSNull null],
-      @"installTime" : [self getTimeMillisStringFromDate:installDate] ?: [NSNull null],
-      @"updateTime" : [self getTimeMillisStringFromDate:updateDate] ?: [NSNull null]
+      @"installTime" : installDateStr ?: updateDateStr ?: [NSNull null],
+      @"updateTime" : updateDateStr ?: [NSNull null]
     });
   } else {
     result(FlutterMethodNotImplemented);
@@ -42,6 +42,10 @@
 }
 
 - (NSDate *)getInstallDate {
+    if (![self isRunningInSandbox]) {
+        return nil;
+    }
+
     NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     __autoreleasing NSError *error;
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error];
@@ -72,6 +76,11 @@
 
     NSNumber *timeMillis = @((long long)([date timeIntervalSince1970] * 1000));
     return [timeMillis stringValue];
+}
+
+- (BOOL)isRunningInSandbox {
+    NSString *sandboxContainerId = [[[NSProcessInfo processInfo] environment] objectForKey:@"APP_SANDBOX_CONTAINER_ID"];
+    return sandboxContainerId != nil;
 }
 
 @end

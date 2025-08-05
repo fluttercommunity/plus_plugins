@@ -154,7 +154,9 @@ class PackageInfo {
   /// The time when the application was installed.
   ///
   /// - On Android, returns `PackageManager.firstInstallTime`
-  /// - On iOS and macOS, return the creation date of the app default `NSDocumentDirectory`
+  /// - On iOS, return the creation date of the app default `NSDocumentDirectory`
+  /// - On macOS, if the app is running in sandbox, return the creation date of the app default `NSDocumentDirectory`;
+  ///   If the app is not running in sandbox, return the last modified date of the app main bundle
   /// - On Windows and Linux, returns the creation date of the app executable.
   ///   If the creation date is not available, returns the last modified date of the app executable.
   ///   If the last modified date is not available, returns `null`.
