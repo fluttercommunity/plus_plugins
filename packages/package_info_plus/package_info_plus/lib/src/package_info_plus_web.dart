@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js_interop';
 import 'dart:ui_web';
 
 import 'package:clock/clock.dart';
@@ -7,6 +8,24 @@ import 'package:http/http.dart';
 import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:web/web.dart' as web;
+
+/// Get the current service worker version.
+/// This is used to get the application version that matches the current
+/// service worker (even if there is a newer version available).
+///
+/// If no version is found, we fallback to the cachebuster
+/// which will load the latest version of the file.
+///
+/// To get this working, you will need to add the following code to your
+/// index.html:
+/// ```javascript
+///     // This line should already exist
+///     var serviceWorkerVersion = {{SERVICE_WORKER_VERSION}};
+///     // This line should be added
+///     window.serviceWorkerVersion = serviceWorkerVersion;
+/// ```
+@JS('serviceWorkerVersion')
+external String? get _serviceWorkerVersion;
 
 /// The web implementation of [PackageInfoPlatform].
 ///
@@ -46,9 +65,11 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
     final List<String> segments = [...uri.pathSegments]
       ..removeWhere((element) => element == '');
 
-    // Add file and cachebuster query
+    // Add file, serviceWorkerVersion and cachebuster query
     return uri.replace(
-        query: 'cachebuster=$cacheBuster',
+        query: _serviceWorkerVersion != null
+            ? 'serviceWorkerVersion=$_serviceWorkerVersion'
+            : 'cachebuster=$cacheBuster',
         pathSegments: [...segments, 'version.json']);
   }
 
