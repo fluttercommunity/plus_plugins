@@ -124,10 +124,16 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     }
 
     private fun isSamsungPowerSaveModeActive(): Boolean {
-        val mode = Settings.System.getString(
-            applicationContext!!.contentResolver,
-            POWER_SAVE_MODE_SAMSUNG_NAME
-        )
+        // psm_switch check is only available before Android 12 (S)
+        val mode = if (VERSION.SDK_INT < VERSION_CODES.S) {
+            Settings.System.getString(
+                applicationContext!!.contentResolver,
+                POWER_SAVE_MODE_SAMSUNG_NAME
+            )
+        } else {
+            null
+        }
+
         return if (mode == null) {
             checkPowerServiceSaveMode()
         } else {
