@@ -1,3 +1,7 @@
+## 8.3.1
+
+ - **FIX**(package_info_plus): incorrect install time on macOS when app sandbox disabled ([#3638](https://github.com/fluttercommunity/plus_plugins/issues/3638)). ([2cf9297b](https://github.com/fluttercommunity/plus_plugins/commit/2cf9297b4e3ce5cc71d22539ca7d0dfc82ac819b))
+
 ## 8.3.0
 
  - **FEAT**(package_info_plus): add update time ([#3466](https://github.com/fluttercommunity/plus_plugins/issues/3466)). ([c0ab9214](https://github.com/fluttercommunity/plus_plugins/commit/c0ab9214479653ce976e427dc0fa5e58b71e7f66))

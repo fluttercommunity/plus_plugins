@@ -1,3 +1,9 @@
+## 11.1.0
+
+ - **FEAT**(share_plus): Added `excludedCupertinoActivities` share parameter ([#3376](https://github.com/fluttercommunity/plus_plugins/issues/3376)). ([f9fdadb4](https://github.com/fluttercommunity/plus_plugins/commit/f9fdadb41242ad2e36ddbf1ade82be6c5bb78ec4))
+ - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))
+ - **DOCS**(share-plus): Update README.md. ([2aa9f7e0](https://github.com/fluttercommunity/plus_plugins/commit/2aa9f7e0c7b471dc581d6fbd334633d16eb2da03))
+
 ## 11.0.0
 
 > Note: This release has breaking changes.

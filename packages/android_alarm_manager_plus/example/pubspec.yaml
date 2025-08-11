@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  android_alarm_manager_plus: ^4.0.7
+  android_alarm_manager_plus: ^4.0.8
   permission_handler: ^11.3.0
   shared_preferences: ^2.2.2
 
