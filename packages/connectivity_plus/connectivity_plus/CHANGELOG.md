@@ -1,3 +1,7 @@
+## 6.1.5
+
+ - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))
+
 ## 6.1.4
 
  - **REFACTOR**(connectivity_plus): removed unused code for web ([#3517](https://github.com/fluttercommunity/plus_plugins/issues/3517)). ([55ac8c5f](https://github.com/fluttercommunity/plus_plugins/commit/55ac8c5fa6f1192cf96e63de1506c82e95b00cda))

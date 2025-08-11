@@ -1,3 +1,7 @@
+## 5.3.1
+
+ - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))
+
 ## 5.3.0
 
  - **FIX**(android_intent_plus): adds error catching and forwarding ([#3452](https://github.com/fluttercommunity/plus_plugins/issues/3452)). ([37f533c7](https://github.com/fluttercommunity/plus_plugins/commit/37f533c7a6c16fc55ed743b78108b479fc2565c3))

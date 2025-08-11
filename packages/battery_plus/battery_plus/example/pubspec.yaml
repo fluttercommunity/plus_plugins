@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  battery_plus: ^6.2.2
+  battery_plus: ^6.2.3
 
 dev_dependencies:
   flutter_driver:

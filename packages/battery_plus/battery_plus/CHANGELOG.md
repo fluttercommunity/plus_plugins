@@ -1,3 +1,8 @@
+## 6.2.3
+
+ - **FIX**(battery_plus): Do not call hidden flag on Samsung with Android versions >= 12 ([#3641](https://github.com/fluttercommunity/plus_plugins/issues/3641)). ([a8764705](https://github.com/fluttercommunity/plus_plugins/commit/a87647056529ef88d319d9a27c75744c9db9ff53))
+ - **FIX**(battery_plus): batteryMonitoringEnabled should be set false when cancel on iOS ([#3634](https://github.com/fluttercommunity/plus_plugins/issues/3634)). ([9597aab6](https://github.com/fluttercommunity/plus_plugins/commit/9597aab680cc8d9768bca9e491705c60ad302b34))
+
 ## 6.2.2
 
  - **FIX**(battery_plus): Improve battery save mode check on Xiaomi devices ([#3555](https://github.com/fluttercommunity/plus_plugins/issues/3555)). ([32ba69ba](https://github.com/fluttercommunity/plus_plugins/commit/32ba69bafc6cc787eeb8e9df58eb572d22f4d42d))
