@@ -42,13 +42,13 @@ support for more platforms and better maintenance.
 
 > [![battery_plus][battery_plus_badge_pub]][battery_plus] [![pub points][battery_plus_badge_pub_points]][battery_plus_pub_points]
 
-Flutter plugin for accessing information about the battery state(full, charging, discharging) on Android and iOS.
+Flutter plugin for accessing information about the battery state (full, charging, discharging) on Android and iOS.
 
 [[readme][battery_plus_readme]] [[code][battery_plus_code]]
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅   | ✅  |  ✅   | ✅  |  ✅   |  ✅  |
 
@@ -65,7 +65,7 @@ mobile/cellular) connectivity on Android and iOS.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -82,7 +82,7 @@ Flutter plugin providing detailed information about the device
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -98,7 +98,7 @@ Flutter plugin for discovering network info.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅   |  ✅   | ❌  |  ✅   |   ✅    |
 
@@ -115,7 +115,7 @@ package, such as CFBundleVersion on iOS or versionCode on Android.
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -131,7 +131,7 @@ Flutter plugin for accessing accelerometer, gyroscope, magnetometer and baromete
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |   ❌    | ✅  |   ❌    |    ❌     |
 
@@ -147,7 +147,7 @@ Flutter plugin for sharing content via the platform share UI, using the ACTION_S
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅   | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
