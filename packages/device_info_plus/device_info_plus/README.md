@@ -10,7 +10,7 @@ Get current device information from within the Flutter application.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -19,7 +19,7 @@ Get current device information from within the Flutter application.
 - Flutter >=3.29.0
 - Dart >=3.7.0 <4.0.0
 - iOS >=12.0
-- MacOS >=10.14
+- macOS >=10.14
 - Android `compileSDK` 34
 - Java 17
 - Android Gradle Plugin >=8.3.0

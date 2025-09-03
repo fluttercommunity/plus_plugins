@@ -11,7 +11,7 @@ themselves accordingly.
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
 |   ✅    | ✅  |  ✅   | ❌  |  ✅   |   ✅   |
 
@@ -22,7 +22,7 @@ The functionality is not supported on Web.
 - Flutter >=3.3.0
 - Dart >=2.18.0 <4.0.0
 - iOS >=12.0
-- MacOS >=10.14
+- macOS >=10.14
 - Android `compileSDK` 34
 - Java 17
 - Android Gradle Plugin >=8.3.0
