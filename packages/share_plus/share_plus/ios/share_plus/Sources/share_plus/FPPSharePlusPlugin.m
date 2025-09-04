@@ -102,48 +102,6 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   return [result copy];
 }
 
-// We need the companion to avoid ARC deadlock
-@interface UIActivityViewSuccessCompanion : NSObject
-
-@property FlutterResult result;
-@property NSString *activityType;
-@property BOOL completed;
-
-- (id)initWithResult:(FlutterResult)result;
-
-@end
-
-@implementation UIActivityViewSuccessCompanion
-
-- (id)initWithResult:(FlutterResult)result {
-  if (self = [super init]) {
-    self.result = result;
-    self.completed = false;
-  }
-  return self;
-}
-
-// We use dealloc as the share-sheet might disappear (e.g. iCloud photo album
-// creation) and could then reappear if the user cancels
-- (void)dealloc {
-  if (self.completed) {
-    self.result(self.activityType);
-  } else {
-    self.result(@"");
-  }
-}
-
-@end
-
-@interface UIActivityViewSuccessController : UIActivityViewController
-
-@property UIActivityViewSuccessCompanion *companion;
-
-@end
-
-@implementation UIActivityViewSuccessController
-@end
-
 @interface SharePlusData : NSObject <UIActivityItemSource>
 
 @property(readonly, nonatomic, copy) NSString *subject;
@@ -317,7 +275,8 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     NSNumber *originY = arguments[@"originY"];
     NSNumber *originWidth = arguments[@"originWidth"];
     NSNumber *originHeight = arguments[@"originHeight"];
-    NSArray *excludedActivityTypeStrings = arguments[@"excludedCupertinoActivities"];
+    NSArray *excludedActivityTypeStrings =
+        arguments[@"excludedCupertinoActivities"];
     NSArray<UIActivityType> *excludedActivityTypes =
         activityTypesForStrings(excludedActivityTypeStrings);
 
@@ -445,9 +404,9 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
-  UIActivityViewSuccessController *activityViewController =
-      [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
-                                               applicationActivities:nil];
+  UIActivityViewController *activityViewController =
+      [[UIActivityViewController alloc] initWithActivityItems:shareItems
+                                        applicationActivities:nil];
 
   activityViewController.excludedActivityTypes = excludedActivityTypes;
 
@@ -483,14 +442,14 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
 
-  UIActivityViewSuccessCompanion *companion =
-      [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
-  activityViewController.companion = companion;
   activityViewController.completionWithItemsHandler =
       ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems,
         NSError *activityError) {
-        companion.activityType = activityType;
-        companion.completed = completed;
+        if (completed) {
+          result(activityType);
+        } else {
+          result(@"");
+        }
       };
 
   [controller presentViewController:activityViewController
