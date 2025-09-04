@@ -43,7 +43,7 @@ android {
     defaultConfig {
         applicationId "dev.fluttercommunity.plus.network_info_plus_example"
         minSdk 21
-        targetSdk 36
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
