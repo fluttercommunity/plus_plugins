@@ -16,7 +16,7 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -25,7 +25,7 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 - Flutter >=3.19.0
 - Dart >=3.3.0 <4.0.0
 - iOS >=12.0
-- MacOS >=10.14
+- macOS >=10.14
 - Android `compileSDK` 34
 - Java 17
 - Android Gradle Plugin >=8.3.0
@@ -103,7 +103,7 @@ class _MyWidgetState extends State<MyWidget> {
 
 The following table shows which `ConnectivityResult` values are supported per platform.
 
-|           | Android | iOS | Web | MacOS | Windows | Linux |
+|           | Android | iOS | Web | macOS | Windows | Linux |
 |-----------|:-------:|:---:|:---:|:-----:|:-------:|:-----:|
 | wifi      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | bluetooth | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |
@@ -118,11 +118,11 @@ _`none` is supported on all platforms by default._
 
 Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed. The broadcast is only useful when your application is in the foreground.
 
-### iOS & MacOS
+### iOS & macOS
 
 On iOS simulators, the connectivity types stream might not update when Wi-Fi status changes. This is a known issue.
 
-Starting with iOS 12 and MacOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types. We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
+Starting with iOS 12 and macOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types. We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
 
 We recommend to use the `onConnectivityChanged` with this limitation in mind, as the method doesn't filter events, nor it ensures distinct values.
 

@@ -14,7 +14,7 @@ on iOS, or equivalent platform content sharing methods.
 
 ## Platform Support
 
-| Shared content | Android | iOS | MacOS | Web | Linux | Windows |
+| Shared content | Android | iOS | macOS | Web | Linux | Windows |
 | :------------: | :-----: | :-: | :---: | :-: | :---: | :-----: |
 | Text           |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
 | URI            |   ✅    | ✅  |  ✅   | As text | As text | As text |
@@ -29,7 +29,7 @@ Sharing files is not supported on Linux.
 - Flutter >=3.22.0
 - Dart >=3.4.0 <4.0.0
 - iOS >=12.0
-- MacOS >=10.14
+- macOS >=10.14
 - Android `compileSDK` 34
 - Java 17
 - Android Gradle Plugin >=8.3.0
