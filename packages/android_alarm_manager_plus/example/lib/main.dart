@@ -82,6 +82,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   void _checkExactAlarmPermission() async {
     final currentStatus = await Permission.scheduleExactAlarm.status;
+    if (!mounted) return;
     setState(() {
       _exactAlarmPermissionStatus = currentStatus;
     });
@@ -91,7 +92,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
     developer.log('Increment counter!');
     // Ensure we've loaded the updated count from the background isolate.
     await prefs?.reload();
-
+    if (!mounted) return;
     setState(() {
       _counter++;
     });
