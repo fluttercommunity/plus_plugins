@@ -155,8 +155,10 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   ///
   /// There are special restrictions on this identifier, more info here:
   /// https://developer.android.com/reference/android/os/Build#getSerial()
-  @Deprecated('This property is deprecated and will be removed in a future release. '
-      'Currently, it always returns Build.UNKNOWN.')
+  @Deprecated(
+    'This property is deprecated and will be removed in a future release. '
+    'Currently, it always returns Build.UNKNOWN.',
+  )
   final String serialNumber;
 
   /// `true` if the application is running on a low-RAM device, `false` otherwise.
