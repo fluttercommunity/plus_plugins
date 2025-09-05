@@ -39,7 +39,7 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'version': _fakeAndroidBuildVersion,
   'supported64BitAbis': _fakeSupported64BitAbis,
   'supported32BitAbis': _fakeSupported32BitAbis,
-  'serialNumber': 'SERIAL',
+  'serialNumber': 'unknown',
   'isLowRamDevice': false,
   'physicalRamSize': 8192,
   'availableRamSize': 4096,
