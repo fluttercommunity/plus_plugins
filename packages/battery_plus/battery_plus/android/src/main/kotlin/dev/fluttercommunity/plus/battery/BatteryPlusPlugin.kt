@@ -170,9 +170,10 @@ class BatteryPlusPlugin : MethodCallHandler, EventChannel.StreamHandler, Flutter
     }
 
     private fun checkPowerServiceSaveMode(): Boolean {
-        val powerManager =
-            applicationContext!!.getSystemService(Context.POWER_SERVICE) as PowerManager
-        return powerManager.isPowerSaveMode
+        return applicationContext?.let {
+            val powerManager = it.getSystemService(Context.POWER_SERVICE) as PowerManager
+            powerManager.isPowerSaveMode
+        } ?: false
     }
 
     private fun getBatteryProperty(property: Int): Int {
