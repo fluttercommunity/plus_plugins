@@ -6,7 +6,7 @@
 
 [<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
-A Flutter plugin to access the accelerometer, gyroscope, magnetometer and 
+A Flutter plugin to access the accelerometer, gyroscope, magnetometer and
 barometer sensors.
 
 ## Platform Support
@@ -23,15 +23,15 @@ barometer sensors.
 - Dart >=3.3.0 <4.0.0
 - iOS >=12.0
 - macOS >=10.14
-- Android `compileSDK` 34
 - Java 17
-- Android Gradle Plugin >=8.3.0
-- Gradle wrapper >=8.4
+- Kotlin 2.2.0
+- Android Gradle Plugin >=8.12.1
+- Gradle wrapper >=8.13
 
 ## Usage
 
 Add `sensors_plus` as a dependency in your pubspec.yaml file.
-  
+
 On iOS you must also include a key called [`NSMotionUsageDescription`](https://developer.apple.com/documentation/bundleresources/information_property_list/nsmotionusagedescription) in your app's `Info.plist` file. This key provides a message that tells the user why the app is requesting access to the device’s motion data. The plugin itself needs access to motion data to get barometer data.
 
 Example Info.plist entry:
@@ -67,7 +67,7 @@ The plugin exposes such classes of sensor events through a set of streams:
 - `GyroscopeEvent` describes the rotation of the device.
 - `MagnetometerEvent` describes the ambient magnetic field surrounding the
   device. A compass is an example usage of this data.
-- `BarometerEvent` describes the atmospheric pressure surrounding the device, in hPa. 
+- `BarometerEvent` describes the atmospheric pressure surrounding the device, in hPa.
   An altimeter is an example usage of this data. Not supported on web browsers.
 
 These events are exposed through a `BroadcastStream`: `accelerometerEvents`,
@@ -173,15 +173,15 @@ sensor data.
 
 ### Platform Restrictions and Considerations
 
-The following lists the restrictions for the sensors on certain platforms due to limitations of the platform. 
+The following lists the restrictions for the sensors on certain platforms due to limitations of the platform.
 
 - **Magnetometer and Barometer missing for web**
 
-  The Magnetometer API is currently not supported by any modern web browsers. Check browser compatibility matrix on [MDN docs for Magnetormeter API](https://developer.mozilla.org/en-US/docs/Web/API/Magnetometer). 
+  The Magnetometer API is currently not supported by any modern web browsers. Check browser compatibility matrix on [MDN docs for Magnetormeter API](https://developer.mozilla.org/en-US/docs/Web/API/Magnetometer).
 
-  The Barometer API does not exist for web platforms as can be seen at [MDN docs forn Sensors API](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs). 
+  The Barometer API does not exist for web platforms as can be seen at [MDN docs forn Sensors API](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs).
 
-  Developers should consider alternative methods or inform users about the limitation when their application runs on a web platform. 
+  Developers should consider alternative methods or inform users about the limitation when their application runs on a web platform.
 
 > [!NOTE]
 >
@@ -189,11 +189,11 @@ The following lists the restrictions for the sensors on certain platforms due to
 
 - **Sampling periods for web**
 
-  Currently it is not possible to set sensors sampling rate on web. Calls to event streams at specied sampling periods will have the sampling period ignored. 
+  Currently it is not possible to set sensors sampling rate on web. Calls to event streams at specied sampling periods will have the sampling period ignored.
 
 - **Barometer sampling period limitation for iOS**
 
-  On iOS devices, barometer updates are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides updates at regular intervals that cannot be controlled by the user. Calls to `barometerEventStream` at specied sampling periods will have the sampling period ignored. 
+  On iOS devices, barometer updates are [CMAltimeter](https://developer.apple.com/documentation/coremotion/cmaltimeter) which provides updates at regular intervals that cannot be controlled by the user. Calls to `barometerEventStream` at specied sampling periods will have the sampling period ignored.
 
 ## Learn more
 
