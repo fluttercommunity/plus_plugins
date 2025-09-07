@@ -20,7 +20,7 @@ Dart code in the background when alarms fire.
 - Flutter >=3.12.0
 - Dart >=3.1.0 <4.0.0
 - Java 17
-- Android Gradle Plugin >=8.9.1
+- Android Gradle Plugin >=8.12.1
 - Gradle wrapper >=8.11.1
 
 ## Getting Started
