@@ -30,10 +30,10 @@ Sharing files is not supported on Linux.
 - Dart >=3.4.0 <4.0.0
 - iOS >=12.0
 - macOS >=10.14
-- Android `compileSDK` 34
 - Java 17
-- Android Gradle Plugin >=8.3.0
-- Gradle wrapper >=8.4
+- Kotlin 2.2.0
+- Android Gradle Plugin >=8.12.1
+- Gradle wrapper >=8.13
 
 ## Usage
 
@@ -90,7 +90,7 @@ import 'package:cross_file/cross_file.dart';
 
 final params = ShareParams(
   text: 'Great picture',
-  files: [XFile('${directory.path}/image.jpg')], 
+  files: [XFile('${directory.path}/image.jpg')],
 );
 
 final result = await SharePlus.instance.share(params);
@@ -106,7 +106,7 @@ import 'package:cross_file/cross_file.dart';
 
 final params = ShareParams(
   files: [
-    XFile('${directory.path}/image1.jpg'), 
+    XFile('${directory.path}/image1.jpg'),
     XFile('${directory.path}/image2.jpg'),
   ],
 );
@@ -147,7 +147,7 @@ import 'package:cross_file/cross_file.dart';
 import 'dart:convert';
 
 final params = ShareParams(
-  files: [XFile.fromData(utf8.encode(text), mimeType: 'text/plain')], 
+  files: [XFile.fromData(utf8.encode(text), mimeType: 'text/plain')],
   fileNameOverrides: ['myfile.txt']
 );
 
