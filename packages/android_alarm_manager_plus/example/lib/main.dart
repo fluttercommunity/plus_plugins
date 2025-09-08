@@ -82,6 +82,7 @@ class _AlarmHomePageState extends State<_AlarmHomePage> {
 
   void _checkExactAlarmPermission() async {
     final currentStatus = await Permission.scheduleExactAlarm.status;
+    if (!mounted) return;
     setState(() {
       _exactAlarmPermissionStatus = currentStatus;
     });
