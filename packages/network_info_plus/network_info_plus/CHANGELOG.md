@@ -1,3 +1,15 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(network_info_plus): Change Android compile SDK, update Android build config ([#3669](https://github.com/fluttercommunity/plus_plugins/issues/3669)). ([bcb42027](https://github.com/fluttercommunity/plus_plugins/commit/bcb420277b5907fa9aac3977c20fbac65284a4a8))
+
 ## 6.1.4
 
  - **FIX**(network_info_plus): fix deprecated member use in Windows implementation ([#3519](https://github.com/fluttercommunity/plus_plugins/issues/3519)). ([f723fad9](https://github.com/fluttercommunity/plus_plugins/commit/f723fad94e2a834cd0dbac861c6dc086b8dd71f2))

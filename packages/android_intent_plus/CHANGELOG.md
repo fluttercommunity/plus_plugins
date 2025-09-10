@@ -1,3 +1,14 @@
+## 6.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **BREAKING** **FEAT**(android_intent_plus): Change Android compile SDK, update Android build config ([#3673](https://github.com/fluttercommunity/plus_plugins/issues/3673)). ([7a228c3e](https://github.com/fluttercommunity/plus_plugins/commit/7a228c3e29e92ffba068422709136b55a05a0e33))
+
 ## 5.3.1
 
  - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))

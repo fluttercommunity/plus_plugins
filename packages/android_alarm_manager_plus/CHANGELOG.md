@@ -1,3 +1,14 @@
+## 5.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **BREAKING** **FEAT**(android_alarm_manager_plus): Change Android compile SDK, update Android build config ([#3665](https://github.com/fluttercommunity/plus_plugins/issues/3665)). ([bb49385b](https://github.com/fluttercommunity/plus_plugins/commit/bb49385bdbdc8c8ba0bdb5c97fe229f7487d9f00))
+
 ## 4.0.8
 
  - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))

@@ -1,3 +1,16 @@
+## 12.0.0
+
+> Note: This release has breaking changes.
+>
+> Plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **REFACTOR**(device_info_plus): remove `serialNumber` property from AndroidDeviceInfo ([#3663](https://github.com/fluttercommunity/plus_plugins/issues/3663)). ([d0fdc582](https://github.com/fluttercommunity/plus_plugins/commit/d0fdc582e8187f71522678e19b6329221b5f535d))
+ - **BREAKING** **FEAT**(device_info_plus): Change Android compile SDK, update Android build config ([#3668](https://github.com/fluttercommunity/plus_plugins/issues/3668)). ([32528e7f](https://github.com/fluttercommunity/plus_plugins/commit/32528e7f852893dd4448c448096e459e1950c7e4))
+
 ## 11.5.0
 
  - **FIX**(device_info_plus): Specify correct Dart and Flutter version requirements ([#3597](https://github.com/fluttercommunity/plus_plugins/issues/3597)). ([6ebc0ead](https://github.com/fluttercommunity/plus_plugins/commit/6ebc0ead68df477f06c6d4738a69a9e56223cf47))
