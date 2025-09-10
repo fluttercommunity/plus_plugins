@@ -1,5 +1,5 @@
 @TestOn('browser')
-library package_info_plus_web_test;
+library;
 
 import 'dart:convert';
 import 'dart:ui_web' as ui_web;
