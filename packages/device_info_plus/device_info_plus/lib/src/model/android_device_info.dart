@@ -34,7 +34,6 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required this.freeDiskSize,
     required this.totalDiskSize,
     required List<String> systemFeatures,
-    required this.serialNumber,
     required this.isLowRamDevice,
     required this.physicalRamSize,
     required this.availableRamSize,
@@ -151,16 +150,6 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/content/pm/PackageManager
   final List<String> systemFeatures;
 
-  /// Hardware serial number of the device, if available
-  ///
-  /// There are special restrictions on this identifier, more info here:
-  /// https://developer.android.com/reference/android/os/Build#getSerial()
-  @Deprecated(
-    'This property is deprecated and will be removed in a future release. '
-    'Currently, it always returns Build.UNKNOWN.',
-  )
-  final String serialNumber;
-
   /// `true` if the application is running on a low-RAM device, `false` otherwise.
   final bool isLowRamDevice;
 
@@ -203,7 +192,6 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       freeDiskSize: map['freeDiskSize'],
       totalDiskSize: map['totalDiskSize'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
-      serialNumber: map['serialNumber'],
       isLowRamDevice: map['isLowRamDevice'],
       physicalRamSize: map['physicalRamSize'],
       availableRamSize: map['availableRamSize'],
@@ -304,7 +292,6 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       freeDiskSize: freeDiskSize,
       totalDiskSize: totalDiskSize,
       systemFeatures: _fromList(systemFeatures),
-      serialNumber: serialNumber,
       isLowRamDevice: isLowRamDevice,
       physicalRamSize: physicalRamSize,
       availableRamSize: availableRamSize,

@@ -80,7 +80,6 @@ internal class MethodCallHandlerImpl(
             build["isLowRamDevice"] = memoryInfo.lowMemory
             build["physicalRamSize"] = memoryInfo.totalMem / 1048576L // Mb
             build["availableRamSize"] = memoryInfo.availMem / 1048576L // Mb
-            build["serialNumber"] = Build.UNKNOWN
             result.success(build)
         } else {
             result.notImplemented()
