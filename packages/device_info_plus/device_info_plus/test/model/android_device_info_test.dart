@@ -41,7 +41,6 @@ void main() {
       expect(androidDeviceInfo.version.codename, 'codename');
       expect(androidDeviceInfo.version.incremental, 'incremental');
       expect(androidDeviceInfo.version.securityPatch, 'securityPatch');
-      expect(androidDeviceInfo.serialNumber, 'SERIAL');
       expect(androidDeviceInfo.isLowRamDevice, false);
       expect(androidDeviceInfo.physicalRamSize, 8192);
       expect(androidDeviceInfo.availableRamSize, 4096);

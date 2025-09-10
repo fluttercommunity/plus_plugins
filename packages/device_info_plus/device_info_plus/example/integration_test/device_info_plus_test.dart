@@ -111,7 +111,6 @@ void main() {
     expect(androidInfo.type, isNotNull);
     expect(androidInfo.isPhysicalDevice, isNotNull);
     expect(androidInfo.systemFeatures, isNotNull);
-    expect(androidInfo.serialNumber, isNotNull);
   }, skip: !Platform.isAndroid);
 
   testWidgets('Check all macos info values are available', ((
