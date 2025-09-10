@@ -23,9 +23,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    compileSdk 34
-
     namespace 'io.flutter.plugins.androidintentexample'
+    compileSdk = flutter.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -38,9 +37,8 @@ android {
 
     defaultConfig {
         applicationId "io.flutter.plugins.androidintentexample"
-        minSdk 21
-        targetSdk 34
-        multiDexEnabled true
+        minSdk flutter.minSdkVersion
+        targetSdk flutter.targetSdkVersion
 
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -61,15 +59,6 @@ flutter {
 }
 
 dependencies {
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22") {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22") {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
-    }
-    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.core:core-ktx:1.13.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.6.1'

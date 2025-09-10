@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.1'
+        classpath 'com.android.tools.build:gradle:8.12.1'
     }
 }
 
@@ -22,9 +22,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdk 34
-
     namespace 'dev.fluttercommunity.plus.androidintent'
+    compileSdk = flutter.compileSdkVersion
 
     defaultConfig {
         minSdk 19
@@ -46,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.8.2'
+    implementation 'androidx.annotation:annotation:1.9.1'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.13.0'
     testImplementation 'androidx.test:core:1.6.1'
