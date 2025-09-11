@@ -1,3 +1,15 @@
+## 9.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(package_info_plus): Change Android compile SDK, update Android build config ([#3674](https://github.com/fluttercommunity/plus_plugins/issues/3674)). ([78c2b742](https://github.com/fluttercommunity/plus_plugins/commit/78c2b7420bcc943b5f46a22285e750a0dc58e5bb))
+
 ## 8.3.1
 
  - **FIX**(package_info_plus): incorrect install time on macOS when app sandbox disabled ([#3638](https://github.com/fluttercommunity/plus_plugins/issues/3638)). ([2cf9297b](https://github.com/fluttercommunity/plus_plugins/commit/2cf9297b4e3ce5cc71d22539ca7d0dfc82ac819b))

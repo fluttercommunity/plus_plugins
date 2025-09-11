@@ -1,3 +1,15 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(sensors_plus): Change Android compile SDK, update Android build config ([#3670](https://github.com/fluttercommunity/plus_plugins/issues/3670)). ([ad32fae5](https://github.com/fluttercommunity/plus_plugins/commit/ad32fae515a61a7d251b574b96b3a707f7cfacaf))
+
 ## 6.1.2
 
  - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))

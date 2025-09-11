@@ -1,3 +1,15 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(battery_plus): Change Android compile SDK, update Android build config ([#3666](https://github.com/fluttercommunity/plus_plugins/issues/3666)). ([c2fe29ab](https://github.com/fluttercommunity/plus_plugins/commit/c2fe29ab224d1fca33905fe57110aee106da55e4))
+
 ## 6.2.3
 
  - **FIX**(battery_plus): Do not call hidden flag on Samsung with Android versions >= 12 ([#3641](https://github.com/fluttercommunity/plus_plugins/issues/3641)). ([a8764705](https://github.com/fluttercommunity/plus_plugins/commit/a87647056529ef88d319d9a27c75744c9db9ff53))
