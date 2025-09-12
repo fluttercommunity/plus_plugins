@@ -98,12 +98,12 @@
   } else if ([identifier isEqualToString:@"iPhone17,5"]) {
     return @"iPhone 16e";
   } else if ([identifier isEqualToString:@"iPhone18,3"]) {
-      return @"iPhone 17";
-  }  else if ([identifier isEqualToString:@"iPhone18,1"]) {
+    return @"iPhone 17";
+  } else if ([identifier isEqualToString:@"iPhone18,1"]) {
     return @"iPhone 17 Pro";
   } else if ([identifier isEqualToString:@"iPhone18,2"]) {
     return @"iPhone 17 Pro Max";
-  }  else if ([identifier isEqualToString:@"iPhone18,4"]) {
+  } else if ([identifier isEqualToString:@"iPhone18,4"]) {
     return @"iPhone Air";
     // iPads
   } else if ([identifier isEqualToString:@"iPad4,1"] ||
