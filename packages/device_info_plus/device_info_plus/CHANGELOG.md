@@ -1,3 +1,7 @@
+## 12.1.0
+
+ - **FEAT**(device_info_plus): add mapping for new iPhone 17 series models ([#3676](https://github.com/fluttercommunity/plus_plugins/issues/3676)). ([80eb9815](https://github.com/fluttercommunity/plus_plugins/commit/80eb98156aed96fbc214736964724604e9c80b4f))
+
 ## 12.0.0
 
 > Note: This release has breaking changes.
