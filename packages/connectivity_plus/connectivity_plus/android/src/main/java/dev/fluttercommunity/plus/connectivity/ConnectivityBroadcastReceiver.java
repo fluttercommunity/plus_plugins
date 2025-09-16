@@ -16,9 +16,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.RequiresApi;
-
 import io.flutter.plugin.common.EventChannel;
-
 import java.util.List;
 
 /**
