@@ -420,10 +420,13 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   BOOL isCoordinateSpaceOfSourceView =
       CGRectContainsRect(controller.view.frame, origin);
 
+  // Check if this is actually an iPad
+  BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+
   // If device is e.g. an iPad then hasPopoverPresentationController is true
   BOOL hasPopoverPresentationController =
       [activityViewController popoverPresentationController] != NULL;
-  if (hasPopoverPresentationController &&
+  if (isIpad && hasPopoverPresentationController &&
       (!isCoordinateSpaceOfSourceView || CGRectIsEmpty(origin))) {
     NSString *sharePositionIssue = [NSString
         stringWithFormat:
