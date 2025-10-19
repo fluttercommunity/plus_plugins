@@ -217,6 +217,9 @@
   } else if ([identifier isEqualToString:@"iPad16,5"] ||
              [identifier isEqualToString:@"iPad16,6"]) {
     return @"iPad Pro 13-Inch (M4)";
+  } else if ([identifier isEqualToString:@"iPad17,3"] ||
+             [identifier isEqualToString:@"iPad17,4"]) {
+    return @"iPad Pro 13-Inch (M5)";
   } else {
     return @"Unknown device";
   }
