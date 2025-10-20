@@ -1,6 +1,6 @@
 import Foundation
 
-// Models list is taken from support.apple.com
+// Models list is taken from support.apple.com and https://theapplewiki.com/wiki/Models
 // Example of the list with models https://support.apple.com/en-us/102869
 
 func getMacModelName(modelNumber: String) -> String {
@@ -23,6 +23,8 @@ func getMacModelName(modelNumber: String) -> String {
     case "Mac14,15": return "MacBook Air (15-inch, 2023)"
     case "Mac15,12": return "MacBook Air (13-inch, 2024)"
     case "Mac15,13": return "MacBook Air (15-inch, 2024)"
+    case "Mac16,12": return "MacBook Air (13-inch, 2025)"
+    case "Mac16,13": return "MacBook Air (15-inch, 2025)"
 
     // MacBook Pro models (2012 and later)
     case "MacBookPro10,1": return "MacBook Pro (15-inch, 2012-2013)"
@@ -53,6 +55,8 @@ func getMacModelName(modelNumber: String) -> String {
     case "Mac15,3": return "MacBook Pro (14-inch, 2023)"
     case "Mac15,6", "Mac15,8", "Mac15,10": return "MacBook Pro (14-inch, 2023)"
     case "Mac15,7", "Mac15,9", "Mac15,11": return "MacBook Pro (16-inch, 2023)"
+    case "Mac16,1", "Mac16,6", "Mac16,8": return "MacBook Pro (14-inch, 2024)"
+    case "Mac16,5", "Mac16,7": return "MacBook Pro (16-inch, 2024)"
     case "Mac17,2": return "MacBook Pro (14-inch, 2025)"
 
     // iMac models (2013 and later)
@@ -81,7 +85,7 @@ func getMacModelName(modelNumber: String) -> String {
     case "MacMini9,1": return "Mac mini (2020)"
     case "Mac14,12": return "Mac mini (2023)"
     case "Mac14,3": return "Mac mini (2023)"
-    case "Mac16,15", "Mac16,10": return "Mac mini (2024)"
+    case "Mac16,11", "Mac16,10": return "Mac mini (2024)"
 
     // Mac Pro models (2013 and later)
     case "MacPro6,1": return "Mac Pro (Late 2013)"
@@ -94,6 +98,7 @@ func getMacModelName(modelNumber: String) -> String {
     // Mac Studio (2022 and newer)
     case "Mac13,1", "Mac13,2": return "Mac Studio (2022)"
     case "Mac14,13", "Mac14,14": return "Mac Studio (2023)"
+    case "Mac15,14", "Mac16,9": return "Mac Studio (2025)"
 
     default: return "Unknown Model"
     }
