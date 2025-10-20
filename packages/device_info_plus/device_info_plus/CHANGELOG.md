@@ -1,3 +1,9 @@
+## 12.2.0
+
+ - **FIX**(device_info_plus): correct Mac model name mappings ([#3690](https://github.com/fluttercommunity/plus_plugins/issues/3690)). ([5040a78e](https://github.com/fluttercommunity/plus_plugins/commit/5040a78e26e2abbc9b9e1e8cbb23b1e6e38ad32a))
+ - **FEAT**(device_info_plus): Add missing device identifiers for Macs on M4 ([#3700](https://github.com/fluttercommunity/plus_plugins/issues/3700)). ([b4dbd144](https://github.com/fluttercommunity/plus_plugins/commit/b4dbd1444c3104bc1f10af941907905d3070edcf))
+ - **FEAT**(device_info_plus): Add identifiers for new Apple devices on M5 chip ([#3698](https://github.com/fluttercommunity/plus_plugins/issues/3698)). ([4cc3f07f](https://github.com/fluttercommunity/plus_plugins/commit/4cc3f07fd4836e5417089630439fcb8a9cdb6bf5))
+
 ## 12.1.0
 
  - **FEAT**(device_info_plus): add mapping for new iPhone 17 series models ([#3676](https://github.com/fluttercommunity/plus_plugins/issues/3676)). ([80eb9815](https://github.com/fluttercommunity/plus_plugins/commit/80eb98156aed96fbc214736964724604e9c80b4f))
