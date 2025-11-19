@@ -63,7 +63,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        android-api-level: [ 21, 26, 31, 34]
+        android-api-level: [ 24, 26, 31, 34]
 
     steps:
       - name: "Checkout repository"
