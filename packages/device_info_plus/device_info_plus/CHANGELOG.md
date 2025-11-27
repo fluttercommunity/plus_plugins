@@ -1,3 +1,7 @@
+## 12.3.0
+
+ - **FEAT**(device_info_plus): Add identifiers for iPad Pro 11-Inch (M5) models ([#3708](https://github.com/fluttercommunity/plus_plugins/issues/3708)). ([61786a1d](https://github.com/fluttercommunity/plus_plugins/commit/61786a1d680d8c3886b4fceb34d689ec94e10d8a))
+
 ## 12.2.0
 
  - **FIX**(device_info_plus): correct Mac model name mappings ([#3690](https://github.com/fluttercommunity/plus_plugins/issues/3690)). ([5040a78e](https://github.com/fluttercommunity/plus_plugins/commit/5040a78e26e2abbc9b9e1e8cbb23b1e6e38ad32a))
