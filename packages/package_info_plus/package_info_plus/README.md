@@ -48,15 +48,16 @@ String version = packageInfo.version;
 String buildNumber = packageInfo.buildNumber;
 ```
 
-## Installer Store
+### Installer Store
 
 The `installerStore` property indicates which app store installed the application. This is useful for directing users to the appropriate store page for ratings or updates.
 
 ```dart
+PackageInfo packageInfo = await PackageInfo.fromPlatform();
 String? installerStore = packageInfo.installerStore;
 ```
 
-### iOS
+#### iOS
 
 On iOS, the `installerStore` value is determined by checking the app store receipt path:
 
@@ -66,7 +67,7 @@ On iOS, the `installerStore` value is determined by checking the app store recei
 | TestFlight | `com.apple.testflight` |
 | Simulator | `com.apple.simulator` |
 
-### Android
+#### Android
 
 On Android, the value is the package name of the app store that installed the application, obtained via `PackageManager.getInstallSourceInfo()` (Android 11+) or `PackageManager.getInstallerPackageName()` (older versions).
 
@@ -83,13 +84,9 @@ On Android, the value is the package name of the app store that installed the ap
 
 **Note:** Some stores may not properly implement the installer package name API, which could result in `null` being returned even for store installations.
 
-### macOS
+#### Other Platforms
 
-On macOS, `installerStore` always returns `null` as there is no reliable way to detect the installation source.
-
-### Other Platforms
-
-On Linux, Windows, and Web, `installerStore` returns `null`.
+On MacOS, Linux, Windows, and Web, `installerStore` returns `null`.
 
 ## Known Issues
 
