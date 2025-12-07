@@ -48,6 +48,46 @@ String version = packageInfo.version;
 String buildNumber = packageInfo.buildNumber;
 ```
 
+### Installer Store
+
+The `installerStore` property indicates which app store installed the application. This is useful for directing users to the appropriate store page for ratings or updates.
+
+```dart
+PackageInfo packageInfo = await PackageInfo.fromPlatform();
+String? installerStore = packageInfo.installerStore;
+```
+
+#### iOS
+
+On iOS, the `installerStore` value is determined by checking the app store receipt path:
+
+| Environment | `installerStore` value |
+|-------------|------------------------|
+| App Store | `com.apple` |
+| TestFlight | `com.apple.testflight` |
+| Simulator | `com.apple.simulator` |
+
+#### Android
+
+On Android, the value is the package name of the app store that installed the application, obtained via `PackageManager.getInstallSourceInfo()` (Android 11+) or `PackageManager.getInstallerPackageName()` (older versions).
+
+| Store | `installerStore` value |
+|-------|------------------------|
+| Google Play Store | `com.android.vending` |
+| Amazon Appstore | `com.amazon.venezia` |
+| Samsung Galaxy Store | `com.sec.android.app.samsungapps` |
+| Huawei AppGallery | `com.huawei.appmarket` |
+| Xiaomi GetApps | `com.xiaomi.mipicks` |
+| OPPO App Market | `com.oppo.market` |
+| VIVO App Store | `com.vivo.appstore` |
+| Manual/ADB install | `null` |
+
+**Note:** Some stores may not properly implement the installer package name API, which could result in `null` being returned even for store installations.
+
+#### Other Platforms
+
+On MacOS, Linux, Windows, and Web, `installerStore` returns `null`.
+
 ## Known Issues
 
 ### iOS
