@@ -6,19 +6,20 @@
 
 [<img src="../../../assets/flutter-favorite-badge.png" width="100" />](https://flutter.dev/docs/development/packages-and-plugins/favorites)
 
-A Flutter plugin to share content from your Flutter app via the platform's
-share dialog.
+A Flutter plugin that allows you to share content from your Flutter application
+using the platform’s native share dialog.
 
-Wraps the `ACTION_SEND` Intent on Android, `UIActivityViewController`
-on iOS, or equivalent platform content sharing methods.
+It wraps platform-specific sharing mechanisms such as the `ACTION_SEND` Intent
+on Android, `UIActivityViewController` on iOS, and equivalent sharing methods
+on other supported platforms.
 
 ## Platform Support
 
-| Shared content | Android | iOS | macOS | Web | Linux | Windows |
-| :------------: | :-----: | :-: | :---: | :-: | :---: | :-----: |
-| Text           |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
-| URI            |   ✅    | ✅  |  ✅   | As text | As text | As text |
-| Files          |   ✅    | ✅  |  ✅   | ✅  |  ❌   |   ✅   |
+| Shared content | Android | iOS | macOS |   Web   |  Linux  | Windows |
+| :------------: | :-----: | :-: | :---: | :-----: | :-----: | :-----: |
+|      Text      |   ✅    | ✅  |  ✅   |   ✅    |   ✅    |   ✅    |
+|      URI       |   ✅    | ✅  |  ✅   | As text | As text | As text |
+|     Files      |   ✅    | ✅  |  ✅   |   ✅    |   ❌    |   ✅    |
 
 Also compatible with Windows and Linux by using "mailto" to share text via Email.
 
@@ -37,9 +38,10 @@ Sharing files is not supported on Linux.
 
 ## Usage
 
-To use this plugin, add `share_plus` as a [dependency in your pubspec.yaml file](https://plus.fluttercommunity.dev/docs/overview).
+To use this plugin, add `share_plus` as a dependency in your `pubspec.yaml` file.
+More information can be found in the official documentation.
 
-Import the library.
+Then, import the library in your Dart file.
 
 ```dart
 import 'package:share_plus/share_plus.dart';
