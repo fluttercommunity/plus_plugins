@@ -131,6 +131,8 @@ internal class Share(
                 Intent.createChooser(shareIntent, title)
             }
 
+        chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         // Grant permissions to all apps that can handle the files shared
         if (fileUris != null) {
             val resInfoList = getContext().packageManager.queryIntentActivities(
