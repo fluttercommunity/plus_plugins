@@ -157,6 +157,7 @@ internal class Share(
             if (withResult) {
                 activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
             } else {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 activity!!.startActivity(intent)
             }
         } else {
