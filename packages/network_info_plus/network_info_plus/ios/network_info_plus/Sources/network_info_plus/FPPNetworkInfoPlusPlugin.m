@@ -8,8 +8,8 @@
 #import "./include/network_info_plus/FPPHotspotNetworkInfoProvider.h"
 #import "./include/network_info_plus/FPPNetworkInfo.h"
 #import "./include/network_info_plus/FPPNetworkInfoProvider.h"
-#import "SystemConfiguration/CaptiveNetwork.h"
 #import "./include/network_info_plus/getgateway.h"
+#import "SystemConfiguration/CaptiveNetwork.h"
 #import <CoreLocation/CoreLocation.h>
 
 #include <ifaddrs.h>
@@ -69,7 +69,8 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
-                      if (addr) return;
+                      if (addr)
+                        return;
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
@@ -79,7 +80,8 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET6
                     usingBlock:^(struct ifaddrs *ifaddr) {
-                      if (addr) return;
+                      if (addr)
+                        return;
                       addr = [self descriptionForAddress:ifaddr->ifa_addr];
                     }];
   return addr;
@@ -89,7 +91,8 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
-                      if (addr) return;
+                      if (addr)
+                        return;
                       addr = [self descriptionForAddress:ifaddr->ifa_netmask];
                     }];
   return addr;
@@ -99,7 +102,8 @@
   __block NSString *addr = nil;
   [self enumerateWifiAddresses:AF_INET
                     usingBlock:^(struct ifaddrs *ifaddr) {
-                      if (addr) return;
+                      if (addr)
+                        return;
                       addr = [self descriptionForAddress:ifaddr->ifa_dstaddr];
                     }];
   return addr;
@@ -143,21 +147,21 @@
   // retrieve the current interfaces - returns 0 on success
   success = getifaddrs(&interfaces);
   if (success != 0) {
-      NSLog(@"Error: getifaddrs() failed with error code: %d", success);
-      return;
+    NSLog(@"Error: getifaddrs() failed with error code: %d", success);
+    return;
   }
 
   // Loop through linked list of interfaces
   temp_addr = interfaces;
   while (temp_addr != NULL) {
-      if (temp_addr->ifa_addr->sa_family == family) {
-          // One of `en` interfaces should be WiFi interface
-          if (strncmp(temp_addr->ifa_name, "en", 2) == 0) {
-              block(temp_addr);
-          }
+    if (temp_addr->ifa_addr->sa_family == family) {
+      // One of `en` interfaces should be WiFi interface
+      if (strncmp(temp_addr->ifa_name, "en", 2) == 0) {
+        block(temp_addr);
       }
+    }
 
-      temp_addr = temp_addr->ifa_next;
+    temp_addr = temp_addr->ifa_next;
   }
 
   // Free memory

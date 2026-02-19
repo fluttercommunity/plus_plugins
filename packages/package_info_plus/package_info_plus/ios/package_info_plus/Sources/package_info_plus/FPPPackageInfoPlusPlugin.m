@@ -53,36 +53,42 @@
 }
 
 - (NSDate *)getInstallDate {
-    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    __autoreleasing NSError *error;
-    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error];
+  NSURL *urlToDocumentsFolder = [[[NSFileManager defaultManager]
+      URLsForDirectory:NSDocumentDirectory
+             inDomains:NSUserDomainMask] lastObject];
+  __autoreleasing NSError *error;
+  NSDictionary *attributes = [[NSFileManager defaultManager]
+      attributesOfItemAtPath:urlToDocumentsFolder.path
+                       error:&error];
 
-    if (error) {
-        return nil;
-    }
+  if (error) {
+    return nil;
+  }
 
-    return [attributes objectForKey:NSFileCreationDate];
+  return [attributes objectForKey:NSFileCreationDate];
 }
 
 - (NSDate *)getUpdateDate {
-    __autoreleasing NSError *error;
-    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[[NSBundle mainBundle] bundlePath] error:&error];
-    NSDate *updateDate = [attributes fileModificationDate];
+  __autoreleasing NSError *error;
+  NSDictionary *attributes = [[NSFileManager defaultManager]
+      attributesOfItemAtPath:[[NSBundle mainBundle] bundlePath]
+                       error:&error];
+  NSDate *updateDate = [attributes fileModificationDate];
 
-    if (error) {
-        return nil;
-    }
+  if (error) {
+    return nil;
+  }
 
-    return updateDate;
+  return updateDate;
 }
 
 - (NSString *)getTimeMillisStringFromDate:(NSDate *)date {
-    if (!date) {
-        return nil;
-    }
+  if (!date) {
+    return nil;
+  }
 
-    NSNumber *timeMillis = @((long long)([date timeIntervalSince1970] * 1000));
-    return [timeMillis stringValue];
+  NSNumber *timeMillis = @((long long)([date timeIntervalSince1970] * 1000));
+  return [timeMillis stringValue];
 }
 
 @end
