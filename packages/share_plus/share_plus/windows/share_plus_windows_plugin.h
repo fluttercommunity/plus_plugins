@@ -24,59 +24,68 @@ namespace WindowsFoundation = ABI::Windows::Foundation;
 namespace WindowsStorage = ABI::Windows::Storage;
 namespace DataTransfer = ABI::Windows::ApplicationModel::DataTransfer;
 
-namespace share_plus_windows {
+namespace share_plus_windows
+{
 
-class SharePlusWindowsPlugin : public flutter::Plugin {
-public:
-  static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
+    class SharePlusWindowsPlugin : public flutter::Plugin
+    {
+    public:
+        static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
 
-  SharePlusWindowsPlugin(flutter::PluginRegistrarWindows *registrar);
+        SharePlusWindowsPlugin(flutter::PluginRegistrarWindows *registrar);
 
-  virtual ~SharePlusWindowsPlugin();
+        virtual ~SharePlusWindowsPlugin();
 
-  SharePlusWindowsPlugin(const SharePlusWindowsPlugin &) = delete;
-  SharePlusWindowsPlugin &operator=(const SharePlusWindowsPlugin &) = delete;
+        SharePlusWindowsPlugin(const SharePlusWindowsPlugin &) = delete;
+        SharePlusWindowsPlugin &operator=(const SharePlusWindowsPlugin &) = delete;
 
-private:
-  static constexpr auto kSharePlusChannelName =
-      "dev.fluttercommunity.plus/share";
+    private:
+        static constexpr auto kSharePlusChannelName =
+            "dev.fluttercommunity.plus/share";
 
-  static constexpr auto kShareResultUnavailable =
-      "dev.fluttercommunity.plus/share/unavailable";
+        static constexpr auto kShareResultUnavailable =
+            "dev.fluttercommunity.plus/share/unavailable";
 
-  static constexpr auto kShare = "share";
-  //static constexpr auto kShareFiles = "shareFiles";
+        static constexpr auto kShare = "share";
+        // static constexpr auto kShareFiles = "shareFiles";
 
-  HWND GetWindow();
+        HWND GetWindow();
 
-  WRL::ComPtr<DataTransfer::IDataTransferManager> GetDataTransferManager();
+        WRL::ComPtr<DataTransfer::IDataTransferManager> GetDataTransferManager();
 
-  void HandleMethodCall(
-      const flutter::MethodCall<flutter::EncodableValue> &method_call,
-      std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
+        void HandleMethodCall(
+            const flutter::MethodCall<flutter::EncodableValue> &method_call,
+            std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
 
-  static HRESULT GetStorageFileFromPath(wchar_t *path,
-                                        WindowsStorage::IStorageFile **file);
+        static HRESULT GetStorageFileFromPath(wchar_t *path,
+                                              WindowsStorage::IStorageFile **file);
 
-  static std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string);
+        static HRESULT GetStorageFileFromApplicationData(
+            const std::wstring &path, WindowsStorage::IStorageFile **file);
 
-  flutter::PluginRegistrarWindows *registrar_ = nullptr;
-  WRL::ComPtr<IDataTransferManagerInterop> data_transfer_manager_interop_ =
-      nullptr;
-  WRL::ComPtr<DataTransfer::IDataTransferManager> data_transfer_manager_ =
-      nullptr;
-  EventRegistrationToken data_transfer_manager_token_;
+        static bool IsApplicationDataPath(const std::wstring &path,
+                                          std::wstring &relative_path,
+                                          int &folder_type);
 
-  // Present here to keep |std::string| in memory until data request callback
-  // from |IDataTransferManager| takes place.
-  // Subsequent calls on the platform channel will overwrite the existing value.
-  std::optional<std::string> share_text_ = std::nullopt;
-  std::optional<std::string> share_uri_ = std::nullopt;
-  std::optional<std::string> share_subject_ = std::nullopt;
-  std::optional<std::string> share_title_ = std::nullopt;
-  std::vector<std::string> paths_ = {};
-  std::vector<std::string> mime_types_ = {};
-};
+        static std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string);
+
+        flutter::PluginRegistrarWindows *registrar_ = nullptr;
+        WRL::ComPtr<IDataTransferManagerInterop> data_transfer_manager_interop_ =
+            nullptr;
+        WRL::ComPtr<DataTransfer::IDataTransferManager> data_transfer_manager_ =
+            nullptr;
+        EventRegistrationToken data_transfer_manager_token_;
+
+        // Present here to keep |std::string| in memory until data request callback
+        // from |IDataTransferManager| takes place.
+        // Subsequent calls on the platform channel will overwrite the existing value.
+        std::optional<std::string> share_text_ = std::nullopt;
+        std::optional<std::string> share_uri_ = std::nullopt;
+        std::optional<std::string> share_subject_ = std::nullopt;
+        std::optional<std::string> share_title_ = std::nullopt;
+        std::vector<std::string> paths_ = {};
+        std::vector<std::string> mime_types_ = {};
+    };
 
 } // namespace share_plus_windows
 
