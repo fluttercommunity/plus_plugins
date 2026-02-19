@@ -153,22 +153,23 @@ internal class Share(
     }
 
     private fun startActivity(intent: Intent, withResult: Boolean) {
-        if (activity != null) {
-            if (withResult) {
-                activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
-            } else {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                activity!!.startActivity(intent)
-            }
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+
+    if (activity != null) {
+        if (withResult) {
+            activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
         } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            if (withResult) {
-                // We need to cancel the callback to avoid deadlocking on the Dart side
-                manager.unavailable()
-            }
-            context.startActivity(intent)
+            activity!!.startActivity(intent)
         }
+    } else {
+        if (withResult) {
+            // We need to cancel the callback to avoid deadlocking on the Dart side
+            manager.unavailable()
+        }
+        context.startActivity(intent)
     }
+}
 
     @Throws(IOException::class)
     private fun getUrisForPaths(paths: List<String>): ArrayList<Uri> {
