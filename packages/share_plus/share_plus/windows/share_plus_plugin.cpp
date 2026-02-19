@@ -83,7 +83,6 @@ namespace share_plus_windows
     const std::wstring localcache_marker = L"\\localcache\\";
     const std::wstring temp_marker = L"\\temp\\";
     const std::wstring roamingstate_marker = L"\\roamingstate\\";
-    const std::wstring sharedstate_marker = L"\\sharedstate\\";
 
     size_t pos = lower_path.find(packages_marker);
     if (pos != std::wstring::npos)
@@ -117,14 +116,6 @@ namespace share_plus_windows
           folder_type = 3;
           size_t roaming_pos = remainder.find(roamingstate_marker);
           relative_path = path.substr(package_end + roaming_pos + roamingstate_marker.length());
-          return true;
-        }
-
-        if (remainder.find(sharedstate_marker) != std::wstring::npos)
-        {
-          folder_type = 4;
-          size_t shared_pos = remainder.find(sharedstate_marker);
-          relative_path = path.substr(package_end + shared_pos + sharedstate_marker.length());
           return true;
         }
 
@@ -201,16 +192,6 @@ namespace share_plus_windows
     case 3:
       hr = app_data->get_RoamingFolder(&folder);
       break;
-    case 4:
-    {
-      WRL::ComPtr<WindowsStorage::IApplicationData2> app_data2;
-      hr = app_data.As(&app_data2);
-      if (SUCCEEDED(hr))
-      {
-        hr = app_data2->get_SharedLocalFolder(&folder);
-      }
-    }
-    break;
     default:
       return E_INVALIDARG;
     }
@@ -262,6 +243,9 @@ namespace share_plus_windows
     *file = nullptr;
     std::wstring path_wstr(path);
 
+    // Normalize path (Convert forward slashes to backslashes for Windows)
+    std::replace(path_wstr.begin(), path_wstr.end(), L'/', L'\\');
+
     std::wstring relative_path;
     int folder_type;
     if (IsApplicationDataPath(path_wstr, relative_path, folder_type))
@@ -286,7 +270,7 @@ namespace share_plus_windows
     WRL::ComPtr<
         WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile *>>
         async_operation;
-    hr = factory->GetFileFromPathAsync(HStringReference(path).Get(),
+    hr = factory->GetFileFromPathAsync(HStringReference(path_wstr.c_str()).Get(),
                                        &async_operation);
     if (SUCCEEDED(hr))
     {
