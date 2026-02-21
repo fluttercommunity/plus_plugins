@@ -53,8 +53,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    # Use non M1 machine till https://github.com/ReactiveCircus/android-emulator-runner/issues/350 is resolved
-    runs-on: macos-13
+    runs-on: macos-15-intel
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -81,8 +80,8 @@ jobs:
           profile: Nexus 5X
           script: ./.github/workflows/scripts/integration-test.sh android sensors_plus_example
 
-  ios:
-    runs-on: macos-14
+  ios_example_build:
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -94,7 +93,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -105,13 +104,13 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 17'
       - name: "Bootstrap Workspace"
         run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios sensors_plus_example
 
-  web:
+  web_example_build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
