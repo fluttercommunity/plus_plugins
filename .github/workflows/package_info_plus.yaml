@@ -44,7 +44,7 @@ jobs:
           working-directory: ./packages/package_info_plus
 
   android_example_build:
-    runs-on: macos-14
+    runs-on: macos-15-intel
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -57,8 +57,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    # Use non M1 machine till https://github.com/ReactiveCircus/android-emulator-runner/issues/350 is resolved
-    runs-on: macos-13
+    runs-on: macos-15-intel
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -85,7 +84,7 @@ jobs:
           script: ./.github/workflows/scripts/integration-test.sh android package_info_plus_example
 
   ios_example_build:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -97,7 +96,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -115,7 +114,7 @@ jobs:
         run: ./.github/workflows/scripts/integration-test.sh ios package_info_plus_example
 
   macos_example_build:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
@@ -127,7 +126,7 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
   macos_integration_test:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
