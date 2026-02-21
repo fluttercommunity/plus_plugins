@@ -104,7 +104,7 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 17'
       - name: "Bootstrap Workspace"
         run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Run Integration Test"

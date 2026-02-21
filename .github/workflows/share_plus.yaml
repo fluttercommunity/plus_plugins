@@ -108,7 +108,7 @@ jobs:
       - name: "Start Simulator"
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 17'
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios share_plus_example
 
