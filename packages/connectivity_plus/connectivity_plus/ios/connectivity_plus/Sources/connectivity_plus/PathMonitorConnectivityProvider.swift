@@ -3,9 +3,9 @@ import Network
 
 public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
 
-  // Use .utility, as it is intended for tasks that the user does not track actively.
-  // See: https://developer.apple.com/documentation/dispatch/dispatchqos
-  private let queue = DispatchQueue.global(qos: .utility)
+  // Use a serial queue to ensure that all network updates and monitor events happen 
+  // sequentially, preventing race conditions during deallocation.
+  private let queue = DispatchQueue(label: "dev.fluttercommunity.plus.connectivity")
 
   private var pathMonitor: NWPathMonitor?
 
