@@ -24,6 +24,7 @@ Get current device information from within the Flutter application.
 - Kotlin 2.2.0
 - Android Gradle Plugin >=8.12.1
 - Gradle wrapper >=8.13
+- Xcode >= 26.1.1
 
 # Usage
 
