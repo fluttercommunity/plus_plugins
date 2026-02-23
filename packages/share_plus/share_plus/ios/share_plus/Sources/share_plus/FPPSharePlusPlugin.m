@@ -377,14 +377,14 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                       withSubject:shareTitle
                          withText:shareText
             excludedActivityTypes:excludedActivityTypes
-                   withController:rootViewController
+                   withController:topViewController
                          atSource:originRect
                          toResult:result];
       } else if (shareText) {
         [self shareText:shareText
                           subject:shareTitle
             excludedActivityTypes:excludedActivityTypes
-                   withController:rootViewController
+                   withController:topViewController
                          atSource:originRect
                          toResult:result];
       } else {
