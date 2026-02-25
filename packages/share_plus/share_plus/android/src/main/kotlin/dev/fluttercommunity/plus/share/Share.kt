@@ -66,6 +66,7 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
+        val useNewTask = arguments["useNewTask"] as Boolean?;
 
         // Create Share Intent
         val shareIntent = Intent()
@@ -148,14 +149,18 @@ internal class Share(
             }
         }
 
+        if (useNewTask) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        } else if (activity == null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
         // Launch share intent
         startActivity(chooserIntent, withResult)
     }
 
     private fun startActivity(intent: Intent, withResult: Boolean) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-
         if (activity != null) {
             if (withResult) {
                 activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
