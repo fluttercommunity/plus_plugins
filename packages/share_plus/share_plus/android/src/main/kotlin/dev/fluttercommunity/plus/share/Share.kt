@@ -66,7 +66,7 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
-        val useNewTask = arguments["useNewTask"] as Boolean?;
+        val useNewTask = arguments["useNewTask"] as Boolean;
 
         // Create Share Intent
         val shareIntent = Intent()
