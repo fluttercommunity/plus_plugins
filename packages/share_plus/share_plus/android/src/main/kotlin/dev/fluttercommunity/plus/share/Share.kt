@@ -150,10 +150,10 @@ internal class Share(
         }
 
         if (useNewTask) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
         } else if (activity == null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
         // Launch share intent
