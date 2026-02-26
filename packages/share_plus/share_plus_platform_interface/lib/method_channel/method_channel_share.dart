@@ -41,6 +41,7 @@ class MethodChannelShare extends SharePlatform {
       if (params.subject != null) 'subject': params.subject,
       if (params.title != null) 'title': params.title,
       if (params.uri != null) 'uri': params.uri.toString(),
+      'useNewTask': params.useNewTask,
     };
 
     if (params.sharePositionOrigin != null) {
