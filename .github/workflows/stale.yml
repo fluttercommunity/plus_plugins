@@ -31,4 +31,4 @@ jobs:
           exempt-pr-labels: keep-open
           operations-per-run: 1000
       - name: Lock closed issues and PRs
-        uses: dessant/lock-threads@v5
+        uses: dessant/lock-threads@v6

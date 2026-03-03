@@ -129,6 +129,7 @@ class _MyAppState extends State<MyApp> {
       'identifierForVendor': data.identifierForVendor,
       'isPhysicalDevice': data.isPhysicalDevice,
       'isiOSAppOnMac': data.isiOSAppOnMac,
+      'isiOSAppOnVision': data.isiOSAppOnVision,
       'freeDiskSize': data.freeDiskSize,
       'totalDiskSize': data.totalDiskSize,
       'physicalRamSize': data.physicalRamSize,
