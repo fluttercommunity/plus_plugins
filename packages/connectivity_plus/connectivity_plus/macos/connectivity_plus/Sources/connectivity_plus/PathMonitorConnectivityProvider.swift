@@ -26,6 +26,9 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
       if path.usesInterfaceType(.other) {
         types.append(.other)
       }
+      if path.isConstrained {
+        types.append(.constrained)
+      }
     }
     
     return types.isEmpty ? [.none] : types

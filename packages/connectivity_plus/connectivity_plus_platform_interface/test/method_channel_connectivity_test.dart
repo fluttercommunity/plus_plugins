@@ -58,6 +58,27 @@ void main() {
       );
     });
 
+    test('checkConnectivity with satellite', () async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        methodChannelConnectivity.methodChannel,
+        (MethodCall methodCall) async {
+          switch (methodCall.method) {
+            case 'check':
+              return ['mobile', 'satellite'];
+            default:
+              return null;
+          }
+        },
+      );
+      final result = await methodChannelConnectivity.checkConnectivity();
+      expect(
+        result,
+        containsAll(
+            [ConnectivityResult.mobile, ConnectivityResult.satellite]),
+      );
+    });
+
     // Test adjusted to handle multiple connectivity types
     test('onConnectivityChanged', () async {
       final result =
