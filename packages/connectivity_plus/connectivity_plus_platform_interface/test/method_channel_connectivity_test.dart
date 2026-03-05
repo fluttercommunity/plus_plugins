@@ -74,8 +74,7 @@ void main() {
       final result = await methodChannelConnectivity.checkConnectivity();
       expect(
         result,
-        containsAll(
-            [ConnectivityResult.mobile, ConnectivityResult.satellite]),
+        containsAll([ConnectivityResult.mobile, ConnectivityResult.satellite]),
       );
     });
 
