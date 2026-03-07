@@ -209,6 +209,21 @@ class MyHomePageState extends State<MyHomePage> {
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
+                  onPressed: () {
+                    _onShareXFileFromAssets(context, attach: true);
+                  },
+                  child: const Text('Attach XFile from Assets'),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
                   onPressed: fileName.isEmpty || text.isEmpty
                       ? null
                       : () => _onShareTextAsXFile(context),
@@ -293,7 +308,10 @@ class MyHomePageState extends State<MyHomePage> {
     scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
   }
 
-  void _onShareXFileFromAssets(BuildContext context) async {
+  void _onShareXFileFromAssets(
+    BuildContext context, {
+    bool attach = false,
+  }) async {
     final box = context.findRenderObject() as RenderBox?;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     try {
@@ -311,6 +329,7 @@ class MyHomePageState extends State<MyHomePage> {
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           downloadFallbackEnabled: true,
           excludedCupertinoActivities: excludedCupertinoActivityType,
+          attach: attach,
         ),
       );
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
