@@ -105,6 +105,8 @@
     return @"iPhone 17 Pro Max";
   } else if ([identifier isEqualToString:@"iPhone18,4"]) {
     return @"iPhone Air";
+  } else if ([identifier isEqualToString:@"iPhone18,5"]) {
+    return @"iPhone 17e";
     // iPads
   } else if ([identifier isEqualToString:@"iPad4,1"] ||
              [identifier isEqualToString:@"iPad4,2"] ||
@@ -146,6 +148,12 @@
   } else if ([identifier isEqualToString:@"iPad14,10"] ||
              [identifier isEqualToString:@"iPad14,11"]) {
     return @"iPad Air 13-Inch M2";
+  } else if ([identifier isEqualToString:@"iPad16,8"] ||
+             [identifier isEqualToString:@"iPad16,9"]) {
+    return @"iPad Air 11-inch (M4)";
+  } else if ([identifier isEqualToString:@"iPad16,10"] ||
+             [identifier isEqualToString:@"iPad16,11"]) {
+    return @"iPad Air 13-inch (M4)";
   } else if ([identifier isEqualToString:@"iPad2,5"] ||
              [identifier isEqualToString:@"iPad2,6"] ||
              [identifier isEqualToString:@"iPad2,7"]) {
