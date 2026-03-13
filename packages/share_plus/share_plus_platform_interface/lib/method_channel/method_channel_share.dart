@@ -74,6 +74,14 @@ class MethodChannelShare extends SharePlatform {
       map['excludedCupertinoActivities'] = excludedActivityTypes;
     }
 
+    if (params.packageName != null) {
+      map['packageName'] = params.packageName;
+    }
+
+    if (params.extras != null) {
+      map['extras'] = params.extras;
+    }
+
     return map;
   }
 
