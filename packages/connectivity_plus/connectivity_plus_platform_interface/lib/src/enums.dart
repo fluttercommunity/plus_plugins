@@ -28,7 +28,7 @@ enum ConnectivityResult {
   /// covers both satellite connections and Low Data Mode enabled by the user.
   /// Appears alongside [mobile] (e.g. `[mobile, satellite]`).
   ///
-  /// On Android 14+ (API 34), reported when [TRANSPORT_SATELLITE] capability
+  /// On Android 15 (API 35) and newer, reported when [TRANSPORT_SATELLITE] capability
   /// is present. Appears as a standalone result.
   ///
   /// Not reported on other platforms.
