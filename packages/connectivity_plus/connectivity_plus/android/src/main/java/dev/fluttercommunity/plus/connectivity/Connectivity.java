@@ -21,6 +21,7 @@ public class Connectivity {
   static final String CONNECTIVITY_ETHERNET = "ethernet";
   static final String CONNECTIVITY_BLUETOOTH = "bluetooth";
   static final String CONNECTIVITY_VPN = "vpn";
+  static final String CONNECTIVITY_SATELLITE = "satellite";
   static final String CONNECTIVITY_OTHER = "other";
   private final ConnectivityManager connectivityManager;
 
@@ -69,6 +70,10 @@ public class Connectivity {
     }
     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
       types.add(CONNECTIVITY_BLUETOOTH);
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+        && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {
+      types.add(CONNECTIVITY_SATELLITE);
     }
     if (types.isEmpty()
         && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {

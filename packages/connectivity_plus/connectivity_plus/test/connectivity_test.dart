@@ -12,6 +12,11 @@ const List<ConnectivityResult> kCheckConnectivityResult = [
   ConnectivityResult.wifi
 ];
 
+const List<ConnectivityResult> kCheckConnectivitySatelliteResult = [
+  ConnectivityResult.mobile,
+  ConnectivityResult.satellite,
+];
+
 void main() {
   group('Connectivity', () {
     late Connectivity connectivity;
@@ -26,6 +31,17 @@ void main() {
       final result = await connectivity.checkConnectivity();
       expect(result, kCheckConnectivityResult);
     });
+
+    test('checkConnectivity passes through satellite', () async {
+      final satellitePlatform = MockSatelliteConnectivityPlatform();
+      ConnectivityPlatform.instance = satellitePlatform;
+      connectivity = Connectivity();
+      final result = await connectivity.checkConnectivity();
+      expect(
+        result,
+        containsAll(kCheckConnectivitySatelliteResult),
+      );
+    });
   });
 }
 
@@ -35,5 +51,14 @@ class MockConnectivityPlatform extends Mock
   @override
   Future<List<ConnectivityResult>> checkConnectivity() async {
     return kCheckConnectivityResult;
+  }
+}
+
+class MockSatelliteConnectivityPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements ConnectivityPlatform {
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() async {
+    return kCheckConnectivitySatelliteResult;
   }
 }
