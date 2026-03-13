@@ -66,6 +66,7 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
+        val attach = arguments["attach"] as Boolean? ?: false
 
         // Create Share Intent
         val shareIntent = Intent()
@@ -89,10 +90,17 @@ internal class Share(
                     } else {
                         "*/*"
                     }
-                    shareIntent.apply {
-                        action = Intent.ACTION_SEND
-                        type = mimeType
-                        putExtra(Intent.EXTRA_STREAM, fileUris.first())
+                    if (attach) {
+                        shareIntent.apply {
+                            action = Intent.ACTION_ATTACH_DATA
+                            setDataAndType(fileUris.first(), mimeType)
+                        }
+                    } else {
+                        shareIntent.apply {
+                            action = Intent.ACTION_SEND
+                            type = mimeType
+                            putExtra(Intent.EXTRA_STREAM, fileUris.first())
+                        }
                     }
                 }
 

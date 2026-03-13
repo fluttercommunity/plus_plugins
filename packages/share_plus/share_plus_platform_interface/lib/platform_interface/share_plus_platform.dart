@@ -142,6 +142,13 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
+  /// Whether to attach or share data. Will open ACTION_ATTACH_DATA intent on Android instead of ACTION_SEND.
+  /// Requires exactly on file to be provided.
+  ///
+  /// * Supported platforms: Android
+  ///   Parameter ignored on other platforms.
+  final bool attach;
+
   ShareParams({
     this.text,
     this.subject,
@@ -154,6 +161,7 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
+    this.attach = false,
   });
 }
 

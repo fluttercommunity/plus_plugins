@@ -56,6 +56,25 @@ void main() {
       );
     });
 
+    test(
+        'share throws ArgumentError if attach is true but no files are provided',
+        () async {
+      expect(
+        () => sharePlus.share(ShareParams(files: [], attach: true)),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
+    test(
+        'share throws ArgumentError if attach is true and more then one file is provided',
+        () async {
+      expect(
+        () => sharePlus.share(
+            ShareParams(files: [XFile('path'), XFile('path')], attach: true)),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+
     test('share calls platform share method with correct params', () async {
       final params = ShareParams(text: 'text');
       final result = await sharePlus.share(params);

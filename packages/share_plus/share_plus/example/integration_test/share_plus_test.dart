@@ -41,4 +41,17 @@ void main() {
     );
     expect(SharePlus.instance.share(params), isNotNull);
   });
+
+  testWidgets('Can attachXFile created using File.fromData()',
+      (WidgetTester tester) async {
+    final bytes = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8]);
+    final XFile file =
+        XFile.fromData(bytes, name: 'image.jpg', mimeType: 'image/jpeg');
+
+    final params = ShareParams(
+      files: [file],
+      attach: true,
+    );
+    expect(SharePlus.instance.share(params), isNotNull);
+  }, skip: !Platform.isAndroid);
 }

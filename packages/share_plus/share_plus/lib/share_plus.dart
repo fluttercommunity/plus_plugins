@@ -99,6 +99,12 @@ class SharePlus {
       );
     }
 
+    if (params.attach && (params.files?.length ?? 0) != 1) {
+      throw ArgumentError(
+        'Exactly one file must be provided when attach is true.',
+      );
+    }
+
     return _platform.share(params);
   }
 }
