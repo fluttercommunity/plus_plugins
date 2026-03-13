@@ -14,6 +14,7 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.annotation.RequiresApi;
 import io.flutter.plugin.common.EventChannel;
 import java.util.List;
 
@@ -86,16 +87,30 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
   @Override
   public void onCancel(Object arguments) {
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      if (networkCallback != null) {
+      safelyUnregisterNetworkCallback();
+    } else {
+      safelyUnregisterReceiver();
+    }
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  void safelyUnregisterNetworkCallback() {
+    if (networkCallback != null) {
+      try {
         connectivity.getConnectivityManager().unregisterNetworkCallback(networkCallback);
+      } catch (Exception e) {
+        // ignore the error
+      } finally {
         networkCallback = null;
       }
-    } else {
-      try {
-        context.unregisterReceiver(this);
-      } catch (Exception e) {
-        // listen never called, ignore the error
-      }
+    }
+  }
+
+  void safelyUnregisterReceiver() {
+    try {
+      context.unregisterReceiver(this);
+    } catch (Exception e) {
+      // listen never called, ignore the error
     }
   }
 
