@@ -71,7 +71,7 @@ public class Connectivity {
     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
       types.add(CONNECTIVITY_BLUETOOTH);
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
         && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {
       types.add(CONNECTIVITY_SATELLITE);
     }
