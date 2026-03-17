@@ -58,6 +58,13 @@ func getMacModelName(modelNumber: String) -> String {
     case "Mac16,1", "Mac16,6", "Mac16,8": return "MacBook Pro (14-inch, 2024)"
     case "Mac16,5", "Mac16,7": return "MacBook Pro (16-inch, 2024)"
     case "Mac17,2": return "MacBook Pro (14-inch, 2025)"
+    case "Mac17,3": return "MacBook Air (13-inch, 2026)"
+    case "Mac17,4": return "MacBook Air (15-inch, 2026)"
+    case "Mac17,6", "Mac17,8": return "MacBook Pro (16-inch, 2026)"
+    case "Mac17,7", "Mac17,9": return "MacBook Pro (14-inch, 2026)"
+
+    // MacBook Neo
+    case "Mac17,5": return "MacBook Neo"
 
     // iMac models (2013 and later)
     case "iMac13,1": return "iMac (21.5-inch, 2013)"
