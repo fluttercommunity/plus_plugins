@@ -9,7 +9,6 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,14 +38,12 @@ public class Connectivity {
     }
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   List<String> getCapabilitiesFromNetwork(Network network) {
     NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
     return getCapabilitiesList(capabilities);
   }
 
   @NonNull
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   List<String> getCapabilitiesList(NetworkCapabilities capabilities) {
     List<String> types = new ArrayList<>();
     if (capabilities == null

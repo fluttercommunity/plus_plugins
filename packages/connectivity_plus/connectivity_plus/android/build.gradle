@@ -31,10 +31,14 @@ android {
     }
 
     defaultConfig {
-        minSdk 19
+        minSdk 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
+    }
+
+    dependencies {
+        implementation "androidx.core:core-ktx:1.18.0"
     }
 }
