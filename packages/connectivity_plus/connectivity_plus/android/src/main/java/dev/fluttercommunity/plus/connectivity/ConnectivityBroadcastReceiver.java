@@ -81,10 +81,10 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
     } else {
       ContextCompat.registerReceiver(
-              context,
-              this,
-              new IntentFilter(CONNECTIVITY_ACTION),
-              ContextCompat.RECEIVER_NOT_EXPORTED);
+        context,
+        this,
+        new IntentFilter(CONNECTIVITY_ACTION),
+        ContextCompat.RECEIVER_NOT_EXPORTED);
     }
     // Need to emit first event with connectivity types without waiting for first change in system
     // that might happen much later
