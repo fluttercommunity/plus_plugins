@@ -75,11 +75,10 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.android-api-level }}
-          cores: 3
           target: google_apis
           arch: x86_64
           force-avd-creation: false
-          profile: Nexus 5X
+          profile: pixel_7_pro
           script: ./.github/workflows/scripts/integration-test.sh android share_plus_example
 
   ios_example_build:
