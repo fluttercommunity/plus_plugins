@@ -55,7 +55,7 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
       return "mobile"
     case .wiredEthernet:
       return "ethernet"
-    case .constrained:
+    case .satellite:
       return "satellite"
     case .other:
         return "other"

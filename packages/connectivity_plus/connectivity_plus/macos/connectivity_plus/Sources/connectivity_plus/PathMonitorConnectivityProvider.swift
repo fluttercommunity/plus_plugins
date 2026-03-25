@@ -26,8 +26,8 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
       if path.usesInterfaceType(.other) {
         types.append(.other)
       }
-      if path.isConstrained {
-        types.append(.constrained)
+      if #available(macOS 26.0, *), path.isUltraConstrained {
+        types.append(.satellite)
       }
     }
     

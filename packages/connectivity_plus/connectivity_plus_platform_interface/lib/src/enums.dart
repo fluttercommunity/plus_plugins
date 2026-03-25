@@ -24,7 +24,7 @@ enum ConnectivityResult {
 
   /// Satellite: Device is connected via a highly constrained satellite link.
   ///
-  /// On iOS and macOS, reported when [NWPath.isConstrained] is true. This
+  /// On iOS and macOS, reported when [NWPath.isUltraConstrained] is true. This
   /// covers both satellite connections and Low Data Mode enabled by the user.
   /// Appears alongside [mobile] (e.g. `[mobile, satellite]`).
   ///
