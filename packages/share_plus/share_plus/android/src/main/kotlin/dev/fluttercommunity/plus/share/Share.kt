@@ -66,6 +66,7 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
+        val useNewTask = arguments["useNewTask"] as Boolean;
 
         // Create Share Intent
         val shareIntent = Intent()
@@ -148,6 +149,13 @@ internal class Share(
             }
         }
 
+        if (useNewTask) {
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        } else if (activity == null) {
+            chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
         // Launch share intent
         startActivity(chooserIntent, withResult)
     }
@@ -160,7 +168,6 @@ internal class Share(
                 activity!!.startActivity(intent)
             }
         } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             if (withResult) {
                 // We need to cancel the callback to avoid deadlocking on the Dart side
                 manager.unavailable()
