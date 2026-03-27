@@ -66,6 +66,8 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
+        val packageName = arguments["packageName"] as String?
+        val extras = (arguments["extras"] as List<*>?)?.filterIsInstance<Map<String, String>>()
 
         // Create Share Intent
         val shareIntent = Intent()
@@ -76,6 +78,8 @@ internal class Share(
                 putExtra(Intent.EXTRA_TEXT, uri ?: text)
                 if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
                 if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+                if (!packageName.isNullOrBlank()) setPackage(packageName)
+                extras?.forEach { item -> putExtra(item.keys.first(), item.values.first()) }
             }
         } else {
             when {
@@ -109,6 +113,8 @@ internal class Share(
                 if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
                 if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
                 if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+                if (!packageName.isNullOrBlank()) setPackage(packageName)
+                extras?.forEach { item -> putExtra(item.keys.first(), item.values.first()) }
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         }
