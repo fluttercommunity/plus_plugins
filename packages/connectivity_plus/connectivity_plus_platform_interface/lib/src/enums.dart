@@ -24,12 +24,11 @@ enum ConnectivityResult {
 
   /// Satellite: Device is connected via a highly constrained satellite link.
   ///
-  /// On iOS and macOS, reported when [NWPath.isUltraConstrained] is true. This
-  /// covers both satellite connections and Low Data Mode enabled by the user.
+  /// On iOS and macOS, reported when [NWPath.isUltraConstrained] is true.
   /// Appears alongside [mobile] (e.g. `[mobile, satellite]`).
   ///
   /// On Android 15 (API 35) and newer, reported when [TRANSPORT_SATELLITE] capability
-  /// is present. Appears as a standalone result.
+  /// is present.
   ///
   /// Not reported on other platforms.
   satellite,
