@@ -1,3 +1,8 @@
+## 12.4.0
+
+ - **FEAT**(device_info_plus): Add iOS device identifiers for 2026 models ([#3776](https://github.com/fluttercommunity/plus_plugins/issues/3776)). ([5dbe0a95](https://github.com/fluttercommunity/plus_plugins/commit/5dbe0a95ea3ce76acd6a57f8d33ae47761dd228c))
+ - **FEAT**(device_info_plus): Add support for isiOSAppOnVision property in iOS device info ([#3716](https://github.com/fluttercommunity/plus_plugins/issues/3716)). ([25bbcce7](https://github.com/fluttercommunity/plus_plugins/commit/25bbcce764f3d48a9d9f04a11153c52497873408))
+
 ## 12.3.0
 
  - **FEAT**(device_info_plus): Add identifiers for iPad Pro 11-Inch (M5) models ([#3708](https://github.com/fluttercommunity/plus_plugins/issues/3708)). ([61786a1d](https://github.com/fluttercommunity/plus_plugins/commit/61786a1d680d8c3886b4fceb34d689ec94e10d8a))
