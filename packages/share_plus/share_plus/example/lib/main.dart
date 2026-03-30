@@ -194,6 +194,27 @@ class MyHomePageState extends State<MyHomePage> {
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
+                  onPressed: text.isEmpty && imagePaths.isEmpty
+                      ? null
+                      : () => _onShareWithResult(
+                            context,
+                            packageName: 'com.whatsapp',
+                            extras: [
+                              {"jid": "628111555333@s.whatsapp.net"}
+                            ],
+                          ),
+                  child: const Text('Share to Specific Package Name'),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            Builder(
+              builder: (BuildContext context) {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
                   onPressed: () {
                     _onShareXFileFromAssets(context);
                   },
@@ -242,7 +263,11 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _onShareWithResult(BuildContext context) async {
+  void _onShareWithResult(
+    BuildContext context, {
+    String? packageName,
+    List<Map<String, dynamic>>? extras,
+  }) async {
     // A builder is used to retrieve the context immediately
     // surrounding the ElevatedButton.
     //
@@ -267,6 +292,8 @@ class MyHomePageState extends State<MyHomePage> {
           files: files,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           excludedCupertinoActivities: [CupertinoActivityType.airDrop],
+          packageName: packageName,
+          extras: extras,
         ),
       );
     } else if (uri.isNotEmpty) {
@@ -277,6 +304,8 @@ class MyHomePageState extends State<MyHomePage> {
           title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           excludedCupertinoActivities: excludedCupertinoActivityType,
+          packageName: packageName,
+          extras: extras,
         ),
       );
     } else {
@@ -287,6 +316,8 @@ class MyHomePageState extends State<MyHomePage> {
           title: title.isEmpty ? null : title,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           excludedCupertinoActivities: excludedCupertinoActivityType,
+          packageName: packageName,
+          extras: extras,
         ),
       );
     }
