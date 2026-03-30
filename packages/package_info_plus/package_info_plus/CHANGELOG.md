@@ -1,3 +1,7 @@
+## 9.0.1
+
+ - **DOCS**(package_info_plus): add installerStore values documentation ([#3721](https://github.com/fluttercommunity/plus_plugins/issues/3721)). ([0534cd2d](https://github.com/fluttercommunity/plus_plugins/commit/0534cd2d1ea55d68c4452e8d5a0ee211b0c641ac))
+
 ## 9.0.0
 
 > Note: This release has breaking changes.
