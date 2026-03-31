@@ -76,6 +76,7 @@ void main() {
       'originWidth': 3.0,
       'originHeight': 4.0,
       'excludedCupertinoActivities': ['airDrop'],
+      'attach': false,
     }));
 
     await sharePlatform.share(
@@ -93,6 +94,7 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'attach': false,
     }));
 
     await withFile('tempfile-83649a.png', (File fd) async {
@@ -116,6 +118,24 @@ void main() {
           'originY': 2.0,
           'originWidth': 3.0,
           'originHeight': 4.0,
+          'attach': false,
+        },
+      ));
+    });
+
+    await withFile('tempfile-83649a.png', (File fd) async {
+      await sharePlatform.share(
+        ShareParams(
+          files: [XFile(fd.path)],
+          attach: true,
+        ),
+      );
+      verify(mockChannel.invokeMethod<String>(
+        'share',
+        <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['image/png'],
+          'attach': true,
         },
       ));
     });
@@ -127,6 +147,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
+        'attach': false,
       }));
     });
   });
@@ -141,6 +162,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
+        'attach': false,
       }));
     });
   });
@@ -194,6 +216,7 @@ void main() {
       'originY': 2.0,
       'originWidth': 3.0,
       'originHeight': 4.0,
+      'attach': false,
     }));
     expect(result, success);
 
@@ -206,6 +229,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
+        'attach': false,
       }));
       expect(result, success);
     });
