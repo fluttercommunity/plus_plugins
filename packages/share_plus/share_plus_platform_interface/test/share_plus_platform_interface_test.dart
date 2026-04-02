@@ -71,6 +71,7 @@ void main() {
     );
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'uri': 'https://pub.dev/packages/share_plus',
+      'useNewTask': false,
       'originX': 1.0,
       'originY': 2.0,
       'originWidth': 3.0,
@@ -89,6 +90,7 @@ void main() {
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
       'subject': 'some subject to share',
+      'useNewTask': false,
       'originX': 1.0,
       'originY': 2.0,
       'originWidth': 3.0,
@@ -112,6 +114,7 @@ void main() {
           'mimeTypes': ['image/png'],
           'subject': 'some subject to share',
           'text': 'some text to share',
+          'useNewTask': false,
           'originX': 1.0,
           'originY': 2.0,
           'originWidth': 3.0,
@@ -127,6 +130,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
+        'useNewTask': false,
       }));
     });
   });
@@ -141,6 +145,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['*/*'],
+        'useNewTask': false,
       }));
     });
   });
@@ -190,6 +195,7 @@ void main() {
     verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
       'text': 'some text to share',
       'subject': 'some subject to share',
+      'useNewTask': false,
       'originX': 1.0,
       'originY': 2.0,
       'originWidth': 3.0,
@@ -206,6 +212,7 @@ void main() {
       verify(mockChannel.invokeMethod<String>('share', <String, dynamic>{
         'paths': [fd.path],
         'mimeTypes': ['image/png'],
+        'useNewTask': false,
       }));
       expect(result, success);
     });

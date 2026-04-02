@@ -142,6 +142,12 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
+  /// Whether to use a new task when sharing on Android.
+  ///
+  /// * Supported platforms: Android
+  ///  Parameter ignored on other platforms.
+  final bool useNewTask;
+
   ShareParams({
     this.text,
     this.subject,
@@ -154,6 +160,7 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
+    this.useNewTask = false,
   });
 }
 
