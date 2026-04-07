@@ -29,8 +29,7 @@ class VersionHelper {
         ..wServicePackMajor = 0
         ..wServicePackMinor = 0
         ..wSuiteMask = 0
-        ..wProductType = 0
-        ..wReserved = 0;
+        ..wProductType = 0;
       final rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
           Void Function(Pointer<OSVERSIONINFOEX>),
           void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
