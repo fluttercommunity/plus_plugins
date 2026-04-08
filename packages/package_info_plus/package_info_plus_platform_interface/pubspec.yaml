@@ -7,15 +7,15 @@ repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.8.0
-  plugin_platform_interface: ^2.1.4
+  meta: ^1.17.0
+  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.0
-  flutter_lints: ">=4.0.0 <6.0.0"
+  mockito: ^5.6.4
+  flutter_lints: ^6.0.0
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: ">=3.46.0"
