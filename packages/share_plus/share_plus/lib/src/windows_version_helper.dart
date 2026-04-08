@@ -30,9 +30,11 @@ class VersionHelper {
         ..wServicePackMinor = 0
         ..wSuiteMask = 0
         ..wProductType = 0;
-      final rtlGetVersion = DynamicLibrary.open('ntdll.dll').lookupFunction<
-          Void Function(Pointer<OSVERSIONINFOEX>),
-          void Function(Pointer<OSVERSIONINFOEX>)>('RtlGetVersion');
+      final rtlGetVersion = DynamicLibrary.open('ntdll.dll')
+          .lookupFunction<
+            Void Function(Pointer<OSVERSIONINFOEX>),
+            void Function(Pointer<OSVERSIONINFOEX>)
+          >('RtlGetVersion');
       rtlGetVersion(pointer);
       isWindows10RS5OrGreater =
           pointer.ref.dwBuildNumber >= kWindows10RS5BuildNumber;

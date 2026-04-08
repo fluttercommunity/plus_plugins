@@ -30,10 +30,10 @@ class MethodChannelShare extends SharePlatform {
 
   Future<Map<String, dynamic>> _toPlatformMap(ShareParams params) async {
     assert(
-      params.text != null ||
-          params.uri != null ||
-          (params.files != null && params.files!.isNotEmpty),
-      'At least one of text, uri or files must be provided',
+    params.text != null ||
+        params.uri != null ||
+        (params.files != null && params.files!.isNotEmpty),
+    'At least one of text, uri or files must be provided',
     );
 
     final map = <String, dynamic>{
@@ -52,7 +52,7 @@ class MethodChannelShare extends SharePlatform {
 
     if (params.files != null) {
       final filesWithPath =
-          await _getFiles(params.files!, params.fileNameOverrides);
+      await _getFiles(params.files!, params.fileNameOverrides);
       assert(filesWithPath.every((element) => element.path.isNotEmpty));
 
       final mimeTypes = filesWithPath
@@ -70,7 +70,7 @@ class MethodChannelShare extends SharePlatform {
     if (params.excludedCupertinoActivities != null &&
         params.excludedCupertinoActivities!.isNotEmpty) {
       final excludedActivityTypes =
-          params.excludedCupertinoActivities!.map((e) => e.value).toList();
+      params.excludedCupertinoActivities!.map((e) => e.value).toList();
       map['excludedCupertinoActivities'] = excludedActivityTypes;
     }
 
@@ -85,8 +85,7 @@ class MethodChannelShare extends SharePlatform {
   /// then make new file in TemporaryDirectory and return with path
   /// the system will automatically delete files in this
   /// TemporaryDirectory as disk space is needed elsewhere on the device
-  Future<XFile> _getFile(
-    XFile file, {
+  Future<XFile> _getFile(XFile file, {
     String? tempRoot,
     String? nameOverride,
   }) async {
@@ -96,8 +95,8 @@ class MethodChannelShare extends SharePlatform {
       tempRoot ??= (await getTemporaryDirectory()).path;
       // Method returns null as in v2.0.0
       final extension =
-          // ignore: dead_null_aware_expression
-          extensionFromMime(file.mimeType ?? 'octet-stream') ?? 'bin';
+      // ignore: dead_null_aware_expression
+      extensionFromMime(file.mimeType ?? 'octet-stream') ?? 'bin';
 
       //By having a UUID v4 folder wrapping the file
       //This path generation algorithm will not only minimize the risk of name collision but also ensure that the filename
@@ -129,10 +128,8 @@ class MethodChannelShare extends SharePlatform {
   }
 
   /// A wrapper of [MethodChannelShare._getFile] for multiple files.
-  Future<List<XFile>> _getFiles(
-    List<XFile> files,
-    List<String>? fileNameOverrides,
-  ) async {
+  Future<List<XFile>> _getFiles(List<XFile> files,
+      List<String>? fileNameOverrides,) async {
     return Future.wait([
       for (var index = 0; index < files.length; index++)
         _getFile(
