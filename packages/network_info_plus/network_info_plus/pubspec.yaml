@@ -10,8 +10,8 @@ topics:
   - utils
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: ">=3.41.0"
 
 flutter:
   plugin:
@@ -32,20 +32,20 @@ flutter:
         fileName: src/network_info_plus_web.dart
 
 dependencies:
-  collection: ^1.17.0
-  nm: ^0.5.0
+  collection: ^1.19.1
+  ffi: ^2.2.0
   flutter:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  meta: ^1.8.0
+  meta: ^1.17.0
   network_info_plus_platform_interface: ^2.0.2
-  win32: ">=5.5.3 <7.0.0"
-  ffi: ^2.0.1
+  nm: ^0.5.0
+  win32: ^6.0.0
 
 dev_dependencies:
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.0
-  plugin_platform_interface: ^2.1.4
-  flutter_lints: ">=4.0.0 <6.0.0"
+  mockito: ^5.6.4
+  plugin_platform_interface: ^2.1.8
