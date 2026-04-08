@@ -1,5 +1,5 @@
 @TestOn('linux')
-library network_info_plus_linux_test;
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_info_plus/network_info_plus.dart';
