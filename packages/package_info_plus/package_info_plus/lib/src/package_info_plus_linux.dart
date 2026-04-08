@@ -45,7 +45,8 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
   }
 
   Future<({DateTime? created, DateTime? modified})> _getExeAttributes(
-      String exePath) async {
+    String exePath,
+  ) async {
     try {
       final statResult = await Process.run(
         'stat',
@@ -58,8 +59,9 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
         return await _fallbackAttributes(exePath);
       }
 
-      final String stdout =
-          statResult.stdout is String ? statResult.stdout : '';
+      final String stdout = statResult.stdout is String
+          ? statResult.stdout
+          : '';
 
       if (stdout.split(',').length != 2) {
         return await _fallbackAttributes(exePath);
@@ -74,24 +76,24 @@ class PackageInfoPlusLinuxPlugin extends PackageInfoPlatform {
       );
       final modificationTime = _parseSecondsString(modificationMillis);
 
-      return (
-        created: creationTime,
-        modified: modificationTime,
-      );
+      return (created: creationTime, modified: modificationTime);
     } catch (_) {
       return (created: null, modified: null);
     }
   }
 
   Future<({DateTime created, DateTime modified})> _fallbackAttributes(
-      String exePath) async {
+    String exePath,
+  ) async {
     final modifiedTime = await File(exePath).lastModified();
 
     return (created: modifiedTime, modified: modifiedTime);
   }
 
-  DateTime? _parseSecondsString(String? secondsString,
-      {bool allowZero = true}) {
+  DateTime? _parseSecondsString(
+    String? secondsString, {
+    bool allowZero = true,
+  }) {
     if (secondsString == null) {
       return null;
     }
