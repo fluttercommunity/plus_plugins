@@ -101,9 +101,9 @@ class _MyWidgetState extends State<MyWidget> {
 }
 ```
 
-## Platform Support
+## Supported ConnectivityResult values per platform
 
-The following table shows which `ConnectivityResult` values are supported per platform.
+The following table shows which `ConnectivityResult` values can be returned on every of supported platforms.
 
 |           | Android | iOS | Web | macOS | Windows | Linux |
 |-----------|:-------:|:---:|:---:|:-----:|:-------:|:-----:|
@@ -114,8 +114,7 @@ The following table shows which `ConnectivityResult` values are supported per pl
 | vpn       | :white_check_mark: |                    |                    |                    | :white_check_mark: | :white_check_mark: |
 | satellite | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |
 | other     | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-
-_`none` is supported on all platforms by default._
+| none      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Android
 
