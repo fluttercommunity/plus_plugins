@@ -14,6 +14,8 @@ List<ConnectivityResult> parseConnectivityResults(List<String> states) {
         return ConnectivityResult.mobile;
       case 'vpn':
         return ConnectivityResult.vpn;
+      case 'satellite':
+        return ConnectivityResult.satellite;
       case 'other':
         return ConnectivityResult.other;
       default:

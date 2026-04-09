@@ -56,6 +56,8 @@ if (connectivityResult.contains(ConnectivityResult.mobile)) {
   // It returns [other] on any device (also simulator)
 } else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
   // Bluetooth connection available.
+} else if (connectivityResult.contains(ConnectivityResult.satellite)) {
+  // Carrier-provided satellite network available
 } else if (connectivityResult.contains(ConnectivityResult.other)) {
   // Connected to a network which is not in the above mentioned networks.
 } else if (connectivityResult.contains(ConnectivityResult.none)) {
@@ -109,6 +111,7 @@ The following table shows which `ConnectivityResult` values are supported per pl
 | ethernet  | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | mobile    | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: |                    |                    |
 | vpn       | :white_check_mark: |                    |                    |                    | :white_check_mark: | :white_check_mark: |
+| satellite | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |
 | other     | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 _`none` is supported on all platforms by default._

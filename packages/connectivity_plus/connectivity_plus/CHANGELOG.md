@@ -1,3 +1,9 @@
+## 7.1.0
+
+ - **FIX**(connectivity_plus): Register broadcast receiver with correct flag, bump minSDK to 21 ([#3781](https://github.com/fluttercommunity/plus_plugins/issues/3781)). ([93135ff2](https://github.com/fluttercommunity/plus_plugins/commit/93135ff28cd3a8241445d084927b8ca18d73fe58))
+ - **FIX**(connectivity_plus): Use serial queue for NWPathMonitor to prevent race condition crash ([#3752](https://github.com/fluttercommunity/plus_plugins/issues/3752)). ([05a50f32](https://github.com/fluttercommunity/plus_plugins/commit/05a50f32ba0685a175c75396a05c9d18fb3ce9b4))
+ - **FEAT**(connectivity_plus): add ConnectivityResult.satellite on Android and iOS ([#3771](https://github.com/fluttercommunity/plus_plugins/issues/3771)). ([2b58cffe](https://github.com/fluttercommunity/plus_plugins/commit/2b58cffedd8ebce127deba10d2e389c3c3bfcb4b))
+
 ## 7.0.0
 
 > Note: This release has breaking changes.

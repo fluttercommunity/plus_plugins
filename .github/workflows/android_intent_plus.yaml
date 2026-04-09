@@ -58,7 +58,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        android-api-level: [ 22, 26, 31, 34 ]
+        android-api-level: [ 24, 29, 32, 36 ]
 
     steps:
       - name: "Checkout repository"
@@ -74,9 +74,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.android-api-level }}
-          cores: 3
           target: google_apis
           arch: x86_64
           force-avd-creation: false
-          profile: Nexus 5X
+          profile: pixel_7_pro
           script: ./.github/workflows/scripts/integration-test.sh android android_intent_example

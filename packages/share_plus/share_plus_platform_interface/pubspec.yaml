@@ -5,22 +5,21 @@ homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 dependencies:
-  cross_file: ^0.3.3+4
+  cross_file: ^0.3.5+2
   flutter:
     sdk: flutter
-  meta: ^1.8.0
-  mime: ">=1.0.4 <3.0.0"
-  plugin_platform_interface: ^2.1.4
-  path_provider: ^2.0.14
+  meta: ^1.17.0
+  mime: ^2.0.0
+  plugin_platform_interface: ^2.1.8
+  path_provider: ^2.1.5
   uuid: ">=3.0.7 <5.0.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.4.0
-  flutter_lints: ">=4.0.0 <6.0.0"
-  test: ^1.22.0
+  mockito: ^5.6.4
+  flutter_lints: ^6.0.0
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: ">=3.41.0"

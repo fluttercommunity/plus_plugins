@@ -19,18 +19,17 @@ void main() {
       );
     });
 
-    test('share throws ArgumentError if both uri and text are provided',
-        () async {
-      expect(
-        () => sharePlus.share(
-          ShareParams(
-            uri: Uri.parse('https://example.com'),
-            text: 'text',
+    test(
+      'share throws ArgumentError if both uri and text are provided',
+      () async {
+        expect(
+          () => sharePlus.share(
+            ShareParams(uri: Uri.parse('https://example.com'), text: 'text'),
           ),
-        ),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
+          throwsA(isA<ArgumentError>()),
+        );
+      },
+    );
 
     test('share throws ArgumentError if text is empty', () async {
       expect(
@@ -47,14 +46,19 @@ void main() {
     });
 
     test(
-        'share throws ArgumentError if fileNameOverrides length does not match files length',
-        () async {
-      expect(
-        () => sharePlus.share(ShareParams(
-            files: [XFile('path')], fileNameOverrides: ['name1', 'name2'])),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
+      'share throws ArgumentError if fileNameOverrides length does not match files length',
+      () async {
+        expect(
+          () => sharePlus.share(
+            ShareParams(
+              files: [XFile('path')],
+              fileNameOverrides: ['name1', 'name2'],
+            ),
+          ),
+          throwsA(isA<ArgumentError>()),
+        );
+      },
+    );
 
     test('share calls platform share method with correct params', () async {
       final params = ShareParams(text: 'text');

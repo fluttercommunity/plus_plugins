@@ -37,10 +37,7 @@ class SharePlusWebPlugin extends SharePlatform {
     try {
       canShare = _navigator.canShare(data);
     } on NoSuchMethodError catch (e) {
-      developer.log(
-        'Share API is not supported in this User Agent.',
-        error: e,
-      );
+      developer.log('Share API is not supported in this User Agent.', error: e);
 
       return _fallback(params, 'Navigator.canShare() is unavailable');
     }
@@ -56,10 +53,7 @@ class SharePlusWebPlugin extends SharePlatform {
         return _resultDismissed;
       }
 
-      developer.log(
-        'Failed to share uri',
-        error: '${e.name}: ${e.message}',
-      );
+      developer.log('Failed to share uri', error: '${e.name}: ${e.message}');
 
       return _fallback(params, 'Navigator.share() failed: ${e.message}');
     }
@@ -98,38 +92,19 @@ class SharePlusWebPlugin extends SharePlatform {
     }
 
     if (uri != null) {
-      data = ShareData(
-        url: uri,
-      );
+      data = ShareData(url: uri);
     } else if (webFiles.isNotEmpty && text != null && title != null) {
-      data = ShareData(
-        text: text,
-        title: title,
-        files: webFiles.toJS,
-      );
+      data = ShareData(text: text, title: title, files: webFiles.toJS);
     } else if (webFiles.isNotEmpty && text != null) {
-      data = ShareData(
-        text: text,
-        files: webFiles.toJS,
-      );
+      data = ShareData(text: text, files: webFiles.toJS);
     } else if (webFiles.isNotEmpty && title != null) {
-      data = ShareData(
-        title: title,
-        files: webFiles.toJS,
-      );
+      data = ShareData(title: title, files: webFiles.toJS);
     } else if (webFiles.isNotEmpty) {
-      data = ShareData(
-        files: webFiles.toJS,
-      );
+      data = ShareData(files: webFiles.toJS);
     } else if (text != null && title != null) {
-      data = ShareData(
-        text: text,
-        title: title,
-      );
+      data = ShareData(text: text, title: title);
     } else {
-      data = ShareData(
-        text: text!,
-      );
+      data = ShareData(text: text!);
     }
 
     return data;
@@ -161,17 +136,16 @@ class SharePlusWebPlugin extends SharePlatform {
       throw Exception(error);
     }
 
-    final queryParameters = {
-      if (subject != null) 'subject': subject,
-      'body': text,
-    };
+    final queryParameters = {'subject': ?subject, 'body': text};
 
     // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
     final uri = Uri(
       scheme: 'mailto',
       query: queryParameters.entries
-          .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .map(
+            (e) =>
+                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+          )
           .join('&'),
     );
 
@@ -227,7 +201,4 @@ class SharePlusWebPlugin extends SharePlatform {
   }
 }
 
-const _resultDismissed = ShareResult(
-  '',
-  ShareResultStatus.dismissed,
-);
+const _resultDismissed = ShareResult('', ShareResultStatus.dismissed);
