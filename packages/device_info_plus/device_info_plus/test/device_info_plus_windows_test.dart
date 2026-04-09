@@ -13,8 +13,8 @@ void main() {
     expect(DeviceInfoPlatform.instance, isA<DeviceInfoPlusWindowsPlugin>());
   });
   test('system-memory-in-megabytes', () async {
-    final systemMemoryInMegabytes =
-        DeviceInfoPlusWindowsPlugin().getSystemMemoryInMegabytes();
+    final systemMemoryInMegabytes = DeviceInfoPlusWindowsPlugin()
+        .getSystemMemoryInMegabytes();
 
     // It's a reasonable expectation that any computer executing this test has
     // >512MB RAM
