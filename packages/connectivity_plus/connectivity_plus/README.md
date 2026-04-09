@@ -29,6 +29,7 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 - Java 17
 - Android Gradle Plugin >=8.12.1
 - Gradle wrapper >=8.13
+- Xcode >= 26.1.1
 
 ## Usage
 
