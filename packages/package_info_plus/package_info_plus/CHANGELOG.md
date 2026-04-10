@@ -1,3 +1,17 @@
+## 10.0.0
+
+> Note: This release has breaking changes.
+>
+> Due to an update of win32 to 6.0.0, package requirements were also changed to match this update:
+> - Minimum Flutter version is 3.41.6
+> - Minimum Dart version is 3.11.0
+> - Min iOS is 13.0
+> - Min macOS is 10.15
+>
+> Since this release was already breaking, the rest of the dependencies were also updated to the latest possible versions.
+
+ - **BREAKING** **FEAT**(package_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3760](https://github.com/fluttercommunity/plus_plugins/issues/3760)). ([f0da4b91](https://github.com/fluttercommunity/plus_plugins/commit/f0da4b919cec0aaebbdc8daf8c4475e6bc0ae2ec))
+
 ## 9.0.1
 
  - **DOCS**(package_info_plus): add installerStore values documentation ([#3721](https://github.com/fluttercommunity/plus_plugins/issues/3721)). ([0534cd2d](https://github.com/fluttercommunity/plus_plugins/commit/0534cd2d1ea55d68c4452e8d5a0ee211b0c641ac))
