@@ -237,44 +237,42 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: Text(_getAppBarTitle()), elevation: 4),
         body: ListView(
-          children:
-              _deviceData.keys.map((String property) {
-                return Row(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        property,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+          children: _deviceData.keys.map((String property) {
+            return Row(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    property,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      '${_deviceData[property]}',
+                      maxLines: 10,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          '${_deviceData[property]}',
-                          maxLines: 10,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
         ),
       ),
     );
   }
 
-  String _getAppBarTitle() =>
-      kIsWeb
-          ? 'Web Browser info'
-          : switch (defaultTargetPlatform) {
-            TargetPlatform.android => 'Android Device Info',
-            TargetPlatform.iOS => 'iOS Device Info',
-            TargetPlatform.linux => 'Linux Device Info',
-            TargetPlatform.windows => 'Windows Device Info',
-            TargetPlatform.macOS => 'MacOS Device Info',
-            TargetPlatform.fuchsia => 'Fuchsia Device Info',
-          };
+  String _getAppBarTitle() => kIsWeb
+      ? 'Web Browser info'
+      : switch (defaultTargetPlatform) {
+          TargetPlatform.android => 'Android Device Info',
+          TargetPlatform.iOS => 'iOS Device Info',
+          TargetPlatform.linux => 'Linux Device Info',
+          TargetPlatform.windows => 'Windows Device Info',
+          TargetPlatform.macOS => 'MacOS Device Info',
+          TargetPlatform.fuchsia => 'Fuchsia Device Info',
+        };
 }

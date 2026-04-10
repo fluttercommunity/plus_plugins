@@ -28,25 +28,24 @@ flutter:
         dartPluginClass: PackageInfoPlusWindowsPlugin
 
 dependencies:
-  ffi: ^2.0.1
+  clock: ^1.1.2
+  ffi: ^2.2.0
   flutter:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  http: ">=0.13.5 <2.0.0"
-  meta: ^1.8.0
-  path: ^1.8.2
+  http: ^1.6.0
+  meta: ^1.17.0
   package_info_plus_platform_interface: ^3.2.1
-  web: ">=0.5.0 <2.0.0"
-  win32: ^5.5.3
-  clock: ^1.1.1
+  path: ^1.9.1
+  web: ^1.1.1
+  win32: ^6.0.0
 
 dev_dependencies:
-  flutter_lints: ">=4.0.0 <6.0.0"
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  test: ^1.22.0
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: ">=3.41.0"
