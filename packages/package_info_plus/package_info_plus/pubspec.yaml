@@ -1,6 +1,6 @@
 name: package_info_plus
 description: Flutter plugin for querying information about the application package, such as CFBundleVersion on iOS or versionCode on Android.
-version: 9.0.1
+version: 10.0.0
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus/package_info_plus
 issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/package_info_plus
@@ -36,7 +36,7 @@ dependencies:
     sdk: flutter
   http: ^1.6.0
   meta: ^1.17.0
-  package_info_plus_platform_interface: ^3.2.1
+  package_info_plus_platform_interface: ^4.0.0
   path: ^1.9.1
   web: ^1.1.1
   win32: ^6.0.0

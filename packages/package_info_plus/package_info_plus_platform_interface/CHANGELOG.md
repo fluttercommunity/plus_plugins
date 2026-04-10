@@ -1,3 +1,9 @@
+## 4.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(package_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3760](https://github.com/fluttercommunity/plus_plugins/issues/3760)). ([f0da4b91](https://github.com/fluttercommunity/plus_plugins/commit/f0da4b919cec0aaebbdc8daf8c4475e6bc0ae2ec))
+
 ## 3.2.1
 
  - **FIX**(package_info_plus): incorrect install time on macOS when app sandbox disabled ([#3638](https://github.com/fluttercommunity/plus_plugins/issues/3638)). ([2cf9297b](https://github.com/fluttercommunity/plus_plugins/commit/2cf9297b4e3ce5cc71d22539ca7d0dfc82ac819b))

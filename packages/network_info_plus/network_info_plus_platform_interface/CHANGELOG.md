@@ -1,3 +1,9 @@
+## 3.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(network_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3761](https://github.com/fluttercommunity/plus_plugins/issues/3761)). ([582b93f2](https://github.com/fluttercommunity/plus_plugins/commit/582b93f29c4e5a7734edc3ecc28380af5fc86dba))
+
 ## 2.0.2
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

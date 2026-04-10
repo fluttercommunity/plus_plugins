@@ -1,3 +1,9 @@
+## 8.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(device_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3791](https://github.com/fluttercommunity/plus_plugins/issues/3791)). ([5f93878b](https://github.com/fluttercommunity/plus_plugins/commit/5f93878bcc85b1dc5f90968119d87ef2cc6c8dce))
+
 ## 7.0.3
 
  - **FIX**(device_info_plus): Specify correct Dart and Flutter version requirements ([#3597](https://github.com/fluttercommunity/plus_plugins/issues/3597)). ([6ebc0ead](https://github.com/fluttercommunity/plus_plugins/commit/6ebc0ead68df477f06c6d4738a69a9e56223cf47))

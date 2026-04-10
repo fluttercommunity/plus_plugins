@@ -1,3 +1,7 @@
+## 7.1.1
+
+ - **DOCS**(connectivity_plus): Add missing info about Xcode 26.1.1 requirement, deduplicate headers ([#3792](https://github.com/fluttercommunity/plus_plugins/issues/3792)). ([ba6e6b94](https://github.com/fluttercommunity/plus_plugins/commit/ba6e6b94f673bb479a5891b8ca0fc5fd7b2345bc))
+
 ## 7.1.0
 
  - **FIX**(connectivity_plus): Register broadcast receiver with correct flag, bump minSDK to 21 ([#3781](https://github.com/fluttercommunity/plus_plugins/issues/3781)). ([93135ff2](https://github.com/fluttercommunity/plus_plugins/commit/93135ff28cd3a8241445d084927b8ca18d73fe58))

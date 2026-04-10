@@ -1,3 +1,9 @@
+## 7.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(share_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3762](https://github.com/fluttercommunity/plus_plugins/issues/3762)). ([0e3eb918](https://github.com/fluttercommunity/plus_plugins/commit/0e3eb918e77fcc500b6124167a905f026ffc374a))
+
 ## 6.1.0
 
  - **FEAT**(share_plus): Added `excludedCupertinoActivities` share parameter ([#3376](https://github.com/fluttercommunity/plus_plugins/issues/3376)). ([f9fdadb4](https://github.com/fluttercommunity/plus_plugins/commit/f9fdadb41242ad2e36ddbf1ade82be6c5bb78ec4))

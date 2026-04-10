@@ -1,3 +1,18 @@
+## 13.0.0
+
+> Note: This release has breaking changes.
+>
+> Due to an update of win32 to 6.0.0, package requirements were also changed to match this update:
+>
+> Minimum Flutter version is 3.41.6
+> Minimum Dart version is 3.11.0
+> Min iOS is 13.0
+> Min MacOS is 10.15
+>
+> Since this release was already breaking, the rest of the dependencies were also updated to the latest possible versions.
+
+ - **BREAKING** **FEAT**(device_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3791](https://github.com/fluttercommunity/plus_plugins/issues/3791)). ([5f93878b](https://github.com/fluttercommunity/plus_plugins/commit/5f93878bcc85b1dc5f90968119d87ef2cc6c8dce))
+
 ## 12.4.0
 
  - **FEAT**(device_info_plus): Add iOS device identifiers for 2026 models ([#3776](https://github.com/fluttercommunity/plus_plugins/issues/3776)). ([5dbe0a95](https://github.com/fluttercommunity/plus_plugins/commit/5dbe0a95ea3ce76acd6a57f8d33ae47761dd228c))
