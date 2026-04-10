@@ -3,11 +3,10 @@
 > Note: This release has breaking changes.
 >
 > Due to an update of win32 to 6.0.0, package requirements were also changed to match this update:
->
-> Minimum Flutter version is 3.41.6
-> Minimum Dart version is 3.11.0
-> Min iOS is 13.0
-> Min MacOS is 10.15
+> - Minimum Flutter version is 3.41.6
+> - Minimum Dart version is 3.11.0
+> - Min iOS is 13.0
+> - Min macOS is 10.15
 >
 > Since this release was already breaking, the rest of the dependencies were also updated to the latest possible versions.
 
