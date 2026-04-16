@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -66,7 +66,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -99,7 +99,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -117,7 +117,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -129,7 +129,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -143,7 +143,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -156,7 +156,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -170,7 +170,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -182,7 +182,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -196,7 +196,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: subosito/flutter-action@v2
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
