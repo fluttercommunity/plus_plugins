@@ -19,8 +19,8 @@ The functionality is not supported on Web.
 
 ## Requirements
 
-- Flutter >=3.41.0
-- Dart >=3.11.0 <4.0.0
+- Flutter >=3.38.1
+- Dart >=3.10.0 <4.0.0
 - iOS >=13.0
 - macOS >=10.15
 - Java 17
