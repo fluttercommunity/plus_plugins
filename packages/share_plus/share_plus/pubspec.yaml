@@ -43,7 +43,7 @@ dependencies:
   url_launcher_platform_interface: ^2.3.2
   ffi: ^2.2.0
   web: ^1.1.1
-  win32: ^6.0.0
+  win32: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +51,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 environment:
-  sdk: ">=3.11.0 <4.0.0"
-  flutter: ">=3.41.0"
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.1"
 
