@@ -10,8 +10,8 @@ topics:
   - utils
 
 environment:
-  sdk: ">=3.11.0 <4.0.0"
-  flutter: ">=3.41.0"
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.1"
 
 flutter:
   plugin:
@@ -41,7 +41,7 @@ dependencies:
   meta: ^1.17.0
   network_info_plus_platform_interface: ^3.0.0
   nm: ^0.5.0
-  win32: ^6.0.0
+  win32: ^6.0.1
 
 dev_dependencies:
   flutter_lints: ^6.0.0
