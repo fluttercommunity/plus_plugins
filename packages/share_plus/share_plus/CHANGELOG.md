@@ -1,3 +1,7 @@
+## 13.1.0
+
+ - **FEAT**(share_plus): Lower requirements to Dart 3.10 and Flutter 3.38.1 ([#3801](https://github.com/fluttercommunity/plus_plugins/issues/3801)). ([d965e00e](https://github.com/fluttercommunity/plus_plugins/commit/d965e00e5082d4e32e25cacad0b193a735d51c5f))
+
 ## 13.0.0
 
 > Note: This release has breaking changes.
