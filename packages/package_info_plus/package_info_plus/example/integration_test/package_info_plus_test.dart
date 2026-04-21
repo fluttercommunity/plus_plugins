@@ -172,10 +172,7 @@ void main() {
     } else {
       final expectedInstallTimeIso = testStartTime.toIso8601String();
       final installTimeRegex = RegExp(
-        expectedInstallTimeIso.replaceAll(
-          RegExp(r'\d:\d\d\..+$'),
-          r'.+$',
-        ),
+        expectedInstallTimeIso.replaceAll(RegExp(r'\d:\d\d\..+$'), r'.+$'),
       );
 
       if (Platform.isAndroid) {
@@ -200,7 +197,9 @@ void main() {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageInfoExample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('com.apple.simulator'), findsOneWidget);
@@ -209,7 +208,9 @@ void main() {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageInfoExample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('not available'), findsOneWidget);
