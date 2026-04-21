@@ -23,10 +23,12 @@ class ImagePreviews extends StatelessWidget {
 
     final imageWidgets = <Widget>[];
     for (var i = 0; i < imagePaths.length; i++) {
-      imageWidgets.add(_ImagePreview(
-        imagePaths[i],
-        onDelete: onDelete != null ? () => onDelete!(i) : null,
-      ));
+      imageWidgets.add(
+        _ImagePreview(
+          imagePaths[i],
+          onDelete: onDelete != null ? () => onDelete!(i) : null,
+        ),
+      );
     }
 
     return SingleChildScrollView(
@@ -50,10 +52,7 @@ class _ImagePreview extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 200,
-              maxHeight: 200,
-            ),
+            constraints: const BoxConstraints(maxWidth: 200, maxHeight: 200),
             child: kIsWeb ? Image.network(imagePath) : Image.file(imageFile),
           ),
           Positioned(
@@ -61,9 +60,10 @@ class _ImagePreview extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
-                  backgroundColor: Colors.red,
-                  onPressed: onDelete,
-                  child: const Icon(Icons.delete)),
+                backgroundColor: Colors.red,
+                onPressed: onDelete,
+                child: const Icon(Icons.delete),
+              ),
             ),
           ),
         ],
