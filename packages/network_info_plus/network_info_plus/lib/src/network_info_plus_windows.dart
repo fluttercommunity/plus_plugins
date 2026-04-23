@@ -5,8 +5,8 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 import 'package:network_info_plus/src/windows_structs.dart';
-import 'package:win32/win32.dart';
 import 'package:network_info_plus_platform_interface/network_info_plus_platform_interface.dart';
+import 'package:win32/win32.dart';
 
 typedef WlanQuery =
     String? Function(
@@ -62,10 +62,12 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       }
 
       for (var i = 0; i < ppInterfaceList.value.ref.dwNumberOfItems; i++) {
-        final pInterfaceGuid = calloc<GUID>()
-          ..ref.setGUID(
-            ppInterfaceList.value.ref.InterfaceInfo[i].InterfaceGuid.toString(),
-          );
+        final pInterfaceGuid = ppInterfaceList
+            .value
+            .ref
+            .InterfaceInfo[i]
+            .InterfaceGuid
+            .toNative();
 
         const opCode = WLAN_INTF_OPCODE(
           7,
@@ -98,7 +100,8 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       }
       return null;
     } finally {
-      WlanFreeMemory(ppInterfaceList);
+      WlanFreeMemory(ppInterfaceList.value);
+      free(ppInterfaceList);
       closeHandle();
     }
   }
@@ -194,18 +197,18 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
         try {
           GetAdaptersAddresses(
             family,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0),
             null,
             ulSize,
           );
           pIpAdapterAddress = HeapAlloc(
             GetProcessHeap().value,
-            HEAP_FLAGS(0),
+            const HEAP_FLAGS(0),
             ulSize.value,
           ).cast();
           GetAdaptersAddresses(
             family,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0),
             pIpAdapterAddress,
             ulSize,
           );
@@ -247,18 +250,18 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
         try {
           GetAdaptersAddresses(
             AF_INET,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0),
             null,
             ulSize,
           );
           pIpAdapterAddress = HeapAlloc(
             GetProcessHeap().value,
-            HEAP_FLAGS(0),
+            const HEAP_FLAGS(0),
             ulSize.value,
           ).cast();
           GetAdaptersAddresses(
             AF_INET,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0),
             pIpAdapterAddress,
             ulSize,
           );
@@ -325,18 +328,18 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
         try {
           GetAdaptersAddresses(
             AF_INET,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0x80),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0x80),
             null,
             ulSize,
           );
           pIpAdapterAddress = HeapAlloc(
             GetProcessHeap().value,
-            HEAP_FLAGS(0),
+            const HEAP_FLAGS(0),
             ulSize.value,
           ).cast();
           GetAdaptersAddresses(
             AF_INET,
-            GET_ADAPTERS_ADDRESSES_FLAGS(0x80),
+            const GET_ADAPTERS_ADDRESSES_FLAGS(0x80),
             pIpAdapterAddress,
             ulSize,
           );
