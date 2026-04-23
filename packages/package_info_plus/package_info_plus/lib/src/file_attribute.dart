@@ -4,23 +4,6 @@ import 'dart:io';
 import 'package:ffi/ffi.dart';
 import 'package:win32/win32.dart';
 
-base class FILEATTRIBUTEDATA extends Struct {
-  @DWORD()
-  external int dwFileAttributes;
-
-  external FILETIME ftCreationTime;
-
-  external FILETIME ftLastAccessTime;
-
-  external FILETIME ftLastWriteTime;
-
-  @DWORD()
-  external int nFileSizeHigh;
-
-  @DWORD()
-  external int nFileSizeLow;
-}
-
 class FileAttributes {
   final String filePath;
 
@@ -43,7 +26,7 @@ class FileAttributes {
     }
 
     final lptstrFilename = filePath.toPcwstr();
-    final lpFileInformation = calloc<FILEATTRIBUTEDATA>();
+    final lpFileInformation = calloc<WIN32_FILE_ATTRIBUTE_DATA>();
 
     try {
       final result = GetFileAttributesEx(
@@ -55,29 +38,15 @@ class FileAttributes {
         throw WindowsException(result.error.toHRESULT());
       }
 
-      final FILEATTRIBUTEDATA fileInformation = lpFileInformation.ref;
+      final WIN32_FILE_ATTRIBUTE_DATA fileInformation = lpFileInformation.ref;
 
       return (
-        creationTime: fileTimeToDartDateTime(fileInformation.ftCreationTime),
-        lastWriteTime: fileTimeToDartDateTime(fileInformation.ftLastWriteTime),
+        creationTime: fileInformation.ftCreationTime.toDateTime(),
+        lastWriteTime: fileInformation.ftLastWriteTime.toDateTime(),
       );
     } finally {
       free(lptstrFilename);
       free(lpFileInformation);
     }
-  }
-
-  static DateTime? fileTimeToDartDateTime(FILETIME? fileTime) {
-    if (fileTime == null) return null;
-
-    final high = fileTime.dwHighDateTime;
-    final low = fileTime.dwLowDateTime;
-
-    final fileTime64 = (high << 32) + low;
-
-    final windowsTimeMillis = fileTime64 ~/ 10000;
-    final unixTimeMillis = windowsTimeMillis - 11644473600000;
-
-    return DateTime.fromMillisecondsSinceEpoch(unixTimeMillis);
   }
 }
