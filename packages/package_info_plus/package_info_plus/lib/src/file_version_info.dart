@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 // Inspired by:
-// - github.com/chromium/chromium/src/base/file_version_info_win.cc
-// - github.com/timsneath/win32/example/filever.dart
+// - github.com/chromium/chromium/blob/main/base/file_version_info_win.cc
+// - github.com/halildurmus/win32/blob/main/examples/filever.dart
 
 import 'dart:ffi';
 import 'dart:io';
