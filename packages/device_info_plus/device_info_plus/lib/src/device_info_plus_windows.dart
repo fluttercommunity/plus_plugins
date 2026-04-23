@@ -22,20 +22,6 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
 
   WindowsDeviceInfo? _cache;
 
-  // In a well-meaning but somewhat misguided attempt to reduce apps from using
-  // version numbers for feature detection, most version number APIs don't give
-  // expected results on Windows 8 and above. RtlGetVersion is reliable and
-  // stable, but as a kernel API is documented in the Windows DDK (Driver
-  // Development Kit), rather than the SDK. As such, it's not included in
-  // package:win32, so we have to manually define it here.
-  //
-  // ignore: non_constant_identifier_names
-  void Function(Pointer<OSVERSIONINFOEX>) RtlGetVersion =
-      DynamicLibrary.open('ntdll.dll').lookupFunction<
-        Void Function(Pointer<OSVERSIONINFOEX>),
-        void Function(Pointer<OSVERSIONINFOEX>)
-      >('RtlGetVersion');
-
   /// Returns a [WindowsDeviceInfo] with information about the device.
   @override
   Future<BaseDeviceInfo> deviceInfo() {
@@ -68,14 +54,16 @@ class DeviceInfoPlusWindowsPlugin extends DeviceInfoPlatform {
       final registeredOwner =
           currentVersionKey.getString('RegisteredOwner') ?? '';
       final releaseId = currentVersionKey.getString('ReleaseId') ?? '';
+      currentVersionKey.close();
 
       final sqmClientKey = LOCAL_MACHINE.open(r'SOFTWARE\Microsoft\SQMClient');
       final machineId = sqmClientKey.getString('MachineId') ?? '';
+      sqmClientKey.close();
 
       GetSystemInfo(systemInfo);
 
       // Use `RtlGetVersion` from `ntdll.dll` to get the Windows version.
-      RtlGetVersion(osVersionInfo);
+      RtlGetVersion(osVersionInfo.cast());
 
       // Handle [productName] for Windows 11 separately (as per Raymond Chen's comment).
       // https://stackoverflow.com/questions/69460588/how-can-i-find-the-windows-product-name-in-windows-11
