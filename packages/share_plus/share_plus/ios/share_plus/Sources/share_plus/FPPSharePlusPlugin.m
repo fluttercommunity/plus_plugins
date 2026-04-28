@@ -247,7 +247,19 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     }
 
     // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
-    metadata.originalURL = [NSURL fileURLWithPath:description];
+    // The fake file URL above is a long-standing trick used to surface the
+    // file size/extension as a subtitle in the share sheet. iOS 26 introduced
+    // stricter validation of LPLinkMetadata.originalURL: when the share sheet
+    // tries to fetch link metadata (SHSheetActivityItemsManager) for the
+    // bogus URL — for example when sharing .docx files — it crashes with
+    // "*** -[__NSArrayM insertObject:atIndex:]: object cannot be nil".
+    // Skip the fake URL on iOS 26+ and accept the loss of the subtitle in
+    // exchange for not crashing. See issue #3784.
+    if (@available(iOS 26.0, *)) {
+      // Leave metadata.originalURL nil.
+    } else {
+      metadata.originalURL = [NSURL fileURLWithPath:description];
+    }
     if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
       UIImage *image = [UIImage imageWithContentsOfFile:_path];
       metadata.imageProvider = [[NSItemProvider alloc]
