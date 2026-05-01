@@ -22,7 +22,6 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     namespace 'dev.fluttercommunity.plus.share'
@@ -31,10 +30,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = 17
     }
 
     defaultConfig {
@@ -50,5 +45,11 @@ android {
         implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         implementation 'androidx.core:core-ktx:1.16.0'
         implementation 'androidx.annotation:annotation:1.9.1'
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }

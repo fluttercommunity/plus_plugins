@@ -51,6 +51,5 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 environment:
-  sdk: ">=3.10.0 <4.0.0"
-  flutter: ">=3.38.1"
-
+  sdk: ">=3.12.0-0 <4.0.0"
+  flutter: ">=3.44.0-0.0.pre"
