@@ -11,11 +11,15 @@ let package = Package(
     products: [
         .library(name: "device-info-plus", targets: ["device_info_plus"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "FlutterFramework", path: "../FlutterFramework")
+    ],
     targets: [
         .target(
             name: "device_info_plus",
-            dependencies: [],
+            dependencies: [
+                .product(name: "FlutterFramework", package: "FlutterFramework")
+            ],
             resources: [
                 .process("PrivacyInfo.xcprivacy"),
             ],
