@@ -131,6 +131,16 @@ internal class Share(
                 Intent.createChooser(shareIntent, title)
             }
 
+        // Launch the destination app in its own task so it appears as a
+        // separate entry in the recents switcher instead of being stacked
+        // on top of the calling app's task. Without this flag the target
+        // (WhatsApp, Telegram, Drive, etc.) inherits the caller's task —
+        // user sees a single recents entry for the caller with the target
+        // visible inside, which is confusing and inconsistent with how
+        // Android share works for most native apps (e.g. Google Keep,
+        // Instagram). See plus_plugins issue #2267.
+        chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         // Grant permissions to all apps that can handle the files shared
         if (fileUris != null) {
             val resInfoList = getContext().packageManager.queryIntentActivities(
