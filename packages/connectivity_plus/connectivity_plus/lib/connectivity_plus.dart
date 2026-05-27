@@ -9,7 +9,7 @@ import 'package:collection/collection.dart';
 
 // Export enums from the platform_interface so plugin users can use them directly.
 export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
-    show ConnectivityResult;
+    show ConnectivityResult, ConnectivityResultListX;
 
 export 'src/connectivity_plus_linux.dart'
     if (dart.library.js_interop) 'src/connectivity_plus_web.dart';
