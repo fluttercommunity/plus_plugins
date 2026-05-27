@@ -46,7 +46,7 @@ class Connectivity {
   /// case where [ConnectivityResult.none] is present.
   ///
   /// This method applies [Stream.distinct] over the received events to ensure
-  /// only emiting when connectivity changes.
+  /// only emitting when connectivity changes.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged.distinct((a, b) => a.equals(b));
   }
