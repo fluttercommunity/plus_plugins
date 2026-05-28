@@ -48,6 +48,7 @@ class SharePlusWebPlugin extends SharePlatform {
 
     try {
       await _navigator.share(data).toDart;
+      // ignore: invalid_runtime_check_with_js_interop_types
     } on DOMException catch (e) {
       if (e.name case 'AbortError') {
         return _resultDismissed;
