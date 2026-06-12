@@ -17,6 +17,21 @@ const _buildNumber = String.fromEnvironment('PACKAGE_INFO_PLUS_BUILD_NUMBER');
 const _appName = String.fromEnvironment('PACKAGE_INFO_PLUS_APP_NAME');
 const _packageName = String.fromEnvironment('PACKAGE_INFO_PLUS_PACKAGE_NAME');
 
+/// Tool-provided fallbacks, recognized so that apps need no configuration at
+/// all once their build front-end injects the version itself:
+///
+/// * `FLUTTER_BUILD_NAME` / `FLUTTER_BUILD_NUMBER` — proposed in
+///   flutter/flutter#187935 (injected by flutter_tools from the pubspec
+///   `version`, like `FLUTTER_APP_FLAVOR` already is).
+/// * `dart.package.version` — companion proposal for the `dart` CLI
+///   (dart-lang/sdk#38855); carries the verbatim pubspec `version`,
+///   including any `+buildNumber` suffix.
+///
+/// The explicit `PACKAGE_INFO_PLUS_*` defines take precedence over both.
+const _flutterBuildName = String.fromEnvironment('FLUTTER_BUILD_NAME');
+const _flutterBuildNumber = String.fromEnvironment('FLUTTER_BUILD_NUMBER');
+const _dartPackageVersion = String.fromEnvironment('dart.package.version');
+
 /// Holds the compile-time package info and enforces, at compile time, that a
 /// version was provided on web builds.
 ///
@@ -28,7 +43,10 @@ const _packageName = String.fromEnvironment('PACKAGE_INFO_PLUS_PACKAGE_NAME');
 class _CompileTimePackageInfo {
   const _CompileTimePackageInfo()
     : assert(
-        !kIsWeb || _version != '',
+        !kIsWeb ||
+            _version != '' ||
+            _flutterBuildName != '' ||
+            _dartPackageVersion != '',
         'PACKAGE_INFO_PLUS_VERSION must be provided via --dart-define on web '
         'builds. On the web there is no reliable runtime source for the '
         'version of the *running* bundle (version.json is fetched from the '
@@ -38,8 +56,21 @@ class _CompileTimePackageInfo {
         '_PACKAGE_NAME) to your web build.',
       );
 
-  String get version => _version;
-  String get buildNumber => _buildNumber;
+  String get version {
+    if (_version != '') return _version;
+    if (_flutterBuildName != '') return _flutterBuildName;
+    return _dartPackageVersion.split('+').first;
+  }
+
+  String get buildNumber {
+    if (_buildNumber != '') return _buildNumber;
+    if (_flutterBuildNumber != '') return _flutterBuildNumber;
+    if (_dartPackageVersion.contains('+')) {
+      return _dartPackageVersion.split('+').last;
+    }
+    return '';
+  }
+
   String get appName => _appName;
   String get packageName => _packageName;
 }

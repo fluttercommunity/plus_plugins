@@ -162,6 +162,12 @@ Behaviour per platform:
 - **All other platforms** — delegates to `PackageInfo.fromPlatform()`, which reads the installed
   binary and is already reliable. The defines are not required there.
 
+The accessor also recognizes tool-provided defines as fallbacks, so apps need no configuration at
+all once their build front-end injects the version itself: `FLUTTER_BUILD_NAME` /
+`FLUTTER_BUILD_NUMBER` (proposed in [flutter/flutter#187935](https://github.com/flutter/flutter/pull/187935))
+and `dart.package.version` ([dart-lang/sdk#38855](https://github.com/dart-lang/sdk/issues/38855)).
+The explicit `PACKAGE_INFO_PLUS_*` defines take precedence over both.
+
 `PackageInfo.fromPlatform()` is unchanged; this accessor lives in a separate library that you import
 only when you opt in, so existing builds are unaffected.
 
