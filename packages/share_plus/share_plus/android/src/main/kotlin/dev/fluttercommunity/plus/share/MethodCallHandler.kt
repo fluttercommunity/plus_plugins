@@ -3,12 +3,19 @@ package dev.fluttercommunity.plus.share
 import android.os.Build
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /** Handles the method calls for the plugin.  */
 internal class MethodCallHandler(
     private val share: Share,
     private val manager: ShareSuccessManager,
 ) : MethodChannel.MethodCallHandler {
+
+    private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         expectMapArguments(call)
@@ -20,20 +27,26 @@ internal class MethodCallHandler(
         if (isWithResult)
             manager.setCallback(result)
 
-        try {
-            when (call.method) {
-                "share" -> {
-                    share.share(
-                        arguments = call.arguments<Map<String, Any>>()!!,
-                        withResult = isWithResult,
-                    )
-                    success(isWithResult, result)
+        when (call.method) {
+            "share" -> {
+                mainScope.launch {
+                    try {
+                        val arguments = call.arguments<Map<String, Any>>()!!
+                        withContext(Dispatchers.IO) {
+                            share.share(
+                                arguments = arguments,
+                                withResult = isWithResult,
+                            )
+                        }
+                        success(isWithResult, result)
+                    } catch (e: Throwable) {
+                        manager.clear()
+                        result.error("Share failed", e.message, e)
+                    }
                 }
-                else -> result.notImplemented()
             }
-        } catch (e: Throwable) {
-            manager.clear()
-            result.error("Share failed", e.message, e)
+
+            else -> result.notImplemented()
         }
     }
 
