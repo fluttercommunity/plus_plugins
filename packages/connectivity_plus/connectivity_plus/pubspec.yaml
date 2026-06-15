@@ -10,9 +10,9 @@ topics:
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
-  # Flutter versions prior to 3.7 did not support the
-  # sharedDarwinSource option.
-  flutter: ">=3.7.0"
+  # Dart >=3.2.0 first shipped with Flutter 3.16.0, so that is the
+  # lowest Flutter version that can satisfy the SDK constraint above.
+  flutter: ">=3.16.0"
 
 flutter:
   plugin:
