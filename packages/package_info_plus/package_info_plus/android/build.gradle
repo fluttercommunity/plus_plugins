@@ -23,7 +23,19 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+// Built-in Kotlin migration (AGP 9): AGP 9 removes support for applying the Kotlin Gradle
+// Plugin (KGP) directly and provides built-in Kotlin instead. Apply KGP only when built-in
+// Kotlin is NOT active — i.e. on AGP < 9, or when `android.builtInKotlin` is disabled (the
+// Flutter transition default, which Flutter still sets to false even on AGP 9). This keeps the
+// plugin building across both the legacy-KGP and built-in-Kotlin paths, and stops applying KGP
+// once the host enables built-in Kotlin on AGP 9+.
+// https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+def agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlin = providers.gradleProperty('android.builtInKotlin').map { it.toBoolean() }.orElse(agpMajor >= 9).get()
+if (agpMajor < 9 || !builtInKotlin) {
+    apply plugin: 'kotlin-android'
+}
 
 android {
     namespace 'dev.fluttercommunity.plus.packageinfo'
@@ -32,10 +44,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = 17
     }
 
     defaultConfig {
@@ -49,5 +57,14 @@ android {
 
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    }
+}
+
+// Replaces the deprecated `kotlinOptions { jvmTarget = ... }` block, which is removed alongside
+// KGP under built-in Kotlin. The `kotlin` extension is registered by KGP on AGP < 9 and by
+// built-in Kotlin on AGP 9+, so this configures the Kotlin compiler on both.
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
