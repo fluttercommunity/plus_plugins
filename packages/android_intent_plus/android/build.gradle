@@ -1,5 +1,5 @@
-group 'dev.fluttercommunity.plus.androidintent'
-version '1.0-SNAPSHOT'
+group = 'dev.fluttercommunity.plus.androidintent'
+version = '1.0-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -22,20 +22,20 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    namespace 'dev.fluttercommunity.plus.androidintent'
+    namespace = 'dev.fluttercommunity.plus.androidintent'
     compileSdk = flutter.compileSdkVersion
 
     defaultConfig {
-        minSdk 19
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 19
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    lintOptions {
+    lint {
         disable 'InvalidPackage'
     }
 

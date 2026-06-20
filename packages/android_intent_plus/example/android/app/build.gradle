@@ -23,44 +23,45 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace 'io.flutter.plugins.androidintentexample'
+    namespace = 'io.flutter.plugins.androidintentexample'
     compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    lintOptions {
-        disable 'InvalidPackage'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
-        applicationId "io.flutter.plugins.androidintentexample"
-        minSdk flutter.minSdkVersion
-        targetSdk flutter.targetSdkVersion
+        applicationId = "io.flutter.plugins.androidintentexample"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
 
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lint {
+        disable 'InvalidPackage'
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
         }
     }
 }
 
 flutter {
-    source '../..'
+    source = '../..'
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
