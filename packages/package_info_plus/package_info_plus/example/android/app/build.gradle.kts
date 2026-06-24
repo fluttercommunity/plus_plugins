@@ -13,6 +13,7 @@ kotlin {
 android {
     namespace = "io.flutter.plugins.packageinfoexample"
     compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
