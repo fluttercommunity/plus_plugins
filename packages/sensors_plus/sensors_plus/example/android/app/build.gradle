@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 android {
     compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     namespace 'io.flutter.plugins.sensorsexample'
 
