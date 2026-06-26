@@ -87,7 +87,11 @@ internal class Share(
                     // Attach the thumbnail so the system Sharesheet shows a rich preview.
                     // The content URI must be readable by the chooser; ClipData propagates
                     // the temporary read grant to the selected target.
-                    data = previewThumbnailUri
+                    //
+                    // Note: do NOT call setData() here. setData() clears the intent
+                    // type ("text/plain"), which breaks Direct Share suggestions
+                    // (recommended people) since those are matched by MIME type.
+                    // ClipData alone carries the thumbnail for the preview.
                     clipData = ClipData.newRawUri(null, previewThumbnailUri)
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
