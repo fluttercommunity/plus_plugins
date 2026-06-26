@@ -4,6 +4,8 @@
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
 
+#include <algorithm>
+
 #include "vector.h"
 
 namespace share_plus_windows {
@@ -57,6 +59,13 @@ SharePlusWindowsPlugin::GetDataTransferManager() {
 HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     wchar_t *path, WindowsStorage::IStorageFile **file) {
   using Microsoft::WRL::Wrappers::HStringReference;
+  // GetFileFromPathAsync requires a fully-qualified path using backslash
+  // separators. Paths produced on the Dart side can contain mixed separators
+  // (e.g. in-memory XFile.fromData temp files combine a backslash temp root
+  // with forward-slash subpaths), which would otherwise fail with
+  // ERROR_FILE_NOT_FOUND. Normalize forward slashes to backslashes.
+  std::wstring normalized_path(path);
+  std::replace(normalized_path.begin(), normalized_path.end(), L'/', L'\\');
   WRL::ComPtr<WindowsStorage::IStorageFileStatics> factory = nullptr;
   HRESULT hr = S_OK;
   *file = nullptr;
@@ -69,8 +78,8 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     WRL::ComPtr<
         WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile *>>
         async_operation;
-    hr = factory->GetFileFromPathAsync(HStringReference(path).Get(),
-                                       &async_operation);
+    hr = factory->GetFileFromPathAsync(
+        HStringReference(normalized_path.c_str()).Get(), &async_operation);
     if (SUCCEEDED(hr)) {
       WRL::ComPtr<IAsyncInfo> info;
       hr = async_operation.As(&info);
