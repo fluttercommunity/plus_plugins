@@ -12,8 +12,9 @@ import 'package:meta/meta.dart';
 class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  MethodChannel methodChannel =
-      const MethodChannel('dev.fluttercommunity.plus/network_info');
+  MethodChannel methodChannel = const MethodChannel(
+    'dev.fluttercommunity.plus/network_info',
+  );
 
   @override
   Future<String?> getWifiName() async {

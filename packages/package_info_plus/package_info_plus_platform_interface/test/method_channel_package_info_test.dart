@@ -14,8 +14,10 @@ void main() {
 
   group('$PackageInfoPlatform', () {
     test('$PackageInfoPlatform() is the default instance', () {
-      expect(PackageInfoPlatform.instance,
-          isInstanceOf<MethodChannelPackageInfo>());
+      expect(
+        PackageInfoPlatform.instance,
+        isInstanceOf<MethodChannelPackageInfo>(),
+      );
     });
 
     test('Cannot be implemented with `implements`', () {
@@ -38,25 +40,22 @@ void main() {
     const channel = MethodChannel('dev.fluttercommunity.plus/package_info');
     final log = <MethodCall>[];
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
-      channel,
-      (MethodCall methodCall) async {
-        log.add(methodCall);
-        switch (methodCall.method) {
-          case 'getAll':
-            return <String, dynamic>{
-              'appName': 'package_info_example',
-              'buildNumber': '1',
-              'packageName': 'io.flutter.plugins.packageinfoexample',
-              'version': '1.0',
-              'installerStore': 'testflight',
-            };
-          default:
-            assert(false);
-            return null;
-        }
-      },
-    );
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+          log.add(methodCall);
+          switch (methodCall.method) {
+            case 'getAll':
+              return <String, dynamic>{
+                'appName': 'package_info_example',
+                'buildNumber': '1',
+                'packageName': 'io.flutter.plugins.packageinfoexample',
+                'version': '1.0',
+                'installerStore': 'testflight',
+              };
+            default:
+              assert(false);
+              return null;
+          }
+        });
 
     final packageInfo = MethodChannelPackageInfo();
 
@@ -66,10 +65,7 @@ void main() {
 
     test('getAll', () async {
       await packageInfo.getAll();
-      expect(
-        log,
-        <Matcher>[isMethodCall('getAll', arguments: null)],
-      );
+      expect(log, <Matcher>[isMethodCall('getAll', arguments: null)]);
     });
   });
 }

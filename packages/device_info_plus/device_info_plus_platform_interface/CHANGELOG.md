@@ -1,3 +1,13 @@
+## 8.1.0
+
+ - **FEAT**(device_info_plus): Lower requirements to Dart 3.10 and Flutter 3.38.1 ([#3803](https://github.com/fluttercommunity/plus_plugins/issues/3803)). ([6d73e0d1](https://github.com/fluttercommunity/plus_plugins/commit/6d73e0d1035dd2c6b7fa6691dce4fca31c2a14f6))
+
+## 8.0.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(device_info_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3791](https://github.com/fluttercommunity/plus_plugins/issues/3791)). ([5f93878b](https://github.com/fluttercommunity/plus_plugins/commit/5f93878bcc85b1dc5f90968119d87ef2cc6c8dce))
+
 ## 7.0.3
 
  - **FIX**(device_info_plus): Specify correct Dart and Flutter version requirements ([#3597](https://github.com/fluttercommunity/plus_plugins/issues/3597)). ([6ebc0ead](https://github.com/fluttercommunity/plus_plugins/commit/6ebc0ead68df477f06c6d4738a69a9e56223cf47))

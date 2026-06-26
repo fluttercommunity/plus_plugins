@@ -39,8 +39,10 @@ class SharePlusWindowsPlugin extends SharePlatform {
     final uri = Uri(
       scheme: 'mailto',
       query: queryParameters.entries
-          .map((e) =>
-              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value ?? '')}')
+          .map(
+            (e) =>
+                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value ?? '')}',
+          )
           .join('&'),
     );
 

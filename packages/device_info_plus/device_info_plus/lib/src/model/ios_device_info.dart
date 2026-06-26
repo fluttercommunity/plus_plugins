@@ -25,6 +25,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
     required this.physicalRamSize,
     required this.availableRamSize,
     required this.isiOSAppOnMac,
+    required this.isiOSAppOnVision,
     required this.utsname,
   }) : super(data);
 
@@ -73,6 +74,10 @@ class IosDeviceInfo extends BaseDeviceInfo {
   /// https://developer.apple.com/documentation/foundation/nsprocessinfo/3608556-iosapponmac
   final bool isiOSAppOnMac;
 
+  /// Indicates whether the process is an iPhone or iPad app running on visionOS.
+  /// https://developer.apple.com/documentation/foundation/processinfo/isiosapponvision
+  final bool isiOSAppOnVision;
+
   /// Operating system information derived from `sys/utsname.h`.
   final IosUtsname utsname;
 
@@ -99,6 +104,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       physicalRamSize: map['physicalRamSize'],
       availableRamSize: map['availableRamSize'],
       isiOSAppOnMac: map['isiOSAppOnMac'],
+      isiOSAppOnVision: map['isiOSAppOnVision'],
       utsname: IosUtsname._fromMap(
         map['utsname']?.cast<String, dynamic>() ?? {},
       ),
@@ -119,6 +125,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
     String? identifierForVendor,
     required bool isPhysicalDevice,
     required bool isiOSAppOnMac,
+    required bool isiOSAppOnVision,
     required int physicalRamSize,
     required int availableRamSize,
     required IosUtsname utsname,
@@ -135,6 +142,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       'totalDiskSize': totalDiskSize,
       'isPhysicalDevice': isPhysicalDevice,
       'isiOSAppOnMac': isiOSAppOnMac,
+      'isiOSAppOnVision': isiOSAppOnVision,
       'physicalRamSize': physicalRamSize,
       'availableRamSize': availableRamSize,
       'utsname': {
@@ -158,6 +166,7 @@ class IosDeviceInfo extends BaseDeviceInfo {
       totalDiskSize: totalDiskSize,
       isPhysicalDevice: isPhysicalDevice,
       isiOSAppOnMac: isiOSAppOnMac,
+      isiOSAppOnVision: isiOSAppOnVision,
       physicalRamSize: physicalRamSize,
       availableRamSize: availableRamSize,
       utsname: utsname,

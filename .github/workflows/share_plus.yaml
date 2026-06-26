@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: |
@@ -44,11 +44,11 @@ jobs:
           working-directory: ./packages/share_plus
 
   android_build:
-    runs-on: macos-14
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -56,17 +56,21 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh android ./lib/main.dart
 
   android_integration_test:
-    # Use non M1 machine till https://github.com/ReactiveCircus/android-emulator-runner/issues/350 is resolved
-    runs-on: macos-13
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        android-api-level: [ 22, 26, 31, 34 ]
+        android-api-level: [ 24, 29, 32, 36 ]
 
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -76,19 +80,18 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.android-api-level }}
-          cores: 3
           target: google_apis
           arch: x86_64
           force-avd-creation: false
-          profile: Nexus 5X
+          profile: pixel_7_pro
           script: ./.github/workflows/scripts/integration-test.sh android share_plus_example
 
-  ios:
-    runs-on: macos-14
+  ios_example_build:
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -96,29 +99,29 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh ios ./lib/main.dart
 
   ios_integration_test:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
         run: melos bootstrap --scope="$PLUGIN_SCOPE"
       - name: "Start Simulator"
-        uses: futureware-tech/simulator-action@v4
+        uses: futureware-tech/simulator-action@v5
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 17'
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh ios share_plus_example
 
-  macos:
+  macos_example_build:
     runs-on: macos-14
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -126,11 +129,11 @@ jobs:
         run: ./.github/workflows/scripts/build-examples.sh macos ./lib/main.dart
 
   macos_integration_test:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -139,12 +142,12 @@ jobs:
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh macos share_plus_example
 
-  linux:
+  linux_example_build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -157,7 +160,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -166,12 +169,12 @@ jobs:
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh linux share_plus_example
 
-  windows:
+  windows_example_build:
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -183,7 +186,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -192,12 +195,12 @@ jobs:
       - name: "Run Integration Test"
         run: ./.github/workflows/scripts/integration-test.sh windows share_plus_example
 
-  web:
+  web_example_build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh

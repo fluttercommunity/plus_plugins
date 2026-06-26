@@ -29,6 +29,13 @@ indent_size = 2
 indent_size = 4
 max_line_length = 100
 
+[*.java]
+indent_style = space
+indent_size = 2
+tab_width = 2
+max_line_length = 100
+insert_final_newline = false
+
 [*.m]
 indent_style = space
 indent_size = 2

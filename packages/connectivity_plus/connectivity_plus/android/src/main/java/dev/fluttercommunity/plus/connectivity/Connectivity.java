@@ -9,7 +9,6 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class Connectivity {
   static final String CONNECTIVITY_ETHERNET = "ethernet";
   static final String CONNECTIVITY_BLUETOOTH = "bluetooth";
   static final String CONNECTIVITY_VPN = "vpn";
+  static final String CONNECTIVITY_SATELLITE = "satellite";
   static final String CONNECTIVITY_OTHER = "other";
   private final ConnectivityManager connectivityManager;
 
@@ -39,14 +39,12 @@ public class Connectivity {
     }
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   List<String> getCapabilitiesFromNetwork(Network network) {
     NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
     return getCapabilitiesList(capabilities);
   }
 
   @NonNull
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   List<String> getCapabilitiesList(NetworkCapabilities capabilities) {
     List<String> types = new ArrayList<>();
     if (capabilities == null
@@ -69,6 +67,10 @@ public class Connectivity {
     }
     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
       types.add(CONNECTIVITY_BLUETOOTH);
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+        && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {
+      types.add(CONNECTIVITY_SATELLITE);
     }
     if (types.isEmpty()
         && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {

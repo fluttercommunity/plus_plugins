@@ -1,5 +1,5 @@
-group 'dev.fluttercommunity.plus.connectivity'
-version '1.0-SNAPSHOT'
+group = 'dev.fluttercommunity.plus.connectivity'
+version = '1.0-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -22,7 +22,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    namespace 'dev.fluttercommunity.plus.connectivity'
+    namespace = 'dev.fluttercommunity.plus.connectivity'
     compileSdk = flutter.compileSdkVersion
 
     compileOptions {
@@ -31,10 +31,14 @@ android {
     }
 
     defaultConfig {
-        minSdk 19
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 21
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    lintOptions {
+    lint {
         disable 'InvalidPackage'
+    }
+
+    dependencies {
+        implementation "androidx.core:core:1.18.0"
     }
 }

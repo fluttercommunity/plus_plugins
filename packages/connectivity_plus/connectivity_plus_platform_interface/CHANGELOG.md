@@ -1,3 +1,7 @@
+## 2.1.0
+
+ - **FEAT**(connectivity_plus): add ConnectivityResult.satellite on Android and iOS ([#3771](https://github.com/fluttercommunity/plus_plugins/issues/3771)). ([2b58cffe](https://github.com/fluttercommunity/plus_plugins/commit/2b58cffedd8ebce127deba10d2e389c3c3bfcb4b))
+
 ## 2.0.1
 
  - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))

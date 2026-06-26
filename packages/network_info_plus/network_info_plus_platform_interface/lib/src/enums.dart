@@ -16,5 +16,5 @@ enum LocationAuthorizationStatus {
   authorizedWhenInUse,
 
   /// Status unknown.
-  unknown
+  unknown,
 }

@@ -1,3 +1,29 @@
+## 13.1.0
+
+ - **FEAT**(share_plus): Lower requirements to Dart 3.10 and Flutter 3.38.1 ([#3801](https://github.com/fluttercommunity/plus_plugins/issues/3801)). ([d965e00e](https://github.com/fluttercommunity/plus_plugins/commit/d965e00e5082d4e32e25cacad0b193a735d51c5f))
+
+## 13.0.0
+
+> Note: This release has breaking changes.
+>
+> Due to an update of win32 to 6.0.0, package requirements were also changed to match this update:
+> - Minimum Flutter version is 3.41.6
+> - Minimum Dart version is 3.11.0
+> - Min iOS is 13.0
+> - Min macOS is 10.15
+>
+> Since this release was already breaking, the rest of the dependencies were also updated to the latest possible versions.
+
+ - **BREAKING** **FEAT**(share_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3762](https://github.com/fluttercommunity/plus_plugins/issues/3762)). ([0e3eb918](https://github.com/fluttercommunity/plus_plugins/commit/0e3eb918e77fcc500b6124167a905f026ffc374a))
+
+## 12.0.2
+
+ - **FIX**(share_plus): Avoid crash on iOS during file and text sharing in add-to-app scenario ([#3738](https://github.com/fluttercommunity/plus_plugins/issues/3738)). ([ae6330bb](https://github.com/fluttercommunity/plus_plugins/commit/ae6330bbf579fe411b503be84fcfc202d2496625))
+
+## 12.0.1
+
+ - **FIX**(share_plus): Avoid crash on iOS 26 on iPhones with no sharePositionOrigin param([#3699](https://github.com/fluttercommunity/plus_plugins/issues/3699)). ([42b079bd](https://github.com/fluttercommunity/plus_plugins/commit/42b079bd5fa56c9983a5a4fcf351190884f5c540))
+
 ## 12.0.0
 
 > Note: This release has breaking changes.

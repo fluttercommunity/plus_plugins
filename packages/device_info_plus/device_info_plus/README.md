@@ -16,14 +16,15 @@ Get current device information from within the Flutter application.
 
 ## Requirements
 
-- Flutter >=3.29.0
-- Dart >=3.7.0 <4.0.0
-- iOS >=12.0
-- macOS >=10.14
+- Flutter >=3.38.1
+- Dart >=3.10.0 <4.0.0
+- iOS >=13.0
+- macOS >=10.15
 - Java 17
 - Kotlin 2.2.0
 - Android Gradle Plugin >=8.12.1
 - Gradle wrapper >=8.13
+- Xcode >= 26.1.1
 
 # Usage
 

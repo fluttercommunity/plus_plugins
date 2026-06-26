@@ -58,10 +58,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Share Plus Plugin Demo'),
-        elevation: 4,
-      ),
+      appBar: AppBar(title: const Text('Share Plus Plugin Demo'), elevation: 4),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -143,7 +140,8 @@ class MyHomePageState extends State<MyHomePage> {
                     extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
                   );
                   final file = await openFile(
-                      acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+                    acceptedTypeGroups: <XTypeGroup>[typeGroup],
+                  );
                   if (file != null) {
                     setState(() {
                       imagePaths.add(file.path);
@@ -165,8 +163,9 @@ class MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.add),
             ),
-            if (Platform.isIOS || Platform.isMacOS) const SizedBox(height: 16),
-            if (Platform.isIOS || Platform.isMacOS)
+            if (!kIsWeb && (Platform.isIOS || Platform.isMacOS))
+              const SizedBox(height: 16),
+            if (!kIsWeb && (Platform.isIOS || Platform.isMacOS))
               ElevatedButton(
                 onPressed: _onSelectExcludedActivityType,
                 child: const Text('Add Excluded Activity Type'),
@@ -315,9 +314,7 @@ class MyHomePageState extends State<MyHomePage> {
       );
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
     } catch (e) {
-      scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -344,9 +341,7 @@ class MyHomePageState extends State<MyHomePage> {
 
       scaffoldMessenger.showSnackBar(getResultSnackBar(shareResult));
     } catch (e) {
-      scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -358,7 +353,7 @@ class MyHomePageState extends State<MyHomePage> {
         children: [
           Text("Share result: ${result.status}"),
           if (result.status == ShareResultStatus.success)
-            Text("Shared to: ${result.raw}")
+            Text("Shared to: ${result.raw}"),
         ],
       ),
     );

@@ -130,10 +130,10 @@ void main() {
           ),
         );
       } else if (Platform.isWindows) {
-        expect(info.appName, 'example');
+        expect(info.appName, 'package_info_plus_example');
         expect(info.buildNumber, '4');
         expect(info.buildSignature, isEmpty);
-        expect(info.packageName, 'example');
+        expect(info.packageName, 'package_info_plus_example');
         expect(info.version, '1.2.3');
         expect(info.installerStore, null);
         expect(
@@ -172,10 +172,7 @@ void main() {
     } else {
       final expectedInstallTimeIso = testStartTime.toIso8601String();
       final installTimeRegex = RegExp(
-        expectedInstallTimeIso.replaceAll(
-          RegExp(r'\d:\d\d\..+$'),
-          r'.+$',
-        ),
+        expectedInstallTimeIso.replaceAll(RegExp(r'\d:\d\d\..+$'), r'.+$'),
       );
 
       if (Platform.isAndroid) {
@@ -200,7 +197,9 @@ void main() {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageInfoExample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('com.apple.simulator'), findsOneWidget);
@@ -209,7 +208,9 @@ void main() {
         expect(find.text('Package Info Plus Example'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(
-            find.text('io.flutter.plugins.packageInfoExample'), findsOneWidget);
+          find.text('io.flutter.plugins.packageInfoExample'),
+          findsOneWidget,
+        );
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);
         expect(find.text('not available'), findsOneWidget);
@@ -221,7 +222,7 @@ void main() {
         expect(find.text('Not set'), findsOneWidget);
         expect(find.textContaining(installTimeRegex), findsNWidgets(2));
       } else if (Platform.isWindows) {
-        expect(find.text('example'), findsNWidgets(2));
+        expect(find.text('package_info_plus_example'), findsNWidgets(2));
         expect(find.text('1.2.3'), findsOneWidget);
         expect(find.text('4'), findsOneWidget);
         expect(find.text('Not set'), findsOneWidget);

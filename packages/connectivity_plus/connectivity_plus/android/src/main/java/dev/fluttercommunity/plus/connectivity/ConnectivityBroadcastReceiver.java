@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import io.flutter.plugin.common.EventChannel;
 import java.util.List;
 
@@ -77,7 +78,11 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver
           };
       connectivity.getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
     } else {
-      context.registerReceiver(this, new IntentFilter(CONNECTIVITY_ACTION));
+      ContextCompat.registerReceiver(
+          context,
+          this,
+          new IntentFilter(CONNECTIVITY_ACTION),
+          ContextCompat.RECEIVER_NOT_EXPORTED);
     }
     // Need to emit first event with connectivity types without waiting for first change in system
     // that might happen much later

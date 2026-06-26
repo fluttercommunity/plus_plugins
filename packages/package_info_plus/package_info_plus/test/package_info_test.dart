@@ -20,51 +20,48 @@ void main() {
   final mockUpdateTime = now;
 
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-    channel,
-    (MethodCall methodCall) async {
-      log.add(methodCall);
-      switch (methodCall.method) {
-        case 'getAll':
-          return <String, dynamic>{
-            'appName': 'package_info_example',
-            'buildNumber': '1',
-            'packageName': 'io.flutter.plugins.packageinfoexample',
-            'version': '1.0',
-            'installerStore': null,
-            'installTime': mockInstallTime.millisecondsSinceEpoch.toString(),
-            'updateTime': mockUpdateTime.millisecondsSinceEpoch.toString(),
-          };
-        default:
-          assert(false);
-          return null;
-      }
-    },
-  );
+      .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        log.add(methodCall);
+        switch (methodCall.method) {
+          case 'getAll':
+            return <String, dynamic>{
+              'appName': 'package_info_example',
+              'buildNumber': '1',
+              'packageName': 'io.flutter.plugins.packageinfoexample',
+              'version': '1.0',
+              'installerStore': null,
+              'installTime': mockInstallTime.millisecondsSinceEpoch.toString(),
+              'updateTime': mockUpdateTime.millisecondsSinceEpoch.toString(),
+            };
+          default:
+            assert(false);
+            return null;
+        }
+      });
 
   tearDown(() {
     log.clear();
   });
 
-  test('fromPlatform', () async {
-    final info = await PackageInfo.fromPlatform();
-    expect(info.appName, 'package_info_example');
-    expect(info.buildNumber, '1');
-    expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
-    expect(info.version, '1.0');
-    expect(info.installerStore, null);
-    expect(info.installTime, mockInstallTime);
-    expect(info.updateTime, mockUpdateTime);
-    expect(
-      log,
-      <Matcher>[
-        isMethodCall('getAll', arguments: null),
-      ],
-    );
-  }, onPlatform: {
-    'linux':
-        const Skip('PackageInfoPlus on Linux does not use platform channels'),
-  });
+  test(
+    'fromPlatform',
+    () async {
+      final info = await PackageInfo.fromPlatform();
+      expect(info.appName, 'package_info_example');
+      expect(info.buildNumber, '1');
+      expect(info.packageName, 'io.flutter.plugins.packageinfoexample');
+      expect(info.version, '1.0');
+      expect(info.installerStore, null);
+      expect(info.installTime, mockInstallTime);
+      expect(info.updateTime, mockUpdateTime);
+      expect(log, <Matcher>[isMethodCall('getAll', arguments: null)]);
+    },
+    onPlatform: {
+      'linux': const Skip(
+        'PackageInfoPlus on Linux does not use platform channels',
+      ),
+    },
+  );
 
   test('Mock initial values', () async {
     PackageInfo.setMockInitialValues(

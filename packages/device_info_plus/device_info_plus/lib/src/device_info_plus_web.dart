@@ -10,7 +10,7 @@ import 'model/web_browser_info.dart';
 /// The web implementation of the BatteryPlusPlatform of the BatteryPlus plugin.
 class DeviceInfoPlusWebPlugin extends DeviceInfoPlatform {
   /// Constructs a DeviceInfoPlusPlugin.
-  DeviceInfoPlusWebPlugin(navigator) : _navigator = navigator;
+  DeviceInfoPlusWebPlugin(html.Navigator navigator) : _navigator = navigator;
 
   final html.Navigator _navigator;
 
