@@ -1,3 +1,9 @@
+## 7.1.0
+
+ - **REFACTOR**(battery_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3906](https://github.com/fluttercommunity/plus_plugins/issues/3906)). ([104df18a](https://github.com/fluttercommunity/plus_plugins/commit/104df18a36432b81ec808cdfb85e01e7c2781d34))
+ - **FEAT**(battery_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3909](https://github.com/fluttercommunity/plus_plugins/issues/3909)). ([a9409774](https://github.com/fluttercommunity/plus_plugins/commit/a9409774cecd00a595cbf6eb49980416e38a0415))
+ - **FEAT**(battery_plus): Add support of built-in Kotlin ([#3901](https://github.com/fluttercommunity/plus_plugins/issues/3901)). ([93d366dd](https://github.com/fluttercommunity/plus_plugins/commit/93d366dd439a7d7c801d82b055653ba222e7f984))
+
 ## 7.0.0
 
 > Note: This release has breaking changes.

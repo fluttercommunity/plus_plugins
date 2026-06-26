@@ -1,3 +1,9 @@
+## 8.2.0
+
+ - **REFACTOR**(network_info_plus): Change Android Gradle part from Groovy to Kotlin ([#3861](https://github.com/fluttercommunity/plus_plugins/issues/3861)). ([052ec359](https://github.com/fluttercommunity/plus_plugins/commit/052ec359128971cb1710c6ab834c21c4c9f361da))
+ - **FEAT**(network_info_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3908](https://github.com/fluttercommunity/plus_plugins/issues/3908)). ([56ff0896](https://github.com/fluttercommunity/plus_plugins/commit/56ff0896fcd33f3d39de769e832dddbb75e996b8))
+ - **FEAT**(network_info_plus): Add support of built-in Kotlin ([#3895](https://github.com/fluttercommunity/plus_plugins/issues/3895)). ([ca838b53](https://github.com/fluttercommunity/plus_plugins/commit/ca838b53ae67965245e408d3060390ad98945d9a))
+
 ## 8.1.0
 
  - **FEAT**(network_info_plus): Lower requirements to Dart 3.10 and Flutter 3.38.1 ([#3802](https://github.com/fluttercommunity/plus_plugins/issues/3802)). ([63fa060b](https://github.com/fluttercommunity/plus_plugins/commit/63fa060b1a6ec0ce7a6ba02382c313a999c87d8d))
