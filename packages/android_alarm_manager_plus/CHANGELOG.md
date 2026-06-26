@@ -1,3 +1,8 @@
+## 5.1.0
+
+ - **REFACTOR**(android_alarm_manager_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3907](https://github.com/fluttercommunity/plus_plugins/issues/3907)). ([4cf0346a](https://github.com/fluttercommunity/plus_plugins/commit/4cf0346a33adbd484b20b12b40bb8c5e9c7a9dde))
+ - **FEAT**(android_alarm_manager_plus): Add support of built-in Kotlin ([#3903](https://github.com/fluttercommunity/plus_plugins/issues/3903)). ([e770acd0](https://github.com/fluttercommunity/plus_plugins/commit/e770acd0210f5fc18783110474b81205ada2baf0))
+
 ## 5.0.0
 
 > Note: This release has breaking changes.

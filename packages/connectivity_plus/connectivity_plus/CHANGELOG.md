@@ -1,3 +1,7 @@
+## 7.2.0
+
+ - **FEAT**(connectivity_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3893](https://github.com/fluttercommunity/plus_plugins/issues/3893)). ([9c064c2e](https://github.com/fluttercommunity/plus_plugins/commit/9c064c2eaa50c13f27a6e7d2b788f57580658353))
+
 ## 7.1.1
 
  - **DOCS**(connectivity_plus): Add missing info about Xcode 26.1.1 requirement, deduplicate headers ([#3792](https://github.com/fluttercommunity/plus_plugins/issues/3792)). ([ba6e6b94](https://github.com/fluttercommunity/plus_plugins/commit/ba6e6b94f673bb479a5891b8ca0fc5fd7b2345bc))
