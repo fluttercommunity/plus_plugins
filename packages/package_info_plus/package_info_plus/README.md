@@ -122,6 +122,55 @@ If your project was created before Flutter 3.3 you need to migrate the project a
 
 In a web environment, the package uses the `version.json` file that it is generated in the build process.
 
+#### `version.json` reflects the deployed version, not the running one
+
+`PackageInfo.fromPlatform()` resolves the version on web by fetching `version.json` from the server
+at runtime (with a cache buster). That file reflects the **currently deployed** version, not the
+version of the bundle actually executing in the browser. If a user is running a stale, cached bundle
+while a newer version has been deployed, `fromPlatform()` reports the newly deployed version.
+The fetch can also fail entirely (offline, CORS, hosting rewrites), leaving every field empty.
+
+If you need the version of the *running* bundle — e.g. to display it to the user or to gate
+outdated clients — use the compile-time accessor below instead.
+
+#### Compile-time package information (`PackageInfoEnvironment`)
+
+Import the opt-in `package_info_plus_environment.dart` library and read
+`PackageInfoEnvironment.packageInfo`:
+
+```dart
+import 'package:package_info_plus/package_info_plus_environment.dart';
+
+final info = await PackageInfoEnvironment.packageInfo;
+```
+
+Behaviour per platform:
+
+- **Web** — returns a `PackageInfo` built from the compile-time `PACKAGE_INFO_PLUS_*` defines.
+  These are embedded in the running bundle and cannot diverge from it. Provide them at build time:
+
+  ```sh
+  flutter build web \
+    --dart-define=PACKAGE_INFO_PLUS_VERSION=1.2.3 \
+    --dart-define=PACKAGE_INFO_PLUS_BUILD_NUMBER=45
+  ```
+
+  A **web build that omits `PACKAGE_INFO_PLUS_VERSION` fails to compile**, so a misleading version
+  can never ship silently. `PACKAGE_INFO_PLUS_BUILD_NUMBER`, `PACKAGE_INFO_PLUS_APP_NAME` and
+  `PACKAGE_INFO_PLUS_PACKAGE_NAME` are optional (empty when omitted).
+
+- **All other platforms** — delegates to `PackageInfo.fromPlatform()`, which reads the installed
+  binary and is already reliable. The defines are not required there.
+
+The accessor also recognizes tool-provided defines as fallbacks, so apps need no configuration at
+all once their build front-end injects the version itself: `FLUTTER_BUILD_NAME` /
+`FLUTTER_BUILD_NUMBER` (proposed in [flutter/flutter#187935](https://github.com/flutter/flutter/pull/187935))
+and `dart.package.version` ([dart-lang/sdk#38855](https://github.com/dart-lang/sdk/issues/38855)).
+The explicit `PACKAGE_INFO_PLUS_*` defines take precedence over both.
+
+`PackageInfo.fromPlatform()` is unchanged; this accessor lives in a separate library that you import
+only when you opt in, so existing builds are unaffected.
+
 #### Accessing the `version.json`
 
 The package tries to locate the `version.json` using three methods:
