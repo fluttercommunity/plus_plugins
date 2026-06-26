@@ -143,6 +143,23 @@ void main() {
     });
   });
 
+  test('sharing previewThumbnail sets the right param', () async {
+    await withFile('tempfile-83649f.png', (File fd) async {
+      await sharePlatform.share(
+        ShareParams(
+          text: 'some text to share',
+          previewThumbnail: XFile(fd.path),
+        ),
+      );
+      verify(
+        mockChannel.invokeMethod<String>('share', <String, dynamic>{
+          'text': 'some text to share',
+          'previewThumbnail': fd.path,
+        }),
+      );
+    });
+  });
+
   test('withResult methods return unavailable on non IOS & Android', () async {
     const resultUnavailable = ShareResult(
       'dev.fluttercommunity.plus/share/unavailable',

@@ -2,6 +2,7 @@ package dev.fluttercommunity.plus.share
 
 import android.app.Activity
 import android.app.PendingIntent
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -65,7 +66,13 @@ internal class Share(
         val title = arguments["title"] as String?
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
+        val previewThumbnail = arguments["previewThumbnail"] as String?
         val fileUris = paths?.let { getUrisForPaths(paths) }
+        // Preview thumbnail is only rendered by the system Sharesheet (API 29+) for
+        // text/URL shares; file shares build their own preview from EXTRA_STREAM.
+        val previewThumbnailUri = previewThumbnail
+            ?.takeIf { fileUris == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q }
+            ?.let { getUrisForPaths(listOf(it)).first() }
 
         // Create Share Intent
         val shareIntent = Intent()
@@ -76,6 +83,14 @@ internal class Share(
                 putExtra(Intent.EXTRA_TEXT, uri ?: text)
                 if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
                 if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+                if (previewThumbnailUri != null) {
+                    // Attach the thumbnail so the system Sharesheet shows a rich preview.
+                    // The content URI must be readable by the chooser; ClipData propagates
+                    // the temporary read grant to the selected target.
+                    data = previewThumbnailUri
+                    clipData = ClipData.newRawUri(null, previewThumbnailUri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
             }
         } else {
             when {
@@ -131,17 +146,18 @@ internal class Share(
                 Intent.createChooser(shareIntent, title)
             }
 
-        // Grant permissions to all apps that can handle the files shared
-        if (fileUris != null) {
+        // Grant permissions to all apps that can handle the files or thumbnail shared
+        val urisToGrant = (fileUris ?: emptyList()) + listOfNotNull(previewThumbnailUri)
+        if (urisToGrant.isNotEmpty()) {
             val resInfoList = getContext().packageManager.queryIntentActivities(
                 chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
             )
             resInfoList.forEach { resolveInfo ->
                 val packageName = resolveInfo.activityInfo.packageName
-                fileUris.forEach { fileUri ->
+                urisToGrant.forEach { uriToGrant ->
                     getContext().grantUriPermission(
                         packageName,
-                        fileUri,
+                        uriToGrant,
                         Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
                     )
                 }
