@@ -9,6 +9,7 @@
 #include <windows.foundation.collections.h>
 #include <windows.foundation.h>
 #include <windows.storage.h>
+#include <windows.storage.streams.h>
 #include <wrl.h>
 #include <wrl/client.h>
 #include <wrl/event.h>
@@ -22,6 +23,7 @@
 namespace WRL = Microsoft::WRL;
 namespace WindowsFoundation = ABI::Windows::Foundation;
 namespace WindowsStorage = ABI::Windows::Storage;
+namespace WindowsStorageStreams = ABI::Windows::Storage::Streams;
 namespace DataTransfer = ABI::Windows::ApplicationModel::DataTransfer;
 
 namespace share_plus_windows {
@@ -74,6 +76,7 @@ private:
   std::optional<std::string> share_uri_ = std::nullopt;
   std::optional<std::string> share_subject_ = std::nullopt;
   std::optional<std::string> share_title_ = std::nullopt;
+  std::optional<std::string> preview_thumbnail_ = std::nullopt;
   std::vector<std::string> paths_ = {};
   std::vector<std::string> mime_types_ = {};
 };

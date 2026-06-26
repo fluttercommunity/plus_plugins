@@ -115,6 +115,13 @@ void SharePlusWindowsPlugin::HandleMethodCall(
       &args[flutter::EncodableValue("title")])) {
       share_title_ = *title_value;
     }
+    if (auto preview_thumbnail_value = std::get_if<std::string>(
+      &args[flutter::EncodableValue("previewThumbnail")])) {
+      preview_thumbnail_ = *preview_thumbnail_value;
+    } else {
+      // Reset to avoid carrying over a thumbnail from a previous share.
+      preview_thumbnail_ = std::nullopt;
+    }
     if (auto paths = std::get_if<flutter::EncodableList>(
       &args[flutter::EncodableValue("paths")])) {
       paths_.clear();
@@ -173,6 +180,33 @@ void SharePlusWindowsPlugin::HandleMethodCall(
             properties->put_Description(
               HStringReference(uri.c_str()).Get());
             data->SetText(HStringReference(uri.c_str()).Get());
+          }
+
+          // Set the preview thumbnail shown in the Windows share UI.
+          if (preview_thumbnail_ && !preview_thumbnail_.value_or("").empty()) {
+            auto thumbnail_path = Utf16FromUtf8(preview_thumbnail_.value_or(""));
+            wchar_t* ptr = const_cast<wchar_t*>(thumbnail_path.c_str());
+            WRL::ComPtr<WindowsStorage::IStorageFile> thumbnail_file;
+            if (SUCCEEDED(GetStorageFileFromPath(
+                    ptr, thumbnail_file.GetAddressOf())) &&
+                thumbnail_file != nullptr) {
+              WRL::ComPtr<
+                  WindowsStorageStreams::IRandomAccessStreamReferenceStatics>
+                  stream_ref_statics;
+              if (SUCCEEDED(WindowsFoundation::GetActivationFactory(
+                      HStringReference(
+                          RuntimeClass_Windows_Storage_Streams_RandomAccessStreamReference)
+                          .Get(),
+                      &stream_ref_statics))) {
+                WRL::ComPtr<
+                    WindowsStorageStreams::IRandomAccessStreamReference>
+                    stream_ref;
+                if (SUCCEEDED(stream_ref_statics->CreateFromFile(
+                        thumbnail_file.Get(), &stream_ref))) {
+                  properties->put_Thumbnail(stream_ref.Get());
+                }
+              }
+            }
           }
 
           // Add files to the data.
