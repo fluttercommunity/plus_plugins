@@ -13,256 +13,254 @@ import java.io.File
 import java.io.IOException
 
 /**
- * Handles share intent. The `context` and `activity` are used to start the share
- * intent. The `activity` might be null when constructing the [Share] object and set
- * to non-null when an activity is available using [.setActivity].
+ * Handles share intent. The `context` and `activity` are used to start the share intent. The
+ * `activity` might be null when constructing the [Share] object and set to non-null when an
+ * activity is available using [.setActivity].
  */
 internal class Share(
     private val context: Context,
     private var activity: Activity?,
     private val manager: ShareSuccessManager
 ) {
-    private val providerAuthority: String by lazy {
-        getContext().packageName + ".flutter.share_provider"
+  private val providerAuthority: String by lazy {
+    getContext().packageName + ".flutter.share_provider"
+  }
+
+  private val shareCacheFolder: File
+    get() = File(getContext().cacheDir, "share_plus")
+
+  /** Setting mutability flags as API v31+ requires. */
+  private val immutabilityIntentFlags: Int by lazy {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      PendingIntent.FLAG_MUTABLE
+    } else {
+      0
     }
+  }
 
-    private val shareCacheFolder: File
-        get() = File(getContext().cacheDir, "share_plus")
-
-    /**
-     * Setting mutability flags as API v31+ requires.
-     */
-    private val immutabilityIntentFlags: Int by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_MUTABLE
-        } else {
-            0
-        }
+  private fun getContext(): Context {
+    return if (activity != null) {
+      activity!!
+    } else {
+      context
     }
+  }
 
-    private fun getContext(): Context {
-        return if (activity != null) {
-            activity!!
-        } else {
-            context
-        }
-    }
+  /**
+   * Sets the activity when an activity is available. When the activity becomes unavailable, use
+   * this method to set it to null.
+   */
+  fun setActivity(activity: Activity?) {
+    this.activity = activity
+  }
 
-    /**
-     * Sets the activity when an activity is available. When the activity becomes unavailable, use
-     * this method to set it to null.
-     */
-    fun setActivity(activity: Activity?) {
-        this.activity = activity
-    }
+  @Throws(IOException::class)
+  fun share(arguments: Map<String, Any>, withResult: Boolean) {
+    clearShareCacheFolder()
 
-    @Throws(IOException::class)
-    fun share(arguments: Map<String, Any>, withResult: Boolean) {
-        clearShareCacheFolder()
-
-        val text = arguments["text"] as String?
-        val uri = arguments["uri"] as String?
-        val subject = arguments["subject"] as String?
-        val title = arguments["title"] as String?
-        val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
-        val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
-        val previewThumbnail = arguments["previewThumbnail"] as String?
-        val fileUris = paths?.let { getUrisForPaths(paths) }
-        // Preview thumbnail is only rendered by the system Sharesheet (API 29+) for
-        // text/URL shares; file shares build their own preview from EXTRA_STREAM.
-        val previewThumbnailUri = previewThumbnail
+    val text = arguments["text"] as String?
+    val uri = arguments["uri"] as String?
+    val subject = arguments["subject"] as String?
+    val title = arguments["title"] as String?
+    val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
+    val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
+    val previewThumbnail = arguments["previewThumbnail"] as String?
+    val fileUris = paths?.let { getUrisForPaths(paths) }
+    // Preview thumbnail is only rendered by the system Sharesheet (API 29+) for
+    // text/URL shares; file shares build their own preview from EXTRA_STREAM.
+    val previewThumbnailUri =
+        previewThumbnail
             ?.takeIf { fileUris == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q }
             ?.let { getUrisForPaths(listOf(it)).first() }
 
-        // Create Share Intent
-        val shareIntent = Intent()
-        if (fileUris == null) {
-            shareIntent.apply {
-                action = Intent.ACTION_SEND
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, uri ?: text)
-                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
-                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
-                if (previewThumbnailUri != null) {
-                    // Attach the thumbnail so the system Sharesheet shows a rich preview.
-                    // The content URI must be readable by the chooser; ClipData propagates
-                    // the temporary read grant to the selected target.
-                    //
-                    // Note: do NOT call setData() here. setData() clears the intent
-                    // type ("text/plain"), which breaks Direct Share suggestions
-                    // (recommended people) since those are matched by MIME type.
-                    // ClipData alone carries the thumbnail for the preview.
-                    clipData = ClipData.newRawUri(null, previewThumbnailUri)
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-            }
+    // Create Share Intent
+    val shareIntent = Intent()
+    if (fileUris == null) {
+      shareIntent.apply {
+        action = Intent.ACTION_SEND
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, uri ?: text)
+        if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+        if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+        if (previewThumbnailUri != null) {
+          // Attach the thumbnail so the system Sharesheet shows a rich preview.
+          // The content URI must be readable by the chooser; ClipData propagates
+          // the temporary read grant to the selected target.
+          //
+          // Note: do NOT call setData() here. setData() clears the intent
+          // type ("text/plain"), which breaks Direct Share suggestions
+          // (recommended people) since those are matched by MIME type.
+          // ClipData alone carries the thumbnail for the preview.
+          clipData = ClipData.newRawUri(null, previewThumbnailUri)
+          addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+      }
+    } else {
+      when {
+        fileUris.isEmpty() -> {
+          throw IOException("Error sharing files: No files found")
+        }
+        fileUris.size == 1 -> {
+          val mimeType =
+              if (!mimeTypes.isNullOrEmpty()) {
+                mimeTypes.first()
+              } else {
+                "*/*"
+              }
+          shareIntent.apply {
+            action = Intent.ACTION_SEND
+            type = mimeType
+            putExtra(Intent.EXTRA_STREAM, fileUris.first())
+          }
+        }
+        else -> {
+          shareIntent.apply {
+            action = Intent.ACTION_SEND_MULTIPLE
+            type = reduceMimeTypes(mimeTypes)
+            putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
+          }
+        }
+      }
+
+      shareIntent.apply {
+        if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
+        if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
+        if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+      }
+    }
+
+    // Create the chooser intent
+    val chooserIntent =
+        if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+          // Build chooserIntent with broadcast to ShareSuccessManager on success
+          Intent.createChooser(
+              shareIntent,
+              title,
+              PendingIntent.getBroadcast(
+                      context,
+                      0,
+                      Intent(context, SharePlusPendingIntent::class.java),
+                      PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags)
+                  .intentSender)
         } else {
-            when {
-                fileUris.isEmpty() -> {
-                    throw IOException("Error sharing files: No files found")
-                }
-
-                fileUris.size == 1 -> {
-                    val mimeType = if (!mimeTypes.isNullOrEmpty()) {
-                        mimeTypes.first()
-                    } else {
-                        "*/*"
-                    }
-                    shareIntent.apply {
-                        action = Intent.ACTION_SEND
-                        type = mimeType
-                        putExtra(Intent.EXTRA_STREAM, fileUris.first())
-                    }
-                }
-
-                else -> {
-                    shareIntent.apply {
-                        action = Intent.ACTION_SEND_MULTIPLE
-                        type = reduceMimeTypes(mimeTypes)
-                        putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
-                    }
-                }
-            }
-
-            shareIntent.apply {
-                if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
-                if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
-                if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            }
+          Intent.createChooser(shareIntent, title)
         }
 
-        // Create the chooser intent
-        val chooserIntent =
-            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                // Build chooserIntent with broadcast to ShareSuccessManager on success
-                Intent.createChooser(
-                    shareIntent,
-                    title,
-                    PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        Intent(context, SharePlusPendingIntent::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                    ).intentSender
-                )
-            } else {
-                Intent.createChooser(shareIntent, title)
-            }
-
-        // Grant permissions to all apps that can handle the files or thumbnail shared
-        val urisToGrant = (fileUris ?: emptyList()) + listOfNotNull(previewThumbnailUri)
-        if (urisToGrant.isNotEmpty()) {
-            val resInfoList = getContext().packageManager.queryIntentActivities(
-                chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
-            )
-            resInfoList.forEach { resolveInfo ->
-                val packageName = resolveInfo.activityInfo.packageName
-                urisToGrant.forEach { uriToGrant ->
-                    getContext().grantUriPermission(
-                        packageName,
-                        uriToGrant,
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
-                    )
-                }
-            }
+    // Grant permissions to all apps that can handle the files or thumbnail shared
+    val urisToGrant = (fileUris ?: emptyList()) + listOfNotNull(previewThumbnailUri)
+    if (urisToGrant.isNotEmpty()) {
+      val resInfoList =
+          getContext()
+              .packageManager
+              .queryIntentActivities(chooserIntent, PackageManager.MATCH_DEFAULT_ONLY)
+      resInfoList.forEach { resolveInfo ->
+        val packageName = resolveInfo.activityInfo.packageName
+        urisToGrant.forEach { uriToGrant ->
+          getContext()
+              .grantUriPermission(
+                  packageName,
+                  uriToGrant,
+                  Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
+              )
         }
-
-        // Launch share intent
-        startActivity(chooserIntent, withResult)
+      }
     }
 
-    private fun startActivity(intent: Intent, withResult: Boolean) {
-        if (activity != null) {
-            if (withResult) {
-                activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
-            } else {
-                activity!!.startActivity(intent)
-            }
+    // Launch share intent
+    startActivity(chooserIntent, withResult)
+  }
+
+  private fun startActivity(intent: Intent, withResult: Boolean) {
+    if (activity != null) {
+      if (withResult) {
+        activity!!.startActivityForResult(intent, ShareSuccessManager.ACTIVITY_CODE)
+      } else {
+        activity!!.startActivity(intent)
+      }
+    } else {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      if (withResult) {
+        // We need to cancel the callback to avoid deadlocking on the Dart side
+        manager.unavailable()
+      }
+      context.startActivity(intent)
+    }
+  }
+
+  @Throws(IOException::class)
+  private fun getUrisForPaths(paths: List<String>): ArrayList<Uri> {
+    val uris = ArrayList<Uri>(paths.size)
+    paths.forEach { path ->
+      var file = File(path)
+      if (fileIsInShareCache(file)) {
+        // If file is saved in '.../caches/share_plus' it will be erased by
+        // 'clearShareCacheFolder()'
+        throw IOException("Shared file can not be located in '${shareCacheFolder.canonicalPath}'")
+      }
+      file = copyToShareCacheFolder(file)
+      uris.add(FileProvider.getUriForFile(getContext(), providerAuthority, file))
+    }
+    return uris
+  }
+
+  /**
+   * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
+   * multiple files
+   */
+  private fun reduceMimeTypes(mimeTypes: List<String>?): String {
+    if (mimeTypes?.isEmpty() != false) return "*/*"
+    if (mimeTypes.size == 1) return mimeTypes.first()
+
+    var commonMimeType = mimeTypes.first()
+    for (i in 1..mimeTypes.lastIndex) {
+      if (commonMimeType != mimeTypes[i]) {
+        if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
+          commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
         } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            if (withResult) {
-                // We need to cancel the callback to avoid deadlocking on the Dart side
-                manager.unavailable()
-            }
-            context.startActivity(intent)
+          commonMimeType = "*/*"
+          break
         }
+      }
     }
+    return commonMimeType
+  }
 
-    @Throws(IOException::class)
-    private fun getUrisForPaths(paths: List<String>): ArrayList<Uri> {
-        val uris = ArrayList<Uri>(paths.size)
-        paths.forEach { path ->
-            var file = File(path)
-            if (fileIsInShareCache(file)) {
-                // If file is saved in '.../caches/share_plus' it will be erased by 'clearShareCacheFolder()'
-                throw IOException("Shared file can not be located in '${shareCacheFolder.canonicalPath}'")
-            }
-            file = copyToShareCacheFolder(file)
-            uris.add(FileProvider.getUriForFile(getContext(), providerAuthority, file))
-        }
-        return uris
+  /** Returns the first part of provided MIME type, which comes before '/' symbol */
+  private fun getMimeTypeBase(mimeType: String?): String {
+    return if (mimeType == null || !mimeType.contains("/")) {
+      "*"
+    } else {
+      mimeType.substring(0, mimeType.indexOf("/"))
     }
+  }
 
-    /**
-     * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
-     * multiple files
-     */
-    private fun reduceMimeTypes(mimeTypes: List<String>?): String {
-        if (mimeTypes?.isEmpty() != false) return "*/*"
-        if (mimeTypes.size == 1) return mimeTypes.first()
-
-        var commonMimeType = mimeTypes.first()
-        for (i in 1..mimeTypes.lastIndex) {
-            if (commonMimeType != mimeTypes[i]) {
-                if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
-                    commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
-                } else {
-                    commonMimeType = "*/*"
-                    break
-                }
-            }
-        }
-        return commonMimeType
+  private fun fileIsInShareCache(file: File): Boolean {
+    return try {
+      val filePath = file.canonicalPath
+      filePath.startsWith(shareCacheFolder.canonicalPath)
+    } catch (e: IOException) {
+      false
     }
+  }
 
-    /**
-     * Returns the first part of provided MIME type, which comes before '/' symbol
-     */
-    private fun getMimeTypeBase(mimeType: String?): String {
-        return if (mimeType == null || !mimeType.contains("/")) {
-            "*"
-        } else {
-            mimeType.substring(0, mimeType.indexOf("/"))
-        }
+  private fun clearShareCacheFolder() {
+    val folder = shareCacheFolder
+    val files = folder.listFiles()
+    if (folder.exists() && !files.isNullOrEmpty()) {
+      files.forEach { it.delete() }
+      folder.delete()
     }
+  }
 
-    private fun fileIsInShareCache(file: File): Boolean {
-        return try {
-            val filePath = file.canonicalPath
-            filePath.startsWith(shareCacheFolder.canonicalPath)
-        } catch (e: IOException) {
-            false
-        }
+  @Throws(IOException::class)
+  private fun copyToShareCacheFolder(file: File): File {
+    val folder = shareCacheFolder
+    if (!folder.exists()) {
+      folder.mkdirs()
     }
-
-    private fun clearShareCacheFolder() {
-        val folder = shareCacheFolder
-        val files = folder.listFiles()
-        if (folder.exists() && !files.isNullOrEmpty()) {
-            files.forEach { it.delete() }
-            folder.delete()
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun copyToShareCacheFolder(file: File): File {
-        val folder = shareCacheFolder
-        if (!folder.exists()) {
-            folder.mkdirs()
-        }
-        val newFile = File(folder, file.name)
-        file.copyTo(newFile, true)
-        return newFile
-    }
+    val newFile = File(folder, file.name)
+    file.copyTo(newFile, true)
+    return newFile
+  }
 }

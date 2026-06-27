@@ -47,7 +47,7 @@ private:
       "dev.fluttercommunity.plus/share/unavailable";
 
   static constexpr auto kShare = "share";
-  //static constexpr auto kShareFiles = "shareFiles";
+  // static constexpr auto kShareFiles = "shareFiles";
 
   HWND GetWindow();
 
