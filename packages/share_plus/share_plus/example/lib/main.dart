@@ -53,10 +53,14 @@ class MyHomePageState extends State<MyHomePage> {
   String fileName = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
+  String? previewThumbnailPath;
   List<CupertinoActivityType> excludedCupertinoActivityType = [];
 
   @override
   Widget build(BuildContext context) {
+    // previewThumbnail is only honored on Android and Windows.
+    final supportsPreviewThumbnail =
+        !kIsWeb && (Platform.isAndroid || Platform.isWindows);
     return Scaffold(
       appBar: AppBar(title: const Text('Share Plus Plugin Demo'), elevation: 4),
       body: SingleChildScrollView(
@@ -129,39 +133,52 @@ class MyHomePageState extends State<MyHomePage> {
             ElevatedButton.icon(
               label: const Text('Add image'),
               onPressed: () async {
-                // Using `package:image_picker` to get image from gallery.
-                if (!kIsWeb &&
-                    (Platform.isMacOS ||
-                        Platform.isLinux ||
-                        Platform.isWindows)) {
-                  // Using `package:file_selector` on windows, macos & Linux, since `package:image_picker` is not supported.
-                  const XTypeGroup typeGroup = XTypeGroup(
-                    label: 'images',
-                    extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
-                  );
-                  final file = await openFile(
-                    acceptedTypeGroups: <XTypeGroup>[typeGroup],
-                  );
-                  if (file != null) {
-                    setState(() {
-                      imagePaths.add(file.path);
-                      imageNames.add(file.name);
-                    });
-                  }
-                } else {
-                  final imagePicker = ImagePicker();
-                  final pickedFile = await imagePicker.pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (pickedFile != null) {
-                    setState(() {
-                      imagePaths.add(pickedFile.path);
-                      imageNames.add(pickedFile.name);
-                    });
-                  }
+                final file = await _pickImage();
+                if (file != null) {
+                  setState(() {
+                    imagePaths.add(file.path);
+                    imageNames.add(file.name);
+                  });
                 }
               },
               icon: const Icon(Icons.add),
+            ),
+            const SizedBox(height: 16),
+            // Preview thumbnail: shown at the top of the share sheet for
+            // text/URI shares (Android API 29+ and Windows). Ignored for file
+            // shares and on other platforms.
+            if (previewThumbnailPath != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: <Widget>[
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: 100,
+                        maxHeight: 100,
+                      ),
+                      child: Image.file(File(previewThumbnailPath!)),
+                    ),
+                    IconButton(
+                      color: Colors.red,
+                      onPressed: () =>
+                          setState(() => previewThumbnailPath = null),
+                      icon: const Icon(Icons.delete),
+                    ),
+                  ],
+                ),
+              ),
+            ElevatedButton.icon(
+              label: const Text('Add preview thumbnail'),
+              onPressed: supportsPreviewThumbnail
+                  ? () async {
+                      final file = await _pickImage();
+                      if (file != null) {
+                        setState(() => previewThumbnailPath = file.path);
+                      }
+                    }
+                  : null,
+              icon: const Icon(Icons.image),
             ),
             if (!kIsWeb && (Platform.isIOS || Platform.isMacOS))
               const SizedBox(height: 16),
@@ -228,6 +245,30 @@ class MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Picks a single image file using the platform-appropriate picker.
+  Future<XFile?> _pickImage() async {
+    // Using `package:image_picker` to get image from gallery.
+    if (!kIsWeb &&
+        (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+      // Using `package:file_selector` on windows, macos & Linux, since
+      // `package:image_picker` is not supported.
+      const XTypeGroup typeGroup = XTypeGroup(
+        label: 'images',
+        extensions: <String>['jpg', 'jpeg', 'png', 'gif'],
+      );
+      final file = await openFile(acceptedTypeGroups: <XTypeGroup>[typeGroup]);
+      return file == null ? null : XFile(file.path, name: file.name);
+    } else {
+      final imagePicker = ImagePicker();
+      final pickedFile = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+      return pickedFile == null
+          ? null
+          : XFile(pickedFile.path, name: pickedFile.name);
+    }
+  }
+
   void _onSelectExcludedActivityType() async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
@@ -274,6 +315,9 @@ class MyHomePageState extends State<MyHomePage> {
           uri: Uri.parse(uri),
           subject: subject.isEmpty ? null : subject,
           title: title.isEmpty ? null : title,
+          previewThumbnail: previewThumbnailPath == null
+              ? null
+              : XFile(previewThumbnailPath!),
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
@@ -284,6 +328,9 @@ class MyHomePageState extends State<MyHomePage> {
           text: text.isEmpty ? null : text,
           subject: subject.isEmpty ? null : subject,
           title: title.isEmpty ? null : title,
+          previewThumbnail: previewThumbnailPath == null
+              ? null
+              : XFile(previewThumbnailPath!),
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           excludedCupertinoActivities: excludedCupertinoActivityType,
         ),
