@@ -209,6 +209,44 @@ ShareParams(
 )
 ```
 
+#### Android Save Action
+
+On Android 14 (API level 34) and later, a **Save** action can be added to the
+Android Sharesheet when sharing files:
+
+```dart
+ShareParams(
+  files: [XFile('${directory.path}/image.jpg')],
+  androidIncludeSaveAction: true,
+)
+```
+
+The labels default to English. To localize or customize them, resolve the
+strings in Flutter and pass them with the share request:
+
+```dart
+final localizations = AppLocalizations.of(context)!;
+
+ShareParams(
+  files: [XFile('${directory.path}/image.jpg')],
+  androidIncludeSaveAction: true,
+  androidSaveActionLabels: AndroidSaveActionLabels(
+    save: localizations.save,
+    saving: localizations.saving,
+    success: localizations.saved,
+    failure: localizations.saveFailed,
+  ),
+)
+```
+
+When selected, images are saved to Pictures, videos to Movies, and all other
+file types to Downloads using Android's MediaStore. No storage permission is
+required. The parameter is ignored on older Android versions, on other
+platforms, and when no files are shared.
+
+The returned `ShareResult` reports the Sharesheet interaction, not the outcome
+of the file copy. Android displays a confirmation after the save finishes.
+
 #### Excluded Cupertino Activities
 
 On iOS or macOS, if you want to exclude certain options from appearing in your share sheet, you can set the `excludedCupertinoActivities` array.

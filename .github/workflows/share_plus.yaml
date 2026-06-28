@@ -84,7 +84,13 @@ jobs:
           arch: x86_64
           force-avd-creation: false
           profile: pixel_7_pro
-          script: ./.github/workflows/scripts/integration-test.sh android share_plus_example
+          script: |
+            ./.github/workflows/scripts/integration-test.sh android share_plus_example
+            if [ "${{ matrix.android-api-level }}" -ge 34 ]; then
+              ./packages/share_plus/share_plus/example/android/gradlew \
+                -p ./packages/share_plus/share_plus/example/android \
+                :share_plus:connectedDebugAndroidTest
+            fi
 
   ios_example_build:
     runs-on: macos-26

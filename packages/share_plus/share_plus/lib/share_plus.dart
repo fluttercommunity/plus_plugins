@@ -13,6 +13,7 @@ export 'package:share_plus_platform_interface/share_plus_platform_interface.dart
         ShareResultStatus,
         XFile,
         ShareParams,
+        AndroidSaveActionLabels,
         CupertinoActivityType;
 
 export 'src/share_plus_linux.dart';
