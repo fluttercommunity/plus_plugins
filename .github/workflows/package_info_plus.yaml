@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: |
@@ -48,7 +48,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -66,7 +66,7 @@ jobs:
 
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -92,7 +92,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -104,7 +104,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -122,7 +122,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -134,7 +134,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -148,7 +148,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -160,7 +160,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -174,7 +174,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -186,7 +186,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -200,7 +200,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
@@ -212,7 +212,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: flutter-actions/setup-flutter@v4
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
