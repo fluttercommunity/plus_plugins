@@ -36,6 +36,29 @@ class SharePlatform extends PlatformInterface {
   }
 }
 
+/// Labels displayed by the Android Sharesheet Save action.
+class AndroidSaveActionLabels {
+  /// Creates labels for the Android Sharesheet Save action.
+  const AndroidSaveActionLabels({
+    this.save = 'Save',
+    this.saving = 'Saving…',
+    this.success = 'Saved',
+    this.failure = 'Couldn’t save the file',
+  });
+
+  /// Label for the Save action in the Android Sharesheet.
+  final String save;
+
+  /// Label displayed while the files are being saved.
+  final String saving;
+
+  /// Message displayed after the files have been saved.
+  final String success;
+
+  /// Message displayed when the files could not be saved.
+  final String failure;
+}
+
 class ShareParams {
   /// The text to share
   ///
@@ -74,6 +97,25 @@ class ShareParams {
   /// * Supported platforms: Android
   ///   Parameter ignored on other platforms.
   final XFile? previewThumbnail;
+
+  /// Whether to add a Save action to the Android share sheet.
+  ///
+  /// When selected, image and video files are saved to their corresponding
+  /// media collections. Other files are saved to Downloads.
+  ///
+  /// * Supported platforms: Android 14 (API level 34) and later.
+  ///   The parameter is ignored on other platforms and older Android versions.
+  ///   The action is only shown when [files] are provided.
+  final bool androidIncludeSaveAction;
+
+  /// Labels displayed by the Android Sharesheet Save action.
+  ///
+  /// Resolve localized values in Flutter and provide them here to customize
+  /// the action, progress, success, and failure text.
+  ///
+  /// * Supported platforms: Android 14 (API level 34) and later.
+  ///   The parameter is ignored on other platforms and older Android versions.
+  final AndroidSaveActionLabels androidSaveActionLabels;
 
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
   /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
@@ -147,6 +189,8 @@ class ShareParams {
     this.subject,
     this.title,
     this.previewThumbnail,
+    this.androidIncludeSaveAction = false,
+    this.androidSaveActionLabels = const AndroidSaveActionLabels(),
     this.sharePositionOrigin,
     this.uri,
     this.files,
