@@ -417,32 +417,32 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
   activityViewController.popoverPresentationController.sourceView =
       controller.view;
-  BOOL isCoordinateSpaceOfSourceView =
-      CGRectContainsRect(controller.view.frame, origin);
 
   // Check if this is actually an iPad
   BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
   // Before Xcode 26 hasPopoverPresentationController is true for iPads and false for iPhones.
-  // Since Xcode 26 is true both for iPads and iPhones, so additional check was added above.
-  BOOL hasPopoverPresentationController =
-      [activityViewController popoverPresentationController] != NULL;
-  if (isIpad && hasPopoverPresentationController &&
-      (!isCoordinateSpaceOfSourceView || CGRectIsEmpty(origin))) {
-    NSString *sharePositionIssue = [NSString
-        stringWithFormat:
-            @"sharePositionOrigin: argument must be set, %@ must be non-zero "
-            @"and within coordinate space of source view: %@",
-            NSStringFromCGRect(origin),
-            NSStringFromCGRect(controller.view.bounds)];
+  // Since Xcode 26 it is true for both iPads and iPhones, so we only configure popover on iPad.
+  UIPopoverPresentationController *popover =
+      activityViewController.popoverPresentationController;
+  BOOL hasPopoverPresentationController = (popover != NULL);
 
-    result([FlutterError errorWithCode:@"error"
-                               message:sharePositionIssue
-                               details:nil]);
-    return;
-  }
-
-  if (!CGRectIsEmpty(origin)) {
+  CGRect sourceRect = origin;
+  if (isIpad && hasPopoverPresentationController) {
+    // Flutter sends sharePositionOrigin in global (window) coordinates.
+    // Convert to the source view's coordinate space for sourceRect.
+    if (controller.view.window && !CGRectIsEmpty(origin)) {
+      sourceRect = [controller.view convertRect:origin fromView:nil];
+    }
+    // On iPad, popover requires a non-empty sourceRect. Use center of the view
+    // when no valid origin was provided or conversion isn't possible.
+    if (CGRectIsEmpty(sourceRect)) {
+      CGRect bounds = controller.view.bounds;
+      sourceRect = CGRectMake(CGRectGetMidX(bounds) - 1.0,
+                              CGRectGetMidY(bounds) - 1.0, 2.0, 2.0);
+    }
+    popover.sourceRect = sourceRect;
+  } else if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
 
