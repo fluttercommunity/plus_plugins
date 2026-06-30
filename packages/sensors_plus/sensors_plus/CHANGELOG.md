@@ -1,3 +1,11 @@
+## 7.1.0
+
+ - **REFACTOR**(sensors_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3905](https://github.com/fluttercommunity/plus_plugins/issues/3905)). ([4fe91963](https://github.com/fluttercommunity/plus_plugins/commit/4fe91963f4bee70e3d58eee4fc116f20ed0eff76))
+ - **FIX**(sensors_plus): Resolve incorrect cleanup method call ([#3898](https://github.com/fluttercommunity/plus_plugins/issues/3898)). ([29195a9d](https://github.com/fluttercommunity/plus_plugins/commit/29195a9d2b37a49da082696de3823f4c03d5ab38))
+ - **FIX**(sensors_plus): resolve lint issues found during melos analyze ([#3845](https://github.com/fluttercommunity/plus_plugins/issues/3845)). ([c6511c08](https://github.com/fluttercommunity/plus_plugins/commit/c6511c087f2b49ec1b64a1f9906a990085066531))
+ - **FEAT**(sensors_plus): Add support of built-in Kotlin ([#3902](https://github.com/fluttercommunity/plus_plugins/issues/3902)). ([bc7a6a0f](https://github.com/fluttercommunity/plus_plugins/commit/bc7a6a0fcfb1bad2ffed7780a8e04bb6080fba82))
+ - **FEAT**(sensors_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3892](https://github.com/fluttercommunity/plus_plugins/issues/3892)). ([f2846468](https://github.com/fluttercommunity/plus_plugins/commit/f28464683773ba57fb9de0681a2bbe72c3eb54a0))
+
 ## 7.0.0
 
 > Note: This release has breaking changes.
