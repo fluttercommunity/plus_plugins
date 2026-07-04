@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "share_plus",
     platforms: [
-        .macOS("10.14")
+        .macOS("10.15")
     ],
     products: [
         .library(name: "share-plus", targets: ["share_plus"])
