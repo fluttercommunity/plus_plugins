@@ -18,22 +18,26 @@
 #include <cassert>
 #include <set>
 
-class NetworkListener final : public INetworkEvents {
+class NetworkListener final : public INetworkListManagerEvents {
 public:
   NetworkListener(NetworkCallback pCb) : pCallback(pCb) {}
 
   HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void **ppvObject) {
-    AddRef();
-
-    HRESULT hr = S_OK;
-    if (IsEqualIID(riid, IID_IUnknown)) {
-      *ppvObject = (IUnknown *)this;
-    } else if (IsEqualIID(riid, IID_INetworkEvents)) {
-      *ppvObject = (INetworkEvents *)this;
-    } else {
-      hr = E_NOINTERFACE;
+    if (!ppvObject) {
+      return E_POINTER;
     }
-    return hr;
+
+    if (IsEqualIID(riid, IID_IUnknown)) {
+      *ppvObject = static_cast<IUnknown *>(this);
+    } else if (IsEqualIID(riid, IID_INetworkListManagerEvents)) {
+      *ppvObject = static_cast<INetworkListManagerEvents *>(this);
+    } else {
+      *ppvObject = nullptr;
+      return E_NOINTERFACE;
+    }
+
+    AddRef();
+    return S_OK;
   }
 
   ULONG STDMETHODCALLTYPE AddRef() { return InterlockedIncrement(&lRef); }
@@ -46,21 +50,8 @@ public:
     return lAddend;
   }
 
-  HRESULT STDMETHODCALLTYPE NetworkAdded(GUID networkId) { return S_OK; }
-
-  HRESULT STDMETHODCALLTYPE
-  NetworkConnectivityChanged(GUID networkId, NLM_CONNECTIVITY newConnectivity) {
+  HRESULT STDMETHODCALLTYPE ConnectivityChanged(NLM_CONNECTIVITY) {
     Callback();
-    return S_OK;
-  }
-
-  HRESULT STDMETHODCALLTYPE NetworkDeleted(GUID networkId) { return S_OK; }
-
-  HRESULT STDMETHODCALLTYPE
-  NetworkPropertyChanged(GUID networkId, NLM_NETWORK_PROPERTY_CHANGE flags) {
-    if (flags & NLM_NETWORK_PROPERTY_CHANGE_CONNECTION) {
-      Callback();
-    }
     return S_OK;
   }
 
@@ -209,14 +200,25 @@ std::set<ConnectivityType> NetworkManager::GetConnectivityTypes() const {
 }
 
 bool NetworkManager::StartListen(NetworkCallback pCallback) {
-  if (!pCallback || pListener) {
+  lastError = S_OK;
+  if (!pCallback) {
+    lastError = E_INVALIDARG;
+    return false;
+  }
+  if (pListener) {
+    lastError = HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS);
+    return false;
+  }
+  if (!pNetworkListManager) {
+    lastError = E_POINTER;
     return false;
   }
 
   HRESULT hr = pNetworkListManager->QueryInterface(
       IID_IConnectionPointContainer, (void **)&pCPContainer);
   if (SUCCEEDED(hr)) {
-    hr = pCPContainer->FindConnectionPoint(IID_INetworkEvents, &pConnectPoint);
+    hr = pCPContainer->FindConnectionPoint(IID_INetworkListManagerEvents,
+                                           &pConnectPoint);
     if (SUCCEEDED(hr)) {
       pListener = new NetworkListener(pCallback);
       hr = pConnectPoint->Advise((IUnknown *)pListener, &dwCookie);
@@ -225,12 +227,29 @@ bool NetworkManager::StartListen(NetworkCallback pCallback) {
       }
     }
   }
+
+  lastError = hr;
+  if (pListener) {
+    pListener->Release();
+    pListener = NULL;
+  }
+  if (pConnectPoint) {
+    pConnectPoint->Release();
+    pConnectPoint = NULL;
+  }
+  if (pCPContainer) {
+    pCPContainer->Release();
+    pCPContainer = NULL;
+  }
+  dwCookie = 0;
   return false;
 }
 
 void NetworkManager::StopListen() {
   if (pConnectPoint) {
-    pConnectPoint->Unadvise(dwCookie);
+    if (dwCookie != 0) {
+      pConnectPoint->Unadvise(dwCookie);
+    }
     pConnectPoint->Release();
     pConnectPoint = NULL;
     dwCookie = 0;
@@ -247,6 +266,6 @@ void NetworkManager::StopListen() {
   }
 }
 
-bool NetworkManager::HasError() const { return GetLastError() != 0; }
+bool NetworkManager::HasError() const { return FAILED(lastError); }
 
-int NetworkManager::GetError() const { return GetLastError(); }
+int NetworkManager::GetError() const { return static_cast<int>(lastError); }
