@@ -40,6 +40,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
 
+// Determines whether any active network connection exists.
+if (connectivityResult.hasConnectivity) {
+  // Connectivity available (regardless of the underlying transport).
+}
+
 // This condition is for demo purposes only to explain every connection type.
 // Use conditions which work for your requirements.
 if (connectivityResult.contains(ConnectivityResult.mobile)) {

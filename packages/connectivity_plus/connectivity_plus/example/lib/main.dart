@@ -101,6 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Spacer(flex: 2),
+          Text(_connectionStatus.hasConnectivity
+              ? 'Connectivity available'
+              : 'No connectivity'),
+          const Spacer(flex: 2),
           Text(
             'Active connection types:',
             style: Theme.of(context).textTheme.headlineMedium,

@@ -41,19 +41,9 @@ class Connectivity {
   /// status changes, this is a known issue that only affects simulators.
   /// For details see https://github.com/fluttercommunity/plus_plugins/issues/479.
   ///
-  /// The emitted list is never empty.
-  /// {@template no_connectivity_case}
-  /// In case of no connectivity, the list contains
+  /// The emitted list is never empty. In case of no connectivity, the list contains
   /// a single element of [ConnectivityResult.none]. Note also that this is the only
   /// case where [ConnectivityResult.none] is present.
-  ///
-  /// Use `hasConnectivity` to determine whether any active network connection exists:
-  ///
-  /// ```dart
-  /// final result = await checkConnectivity();
-  /// print(result.hasConnectivity);
-  /// ```
-  /// {@endtemplate}
   ///
   /// This method applies [Stream.distinct] over the received events to ensure
   /// only emitting when connectivity changes.
@@ -67,8 +57,9 @@ class Connectivity {
   /// make a network request, it only gives you the radio status. Instead, listen
   /// for connectivity changes via [onConnectivityChanged] stream.
   ///
-  /// The returned list is never empty.
-  /// {@macro no_connectivity_case}
+  /// The returned list is never empty. In case of no connectivity, the list contains
+  /// a single element of [ConnectivityResult.none]. Note also that this is the only
+  /// case where [ConnectivityResult.none] is present.
   Future<List<ConnectivityResult>> checkConnectivity() {
     return _platform.checkConnectivity();
   }
