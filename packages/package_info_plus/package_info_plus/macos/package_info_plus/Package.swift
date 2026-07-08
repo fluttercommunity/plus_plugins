@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "package_info_plus",
     platforms: [
-        .macOS("10.14")
+        .macOS("10.15")
     ],
     products: [
         .library(name: "package-info-plus", targets: ["package_info_plus"])

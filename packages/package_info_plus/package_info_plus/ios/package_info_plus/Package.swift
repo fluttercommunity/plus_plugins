@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "package_info_plus",
     platforms: [
-        .iOS("12.0"),
+        .iOS("13.0"),
     ],
     products: [
         .library(name: "package-info-plus", targets: ["package_info_plus"])
