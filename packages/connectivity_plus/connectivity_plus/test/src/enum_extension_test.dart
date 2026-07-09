@@ -1,4 +1,4 @@
-import 'package:connectivity_plus_platform_interface/src/enums.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:test/test.dart';
 
 void main() {

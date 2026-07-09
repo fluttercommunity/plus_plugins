@@ -17,5 +17,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test: ^1.31.0
   flutter_lints: ">=4.0.0 <6.0.0"
