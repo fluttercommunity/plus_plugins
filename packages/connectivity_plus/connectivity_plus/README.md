@@ -24,8 +24,8 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 
 - Flutter >=3.19.0
 - Dart >=3.3.0 <4.0.0
-- iOS >=12.0
-- macOS >=10.14
+- iOS >=13.0
+- macOS >=10.15
 - Java 17
 - Android Gradle Plugin >=8.12.1
 - Gradle wrapper >=8.13
