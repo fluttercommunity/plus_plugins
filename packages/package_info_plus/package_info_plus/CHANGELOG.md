@@ -1,3 +1,7 @@
+## 10.2.1
+
+ - **FIX**(package_info_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3922](https://github.com/fluttercommunity/plus_plugins/issues/3922)). ([4962175c](https://github.com/fluttercommunity/plus_plugins/commit/4962175c123348d953600bdb28374ad89e41b56d))
+
 ## 10.2.0
 
  - **REFACTOR**(package_info_plus): change android gradle from groovy to kotlin ([#3858](https://github.com/fluttercommunity/plus_plugins/issues/3858)). ([40bb8477](https://github.com/fluttercommunity/plus_plugins/commit/40bb8477d2539ee522cf6f76b659a0ed28d6080e))

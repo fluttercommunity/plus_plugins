@@ -1,3 +1,12 @@
+## 7.3.0
+
+ - **FEAT**(connectivity_plus): add hasConnectivity() utility extension ([#3842](https://github.com/fluttercommunity/plus_plugins/issues/3842)). ([4c623ae9](https://github.com/fluttercommunity/plus_plugins/commit/4c623ae91269d0aa2e795508c2d6f94659f51ef2))
+ - **FIX**(connectivity_plus): guard eventSink after engine teardown (iOS) ([#3797](https://github.com/fluttercommunity/plus_plugins/issues/3797)). ([bf04cdf6](https://github.com/fluttercommunity/plus_plugins/commit/bf04cdf66598dc3fca274b8b1db2b92b0bf6b73e))
+ - **FIX**(connectivity_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3920](https://github.com/fluttercommunity/plus_plugins/issues/3920)). ([b3bb72e6](https://github.com/fluttercommunity/plus_plugins/commit/b3bb72e6f7fe5a41b8268ac855da7b55e274265b))
+ - **FIX**(connectivity_plus): use Windows list manager events ([#3829](https://github.com/fluttercommunity/plus_plugins/issues/3829)). ([c876d41f](https://github.com/fluttercommunity/plus_plugins/commit/c876d41f259301d0ad6662afcf72e8aed4b74925))
+ - **FIX**(connectivity_plus): improve network callback unregistration handling ([#3681](https://github.com/fluttercommunity/plus_plugins/issues/3681)). ([3e150ba7](https://github.com/fluttercommunity/plus_plugins/commit/3e150ba7d6c3219e022572b565000eedd4bedfd5))
+ - **DOCS**(connectivity_plus): Update min iOS and MacOS in README ([#3926](https://github.com/fluttercommunity/plus_plugins/issues/3926)). ([a0207591](https://github.com/fluttercommunity/plus_plugins/commit/a0207591ad8d503a29c2e953f2c4ea7796b89f68))
+
 ## 7.2.0
 
  - **FEAT**(connectivity_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3893](https://github.com/fluttercommunity/plus_plugins/issues/3893)). ([9c064c2e](https://github.com/fluttercommunity/plus_plugins/commit/9c064c2eaa50c13f27a6e7d2b788f57580658353))

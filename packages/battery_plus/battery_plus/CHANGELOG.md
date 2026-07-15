@@ -1,3 +1,8 @@
+## 7.1.1
+
+ - **FIX**(battery_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3919](https://github.com/fluttercommunity/plus_plugins/issues/3919)). ([e7275a38](https://github.com/fluttercommunity/plus_plugins/commit/e7275a3881023a5f96cd83c8ad55da83d2dceafb))
+ - **DOCS**(battery_plus): Update min iOS and MacOS in README ([#3927](https://github.com/fluttercommunity/plus_plugins/issues/3927)). ([2ea120cc](https://github.com/fluttercommunity/plus_plugins/commit/2ea120cc35fa599d26abbd36fd0aa6e514e45a52))
+
 ## 7.1.0
 
  - **REFACTOR**(battery_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3906](https://github.com/fluttercommunity/plus_plugins/issues/3906)). ([104df18a](https://github.com/fluttercommunity/plus_plugins/commit/104df18a36432b81ec808cdfb85e01e7c2781d34))
