@@ -143,6 +143,57 @@ void main() {
     });
   });
 
+  test('enabling the Android Save action sends its default labels', () async {
+    await withFile('tempfile-83649-save.png', (File fd) async {
+      await sharePlatform.share(
+        ShareParams(files: [XFile(fd.path)], androidIncludeSaveAction: true),
+      );
+      verify(
+        mockChannel.invokeMethod<String>('share', <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['image/png'],
+          'androidIncludeSaveAction': true,
+          'androidSaveActionLabels': <String, String>{
+            'save': 'Save',
+            'saving': 'Saving…',
+            'success': 'Saved',
+            'failure': 'Couldn’t save the file',
+          },
+        }),
+      );
+    });
+  });
+
+  test('the Android Save action sends customized labels', () async {
+    await withFile('tempfile-83649-save-custom.png', (File fd) async {
+      await sharePlatform.share(
+        ShareParams(
+          files: [XFile(fd.path)],
+          androidIncludeSaveAction: true,
+          androidSaveActionLabels: const AndroidSaveActionLabels(
+            save: 'Speichern',
+            saving: 'Wird gespeichert…',
+            success: 'Gespeichert',
+            failure: 'Datei konnte nicht gespeichert werden',
+          ),
+        ),
+      );
+      verify(
+        mockChannel.invokeMethod<String>('share', <String, dynamic>{
+          'paths': [fd.path],
+          'mimeTypes': ['image/png'],
+          'androidIncludeSaveAction': true,
+          'androidSaveActionLabels': <String, String>{
+            'save': 'Speichern',
+            'saving': 'Wird gespeichert…',
+            'success': 'Gespeichert',
+            'failure': 'Datei konnte nicht gespeichert werden',
+          },
+        }),
+      );
+    });
+  });
+
   test('withResult methods return unavailable on non IOS & Android', () async {
     const resultUnavailable = ShareResult(
       'dev.fluttercommunity.plus/share/unavailable',

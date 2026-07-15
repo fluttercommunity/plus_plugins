@@ -16,7 +16,11 @@ internal class SharePlusPendingIntent: BroadcastReceiver() {
         /**
          * Static member to access the result of the system instantiated instance
          */
+        @Volatile
         var result: String = ""
+
+        /** Raw share result used when the Android 14+ custom Save action is selected. */
+        const val SAVE_ACTION_RESULT = "dev.fluttercommunity.plus/share/save"
     }
 
     /**

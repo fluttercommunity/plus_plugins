@@ -19,5 +19,12 @@
           <action android:name="EXTRA_CHOSEN_COMPONENT" />
         </intent-filter>
       </receiver>
+      <!-- Handles the optional Android 14+ Sharesheet Save action. -->
+      <activity
+        android:name=".SharePlusSaveActivity"
+        android:configChanges="orientation|screenSize"
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" />
     </application>
 </manifest>

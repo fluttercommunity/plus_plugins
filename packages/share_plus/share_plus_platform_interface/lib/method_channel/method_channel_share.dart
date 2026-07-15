@@ -43,6 +43,14 @@ class MethodChannelShare extends SharePlatform {
       if (params.subject != null) 'subject': params.subject,
       if (params.title != null) 'title': params.title,
       if (params.uri != null) 'uri': params.uri.toString(),
+      if (params.androidIncludeSaveAction) 'androidIncludeSaveAction': true,
+      if (params.androidIncludeSaveAction)
+        'androidSaveActionLabels': <String, String>{
+          'save': params.androidSaveActionLabels.save,
+          'saving': params.androidSaveActionLabels.saving,
+          'success': params.androidSaveActionLabels.success,
+          'failure': params.androidSaveActionLabels.failure,
+        },
     };
 
     if (params.sharePositionOrigin != null) {
