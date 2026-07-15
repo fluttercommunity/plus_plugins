@@ -421,10 +421,12 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
       CGRectContainsRect(controller.view.frame, origin);
 
   // Check if this is actually an iPad
-  BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+  BOOL isIpad =
+      ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
-  // Before Xcode 26 hasPopoverPresentationController is true for iPads and false for iPhones.
-  // Since Xcode 26 is true both for iPads and iPhones, so additional check was added above.
+  // Before Xcode 26 hasPopoverPresentationController is true for iPads and
+  // false for iPhones. Since Xcode 26 is true both for iPads and iPhones, so
+  // additional check was added above.
   BOOL hasPopoverPresentationController =
       [activityViewController popoverPresentationController] != NULL;
   if (isIpad && hasPopoverPresentationController &&
