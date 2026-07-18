@@ -76,7 +76,7 @@ class ShareParams {
   final XFile? previewThumbnail;
 
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
-  /// origin rect to achor the share sheet to a widget user interacts with on iPads and Macs.  
+  /// origin rect to anchor the share sheet to a widget user interacts with on iPads and Macs.
   /// It has no effect on other devices.
   ///
   /// If this parameter not provided on iPads the popover anchors to the center of the screen
@@ -245,6 +245,8 @@ enum CupertinoActivityType {
   addToHomeScreen;
 
   String get value {
-    return toString().split('.').last;
+    return toString()
+        .split('.')
+        .last;
   }
 }
