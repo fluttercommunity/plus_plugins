@@ -262,12 +262,14 @@ For more information check the [CoreFoundationKeys](https://developer.apple.com/
 
 #### iPad
 
-`share_plus` requires iPad users to provide the `sharePositionOrigin` parameter.
+On iPad, the share sheet is presented as a popover that anchors to a source
+rectangle. Provide the `sharePositionOrigin` parameter so the popover points at
+the widget the user interacted with.
 
-Without it, `share_plus` will not work on iPads and may cause a crash or
-leave the UI unresponsive.
-
-To avoid that problem, provide the `sharePositionOrigin`.
+If `sharePositionOrigin` is not provided, the popover falls back to anchoring at the
+center of the screen. (In earlier versions, omitting it could cause a crash or
+leave the UI unresponsive.) Providing an accurate origin is still recommended
+for the best user experience.
 
 For example:
 
