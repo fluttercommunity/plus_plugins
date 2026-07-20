@@ -148,7 +148,13 @@ public class AlarmService extends JobIntentService {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !manager.canScheduleExactAlarms()) {
         Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
       } else {
-        PendingIntent showPendingIntent = createShowPendingIntent(context, requestCode, params);
+        PendingIntent showPendingIntent;
+        try {
+          showPendingIntent = createShowPendingIntent(context, requestCode, params);
+        } catch (NullPointerException ex) {
+          Log.e(TAG, "Can`t schedule exact alarm because pending intent could not be created.", ex);
+          return;
+        }
         AlarmManagerCompat.setAlarmClock(
             manager, startMillis,
             showPendingIntent, pendingIntent);
