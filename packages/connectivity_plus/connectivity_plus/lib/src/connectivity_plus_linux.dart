@@ -21,13 +21,15 @@ class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
   @override
   Future<List<ConnectivityResult>> checkConnectivity() async {
     final client = createClient();
-    await client.connect();
-    final connectivity = _getConnectivity(client);
-    await client.close();
-    return connectivity;
+    try {
+      await client.connect();
+      return _getConnectivity(client);
+    } finally {
+      await client.close();
+    }
   }
 
-  NetworkManagerClient? _client;
+  _NetworkManagerClientSession? _clientSession;
   StreamController<List<ConnectivityResult>>? _controller;
 
   /// Returns a Stream of ConnectivityResults changes.
@@ -69,14 +71,31 @@ class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
   }
 
   Future<void> _startListenConnectivity() async {
-    _client ??= createClient();
-    await _client!.connect();
-    _addConnectivity(_client!);
-    _client!.propertiesChanged.listen((properties) {
-      if (properties.contains('Connectivity')) {
-        _addConnectivity(_client!);
+    final session =
+        _clientSession ??= _NetworkManagerClientSession(createClient());
+    try {
+      await session.connected;
+
+      if (!identical(_clientSession, session)) {
+        return;
       }
-    });
+
+      final client = session.client;
+      _addConnectivity(client);
+      session.propertiesChangedSubscription =
+          client.propertiesChanged.listen((properties) {
+        if (identical(_clientSession, session) &&
+            properties.contains('Connectivity')) {
+          _addConnectivity(client);
+        }
+      });
+    } catch (_) {
+      if (identical(_clientSession, session)) {
+        _clientSession = null;
+      }
+      await session.close();
+      rethrow;
+    }
   }
 
   void _addConnectivity(NetworkManagerClient client) {
@@ -84,11 +103,37 @@ class ConnectivityPlusLinuxPlugin extends ConnectivityPlatform {
   }
 
   Future<void> _stopListenConnectivity() async {
-    await _client?.close();
-    _client = null;
+    final session = _clientSession;
+    _clientSession = null;
+    await session?.close();
   }
 
   @visibleForTesting
   // ignore: prefer_function_declarations_over_variables
   NetworkManagerClientFactory createClient = () => NetworkManagerClient();
+}
+
+class _NetworkManagerClientSession {
+  _NetworkManagerClientSession(this.client) : connected = client.connect();
+
+  final NetworkManagerClient client;
+  final Future<void> connected;
+  StreamSubscription<List<String>>? propertiesChangedSubscription;
+
+  Future<void>? _closeFuture;
+
+  Future<void> close() => _closeFuture ??= _close();
+
+  Future<void> _close() async {
+    try {
+      await connected;
+    } catch (_) {
+      // Connection errors are reported by the listener setup.
+    }
+    try {
+      await propertiesChangedSubscription?.cancel();
+    } finally {
+      await client.close();
+    }
+  }
 }
