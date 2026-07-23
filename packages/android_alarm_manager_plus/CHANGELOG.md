@@ -1,3 +1,7 @@
+## 5.1.1
+
+ - **FIX**(android_alarm_manager_plus): catch NPE in AlarmService ([#3924](https://github.com/fluttercommunity/plus_plugins/issues/3924)). ([83a7c3e7](https://github.com/fluttercommunity/plus_plugins/commit/83a7c3e70827fc8a0095dab8a7c6c17cf1799768))
+
 ## 5.1.0
 
  - **REFACTOR**(android_alarm_manager_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3907](https://github.com/fluttercommunity/plus_plugins/issues/3907)). ([4cf0346a](https://github.com/fluttercommunity/plus_plugins/commit/4cf0346a33adbd484b20b12b40bb8c5e9c7a9dde))
