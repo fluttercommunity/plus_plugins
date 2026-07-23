@@ -1,3 +1,8 @@
+## 6.1.0
+
+ - **FIX**(android_intent_plus): Suppress unchecked cast warnings in MethodCallHandlerImpl ([#3937](https://github.com/fluttercommunity/plus_plugins/issues/3937)). ([6b770776](https://github.com/fluttercommunity/plus_plugins/commit/6b770776a0ad2accbdc814e6177fa725f42de0ff))
+ - **FEAT**(android_intent_plus): Add support of built-in Kotlin ([#3936](https://github.com/fluttercommunity/plus_plugins/issues/3936)). ([62cb041f](https://github.com/fluttercommunity/plus_plugins/commit/62cb041f0bf14f6ffcb56588c5c42b0a4b12567e))
+
 ## 6.0.0
 
 > Note: This release has breaking changes.

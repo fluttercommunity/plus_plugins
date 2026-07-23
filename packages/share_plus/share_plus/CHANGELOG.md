@@ -1,3 +1,8 @@
+## 13.3.0
+
+ - **FIX**(share_plus): Do not do I/O operations on the main thread on Android ([#3931](https://github.com/fluttercommunity/plus_plugins/issues/3931)). ([2c5b4935](https://github.com/fluttercommunity/plus_plugins/commit/2c5b4935c85fdbfeffea2bd68c9286c064ed8b7c))
+ - **FEAT**(share_plus): Avoid exceptions on iPads with no sharePositionOrigin ([#3769](https://github.com/fluttercommunity/plus_plugins/issues/3769)). ([d3ba3f36](https://github.com/fluttercommunity/plus_plugins/commit/d3ba3f36a865d3ba7c8e5d1e48396ca3a13541b0))
+
 ## 13.2.1
 
  - **FIX**(share_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3923](https://github.com/fluttercommunity/plus_plugins/issues/3923)). ([949e7717](https://github.com/fluttercommunity/plus_plugins/commit/949e7717ca32fc57dffc4638aeaf154d0fcea0cb))

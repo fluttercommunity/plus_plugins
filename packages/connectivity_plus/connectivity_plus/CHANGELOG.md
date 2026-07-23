@@ -1,3 +1,7 @@
+## 7.3.1
+
+ - **FIX**(connectivity_plus): prevent Linux client leaks ([#3929](https://github.com/fluttercommunity/plus_plugins/issues/3929)). ([bab4cd3e](https://github.com/fluttercommunity/plus_plugins/commit/bab4cd3ea03c8a402121bf5c5af68fc2dbb16892))
+
 ## 7.3.0
 
  - **FEAT**(connectivity_plus): add hasConnectivity() utility extension ([#3842](https://github.com/fluttercommunity/plus_plugins/issues/3842)). ([4c623ae9](https://github.com/fluttercommunity/plus_plugins/commit/4c623ae91269d0aa2e795508c2d6f94659f51ef2))
