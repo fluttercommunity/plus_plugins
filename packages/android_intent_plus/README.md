@@ -20,8 +20,8 @@ This plugin allows Flutter apps to launch arbitrary intents when the platform is
 - Dart >=3.1.0 <4.0.0
 - Java 17
 - Kotlin 2.2.0
-- Android Gradle Plugin >=8.12.1
-- Gradle wrapper >=8.13
+- Android Gradle Plugin >=8.13.0
+- Gradle wrapper >=8.14
 
 ## Usage
 
