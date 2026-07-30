@@ -119,7 +119,7 @@ extension _IpInt on int {
     assert(i >= 0 && i <= 3);
     return (this >> (24 - i * 8)) & 0xff;
   }
-  
+
   String toIpString() {
     final v = this & 0xFFFFFFFF;
     return '${v.octet(0)}.${v.octet(1)}.${v.octet(2)}.${v.octet(3)}';
