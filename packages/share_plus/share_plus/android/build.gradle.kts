@@ -29,7 +29,13 @@ plugins {
 
 val agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.substringBefore('.').toInt()
 
-if (agpMajor < 9) {
+// AGP 9 provides Kotlin support natively unless the consuming app opts out with
+// android.builtInKotlin=false, which is what `flutter create` writes by default.
+val builtInKotlinEnabled =
+    agpMajor >= 9 &&
+        (providers.gradleProperty("android.builtInKotlin").orNull?.toBoolean() ?: true)
+
+if (!builtInKotlinEnabled) {
     apply(plugin = "org.jetbrains.kotlin.android")
 }
 
