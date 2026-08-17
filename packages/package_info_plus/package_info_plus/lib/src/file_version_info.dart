@@ -65,12 +65,16 @@ class FileVersionInfo {
       for (final langCodepage in langCodepages) {
         final lang = toHex4(langCodepage[0]);
         final codepage = toHex4(langCodepage[1]);
-        final lpSubBlock = TEXT('\\StringFileInfo\\$lang$codepage\\$name');
-        final res =
-            VerQueryValue(_data.lpBlock, lpSubBlock, lplpBuffer.cast(), puLen);
+        final lpSubBlock = '\\StringFileInfo\\$lang$codepage\\$name'.toPcwstr();
+        final res = VerQueryValue(
+          _data.lpBlock,
+          lpSubBlock,
+          lplpBuffer.cast(),
+          puLen,
+        );
         free(lpSubBlock);
 
-        if (res != 0 && lplpBuffer.address != 0 && puLen.value > 0) {
+        if (res && lplpBuffer.address != 0 && puLen.value > 0) {
           return lplpBuffer.value.toDartString();
         }
       }
@@ -87,20 +91,22 @@ class FileVersionInfo {
       throw ArgumentError.value(filePath, 'filePath', 'File not present');
     }
 
-    final lptstrFilename = TEXT(filePath);
-    final dwLen = GetFileVersionInfoSize(lptstrFilename, nullptr);
+    final lptstrFilename = filePath.toPcwstr();
+    final sizeResult = GetFileVersionInfoSize(lptstrFilename, null);
+    final dwLen = sizeResult.value;
 
     final lpData = calloc<BYTE>(dwLen); // freed by the dispose() method
-    final lpSubBlock = TEXT(r'\VarFileInfo\Translation');
+    final lpSubBlock = r'\VarFileInfo\Translation'.toPcwstr();
     final lpTranslate = calloc<Pointer<LANGANDCODEPAGE>>();
     final puLen = calloc<UINT>();
     try {
-      if (GetFileVersionInfo(lptstrFilename, NULL, dwLen, lpData) == 0) {
-        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+      final infoResult = GetFileVersionInfo(lptstrFilename, dwLen, lpData);
+      if (!infoResult.value) {
+        throw WindowsException(infoResult.error.toHRESULT());
       }
 
-      if (VerQueryValue(lpData, lpSubBlock, lpTranslate.cast(), puLen) == 0) {
-        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+      if (!VerQueryValue(lpData, lpSubBlock, lpTranslate.cast(), puLen)) {
+        throw WindowsException(GetLastError().toHRESULT());
       }
       return FileVersionInfoData(lpBlock: lpData, lpLang: lpTranslate.value);
     } finally {

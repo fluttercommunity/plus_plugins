@@ -22,6 +22,7 @@ class SharePlusPlugin : FlutterPlugin, ActivityAware {
 
     override fun onDetachedFromEngine(binding: FlutterPluginBinding) {
         methodChannel.setMethodCallHandler(null)
+        share.dispose()
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {

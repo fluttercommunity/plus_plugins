@@ -1,3 +1,37 @@
+## 13.3.0
+
+ - **FIX**(share_plus): Do not do I/O operations on the main thread on Android ([#3931](https://github.com/fluttercommunity/plus_plugins/issues/3931)). ([2c5b4935](https://github.com/fluttercommunity/plus_plugins/commit/2c5b4935c85fdbfeffea2bd68c9286c064ed8b7c))
+ - **FEAT**(share_plus): Avoid exceptions on iPads with no sharePositionOrigin ([#3769](https://github.com/fluttercommunity/plus_plugins/issues/3769)). ([d3ba3f36](https://github.com/fluttercommunity/plus_plugins/commit/d3ba3f36a865d3ba7c8e5d1e48396ca3a13541b0))
+
+## 13.2.1
+
+ - **FIX**(share_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3923](https://github.com/fluttercommunity/plus_plugins/issues/3923)). ([949e7717](https://github.com/fluttercommunity/plus_plugins/commit/949e7717ca32fc57dffc4638aeaf154d0fcea0cb))
+
+## 13.2.0
+
+ - **REFACTOR**(share_plus): Change Android Gradle from Groovy to Kotlin ([#3860](https://github.com/fluttercommunity/plus_plugins/issues/3860)). ([d9b6f299](https://github.com/fluttercommunity/plus_plugins/commit/d9b6f299dec2c61673a9e4650e9fd554d44422a5))
+ - **FIX**(share_plus): resolve js interop lint and maintain minimum sdk ([#3846](https://github.com/fluttercommunity/plus_plugins/issues/3846)). ([09d75d8f](https://github.com/fluttercommunity/plus_plugins/commit/09d75d8f822831ffb07f81234365accc7e8593de))
+ - **FEAT**(share_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3911](https://github.com/fluttercommunity/plus_plugins/issues/3911)). ([cf006091](https://github.com/fluttercommunity/plus_plugins/commit/cf00609169e791d41e21a59826dcfa574ce12fe6))
+ - **FEAT**(share_plus): Add support of built-in Kotlin ([#3896](https://github.com/fluttercommunity/plus_plugins/issues/3896)). ([0c9b0ad0](https://github.com/fluttercommunity/plus_plugins/commit/0c9b0ad0e596adff407d61cefbbf1088b56783da))
+
+## 13.1.0
+
+ - **FEAT**(share_plus): Lower requirements to Dart 3.10 and Flutter 3.38.1 ([#3801](https://github.com/fluttercommunity/plus_plugins/issues/3801)). ([d965e00e](https://github.com/fluttercommunity/plus_plugins/commit/d965e00e5082d4e32e25cacad0b193a735d51c5f))
+
+## 13.0.0
+
+> Note: This release has breaking changes.
+>
+> Due to an update of win32 to 6.0.0, package requirements were also changed to match this update:
+> - Minimum Flutter version is 3.41.6
+> - Minimum Dart version is 3.11.0
+> - Min iOS is 13.0
+> - Min macOS is 10.15
+>
+> Since this release was already breaking, the rest of the dependencies were also updated to the latest possible versions.
+
+ - **BREAKING** **FEAT**(share_plus): Bump win32 from 5.15.0 to 6.0.0 ([#3762](https://github.com/fluttercommunity/plus_plugins/issues/3762)). ([0e3eb918](https://github.com/fluttercommunity/plus_plugins/commit/0e3eb918e77fcc500b6124167a905f026ffc374a))
+
 ## 12.0.2
 
  - **FIX**(share_plus): Avoid crash on iOS during file and text sharing in add-to-app scenario ([#3738](https://github.com/fluttercommunity/plus_plugins/issues/3738)). ([ae6330bb](https://github.com/fluttercommunity/plus_plugins/commit/ae6330bbf579fe411b503be84fcfc202d2496625))

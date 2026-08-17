@@ -24,7 +24,6 @@ scripts:
     description: |
       Run all static analysis checks
       - Analyze the project for Dart analysis issues.
-      - Requires `pub global activate tuneup`.
 
   analyze:
     run: |
@@ -38,7 +37,7 @@ scripts:
     run: dart pub global run flutter_plugin_tools format
     description: |
       activate flutter_plugin_tools
-       - Requires `flutter_plugin_tools` (`pub global activate flutter_plugin_tools`).
+       - Requires `flutter_plugin_tools` (`flutter pub global activate flutter_plugin_tools`).
        - Requires `clang-format` (can be installed via Brew on macOS).
 
   build:all:

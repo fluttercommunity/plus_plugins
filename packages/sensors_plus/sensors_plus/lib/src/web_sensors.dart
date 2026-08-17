@@ -22,6 +22,7 @@ class WebSensorsPlugin extends SensorsPlatform {
   }) {
     try {
       initSensor();
+      // ignore: invalid_runtime_check_with_js_interop_types
     } on DOMException catch (e) {
       if (onError != null) {
         onError();

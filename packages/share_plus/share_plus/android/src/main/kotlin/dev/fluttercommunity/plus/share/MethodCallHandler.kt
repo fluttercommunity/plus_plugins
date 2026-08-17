@@ -20,20 +20,24 @@ internal class MethodCallHandler(
         if (isWithResult)
             manager.setCallback(result)
 
-        try {
-            when (call.method) {
-                "share" -> {
-                    share.share(
-                        arguments = call.arguments<Map<String, Any>>()!!,
-                        withResult = isWithResult,
+        when (call.method) {
+            "share" -> {
+                share.share(
+                    arguments = call.arguments<Map<String, Any>>()!!,
+                    withResult = isWithResult,
+                ) { shareResult ->
+                    // Invoked on the platform thread once the share sheet has been
+                    // launched (success) or preparation failed (failure).
+                    shareResult.fold(
+                        onSuccess = { success(isWithResult, result) },
+                        onFailure = { e ->
+                            manager.clear()
+                            result.error("Share failed", e.message, e)
+                        },
                     )
-                    success(isWithResult, result)
                 }
-                else -> result.notImplemented()
             }
-        } catch (e: Throwable) {
-            manager.clear()
-            result.error("Share failed", e.message, e)
+            else -> result.notImplemented()
         }
     }
 

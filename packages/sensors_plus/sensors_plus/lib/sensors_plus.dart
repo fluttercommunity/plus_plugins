@@ -67,7 +67,6 @@ Stream<MagnetometerEvent> magnetometerEventStream({
 
 /// Returns a broadcast stream of events from the device barometer at the
 /// given sampling frequency.
-@override
 Stream<BarometerEvent> barometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {

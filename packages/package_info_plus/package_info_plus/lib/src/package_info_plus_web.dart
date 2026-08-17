@@ -17,7 +17,7 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
   /// Create plugin with http client and asset manager for testing purposes.
   PackageInfoPlusWebPlugin([this._client, AssetManager? assetManagerMock])
-      : _assetManager = assetManagerMock ?? assetManager;
+    : _assetManager = assetManagerMock ?? assetManager;
 
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
@@ -48,8 +48,9 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
     // Add file and cachebuster query
     return uri.replace(
-        query: 'cachebuster=$cacheBuster',
-        pathSegments: [...segments, 'version.json']);
+      query: 'cachebuster=$cacheBuster',
+      pathSegments: [...segments, 'version.json'],
+    );
   }
 
   @override
@@ -57,9 +58,9 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
     final int cacheBuster = clock.now().millisecondsSinceEpoch;
     final Map<String, dynamic> versionMap =
         await _getVersionMap(baseUrl, cacheBuster) ??
-            await _getVersionMap(_assetManager.baseUrl, cacheBuster) ??
-            await _getVersionMap(web.window.document.baseURI, cacheBuster) ??
-            {};
+        await _getVersionMap(_assetManager.baseUrl, cacheBuster) ??
+        await _getVersionMap(web.window.document.baseURI, cacheBuster) ??
+        {};
 
     return PackageInfoData(
       appName: versionMap['app_name'] ?? '',

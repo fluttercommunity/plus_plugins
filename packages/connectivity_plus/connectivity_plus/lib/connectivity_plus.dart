@@ -13,6 +13,7 @@ export 'package:connectivity_plus_platform_interface/connectivity_plus_platform_
 
 export 'src/connectivity_plus_linux.dart'
     if (dart.library.js_interop) 'src/connectivity_plus_web.dart';
+export 'src/enum_extension.dart';
 
 /// Discover network connectivity configurations: Distinguish between WI-FI and cellular, check WI-FI status and more.
 class Connectivity {
@@ -46,7 +47,7 @@ class Connectivity {
   /// case where [ConnectivityResult.none] is present.
   ///
   /// This method applies [Stream.distinct] over the received events to ensure
-  /// only emiting when connectivity changes.
+  /// only emitting when connectivity changes.
   Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return _platform.onConnectivityChanged.distinct((a, b) => a.equals(b));
   }

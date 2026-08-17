@@ -45,6 +45,7 @@ private:
   IConnectionPointContainer *pCPContainer = NULL;
   IConnectionPoint *pConnectPoint = NULL;
   NetworkListener *pListener = NULL;
+  HRESULT lastError = S_OK;
 };
 
 #endif // NETWORK_MANAGER_H

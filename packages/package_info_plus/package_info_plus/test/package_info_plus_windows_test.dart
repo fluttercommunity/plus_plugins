@@ -62,11 +62,14 @@ void main() {
     const missingFile = 'C:\\macos\\system128\\colonel.dll';
 
     expect(
-        () => FileVersionInfo(missingFile),
-        throwsA(isArgumentError.having(
+      () => FileVersionInfo(missingFile),
+      throwsA(
+        isArgumentError.having(
           (e) => e.message,
           'message',
           startsWith('File not present'),
-        )));
+        ),
+      ),
+    );
   });
 }

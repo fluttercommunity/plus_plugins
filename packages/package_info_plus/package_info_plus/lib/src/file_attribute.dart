@@ -28,38 +28,38 @@ class FileAttributes {
   late final DateTime? lastWriteTime;
 
   FileAttributes(this.filePath) {
-    final (:creationTime, :lastWriteTime) =
-        getFileCreationAndLastWriteTime(filePath);
+    final (:creationTime, :lastWriteTime) = getFileCreationAndLastWriteTime(
+      filePath,
+    );
 
     this.creationTime = creationTime;
     this.lastWriteTime = lastWriteTime;
   }
 
-  static ({
-    DateTime? creationTime,
-    DateTime? lastWriteTime,
-  }) getFileCreationAndLastWriteTime(String filePath) {
+  static ({DateTime? creationTime, DateTime? lastWriteTime})
+  getFileCreationAndLastWriteTime(String filePath) {
     if (!File(filePath).existsSync()) {
       throw ArgumentError.value(filePath, 'filePath', 'File not present');
     }
 
-    final lptstrFilename = TEXT(filePath);
+    final lptstrFilename = filePath.toPcwstr();
     final lpFileInformation = calloc<FILEATTRIBUTEDATA>();
 
     try {
-      if (GetFileAttributesEx(lptstrFilename, 0, lpFileInformation) == 0) {
-        throw WindowsException(HRESULT_FROM_WIN32(GetLastError()));
+      final result = GetFileAttributesEx(
+        lptstrFilename,
+        GetFileExInfoStandard,
+        lpFileInformation,
+      );
+      if (!result.value) {
+        throw WindowsException(result.error.toHRESULT());
       }
 
       final FILEATTRIBUTEDATA fileInformation = lpFileInformation.ref;
 
       return (
-        creationTime: fileTimeToDartDateTime(
-          fileInformation.ftCreationTime,
-        ),
-        lastWriteTime: fileTimeToDartDateTime(
-          fileInformation.ftLastWriteTime,
-        ),
+        creationTime: fileTimeToDartDateTime(fileInformation.ftCreationTime),
+        lastWriteTime: fileTimeToDartDateTime(fileInformation.ftLastWriteTime),
       );
     } finally {
       free(lptstrFilename);

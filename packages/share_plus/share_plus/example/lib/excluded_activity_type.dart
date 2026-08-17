@@ -44,8 +44,9 @@ class _ExcludedActivityTypePageState
               final List<CupertinoActivityType> tempSelected = [];
               for (final String type in selected) {
                 tempSelected.add(
-                  CupertinoActivityType.values
-                      .firstWhere((e) => e.value == type),
+                  CupertinoActivityType.values.firstWhere(
+                    (e) => e.value == type,
+                  ),
                 );
               }
               Navigator.pop(context, tempSelected);

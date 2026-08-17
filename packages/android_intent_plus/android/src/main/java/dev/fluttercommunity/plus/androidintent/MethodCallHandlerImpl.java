@@ -72,6 +72,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
    * <p>Always calls {@code result#success}.
    */
   @Override
+  @SuppressWarnings("unchecked")
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     try {
       String action = convertAction((String) call.argument("action"));
@@ -155,6 +156,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private static Bundle convertArguments(Map<String, ?> arguments) {
     Bundle bundle = new Bundle();
     if (arguments == null) {
@@ -193,6 +195,7 @@ public final class MethodCallHandlerImpl implements MethodCallHandler {
     return bundle;
   }
 
+  @SuppressWarnings("unchecked")
   private static Bundle convertArrayArguments(Map<String, ?> arrayArguments) {
     Bundle bundle = new Bundle();
     if (arrayArguments == null) {

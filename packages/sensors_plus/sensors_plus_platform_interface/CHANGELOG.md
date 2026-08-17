@@ -1,3 +1,7 @@
+## 2.0.2
+
+ - **FIX**(sensors_plus): resolve lint issues found during melos analyze ([#3845](https://github.com/fluttercommunity/plus_plugins/issues/3845)). ([c6511c08](https://github.com/fluttercommunity/plus_plugins/commit/c6511c087f2b49ec1b64a1f9906a990085066531))
+
 ## 2.0.1
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

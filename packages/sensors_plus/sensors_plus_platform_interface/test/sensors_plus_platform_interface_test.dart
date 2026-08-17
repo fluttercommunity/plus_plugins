@@ -13,7 +13,6 @@ final MethodChannelSensors methodChannel = MethodChannelSensors();
 
 /// Returns a broadcast stream of events from the device accelerometer at the
 /// given sampling frequency.
-@override
 Stream<AccelerometerEvent> accelerometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
@@ -22,7 +21,6 @@ Stream<AccelerometerEvent> accelerometerEventStream({
 
 /// Returns a broadcast stream of events from the device gyroscope at the
 /// given sampling frequency.
-@override
 Stream<GyroscopeEvent> gyroscopeEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
@@ -31,7 +29,6 @@ Stream<GyroscopeEvent> gyroscopeEventStream({
 
 /// Returns a broadcast stream of events from the device accelerometer with
 /// gravity removed at the given sampling frequency.
-@override
 Stream<UserAccelerometerEvent> userAccelerometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
@@ -41,7 +38,6 @@ Stream<UserAccelerometerEvent> userAccelerometerEventStream({
 
 /// Returns a broadcast stream of events from the device magnetometer at the
 /// given sampling frequency.
-@override
 Stream<MagnetometerEvent> magnetometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {
@@ -50,7 +46,6 @@ Stream<MagnetometerEvent> magnetometerEventStream({
 
 /// Returns a broadcast stream of events from the device magnetometer at the
 /// given sampling frequency.
-@override
 Stream<BarometerEvent> barometerEventStream({
   Duration samplingPeriod = SensorInterval.normalInterval,
 }) {

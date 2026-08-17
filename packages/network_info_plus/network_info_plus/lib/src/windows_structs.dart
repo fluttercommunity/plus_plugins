@@ -7,7 +7,7 @@ import 'dart:ffi';
 /// The SOCKADDR_IN structure specifies a transport address and port for the AF_INET address family.
 ///
 /// {@category struct}
-class SOCKADDR_IN extends Struct {
+base class SOCKADDR_IN extends Struct {
   @Uint16()
   external int sin_family;
 
@@ -24,7 +24,7 @@ class SOCKADDR_IN extends Struct {
 /// The SOCKADDR_IN6 structure specifies a transport address and port for the AF_INET6 address family.
 ///
 /// {@category struct}
-class SOCKADDR_IN6 extends Struct {
+base class SOCKADDR_IN6 extends Struct {
   @Uint16()
   external int sin6_family;
 

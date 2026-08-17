@@ -26,10 +26,10 @@ Sharing files is not supported on Linux.
 
 ## Requirements
 
-- Flutter >=3.22.0
-- Dart >=3.4.0 <4.0.0
-- iOS >=12.0
-- macOS >=10.14
+- Flutter >=3.38.1
+- Dart >=3.10.0 <4.0.0
+- iOS >=13.0
+- macOS >=10.15
 - Java 17
 - Kotlin 2.2.0
 - Android Gradle Plugin >=8.12.1
@@ -262,12 +262,14 @@ For more information check the [CoreFoundationKeys](https://developer.apple.com/
 
 #### iPad
 
-`share_plus` requires iPad users to provide the `sharePositionOrigin` parameter.
+On iPad, the share sheet is presented as a popover that anchors to a source
+rectangle. Provide the `sharePositionOrigin` parameter so the popover points at
+the widget the user interacted with.
 
-Without it, `share_plus` will not work on iPads and may cause a crash or
-leave the UI unresponsive.
-
-To avoid that problem, provide the `sharePositionOrigin`.
+If `sharePositionOrigin` is not provided, the popover falls back to anchoring at the
+center of the screen. (In earlier versions, omitting it could cause a crash or
+leave the UI unresponsive.) Providing an accurate origin is still recommended
+for the best user experience.
 
 For example:
 

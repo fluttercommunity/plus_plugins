@@ -7,23 +7,15 @@ import 'package:share_plus_platform_interface/share_plus_platform_interface.dart
 import 'url_launcher_mock.dart';
 
 void main() {
-  test(
-    'registered instance',
-    () {
-      SharePlusWindowsPlugin.registerWith();
-      expect(SharePlatform.instance, isA<SharePlusWindowsPlugin>());
-    },
-    skip: VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+  test('registered instance', () {
+    SharePlusWindowsPlugin.registerWith();
+    expect(SharePlatform.instance, isA<SharePlusWindowsPlugin>());
+  }, skip: VersionHelper.instance.isWindows10RS5OrGreater);
 
-  test(
-    'registered instance',
-    () {
-      SharePlusWindowsPlugin.registerWith();
-      expect(SharePlatform.instance, isA<MethodChannelShare>());
-    },
-    skip: !VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+  test('registered instance', () {
+    SharePlusWindowsPlugin.registerWith();
+    expect(SharePlatform.instance, isA<MethodChannelShare>());
+  }, skip: !VersionHelper.instance.isWindows10RS5OrGreater);
 
   // These tests are only valid on Windows versions lower than 10.0.17763.0.
 
@@ -32,9 +24,9 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(mock).share(
-        ShareParams(text: 'foo&bar', subject: 'bar&foo'),
-      );
+      await SharePlusWindowsPlugin(
+        mock,
+      ).share(ShareParams(text: 'foo&bar', subject: 'bar&foo'));
 
       expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
     },
@@ -47,9 +39,9 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(mock).share(
-        ShareParams(text: 'foo bar', subject: 'bar foo'),
-      );
+      await SharePlusWindowsPlugin(
+        mock,
+      ).share(ShareParams(text: 'foo bar', subject: 'bar foo'));
 
       expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
     },
@@ -61,9 +53,9 @@ void main() {
     () async {
       final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(mock).share(
-        ShareParams(uri: Uri.parse('http://example.com')),
-      );
+      await SharePlusWindowsPlugin(
+        mock,
+      ).share(ShareParams(uri: Uri.parse('http://example.com')));
 
       expect(mock.url, 'mailto:?body=http%3A%2F%2Fexample.com');
     },

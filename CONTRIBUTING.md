@@ -50,8 +50,7 @@ Please follow this steps when working on the PlusPlugins.
 - [git](https://git-scm.com) (used for source version control).
 - An ssh client (used to authenticate with GitHub).
 - An IDE such as [Android Studio](https://developer.android.com/studio) or [Visual Studio Code](https://code.visualstudio.com/).
-- [`flutter_plugin_tools`](https://pub.dev/packages/flutter_plugin_tools) locally activated.
-- [`tuneup`](https://pub.dev/packages/tuneup) locally activated.
+- [`flutter_plugin_tools`](https://pub.dev/packages/flutter_plugin_tools) globally activated.
 
 ## 2. Forking & cloning the repository
 
@@ -177,7 +176,7 @@ file.
 We gladly accept contributions via GitHub pull requests.
 
 Please follow the
-[Flutter style guide](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) and
+[Flutter style guide](https://github.com/flutter/flutter/blob/master/docs/contributing/Style-guide-for-Flutter-repo.md) and
 [design principles](https://flutter.dev/design-principles/) before
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.

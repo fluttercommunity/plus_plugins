@@ -10,7 +10,9 @@
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
 
+#include <algorithm>
 #include <functional>
+#include <map>
 #include <memory>
 
 namespace {
@@ -56,9 +58,23 @@ protected:
   OnCancelInternal(const flutter::EncodableValue *arguments) override;
 
 private:
+  bool TryStartListen();
+  void ScheduleStartListenRetry();
+  void CancelStartListenRetry();
+  static void CALLBACK RetryTimerProc(HWND hwnd, UINT message, UINT_PTR id,
+                                      DWORD time);
+
+  // Thread-affine (platform thread), like the stream handler itself.
+  static std::map<UINT_PTR, ConnectivityStreamHandler *> retry_handlers_;
+
   std::shared_ptr<NetworkManager> manager;
   std::unique_ptr<FlEventSink> sink;
+  UINT_PTR retry_timer_id_ = 0;
+  int retry_attempts_ = 0;
 };
+
+std::map<UINT_PTR, ConnectivityStreamHandler *>
+    ConnectivityStreamHandler::retry_handlers_;
 
 ConnectivityPlusWindowsPlugin::ConnectivityPlusWindowsPlugin() {
   manager = std::make_shared<NetworkManager>();
@@ -146,10 +162,71 @@ ConnectivityStreamHandler::ConnectivityStreamHandler(
     std::shared_ptr<NetworkManager> manager)
     : manager(manager) {}
 
-ConnectivityStreamHandler::~ConnectivityStreamHandler() {}
+ConnectivityStreamHandler::~ConnectivityStreamHandler() {
+  CancelStartListenRetry();
+}
 
 void ConnectivityStreamHandler::AddConnectivityEvent() {
   sink->Success(EncodeConnectivityTypes(manager->GetConnectivityTypes()));
+}
+
+bool ConnectivityStreamHandler::TryStartListen() {
+  auto callback =
+      std::bind(&ConnectivityStreamHandler::AddConnectivityEvent, this);
+  return manager->StartListen(callback);
+}
+
+void ConnectivityStreamHandler::ScheduleStartListenRetry() {
+  // 100ms, 200ms, 400ms, ... — enough to escape whatever input-synchronous
+  // window the platform thread was inside.
+  UINT delay = 100u << (std::min)(retry_attempts_, 4);
+  retry_timer_id_ = SetTimer(nullptr, 0, delay, RetryTimerProc);
+  if (retry_timer_id_ != 0) {
+    retry_handlers_[retry_timer_id_] = this;
+  }
+}
+
+void ConnectivityStreamHandler::CancelStartListenRetry() {
+  if (retry_timer_id_ != 0) {
+    KillTimer(nullptr, retry_timer_id_);
+    retry_handlers_.erase(retry_timer_id_);
+    retry_timer_id_ = 0;
+  }
+}
+
+void CALLBACK ConnectivityStreamHandler::RetryTimerProc(HWND hwnd,
+                                                        UINT message,
+                                                        UINT_PTR id,
+                                                        DWORD time) {
+  KillTimer(hwnd, id);
+  auto it = retry_handlers_.find(id);
+  if (it == retry_handlers_.end()) {
+    return;
+  }
+  ConnectivityStreamHandler *self = it->second;
+  retry_handlers_.erase(it);
+  self->retry_timer_id_ = 0;
+
+  if (!self->sink) {
+    return; // Cancelled while the retry was pending.
+  }
+
+  if (self->TryStartListen()) {
+    self->AddConnectivityEvent();
+    return;
+  }
+
+  if (self->manager->GetError() == RPC_E_CANTCALLOUT_ININPUTSYNCCALL &&
+      ++self->retry_attempts_ < 5) {
+    self->ScheduleStartListenRetry();
+    return;
+  }
+
+  // Persistent failure: report through the sink, where Dart-side stream
+  // onError handlers can observe it (unlike an OnListen error, which the
+  // framework can only surface as an uncatchable FlutterError).
+  self->sink->Error(std::to_string(self->manager->GetError()),
+                    "NetworkManager::StartListen", nullptr);
 }
 
 std::unique_ptr<FlStreamHandlerError>
@@ -158,13 +235,19 @@ ConnectivityStreamHandler::OnListenInternal(
     std::unique_ptr<FlEventSink> &&events) {
   sink = std::move(events);
 
-  auto callback =
-      std::bind(&ConnectivityStreamHandler::AddConnectivityEvent, this);
-
-  if (!manager->StartListen(callback)) {
-    return std::make_unique<FlStreamHandlerError>(
-        std::to_string(manager->GetError()), "NetworkManager::StartListen",
-        nullptr);
+  if (!TryStartListen()) {
+    if (manager->GetError() == RPC_E_CANTCALLOUT_ININPUTSYNCCALL) {
+      // The platform thread is inside an input-synchronous call (e.g. a
+      // SendMessage-driven window callback), where COM rejects the outgoing
+      // Advise. The subscription itself is fine — retry once the message
+      // loop spins, and still emit the initial snapshot below.
+      retry_attempts_ = 0;
+      ScheduleStartListenRetry();
+    } else {
+      return std::make_unique<FlStreamHandlerError>(
+          std::to_string(manager->GetError()), "NetworkManager::StartListen",
+          nullptr);
+    }
   }
 
   AddConnectivityEvent();
@@ -174,6 +257,7 @@ ConnectivityStreamHandler::OnListenInternal(
 std::unique_ptr<FlStreamHandlerError>
 ConnectivityStreamHandler::OnCancelInternal(
     const flutter::EncodableValue *arguments) {
+  CancelStartListenRetry();
   manager->StopListen();
   sink.reset();
   return nullptr;

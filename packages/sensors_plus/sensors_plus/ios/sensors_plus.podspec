@@ -16,7 +16,7 @@ Flutter plugin to access the accelerometer, gyroscope, magnetometer and baromete
   s.documentation_url = 'https://pub.dev/packages/sensors_plus'
   s.source_files = 'sensors_plus/Sources/sensors_plus/**/*.swift'
   s.dependency 'Flutter'
-  s.platform = :ios, '12.0'
+  s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

@@ -1,20 +1,20 @@
 name: network_info_plus_platform_interface
 description: A common platform interface for the network_info_plus plugin.
-version: 2.0.2
+version: 3.1.0
 homepage: https://github.com/fluttercommunity/plus_plugins
 repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.1"
 
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.8.0
-  plugin_platform_interface: ^2.1.4
+  meta: ^1.17.0
+  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ">=4.0.0 <6.0.0"
+  flutter_lints: ^6.0.0

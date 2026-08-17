@@ -6,16 +6,20 @@ import PackageDescription
 let package = Package(
   name: "battery_plus",
   platforms: [
-    .macOS("10.14")
+    .macOS("10.15")
   ],
   products: [
     .library(name: "battery-plus", targets: ["battery_plus"])
   ],
-  dependencies: [],
+  dependencies: [
+    .package(name: "FlutterFramework", path: "../FlutterFramework")
+  ],
   targets: [
     .target(
       name: "battery_plus",
-      dependencies: [],
+      dependencies: [
+        .product(name: "FlutterFramework", package: "FlutterFramework")
+      ],
       resources: [
         .process("PrivacyInfo.xcprivacy")
       ]

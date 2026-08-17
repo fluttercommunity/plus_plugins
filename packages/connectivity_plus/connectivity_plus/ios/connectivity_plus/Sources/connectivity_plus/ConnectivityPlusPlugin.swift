@@ -3,6 +3,7 @@
 // be found in the LICENSE file.
 
 import Flutter
+import UIKit
 
 public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   private let connectivityProvider: ConnectivityProvider
@@ -81,8 +82,15 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
   }
 
   private func connectivityUpdateHandler(connectivityTypes: [ConnectivityType]) {
-    DispatchQueue.main.async {
-      self.eventSink?(self.statusFrom(connectivityTypes: connectivityTypes))
+    DispatchQueue.main.async { [weak self] in
+      guard let self = self, let eventSink = self.eventSink else { return }
+      // NWPathMonitor can fire while the app is in the background, after the
+      // FlutterEngine's shell has been torn down. Calling eventSink in that
+      // state triggers an NSAssertion in -[FlutterEngine sendOnChannel:] and
+      // crashes the app with SIGABRT. Skip the emission until the app is
+      // foregrounded again; the next onListen / check call will resync state.
+      guard UIApplication.shared.applicationState != .background else { return }
+      eventSink(self.statusFrom(connectivityTypes: connectivityTypes))
     }
   }
 

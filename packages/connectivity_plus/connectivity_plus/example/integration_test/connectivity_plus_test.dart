@@ -22,23 +22,23 @@ void main() {
       expect(result, isNotNull);
     });
 
-    testWidgets('connectivity on Android newer than 5 (API 21) should be wifi',
+    testWidgets('connectivity on Android newer than 7 (API 24) should be wifi',
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
       expect(result, [ConnectivityResult.wifi]);
     },
         skip: !Platform.isAndroid ||
-            Platform.operatingSystemVersion.contains('5.0.2'));
+            Platform.operatingSystemVersion.contains('7.0'));
 
-    testWidgets('connectivity on Android 5 (API 21) should be mobile',
+    testWidgets('connectivity on Android 7 (API 24) should be mobile',
         (WidgetTester tester) async {
       final result = await connectivity.checkConnectivity();
 
       expect(result, [ConnectivityResult.mobile]);
     },
         skip: !Platform.isAndroid ||
-            !Platform.operatingSystemVersion.contains('5.0.2'));
+            !Platform.operatingSystemVersion.contains('7.0'));
 
     testWidgets('connectivity on MacOS should be ethernet',
         (WidgetTester tester) async {

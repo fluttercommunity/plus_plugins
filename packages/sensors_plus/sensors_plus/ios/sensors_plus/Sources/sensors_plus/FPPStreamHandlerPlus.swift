@@ -235,7 +235,7 @@ class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
     }
 
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _motionManager.stopDeviceMotionUpdates()
+        _motionManager.stopMagnetometerUpdates()
         return nil
     }
 

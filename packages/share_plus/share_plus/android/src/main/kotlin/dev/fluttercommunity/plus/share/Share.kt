@@ -8,6 +8,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 
@@ -21,6 +29,23 @@ internal class Share(
     private var activity: Activity?,
     private val manager: ShareSuccessManager
 ) {
+    /**
+     * Scope used to move blocking disk I/O off the platform (main) thread.
+     * Uses the main dispatcher so the coroutine resumes on the UI thread to
+     * launch the share sheet and deliver the result, but the file work runs on
+     * [Dispatchers.IO]. Cancelled in [dispose] when the engine detaches.
+     */
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    /**
+     * Confines cache I/O to a single thread so that concurrent share() calls
+     * (e.g. the caller does not await the previous one) cannot race on the
+     * shared cache folder, matching the serialized behaviour of the previous
+     * fully-synchronous implementation.
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val ioDispatcher = Dispatchers.IO.limitedParallelism(1)
+
     private val providerAuthority: String by lazy {
         getContext().packageName + ".flutter.share_provider"
     }
@@ -55,8 +80,42 @@ internal class Share(
         this.activity = activity
     }
 
+    /**
+     * Prepares the share intent (including all disk I/O) on a background thread,
+     * then launches the share sheet on the platform thread. [callback] is invoked
+     * on the platform thread with [Result.success] once the sheet is launched, or
+     * [Result.failure] if preparation fails.
+     */
+    fun share(
+        arguments: Map<String, Any>,
+        withResult: Boolean,
+        callback: (Result<Unit>) -> Unit
+    ) {
+        coroutineScope.launch {
+            try {
+                val chooserIntent = withContext(ioDispatcher) {
+                    prepareShareIntent(arguments, withResult)
+                }
+                startActivity(chooserIntent, withResult)
+                callback(Result.success(Unit))
+            } catch (e: CancellationException) {
+                // Scope was cancelled (engine detached); don't touch the result.
+                throw e
+            } catch (e: Throwable) {
+                callback(Result.failure(e))
+            }
+        }
+    }
+
+    /**
+     * Cancels any in-flight share work. Must be called when the engine detaches.
+     */
+    fun dispose() {
+        coroutineScope.cancel()
+    }
+
     @Throws(IOException::class)
-    fun share(arguments: Map<String, Any>, withResult: Boolean) {
+    private fun prepareShareIntent(arguments: Map<String, Any>, withResult: Boolean): Intent {
         clearShareCacheFolder()
 
         val text = arguments["text"] as String?
@@ -148,8 +207,7 @@ internal class Share(
             }
         }
 
-        // Launch share intent
-        startActivity(chooserIntent, withResult)
+        return chooserIntent
     }
 
     private fun startActivity(intent: Intent, withResult: Boolean) {
