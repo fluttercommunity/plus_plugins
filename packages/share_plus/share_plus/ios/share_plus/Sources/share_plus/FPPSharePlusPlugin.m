@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 #import "./include/share_plus/FPPSharePlusPlugin.h"
 #import "LinkPresentation/LPLinkMetadata.h"
+#import <AVFoundation/AVFoundation.h>
 #import "LinkPresentation/LPMetadataProvider.h"
 
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
@@ -198,12 +199,68 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                  (UIActivityViewController *)activityViewController
       thumbnailImageForActivityType:(UIActivityType)activityType
                       suggestedSize:(CGSize)suggestedSize {
-  if (!_path || !_mimeType || ![_mimeType hasPrefix:@"image/"]) {
+  UIImage *image = [self previewImage];
+  if (!image) {
     return nil;
   }
 
-  UIImage *image = [UIImage imageWithContentsOfFile:_path];
   return [self imageWithImage:image scaledToSize:suggestedSize];
+}
+
+// A still to represent the shared file in the share sheet.
+//
+// Images load directly. Videos previously returned nil here and in the link
+// metadata below, which is why the sheet showed a generic document icon for
+// them while images got a preview.
+- (UIImage *)previewImage {
+  if (!_path || !_mimeType) {
+    return nil;
+  }
+
+  if ([_mimeType hasPrefix:@"image/"]) {
+    return [UIImage imageWithContentsOfFile:_path];
+  }
+
+  if ([_mimeType hasPrefix:@"video/"]) {
+    return [self videoThumbnailForPath:_path];
+  }
+
+  return nil;
+}
+
+// First representative frame of a video.
+- (UIImage *)videoThumbnailForPath:(NSString *)path {
+  AVURLAsset *asset =
+      [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
+  AVAssetImageGenerator *generator =
+      [[AVAssetImageGenerator alloc] initWithAsset:asset];
+  // Without this, footage shot in portrait comes out sideways: the rotation
+  // lives in the track transform, not in the pixels.
+  generator.appliesPreferredTrackTransform = YES;
+  // The sheet renders this small, and decoding a 4K frame to show 120 points
+  // is pure cost.
+  generator.maximumSize = CGSizeMake(600, 600);
+
+  // Half a second in rather than frame zero, which is black on anything that
+  // fades in.
+  CMTime preferred = CMTimeMakeWithSeconds(0.5, 600);
+  CGImageRef cgImage = [generator copyCGImageAtTime:preferred
+                                         actualTime:NULL
+                                              error:nil];
+  if (!cgImage) {
+    // Clip shorter than the offset above.
+    cgImage = [generator copyCGImageAtTime:kCMTimeZero
+                                actualTime:NULL
+                                     error:nil];
+  }
+  if (!cgImage) {
+    return nil;
+  }
+
+  UIImage *image = [UIImage imageWithCGImage:cgImage];
+  // copyCGImageAtTime returns a +1 reference.
+  CGImageRelease(cgImage);
+  return image;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -248,10 +305,10 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
     // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
     metadata.originalURL = [NSURL fileURLWithPath:description];
-    if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
-      UIImage *image = [UIImage imageWithContentsOfFile:_path];
+    UIImage *preview = [self previewImage];
+    if (preview) {
       metadata.imageProvider = [[NSItemProvider alloc]
-          initWithObject:[self imageWithImage:image
+          initWithObject:[self imageWithImage:preview
                                  scaledToSize:CGSizeMake(120, 120)]];
     }
   }
