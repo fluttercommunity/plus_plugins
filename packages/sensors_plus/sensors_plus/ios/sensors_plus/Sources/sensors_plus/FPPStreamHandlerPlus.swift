@@ -2,301 +2,172 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import Foundation
-import Flutter
-import UIKit
 import CoreMotion
+import Flutter
+import Foundation
 
 let GRAVITY = 9.81
-var _motionManager: CMMotionManager!
-var _altimeter: CMAltimeter!
+let timestampMicroAtBoot = (Date().timeIntervalSince1970 - ProcessInfo.processInfo.systemUptime) * 1000000
 
-public protocol MotionStreamHandler: FlutterStreamHandler {
+public protocol MotionStreamHandler: NSObjectProtocol, FlutterStreamHandler {
     var samplingPeriod: Int { get set }
 }
 
-let timestampMicroAtBoot = (Date().timeIntervalSince1970 - ProcessInfo.processInfo.systemUptime) * 1000000
+private class FPPStreamHandlerBase: NSObject, MotionStreamHandler {
+    var samplingPeriod = 200000
+    var eventSink: FlutterEventSink?
 
-func _initMotionManager() {
-    if (_motionManager == nil) {
-        _motionManager = CMMotionManager()
-        _motionManager.accelerometerUpdateInterval = 0.2
-        _motionManager.deviceMotionUpdateInterval = 0.2
-        _motionManager.gyroUpdateInterval = 0.2
-        _motionManager.magnetometerUpdateInterval = 0.2
-    }
-}
-
-func _initAltimeter() {
-    if (_altimeter == nil) {
-        _altimeter = CMAltimeter()
-    }
-}
-
-func sendFlutter(x: Float64, y: Float64, z: Float64, timestamp: TimeInterval, sink: @escaping FlutterEventSink) {
-    if _isCleanUp {
-        return
-    }
-    // Even after [detachFromEngineForRegistrar] some events may still be received
-    // and fired until fully detached.
-    DispatchQueue.main.async {
-        let timestampSince1970Micro = timestampMicroAtBoot + (timestamp * 1000000)
-        let triplet = [x, y, z, timestampSince1970Micro]
-        triplet.withUnsafeBufferPointer { buffer in
-            sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
-        }
-    }
-}
-
-class FPPAccelerometerStreamHandlerPlus: NSObject, MotionStreamHandler {
-
-    var samplingPeriod = 200000 {
-        didSet {
-            _initMotionManager()
-            _motionManager.accelerometerUpdateInterval = Double(samplingPeriod) * 0.000001
-        }
-    }
-
-    func onListen(
-            withArguments arguments: Any?,
-            eventSink sink: @escaping FlutterEventSink
-    ) -> FlutterError? {
-        _initMotionManager()
-        _motionManager.startAccelerometerUpdates(to: OperationQueue()) { data, error in
-            if _isCleanUp {
-                return
-            }
-            if (error != nil) {
-                sink(FlutterError.init(
-                        code: "UNAVAILABLE",
-                        message: error!.localizedDescription,
-                        details: nil
-                ))
-                return
-            }
-            // Multiply by gravity, and adjust sign values to
-            // align with Android.
-            let acceleration = data!.acceleration
-            sendFlutter(
-                    x: -acceleration.x * GRAVITY,
-                    y: -acceleration.y * GRAVITY,
-                    z: -acceleration.z * GRAVITY,
-                    timestamp: data!.timestamp,
-                    sink: sink
-            )
-        }
+    func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        self.eventSink = sink
         return nil
     }
 
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _motionManager.stopAccelerometerUpdates()
+        eventSink = nil
         return nil
     }
 
-    func dealloc() {
-        FPPSensorsPlusPlugin._cleanUp()
+    func sendError(_ error: Error, to sink: @escaping FlutterEventSink) {
+        DispatchQueue.main.async { [weak self] in
+            guard self?.eventSink != nil else { return }
+            sink(FlutterError(code: "UNAVAILABLE", message: error.localizedDescription, details: nil))
+        }
+    }
+
+    func sendValues(_ values: [Double], timestamp: TimeInterval, to sink: @escaping FlutterEventSink) {
+        DispatchQueue.main.async { [weak self] in
+            guard self?.eventSink != nil else { return }
+            let payload = values + [timestampMicroAtBoot + timestamp * 1000000]
+            payload.withUnsafeBufferPointer { buffer in
+                sink(FlutterStandardTypedData(float64: Data(buffer: buffer)))
+            }
+        }
     }
 }
 
-class FPPUserAccelStreamHandlerPlus: NSObject, MotionStreamHandler {
+class FPPAccelerometerStreamHandlerPlus: FPPStreamHandlerBase {
+    private let motionManager = CMMotionManager()
 
-    var samplingPeriod = 200000 {
-        didSet {
-            _initMotionManager()
-            _motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001
-        }
+    override var samplingPeriod: Int {
+        didSet { motionManager.accelerometerUpdateInterval = Double(samplingPeriod) * 0.000001 }
     }
 
-    func onListen(
-            withArguments arguments: Any?,
-            eventSink sink: @escaping FlutterEventSink
-    ) -> FlutterError? {
-        _initMotionManager()
-        _motionManager.startDeviceMotionUpdates(to: OperationQueue()) { data, error in
-            if _isCleanUp {
-                return
-            }
-            if (error != nil) {
-                sink(FlutterError.init(
-                        code: "UNAVAILABLE",
-                        message: error!.localizedDescription,
-                        details: nil
-                ))
-                return
-            }
-            // Multiply by gravity, and adjust sign values to
-            // align with Android.
-            let acceleration = data!.userAcceleration
-            sendFlutter(
-                    x: -acceleration.x * GRAVITY,
-                    y: -acceleration.y * GRAVITY,
-                    z: -acceleration.z * GRAVITY,
-                    timestamp: data!.timestamp,
-                    sink: sink
-            )
+    override func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        super.onListen(withArguments: arguments, eventSink: sink)
+        motionManager.accelerometerUpdateInterval = Double(samplingPeriod) * 0.000001
+        motionManager.startAccelerometerUpdates(to: OperationQueue()) { [weak self] data, error in
+            guard let self, let sink = self.eventSink else { return }
+            if let error { self.sendError(error, to: sink); return }
+            guard let data else { return }
+            let acceleration = data.acceleration
+            self.sendValues([-acceleration.x * GRAVITY, -acceleration.y * GRAVITY, -acceleration.z * GRAVITY], timestamp: data.timestamp, to: sink)
         }
         return nil
     }
 
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _motionManager.stopDeviceMotionUpdates()
-        return nil
-    }
-
-    func dealloc() {
-        FPPSensorsPlusPlugin._cleanUp()
+    override func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        motionManager.stopAccelerometerUpdates()
+        return super.onCancel(withArguments: arguments)
     }
 }
 
-class FPPGyroscopeStreamHandlerPlus: NSObject, MotionStreamHandler {
+class FPPUserAccelStreamHandlerPlus: FPPStreamHandlerBase {
+    private let motionManager = CMMotionManager()
 
-    var samplingPeriod = 200000 {
-        didSet {
-            _initMotionManager()
-            _motionManager.gyroUpdateInterval = Double(samplingPeriod) * 0.000001
-        }
+    override var samplingPeriod: Int {
+        didSet { motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001 }
     }
 
-    func onListen(
-            withArguments arguments: Any?,
-            eventSink sink: @escaping FlutterEventSink
-    ) -> FlutterError? {
-        _initMotionManager()
-        _motionManager.startGyroUpdates(to: OperationQueue()) { data, error in
-            if _isCleanUp {
-                return
-            }
-            if (error != nil) {
-                sink(FlutterError(
-                        code: "UNAVAILABLE",
-                        message: error!.localizedDescription,
-                        details: nil
-                ))
-                return
-            }
-            let rotationRate = data!.rotationRate
-            sendFlutter(
-                x: rotationRate.x,
-                y: rotationRate.y,
-                z: rotationRate.z,
-                timestamp: data!.timestamp,
-                sink: sink
-            )
+    override func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        super.onListen(withArguments: arguments, eventSink: sink)
+        motionManager.deviceMotionUpdateInterval = Double(samplingPeriod) * 0.000001
+        motionManager.startDeviceMotionUpdates(to: OperationQueue()) { [weak self] data, error in
+            guard let self, let sink = self.eventSink else { return }
+            if let error { self.sendError(error, to: sink); return }
+            guard let data else { return }
+            let acceleration = data.userAcceleration
+            self.sendValues([-acceleration.x * GRAVITY, -acceleration.y * GRAVITY, -acceleration.z * GRAVITY], timestamp: data.timestamp, to: sink)
         }
         return nil
     }
 
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _motionManager.stopGyroUpdates()
-        return nil
-    }
-
-    func dealloc() {
-        FPPSensorsPlusPlugin._cleanUp()
+    override func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        motionManager.stopDeviceMotionUpdates()
+        return super.onCancel(withArguments: arguments)
     }
 }
 
-class FPPMagnetometerStreamHandlerPlus: NSObject, MotionStreamHandler {
+class FPPGyroscopeStreamHandlerPlus: FPPStreamHandlerBase {
+    private let motionManager = CMMotionManager()
 
-    var samplingPeriod = 200000 {
-        didSet {
-            _initMotionManager()
-            _motionManager.magnetometerUpdateInterval = Double(samplingPeriod) * 0.000001
-        }
+    override var samplingPeriod: Int {
+        didSet { motionManager.gyroUpdateInterval = Double(samplingPeriod) * 0.000001 }
     }
 
-    func onListen(
-            withArguments arguments: Any?,
-            eventSink sink: @escaping FlutterEventSink
-    ) -> FlutterError? {
-        _initMotionManager()
-        _motionManager.startMagnetometerUpdates(to: OperationQueue()) { data, error in
-            if _isCleanUp {
-                return
-            }
-            if (error != nil) {
-                sink(FlutterError(
-                        code: "UNAVAILABLE",
-                        message: error!.localizedDescription,
-                        details: nil
-                ))
-                return
-            }
-            let magneticField = data!.magneticField
-            sendFlutter(
-                x: magneticField.x,
-                y: magneticField.y,
-                z: magneticField.z,
-                timestamp: data!.timestamp,
-                sink: sink
-            )
+    override func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        super.onListen(withArguments: arguments, eventSink: sink)
+        motionManager.gyroUpdateInterval = Double(samplingPeriod) * 0.000001
+        motionManager.startGyroUpdates(to: OperationQueue()) { [weak self] data, error in
+            guard let self, let sink = self.eventSink else { return }
+            if let error { self.sendError(error, to: sink); return }
+            guard let data else { return }
+            let rotation = data.rotationRate
+            self.sendValues([rotation.x, rotation.y, rotation.z], timestamp: data.timestamp, to: sink)
         }
         return nil
     }
 
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _motionManager.stopMagnetometerUpdates()
-        return nil
-    }
-
-    func dealloc() {
-        FPPSensorsPlusPlugin._cleanUp()
+    override func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        motionManager.stopGyroUpdates()
+        return super.onCancel(withArguments: arguments)
     }
 }
 
-class FPPBarometerStreamHandlerPlus: NSObject, MotionStreamHandler {
+class FPPMagnetometerStreamHandlerPlus: FPPStreamHandlerBase {
+    private let motionManager = CMMotionManager()
 
-    var samplingPeriod = 200000 {
-        didSet {
-            _initAltimeter()
-            // Note: CMAltimeter does not provide a way to set the sampling period directly.
-            // The sampling period would typically be managed by starting/stopping the updates.
-        }
+    override var samplingPeriod: Int {
+        didSet { motionManager.magnetometerUpdateInterval = Double(samplingPeriod) * 0.000001 }
     }
 
-    func onListen(
-            withArguments arguments: Any?,
-            eventSink sink: @escaping FlutterEventSink
-    ) -> FlutterError? {
-        _initAltimeter()
-        if CMAltimeter.isRelativeAltitudeAvailable() {
-            _altimeter.startRelativeAltitudeUpdates(to: OperationQueue()) { data, error in
-                if _isCleanUp {
-                    return
-                }
-                if (error != nil) {
-                    sink(FlutterError(
-                            code: "UNAVAILABLE",
-                            message: error!.localizedDescription,
-                            details: nil
-                    ))
-                    return
-                }
-                let pressure = data!.pressure.doubleValue * 10.0 // kPa to hPa (hectopascals)
-                DispatchQueue.main.async {
-                let timestampSince1970Micro = timestampMicroAtBoot + (data!.timestamp * 1000000)
-                let pressureArray: [Double] = [pressure, timestampSince1970Micro]
-                pressureArray.withUnsafeBufferPointer { buffer in
-                    sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
-                    }
-                }
-            }
-        } else {
-            return FlutterError(
-                code: "UNAVAILABLE",
-                message: "Barometer is not available on this device",
-                details: nil
-            )
+    override func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        super.onListen(withArguments: arguments, eventSink: sink)
+        motionManager.magnetometerUpdateInterval = Double(samplingPeriod) * 0.000001
+        motionManager.startMagnetometerUpdates(to: OperationQueue()) { [weak self] data, error in
+            guard let self, let sink = self.eventSink else { return }
+            if let error { self.sendError(error, to: sink); return }
+            guard let data else { return }
+            let field = data.magneticField
+            self.sendValues([field.x, field.y, field.z], timestamp: data.timestamp, to: sink)
         }
         return nil
     }
 
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        _altimeter.stopRelativeAltitudeUpdates()
+    override func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        motionManager.stopMagnetometerUpdates()
+        return super.onCancel(withArguments: arguments)
+    }
+}
+
+class FPPBarometerStreamHandlerPlus: FPPStreamHandlerBase {
+    private let altimeter = CMAltimeter()
+
+    override func onListen(withArguments arguments: Any?, eventSink sink: @escaping FlutterEventSink) -> FlutterError? {
+        super.onListen(withArguments: arguments, eventSink: sink)
+        guard CMAltimeter.isRelativeAltitudeAvailable() else {
+            return FlutterError(code: "UNAVAILABLE", message: "Barometer is not available on this device", details: nil)
+        }
+        altimeter.startRelativeAltitudeUpdates(to: OperationQueue()) { [weak self] data, error in
+            guard let self, let sink = self.eventSink else { return }
+            if let error { self.sendError(error, to: sink); return }
+            guard let data else { return }
+            self.sendValues([data.pressure.doubleValue * 10.0], timestamp: data.timestamp, to: sink)
+        }
         return nil
     }
 
-    func dealloc() {
-        FPPSensorsPlusPlugin._cleanUp()
+    override func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        altimeter.stopRelativeAltitudeUpdates()
+        return super.onCancel(withArguments: arguments)
     }
 }

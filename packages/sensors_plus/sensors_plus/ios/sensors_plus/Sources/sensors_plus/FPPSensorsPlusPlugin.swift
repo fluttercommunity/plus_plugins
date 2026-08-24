@@ -4,103 +4,72 @@
 
 import Flutter
 
-var _eventChannels: [String: FlutterEventChannel] = [:]
-var _streamHandlers: [String: MotionStreamHandler] = [:]
-var _isCleanUp = false
-
 public class FPPSensorsPlusPlugin: NSObject, FlutterPlugin {
+    private var methodChannel: FlutterMethodChannel?
+    private var eventChannels: [String: FlutterEventChannel] = [:]
+    private var streamHandlers: [String: MotionStreamHandler] = [:]
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let accelerometerStreamHandler = FPPAccelerometerStreamHandlerPlus()
-        let accelerometerStreamHandlerName = "dev.fluttercommunity.plus/sensors/accelerometer"
-        let accelerometerChannel = FlutterEventChannel(
-                name: accelerometerStreamHandlerName,
-                binaryMessenger: registrar.messenger()
-        )
-        accelerometerChannel.setStreamHandler(accelerometerStreamHandler)
-        _eventChannels[accelerometerStreamHandlerName] = accelerometerChannel
-        _streamHandlers[accelerometerStreamHandlerName] = accelerometerStreamHandler
+        let instance = FPPSensorsPlusPlugin()
+        instance.setUpChannels(registrar: registrar)
+        registrar.publish(instance)
+    }
 
-        let userAccelerometerStreamHandler = FPPUserAccelStreamHandlerPlus()
-        let userAccelerometerStreamHandlerName = "dev.fluttercommunity.plus/sensors/user_accel"
-        let userAccelerometerChannel = FlutterEventChannel(
-                name: userAccelerometerStreamHandlerName,
-                binaryMessenger: registrar.messenger()
-        )
-        userAccelerometerChannel.setStreamHandler(userAccelerometerStreamHandler)
-        _eventChannels[userAccelerometerStreamHandlerName] = userAccelerometerChannel
-        _streamHandlers[userAccelerometerStreamHandlerName] = userAccelerometerStreamHandler
+    public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
+        cleanUp()
+    }
 
-        let gyroscopeStreamHandler = FPPGyroscopeStreamHandlerPlus()
-        let gyroscopeStreamHandlerName = "dev.fluttercommunity.plus/sensors/gyroscope"
-        let gyroscopeChannel = FlutterEventChannel(
-                name: gyroscopeStreamHandlerName,
-                binaryMessenger: registrar.messenger()
-        )
-        gyroscopeChannel.setStreamHandler(gyroscopeStreamHandler)
-        _eventChannels[gyroscopeStreamHandlerName] = gyroscopeChannel
-        _streamHandlers[gyroscopeStreamHandlerName] = gyroscopeStreamHandler
+    private func setUpChannels(registrar: FlutterPluginRegistrar) {
+        let sensorConfigurations: [(String, MotionStreamHandler)] = [
+            ("dev.fluttercommunity.plus/sensors/accelerometer", FPPAccelerometerStreamHandlerPlus()),
+            ("dev.fluttercommunity.plus/sensors/user_accel", FPPUserAccelStreamHandlerPlus()),
+            ("dev.fluttercommunity.plus/sensors/gyroscope", FPPGyroscopeStreamHandlerPlus()),
+            ("dev.fluttercommunity.plus/sensors/magnetometer", FPPMagnetometerStreamHandlerPlus()),
+            ("dev.fluttercommunity.plus/sensors/barometer", FPPBarometerStreamHandlerPlus()),
+        ]
 
-        let magnetometerStreamHandler = FPPMagnetometerStreamHandlerPlus()
-        let magnetometerStreamHandlerName = "dev.fluttercommunity.plus/sensors/magnetometer"
-        let magnetometerChannel = FlutterEventChannel(
-                name: magnetometerStreamHandlerName,
-                binaryMessenger: registrar.messenger()
-        )
-        magnetometerChannel.setStreamHandler(magnetometerStreamHandler)
-        _eventChannels[magnetometerStreamHandlerName] = magnetometerChannel
-        _streamHandlers[magnetometerStreamHandlerName] = magnetometerStreamHandler
+        for (name, handler) in sensorConfigurations {
+            let channel = FlutterEventChannel(name: name, binaryMessenger: registrar.messenger())
+            channel.setStreamHandler(handler)
+            eventChannels[name] = channel
+            streamHandlers[name] = handler
+        }
 
-        let barometerStreamHandler = FPPBarometerStreamHandlerPlus()
-        let barometerStreamHandlerName = "dev.fluttercommunity.plus/sensors/barometer"
-        let barometerChannel = FlutterEventChannel(
-                name: barometerStreamHandlerName,
-                binaryMessenger: registrar.messenger()
+        methodChannel = FlutterMethodChannel(
+            name: "dev.fluttercommunity.plus/sensors/method",
+            binaryMessenger: registrar.messenger()
         )
-        barometerChannel.setStreamHandler(barometerStreamHandler)
-        _eventChannels[barometerStreamHandlerName] = barometerChannel
-        _streamHandlers[barometerStreamHandlerName] = barometerStreamHandler
-
-        let methodChannel = FlutterMethodChannel(
-                name: "dev.fluttercommunity.plus/sensors/method",
-                binaryMessenger: registrar.messenger()
-        )
-        methodChannel.setMethodCallHandler { call, result in
-            let streamHandler: MotionStreamHandler!;
-            switch (call.method) {
-            case "setAccelerationSamplingPeriod":
-                streamHandler = _streamHandlers[accelerometerStreamHandlerName]
-            case "setUserAccelerometerSamplingPeriod":
-                streamHandler = _streamHandlers[userAccelerometerStreamHandlerName]
-            case "setGyroscopeSamplingPeriod":
-                streamHandler = _streamHandlers[gyroscopeStreamHandlerName]
-            case "setMagnetometerSamplingPeriod":
-                streamHandler = _streamHandlers[magnetometerStreamHandlerName]
-            case "setBarometerSamplingPeriod":
-                streamHandler = _streamHandlers[barometerStreamHandlerName]
-            default:
-                return result(FlutterMethodNotImplemented)
+        methodChannel?.setMethodCallHandler { [weak self] call, result in
+            guard let self, let handler = self.handler(for: call.method) else {
+                result(FlutterMethodNotImplemented)
+                return
             }
-            streamHandler.samplingPeriod = call.arguments as! Int
+            handler.samplingPeriod = call.arguments as! Int
             result(nil)
         }
-
-        _isCleanUp = false
     }
 
-    func detachFromEngineForRegistrar(registrar: NSObject!) {
-        FPPSensorsPlusPlugin._cleanUp()
+    private func handler(for method: String) -> MotionStreamHandler? {
+        let names = [
+            "setAccelerationSamplingPeriod": "dev.fluttercommunity.plus/sensors/accelerometer",
+            "setUserAccelerometerSamplingPeriod": "dev.fluttercommunity.plus/sensors/user_accel",
+            "setGyroscopeSamplingPeriod": "dev.fluttercommunity.plus/sensors/gyroscope",
+            "setMagnetometerSamplingPeriod": "dev.fluttercommunity.plus/sensors/magnetometer",
+            "setBarometerSamplingPeriod": "dev.fluttercommunity.plus/sensors/barometer",
+        ]
+        return names[method].flatMap { streamHandlers[$0] }
     }
 
-    static func _cleanUp() {
-        _isCleanUp = true
-        for channel in _eventChannels.values {
-            channel.setStreamHandler(nil)
-        }
-        _eventChannels.removeAll()
-        for handler in _streamHandlers.values {
+    private func cleanUp() {
+        methodChannel?.setMethodCallHandler(nil)
+        methodChannel = nil
+        for handler in streamHandlers.values {
             handler.onCancel(withArguments: nil)
         }
-        _streamHandlers.removeAll()
+        for channel in eventChannels.values {
+            channel.setStreamHandler(nil)
+        }
+        streamHandlers.removeAll()
+        eventChannels.removeAll()
     }
 }
