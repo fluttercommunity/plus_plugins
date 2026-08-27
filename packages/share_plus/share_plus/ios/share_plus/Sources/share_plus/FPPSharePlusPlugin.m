@@ -411,22 +411,24 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     [activityViewController setValue:subject forKey:@"subject"];
   }
 
-  activityViewController.popoverPresentationController.sourceView =
-      controller.view;
-
   // Check if this is actually an iPad
   BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
-  // Before Xcode 26 hasPopoverPresentationController is true for iPads and false for iPhones.
-  // Since Xcode 26 it is true for both iPads and iPhones, so we only configure popover on iPad.
+  // Before Xcode 26, popoverPresentationController was non-nil only on iPad.
+  // Since Xcode 26 it is non-nil on iPhone as well, where it is a private
+  // _UIActivityViewControllerPresentationController rather than a real
+  // UIPopoverPresentationController. Configuring it on iPhone pushes
+  // UIActivityViewController onto the anchored presentation path, so restrict
+  // every popover configuration to iPad.
   UIPopoverPresentationController *popover =
       activityViewController.popoverPresentationController;
-  BOOL hasPopoverPresentationController = (popover != NULL);
 
-  CGRect sourceRect = origin;
-  if (isIpad && hasPopoverPresentationController) {
+  if (isIpad && popover != nil) {
+    popover.sourceView = controller.view;
+
     // Flutter sends sharePositionOrigin in global (window) coordinates.
     // Convert to the source view's coordinate space for sourceRect.
+    CGRect sourceRect = origin;
     if (controller.view.window && !CGRectIsEmpty(origin)) {
       sourceRect = [controller.view convertRect:origin fromView:nil];
     }
@@ -438,8 +440,6 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                               CGRectGetMidY(bounds) - 1.0, 2.0, 2.0);
     }
     popover.sourceRect = sourceRect;
-  } else if (!CGRectIsEmpty(origin)) {
-    activityViewController.popoverPresentationController.sourceRect = origin;
   }
 
   activityViewController.completionWithItemsHandler =
