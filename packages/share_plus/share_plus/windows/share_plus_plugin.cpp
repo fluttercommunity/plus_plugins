@@ -1,5 +1,6 @@
 #include "share_plus_windows_plugin.h"
 
+#include <algorithm>
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
@@ -57,6 +58,11 @@ SharePlusWindowsPlugin::GetDataTransferManager() {
 HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     wchar_t *path, WindowsStorage::IStorageFile **file) {
   using Microsoft::WRL::Wrappers::HStringReference;
+
+  // Normalize path separators: WinRT GetFileFromPathAsync requires backslashes ('\').
+  std::wstring normalized_path(path);
+  std::replace(normalized_path.begin(), normalized_path.end(), L'/', L'\\');
+
   WRL::ComPtr<WindowsStorage::IStorageFileStatics> factory = nullptr;
   HRESULT hr = S_OK;
   *file = nullptr;
@@ -69,8 +75,8 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     WRL::ComPtr<
         WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile *>>
         async_operation;
-    hr = factory->GetFileFromPathAsync(HStringReference(path).Get(),
-                                       &async_operation);
+    hr = factory->GetFileFromPathAsync(
+        HStringReference(normalized_path.c_str()).Get(), &async_operation);
     if (SUCCEEDED(hr)) {
       WRL::ComPtr<IAsyncInfo> info;
       hr = async_operation.As(&info);
@@ -152,14 +158,28 @@ void SharePlusWindowsPlugin::HandleMethodCall(
           data->get_Properties(&properties);
 
           // Set the title of the share dialog
-          // Prefer the title, then the subject, then the text
-          // Setting a title is mandatory for Windows
+          // Prefer the title, then the subject, then the text, then the first file's name
+          // Setting a non-empty title is mandatory for Windows
           if (share_title_ && !share_title_.value_or("").empty()) {
             auto title = Utf16FromUtf8(share_title_.value_or(""));
             properties->put_Title(HStringReference(title.c_str()).Get());
           }
           else if (share_subject_ && !share_subject_.value_or("").empty()) {
             auto title = Utf16FromUtf8(share_subject_.value_or(""));
+            properties->put_Title(HStringReference(title.c_str()).Get());
+          }
+          else if (share_text_ && !share_text_.value_or("").empty()) {
+            auto title = Utf16FromUtf8(share_text_.value_or(""));
+            properties->put_Title(HStringReference(title.c_str()).Get());
+          }
+          else if (!paths_.empty()) {
+            // Fallback to the first file's name if no title, subject, or text was provided
+            const std::string& first_path = paths_.front();
+            auto last_slash = first_path.find_last_of("/\\");
+            std::string file_name = (last_slash != std::string::npos)
+                ? first_path.substr(last_slash + 1)
+                : first_path;
+            auto title = Utf16FromUtf8(file_name);
             properties->put_Title(HStringReference(title.c_str()).Get());
           }
           else {
