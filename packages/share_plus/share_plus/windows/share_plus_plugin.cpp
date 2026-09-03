@@ -98,6 +98,14 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     auto data_transfer_manager = GetDataTransferManager();
     auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
 
+    // Reset all share parameters from previous invocations to prevent state leaks.
+    share_text_.reset();
+    share_subject_.reset();
+    share_uri_.reset();
+    share_title_.reset();
+    paths_.clear();
+    mime_types_.clear();
+
     // Extract the text, subject, uri, title, paths and mimeTypes from the arguments
     if (auto text_value = std::get_if<std::string>(
             &args[flutter::EncodableValue("text")])) {
