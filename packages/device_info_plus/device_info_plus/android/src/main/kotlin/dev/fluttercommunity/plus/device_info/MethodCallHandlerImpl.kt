@@ -39,6 +39,7 @@ internal class MethodCallHandlerImpl(
             build["manufacturer"] = Build.MANUFACTURER
             build["model"] = Build.MODEL
             build["product"] = Build.PRODUCT
+            build["time"] = Build.TIME
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                 build["name"] = Settings.Global.getString(contentResolver, Settings.Global.DEVICE_NAME) ?: ""

@@ -29,6 +29,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required List<String> supported64BitAbis,
     required List<String> supportedAbis,
     required this.tags,
+    required this.time,
     required this.type,
     required this.isPhysicalDevice,
     required this.freeDiskSize,
@@ -117,6 +118,11 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
   /// https://developer.android.com/reference/android/os/Build#TAGS
   final String tags;
 
+  /// The time at which the build was produced, given in milliseconds since the
+  /// UNIX epoch.
+  /// https://developer.android.com/reference/android/os/Build#TIME
+  final int time;
+
   /// The type of build, like "user" or "eng".
   /// https://developer.android.com/reference/android/os/Build#TYPE
   final String type;
@@ -187,6 +193,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       supported64BitAbis: _fromList(map['supported64BitAbis'] ?? <String>[]),
       supportedAbis: _fromList(map['supportedAbis'] ?? []),
       tags: map['tags'],
+      time: map['time'],
       type: map['type'],
       isPhysicalDevice: map['isPhysicalDevice'],
       freeDiskSize: map['freeDiskSize'],
@@ -219,6 +226,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
     required List<String> supported64BitAbis,
     required List<String> supportedAbis,
     required String tags,
+    required int time,
     required String type,
     required bool isPhysicalDevice,
     required int freeDiskSize,
@@ -255,6 +263,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       'supported64BitAbis': supported64BitAbis,
       'supportedAbis': supportedAbis,
       'tags': tags,
+      'time': time,
       'type': type,
       'isPhysicalDevice': isPhysicalDevice,
       'freeDiskSize': freeDiskSize,
@@ -285,6 +294,7 @@ class AndroidDeviceInfo extends BaseDeviceInfo {
       supported64BitAbis: _fromList(supported64BitAbis),
       supportedAbis: _fromList(supportedAbis),
       tags: tags,
+      time: time,
       type: type,
       isPhysicalDevice: isPhysicalDevice,
       freeDiskSize: freeDiskSize,
