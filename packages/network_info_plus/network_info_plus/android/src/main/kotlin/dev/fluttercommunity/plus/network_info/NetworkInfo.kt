@@ -25,7 +25,7 @@ internal class NetworkInfo(
     fun getWifiIPAddress(): String? {
         var ipAddress: String? = null
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val linkAddresses =
                 connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)?.linkAddresses
 
@@ -80,12 +80,12 @@ internal class NetworkInfo(
     }
 
     fun getGatewayIPAddress(): String? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val linkAddresses =
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val linkProperties =
                 connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)
-            val dhcpServer = linkAddresses?.dhcpServerAddress?.hostAddress
+            val defaultRoute = linkProperties?.routes?.firstOrNull { route -> route.isDefaultRoute }
 
-            dhcpServer
+            defaultRoute?.gateway?.hostAddress
         } else {
             @Suppress("DEPRECATION")
             val dhcpInfo = wifiManager.dhcpInfo
