@@ -17,6 +17,10 @@
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 
+#include <optional>
+#include <string>
+#include <vector>
+
 #pragma comment(lib, "runtimeobject.lib")
 
 namespace WRL = Microsoft::WRL;
@@ -45,27 +49,42 @@ private:
       "dev.fluttercommunity.plus/share/unavailable";
 
   static constexpr auto kShare = "share";
-  //static constexpr auto kShareFiles = "shareFiles";
 
   HWND GetWindow();
 
   WRL::ComPtr<DataTransfer::IDataTransferManager> GetDataTransferManager();
 
+  // Unregisters the |DataRequested| handler registered by a previous share
+  // call, if any. Not doing so leaks handlers that keep writing to the
+  // |DataPackage| of subsequent share requests.
+  void RemoveDataRequestedHandler();
+
   void HandleMethodCall(
       const flutter::MethodCall<flutter::EncodableValue> &method_call,
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
 
-  static HRESULT GetStorageFileFromPath(wchar_t *path,
+  // Resolves |paths_| into |storage_items_|. Done before the share UI is shown
+  // because the |DataRequested| handler must return quickly.
+  HRESULT BuildStorageItems();
+
+  HRESULT OnDataRequested(DataTransfer::IDataRequestedEventArgs *args);
+
+  // Title shown by the share sheet. Windows fails the whole request when the
+  // |DataPackage| has an empty title, so this always returns a non-empty value.
+  std::wstring ResolveShareTitle();
+
+  static HRESULT GetStorageFileFromPath(const wchar_t *path,
                                         WindowsStorage::IStorageFile **file);
 
-  static std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string);
+  static std::wstring Utf16FromUtf8(const std::string &string);
 
   flutter::PluginRegistrarWindows *registrar_ = nullptr;
   WRL::ComPtr<IDataTransferManagerInterop> data_transfer_manager_interop_ =
       nullptr;
   WRL::ComPtr<DataTransfer::IDataTransferManager> data_transfer_manager_ =
       nullptr;
-  EventRegistrationToken data_transfer_manager_token_;
+  EventRegistrationToken data_transfer_manager_token_ = {};
+  bool has_data_transfer_manager_token_ = false;
 
   // Present here to keep |std::string| in memory until data request callback
   // from |IDataTransferManager| takes place.
@@ -76,6 +95,13 @@ private:
   std::optional<std::string> share_title_ = std::nullopt;
   std::vector<std::string> paths_ = {};
   std::vector<std::string> mime_types_ = {};
+
+  // Heap allocated and ref-counted: the |DataPackage| keeps a reference to this
+  // collection well after the |DataRequested| handler has returned.
+  WRL::ComPtr<
+      WindowsFoundation::Collections::IVector<WindowsStorage::IStorageItem *>>
+      storage_items_ = nullptr;
+  unsigned storage_items_size_ = 0;
 };
 
 } // namespace share_plus_windows
