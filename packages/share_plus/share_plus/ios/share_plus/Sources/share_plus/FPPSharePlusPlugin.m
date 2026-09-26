@@ -8,22 +8,18 @@
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
 static UIViewController *RootViewController(void) {
-  if (@available(iOS 13, *)) { // UIApplication.keyWindow is deprecated
-    NSSet *scenes = [[UIApplication sharedApplication] connectedScenes];
-    for (UIScene *scene in scenes) {
-      if ([scene isKindOfClass:[UIWindowScene class]]) {
-        NSArray *windows = ((UIWindowScene *)scene).windows;
-        for (UIWindow *window in windows) {
-          if (window.isKeyWindow) {
-            return window.rootViewController;
-          }
+  NSSet *scenes = [[UIApplication sharedApplication] connectedScenes];
+  for (UIScene *scene in scenes) {
+    if ([scene isKindOfClass:[UIWindowScene class]]) {
+      NSArray *windows = ((UIWindowScene *)scene).windows;
+      for (UIWindow *window in windows) {
+        if (window.isKeyWindow) {
+          return window.rootViewController;
         }
       }
     }
-    return nil;
-  } else {
-    return [UIApplication sharedApplication].keyWindow.rootViewController;
   }
+  return nil;
 }
 
 static UIViewController *
