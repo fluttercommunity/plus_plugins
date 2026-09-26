@@ -19,6 +19,7 @@ const _fakeAndroidDeviceInfo = <String, dynamic>{
   'id': 'id',
   'host': 'host',
   'tags': 'tags',
+  'time': 1788562900,
   'type': 'type',
   'model': 'model',
   'board': 'board',
