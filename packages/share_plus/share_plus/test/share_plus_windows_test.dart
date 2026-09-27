@@ -19,46 +19,34 @@ void main() {
 
   // These tests are only valid on Windows versions lower than 10.0.17763.0.
 
-  test(
-    'url encoding is correct for &',
-    () async {
-      final mock = MockUrlLauncherPlatform();
+  test('url encoding is correct for &', () async {
+    final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(
-        mock,
-      ).share(ShareParams(text: 'foo&bar', subject: 'bar&foo'));
+    await SharePlusWindowsPlugin(
+      mock,
+    ).share(ShareParams(text: 'foo&bar', subject: 'bar&foo'));
 
-      expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
-    },
-    skip: VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+    expect(mock.url, 'mailto:?subject=bar%26foo&body=foo%26bar');
+  }, skip: VersionHelper.instance.isWindows10RS5OrGreater);
 
   // see https://github.com/dart-lang/sdk/issues/43838#issuecomment-823551891
-  test(
-    'url encoding is correct for spaces',
-    () async {
-      final mock = MockUrlLauncherPlatform();
+  test('url encoding is correct for spaces', () async {
+    final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(
-        mock,
-      ).share(ShareParams(text: 'foo bar', subject: 'bar foo'));
+    await SharePlusWindowsPlugin(
+      mock,
+    ).share(ShareParams(text: 'foo bar', subject: 'bar foo'));
 
-      expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
-    },
-    skip: VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+    expect(mock.url, 'mailto:?subject=bar%20foo&body=foo%20bar');
+  }, skip: VersionHelper.instance.isWindows10RS5OrGreater);
 
-  test(
-    'can share URI on Windows',
-    () async {
-      final mock = MockUrlLauncherPlatform();
+  test('can share URI on Windows', () async {
+    final mock = MockUrlLauncherPlatform();
 
-      await SharePlusWindowsPlugin(
-        mock,
-      ).share(ShareParams(uri: Uri.parse('http://example.com')));
+    await SharePlusWindowsPlugin(
+      mock,
+    ).share(ShareParams(uri: Uri.parse('http://example.com')));
 
-      expect(mock.url, 'mailto:?body=http%3A%2F%2Fexample.com');
-    },
-    skip: VersionHelper.instance.isWindows10RS5OrGreater,
-  );
+    expect(mock.url, 'mailto:?body=http%3A%2F%2Fexample.com');
+  }, skip: VersionHelper.instance.isWindows10RS5OrGreater);
 }
