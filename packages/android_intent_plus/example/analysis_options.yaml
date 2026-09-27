@@ -1,7 +1,0 @@
-# TODO: Remove this when migrated to null safety
-include: package:flutter_lints/flutter.yaml
-
-linter:
-  rules:
-    - prefer_final_in_for_each
-    - prefer_final_locals
