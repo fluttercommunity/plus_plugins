@@ -96,14 +96,16 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
   }
 
   String? _getSubnetMask(List<Map<String, dynamic>>? data) {
-    final prefix = data?.firstOrNull?['prefix'] as int;
+    final prefix = data?.firstOrNull?['prefix'] as int?;
+    if (prefix == null) return null;
     final mask = 0xffffffff >> (32 - prefix);
     return mask.toIpString();
   }
 
   String? _getBroadcast(List<Map<String, dynamic>>? data) {
-    final ip = _getIpAddress(data)?.toIpInt() ?? 0;
-    final mask = _getSubnetMask(data)?.toIpInt() ?? 0;
+    final ip = _getIpAddress(data)?.toIpInt();
+    final mask = _getSubnetMask(data)?.toIpInt();
+    if (ip == null || mask == null) return null;
     return (ip | (mask ^ 0xffffffff)).toIpString();
   }
 
