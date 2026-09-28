@@ -40,7 +40,7 @@ dependencies:
   connectivity_plus_platform_interface: ^2.1.0
   web: ">=0.5.0 <2.0.0"
   meta: ^1.8.0
-  nm: ^0.5.0
+  nm: ^0.6.0
   collection: ^1.18.0
 
 dev_dependencies:
