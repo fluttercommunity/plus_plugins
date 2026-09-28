@@ -97,7 +97,7 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
 
   String? _getSubnetMask(List<Map<String, dynamic>>? data) {
     final prefix = data?.firstOrNull?['prefix'] as int;
-    final mask = 0xffffffff >> (32 - prefix);
+    final mask = (0xffffffff << (32 - prefix)) & 0xffffffff;
     return mask.toIpString();
   }
 
@@ -113,17 +113,26 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
 }
 
 extension _IpInt on int {
-  int byteAt(int i) => (this >> (i * 8)) & 0xff;
-  String toIpString() => '${byteAt(0)}.${byteAt(1)}.${byteAt(2)}.${byteAt(3)}';
+  /// Returns the i-th octet in network (big-endian) order.
+  /// i must be 0..3.
+  int octet(int i) {
+    assert(i >= 0 && i <= 3);
+    return (this >> (24 - i * 8)) & 0xff;
+  }
+
+  String toIpString() {
+    final v = this & 0xFFFFFFFF;
+    return '${v.octet(0)}.${v.octet(1)}.${v.octet(2)}.${v.octet(3)}';
+  }
 }
 
 extension _IpString on String {
   int toIpInt() {
     final parts = split('.');
-    return parts.intAtOrZero(3) << 24 |
-        parts.intAtOrZero(2) << 16 |
-        parts.intAtOrZero(1) << 8 |
-        parts.intAtOrZero(0);
+    return parts.intAtOrZero(0) << 24 |
+        parts.intAtOrZero(1) << 16 |
+        parts.intAtOrZero(2) << 8 |
+        parts.intAtOrZero(3);
   }
 }
 
