@@ -26,7 +26,7 @@ void main() {
     for (final (address, prefix, mask, broadcast) in cases) {
       test('$address/$prefix', () async {
         final plugin = NetworkInfoPlusLinuxPlugin()
-          ..createClient = () => _FakeClient(address: address, prefix: prefix);
+          ..createClient = () => _FakeClient.withAddress(address, prefix);
 
         expect(await plugin.getWifiSubmask(), mask);
         expect(await plugin.getWifiBroadcast(), broadcast);
@@ -36,15 +36,36 @@ void main() {
 
   test('wifi IP and gateway are passed through', () async {
     final plugin = NetworkInfoPlusLinuxPlugin()
-      ..createClient = () => _FakeClient(address: '192.168.1.10', prefix: 22);
+      ..createClient = () => _FakeClient.withAddress('192.168.1.10', 22);
 
     expect(await plugin.getWifiIP(), '192.168.1.10');
     expect(await plugin.getWifiGatewayIP(), '192.168.0.1');
   });
+
+  group('missing IPv4 data returns null', () {
+    final cases = <String, NetworkManagerActiveConnection? Function()>{
+      'primaryConnection is null': () => null,
+      'ip4Config is null': () => _FakeConnection(null),
+      'addressData is empty': () => _FakeConnection(_FakeIp4Config([])),
+    };
+
+    for (final MapEntry(key: description, value: connection) in cases.entries) {
+      test(description, () async {
+        final plugin = NetworkInfoPlusLinuxPlugin()
+          ..createClient = () => _FakeClient(connection());
+
+        expect(await plugin.getWifiSubmask(), isNull);
+        expect(await plugin.getWifiBroadcast(), isNull);
+        expect(await plugin.getWifiIP(), isNull);
+      });
+    }
+  });
 }
 
 class _FakeClient extends Fake implements NetworkManagerClient {
-  _FakeClient({required String address, required int prefix})
+  _FakeClient(this.primaryConnection);
+
+  _FakeClient.withAddress(String address, int prefix)
     : primaryConnection = _FakeConnection(
         _FakeIp4Config([
           {'address': address, 'prefix': prefix},
