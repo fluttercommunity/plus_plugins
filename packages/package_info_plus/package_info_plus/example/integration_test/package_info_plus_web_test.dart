@@ -86,8 +86,9 @@ void main() {
     testWidgets('Keep the compile-time version when version.json fails', (
       tester,
     ) async {
-      when(client.get(any))
-          .thenAnswer((_) => Future.value(http.Response('', 404)));
+      when(
+        client.get(any),
+      ).thenAnswer((_) => Future.value(http.Response('', 404)));
       plugin = PackageInfoPlusWebPlugin(client, null, '1.0', '1');
 
       final versionMap = await plugin.getAll();
@@ -100,8 +101,9 @@ void main() {
     testWidgets('Get empty values when response status is not 200', (
       tester,
     ) async {
-      when(client.get(any))
-          .thenAnswer((_) => Future.value(http.Response('', 404)));
+      when(
+        client.get(any),
+      ).thenAnswer((_) => Future.value(http.Response('', 404)));
 
       final versionMap = await plugin.getAll();
 
@@ -122,10 +124,11 @@ void main() {
       await withClock(fakeClock, () async {
         final int cache = now.millisecondsSinceEpoch;
 
-        when(client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')))
-            .thenAnswer(
-              (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
-            );
+        when(
+          client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')),
+        ).thenAnswer(
+          (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
+        );
 
         final versionMap = await plugin.getAll(baseUrl: baseUrl);
 
@@ -285,10 +288,11 @@ void main() {
       await withClock(fakeClock, () async {
         final int cache = now.millisecondsSinceEpoch;
 
-        when(client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')))
-            .thenAnswer(
-              (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
-            );
+        when(
+          client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')),
+        ).thenAnswer(
+          (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
+        );
 
         final versionMap = await plugin.getAll();
 
@@ -310,8 +314,9 @@ void main() {
         final Clock fakeClock = Clock(() => now);
 
         when(assetManagerMock.assetsDir).thenReturn(assetsDir);
-        when(assetManagerMock.getAssetUrl(''))
-            .thenReturn('$managerBaseUrl$assetsDir/');
+        when(
+          assetManagerMock.getAssetUrl(''),
+        ).thenReturn('$managerBaseUrl$assetsDir/');
 
         await withClock(fakeClock, () async {
           final int cache = now.millisecondsSinceEpoch;
