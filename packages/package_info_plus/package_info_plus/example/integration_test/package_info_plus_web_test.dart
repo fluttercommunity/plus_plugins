@@ -48,7 +48,7 @@ void main() {
   group('Package Info Web', () {
     setUp(() {
       client = MockClient();
-      plugin = PackageInfoPlusWebPlugin(client);
+      plugin = PackageInfoPlusWebPlugin(client, null, null, null);
     });
 
     testWidgets('Get correct values when response status is 200', (
@@ -67,12 +67,41 @@ void main() {
       expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
     });
 
+    testWidgets('Prefer the compile-time version over version.json', (
+      tester,
+    ) async {
+      when(client.get(any)).thenAnswer(
+        (_) => Future.value(http.Response(jsonEncode(VERSION_2_JSON), 200)),
+      );
+      plugin = PackageInfoPlusWebPlugin(client, null, '1.0', '1');
+
+      final versionMap = await plugin.getAll();
+
+      expect(versionMap.appName, VERSION_2_JSON['app_name']);
+      expect(versionMap.packageName, VERSION_2_JSON['package_name']);
+      expect(versionMap.version, '1.0');
+      expect(versionMap.buildNumber, '1');
+    });
+
+    testWidgets('Keep the compile-time version when version.json fails', (
+      tester,
+    ) async {
+      when(client.get(any))
+          .thenAnswer((_) => Future.value(http.Response('', 404)));
+      plugin = PackageInfoPlusWebPlugin(client, null, '1.0', '1');
+
+      final versionMap = await plugin.getAll();
+
+      expect(versionMap.appName, isEmpty);
+      expect(versionMap.version, '1.0');
+      expect(versionMap.buildNumber, '1');
+    });
+
     testWidgets('Get empty values when response status is not 200', (
       tester,
     ) async {
-      when(
-        client.get(any),
-      ).thenAnswer((_) => Future.value(http.Response('', 404)));
+      when(client.get(any))
+          .thenAnswer((_) => Future.value(http.Response('', 404)));
 
       final versionMap = await plugin.getAll();
 
@@ -93,11 +122,10 @@ void main() {
       await withClock(fakeClock, () async {
         final int cache = now.millisecondsSinceEpoch;
 
-        when(
-          client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')),
-        ).thenAnswer(
-          (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
-        );
+        when(client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')))
+            .thenAnswer(
+              (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
+            );
 
         final versionMap = await plugin.getAll(baseUrl: baseUrl);
 
@@ -240,7 +268,7 @@ void main() {
     setUp(() {
       client = MockClient();
       assetManagerMock = MockAssetManager();
-      plugin = PackageInfoPlusWebPlugin(client, assetManagerMock);
+      plugin = PackageInfoPlusWebPlugin(client, assetManagerMock, null, null);
     });
 
     testWidgets('Get correct values when using the AssetManager baseUrl', (
@@ -257,11 +285,10 @@ void main() {
       await withClock(fakeClock, () async {
         final int cache = now.millisecondsSinceEpoch;
 
-        when(
-          client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')),
-        ).thenAnswer(
-          (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
-        );
+        when(client.get(Uri.parse('${baseUrl}version.json?cachebuster=$cache')))
+            .thenAnswer(
+              (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
+            );
 
         final versionMap = await plugin.getAll();
 
@@ -283,9 +310,8 @@ void main() {
         final Clock fakeClock = Clock(() => now);
 
         when(assetManagerMock.assetsDir).thenReturn(assetsDir);
-        when(
-          assetManagerMock.getAssetUrl(''),
-        ).thenReturn('$managerBaseUrl$assetsDir/');
+        when(assetManagerMock.getAssetUrl(''))
+            .thenReturn('$managerBaseUrl$assetsDir/');
 
         await withClock(fakeClock, () async {
           final int cache = now.millisecondsSinceEpoch;
