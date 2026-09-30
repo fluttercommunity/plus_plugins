@@ -107,6 +107,7 @@ class _MyAppState extends State<MyApp> {
       'supported64BitAbis': build.supported64BitAbis,
       'supportedAbis': build.supportedAbis,
       'tags': build.tags,
+      'time': build.time,
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
       'freeDiskSize': build.freeDiskSize,

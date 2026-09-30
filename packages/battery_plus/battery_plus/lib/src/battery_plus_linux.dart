@@ -54,7 +54,7 @@ class BatteryPlusLinuxPlugin extends BatteryPlatform {
     return client
         .connect()
         .then((_) => client.displayDevice.state.toBatteryState())
-        .whenComplete(() => client.close);
+        .whenComplete(() => client.close());
   }
 
   /// Fires whenever the battery state changes.

@@ -29,6 +29,17 @@ void main() {
     expect(battery.batteryState, completion(BatteryState.charging));
   });
 
+  test('battery state closes the client', () async {
+    late MockUPowerClient client;
+    final battery = BatteryPlusLinuxPlugin();
+    battery.createClient = () {
+      client = createMockClient(state: UPowerDeviceState.charging);
+      return client;
+    };
+    await battery.batteryState;
+    verify(client.close()).called(1);
+  });
+
   test('battery state changes', () {
     final battery = BatteryPlusLinuxPlugin();
     battery.createClient = () {
