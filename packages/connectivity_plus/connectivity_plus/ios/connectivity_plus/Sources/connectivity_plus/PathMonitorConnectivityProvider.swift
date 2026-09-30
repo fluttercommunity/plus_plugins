@@ -60,7 +60,9 @@ public class PathMonitorConnectivityProvider: NSObject, ConnectivityProvider {
     if (pathMonitor == nil) {
       let pathMonitor = NWPathMonitor()
       pathMonitor.start(queue: queue)
-      pathMonitor.pathUpdateHandler = pathUpdateHandler
+      pathMonitor.pathUpdateHandler = { [weak self] path in
+        self?.pathUpdateHandler(path: path)
+      }
       self.pathMonitor = pathMonitor
     }
     return self.pathMonitor!
