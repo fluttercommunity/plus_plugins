@@ -1,3 +1,8 @@
+## 7.1.2
+
+ - **FIX**(battery_plus): Invoke client.close() on Linux batteryState getter ([#3967](https://github.com/fluttercommunity/plus_plugins/issues/3967)). ([64a54cf8](https://github.com/fluttercommunity/plus_plugins/commit/64a54cf88f6e970ab1846681eebe1f857f18e05b))
+ - **FIX**(battery_plus): Apply KGP unless built-in Kotlin is enabled ([#3946](https://github.com/fluttercommunity/plus_plugins/issues/3946)). ([30fb720b](https://github.com/fluttercommunity/plus_plugins/commit/30fb720b11e91cd40db45f15f0ba6b58c7d66f66))
+
 ## 7.1.1
 
  - **FIX**(battery_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3919](https://github.com/fluttercommunity/plus_plugins/issues/3919)). ([e7275a38](https://github.com/fluttercommunity/plus_plugins/commit/e7275a3881023a5f96cd83c8ad55da83d2dceafb))
