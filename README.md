@@ -22,6 +22,15 @@ support for more platforms and better maintenance.
 
 [Feedback](https://github.com/fluttercommunity/plus_plugins/issues) and [Pull Requests](https://github.com/fluttercommunity/plus_plugins/pulls) are most welcome!
 
+## Used by open source apps
+
+Some open source Flutter apps that depend on these plugins include:
+
+- [LocalSend](https://github.com/localsend/localsend/blob/main/app/pubspec.yaml) depends on `connectivity_plus`, `device_info_plus`, `network_info_plus`, and `package_info_plus`.
+- [AppFlowy](https://github.com/AppFlowy-IO/AppFlowy/blob/main/frontend/appflowy_flutter/pubspec.yaml) depends on `connectivity_plus`, `device_info_plus`, `package_info_plus`, and `share_plus`.
+- [Immich](https://github.com/immich-app/immich/blob/main/mobile/pubspec.yaml) depends on `connectivity_plus`, `device_info_plus`, `network_info_plus`, `package_info_plus`, and `share_plus`.
+- [Ente Photos](https://github.com/ente/ente/blob/main/mobile/apps/photos/pubspec.yaml) depends on `android_intent_plus`, `connectivity_plus`, `device_info_plus`, `package_info_plus`, and `share_plus`.
+
 ## Plugins
 
 **Table of contents:**
