@@ -1,3 +1,9 @@
+## 13.3.1
+
+ - **FIX**(share_plus): Only configure popover presentation on iPad ([#3965](https://github.com/fluttercommunity/plus_plugins/issues/3965)). ([86ba69a5](https://github.com/fluttercommunity/plus_plugins/commit/86ba69a526a0d26173cb5df43ed446177cb08bd5))
+ - **FIX**(share_plus): Remove deprecated UIApplication.keyWindow fallback on iOS ([#3970](https://github.com/fluttercommunity/plus_plugins/issues/3970)). ([26f4d487](https://github.com/fluttercommunity/plus_plugins/commit/26f4d487e5db45b9461f36ff9fc46662a8284654))
+ - **FIX**(share_plus): Apply KGP unless built-in Kotlin is enabled ([#3951](https://github.com/fluttercommunity/plus_plugins/issues/3951)). ([cb9ccd5f](https://github.com/fluttercommunity/plus_plugins/commit/cb9ccd5f3c368f86311f126227ec985b3e86792c))
+
 ## 13.3.0
 
  - **FIX**(share_plus): Do not do I/O operations on the main thread on Android ([#3931](https://github.com/fluttercommunity/plus_plugins/issues/3931)). ([2c5b4935](https://github.com/fluttercommunity/plus_plugins/commit/2c5b4935c85fdbfeffea2bd68c9286c064ed8b7c))

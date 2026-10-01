@@ -1,3 +1,7 @@
+## 5.1.2
+
+ - **FIX**(android_alarm_manager_plus): Apply KGP unless built-in Kotlin is enabled ([#3945](https://github.com/fluttercommunity/plus_plugins/issues/3945)). ([52ea429c](https://github.com/fluttercommunity/plus_plugins/commit/52ea429cc5c02a625ce69255322752d79f2a6cdd))
+
 ## 5.1.1
 
  - **FIX**(android_alarm_manager_plus): catch NPE in AlarmService ([#3924](https://github.com/fluttercommunity/plus_plugins/issues/3924)). ([83a7c3e7](https://github.com/fluttercommunity/plus_plugins/commit/83a7c3e70827fc8a0095dab8a7c6c17cf1799768))

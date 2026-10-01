@@ -1,3 +1,9 @@
+## 7.3.2
+
+ - **FIX**(connectivity_plus): release iOS multi-engine callbacks ([#3957](https://github.com/fluttercommunity/plus_plugins/issues/3957)). ([4b6998aa](https://github.com/fluttercommunity/plus_plugins/commit/4b6998aaea2787d01a44c6a13e5eab18afeb4fa1))
+ - **CHORE**(connectivity_plus): update to nm version 0.6.0 ([#3988](https://github.com/fluttercommunity/plus_plugins/pull/3988)). ([a30de773](https://github.com/fluttercommunity/plus_plugins/commit/a30de773d9ea7382be0b5a15ac28ac786a195977))
+
+
 ## 7.3.1
 
  - **FIX**(connectivity_plus): prevent Linux client leaks ([#3929](https://github.com/fluttercommunity/plus_plugins/issues/3929)). ([bab4cd3e](https://github.com/fluttercommunity/plus_plugins/commit/bab4cd3ea03c8a402121bf5c5af68fc2dbb16892))

@@ -1,3 +1,7 @@
+## 7.1.1
+
+ - **FIX**(sensors_plus): Apply KGP unless built-in Kotlin is enabled ([#3950](https://github.com/fluttercommunity/plus_plugins/issues/3950)). ([31cb2586](https://github.com/fluttercommunity/plus_plugins/commit/31cb2586eba580d5a64190e44f5222d1ed51a66c))
+
 ## 7.1.0
 
  - **REFACTOR**(sensors_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3905](https://github.com/fluttercommunity/plus_plugins/issues/3905)). ([4fe91963](https://github.com/fluttercommunity/plus_plugins/commit/4fe91963f4bee70e3d58eee4fc116f20ed0eff76))
