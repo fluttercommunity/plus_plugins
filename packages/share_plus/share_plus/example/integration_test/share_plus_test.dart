@@ -37,4 +37,20 @@ void main() {
     final params = ShareParams(files: [file], text: 'message');
     expect(SharePlus.instance.share(params), isNotNull);
   });
+
+  testWidgets('Can share with previewThumbnail', (WidgetTester tester) async {
+    final bytes = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8]);
+    final XFile thumbnail = XFile.fromData(
+      bytes,
+      name: 'thumbnail.jpg',
+      mimeType: 'image/jpeg',
+    );
+
+    final params = ShareParams(
+      text: 'message',
+      previewThumbnail: thumbnail,
+    );
+    // Check isNotNull because we cannot wait for ShareResult
+    expect(SharePlus.instance.share(params), isNotNull);
+  }, skip: !Platform.isAndroid && !Platform.isWindows);
 }

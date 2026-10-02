@@ -71,6 +71,12 @@ class MethodChannelShare extends SharePlatform {
       map['mimeTypes'] = mimeTypes;
     }
 
+    if (params.previewThumbnail != null) {
+      final thumbnail = await _getFile(params.previewThumbnail!);
+      assert(thumbnail.path.isNotEmpty);
+      map['previewThumbnail'] = thumbnail.path;
+    }
+
     if (params.excludedCupertinoActivities != null &&
         params.excludedCupertinoActivities!.isNotEmpty) {
       final excludedActivityTypes = params.excludedCupertinoActivities!

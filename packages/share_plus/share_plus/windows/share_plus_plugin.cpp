@@ -4,6 +4,8 @@
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
 
+#include <algorithm>
+
 #include "vector.h"
 
 namespace share_plus_windows {
@@ -57,6 +59,13 @@ SharePlusWindowsPlugin::GetDataTransferManager() {
 HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     wchar_t *path, WindowsStorage::IStorageFile **file) {
   using Microsoft::WRL::Wrappers::HStringReference;
+  // GetFileFromPathAsync requires a fully-qualified path using backslash
+  // separators. Paths produced on the Dart side can contain mixed separators
+  // (e.g. in-memory XFile.fromData temp files combine a backslash temp root
+  // with forward-slash subpaths), which would otherwise fail with
+  // ERROR_FILE_NOT_FOUND. Normalize forward slashes to backslashes.
+  std::wstring normalized_path(path);
+  std::replace(normalized_path.begin(), normalized_path.end(), L'/', L'\\');
   WRL::ComPtr<WindowsStorage::IStorageFileStatics> factory = nullptr;
   HRESULT hr = S_OK;
   *file = nullptr;
@@ -69,8 +78,8 @@ HRESULT SharePlusWindowsPlugin::GetStorageFileFromPath(
     WRL::ComPtr<
         WindowsFoundation::IAsyncOperation<WindowsStorage::StorageFile *>>
         async_operation;
-    hr = factory->GetFileFromPathAsync(HStringReference(path).Get(),
-                                       &async_operation);
+    hr = factory->GetFileFromPathAsync(
+        HStringReference(normalized_path.c_str()).Get(), &async_operation);
     if (SUCCEEDED(hr)) {
       WRL::ComPtr<IAsyncInfo> info;
       hr = async_operation.As(&info);
@@ -114,6 +123,13 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     if (auto title_value = std::get_if<std::string>(
       &args[flutter::EncodableValue("title")])) {
       share_title_ = *title_value;
+    }
+    if (auto preview_thumbnail_value = std::get_if<std::string>(
+      &args[flutter::EncodableValue("previewThumbnail")])) {
+      preview_thumbnail_ = *preview_thumbnail_value;
+    } else {
+      // Reset to avoid carrying over a thumbnail from a previous share.
+      preview_thumbnail_ = std::nullopt;
     }
     if (auto paths = std::get_if<flutter::EncodableList>(
       &args[flutter::EncodableValue("paths")])) {
@@ -173,6 +189,33 @@ void SharePlusWindowsPlugin::HandleMethodCall(
             properties->put_Description(
               HStringReference(uri.c_str()).Get());
             data->SetText(HStringReference(uri.c_str()).Get());
+          }
+
+          // Set the preview thumbnail shown in the Windows share UI.
+          if (preview_thumbnail_ && !preview_thumbnail_.value_or("").empty()) {
+            auto thumbnail_path = Utf16FromUtf8(preview_thumbnail_.value_or(""));
+            wchar_t* ptr = const_cast<wchar_t*>(thumbnail_path.c_str());
+            WRL::ComPtr<WindowsStorage::IStorageFile> thumbnail_file;
+            if (SUCCEEDED(GetStorageFileFromPath(
+                    ptr, thumbnail_file.GetAddressOf())) &&
+                thumbnail_file != nullptr) {
+              WRL::ComPtr<
+                  WindowsStorageStreams::IRandomAccessStreamReferenceStatics>
+                  stream_ref_statics;
+              if (SUCCEEDED(WindowsFoundation::GetActivationFactory(
+                      HStringReference(
+                          RuntimeClass_Windows_Storage_Streams_RandomAccessStreamReference)
+                          .Get(),
+                      &stream_ref_statics))) {
+                WRL::ComPtr<
+                    WindowsStorageStreams::IRandomAccessStreamReference>
+                    stream_ref;
+                if (SUCCEEDED(stream_ref_statics->CreateFromFile(
+                        thumbnail_file.Get(), &stream_ref))) {
+                  properties->put_Thumbnail(stream_ref.Get());
+                }
+              }
+            }
           }
 
           // Add files to the data.
