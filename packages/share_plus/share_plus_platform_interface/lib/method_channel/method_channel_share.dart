@@ -43,6 +43,8 @@ class MethodChannelShare extends SharePlatform {
       if (params.subject != null) 'subject': params.subject,
       if (params.title != null) 'title': params.title,
       if (params.uri != null) 'uri': params.uri.toString(),
+      if (params.airDrop != ShareAirDropAs.inherit)
+        'airDrop': params.airDrop.name,
     };
 
     if (params.sharePositionOrigin != null) {

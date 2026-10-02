@@ -6,6 +6,23 @@
 #import "LinkPresentation/LPMetadataProvider.h"
 
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
+static NSString *const kSharePlusPlaceholderActivityType =
+    @"dev.fluttercommunity.share_plus.placeholder";
+
+/// Apps that open or save a file. Text and multimedia apps are everything else.
+static BOOL FPPSharePlusIsFileDestination(NSString *activityType) {
+  if (activityType.length == 0) {
+    return NO;
+  }
+  return [activityType isEqualToString:UIActivityTypeAirDrop] ||
+         [activityType isEqualToString:UIActivityTypeCopyToPasteboard] ||
+         [activityType isEqualToString:UIActivityTypePrint] ||
+         [activityType isEqualToString:UIActivityTypeMarkupAsPDF] ||
+         [activityType isEqualToString:UIActivityTypeOpenInIBooks] ||
+         [activityType isEqualToString:UIActivityTypeSaveToCameraRoll] ||
+         [activityType
+             isEqualToString:@"com.apple.DocumentManagerUICore.SaveToFiles"];
+}
 
 static UIViewController *RootViewController(void) {
   NSSet *scenes = [[UIApplication sharedApplication] connectedScenes];
@@ -104,9 +121,21 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 @property(readonly, nonatomic, copy) NSString *text;
 @property(readonly, nonatomic, copy) NSString *path;
 @property(readonly, nonatomic, copy) NSString *mimeType;
+@property(readonly, nonatomic, copy) NSString *url;
+@property(readonly, nonatomic, assign) BOOL airDropAsUrl;
+@property(readonly, nonatomic, assign) BOOL messageAndMailOnly;
 
 - (instancetype)initWithSubject:(NSString *)subject
                            text:(NSString *)text NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithSubject:(NSString *)subject
+                           text:(NSString *)text
+             messageAndMailOnly:(BOOL)messageAndMailOnly NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithSubject:(NSString *)subject
+                           text:(NSString *)text
+                            url:(NSString *)url
+                   airDropAsUrl:(BOOL)airDropAsUrl NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
@@ -128,10 +157,29 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 }
 
 - (instancetype)initWithSubject:(NSString *)subject text:(NSString *)text {
+  return [self initWithSubject:subject text:text messageAndMailOnly:NO];
+}
+
+- (instancetype)initWithSubject:(NSString *)subject
+                           text:(NSString *)text
+             messageAndMailOnly:(BOOL)messageAndMailOnly {
+  self = [self initWithSubject:subject text:text url:nil airDropAsUrl:NO];
+  if (self) {
+    _messageAndMailOnly = messageAndMailOnly;
+  }
+  return self;
+}
+
+- (instancetype)initWithSubject:(NSString *)subject
+                           text:(NSString *)text
+                            url:(NSString *)url
+                   airDropAsUrl:(BOOL)airDropAsUrl {
   self = [super init];
   if (self) {
     _subject = [subject isKindOfClass:NSNull.class] ? @"" : subject;
     _text = text;
+    _url = url;
+    _airDropAsUrl = airDropAsUrl;
   }
   return self;
 }
@@ -161,19 +209,38 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     (UIActivityViewController *)activityViewController {
   return [self
       activityViewController:activityViewController
-         itemForActivityType:@"dev.fluttercommunity.share_plus.placeholder"];
+         itemForActivityType:kSharePlusPlaceholderActivityType];
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(UIActivityType)activityType {
   if (!_path || !_mimeType) {
+    // Caption for text and multimedia apps. nil (not NSNull) so the header
+    // and file apps do not count a Plain Text item. Unknown types, including
+    // Notes, still receive the string.
+    if (_messageAndMailOnly) {
+      if (activityType == nil ||
+          [activityType isEqualToString:kSharePlusPlaceholderActivityType] ||
+          FPPSharePlusIsFileDestination(activityType)) {
+        return nil;
+      }
+      return _text;
+    }
+    // Placeholder stays text so the sheet uses the host app icon, not Safari.
+    // AirDrop gets the URL so the other device opens the link. Messages,
+    // Mail, and the placeholder stay on text so the sheet keeps the host
+    // app icon and SMS/email still receive the sentence.
+    if (_airDropAsUrl && _url.length > 0 &&
+        [activityType isEqualToString:UIActivityTypeAirDrop]) {
+      return [NSURL URLWithString:_url];
+    }
     return _text;
   }
 
   // If the shared file is an image return an UIImage for the placeholder
   // to show a preview.
   if ([activityType
-          isEqualToString:@"dev.fluttercommunity.share_plus.placeholder"] &&
+          isEqualToString:kSharePlusPlaceholderActivityType] &&
       [_mimeType hasPrefix:@"image/"]) {
     UIImage *image = [UIImage imageWithContentsOfFile:_path];
     return image;
@@ -288,6 +355,7 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
       NSArray *paths = arguments[@"paths"];
       NSArray *mimeTypes = arguments[@"mimeTypes"];
       NSString *uri = arguments[@"uri"];
+      NSString *airDrop = arguments[@"airDrop"];
 
       // Use title field for consistency with Android.
       // Subject field should only be used on email subjects.
@@ -363,6 +431,9 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
       if (uri) {
         [self shareUri:uri
+                          airDrop:airDrop
+                             text:shareText
+                          subject:shareTitle
             excludedActivityTypes:excludedActivityTypes
                    withController:topViewController
                          atSource:originRect
@@ -458,13 +529,46 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 }
 
 + (void)shareUri:(NSString *)uri
+                  airDrop:(NSString *)airDrop
+                     text:(NSString *)text
+                  subject:(NSString *)subject
     excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
+  if ([airDrop isEqualToString:@"url"]) {
+    NSString *body = text;
+    if (!body || [body isKindOfClass:[NSNull class]] || body.length == 0) {
+      body = subject;
+    }
+    if (!body || [body isKindOfClass:[NSNull class]] || body.length == 0) {
+      body = uri;
+    }
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject
+                                                       text:body
+                                                        url:uri
+                                               airDropAsUrl:YES];
+    [self share:@[ data ]
+                  withSubject:subject
+        excludedActivityTypes:excludedActivityTypes
+               withController:controller
+                     atSource:origin
+                     toResult:result];
+    return;
+  }
+  if ([airDrop isEqualToString:@"text"]) {
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:uri];
+    [self share:@[ data ]
+                  withSubject:subject
+        excludedActivityTypes:excludedActivityTypes
+               withController:controller
+                     atSource:origin
+                     toResult:result];
+    return;
+  }
   NSURL *data = [NSURL URLWithString:uri];
   [self share:@[ data ]
-                withSubject:nil
+                withSubject:subject
       excludedActivityTypes:excludedActivityTypes
              withController:controller
                    atSource:origin
@@ -505,7 +609,9 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                                                  subject:subject]];
   }
   if (text != nil) {
-    NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
+    NSObject *data = [[SharePlusData alloc] initWithSubject:subject
+                                                       text:text
+                                         messageAndMailOnly:YES];
     [items addObject:data];
   }
 

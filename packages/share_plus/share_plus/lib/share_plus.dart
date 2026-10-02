@@ -13,6 +13,7 @@ export 'package:share_plus_platform_interface/share_plus_platform_interface.dart
         ShareResultStatus,
         XFile,
         ShareParams,
+        ShareAirDropAs,
         CupertinoActivityType;
 
 export 'src/share_plus_linux.dart';
@@ -79,8 +80,12 @@ class SharePlus {
       );
     }
 
-    if (params.uri != null && params.text != null) {
-      throw ArgumentError('uri and text cannot be provided at the same time');
+    if (params.uri != null &&
+        params.text != null &&
+        params.airDrop != ShareAirDropAs.url) {
+      throw ArgumentError(
+        'uri and text cannot be provided at the same time unless airDrop is ShareAirDropAs.url',
+      );
     }
 
     if (params.text != null && params.text!.isEmpty) {

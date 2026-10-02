@@ -39,13 +39,15 @@ class SharePlatform extends PlatformInterface {
 class ShareParams {
   /// The text to share
   ///
-  /// Cannot be provided at the same time as [uri],
-  /// as the share method will use one or the other.
+  /// Can be provided with [uri] when [airDrop] is [ShareAirDropAs.url]:
+  /// Messages, Mail, and other text destinations receive this string, while
+  /// AirDrop still receives the URL.
   ///
-  /// Can be used together with [files],
-  /// but it depends on the receiving app if they support
-  /// loading files and text from a share action.
-  /// Some apps only support one or the other.
+  /// Can be used together with [files]. On iOS that string is a caption for
+  /// text and multimedia destinations (Messages, Mail, Notes, and other
+  /// share extensions). File destinations (Save to Files, AirDrop, Copy,
+  /// Print, Books, Camera Roll, Markup as PDF) and the sheet header do not
+  /// receive it. Android puts it in EXTRA_TEXT beside the file.
   ///
   /// * Supported platforms: All
   final String? text;
@@ -94,13 +96,17 @@ class ShareParams {
   ///
   /// On other platforms it behaves like sharing text.
   ///
-  /// Cannot be used in combination with [text].
+  /// Can be used with [text] when [airDrop] is [ShareAirDropAs.url].
   ///
   /// * Supported platforms: iOS, Android
   ///   Falls back to sharing the URI as text on other platforms.
   final Uri? uri;
 
-  /// Share multiple files, can be used in combination with [text]
+  /// Share multiple files, can be used in combination with [text].
+  ///
+  /// On iOS, [text] goes to text and multimedia destinations. Save to Files,
+  /// AirDrop, Copy, Print, Books, Camera Roll, Markup as PDF, and the sheet
+  /// header stay file-only. Unknown activity types receive [text].
   ///
   /// Android supports all natively available MIME types (wildcards like image/*
   /// are also supported) and it's considered best practice to avoid mixing
@@ -145,6 +151,22 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
+  /// How AirDrop should deliver [uri] on iOS.
+  ///
+  /// * [ShareAirDropAs.inherit] keeps the current URI share (raw `NSURL`,
+  ///   Safari / page preview on the sheet).
+  /// * [ShareAirDropAs.url] wraps the URI like a text share so the host app
+  ///   icon stays in the header. AirDrop receives the URL. Messages, Mail,
+  ///   and other destinations receive [text] when it is set.
+  /// * [ShareAirDropAs.text] sends the URI string as plain text (Notes).
+  ///
+  /// Android has no AirDrop. [uri] + [title] already go out as EXTRA_TEXT /
+  /// EXTRA_TITLE (Nearby Share equivalent). This parameter is ignored there.
+  ///
+  /// * Supported platforms: iOS
+  ///   Parameter ignored on other platforms.
+  final ShareAirDropAs airDrop;
+
   ShareParams({
     this.text,
     this.subject,
@@ -157,6 +179,7 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
+    this.airDrop = ShareAirDropAs.inherit,
   });
 }
 
@@ -222,6 +245,18 @@ enum ShareResultStatus {
 ///
 /// See also:
 /// [UIActivity.ActivityType](https://developer.apple.com/documentation/uikit/uiactivity/activitytype)
+/// How iOS AirDrop should deliver a shared [ShareParams.uri].
+enum ShareAirDropAs {
+  /// Keep the current URI-share behaviour (raw URL item).
+  inherit,
+
+  /// Deliver the URI as a URL (opens the link instead of Notes).
+  url,
+
+  /// Deliver the URI string as plain text.
+  text,
+}
+
 enum CupertinoActivityType {
   postToFacebook,
   postToTwitter,
