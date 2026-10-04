@@ -363,6 +363,7 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
       if (uri) {
         [self shareUri:uri
+                          subject:shareTitle
             excludedActivityTypes:excludedActivityTypes
                    withController:topViewController
                          atSource:originRect
@@ -458,13 +459,14 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 }
 
 + (void)shareUri:(NSString *)uri
+                  subject:(NSString *)subject
     excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
   NSURL *data = [NSURL URLWithString:uri];
   [self share:@[ data ]
-                withSubject:nil
+                withSubject:subject
       excludedActivityTypes:excludedActivityTypes
              withController:controller
                    atSource:origin
