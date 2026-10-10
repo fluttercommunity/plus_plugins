@@ -222,6 +222,40 @@ ShareParams(
 )
 ```
 
+#### Preview Thumbnail
+
+Sets a preview thumbnail shown in the share UI when sharing `text` or `uri`.
+
+- On **Android**, rendered by the system Sharesheet (API 29+). It is ignored
+  for file shares, where the system builds its own preview from the files.
+- On **Windows**, set as the `DataPackage` thumbnail.
+- Ignored on other platforms.
+
+> **Important:** the `XFile` **must carry a correct image MIME type**, or the
+> platform treats it as a generic binary file and shows **no preview** (the
+> share itself still succeeds). The plugin does **not** infer the type from the
+> file contents — it is the caller's responsibility to set it. This is the most
+> common reason a thumbnail does not appear.
+
+Provide the MIME type via `XFile.mimeType`, or via a file name/path that ends in
+a matching image extension. An `XFile.fromData(bytes)` created **without** a
+`mimeType` falls back to `application/octet-stream` and will not render a preview.
+
+```dart
+// From in-memory bytes — you MUST pass mimeType (set it to the actual image
+// type, e.g. image/jpeg or image/webp):
+ShareParams(
+  text: 'Check this out',
+  previewThumbnail: XFile.fromData(bytes, mimeType: 'image/png'),
+)
+
+// From a file path — make sure the path/name has an image extension:
+ShareParams(
+  text: 'Check this out',
+  previewThumbnail: XFile('/path/to/thumbnail.png'),
+)
+```
+
 ## Known Issues
 
 ### Sharing data created with XFile.fromData

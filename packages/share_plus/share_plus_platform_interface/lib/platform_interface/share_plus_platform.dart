@@ -67,11 +67,26 @@ class ShareParams {
   /// * Supported platforms: All
   final String? subject;
 
-  /// Preview thumbnail
+  /// Preview thumbnail shown in the share UI.
   ///
-  /// TODO: https://github.com/fluttercommunity/plus_plugins/pull/3372
+  /// On Android, rendered by the system Sharesheet (API 29+) when sharing
+  /// [text] or [uri]. For file shares the system builds its own preview from
+  /// the shared files, so this is ignored.
   ///
-  /// * Supported platforms: Android
+  /// On Windows, set as the [DataPackage] thumbnail in the share UI.
+  ///
+  /// IMPORTANT: the [XFile] must carry a correct image MIME type, otherwise
+  /// the platform treats it as a generic binary file and shows no preview
+  /// (the share itself still succeeds). The caller is responsible for setting
+  /// it — this plugin does not infer the type from the file contents. Provide
+  /// it via one of:
+  ///   * [XFile.mimeType] (e.g. `image/png`, `image/jpeg`, `image/webp`), or
+  ///   * a file name/path ending in a matching image extension (e.g.
+  ///     `thumbnail.png`).
+  /// In particular, an [XFile.fromData] created without a `mimeType` falls
+  /// back to `application/octet-stream` and will not render a preview.
+  ///
+  /// * Supported platforms: Android, Windows
   ///   Parameter ignored on other platforms.
   final XFile? previewThumbnail;
 

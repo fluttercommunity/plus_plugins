@@ -6,6 +6,7 @@
 .packages
 .pub/
 .dart_tool/
+.repo_tool_cache/
 pubspec.lock
 flutter_export_environment.sh
 **/pubspec_overrides.yaml
