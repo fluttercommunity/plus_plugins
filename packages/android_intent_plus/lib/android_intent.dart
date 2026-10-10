@@ -41,10 +41,12 @@ class AndroidIntent {
     this.componentName,
     Platform? platform,
     this.type,
-  })  : assert(action != null || componentName != null,
-            'action or component (or both) must be specified'),
-        _channel = const MethodChannel(_kChannelName),
-        _platform = platform ?? const LocalPlatform();
+  }) : assert(
+         action != null || componentName != null,
+         'action or component (or both) must be specified',
+       ),
+       _channel = const MethodChannel(_kChannelName),
+       _platform = platform;
 
   /// This constructor is only exposed for unit testing. Do not rely on this in
   /// app code, it may break without warning.
@@ -61,10 +63,12 @@ class AndroidIntent {
     this.package,
     this.componentName,
     this.type,
-  })  : assert(action != null || componentName != null,
-            'action or component (or both) must be specified'),
-        _channel = channel,
-        _platform = platform;
+  }) : assert(
+         action != null || componentName != null,
+         'action or component (or both) must be specified',
+       ),
+       _channel = channel,
+       _platform = platform;
 
   /// This is the general verb that the intent should attempt to do. This
   /// includes constants like `ACTION_VIEW`.
@@ -113,7 +117,9 @@ class AndroidIntent {
   /// See https://developer.android.com/reference/android/content/Intent.html#setComponent(android.content.ComponentName).
   final String? componentName;
   final MethodChannel _channel;
-  final Platform _platform;
+  final Platform? _platform;
+
+  Platform get _currentPlatform => _platform ?? Platform.current;
 
   /// Set an explicit MIME data type.
   ///
@@ -143,7 +149,7 @@ class AndroidIntent {
   ///
   /// This works only on Android platforms.
   Future<void> launch() async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return;
     }
 
@@ -155,63 +161,55 @@ class AndroidIntent {
   /// Equivalent of native android Intent.parseUri(URI, Intent.URI_INTENT_SCHEME)
   /// This works only on Android platforms.
   static Future<void> parseAndLaunch(String uri) async {
-    if (!const LocalPlatform().isAndroid) {
+    if (!(NativePlatform.current?.isAndroid ?? false)) {
       return;
     }
 
-    await const MethodChannel(_kChannelName)
-        .invokeMethod<void>('parseAndLaunch', {'uri': uri});
+    await const MethodChannel(
+      _kChannelName,
+    ).invokeMethod<void>('parseAndLaunch', {'uri': uri});
   }
 
   /// Launch the intent with 'createChooser(intent, title)'.
   ///
   /// This works only on Android platforms.
   Future<void> launchChooser(String title) async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return;
     }
 
     final buildArguments = _buildArguments();
     buildArguments['chooserTitle'] = title;
-    await _channel.invokeMethod<void>(
-      'launchChooser',
-      buildArguments,
-    );
+    await _channel.invokeMethod<void>('launchChooser', buildArguments);
   }
 
   /// Starts intent as service.
   ///
   /// This works only on Android platforms.
   Future<void> sendService() async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return;
     }
 
-    await _channel.invokeMethod<void>(
-      'sendService',
-      _buildArguments(),
-    );
+    await _channel.invokeMethod<void>('sendService', _buildArguments());
   }
 
   /// Sends intent as broadcast.
   ///
   /// This works only on Android platforms.
   Future<void> sendBroadcast() async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return;
     }
 
-    await _channel.invokeMethod<void>(
-      'sendBroadcast',
-      _buildArguments(),
-    );
+    await _channel.invokeMethod<void>('sendBroadcast', _buildArguments());
   }
 
   /// Check whether the intent can be resolved to an activity.
   ///
   /// This works only on Android platforms.
   Future<bool?> canResolveActivity() async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return false;
     }
 
@@ -226,7 +224,7 @@ class AndroidIntent {
   /// Note: ensure the calling app's AndroidManifest contains queries that match the intent.
   /// See: https://developer.android.com/guide/topics/manifest/queries-element
   Future<ResolvedActivity?> getResolvedActivity() async {
-    if (!_platform.isAndroid) {
+    if (!_currentPlatform.isAndroid) {
       return null;
     }
 
