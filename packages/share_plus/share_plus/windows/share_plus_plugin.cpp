@@ -38,7 +38,13 @@ SharePlusWindowsPlugin::~SharePlusWindowsPlugin() {
 }
 
 HWND SharePlusWindowsPlugin::GetWindow() {
-  return ::GetAncestor(registrar_->GetView()->GetNativeWindow(), GA_ROOT);
+  // |GetView()| returns null when the engine has no implicit view, so this
+  // returns null instead of dereferencing it.
+  auto view = registrar_->GetView();
+  if (view == nullptr) {
+    return nullptr;
+  }
+  return ::GetAncestor(view->GetNativeWindow(), GA_ROOT);
 }
 
 WRL::ComPtr<DataTransfer::IDataTransferManager>
@@ -95,6 +101,21 @@ void SharePlusWindowsPlugin::HandleMethodCall(
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   // Handle the share method.
   if (method_call.method_name().compare(kShare) == 0) {
+    // Apps built on a bare |FlutterEngine| have no implicit view, so there is
+    // no window for the share dialog to be anchored to. Previously this
+    // dereferenced null and took the process down with it; report it as a
+    // catchable error instead.
+    if (GetWindow() == nullptr) {
+      result->Error(kNoWindowErrorCode,
+                    "share_plus could not resolve a window to show the share "
+                    "dialog in. The plugin was registered without an implicit "
+                    "view, which is the case when the app runs on a bare "
+                    "FlutterEngine, as with the experimental windowing API "
+                    "(enable-windowing: true).",
+                    nullptr);
+      return;
+    }
+
     auto data_transfer_manager = GetDataTransferManager();
     auto args = std::get<flutter::EncodableMap>(*method_call.arguments());
 

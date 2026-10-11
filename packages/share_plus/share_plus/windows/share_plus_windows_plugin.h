@@ -47,6 +47,10 @@ private:
   static constexpr auto kShare = "share";
   //static constexpr auto kShareFiles = "shareFiles";
 
+  // Returned by |share| when the plugin was registered without an implicit
+  // view, so there is no window to anchor the share dialog to.
+  static constexpr auto kNoWindowErrorCode = "no_implicit_view";
+
   HWND GetWindow();
 
   WRL::ComPtr<DataTransfer::IDataTransferManager> GetDataTransferManager();
