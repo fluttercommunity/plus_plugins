@@ -31,6 +31,23 @@ void main() {
       },
     );
 
+    test(
+      'share allows uri and text when airDrop is url',
+      () async {
+        final params = ShareParams(
+          uri: Uri.parse('https://example.com'),
+          text: 'Open this link https://example.com',
+          title: 'Open this link',
+          airDrop: ShareAirDropAs.url,
+        );
+        final result = await sharePlus.share(params);
+        expect(result, ShareResult.unavailable);
+        expect(fakePlatform.lastParams?.uri, params.uri);
+        expect(fakePlatform.lastParams?.text, params.text);
+        expect(fakePlatform.lastParams?.airDrop, ShareAirDropAs.url);
+      },
+    );
+
     test('share throws ArgumentError if text is empty', () async {
       expect(
         () => sharePlus.share(ShareParams(text: '')),

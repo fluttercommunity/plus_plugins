@@ -132,7 +132,7 @@ internal class Share(
             shareIntent.apply {
                 action = Intent.ACTION_SEND
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, uri ?: text)
+                putExtra(Intent.EXTRA_TEXT, text ?: uri)
                 if (!subject.isNullOrBlank()) putExtra(Intent.EXTRA_SUBJECT, subject)
                 if (!title.isNullOrBlank()) putExtra(Intent.EXTRA_TITLE, title)
             }

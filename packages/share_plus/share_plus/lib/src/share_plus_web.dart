@@ -88,11 +88,11 @@ class SharePlusWebPlugin extends SharePlatform {
       );
     }
 
-    if (uri != null && text != null) {
-      throw ArgumentError('Only one of uri or text can be provided');
-    }
-
-    if (uri != null) {
+    if (uri != null && text != null && title != null) {
+      data = ShareData(text: text, title: title);
+    } else if (uri != null && text != null) {
+      data = ShareData(text: text);
+    } else if (uri != null) {
       data = ShareData(url: uri);
     } else if (webFiles.isNotEmpty && text != null && title != null) {
       data = ShareData(text: text, title: title, files: webFiles.toJS);
