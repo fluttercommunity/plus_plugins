@@ -4,6 +4,7 @@
 #import "./include/share_plus/FPPSharePlusPlugin.h"
 #import "LinkPresentation/LPLinkMetadata.h"
 #import "LinkPresentation/LPMetadataProvider.h"
+#import <ImageIO/ImageIO.h>
 
 static NSString *const PLATFORM_CHANNEL = @"dev.fluttercommunity.plus/share";
 
@@ -104,6 +105,7 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 @property(readonly, nonatomic, copy) NSString *text;
 @property(readonly, nonatomic, copy) NSString *path;
 @property(readonly, nonatomic, copy) NSString *mimeType;
+@property(readonly, nonatomic, strong) UIImage *thumbnail;
 
 - (instancetype)initWithSubject:(NSString *)subject
                            text:(NSString *)text NS_DESIGNATED_INITIALIZER;
@@ -114,6 +116,8 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 - (instancetype)initWithFile:(NSString *)path
                     mimeType:(NSString *)mimeType
                      subject:(NSString *)subject NS_DESIGNATED_INITIALIZER;
+
+- (void)prepareThumbnailWithCompletion:(void (^)(void))completion;
 
 - (instancetype)init
     __attribute__((unavailable("Use initWithSubject:text: instead")));
@@ -170,13 +174,12 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     return _text;
   }
 
-  // If the shared file is an image return an UIImage for the placeholder
-  // to show a preview.
+  // Use a pre-generated thumbnail so the share sheet never decodes a full-size
+  // image on the calling thread.
   if ([activityType
           isEqualToString:@"dev.fluttercommunity.share_plus.placeholder"] &&
       [_mimeType hasPrefix:@"image/"]) {
-    UIImage *image = [UIImage imageWithContentsOfFile:_path];
-    return image;
+    return _thumbnail ?: [NSURL fileURLWithPath:_path];
   }
 
   // Return an NSURL for the real share to conserve the file name
@@ -197,17 +200,43 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   if (!_path || !_mimeType || ![_mimeType hasPrefix:@"image/"]) {
     return nil;
   }
-
-  UIImage *image = [UIImage imageWithContentsOfFile:_path];
-  return [self imageWithImage:image scaledToSize:suggestedSize];
+  return _thumbnail;
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-  UIGraphicsBeginImageContext(newSize);
-  [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  return newImage;
+- (void)prepareThumbnailWithCompletion:(void (^)(void))completion {
+  if (!_path || !_mimeType || ![_mimeType hasPrefix:@"image/"]) {
+    completion();
+    return;
+  }
+
+  NSString *path = _path;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    NSURL *url = [NSURL fileURLWithPath:path];
+    CGImageSourceRef source =
+        CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
+    UIImage *thumbnail = nil;
+    if (source) {
+      NSDictionary *options = @{
+        (__bridge NSString *)
+        kCGImageSourceCreateThumbnailFromImageAlways : @YES,
+        (__bridge NSString *)kCGImageSourceThumbnailMaxPixelSize : @120,
+        (__bridge NSString *)kCGImageSourceCreateThumbnailWithTransform : @YES,
+        (__bridge NSString *)kCGImageSourceShouldCacheImmediately : @YES,
+      };
+      CGImageRef image = CGImageSourceCreateThumbnailAtIndex(
+          source, 0, (__bridge CFDictionaryRef)options);
+      if (image) {
+        thumbnail = [UIImage imageWithCGImage:image];
+        CGImageRelease(image);
+      }
+      CFRelease(source);
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self->_thumbnail = thumbnail;
+      completion();
+    });
+  });
 }
 
 - (LPLinkMetadata *)activityViewControllerLinkMetadata:
@@ -245,10 +274,10 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
     metadata.originalURL = [NSURL fileURLWithPath:description];
     if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
-      UIImage *image = [UIImage imageWithContentsOfFile:_path];
-      metadata.imageProvider = [[NSItemProvider alloc]
-          initWithObject:[self imageWithImage:image
-                                 scaledToSize:CGSizeMake(120, 120)]];
+      if (_thumbnail) {
+        metadata.imageProvider =
+            [[NSItemProvider alloc] initWithObject:_thumbnail];
+      }
     }
   }
 
@@ -412,7 +441,8 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   }
 
   // Check if this is actually an iPad
-  BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+  BOOL isIpad =
+      ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
   // Before Xcode 26, popoverPresentationController was non-nil only on iPad.
   // Since Xcode 26 it is non-nil on iPhone as well, where it is a private
@@ -496,25 +526,38 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
   NSMutableArray *items = [[NSMutableArray alloc] init];
+  NSMutableArray<SharePlusData *> *fileItems = [[NSMutableArray alloc] init];
 
   for (int i = 0; i < [paths count]; i++) {
     NSString *path = paths[i];
     NSString *mimeType = mimeTypes[i];
-    [items addObject:[[SharePlusData alloc] initWithFile:path
-                                                mimeType:mimeType
-                                                 subject:subject]];
+    SharePlusData *item = [[SharePlusData alloc] initWithFile:path
+                                                     mimeType:mimeType
+                                                      subject:subject];
+    [items addObject:item];
+    [fileItems addObject:item];
   }
   if (text != nil) {
     NSObject *data = [[SharePlusData alloc] initWithSubject:subject text:text];
     [items addObject:data];
   }
 
-  [self share:items
-                withSubject:subject
-      excludedActivityTypes:excludedActivityTypes
-             withController:controller
-                   atSource:origin
-                   toResult:result];
+  dispatch_group_t thumbnailGroup = dispatch_group_create();
+  for (SharePlusData *item in fileItems) {
+    dispatch_group_enter(thumbnailGroup);
+    [item prepareThumbnailWithCompletion:^{
+      dispatch_group_leave(thumbnailGroup);
+    }];
+  }
+
+  dispatch_group_notify(thumbnailGroup, dispatch_get_main_queue(), ^{
+    [self share:items
+                  withSubject:subject
+        excludedActivityTypes:excludedActivityTypes
+               withController:controller
+                     atSource:origin
+                     toResult:result];
+  });
 }
 
 @end
