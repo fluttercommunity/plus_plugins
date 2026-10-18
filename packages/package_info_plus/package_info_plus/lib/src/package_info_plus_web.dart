@@ -26,7 +26,9 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
   /// Get version.json full url.
   Uri versionJsonUrl(String baseUrl, int cacheBuster) {
-    final baseUri = Uri.parse(baseUrl);
+    // A relative base URL (e.g. an engine `assetBase` of '/app/') has no
+    // origin, so resolve it against the document like the browser does.
+    final baseUri = Uri.parse(web.window.document.baseURI).resolve(baseUrl);
     final regExp = RegExp(r'[^/]+\.html.*');
     final String originPath =
         '${baseUri._origin}${baseUri.path.replaceAll(regExp, '')}';

@@ -234,6 +234,28 @@ void main() {
         Uri.parse('file:///a/b/c/version.json?cachebuster=1'),
       );
     });
+
+    testWidgets('Get correct versionJsonUrl for relative base URLs', (
+      tester,
+    ) async {
+      final Uri rootRelative = plugin.versionJsonUrl(
+        '/static/companion/flutter/',
+        1,
+      );
+      expect(
+        rootRelative.isScheme('http') || rootRelative.isScheme('https'),
+        isTrue,
+      );
+      expect(rootRelative.path, '/static/companion/flutter/version.json');
+      expect(rootRelative.query, 'cachebuster=1');
+
+      final Uri pathRelative = plugin.versionJsonUrl('flutter/', 1);
+      expect(
+        pathRelative.isScheme('http') || pathRelative.isScheme('https'),
+        isTrue,
+      );
+      expect(pathRelative.path, endsWith('/flutter/version.json'));
+    });
   });
 
   group('Package Info Web (using MockAssetManager)', () {
@@ -272,6 +294,39 @@ void main() {
         expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
       });
     });
+
+    testWidgets(
+      'Get correct values when the AssetManager baseUrl is relative',
+      (tester) async {
+        // A relative engine `assetBase`, e.g. '/static/companion/flutter/', is
+        // supported by the engine for apps embedded in another page.
+        const String assetBase = '/static/companion/flutter/';
+        const String assetsDir = 'assets';
+
+        when(assetManagerMock.assetsDir).thenReturn(assetsDir);
+        when(
+          assetManagerMock.getAssetUrl(''),
+        ).thenReturn('$assetBase$assetsDir/');
+        when(
+          client.get(
+            argThat(
+              predicate<Uri>(
+                (uri) => uri.path == '/static/companion/flutter/version.json',
+              ),
+            ),
+          ),
+        ).thenAnswer(
+          (_) => Future.value(http.Response(jsonEncode(VERSION_JSON), 200)),
+        );
+
+        final versionMap = await plugin.getAll();
+
+        expect(versionMap.appName, VERSION_JSON['app_name']);
+        expect(versionMap.version, VERSION_JSON['version']);
+        expect(versionMap.buildNumber, VERSION_JSON['build_number']);
+        expect(versionMap.packageName, VERSION_JSON['package_name']);
+      },
+    );
 
     testWidgets(
       'Has preference for the custom base URL over the other 2 locations',
