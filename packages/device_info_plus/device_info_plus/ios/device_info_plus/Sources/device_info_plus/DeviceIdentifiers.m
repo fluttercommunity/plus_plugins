@@ -112,6 +112,8 @@
   } else if ([identifier isEqualToString:@"iPhone19,3"] ||
              [identifier isEqualToString:@"iPhone19,7"]) {
     return @"iPhone 18 Pro Max";
+  } else if ([identifier isEqualToString:@"iPhone19,4"]) {
+    return @"iPhone Duo";
     // iPads
   } else if ([identifier isEqualToString:@"iPad4,1"] ||
              [identifier isEqualToString:@"iPad4,2"] ||
