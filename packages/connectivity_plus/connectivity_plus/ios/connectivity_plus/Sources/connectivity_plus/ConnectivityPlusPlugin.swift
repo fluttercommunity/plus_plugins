@@ -7,14 +7,30 @@ import UIKit
 
 public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
   private let connectivityProvider: ConnectivityProvider
+  private let applicationState: @MainActor () -> UIApplication.State
   private var eventSink: FlutterEventSink?
+  /// Whether an update was dropped while the app was in the background: the current
+  /// connectivity is emitted once the app becomes active again. Only touched on the main queue.
+  private var missedUpdate = false
 
-  init(connectivityProvider: ConnectivityProvider) {
+  init(
+    connectivityProvider: ConnectivityProvider,
+    applicationState: @escaping @MainActor () -> UIApplication.State = {
+      UIApplication.shared.applicationState
+    },
+    notificationCenter: NotificationCenter = .default
+  ) {
     self.connectivityProvider = connectivityProvider
+    self.applicationState = applicationState
     super.init()
     self.connectivityProvider.connectivityUpdateHandler = { [weak self] connectivityTypes in
       self?.connectivityUpdateHandler(connectivityTypes: connectivityTypes)
     }
+    notificationCenter.addObserver(
+      self,
+      selector: #selector(applicationDidBecomeActive),
+      name: UIApplication.didBecomeActiveNotification,
+      object: nil)
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -38,6 +54,7 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
 
   public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
     eventSink = nil
+    missedUpdate = false
     connectivityProvider.stop()
   }
 
@@ -90,16 +107,30 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
       // NWPathMonitor can fire while the app is in the background, after the
       // FlutterEngine's shell has been torn down. Calling eventSink in that
       // state triggers an NSAssertion in -[FlutterEngine sendOnChannel:] and
-      // crashes the app with SIGABRT. Skip the emission until the app is
-      // foregrounded again; the next onListen / check call will resync state.
-      guard UIApplication.shared.applicationState != .background else { return }
+      // crashes the app with SIGABRT. Skip the emission, and emit the current
+      // connectivity once the app becomes active again: a listener that stays
+      // subscribed gets no new onListen, so it would otherwise keep the state
+      // from before.
+      guard self.applicationState() != .background else {
+        self.missedUpdate = true
+        return
+      }
+      self.missedUpdate = false
       eventSink(self.statusFrom(connectivityTypes: connectivityTypes))
     }
+  }
+
+  @objc private func applicationDidBecomeActive() {
+    guard missedUpdate, let eventSink = eventSink else { return }
+    missedUpdate = false
+    // The current path rather than the dropped one: a newer update may still be queued.
+    eventSink(statusFrom(connectivityTypes: connectivityProvider.currentConnectivityTypes))
   }
 
   public func onCancel(withArguments _: Any?) -> FlutterError? {
     connectivityProvider.stop()
     eventSink = nil
+    missedUpdate = false
     return nil
   }
 }
