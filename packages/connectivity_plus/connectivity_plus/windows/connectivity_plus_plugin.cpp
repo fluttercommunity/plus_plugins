@@ -82,7 +82,9 @@ ConnectivityPlusWindowsPlugin::ConnectivityPlusWindowsPlugin() {
 }
 
 ConnectivityPlusWindowsPlugin::~ConnectivityPlusWindowsPlugin() {
-  manager->Cleanup();
+  // The event stream can still own the manager. Stop callbacks now, and let
+  // the last shared owner release COM through NetworkManager's destructor.
+  manager->StopListen();
 }
 
 std::shared_ptr<NetworkManager>
