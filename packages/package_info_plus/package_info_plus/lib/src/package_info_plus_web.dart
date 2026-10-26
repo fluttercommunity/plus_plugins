@@ -8,16 +8,39 @@ import 'package:package_info_plus_platform_interface/package_info_data.dart';
 import 'package:package_info_plus_platform_interface/package_info_platform_interface.dart';
 import 'package:web/web.dart' as web;
 
+/// The build name compiled into the running bundle.
+///
+/// Injected by `flutter_tools` since Flutter 3.47 from the pubspec `version`
+/// (or `--build-name`), and exposed by Flutter as `appBuildName`. Read through
+/// the environment so older Flutter versions keep compiling.
+const String? _compileTimeBuildName = bool.hasEnvironment('FLUTTER_BUILD_NAME')
+    ? String.fromEnvironment('FLUTTER_BUILD_NAME')
+    : null;
+
+/// The build number compiled into the running bundle, see
+/// [_compileTimeBuildName].
+const String? _compileTimeBuildNumber =
+    bool.hasEnvironment('FLUTTER_BUILD_NUMBER')
+    ? String.fromEnvironment('FLUTTER_BUILD_NUMBER')
+    : null;
+
 /// The web implementation of [PackageInfoPlatform].
 ///
 /// This class implements the `package:package_info_plus` functionality for the web.
 class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
   final Client? _client;
   final AssetManager _assetManager;
+  final String? _buildName;
+  final String? _buildNumber;
 
-  /// Create plugin with http client and asset manager for testing purposes.
-  PackageInfoPlusWebPlugin([this._client, AssetManager? assetManagerMock])
-    : _assetManager = assetManagerMock ?? assetManager;
+  /// Create plugin with http client, asset manager and compile-time build
+  /// name and number for testing purposes.
+  PackageInfoPlusWebPlugin([
+    this._client,
+    AssetManager? assetManagerMock,
+    this._buildName = _compileTimeBuildName,
+    this._buildNumber = _compileTimeBuildNumber,
+  ]) : _assetManager = assetManagerMock ?? assetManager;
 
   /// Registers this class as the default instance of [PackageInfoPlatform].
   static void registerWith(Registrar registrar) {
@@ -64,8 +87,13 @@ class PackageInfoPlusWebPlugin extends PackageInfoPlatform {
 
     return PackageInfoData(
       appName: versionMap['app_name'] ?? '',
-      version: versionMap['version'] ?? '',
-      buildNumber: versionMap['build_number'] ?? '',
+      // `version.json` describes the deployed bundle, which differs from the
+      // running one when the client is stale, so prefer the compile-time
+      // version embedded in the running bundle.
+      version: _buildName ?? versionMap['version'] ?? '',
+      buildNumber: _buildName != null
+          ? _buildNumber ?? ''
+          : versionMap['build_number'] ?? '',
       packageName: versionMap['package_name'] ?? '',
       // will remain empty on web
       buildSignature: '',

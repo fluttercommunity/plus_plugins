@@ -48,7 +48,7 @@ void main() {
   group('Package Info Web', () {
     setUp(() {
       client = MockClient();
-      plugin = PackageInfoPlusWebPlugin(client);
+      plugin = PackageInfoPlusWebPlugin(client, null, null, null);
     });
 
     testWidgets('Get correct values when response status is 200', (
@@ -65,6 +65,37 @@ void main() {
       expect(versionMap.buildNumber, VERSION_JSON['build_number']);
       expect(versionMap.packageName, VERSION_JSON['package_name']);
       expect(versionMap.buildSignature, VERSION_JSON['build_signature']);
+    });
+
+    testWidgets('Prefer the compile-time version over version.json', (
+      tester,
+    ) async {
+      when(client.get(any)).thenAnswer(
+        (_) => Future.value(http.Response(jsonEncode(VERSION_2_JSON), 200)),
+      );
+      plugin = PackageInfoPlusWebPlugin(client, null, '1.0', '1');
+
+      final versionMap = await plugin.getAll();
+
+      expect(versionMap.appName, VERSION_2_JSON['app_name']);
+      expect(versionMap.packageName, VERSION_2_JSON['package_name']);
+      expect(versionMap.version, '1.0');
+      expect(versionMap.buildNumber, '1');
+    });
+
+    testWidgets('Keep the compile-time version when version.json fails', (
+      tester,
+    ) async {
+      when(
+        client.get(any),
+      ).thenAnswer((_) => Future.value(http.Response('', 404)));
+      plugin = PackageInfoPlusWebPlugin(client, null, '1.0', '1');
+
+      final versionMap = await plugin.getAll();
+
+      expect(versionMap.appName, isEmpty);
+      expect(versionMap.version, '1.0');
+      expect(versionMap.buildNumber, '1');
     });
 
     testWidgets('Get empty values when response status is not 200', (
@@ -240,7 +271,7 @@ void main() {
     setUp(() {
       client = MockClient();
       assetManagerMock = MockAssetManager();
-      plugin = PackageInfoPlusWebPlugin(client, assetManagerMock);
+      plugin = PackageInfoPlusWebPlugin(client, assetManagerMock, null, null);
     });
 
     testWidgets('Get correct values when using the AssetManager baseUrl', (
