@@ -1,3 +1,11 @@
+## 8.2.2
+
+ - **FIX**(network_info_plus): Return null for Linux subnet mask and broadcast when IPv4 data is missing ([#3982](https://github.com/fluttercommunity/plus_plugins/issues/3982)). ([2df7ac5b](https://github.com/fluttercommunity/plus_plugins/commit/2df7ac5be2d211128f8cc7cb432ac782258fc6d5))
+ - **FIX**(network_info_plus): Fix subnet mask and broadcast on Linux ([#3942](https://github.com/fluttercommunity/plus_plugins/issues/3942)). ([ca558299](https://github.com/fluttercommunity/plus_plugins/commit/ca5582997a54f9011e06b4e0ceadf65c02898c96))
+ - **FIX**(network_info_plus): Apply KGP unless built-in Kotlin is enabled ([#3948](https://github.com/fluttercommunity/plus_plugins/issues/3948)). ([978e5fb8](https://github.com/fluttercommunity/plus_plugins/commit/978e5fb8863415cdbadc0821b5ad37a5125c9327))
+ - **CHORE**(network_info_plus): update to nm version 0.6.0 ([#3987](https://github.com/fluttercommunity/plus_plugins/pull/3987)). ([8b9cc2e8](https://github.com/fluttercommunity/plus_plugins/commit/8b9cc2e8f88a27340c9418b2482ec9ac0c4881e2))
+
+
 ## 8.2.1
 
  - **FIX**(network_info_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3921](https://github.com/fluttercommunity/plus_plugins/issues/3921)). ([aac885da](https://github.com/fluttercommunity/plus_plugins/commit/aac885da24a61b7ce97d693cfccf0ce86c84872d))

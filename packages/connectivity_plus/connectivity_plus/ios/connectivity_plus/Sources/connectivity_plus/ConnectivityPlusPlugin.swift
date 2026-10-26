@@ -12,7 +12,9 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
   init(connectivityProvider: ConnectivityProvider) {
     self.connectivityProvider = connectivityProvider
     super.init()
-    self.connectivityProvider.connectivityUpdateHandler = connectivityUpdateHandler
+    self.connectivityProvider.connectivityUpdateHandler = { [weak self] connectivityTypes in
+      self?.connectivityUpdateHandler(connectivityTypes: connectivityTypes)
+    }
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -31,6 +33,7 @@ public class ConnectivityPlusPlugin: NSObject, FlutterPlugin, FlutterStreamHandl
     streamChannel.setStreamHandler(instance)
 
     registrar.addMethodCallDelegate(instance, channel: channel)
+    registrar.publish(instance)
   }
 
   public func detachFromEngine(for registrar: FlutterPluginRegistrar) {

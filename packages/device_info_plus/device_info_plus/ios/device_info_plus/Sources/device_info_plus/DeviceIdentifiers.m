@@ -107,6 +107,11 @@
     return @"iPhone Air";
   } else if ([identifier isEqualToString:@"iPhone18,5"]) {
     return @"iPhone 17e";
+  } else if ([identifier isEqualToString:@"iPhone19,2"]) {
+    return @"iPhone 18 Pro";
+  } else if ([identifier isEqualToString:@"iPhone19,3"] ||
+             [identifier isEqualToString:@"iPhone19,7"]) {
+    return @"iPhone 18 Pro Max";
     // iPads
   } else if ([identifier isEqualToString:@"iPad4,1"] ||
              [identifier isEqualToString:@"iPad4,2"] ||

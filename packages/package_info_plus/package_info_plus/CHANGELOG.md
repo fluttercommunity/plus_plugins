@@ -1,3 +1,7 @@
+## 10.2.2
+
+ - **FIX**(package_info_plus): Apply KGP unless built-in Kotlin is enabled ([#3949](https://github.com/fluttercommunity/plus_plugins/issues/3949)). ([c109b775](https://github.com/fluttercommunity/plus_plugins/commit/c109b775df7b298f4a33f9dcb1b5ef3874051b4b))
+
 ## 10.2.1
 
  - **FIX**(package_info_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3922](https://github.com/fluttercommunity/plus_plugins/issues/3922)). ([4962175c](https://github.com/fluttercommunity/plus_plugins/commit/4962175c123348d953600bdb28374ad89e41b56d))
