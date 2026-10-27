@@ -90,6 +90,8 @@ extension _Unquote on String {
   }
 
   String unquote() {
+    // os-release(5) allows values in double or single quotes.
+    if (startsWith("'")) return removePrefix("'").removeSuffix("'");
     return removePrefix('"').removeSuffix('"');
   }
 }
