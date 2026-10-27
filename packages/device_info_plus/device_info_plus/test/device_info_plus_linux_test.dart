@@ -42,6 +42,31 @@ HOME_URL="https://www.fluttercommunity.dev/"
     expect(linuxInfo.variantId, equals('community'));
   });
 
+  test('os-release with single-quoted values', () async {
+    final fs = MemoryFileSystem.test();
+    final file = fs.file('/etc/os-release')..createSync(recursive: true);
+    // Gentoo's os-release.
+    file.writeAsStringSync('''
+NAME='Gentoo'
+ID='gentoo'
+PRETTY_NAME='Gentoo Linux'
+VERSION='2.18'
+VERSION_ID='2.18'
+HOME_URL='https://www.gentoo.org/'
+SUPPORT_URL='https://www.gentoo.org/support/'
+BUG_REPORT_URL='https://bugs.gentoo.org/'
+ANSI_COLOR='1;32'
+    ''');
+
+    final deviceInfo = DeviceInfoPlusLinuxPlugin(fileSystem: fs);
+    final linuxInfo = await deviceInfo.linuxInfo();
+    expect(linuxInfo.name, equals('Gentoo'));
+    expect(linuxInfo.id, equals('gentoo'));
+    expect(linuxInfo.prettyName, equals('Gentoo Linux'));
+    expect(linuxInfo.version, equals('2.18'));
+    expect(linuxInfo.versionId, equals('2.18'));
+  });
+
   test('lsb-release', () async {
     final fs = MemoryFileSystem.test();
     final file = fs.file('/etc/lsb-release')..createSync(recursive: true);
