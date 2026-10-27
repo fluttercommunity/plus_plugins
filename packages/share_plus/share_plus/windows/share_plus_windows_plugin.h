@@ -58,7 +58,7 @@ private:
   static HRESULT GetStorageFileFromPath(wchar_t *path,
                                         WindowsStorage::IStorageFile **file);
 
-  static std::wstring SharePlusWindowsPlugin::Utf16FromUtf8(std::string string);
+  static std::wstring Utf16FromUtf8(std::string string);
 
   flutter::PluginRegistrarWindows *registrar_ = nullptr;
   WRL::ComPtr<IDataTransferManagerInterop> data_transfer_manager_interop_ =
