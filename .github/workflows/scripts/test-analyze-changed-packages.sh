@@ -38,7 +38,7 @@ assert_calls() {
 printf 'new\n' > packages/share_plus/share_plus/foo.dart
 git add . && git commit -qm single
 : > "$MELOS_CALLS"
-"$SCRIPT"
+bash "$SCRIPT"
 assert_calls 'exec -c 5 --scope=*share_plus* -- dart analyze . --fatal-infos'
 
 # Two plugin families produce exactly two invocations, sorted, without repeats.
@@ -46,24 +46,24 @@ printf 'newer\n' > packages/share_plus/share_plus/foo.dart
 printf 'new\n' > packages/device_info_plus/device_info_plus/foo.dart
 git add . && git commit -qm multiple
 : > "$MELOS_CALLS"
-"$SCRIPT"
+bash "$SCRIPT"
 assert_calls $'exec -c 5 --scope=*device_info_plus* -- dart analyze . --fatal-infos\nexec -c 5 --scope=*share_plus* -- dart analyze . --fatal-infos'
 
 # A workspace config change requires complete analysis.
 printf 'config\n' > analysis_options.yaml
 git add . && git commit -qm global
 : > "$MELOS_CALLS"
-"$SCRIPT"
+bash "$SCRIPT"
 assert_calls 'run analyze'
 
 # The push path retains complete analysis.
 : > "$MELOS_CALLS"
-GITHUB_EVENT_NAME=push "$SCRIPT"
+GITHUB_EVENT_NAME=push bash "$SCRIPT"
 assert_calls 'run analyze'
 
 # Missing base is an error and cannot quietly pass CI.
 : > "$MELOS_CALLS"
-if GITHUB_BASE_REF='' "$SCRIPT" 2>/dev/null; then
+if GITHUB_BASE_REF='' bash "$SCRIPT" 2>/dev/null; then
   echo 'Missing base incorrectly succeeded' >&2
   exit 1
 fi
