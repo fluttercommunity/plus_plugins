@@ -15,8 +15,6 @@ public protocol MotionStreamHandler: FlutterStreamHandler {
     var samplingPeriod: Int { get set }
 }
 
-let timestampMicroAtBoot = (Date().timeIntervalSince1970 - ProcessInfo.processInfo.systemUptime) * 1000000
-
 func _initMotionManager() {
     if (_motionManager == nil) {
         _motionManager = CMMotionManager()
@@ -39,8 +37,8 @@ func sendFlutter(x: Float64, y: Float64, z: Float64, timestamp: TimeInterval, si
     }
     // Even after [detachFromEngineForRegistrar] some events may still be received
     // and fired until fully detached.
+    let timestampSince1970Micro = sensorTimestampToUnixMicroseconds(timestamp)
     DispatchQueue.main.async {
-        let timestampSince1970Micro = timestampMicroAtBoot + (timestamp * 1000000)
         let triplet = [x, y, z, timestampSince1970Micro]
         triplet.withUnsafeBufferPointer { buffer in
             sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
@@ -273,8 +271,8 @@ class FPPBarometerStreamHandlerPlus: NSObject, MotionStreamHandler {
                     return
                 }
                 let pressure = data!.pressure.doubleValue * 10.0 // kPa to hPa (hectopascals)
+                let timestampSince1970Micro = sensorTimestampToUnixMicroseconds(data!.timestamp)
                 DispatchQueue.main.async {
-                let timestampSince1970Micro = timestampMicroAtBoot + (data!.timestamp * 1000000)
                 let pressureArray: [Double] = [pressure, timestampSince1970Micro]
                 pressureArray.withUnsafeBufferPointer { buffer in
                     sink(FlutterStandardTypedData.init(float64: Data(buffer: buffer)))
