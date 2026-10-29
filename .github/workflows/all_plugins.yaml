@@ -121,6 +121,9 @@ jobs:
       - name: "Bootstrap Workspace"
         run: melos bootstrap
 
+      - name: "Test scoped analysis selection"
+        run: bash ./.github/workflows/scripts/test-analyze-changed-packages.sh
+
       - name: "Flutter Analyze"
-        run: melos run analyze
+        run: bash ./.github/workflows/scripts/analyze-changed-packages.sh
 
