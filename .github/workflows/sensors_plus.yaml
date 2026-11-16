@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: |
           ./.github/workflows/scripts/install-tools.sh
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
@@ -68,7 +68,7 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Bootstrap Workspace"
@@ -90,7 +90,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
@@ -102,7 +102,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Start Simulator"
@@ -120,7 +120,7 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@v5
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
       - name: "Build Example"
