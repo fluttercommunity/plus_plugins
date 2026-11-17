@@ -32,7 +32,8 @@ public class SharePlusMacosPlugin: NSObject, FlutterPlugin, NSSharingServicePick
       let subject = title ?? args["subject"] as? String
         
       if let uri = uri {
-        shareItems([uri], subject: subject, origin: origin, view: registrar.view!, callback: result)
+        let url: Any = URL(string: uri) ?? uri
+        shareItems([url], subject: subject, origin: origin, view: registrar.view!, callback: result)
       } else if let paths = paths {
         let urls = paths.map { NSURL.fileURL(withPath: $0) }
         shareItems(urls, subject: subject, origin: origin, view: registrar.view!, callback: result)
