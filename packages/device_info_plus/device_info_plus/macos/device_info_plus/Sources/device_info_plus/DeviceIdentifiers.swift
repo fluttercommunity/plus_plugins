@@ -86,10 +86,10 @@ func getMacModelName(modelNumber: String) -> String {
     case "Mac16,2", "Mac16,3": return "iMac (24-inch, 2024)"
 
     // Mac mini models (2012 and later)
-    case "MacMini6,1", "MacMini6,2": return "Mac mini (2012)"
-    case "MacMini7,1": return "Mac mini (2014)"
-    case "MacMini8,1": return "Mac mini (2018)"
-    case "MacMini9,1": return "Mac mini (2020)"
+    case "Macmini6,1", "Macmini6,2": return "Mac mini (2012)"
+    case "Macmini7,1": return "Mac mini (2014)"
+    case "Macmini8,1": return "Mac mini (2018)"
+    case "Macmini9,1": return "Mac mini (2020)"
     case "Mac14,12": return "Mac mini (2023)"
     case "Mac14,3": return "Mac mini (2023)"
     case "Mac16,11", "Mac16,10": return "Mac mini (2024)"
