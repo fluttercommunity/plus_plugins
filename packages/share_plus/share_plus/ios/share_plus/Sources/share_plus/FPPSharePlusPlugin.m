@@ -98,6 +98,43 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   return [result copy];
 }
 
+// Keep URL sharing typed while supplying metadata without a webpage fetch.
+@interface SharePlusLinkData : NSObject <UIActivityItemSource>
+@property(nonatomic, copy) NSURL *url;
+@property(nonatomic, copy) NSString *title;
+@property(nonatomic, copy) NSString *subject;
+@end
+
+@implementation SharePlusLinkData
+- (id)activityViewControllerPlaceholderItem:
+    (UIActivityViewController *)activityViewController {
+  return self.url;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController
+         itemForActivityType:(UIActivityType)activityType {
+  return self.url;
+}
+
+- (NSString *)activityViewController:
+                  (UIActivityViewController *)activityViewController
+              subjectForActivityType:(UIActivityType)activityType {
+  return self.subject;
+}
+
+- (LPLinkMetadata *)activityViewControllerLinkMetadata:
+    (UIActivityViewController *)activityViewController {
+  LPLinkMetadata *metadata = [[LPLinkMetadata alloc] init];
+  metadata.originalURL = self.url;
+  metadata.URL = self.url;
+  metadata.title =
+      self.title.length > 0
+          ? self.title
+          : (self.subject.length > 0 ? self.subject : self.url.absoluteString);
+  return metadata;
+}
+@end
+
 @interface SharePlusData : NSObject <UIActivityItemSource>
 
 @property(readonly, nonatomic, copy) NSString *subject;
@@ -363,6 +400,8 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
       if (uri) {
         [self shareUri:uri
+                            title:arguments[@"title"]
+                          subject:arguments[@"subject"]
             excludedActivityTypes:excludedActivityTypes
                    withController:topViewController
                          atSource:originRect
@@ -458,13 +497,18 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 }
 
 + (void)shareUri:(NSString *)uri
+                    title:(NSString *)title
+                  subject:(NSString *)subject
     excludedActivityTypes:(NSArray<UIActivityType> *)excludedActivityTypes
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
-  NSURL *data = [NSURL URLWithString:uri];
+  SharePlusLinkData *data = [[SharePlusLinkData alloc] init];
+  data.url = [NSURL URLWithString:uri];
+  data.title = title;
+  data.subject = subject;
   [self share:@[ data ]
-                withSubject:nil
+                withSubject:subject
       excludedActivityTypes:excludedActivityTypes
              withController:controller
                    atSource:origin
