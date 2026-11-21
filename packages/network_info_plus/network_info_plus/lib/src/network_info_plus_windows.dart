@@ -355,4 +355,12 @@ class NetworkInfoPlusWindowsPlugin extends NetworkInfoPlatform {
       }),
     );
   }
+
+  /// Obtains the DHCP server IP address of the connected wifi network
+  @override
+  Future<String?> getWifiDhcpServerIP() async {
+    // IP_ADAPTER_ADDRESSES_LH reports gateway and DNS but not the server that
+    // leased the address, so there is nothing to read here.
+    return null;
+  }
 }

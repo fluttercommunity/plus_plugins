@@ -48,6 +48,11 @@ public class NetworkInfoPlusPlugin: NSObject, FlutterPlugin {
       result(getWifiBroadcast())
     case "wifiGatewayAddress":
       result(getDefaultGateway())
+    case "wifiDhcpServerAddress":
+      // The routing table read by getDefaultGateway() has the next hop but no
+      // lease information, and SystemConfiguration exposes none to third-party
+      // apps.
+      result(nil)
     default:
       result(FlutterMethodNotImplemented)
     }

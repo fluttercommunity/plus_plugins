@@ -34,6 +34,8 @@ void main() {
                 return '127.0.0.255';
               case 'wifiGatewayAddress':
                 return '127.0.0.0';
+              case 'wifiDhcpServerAddress':
+                return '127.0.0.1';
               case 'wifiSubmask':
                 return '255.255.255.0';
               case 'requestLocationServiceAuthorization':
@@ -82,6 +84,14 @@ void main() {
       expect(result, '127.0.0.0');
       expect(log, <Matcher>[
         isMethodCall('wifiGatewayAddress', arguments: null),
+      ]);
+    });
+
+    test('getWifiDhcpServerIP', () async {
+      final result = await methodChannelNetworkInfo.getWifiDhcpServerIP();
+      expect(result, '127.0.0.1');
+      expect(log, <Matcher>[
+        isMethodCall('wifiDhcpServerAddress', arguments: null),
       ]);
     });
 
