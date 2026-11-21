@@ -81,11 +81,17 @@ internal class NetworkInfo(
 
     fun getGatewayIPAddress(): String? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val linkAddresses =
-                connectivityManager?.getLinkProperties(connectivityManager.activeNetwork)
-            val dhcpServer = linkAddresses?.dhcpServerAddress?.hostAddress
+            val gateways = connectivityManager
+                ?.getLinkProperties(connectivityManager.activeNetwork)
+                ?.routes
+                ?.filter { it.isDefaultRoute }
+                ?.mapNotNull { it.gateway }
 
-            dhcpServer
+            // The DHCP server is only the gateway by coincidence, so read the
+            // next hop from the route table. Prefer the IPv4 hop, since a
+            // dual-stack connection also carries an IPv6 default route.
+            (gateways?.firstOrNull { it is Inet4Address } ?: gateways?.firstOrNull())
+                ?.hostAddress
         } else {
             @Suppress("DEPRECATION")
             val dhcpInfo = wifiManager.dhcpInfo
