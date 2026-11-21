@@ -14,6 +14,7 @@ const String kWifiIpAddressResult = '127.0.0.1';
 const String kWifiIpV6 = '2002:7f00:0001:0:0:0:0:0';
 const String kWifiBroadcast = '127.0.0.255';
 const String kWifiGatewayIP = '127.0.0.0';
+const String kWifiDhcpServerIP = '192.168.1.2';
 const String kWifiSubmask = '255.255.255.0';
 const LocationAuthorizationStatus kRequestLocationResult =
     LocationAuthorizationStatus.authorizedAlways;
@@ -64,6 +65,11 @@ void main() {
       final result = await networkInfo.getWifiGatewayIP();
       expect(result, kWifiGatewayIP);
     });
+
+    test('getWifiDhcpServerIP', () async {
+      final result = await networkInfo.getWifiDhcpServerIP();
+      expect(result, kWifiDhcpServerIP);
+    });
   });
 }
 
@@ -83,6 +89,11 @@ class MockNetworkInfoPlatform extends Mock
   @override
   Future<String> getWifiGatewayIP() async {
     return kWifiGatewayIP;
+  }
+
+  @override
+  Future<String> getWifiDhcpServerIP() async {
+    return kWifiDhcpServerIP;
   }
 
   @override

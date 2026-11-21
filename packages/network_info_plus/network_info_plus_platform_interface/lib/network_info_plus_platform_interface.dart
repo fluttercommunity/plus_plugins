@@ -67,6 +67,18 @@ abstract class NetworkInfoPlatform extends PlatformInterface {
     throw UnimplementedError('getWifiGatewayIP() has not been implemented.');
   }
 
+  /// Obtains the IP address of the DHCP server that leased the connected
+  /// network's address.
+  ///
+  /// This is a different host from the gateway whenever the network separates
+  /// the two roles, so it must not be used as a gateway.
+  ///
+  /// Returns null on the platforms that do not expose the lease (iOS, macOS,
+  /// Linux and Windows); Web throws.
+  Future<String?> getWifiDhcpServerIP() {
+    throw UnimplementedError('getWifiDhcpServerIP() has not been implemented.');
+  }
+
   /// Obtains the broadcast of the connected wifi network
   Future<String?> getWifiBroadcast() {
     throw UnimplementedError('getWifiBroadcast() has not been implemented.');

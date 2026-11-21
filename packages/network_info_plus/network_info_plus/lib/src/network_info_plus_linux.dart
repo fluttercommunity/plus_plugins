@@ -66,6 +66,14 @@ class NetworkInfoPlusLinuxPlugin extends NetworkInfoPlatform {
     );
   }
 
+  /// Obtains the DHCP server IP address of the connected wifi network
+  @override
+  Future<String?> getWifiDhcpServerIP() async {
+    // NetworkManager keeps the lease options on the device's Dhcp4 object
+    // rather than on the connection, which this class never reads.
+    return null;
+  }
+
   /// Obtains the broadcast of the connected wifi network
   @override
   Future<String?> getWifiBroadcast() {

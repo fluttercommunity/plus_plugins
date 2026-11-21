@@ -78,6 +78,15 @@ class NetworkInfo {
     return _platform.getWifiGatewayIP();
   }
 
+  /// Obtains the DHCP server IP address of the connected wifi network
+  ///
+  /// Returns null on iOS, macOS, Linux and Windows, which do not expose the
+  /// lease, and throws on Web. On Android this is a different host from
+  /// [getWifiGatewayIP] whenever the network separates the two roles.
+  Future<String?> getWifiDhcpServerIP() {
+    return _platform.getWifiDhcpServerIP();
+  }
+
   /// Obtains the broadcast of the connected wifi network
   Future<String?> getWifiBroadcast() {
     return _platform.getWifiBroadcast();

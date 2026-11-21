@@ -53,6 +53,11 @@ class MethodChannelNetworkInfo extends NetworkInfoPlatform {
   }
 
   @override
+  Future<String?> getWifiDhcpServerIP() {
+    return methodChannel.invokeMethod<String>('wifiDhcpServerAddress');
+  }
+
+  @override
   Future<String?> getWifiBroadcast() {
     return methodChannel.invokeMethod<String>('wifiBroadcast');
   }

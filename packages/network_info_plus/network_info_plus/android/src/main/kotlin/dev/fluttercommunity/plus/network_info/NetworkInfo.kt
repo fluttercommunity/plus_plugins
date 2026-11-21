@@ -101,6 +101,20 @@ internal class NetworkInfo(
         }
     }
 
+    fun getDhcpServerIPAddress(): String? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            connectivityManager
+                ?.getLinkProperties(connectivityManager.activeNetwork)
+                ?.dhcpServerAddress
+                ?.hostAddress
+        } else {
+            @Suppress("DEPRECATION")
+            val serverAddressInt = wifiManager.dhcpInfo?.serverAddress
+
+            serverAddressInt?.takeIf { it != 0 }?.let { formatIPAddress(it) }
+        }
+    }
+
     private fun formatIPAddress(intIP: Int): String =
         String.format(
             "%d.%d.%d.%d",

@@ -26,4 +26,10 @@ class NetworkInfoPlusWebPlugin extends NetworkInfoPlatform {
   Future<String?> getWifiIP() {
     throw UnsupportedError('getWifiIP() is not supported on Web.');
   }
+
+  /// Obtains the DHCP server IP address of the connected wifi network
+  @override
+  Future<String?> getWifiDhcpServerIP() {
+    throw UnsupportedError('getWifiDhcpServerIP() is not supported on Web.');
+  }
 }

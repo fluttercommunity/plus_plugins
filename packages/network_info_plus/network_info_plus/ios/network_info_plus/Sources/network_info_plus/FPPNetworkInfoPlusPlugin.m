@@ -127,6 +127,9 @@
     result([self getWifiBroadcast]);
   } else if ([call.method isEqualToString:@"wifiGatewayAddress"]) {
     result([self getGatewayIP]);
+  } else if ([call.method isEqualToString:@"wifiDhcpServerAddress"]) {
+    // SystemConfiguration exposes no DHCP lease to third-party apps.
+    result(nil);
   } else {
     result(FlutterMethodNotImplemented);
   }

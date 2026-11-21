@@ -19,6 +19,7 @@ internal class NetworkInfoMethodChannelHandler(private val networkInfo: NetworkI
             "wifiBroadcast" -> result.success(networkInfo.getBroadcastIP())
             "wifiSubmask" -> result.success(networkInfo.getWifiSubnetMask())
             "wifiGatewayAddress" -> result.success(networkInfo.getGatewayIPAddress())
+            "wifiDhcpServerAddress" -> result.success(networkInfo.getDhcpServerIPAddress())
             "wifiIPv6Address" -> result.success(networkInfo.getIpV6())
             else -> result.notImplemented()
         }
